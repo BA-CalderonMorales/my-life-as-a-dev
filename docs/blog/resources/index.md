@@ -2,7 +2,7 @@
 
 ### Disclaimer: These are not mine. If any are broken, send me a dm or raise a PR.
 
-1. List from [Sr. Staff SWE from UPS](http://linkedin.com/in/ravindrabhargava):
+List from [Sr. Staff SWE at UPS](http://linkedin.com/in/ravindrabhargava):
 
   - [Uber Engineering Article](https://lnkd.in/gvga-NEg)  
   - [Figma Engineering Article](https://lnkd.in/gFbvV8Mk)  
