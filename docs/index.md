@@ -1,6 +1,6 @@
 # Hi, I'm Brandon A. Calderon Morales 👋
 
-**Software Engineer, Product-Minded Software Engineer**  
+**Product-Minded Software Engineer**  
 Omaha, Nebraska, United States  
 [brandon-calderon-moralesportfolio.dev](https://brandon-calderon-moralesportfolio.dev) | [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe) | brandon.ceemoe@gmail.com | [dev-environment:dockerhub](https://hub.docker.com/r/cmoe640/dev-environment)
 
