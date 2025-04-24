@@ -25,7 +25,7 @@ I bridge military precision with software innovation, bringing a distinctive app
 
 Below is a visual representation of my career progression:
 
-~~~mermaid
+```mermaid
 gantt
     dateFormat  YYYY-MM-DD
     title Career Timeline
@@ -39,7 +39,7 @@ gantt
     Court Reporter (US Marine Corps)                  :active, m3, 2016-08-01, 1y10m
     Legal Specialist (US Marine Corps)                :active, m4, 2014-12-01, 1y9m
     Legal Administrative Assistant (Boys Town)        :active, m5, 2019-06-01, 3m
-~~~
+```
 
 ---
 

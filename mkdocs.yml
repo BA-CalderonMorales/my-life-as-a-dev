@@ -1,21 +1,39 @@
 site_name: Brandon's Simplified Life
+repo_url: https://github.com/BA-CalderonMorales/my-life-as-a-dev
+repo_name: BA-CalderonMorales/my-life-as-a-dev
 
-# Adding a theme for sleek UI with light/dark mode support
-theme:
-  name: material
-  palette:
-    - scheme: default
-      primary: indigo
-      accent: indigo
-    - scheme: slate
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/weather-night
-        name: Switch to dark mode
-
-# Placeholder for repositories index
 nav:
   - Home: index.md
   - Repositories:
       - Overview: repositories/index.md
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.expand
+    - navigation.indexes
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+
+plugins:
+  - search
+
+extra_javascript:
+  - https://unpkg.com/mermaid/dist/mermaid.min.js
