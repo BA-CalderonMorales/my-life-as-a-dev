@@ -1,0 +1,21 @@
+site_name: Brandon's Simplified Life
+
+# Adding a theme for sleek UI with light/dark mode support
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+
+# Placeholder for repositories index
+nav:
+  - Home: index.md
+  - Repositories:
+      - Overview: repositories/index.md
