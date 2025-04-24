@@ -1,19 +1,29 @@
 # GitHub Repository Index
 
-## Active Projects
+```bash
+# Sometimes your work is forgotten...
+# Sometimes we don't really remember why we did something...
 
-### Web Development
-- **[portfolio](https://github.com/BA-CalderonMorales/portfolio)** - Up-to-date portfolio using React (TypeScript, MobX, Next.js, SCSS, Framer Motion)
+echo "I try to structure my projects in a way that I can always come back to them some day."
+echo "Even if I end up asking myself, \"Why did I do it that way?\""
+
+```
+
+## Active Projects (Poke at these from time to time...)
+
 - **[my-life-as-a-dev](https://github.com/BA-CalderonMorales/my-life-as-a-dev)** - Better docs example for everyone to leverage (Apache License 2.0)
 - **[dev-flow-mentor](https://github.com/BA-CalderonMorales/dev-flow-mentor)** - Private TypeScript project
 - **[flowhive-creativity](https://github.com/BA-CalderonMorales/flowhive-creativity)** - FlowSpace - A "vibe coding" thought experiment (Private TypeScript)
 - **[family-fun-schedule](https://github.com/BA-CalderonMorales/family-fun-schedule)** - Private TypeScript project
 - **[solid-infrastructure-architect](https://github.com/BA-CalderonMorales/solid-infrastructure-architect)** - Private TypeScript project
-
-### Development Tools
 - **[dev-environment](https://github.com/BA-CalderonMorales/dev-environment)** - Personal dev environment for easy setup/work from anywhere (Rust, Docker)
 - **[dev-environment-workflows](https://github.com/BA-CalderonMorales/dev-environment-workflows)** - Personal dev environment CICD workflows (Apache License 2.0)
 - **[Vimrc-No-Plugins](https://github.com/BA-CalderonMorales/Vimrc-No-Plugins)** - Simple, no plugin, .vimrc file (MIT License)
+
+## Stagnant Projects (Used these repos to just learn things...)
+
+### Web Development
+- **[portfolio](https://github.com/BA-CalderonMorales/portfolio)** - Up-to-date portfolio using React (TypeScript, MobX, Next.js, SCSS, Framer Motion)
 
 ### Backend & API Projects
 - **[golang-api](https://github.com/BA-CalderonMorales/golang-api)** - Creating an API using Golang, Fiber, and MongoDB (Private, MIT License)
