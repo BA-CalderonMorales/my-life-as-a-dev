@@ -8,8 +8,8 @@ nav:
       - Overview: repositories/index.md
   - Interests:
       - Overview: interests/index.md
-  # - Blog:
-      # - Overview: blog/index.md
+  - Blog:
+      - Overview: blog/index.md
 
 theme:
   name: material
