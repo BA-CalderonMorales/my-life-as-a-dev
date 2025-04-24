@@ -6,4 +6,4 @@
 
 ### Blogs found online
 
-- Find the complete list [here](./blogs/resources/index.md)
+- Find the complete list [here](./blog/resources/index.md)
