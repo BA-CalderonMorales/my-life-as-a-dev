@@ -131,9 +131,9 @@ flowchart TD
 Feel free to reach out for mentorship, collaboration, or innovative project discussions:  
 
 - [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe)
-- [email me](mailto:brandon.ceemoe@gmail.com) | 
+- [email me](mailto:brandon.ceemoe@gmail.com)
 - [dockerhub:dev-environment](https://hub.docker.com/r/cmoe640/dev-environment)
-- [portfolio.dev](https://brandon-calderon-morales-portfolio.dev) | [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe)
+- [portfolio.dev](https://brandon-calderon-morales-portfolio.dev)
 
 
 *Thank you for visiting my profile!*
