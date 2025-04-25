@@ -1,5 +1,7 @@
 # Hi, I'm Brandon A. Calderon Morales 👋
 
+----
+
 **Product-Minded Software Engineer**  
 Omaha, Nebraska, United States  
 [portfolio.dev](https://brandon-calderon-morales-portfolio.dev) | [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe)<br>
@@ -20,7 +22,7 @@ I bridge military precision with software innovation, bringing a distinctive app
 - **Teaching**
 - **Certification:** Full-Stack Web Development Certificate
 
----
+----
 
 ## Professional Timeline
 
@@ -42,7 +44,7 @@ gantt
     Legal Administrative Assistant (Boys Town)        :active, m5, 2019-06-01, 3m
 ```
 
----
+----
 
 ## Skills & Expertise
 
@@ -62,7 +64,7 @@ flowchart TD
 - **Frameworks:** React, .NET 4.8 & .NET 6+  
 - **Tools:** Visual Studio, VS Code, MSSQL, CyberArk, Splunk, Confluence, SharePoint, ServiceNow, Fortify SCA, Jenkins, GitHub Actions
 
----
+----
 
 ## Experience Highlights
 
@@ -110,7 +112,7 @@ flowchart TD
   - **Court Reporter:** August 2016 - May 2018 (1 year 10 months) – Camp Lejeune, North Carolina
   - **Legal Specialist:** December 2014 - August 2016 (1 year 9 months) – Camp Lejeune, North Carolina
 
----
+----
 
 ## Education
 
@@ -124,7 +126,7 @@ flowchart TD
   High School Diploma  
   *2009 - 2013*
 
----
+----
 
 ## Connect with Me
 
