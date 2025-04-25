@@ -3,15 +3,15 @@
 **Product-Minded Software Engineer**  
 Omaha, Nebraska, United States  
 [portfolio.dev](https://brandon-calderon-morales-portfolio.dev) | [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe)<br>
-brandon.ceemoe@gmail.com | [dev-environment:dockerhub](https://hub.docker.com/r/cmoe640/dev-environment)
+[email](brandon.ceemoe@gmail.com) | [dockerhub:dev-environment](https://hub.docker.com/r/cmoe640/dev-environment)
 
----
+----
 
 ## Summary
 
 I bridge military precision with software innovation, bringing a distinctive approach to engineering challenges. My journey from Marine Corps Legal Chief to Software Engineer has shaped my philosophy: technical excellence isn't just about code—it's about strategic thinking, disciplined execution, and empowering others. Whether optimizing CI/CD pipelines, mentoring junior developers, or architecting distributed systems, I focus on building resilient, scalable solutions that integrate both human and technical factors. Passionate about democratizing development environments and streamlining workflows, I use my experience to create accessible, efficient open-source tools.
 
----
+----
 
 ## Top Skills & Certifications
 
