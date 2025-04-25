@@ -9,8 +9,6 @@ Omaha, Nebraska, United States
 
 ## Summary
 
-🛠️⚡ Mission-driven code, precision by design.
-
 🛠️⚡ Mission-Driven Engineering | Resilience & Scale | Empower & Democratize
 
 ```mermaid
