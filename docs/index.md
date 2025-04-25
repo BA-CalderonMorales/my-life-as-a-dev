@@ -4,8 +4,6 @@
 
 **Product-Minded Software Engineer**  
 Omaha, Nebraska, United States  
-[portfolio.dev](https://brandon-calderon-morales-portfolio.dev) | [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe)<br>
-[email](brandon.ceemoe@gmail.com) | [dockerhub:dev-environment](https://hub.docker.com/r/cmoe640/dev-environment)
 
 ----
 
@@ -131,6 +129,11 @@ flowchart TD
 ## Connect with Me
 
 Feel free to reach out for mentorship, collaboration, or innovative project discussions:  
-[brandon.ceemoe@gmail.com](mailto:brandon.ceemoe@gmail.com) | [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe)
+
+- [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe)
+- [email me](mailto:brandon.ceemoe@gmail.com) | 
+- [dockerhub:dev-environment](https://hub.docker.com/r/cmoe640/dev-environment)
+- [portfolio.dev](https://brandon-calderon-morales-portfolio.dev) | [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe)
+
 
 *Thank you for visiting my profile!*
