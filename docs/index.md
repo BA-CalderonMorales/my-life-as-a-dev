@@ -9,14 +9,13 @@ Omaha, Nebraska, United States
 
 ## Summary
 
-!!! tip "⚔️ Mission-Driven Engineering"
-    I fuse Marine Corps precision with bold software innovation—treating every project like a strategic operation.
+🛠️⚡ Mission-driven code, precision by design.
 
-!!! info "🔧 Resilience & Scale"
-    From CI/CD pipeline mastery to distributed-system architectures, I build solutions engineered to last and adapt.
-
-!!! success "🤝 Empower & Democratize"
-    Mentoring rising developers and crafting open-source tools that streamline workflows and unlock creativity.
+```mermaid
+   flowchart TB
+     P["🎖️ Discipline"] --> I["💡 Innovation"]
+     I --> M["🚀 Impact"]
+```
 
 ----
 
