@@ -1,9 +1,9 @@
 # Hi, I'm Brandon A. Calderon Morales 👋
 
-----
-
 **Product-Minded Software Engineer**  
-Omaha, Nebraska, United States  
+Omaha, Nebraska, United States
+
+🛠️🚀 I build resilient code with strategic vision.
 
 ----
 
@@ -136,4 +136,4 @@ Feel free to reach out for mentorship, collaboration, or innovative project disc
 - [portfolio.dev](https://brandon-calderon-morales-portfolio.dev)
 
 
-*Thank you for visiting my profile!*
+*Thank you for visiting my docs!*
