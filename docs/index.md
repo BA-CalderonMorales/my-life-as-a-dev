@@ -9,7 +9,14 @@ Omaha, Nebraska, United States
 
 ## Summary
 
-I bridge military precision with software innovation, bringing a distinctive approach to engineering challenges. My journey from Marine Corps Legal Chief to Software Engineer has shaped my philosophy: technical excellence isn't just about code—it's about strategic thinking, disciplined execution, and empowering others. Whether optimizing CI/CD pipelines, mentoring junior developers, or architecting distributed systems, I focus on building resilient, scalable solutions that integrate both human and technical factors. Passionate about democratizing development environments and streamlining workflows, I use my experience to create accessible, efficient open-source tools.
+!!! tip "⚔️ Mission-Driven Engineering"
+    I fuse Marine Corps precision with bold software innovation—treating every project like a strategic operation.
+
+!!! info "🔧 Resilience & Scale"
+    From CI/CD pipeline mastery to distributed-system architectures, I build solutions engineered to last and adapt.
+
+!!! success "🤝 Empower & Democratize"
+    Mentoring rising developers and crafting open-source tools that streamline workflows and unlock creativity.
 
 ----
 
