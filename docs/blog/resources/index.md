@@ -2,6 +2,16 @@
 
 ### Disclaimer: These are not mine. If any are broken, send me a dm or raise a PR.
 
+List from [Sr. SWE at Borealis](http://linkedin.com/in/kristijankralj)
+
+  - [Where I host .NET apps in 2025 (top 5 picks)](https://lnkd.in/dHjvd2vV)
+  - [Throwing exceptions kills apps. Here's how to fix that.](https://lnkd.in/dzdXXFnX)
+  - [2025 .NET Development roadmap [Minimalist Edition](https://lnkd.in/dvt8Baaa)
+  - [10 fatal mistakes .NET developers make](https://lnkd.in/d2ebfrVk)
+  - [Zero Azure cloud experience? Start here](https://lnkd.in/d7483w3u)
+  - [Choose your poison: EF Core or Repository Pattern?](https://lnkd.in/djb7KyDd)
+  - [7 powerful LINQ methods you'll wish you knew sooner](https://lnkd.in/dXKw278h)
+
 List from [Sr. Staff SWE at UPS](http://linkedin.com/in/ravindrabhargava):
 
   - [Uber Engineering Article](https://lnkd.in/gvga-NEg)  
