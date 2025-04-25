@@ -11,10 +11,16 @@ Omaha, Nebraska, United States
 
 🛠️⚡ Mission-driven code, precision by design.
 
+🛠️⚡ Mission-Driven Engineering | Resilience & Scale | Empower & Democratize
+
 ```mermaid
-   flowchart TB
-     P["🎖️ Discipline"] --> I["💡 Innovation"]
-     I --> M["🚀 Impact"]
+flowchart TB
+  A["🎖️ Discipline"] --> B["💡 Innovation"]
+  B --> C["📈 Resilience & Scale"]
+  C --> D["🔧 CI/CD & Distributed Systems"]
+  D --> E["🚀 Scalable Solutions"]
+  E --> F["🤝 Empower Developers"]
+  F --> G["🌍 Democratize Dev Environments"]
 ```
 
 ----
