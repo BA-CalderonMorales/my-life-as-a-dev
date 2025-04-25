@@ -6,7 +6,7 @@ List from [Sr. SWE at Borealis](http://linkedin.com/in/kristijankralj)
 
   - [Where I host .NET apps in 2025 (top 5 picks)](https://lnkd.in/dHjvd2vV)
   - [Throwing exceptions kills apps. Here's how to fix that.](https://lnkd.in/dzdXXFnX)
-  - [2025 .NET Development roadmap [Minimalist Edition](https://lnkd.in/dvt8Baaa)
+  - [2025 .NET Development roadmap [Minimalist Edition]](https://lnkd.in/dvt8Baaa)
   - [10 fatal mistakes .NET developers make](https://lnkd.in/d2ebfrVk)
   - [Zero Azure cloud experience? Start here](https://lnkd.in/d7483w3u)
   - [Choose your poison: EF Core or Repository Pattern?](https://lnkd.in/djb7KyDd)
