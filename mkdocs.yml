@@ -58,4 +58,5 @@ markdown_extensions:
 plugins:
   - search
   - panzoom
-  - git-revision-date-localized
+  - git-revision-date-localized:
+      timezone: America/North_Dakota/Center
