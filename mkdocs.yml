@@ -5,6 +5,12 @@ repo_name: BA-CalderonMorales/my-life-as-a-dev
 
 theme:
   name: material
+
+  icon:
+    repo: fontawesome/brands/github
+  
+  custom_dir: docs/overrides
+
   features:
     - navigation.instant
     - navigation.tracking
@@ -56,3 +62,8 @@ plugins:
   - panzoom
   - search
   - tags
+
+extra:
+  version:
+    provider: mike
+    default: latest

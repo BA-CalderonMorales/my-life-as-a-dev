@@ -69,28 +69,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-  
-  # Job # 3: Create a new tag on successful deployment
-  tag-release:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - name: Get current date
-        id: date
-        run: echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
-        
-      - name: Create tag
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          TAG_NAME="v${{ steps.date.outputs.DATE }}-${{ github.run_number }}"
-          git tag -a $TAG_NAME -m "Site deployment on $(date)"
-          git push origin $TAG_NAME
+          python -m pip install --upgrade pip
+          pip install mike
+
+      - name: Setup Git User
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Deploy with mike
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.0.1")
+          echo "Using version: $LATEST_TAG"
+          mike deploy --push --update-aliases $LATEST_TAG latest

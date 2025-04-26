@@ -1,3 +1,7 @@
+ignore:
+
+  - overrides
+
 nav:
 
   - Home: index.md
