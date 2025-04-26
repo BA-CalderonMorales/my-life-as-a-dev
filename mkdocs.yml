@@ -57,6 +57,5 @@ markdown_extensions:
 
 plugins:
   - search
-  - mkdocstrings
   - panzoom
   - git-revision-date-localized
