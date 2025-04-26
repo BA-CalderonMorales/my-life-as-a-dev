@@ -4,4 +4,4 @@ mkdocs-material>=9.0.0
 pymdown-extensions>=9.0
 
 mkdocs-git-revision-date-localized-plugin>=1.4.5
-mkdocs-panzoom-plugin>=1.17.0
+mkdocs-panzoom-plugin>=0.1.9
