@@ -28,6 +28,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          
+          # to accommodate last update with mkdocs.yml plugin -> mkdocs-git-revision-date-localised-plugin
+          fetch-depth: 0
+
+          # help with speed up of docs builds: https://x.com/squidfunk/status/1705279829770150291
+          sparse-checkout: |
+            docs
+            includes
 
       - name: Setup Python
         uses: actions/setup-python@v5
