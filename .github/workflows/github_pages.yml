@@ -90,6 +90,12 @@ jobs:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/installed_packages.txt') }}
 
+      - name: Install dependencies from cache
+        run: |
+          # Install packages from the cached version without downloading again
+          pip install --no-index --find-links=~/.cache/pip -r requirements.txt
+          pip install --no-index --find-links=~/.cache/pip mike
+
       - name: Build MkDocs site
         run: mkdocs build
 
@@ -126,6 +132,12 @@ jobs:
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/installed_packages.txt') }}
+
+      - name: Install dependencies from cache
+        run: |
+          # Install packages from the cached version without downloading again
+          pip install --no-index --find-links=~/.cache/pip -r requirements.txt
+          pip install --no-index --find-links=~/.cache/pip mike
 
       - name: Configure Git
         run: |
