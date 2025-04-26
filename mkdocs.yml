@@ -59,3 +59,5 @@ plugins:
 
 extra_javascript:
   - https://unpkg.com/mermaid/dist/mermaid.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/svg-pan-zoom/3.6.1/svg-pan-zoom.min.js
+  - js/mermaid-config.js
