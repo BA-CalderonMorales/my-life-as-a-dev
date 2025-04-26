@@ -48,10 +48,11 @@ markdown_extensions:
 
 plugins:
   - awesome-nav
-  - search
-  - panzoom
   - git-authors:
       show_email_address: true
       href: "mailto:{email}"
   - git-revision-date-localized:
       timezone: America/North_Dakota/Center
+  - panzoom
+  - search
+  - tags
