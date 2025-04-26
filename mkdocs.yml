@@ -1,4 +1,5 @@
 site_name: Brandon's Simplified Life
+site_url: https://ba-calderonmorales.github.io/my-life-as-a-dev/
 repo_url: https://github.com/BA-CalderonMorales/my-life-as-a-dev
 repo_name: BA-CalderonMorales/my-life-as-a-dev
 
@@ -56,8 +57,6 @@ markdown_extensions:
 
 plugins:
   - search
-
-extra_javascript:
-  - https://unpkg.com/mermaid/dist/mermaid.min.js
-  - https://cdnjs.cloudflare.com/ajax/libs/svg-pan-zoom/3.6.1/svg-pan-zoom.min.js
-  - js/mermaid-config.js
+  - mkdocstrings
+  - panzoom
+  - git-revision-date-localized
