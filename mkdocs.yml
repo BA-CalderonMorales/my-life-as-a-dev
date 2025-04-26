@@ -3,15 +3,6 @@ site_url: https://ba-calderonmorales.github.io/my-life-as-a-dev/
 repo_url: https://github.com/BA-CalderonMorales/my-life-as-a-dev
 repo_name: BA-CalderonMorales/my-life-as-a-dev
 
-nav:
-  - Home: index.md
-  - Repositories:
-      - Overview: repositories/index.md
-  - Interests:
-      - Overview: interests/index.md
-  - Blog:
-      - Overview: blog/index.md
-
 theme:
   name: material
   features:
@@ -56,6 +47,7 @@ markdown_extensions:
   - md_in_html
 
 plugins:
+  - awesome-nav
   - search
   - panzoom
   - git-authors:
