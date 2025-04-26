@@ -58,5 +58,8 @@ markdown_extensions:
 plugins:
   - search
   - panzoom
+  - git-authors:
+      show_email_address: true
+      href: "mailto:{email}"
   - git-revision-date-localized:
       timezone: America/North_Dakota/Center
