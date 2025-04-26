@@ -14,7 +14,7 @@ echo "Even if I end up asking myself, \"Why did I do it that way?\""
 1. **[my-life-as-a-dev](https://github.com/BA-CalderonMorales/my-life-as-a-dev)** - Better docs example for everyone to leverage (Apache License 2.0)
     1. You're in the docs for this one man.lol
 2. **[dev-flow-mentor](https://github.com/BA-CalderonMorales/dev-flow-mentor)** - Private TypeScript project
-    2. [documentation](./dev-flow-mentor/index.md)
+    2. [documentation](./dev_flow_mentor/index.md)
 3. **[flowhive-creativity](https://github.com/BA-CalderonMorales/flowhive-creativity)** - FlowSpace - A "vibe coding" thought experiment (Private TypeScript)
 4. **[family-fun-schedule](https://github.com/BA-CalderonMorales/family-fun-schedule)** - Private TypeScript project
 5. **[solid-infrastructure-architect](https://github.com/BA-CalderonMorales/solid-infrastructure-architect)** - Private TypeScript project
