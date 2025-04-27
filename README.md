@@ -7,6 +7,8 @@ To see this example in action, visit: https://ba-calderonmorales.github.io/my-li
 If the site is down for any reason, feel free to ping me. It's using GitHub Actions, so don't bet on things being "production grade".
 
 ## Quick Start with GitHub Codespaces
+<details>
+<summary>Expand</summary>
 
 This repository is configured for GitHub Codespaces, allowing you to start working with the documentation instantly in your browser.
 
@@ -22,8 +24,11 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
    - Install all required dependencies
    - Start the MkDocs development server
    - Provide you with a clickable URL to access your documentation
+</details>
 
 ## Local Development
+<details>
+<summary>Expand</summary>
 
 ### Prerequisites
 - Python 3.7 or higher
@@ -61,8 +66,11 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
   mkdocs build
   ```
   The static site will be generated in the `site` directory
+</details>
 
 ## Project Structure
+<details>
+<summary>Expand</summary>
 
 ```
 mkdocs.yml         # MkDocs configuration file
@@ -71,8 +79,11 @@ docs/
 └── repositories/  # Repository documentation
     └── index.md   # Repository index
 ```
+</details>
 
 ## Documentation Versioning
+<details>
+<summary>Expand</summary>
 
 This project uses MkDocs with the mike plugin for versioned documentation. The documentation is automatically deployed to GitHub Pages when changes are pushed to the main branch.
 
@@ -107,8 +118,11 @@ To create a new version of the documentation:
 ### Available Versions
 
 The documentation maintains multiple versions that can be accessed from the version selector in the navigation. This allows users to view documentation for specific releases of the project.
+</details>
 
 ## Testing GitHub Actions Locally
+<details>
+<summary>Expand</summary>
 
 This project includes a test workflow that can be run locally using [Act](https://github.com/nektos/act), allowing you to verify the behavior of the GitHub Actions workflow before pushing changes.
 
@@ -144,15 +158,22 @@ This will simulate the GitHub Actions workflow and show you what would happen du
 3. Displaying what versions would be created
 
 The test workflow is non-destructive and won't push any changes to your repository or deploy actual documentation.
+</details>
 
 ## Contributing
+<details>
+<summary>Expand</summary>
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+</details>
 
 ## License
+<details>
+<summary>Expand</summary>
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+</details>
