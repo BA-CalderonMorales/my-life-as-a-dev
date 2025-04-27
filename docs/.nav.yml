@@ -1,6 +1,15 @@
 ignore:
 
-  - overrides
+  - docs/overrides
+  - scripts
+  - versions.json
+  - .gitignore
+  - .git
+  - .github
+  - requirements.txt
+  - LICENSE
+  - README.md
+  - mkdocs.yml
 
 nav:
 
