@@ -100,18 +100,7 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
       
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: site
       
-      - name: Deploy with Mike
-        run: |
-          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.0.1")
-          # Remove 'v' prefix if present for mike
-          VERSION=${LATEST_TAG#v}
-          echo "Using version: $LATEST_TAG (without v: $VERSION)"
-          # Configure mike to use the gh-pages branch
-          mike set-default latest
-          # Deploy the versioned docs and update the latest alias
-          mike deploy --push --branch gh-pages --update-aliases $VERSION latest
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
