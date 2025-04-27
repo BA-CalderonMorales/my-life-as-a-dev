@@ -3,14 +3,19 @@
 Beyond software engineering, I have a diverse range of interests that shape who I am and influence my creative approach to problem-solving.
 
 ## 📚 Reading
+<details>
+<summary>Expand</summary>
 
 Reading keeps my mind sharp and provides new perspectives. I enjoy a variety of genres including:
 
 - Technical books on software engineering
 - Leadership and personal development
 - Science fiction and fantasy
+</details>
 
 ## 🎵 Music
+<details>
+<summary>Expand</summary>
 
 Music is an essential part of my life, with tastes spanning across multiple genres:
 
@@ -23,8 +28,11 @@ Music is an essential part of my life, with tastes spanning across multiple genr
 | Spanish Guitar | Technical skill and cultural richness |
 | Mexican Music | Cultural connection (Mariachi, Ranchera, Norteña, Corridos) |
 | Electronic | Innovation in Dubstep and Techno |
+</details>
 
 ## 📺 Anime
+<details>
+<summary>Expand</summary>
 
 Anime provides both entertainment and surprising insights into storytelling and character development:
 
@@ -76,12 +84,18 @@ graph TD
 ```
 
 The variety of anime I enjoy reflects my interest in both action-packed entertainment and deeply complex narratives that challenge conventional thinking.
+</details>
 
 ## 🎸 Guitar
+<details>
+<summary>Expand</summary>
 
 While I'm an appreciator rather than a player, Spanish guitar music represents the perfect blend of technical skill and emotional expression. I admire artists who can tell stories through their instruments.
+</details>
 
 ## 🎮 Gaming
+<details>
+<summary>Expand</summary>
 
 As a gaming generalist, I appreciate many different genres and platforms. Games provide not just entertainment but often valuable lessons in:
 
@@ -89,8 +103,11 @@ As a gaming generalist, I appreciate many different genres and platforms. Games 
 - Resource management
 - Storytelling
 - Problem-solving under pressure
+</details>
 
 ## 👨‍👧‍👧 Parenting
+<details>
+<summary>Expand</summary>
 
 Father to two wonderful daughters, I'm constantly learning and growing in this most important role:
 
@@ -98,8 +115,11 @@ Father to two wonderful daughters, I'm constantly learning and growing in this m
 - Finding the balance between guidance and independence
 - Creating meaningful family traditions
 - Learning from other parents' experiences
+</details>
 
 ## 🧠 Wisdom & Leadership
+<details>
+<summary>Expand</summary>
 
 I'm passionate about developing as a leader and gaining wisdom through:
 
@@ -108,6 +128,7 @@ I'm passionate about developing as a leader and gaining wisdom through:
 - Learning tactical approaches to complex problems
 - Understanding human psychology and communication
 - Applying military discipline and precision to civilian life
+</details>
 
 ---
 
