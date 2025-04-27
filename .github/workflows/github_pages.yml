@@ -56,8 +56,8 @@ jobs:
             ~/.cache/pip
             installed_packages.txt
 
-  # Job # 2: Build MkDocs site
-  build:
+  # Job # 2: Build and Deploy with Mike
+  deploy:
     needs: install_dependencies
     runs-on: ubuntu-latest
     steps:
@@ -66,12 +66,6 @@ jobs:
         with:
           # Full history for git plugins
           fetch-depth: 0
-          # Speed up builds
-          sparse-checkout: |
-            docs
-            includes
-            mkdocs.yml
-            requirements.txt
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -95,55 +89,24 @@ jobs:
           pip install -r requirements.txt
           pip install mike
 
-      - name: Build MkDocs site
-        run: mkdocs build
-
-      - name: Upload built site
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./site
-
-  # Job # 3: Deploy to GitHub Pages
-  deploy:
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Download dependency artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: python-env
-
-      - name: Restore dependency cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/installed_packages.txt') }}
-
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install mike
-
       - name: Configure Git
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
+          # Install jq for versions.json manipulation
+          sudo apt-get install jq -y
 
-      - name: Deploy with mike
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+      
+      - name: Deploy with Mike
         run: |
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.0.1")
-          echo "Using version: $LATEST_TAG"
-          mike deploy --push --update-aliases $LATEST_TAG latest
+          # Remove 'v' prefix if present for mike
+          VERSION=${LATEST_TAG#v}
+          echo "Using version: $LATEST_TAG (without v: $VERSION)"
+          # Configure mike to use the gh-pages branch
+          mike set-default latest
+          # Deploy the versioned docs and update the latest alias
+          mike deploy --push --branch gh-pages --update-aliases $VERSION latest

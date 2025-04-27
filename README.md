@@ -63,6 +63,79 @@ docs/
     └── index.md   # Repository index
 ```
 
+## Documentation Versioning
+
+This project uses MkDocs with the mike plugin for versioned documentation. The documentation is automatically deployed to GitHub Pages when changes are pushed to the main branch.
+
+### How to Create a New Version
+
+To create a new version of the documentation:
+
+1. Make sure all your changes are committed and pushed to the main branch.
+
+2. Run the version bumping script:
+   ```bash
+   ./scripts/bump-version.sh
+   ```
+
+3. Select the type of version bump you want to make:
+   - Major (x.0.0): For significant changes
+   - Minor (0.x.0): For new features
+   - Patch (0.0.x): For bug fixes and minor updates
+
+4. Confirm your selection when prompted.
+
+5. The script will:
+   - Create a new Git tag with the version
+   - Push the tag to the remote repository
+   - Update the local versions.json file (if it exists)
+
+6. The GitHub Actions workflow will automatically:
+   - Build the documentation with the new version
+   - Deploy it to GitHub Pages
+   - Update version selectors in the documentation
+
+### Available Versions
+
+The documentation maintains multiple versions that can be accessed from the version selector in the navigation. This allows users to view documentation for specific releases of the project.
+
+## Testing GitHub Actions Locally
+
+This project includes a test workflow that can be run locally using [Act](https://github.com/nektos/act), allowing you to verify the behavior of the GitHub Actions workflow before pushing changes.
+
+### Installing Act
+
+```bash
+# macOS (using Homebrew)
+brew install act
+
+# Linux
+curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+
+# Windows (using Chocolatey)
+choco install act-cli
+```
+
+### Running the Test Workflow
+
+To test the documentation versioning workflow locally:
+
+```bash
+# Run with default parameters
+act -j test_docs -w .github/workflows/test_github_pages.yml
+
+# Run with a specific version
+act -j test_docs -w .github/workflows/test_github_pages.yml -P version=1.2.3
+```
+
+This will simulate the GitHub Actions workflow and show you what would happen during the actual deployment, including:
+
+1. Building the MkDocs site
+2. Running mike commands in dry-run mode
+3. Displaying what versions would be created
+
+The test workflow is non-destructive and won't push any changes to your repository or deploy actual documentation.
+
 ## Contributing
 
 1. Fork the repository
