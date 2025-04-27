@@ -8,6 +8,8 @@ Omaha, Nebraska, United States
 ----
 
 ## Summary
+<details>
+<summary>Expand</summary>
 
 🛠️⚡ Mission-Driven Engineering | Resilience & Scale | Empower & Democratize
 
@@ -20,19 +22,25 @@ flowchart TB
   E --> F["🤝 Empower Developers"]
   F --> G["🌍 Democratize Dev Environments"]
 ```
+</details>
 
 ----
 
 ## Top Skills & Certifications
+<details>
+<summary>Expand</summary>
 
 - **Team Leadership**
 - **Spanish**
 - **Teaching**
 - **Certification:** Full-Stack Web Development Certificate
+</details>
 
 ----
 
 ## Professional Timeline
+<details>
+<summary>Expand</summary>
 
 Below is a visual representation of my career progression:
 
@@ -51,10 +59,13 @@ gantt
     Legal Specialist (US Marine Corps)                :active, m4, 2014-12-01, 1y9m
     Legal Administrative Assistant (Boys Town)        :active, m5, 2019-06-01, 3m
 ```
+</details>
 
 ----
 
 ## Skills & Expertise
+<details>
+<summary>Expand</summary>
 
 ```mermaid
 flowchart TD
@@ -71,10 +82,13 @@ flowchart TD
 - **Languages:** C#, SQL, JavaScript, XML, YAML, Groovy  
 - **Frameworks:** React, .NET 4.8 & .NET 6+  
 - **Tools:** Visual Studio, VS Code, MSSQL, CyberArk, Splunk, Confluence, SharePoint, ServiceNow, Fortify SCA, Jenkins, GitHub Actions
+</details>
 
 ----
 
 ## Experience Highlights
+<details>
+<summary>Expand</summary>
 
 ### Fiserv
 - **Role:** Software Engineer, Sr. Professional  
@@ -119,10 +133,13 @@ flowchart TD
   - **Legal Chief:** June 2018 - April 2019 (11 months) – Morón De La Frontera, Andalusia, Spain
   - **Court Reporter:** August 2016 - May 2018 (1 year 10 months) – Camp Lejeune, North Carolina
   - **Legal Specialist:** December 2014 - August 2016 (1 year 9 months) – Camp Lejeune, North Carolina
+</details>
 
 ----
 
 ## Education
+<details>
+<summary>Expand</summary>
 
 - **University of Nebraska at Omaha**  
   Bachelor's Degree in Multidisciplinary Studies (Computer Science Concentration)  
@@ -133,10 +150,13 @@ flowchart TD
 - **Omaha South Magnet High School**  
   High School Diploma  
   *2009 - 2013*
+</details>
 
 ----
 
 ## Connect with Me
+<details>
+<summary>Expand</summary>
 
 Feel free to reach out for mentorship, collaboration, or innovative project discussions:  
 
@@ -144,6 +164,6 @@ Feel free to reach out for mentorship, collaboration, or innovative project disc
 - [email me](mailto:brandon.ceemoe@gmail.com)
 - [dockerhub:dev-environment](https://hub.docker.com/r/cmoe640/dev-environment)
 - [portfolio.dev](https://brandon-calderon-morales-portfolio.dev)
-
+</details>
 
 *Thank you for visiting my docs!*
