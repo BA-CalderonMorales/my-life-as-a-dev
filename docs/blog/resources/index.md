@@ -2,6 +2,10 @@
 
 ### Disclaimer: These are not mine. If any are broken, send me a dm or raise a PR.
 
+List from [Sr. SWE at Microsoft](http://linkedin.com/in/fiodar-sazanavets)
+
+  - [TDD: How to do it properly and why it's easy](https://www.linkedin.com/pulse/tdd-how-do-properly-why-its-easy-fiodar-sazanavets--sd5cc?utm_source=share&utm_medium=member_ios&utm_campaign=share_via)
+
 List from [Sr. SWE at Borealis](http://linkedin.com/in/kristijankralj)
 
   - [Where I host .NET apps in 2025 (top 5 picks)](https://lnkd.in/dHjvd2vV)
