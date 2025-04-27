@@ -13,6 +13,15 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
 1. Click the green "Code" button on the GitHub repository page
 2. Select "Open with Codespaces"
 3. Click "New codespace" to launch a new environment
+4. Once your Codespace is ready, run the startup script to set up everything automatically:
+   ```bash
+   ./scripts/startup.sh
+   ```
+   This script will:
+   - Check if you're in a GitHub Codespaces environment
+   - Install all required dependencies
+   - Start the MkDocs development server
+   - Provide you with a clickable URL to access your documentation
 
 ## Local Development
 
