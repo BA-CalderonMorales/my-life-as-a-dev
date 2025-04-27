@@ -36,7 +36,7 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
 
 3. Install MkDocs and the Material theme:
    ```bash
-   pip install mkdocs mkdocs-material
+   pip install requirements.txt # -r requirements.txt if you're in GitHub Codespaces (venv)
    ```
 
 ### Working with MkDocs
