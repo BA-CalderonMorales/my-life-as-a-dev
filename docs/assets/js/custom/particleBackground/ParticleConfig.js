@@ -1,55 +1,80 @@
 /**
- * ParticleConfig.js
- * Configuration settings for the particle background system
+ * Configuration settings for the particle background
  */
+class ParticleConfig {
+  constructor() {
+    // Common settings
+    this.common = {
+      particleCount: 80,
+      particleColor: '#ffffff',
+      lineColor: '#ffffff',
+      lineDistance: 150,
+      directionX: 0,
+      directionY: 0,
+      density: 6000,
+      backgroundAlpha: 1
+    };
 
-const ParticleConfig = {
+    // Settings specific to default/light theme
+    this.default = {
+      particleColor: '#225588',
+      lineColor: '#225588',
+      particleOpacity: 0.5,
+      lineOpacity: 0.2,
+      particleSize: 2
+    };
 
-  // Particle appearance
-  particles: {
-    count: 200,  // Reduced count for better performance
-    size: {
-      dark: 0.45,  // Slightly larger for better visibility
-      light: 1.5  // Slightly larger for better visibility
-    },
-    color: {
-      dark: 0x3370ab,  // Blueish color for space feel in dark mode
-      light: 0x4a7cb9  // Blueish color for space feel in light mode
-    },
-    opacity: {
-      dark: 0.8,
-      light: 0.75
-    }
-  },
-  
-  // Connection lines
-  connections: {
-    maxDistance: 75,  // Increased distance for more connections
-    maxPerParticle: 2,  // Increased connections for denser network
-    color: {
-      dark: 0x224f7d,  // Blueish color that complements particles
-      light: 0x4a7cb9   // Blueish color that complements particles
-    },
-    opacity: {
-      dark: 0.15,
-      light: 0.12
-    }
-  },
-  
-  // Physics settings
-  physics: {
-    velocityFactor: 0.005,  // Reduced for smoother movement
-    damping: 0.995,         // Higher value for more inertia
-    boundary: 65,           // Larger space to move in
-    minSpeed: 0.001,        // Ensure particles always move slightly
-    maxSpeed: 0.05,         // Cap maximum speed
-    // Space-like movement pattern
-    flowField: {
-      enabled: true,
-      scale: 0.005,         // Scale of the noise field
-      strength: 0.008       // Strength of the field effect
-    }
+    // Settings specific to dark/slate theme
+    this.slate = {
+      particleColor: '#aaccff',
+      lineColor: '#aaccff',
+      particleOpacity: 0.6,
+      lineOpacity: 0.2,
+      particleSize: 2
+    };
+
+    // Mobile specific settings - significantly reduced for better performance
+    this.mobile = {
+      particleCount: 20,  // Reduced from 30
+      lineDistance: 80,   // Reduced from 100
+      density: 10000,
+      particleSize: 1.5,
+      particleOpacity: 0.4,
+      lineOpacity: 0.1
+    };
+    
+    // Settings for very small screens or low-power devices
+    this.lowPower = {
+      particleCount: 10,
+      lineDistance: 60,
+      density: 12000,
+      particleSize: 1,
+      particleOpacity: 0.3,
+      lineOpacity: 0.05
+    };
   }
-};
+
+  /**
+   * Get config based on theme and device
+   * @param {string} theme - The current theme ('default' or 'slate')
+   * @param {boolean} isMobile - Whether the device is mobile
+   * @returns {Object} - The combined configuration
+   */
+  getConfig(theme, isMobile) {
+    const themeConfig = this[theme] || this.default;
+    const config = { ...this.common, ...themeConfig };
+    
+    // Apply mobile optimizations
+    if (isMobile) {
+      // Check if it's an extra small screen
+      if (window.innerWidth < 480) {
+        return { ...config, ...this.mobile, ...this.lowPower };
+      }
+      return { ...config, ...this.mobile };
+    }
+    
+    return config;
+  }
+}
 
 export default ParticleConfig;
