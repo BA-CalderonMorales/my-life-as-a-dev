@@ -30,6 +30,18 @@ class ParticleBackground {
     
     // Set up animation
     this.animationId = null;
+    
+    // Store mobile status for optimizations but don't disable on mobile
+    this.isMobile = this.detectMobileDevice();
+  }
+  
+  /**
+   * Mobile device detection - used for optimizations only
+   * @returns {boolean} true if mobile device
+   */
+  detectMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+      || window.innerWidth <= 768;
   }
   
   /**
@@ -73,14 +85,21 @@ class ParticleBackground {
     // Create renderer
     this.renderer = new THREE.WebGLRenderer({ 
       alpha: true,
-      antialias: true 
+      antialias: !this.isMobile // Disable antialiasing on mobile for performance
     });
-    this.renderer.setPixelRatio(window.devicePixelRatio);
+    
+    // Set a lower pixel ratio on mobile devices for better performance
+    if (this.isMobile) {
+      this.renderer.setPixelRatio(Math.min(1.5, window.devicePixelRatio));
+    } else {
+      this.renderer.setPixelRatio(window.devicePixelRatio);
+    }
+    
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.container.appendChild(this.renderer.domElement);
     
-    // Create particle system
-    this.particleSystem = new ParticleSystem(this.scene, this.themeDetector.isDark());
+    // Create particle system with mobile awareness for optimizations
+    this.particleSystem = new ParticleSystem(this.scene, this.themeDetector.isDark(), this.isMobile);
     
     // Set up resize listener
     window.addEventListener('resize', this.handleResize.bind(this));
@@ -90,9 +109,17 @@ class ParticleBackground {
    * Handles window resize events
    */
   handleResize() {
+    // Update mobile status on resize
+    this.isMobile = this.detectMobileDevice();
+    
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+    
+    // Update particle system with new mobile status
+    if (this.particleSystem && this.particleSystem.updateMobileStatus) {
+      this.particleSystem.updateMobileStatus(this.isMobile);
+    }
   }
   
   /**
@@ -121,7 +148,7 @@ class ParticleBackground {
    * Starts the particle animation
    */
   start() {
-    if (!this.animationId) {
+    if (!this.animationId && this.renderer) {
       console.log('Starting particle animation');
       this.animate();
     }
@@ -136,6 +163,20 @@ class ParticleBackground {
       cancelAnimationFrame(this.animationId);
       this.animationId = null;
     }
+  }
+  
+  /**
+   * Clean up resources
+   */
+  destroy() {
+    this.stop();
+    
+    if (this.renderer && this.renderer.domElement && this.renderer.domElement.parentNode) {
+      this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
+    }
+    
+    // Remove event listeners
+    window.removeEventListener('resize', this.handleResize);
   }
 }
 
