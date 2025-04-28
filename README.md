@@ -6,9 +6,10 @@ To see this example in action, visit: https://ba-calderonmorales.github.io/my-li
 
 If the site is down for any reason, feel free to ping me. It's using GitHub Actions, so don't bet on things being "production grade".
 
-## Quick Start with GitHub Codespaces
+## Getting Started
+
 <details>
-<summary>Expand</summary>
+<summary><b>GitHub Codespaces</b></summary>
 
 This repository is configured for GitHub Codespaces, allowing you to start working with the documentation instantly in your browser.
 
@@ -26,9 +27,8 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
    - Provide you with a clickable URL to access your documentation
 </details>
 
-## Local Development
 <details>
-<summary>Expand</summary>
+<summary><b>Local Development</b></summary>
 
 ### Prerequisites
 - Python 3.7 or higher
@@ -50,7 +50,7 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
 
 3. Install MkDocs and the Material theme:
    ```bash
-   pip install requirements.txt # -r requirements.txt if you're in GitHub Codespaces (venv)
+   pip install -r requirements.txt
    ```
 
 ### Working with MkDocs
@@ -68,9 +68,10 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
   The static site will be generated in the `site` directory
 </details>
 
-## Project Structure
+## Project Information
+
 <details>
-<summary>Expand</summary>
+<summary><b>Project Structure</b></summary>
 
 ```
 mkdocs.yml         # MkDocs configuration file
@@ -81,9 +82,8 @@ docs/
 ```
 </details>
 
-## Documentation Versioning
 <details>
-<summary>Expand</summary>
+<summary><b>Documentation Versioning</b></summary>
 
 This project uses MkDocs with the mike plugin for versioned documentation. The documentation is automatically deployed to GitHub Pages when changes are pushed to the main branch.
 
@@ -120,9 +120,8 @@ To create a new version of the documentation:
 The documentation maintains multiple versions that can be accessed from the version selector in the navigation. This allows users to view documentation for specific releases of the project.
 </details>
 
-## Testing GitHub Actions Locally
 <details>
-<summary>Expand</summary>
+<summary><b>Testing GitHub Actions Locally</b></summary>
 
 This project includes a test workflow that can be run locally using [Act](https://github.com/nektos/act), allowing you to verify the behavior of the GitHub Actions workflow before pushing changes.
 
@@ -160,9 +159,8 @@ This will simulate the GitHub Actions workflow and show you what would happen du
 The test workflow is non-destructive and won't push any changes to your repository or deploy actual documentation.
 </details>
 
-## Contributing
 <details>
-<summary>Expand</summary>
+<summary><b>Contributing</b></summary>
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -171,9 +169,8 @@ The test workflow is non-destructive and won't push any changes to your reposito
 5. Open a Pull Request
 </details>
 
-## License
 <details>
-<summary>Expand</summary>
+<summary><b>License</b></summary>
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 </details>
