@@ -29,8 +29,8 @@ class ParticleBackground {
         
         this.container = document.getElementById(containerId);
         
-        // Initial dark mode detection
-        this.isDarkMode = document.body.getAttribute('data-md-color-scheme') === 'slate';
+        // Initial dark mode detection with stronger approach
+        this.forceDarkModeDetection();
         
         // Initialize THREE.js components
         this.scene = new THREE.Scene();
@@ -67,6 +67,50 @@ class ParticleBackground {
     }
 
     /**
+     * Direct check for dark mode with multiple approaches
+     */
+    forceDarkModeDetection() {
+        // Check multiple ways to detect dark mode
+        const htmlScheme = document.documentElement.getAttribute('data-md-color-scheme');
+        const bodyScheme = document.body.getAttribute('data-md-color-scheme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Set dark mode status
+        this.isDarkMode = (htmlScheme === 'slate' || bodyScheme === 'slate');
+        
+        // Force update particle colors immediately
+        if (this.particles && this.particles.material) {
+            this.updateParticleColors();
+        }
+        
+        console.log('Force theme detection - Dark mode:', this.isDarkMode, 'HTML scheme:', htmlScheme, 'Body scheme:', bodyScheme);
+    }
+    
+    /**
+     * Direct color update function
+     */
+    updateParticleColors() {
+        if (!this.particles || !this.particles.material) return;
+        
+        const material = this.particles.material;
+        
+        if (this.isDarkMode) {
+            // Dark mode colors
+            material.color.setHex(0x555555);
+            material.size = 0.5;
+            material.opacity = 0.8;
+        } else {
+            // Light mode - MORE VISIBLE colors
+            material.color.setHex(0x666666); // Darker color for visibility
+            material.size = 1.0;           // Larger size 
+            material.opacity = 0.7;        // Higher opacity
+        }
+        
+        // Force material update
+        material.needsUpdate = true;
+    }
+
+    /**
      * Creates the particle system
      * @returns {THREE.Points} - The particle system
      */
@@ -89,12 +133,12 @@ class ParticleBackground {
         
         geometry.setAttribute('position', new THREE.BufferAttribute(positionArray, 3));
         
-        // Create material based on current theme
+        // Create material with much more visible light mode settings
         const material = new THREE.PointsMaterial({
-            size: 0.5,
-            color: this.isDarkMode ? 0x555555 : 0xcccccc,
+            size: this.isDarkMode ? 0.5 : 1.0,
+            color: this.isDarkMode ? 0x555555 : 0x666666,
             transparent: true,
-            opacity: 0.8,
+            opacity: this.isDarkMode ? 0.8 : 0.7,
             blending: THREE.AdditiveBlending
         });
         
@@ -105,31 +149,56 @@ class ParticleBackground {
      * Updates particle colors based on current theme
      */
     updateParticlesTheme() {
-        // Update particle material color based on theme
-        if (this.particles) {
-            const material = this.particles.material;
-            material.color.set(this.isDarkMode ? 0x555555 : 0xcccccc);
-        }
+        // Force check current theme
+        this.forceDarkModeDetection();
+        
+        // Direct update of colors
+        this.updateParticleColors();
     }
 
     /**
      * Sets up a listener for theme changes
      */
     setupThemeChangeListener() {
-        // Use MutationObserver to detect theme changes
+        // Direct event listener for the theme toggle button
+        document.addEventListener('click', (e) => {
+            // Look for clicks on or near theme switcher
+            if (e.target.closest('.md-header__button[data-md-component="palette"]')) {
+                console.log('Theme button click detected');
+                
+                // Wait for theme to apply then update
+                setTimeout(() => {
+                    this.forceDarkModeDetection();
+                }, 100);
+            }
+        });
+        
+        // MutationObserver approach as backup
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'data-md-color-scheme') {
-                    this.isDarkMode = document.body.getAttribute('data-md-color-scheme') === 'slate';
-                    this.updateParticlesTheme();
+                if (mutation.type === 'attributes' && 
+                   (mutation.attributeName === 'data-md-color-scheme' || 
+                    mutation.attributeName === 'class')) {
+                    // Allow time for theme change to fully apply
+                    setTimeout(() => this.updateParticlesTheme(), 100);
                 }
             });
         });
         
-        // Start observing body for theme changes
+        // Start observing both html and body elements
+        observer.observe(document.documentElement, { 
+            attributes: true,
+            attributeFilter: ['data-md-color-scheme', 'class']
+        });
+        
         observer.observe(document.body, { 
-            attributes: true, 
-            attributeFilter: ['data-md-color-scheme'] 
+            attributes: true,
+            attributeFilter: ['data-md-color-scheme', 'class']
+        });
+        
+        // Check for initial theme after DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            this.updateParticlesTheme();
         });
     }
 
