@@ -36,7 +36,7 @@ jobs:
           # help with speed up of docs builds: https://x.com/squidfunk/status/1705279829770150291
           sparse-checkout: |
             docs
-            includes
+            
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
