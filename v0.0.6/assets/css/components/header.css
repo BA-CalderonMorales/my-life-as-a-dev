@@ -1,0 +1,49 @@
+/**
+ * Header-related styles
+ * Handles the navigation header and its elements
+ */
+
+/* Enhance header on transparent background */
+.md-header {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+/* Header in light mode */
+[data-md-color-scheme="default"] .md-header {
+  background-color: rgba(255, 255, 255, 0.85); /* Increased opacity for better contrast */
+}
+
+/* Header in dark mode */
+[data-md-color-scheme="slate"] .md-header {
+  background-color: rgba(35, 37, 49, 0.7);
+}
+
+/* Fix navigation text visibility in light mode */
+[data-md-color-scheme="default"] .md-header__title,
+[data-md-color-scheme="default"] .md-header__topic,
+[data-md-color-scheme="default"] .md-header__button,
+[data-md-color-scheme="default"] .md-header__source,
+[data-md-color-scheme="default"] .md-search__input,
+[data-md-color-scheme="default"] .md-nav__title,
+[data-md-color-scheme="default"] .md-nav__link {
+  color: rgba(0, 0, 0, 0.87) !important; /* Darker text for better visibility in light mode */
+}
+
+/* Ensure navigation buttons and icons are visible in light mode */
+[data-md-color-scheme="default"] .md-header__button .md-icon,
+[data-md-color-scheme="default"] .md-search__icon,
+[data-md-color-scheme="default"] .md-nav__button .md-icon {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Enhance search box in light mode */
+[data-md-color-scheme="default"] .md-search__input {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+[data-md-color-scheme="default"] .md-search__input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
