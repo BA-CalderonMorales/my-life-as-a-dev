@@ -160,6 +160,66 @@ The test workflow is non-destructive and won't push any changes to your reposito
 </details>
 
 <details>
+<summary><b>Documentation CLI Tool</b></summary>
+
+This project includes a unified command-line tool written in Rust for managing documentation workflows. The tool provides a consistent interface for common tasks related to development, versioning, and deployment.
+
+### Using the CLI Tool
+
+You can run the Documentation CLI tool using:
+
+```bash
+./scripts/target/release/doc-cli
+```
+
+Or with a specific command:
+
+```bash
+./scripts/target/release/doc-cli [command]
+```
+
+### Available Commands
+
+The tool supports the following commands:
+
+- **startup**: Start the development environment
+  - Sets up MkDocs with mike for versioned documentation
+  - Installs required dependencies
+  - Starts the documentation server
+  - Example: `doc-cli startup`
+
+- **bump-version**: Bump the documentation version
+  - Creates a new Git tag with semantic versioning
+  - Offers options to deploy the new version
+  - Can set a version as the "latest" alias
+  - Example: `doc-cli bump-version`
+
+- **deploy**: Deploy all documentation versions
+  - Deploys all versions from Git tags to GitHub Pages
+  - Avoids redeploying versions that are already present
+  - Supports force-redeployment with the `-f` or `--force` flag
+  - Example: `doc-cli deploy` or `doc-cli deploy --force`
+
+- **help**: Show detailed help information
+  - Displays usage information for all commands
+  - Example: `doc-cli help`
+
+### Interactive Menu
+
+Running the tool without any arguments launches an interactive menu where you can select the operation you want to perform.
+
+### Implementation Details
+
+The CLI tool is written in Rust for performance and reliability. It replaces the original shell scripts with a more robust implementation that follows software engineering best practices:
+
+- **SOLID principles**: Each command is encapsulated in its own module with a single responsibility
+- **DRY (Don't Repeat Yourself)**: Common functionality is abstracted into reusable components
+- **Error handling**: Comprehensive error handling with informative messages
+- **User experience**: Color-coded output and clear progress indicators
+
+</details>
+
+<details>
 <summary><b>Contributing</b></summary>
 
 1. Fork the repository
