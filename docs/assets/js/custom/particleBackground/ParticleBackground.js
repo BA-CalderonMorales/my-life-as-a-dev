@@ -2,6 +2,7 @@
  * ParticleBackground.js
  * Main class that coordinates the enhanced particle animation system
  */
+import * as THREE from 'three';
 import ThemeDetector from './ThemeDetector.js';
 import ParticleSystem from './ParticleSystem.js';
 
@@ -11,12 +12,6 @@ class ParticleBackground {
    * @param {HTMLElement|string} container - Container element or ID
    */
   constructor(container) {
-    // Ensure THREE is available globally
-    if (typeof THREE === 'undefined') {
-      console.error('THREE.js is not loaded. Make sure it is included before this script.');
-      throw new Error('THREE.js is not available');
-    }
-    
     // Handle container parameter (can be element or ID string)
     if (typeof container === 'string') {
       // Create container if needed
