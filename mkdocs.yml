@@ -62,6 +62,7 @@ plugins:
   - panzoom
   - search
   - tags
+  - ai_plugin
 
 extra_css:
   - assets/css/custom.css

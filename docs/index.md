@@ -5,6 +5,10 @@ Omaha, Nebraska, United States
 
 🛠️🚀 I build resilient code with strategic vision.
 
+!!! tip "Try our new AI-powered documentation features!"
+    This documentation site now features AI-powered content generation capabilities.
+    [Try the AI Demo](/ai-demo/) to see how it works and learn how to integrate it into your workflow.
+
 ----
 
 ## Summary
