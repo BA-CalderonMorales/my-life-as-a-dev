@@ -1,10 +1,17 @@
 # My Life As A Dev
 
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/BA-CalderonMorales/my-life-as-a-dev/deploy.yml?branch=main&label=build)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions)
+[![License](https://img.shields.io/github/license/BA-CalderonMorales/my-life-as-a-dev)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/blob/main/LICENSE)
+[![Document Version](https://img.shields.io/badge/docs-latest-blue)](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
+[![OpenAI Integration](https://img.shields.io/badge/AI%20Integration-OpenAI-brightgreen)](https://ba-calderonmorales.github.io/my-life-as-a-dev/ai-demo/)
+
 A better documentation example for everyone to leverage, built with MkDocs and the Material theme.
 
 To see this example in action, visit: https://ba-calderonmorales.github.io/my-life-as-a-dev/
 
 If the site is down for any reason, feel free to ping me. It's using GitHub Actions, so don't bet on things being "production grade".
+
+> **⚠️ AI Demo Disclaimer:** The AI integration feature in this repository is for demonstration purposes. When using the [AI Demo](/ai-demo/), you'll need to provide your own OpenAI API key. Please note that OpenAI API usage incurs costs based on token consumption. This project is not responsible for any charges you may incur while using your API key. Always monitor your usage at [OpenAI's usage dashboard](https://platform.openai.com/usage).
 
 ## Getting Started
 
@@ -69,6 +76,58 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
 </details>
 
 ## Project Information
+
+<details>
+<summary><b>AI Integration Configuration</b></summary>
+
+This project includes AI-powered content generation capabilities using OpenAI's API. To use these features, you need to configure your OpenAI API key.
+
+### Setting Up Your API Key
+
+For security reasons, your API key should not be committed to version control. Instead, use one of these methods:
+
+#### 1. Using a .env File (Recommended for Local Development)
+
+Create a `.env` file in the root directory of the project:
+
+```bash
+# In .env file
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+Make sure to add `.env` to your `.gitignore` file to prevent accidentally committing your API key.
+
+#### 2. Using Environment Variables
+
+Set the environment variable directly in your terminal:
+
+```bash
+# For Linux/macOS
+export OPENAI_API_KEY=your_openai_api_key_here
+
+# For Windows (Command Prompt)
+set OPENAI_API_KEY=your_openai_api_key_here
+
+# For Windows (PowerShell)
+$env:OPENAI_API_KEY="your_openai_api_key_here"
+```
+
+#### 3. Using Browser Storage (Coming Soon)
+
+In future releases, we'll add support for securely storing your API key in your browser's localStorage with encryption.
+
+### Verifying Your Configuration
+
+You can verify that your API key is correctly configured by:
+
+1. Starting the MkDocs development server: `mkdocs serve`
+2. Checking the console logs for a message saying "AI Plugin: API key found in environment variables"
+3. Visiting the [AI Demo page](/ai-demo/) to test the AI features
+
+### Rate Limiting & Token Usage
+
+Please be aware that the OpenAI API has rate limits and token usage costs. The AI plugin is designed to be efficient, but be mindful of your API usage.
+</details>
 
 <details>
 <summary><b>Project Structure</b></summary>
