@@ -1,0 +1,25 @@
+/**
+ * Main CSS entry point for Brandon's Simplified Life
+ * 
+ * This file imports all component CSS files for better organization
+ */
+
+/* Import layout components */
+@import 'components/layout.css';
+
+/* Import header styling */
+@import 'components/header.css';
+
+/* Import typography styling */
+@import 'components/typography.css';
+
+/* Import code styling */
+@import 'components/code.css';
+
+/* Import table styling */
+@import 'components/tables.css';
+
+/* Import version selector styling */
+@import 'components/version-selector.css';
+
+/* Add any global styles here */
