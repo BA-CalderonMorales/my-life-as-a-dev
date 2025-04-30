@@ -25,7 +25,6 @@ jobs:
           fetch-depth: 0
           sparse-checkout: |
             docs
-            includes
             mkdocs_plugins
             
       - name: Setup Python
