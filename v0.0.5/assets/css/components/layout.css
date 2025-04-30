@@ -1,0 +1,64 @@
+/**
+ * Layout-related styles
+ * Handles positioning, backgrounds and overall page structure
+ */
+
+/* Ensure particle background container is properly positioned */
+#particles-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Add subtle gradient overlay to improve text readability over particles */
+.md-main {
+  position: relative;
+}
+
+.md-main::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: none;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Overlay gradients based on theme */
+[data-md-color-scheme="default"] .md-main::before {
+  background: radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6));
+}
+
+[data-md-color-scheme="slate"] .md-main::before {
+  background: radial-gradient(circle at 30% 80%, rgba(35, 37, 49, 0), rgba(35, 37, 49, 0.5));
+}
+
+/* Better footer styling */
+.md-footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Better mobile experience */
+@media screen and (max-width: 76.1875em) {
+  .md-nav--primary .md-nav__title {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  [data-md-color-scheme="default"] .md-nav--primary .md-nav__title {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  [data-md-color-scheme="slate"] .md-nav--primary .md-nav__title {
+    background-color: rgba(35, 37, 49, 0.8);
+  }
+}
