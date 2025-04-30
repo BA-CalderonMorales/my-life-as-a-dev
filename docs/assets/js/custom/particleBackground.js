@@ -3,16 +3,14 @@
  * This file makes the ParticleBackground class available globally
  */
 
-// Define a global ParticleBackground variable that will be populated when the module loads
-window.ParticleBackground = null;
+// Import and re-export the ParticleBackground class
+import ParticleBackground from './particleBackground/index.js';
 
-// Import the module dynamically
-import('./particleBackground/index.js')
-  .then(module => {
-    // Make ParticleBackground available globally
-    window.ParticleBackground = module.default;
-    console.log('ParticleBackground module loaded successfully');
-  })
-  .catch(error => {
-    console.error('Failed to load ParticleBackground module:', error);
-  });
+// Make it available globally for backward compatibility
+window.ParticleBackground = ParticleBackground;
+
+// Log successful load
+console.log('ParticleBackground module loaded successfully');
+
+// Export as default
+export default ParticleBackground;

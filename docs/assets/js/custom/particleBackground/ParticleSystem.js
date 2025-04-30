@@ -1,6 +1,8 @@
 /**
  * Manages the enhanced particle animation system
  */
+import * as THREE from 'three';
+
 class ParticleSystem {
   /**
    * Create a new particle system
