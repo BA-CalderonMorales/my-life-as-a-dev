@@ -59,31 +59,5 @@ git tag -a "v$NEW_VERSION" -m "Version $NEW_VERSION"
 echo "Pushing tag to remote..."
 git push origin "v$NEW_VERSION"
 
-# Update versions.json
-VERSIONS_FILE="docs/versions.json"
-
-if [ -f "$VERSIONS_FILE" ]; then
-    # Insert new version into versions.json file (preserving formatting)
-    echo "Updating $VERSIONS_FILE..."
-    TMP_FILE=$(mktemp)
-    
-    # Extract version array from file
-    jq ".[1:] |= [
-      {
-        \"version\": \"$NEW_VERSION\",
-        \"title\": \"$NEW_VERSION\",
-        \"aliases\": []
-      }
-    ] + ." $VERSIONS_FILE > "$TMP_FILE"
-    
-    # Write back to original file
-    mv "$TMP_FILE" "$VERSIONS_FILE"
-    
-    echo "Updated $VERSIONS_FILE with new version"
-else
-    echo "Warning: $VERSIONS_FILE not found. Local file not updated."
-    echo "This is fine if you're only using GitHub Pages, but may affect local development."
-fi
-
 echo -e "${GREEN}Version bump to $NEW_VERSION complete!${NC}"
 echo -e "${YELLOW}Note:${NC} The documentation will be updated with this version on the next GitHub workflow run"  

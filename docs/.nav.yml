@@ -2,7 +2,6 @@ ignore:
 
   - docs/overrides
   - scripts
-  - versions.json
   - .gitignore
   - .git
   - .github
