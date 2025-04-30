@@ -1,0 +1,23 @@
+[package]
+name = "doc-tools"
+version = "0.1.0"
+edition = "2021"
+description = "Documentation maintenance tools for my-life-as-a-dev"
+
+[[bin]]
+name = "doc-cli"
+path = "doc-cli.rs"
+
+[[bin]]
+name = "startup"
+path = "startup.rs"
+
+[[bin]]
+name = "bump-version"
+path = "bump-version.rs"
+
+[[bin]]
+name = "deploy-all-versions"
+path = "deploy-all-versions.rs"
+
+[dependencies]
