@@ -16,6 +16,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          sparse-checkout: |
+            docs
+            includes
+            mkdocs_plugins
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -26,6 +30,8 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install mike
+          # Install local plugin in development mode
+          pip install -e .
           # Install jq for versions.json manipulation
           sudo apt-get install jq -y
 
@@ -42,14 +48,19 @@ jobs:
           git tag -a "v$TEST_VERSION" -m "Test version $TEST_VERSION"
           
       - name: Test MkDocs build
-        run: mkdocs build
+        run: |
+          # Set PYTHONPATH to include the local plugins
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          mkdocs build
 
-      - name: Test Mike deployment (dry run)
+      - name: Test Mike deployment (information only)
         run: |
           TEST_VERSION=${{ github.event.inputs.version }}
           echo "Testing mike deploy for version: $TEST_VERSION"
-          # Instead of pushing, just show what would happen
-          mike deploy --dry-run $TEST_VERSION latest
+          # Instead of using --dry-run which doesn't exist, just show the command that would be run
+          echo "Would run: mike deploy $TEST_VERSION latest"
+          # Show the mike version for debugging
+          mike --version
 
       - name: Show versions that would be created
         run: |
