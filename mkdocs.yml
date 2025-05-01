@@ -2,18 +2,9 @@ site_name: Brandon's Simplified Life
 site_url: https://ba-calderonmorales.github.io/my-life-as-a-dev/
 repo_url: https://github.com/BA-CalderonMorales/my-life-as-a-dev
 repo_name: BA-CalderonMorales/my-life-as-a-dev
-
-nav:
-  - Home: index.md
-  - AI Demo: ai-demo.md
-  - Docs-as-Code: docs-as-code.md
-  - Blog:
-    - blog/index.md
-    - Resources: blog/resources/index.md
-  - Interests: interests/index.md
-  - Repositories:
-    - repositories/index.md
-    - Dev Flow Mentor: repositories/dev_flow_mentor/index.md
+site_description: >
+  A collection of notes, resources, and tools for developers, engineers, and tech enthusiasts.
+  This site is a work in progress, so please check back often for updates.
 
 theme:
   name: material
@@ -62,6 +53,8 @@ markdown_extensions:
       alternate_style: true
   - attr_list
   - md_in_html
+  - admonition
+  - pymdownx.details
 
 plugins:
   - awesome-nav

@@ -36,9 +36,13 @@ jobs:
           
       - name: Install dependencies
         run: |
+          # Set PYTHONPATH to include the local modules
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install flake8 pytest
+          
           # Install local plugin in development mode
           pip install -e .
           
@@ -51,10 +55,9 @@ jobs:
           
       - name: Validate plugin loads correctly
         run: |
-          # Set PYTHONPATH to include the local plugins directory and the current directory
-          export PYTHONPATH=$PYTHONPATH:$(pwd):$(pwd)/mkdocs_plugins
-          # Verify plugin is discoverable
-          python -c "import mkdocs_plugins; import mkdocs_plugins.ai_plugin; print('✓ Plugin module is importable')"
+          # Set PYTHONPATH to include the local modules
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          
           # Test if mkdocs can load the configuration with the AI plugin
           mkdocs build
           

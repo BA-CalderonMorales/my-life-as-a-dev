@@ -32,7 +32,7 @@ set OPENAI_API_KEY=your_api_key_here
 $env:OPENAI_API_KEY="your_api_key_here"
 ```
 
-!!! warning
+!!! warning "Security Alert"
     Never commit your API key to version control or share it publicly.
 
 ## AI Content Generation

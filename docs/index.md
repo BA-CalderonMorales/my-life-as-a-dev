@@ -7,7 +7,7 @@ Omaha, Nebraska, United States
 
 !!! tip "Try our new AI-powered documentation features!"
     This documentation site now features AI-powered content generation capabilities.
-    [Try the AI Demo](/ai-demo/) to see how it works and learn how to integrate it into your workflow.
+    [Try the AI Demo](./ai-demo.md) to see how it works and learn how to integrate it into your workflow.
 
 ----
 
@@ -200,3 +200,7 @@ Omaha, Nebraska, United States
 === "Technical" 
     - [dockerhub:dev-environment](https://hub.docker.com/r/cmoe640/dev-environment)
     - [portfolio.dev](https://brandon-calderon-morales-portfolio.dev)
+
+!!! tip "Try our new AI-powered documentation features!"
+    This documentation site now features AI-powered content generation capabilities.
+    [Try the AI Demo](./ai-demo.md) to see how it works and learn how to integrate it into your workflow.
