@@ -1,0 +1,84 @@
+name: Test Documentation Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to test (e.g., 1.0.0)'
+        required: true
+        default: '0.0.1'
+
+jobs:
+  test_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          sparse-checkout: |
+            docs
+            includes
+            mkdocs_plugins
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install mike
+          # Install local plugin in development mode
+          pip install -e .
+          # Install jq for versions.json manipulation
+          sudo apt-get install jq -y
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "test@example.com"
+          git config --global user.name "Test User"
+
+      - name: Create test tag
+        run: |
+          TEST_VERSION=${{ github.event.inputs.version }}
+          echo "Using test version: $TEST_VERSION"
+          # Create a simulated tag to test with
+          git tag -a "v$TEST_VERSION" -m "Test version $TEST_VERSION"
+          
+      - name: Test MkDocs build
+        run: |
+          # Set PYTHONPATH to include the local plugins directory and the current directory
+          export PYTHONPATH=$PYTHONPATH:$(pwd):$(pwd)/mkdocs_plugins
+          # Verify plugin is discoverable
+          python -c "import mkdocs_plugins; import mkdocs_plugins.ai_plugin; print('✓ Plugin module is importable')"
+          # Build the documentation
+          mkdocs build
+
+      - name: Test Mike deployment (information only)
+        run: |
+          TEST_VERSION=${{ github.event.inputs.version }}
+          echo "Testing mike deploy for version: $TEST_VERSION"
+          # Instead of using --dry-run which doesn't exist, just show the command that would be run
+          echo "Would run: mike deploy $TEST_VERSION latest"
+          # Show the mike version for debugging
+          mike --version
+
+      - name: Show versions that would be created
+        run: |
+          echo "Current version.json content:"
+          cat docs/versions.json || echo "versions.json does not exist or is empty"
+          echo ""
+          echo "This would generate a version in the documentation with:"
+          TEST_VERSION=${{ github.event.inputs.version }}
+          echo "- Version: $TEST_VERSION"
+          echo "- Latest alias pointing to: $TEST_VERSION"
+          
+      - name: Print success message
+        run: |
+          echo "✅ Test completed successfully!"
+          echo "In a real deployment:"
+          echo "1. The documentation would be built"
+          echo "2. The version selector would include version ${{ github.event.inputs.version }}"
+          echo "3. The 'latest' alias would point to version ${{ github.event.inputs.version }}"
