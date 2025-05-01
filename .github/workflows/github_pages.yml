@@ -36,6 +36,10 @@ jobs:
           # help with speed up of docs builds: https://x.com/squidfunk/status/1705279829770150291
           sparse-checkout: |
             docs
+            mkdocs_plugins
+            mkdocs.yml
+            setup.py
+            requirements.txt
             
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -53,9 +57,18 @@ jobs:
 
       - name: Build MkDocs site
         run: |
+          # Explicitly verify plugin module is available
+          python -c "import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')"
+          
           # Set PYTHONPATH to include the local plugins
           export PYTHONPATH=$PYTHONPATH:$(pwd)
-          mkdocs build
+          
+          # Debug directory structure
+          echo "Current directory structure:"
+          find . -type d -name "mkdocs_plugins" | xargs ls -la
+          
+          # Build the site with verbose output
+          mkdocs build --verbose
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
