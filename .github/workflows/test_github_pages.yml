@@ -28,10 +28,15 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # Set PYTHONPATH to include the local modules
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          
           pip install -r requirements.txt
           pip install mike
+          
           # Install local plugin in development mode
           pip install -e .
+          
           # Install jq for versions.json manipulation
           sudo apt-get install jq -y
 
@@ -49,10 +54,9 @@ jobs:
           
       - name: Test MkDocs build
         run: |
-          # Set PYTHONPATH to include the local plugins directory and the current directory
-          export PYTHONPATH=$PYTHONPATH:$(pwd):$(pwd)/mkdocs_plugins
-          # Verify plugin is discoverable
-          python -c "import mkdocs_plugins; import mkdocs_plugins.ai_plugin; print('✓ Plugin module is importable')"
+          # Set PYTHONPATH to include the local modules
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          
           # Build the documentation
           mkdocs build
 

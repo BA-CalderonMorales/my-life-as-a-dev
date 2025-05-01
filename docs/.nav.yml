@@ -11,11 +11,13 @@ ignore:
   - mkdocs.yml
 
 nav:
-
   - Home: index.md
-
-  - interests
-
-  - repositories
-
-  - blog
+  - AI Demo: ai-demo.md
+  - Docs-as-Code: docs-as-code.md
+  - Blog:
+    - blog/index.md
+    - Resources: blog/resources/index.md
+  - Interests: interests/index.md
+  - Repositories:
+    - repositories/index.md
+    - Dev Flow Mentor: repositories/dev_flow_mentor/index.md

@@ -10,16 +10,44 @@ function isMobileDevice() {
     || window.innerWidth <= 1200;
 }
 
+// Check if we're in a development environment
+function isDevelopmentEnvironment() {
+  // Check if we're on localhost or a development server
+  const hostname = window.location.hostname;
+  return hostname === 'localhost' || 
+         hostname === '127.0.0.1' || 
+         hostname.includes('.dev.') || 
+         hostname.includes('.local');
+}
+
+// Check URL parameters for explicit particle control
+function shouldEnableParticles() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('particles')) {
+    return urlParams.get('particles') === 'true';
+  }
+  // In development, default to no particles unless explicitly enabled
+  if (isDevelopmentEnvironment()) {
+    return false;
+  }
+  // In production, always show particles by default
+  return true;
+}
+
 // Wait for the DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
-  // Add mobile device class if needed, but don't skip initialization
+  // Add mobile device class if needed
   if (isMobileDevice()) {
     console.log('Mobile device detected, adding mobile class');
     document.body.classList.add('is-mobile-device');
   }
   
-  // Initialize particle system directly
-  initializeParticles();
+  if (shouldEnableParticles()) {
+    // Initialize particle system
+    initializeParticles();
+  } else if (isDevelopmentEnvironment()) {
+    console.log('Particles disabled in development environment. Add ?particles=true to URL to enable.');
+  }
 });
 
 function initializeParticles() {

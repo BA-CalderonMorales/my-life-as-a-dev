@@ -60,19 +60,44 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
    pip install -r requirements.txt
    ```
 
+4. Install the project in development mode to ensure plugins are available:
+   ```bash
+   pip install -e .
+   ```
+
 ### Working with MkDocs
 
 - **Start the development server:**
   ```bash
-  mkdocs serve
+  # Ensure PYTHONPATH includes current directory for custom plugins
+  export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs serve
+  
+  # On Windows PowerShell:
+  # $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
   ```
   This will launch a local server at http://127.0.0.1:8000/
 
 - **Build the documentation:**
   ```bash
-  mkdocs build
+  # Ensure PYTHONPATH includes current directory for custom plugins
+  export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build
+  
+  # On Windows PowerShell:
+  # $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs build
   ```
   The static site will be generated in the `site` directory
+
+- **All-in-one commands:**
+  ```bash
+  # For development server (Linux/macOS):
+  pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs serve
+  
+  # For building (Linux/macOS):
+  pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build
+  
+  # For Windows PowerShell:
+  # pip install -e .; $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
+  ```
 </details>
 
 ## Project Information
