@@ -3,6 +3,18 @@ site_url: https://ba-calderonmorales.github.io/my-life-as-a-dev/
 repo_url: https://github.com/BA-CalderonMorales/my-life-as-a-dev
 repo_name: BA-CalderonMorales/my-life-as-a-dev
 
+nav:
+  - Home: index.md
+  - AI Demo: ai-demo.md
+  - Docs-as-Code: docs-as-code.md
+  - Blog:
+    - blog/index.md
+    - Resources: blog/resources/index.md
+  - Interests: interests/index.md
+  - Repositories:
+    - repositories/index.md
+    - Dev Flow Mentor: repositories/dev_flow_mentor/index.md
+
 theme:
   name: material
 
