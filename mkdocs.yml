@@ -88,3 +88,4 @@ extra:
   version:
     provider: mike
     default: latest
+    json_file: versions.json
