@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write  # Needed for mike to commit to gh-pages branch
   pages: write
   id-token: write
 
@@ -29,8 +29,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          
-          # to accommodate last update with mkdocs.yml plugin -> mkdocs-git-revision-date-localised-plugin
+          # Fetch complete history for proper versioning
           fetch-depth: 0
 
           # help with speed up of docs builds: https://x.com/squidfunk/status/1705279829770150291
@@ -55,7 +54,20 @@ jobs:
           # Install local plugin in development mode
           pip install -e .
 
-      - name: Build MkDocs site
+      - name: Configure Git for Mike
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Get latest version tag
+        id: get-latest-tag
+        run: |
+          # Get the latest tag or use "latest" if no tags exist
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.1.0")
+          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+          echo "Latest tag: $LATEST_TAG"
+
+      - name: Build and deploy with Mike
         run: |
           # Explicitly verify plugin module is available
           python -c "import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')"
@@ -67,8 +79,11 @@ jobs:
           echo "Current directory structure:"
           find . -type d -name "mkdocs_plugins" | xargs ls -la
           
-          # Build the site with verbose output
-          mkdocs build --verbose
+          # Deploy the latest version with Mike
+          mike deploy --push --update-aliases $LATEST_TAG latest
+          
+          # Set the default alias to latest
+          mike set-default --push latest
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
