@@ -1,6 +1,6 @@
 # My Life As A Dev
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/BA-CalderonMorales/my-life-as-a-dev/deploy.yml?branch=main&label=build)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/BA-CalderonMorales/my-life-as-a-dev/github_pages.yml?branch=main&label=build)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions)
 [![License](https://img.shields.io/github/license/BA-CalderonMorales/my-life-as-a-dev)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/blob/main/LICENSE)
 [![Document Version](https://img.shields.io/badge/docs-latest-blue)](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
 [![OpenAI Integration](https://img.shields.io/badge/AI%20Integration-OpenAI-brightgreen)](https://ba-calderonmorales.github.io/my-life-as-a-dev/ai-demo/)
@@ -23,15 +23,19 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
 1. Click the green "Code" button on the GitHub repository page
 2. Select "Open with Codespaces"
 3. Click "New codespace" to launch a new environment
-4. Once your Codespace is ready, run the startup script to set up everything automatically:
+4. Once your Codespace is ready, run the simplified CLI wrapper script:
    ```bash
-   ./scripts/target/release/startup
+   ./doc-cli.sh
    ```
    This script will:
-   - Check if you're in a GitHub Codespaces environment
-   - Install all required dependencies
-   - Start the MkDocs development server
-   - Provide you with a clickable URL to access your documentation
+   - Automatically compile all Rust tools to ensure they're up to date
+   - Display an interactive menu to choose which tool to run
+   - Allow you to select "startup" to set up the development environment
+
+   You can also directly specify which tool to run:
+   ```bash
+   ./doc-cli.sh startup
+   ```
 </details>
 
 <details>
@@ -307,6 +311,30 @@ The CLI tool is written in Rust for performance and reliability. It replaces the
 - **DRY (Don't Repeat Yourself)**: Common functionality is abstracted into reusable components
 - **Error handling**: Comprehensive error handling with informative messages
 - **User experience**: Color-coded output and clear progress indicators
+
+### CLI Wrapper Script
+
+For convenience, a wrapper script `doc-cli.sh` is provided. This script simplifies the usage of the CLI tool by:
+
+- Automatically compiling all Rust tools to ensure they're up to date
+- Displaying an interactive menu to choose which tool to run
+- Allowing direct execution of specific commands, e.g., `./doc-cli.sh startup`
+
+First, you'll need to make the script executable (this only needs to be done once):
+
+```bash
+chmod +x ./doc-cli.sh
+```
+
+Then you can use it as follows:
+
+```bash
+# Launch interactive menu
+./doc-cli.sh
+
+# Run a specific command
+./doc-cli.sh startup
+```
 
 </details>
 

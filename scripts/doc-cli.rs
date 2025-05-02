@@ -20,8 +20,26 @@ impl DocCli {
     fn new() -> Self {
         let args: Vec<String> = env::args().collect();
         let current_dir = env::current_dir().expect("Failed to get current directory");
-        let script_path = current_dir.clone();
-        let project_root = current_dir.parent().unwrap_or(&current_dir).to_path_buf();
+        
+        // Determine if we're in the scripts directory or the project root
+        let is_in_scripts = current_dir.file_name().map_or(false, |name| name == "scripts");
+        
+        // Set script_path to the scripts directory
+        let script_path = if is_in_scripts {
+            current_dir.clone()
+        } else {
+            current_dir.join("scripts")
+        };
+        
+        // Set project_root to the parent of scripts
+        let project_root = if is_in_scripts {
+            current_dir.parent().unwrap_or(&current_dir).to_path_buf()
+        } else {
+            current_dir.clone()
+        };
+        
+        println!("Debug - script_path: {:?}", script_path);
+        println!("Debug - project_root: {:?}", project_root);
         
         Self { 
             project_root,
@@ -131,12 +149,19 @@ impl DocCli {
         println!("\n🚀 Running startup script...\n");
         
         let binary_path = self.script_path.join("target/release/startup");
+        let source_path = self.script_path.join("startup.rs");
         
         if !binary_path.exists() {
             println!("Startup binary not found. Building it first...");
-            let status = Command::new("cargo")
+            
+            // Ensure target directory exists
+            std::fs::create_dir_all(self.script_path.join("target/release"))
+                .expect("Failed to create target directory");
+            
+            // Use rustc directly instead of cargo
+            let status = Command::new("rustc")
                 .current_dir(&self.script_path)
-                .args(&["build", "--release", "--bin", "startup"])
+                .args(&["-o", binary_path.to_str().unwrap(), source_path.to_str().unwrap()])
                 .status()
                 .expect("Failed to build startup binary");
                 
@@ -165,12 +190,19 @@ impl DocCli {
         println!("\n🔄 Running version bump script...\n");
         
         let binary_path = self.script_path.join("target/release/bump-version");
+        let source_path = self.script_path.join("bump-version.rs");
         
         if !binary_path.exists() {
             println!("Bump version binary not found. Building it first...");
-            let status = Command::new("cargo")
+            
+            // Ensure target directory exists
+            std::fs::create_dir_all(self.script_path.join("target/release"))
+                .expect("Failed to create target directory");
+                
+            // Use rustc directly instead of cargo
+            let status = Command::new("rustc")
                 .current_dir(&self.script_path)
-                .args(&["build", "--release", "--bin", "bump-version"])
+                .args(&["-o", binary_path.to_str().unwrap(), source_path.to_str().unwrap()])
                 .status()
                 .expect("Failed to build bump-version binary");
                 
@@ -205,12 +237,19 @@ impl DocCli {
         println!("\n🚀 Running deploy-all-versions script...\n");
         
         let binary_path = self.script_path.join("target/release/deploy-all-versions");
+        let source_path = self.script_path.join("deploy-all-versions.rs");
         
         if !binary_path.exists() {
             println!("Deploy-all-versions binary not found. Building it first...");
-            let status = Command::new("cargo")
+            
+            // Ensure target directory exists
+            std::fs::create_dir_all(self.script_path.join("target/release"))
+                .expect("Failed to create target directory");
+                
+            // Use rustc directly instead of cargo
+            let status = Command::new("rustc")
                 .current_dir(&self.script_path)
-                .args(&["build", "--release", "--bin", "deploy-all-versions"])
+                .args(&["-o", binary_path.to_str().unwrap(), source_path.to_str().unwrap()])
                 .status()
                 .expect("Failed to build deploy-all-versions binary");
                 
