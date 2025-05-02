@@ -5,9 +5,9 @@ Omaha, Nebraska, United States
 
 🛠️🚀 I build resilient code with strategic vision.
 
-!!! tip "Try our new AI-powered documentation features!"
-    This documentation site now features AI-powered content generation capabilities.
-    [Try the AI Demo](./ai-demo.md) to see how it works and learn how to integrate it into your workflow.
+!!! info "Experimenting with AI"
+    I've been exploring AI integration with documentation. If you're curious, check out the 
+    [AI Demo](./ai-demo.md) page. It's still a work in progress, but feel free to take a look.
 
 ----
 
@@ -201,6 +201,6 @@ Omaha, Nebraska, United States
     - [dockerhub:dev-environment](https://hub.docker.com/r/cmoe640/dev-environment)
     - [portfolio.dev](https://brandon-calderon-morales-portfolio.dev)
 
-!!! tip "Try our new AI-powered documentation features!"
-    This documentation site now features AI-powered content generation capabilities.
-    [Try the AI Demo](./ai-demo.md) to see how it works and learn how to integrate it into your workflow.
+!!! info "Experimenting with AI"
+    I've been exploring AI integration with documentation. If you're curious, check out the 
+    [AI Demo](./ai-demo.md) page. It's still a work in progress, but feel free to take a look.
