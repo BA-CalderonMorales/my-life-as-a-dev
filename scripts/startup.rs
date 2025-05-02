@@ -17,9 +17,9 @@ struct Startup {
 impl Startup {
     // Create a new Startup instance
     fn new() -> Self {
-        // Get the project root directory (parent of scripts directory)
-        let current_dir = env::current_dir().expect("Failed to get current directory");
-        let project_root = current_dir.parent().unwrap_or(&current_dir).to_path_buf();
+        // Get the project root directory (current directory, since we're running from project root)
+        let project_root = env::current_dir().expect("Failed to get current directory");
+        println!("Debug - Project root: {}", project_root.display());
         
         Self { project_root }
     }
@@ -60,6 +60,17 @@ impl Startup {
         let requirements_path = self.project_root.join("requirements.txt");
         
         println!("Installing dependencies from {}...", requirements_path.display());
+        
+        // Debug: Print the actual path being used
+        println!("Debug - Requirements path: {}", requirements_path.display());
+        
+        // Verify the file exists before attempting to install
+        if !Path::new(&requirements_path).exists() {
+            eprintln!("Error: Requirements file not found at {}", requirements_path.display());
+            eprintln!("Current directory: {:?}", env::current_dir().unwrap_or_default());
+            std::process::exit(1);
+        }
+        
         let status = Command::new("python")
             .args(&["-m", "pip", "install", "-r"])
             .arg(&requirements_path)
@@ -72,6 +83,21 @@ impl Startup {
         }
         
         println!("Dependencies installed successfully.");
+        
+        // Install the project in development mode to ensure plugins are available
+        println!("Installing project in development mode...");
+        let status = Command::new("pip")
+            .args(&["install", "-e", "."])
+            .current_dir(&self.project_root)
+            .status()
+            .expect("Failed to execute pip install -e .");
+            
+        if !status.success() {
+            eprintln!("Error: Failed to install project in development mode.");
+            std::process::exit(1);
+        }
+        
+        println!("Project installed in development mode.");
     }
 
     // Check if port 8000 is in use and offer to kill the process
@@ -149,15 +175,58 @@ impl Startup {
             std::process::exit(1);
         }
         
+        // Verify that the custom plugin is available
+        println!("Verifying plugin installation...");
+        let verify_cmd = Command::new("python")
+            .arg("-c")
+            .arg("import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')")
+            .status();
+            
+        match verify_cmd {
+            Ok(status) if status.success() => println!("Plugin module verification successful."),
+            _ => println!("Warning: Plugin module verification failed. This may cause issues with custom plugins.")
+        }
+        
         self.set_up_mike();
         
         // Serve all deployed versions locally at root
         println!("Serving all versions on gh-pages branch at http://localhost:8000");
         
-        // Using system to execute in background with &
+        // Set PYTHONPATH to include current directory for custom plugins
+        println!("Setting PYTHONPATH to include current directory for custom plugins...");
+        
+        // Prepare a modified environment with PYTHONPATH set
+        let mut cmd_env = env::vars().collect::<Vec<(String, String)>>();
+        let mut has_pythonpath = false;
+        
+        for (key, value) in cmd_env.iter_mut() {
+            if key == "PYTHONPATH" {
+                // Append current dir to existing PYTHONPATH
+                has_pythonpath = true;
+                let current_dir = env::current_dir().expect("Failed to get current directory");
+                *value = format!("{}:{}", value, current_dir.display());
+                println!("Updated PYTHONPATH: {}", value);
+                break;
+            }
+        }
+        
+        if !has_pythonpath {
+            // Create new PYTHONPATH with current dir
+            let current_dir = env::current_dir().expect("Failed to get current directory");
+            cmd_env.push(("PYTHONPATH".to_string(), current_dir.display().to_string()));
+            println!("Created PYTHONPATH: {}", current_dir.display());
+        }
+        
+        // Using system to execute in background with & and environment variables set
+        let cmd_str = format!(
+            "PYTHONPATH=$PYTHONPATH:$(pwd) mike serve --dev-addr=0.0.0.0:8000 --branch gh-pages &"
+        );
+        
+        println!("Executing: {}", cmd_str);
+        
         let status = Command::new("sh")
             .arg("-c")
-            .arg("mike serve --dev-addr=0.0.0.0:8000 --branch gh-pages &")
+            .arg(&cmd_str)
             .status()
             .expect("Failed to start mike serve");
             

@@ -20,6 +20,23 @@
     - [Choose your poison: EF Core or Repository Pattern?](https://lnkd.in/djb7KyDd)
     - [7 powerful LINQ methods you'll wish you knew sooner](https://lnkd.in/dXKw278h)
 
+=== "Interview & System Design Resources"
+    Resources from [Arpit Adlakha](http://linkedin.com/in/arpit-adlakha-30691a101)
+
+    1. [Tech Interview Handbook by Yangshun Tay (109k stars)](https://lnkd.in/g79Qnp-8)
+    2. [System Design Primer by Donne Martin (252k stars)](https://lnkd.in/g89Mtjea)
+    3. [System Design 101 by Alex Xu (56k stars)](https://lnkd.in/gPmCmvVg)
+    4. [Top System Design Resources by Gaurav Sen (14k stars)](https://lnkd.in/dbjymD_2)
+    5. [Best Company and Personal Engineering Blogs by kilimchoi (29k stars)](https://lnkd.in/gxDzj57b)
+    6. [The best developer Roadmaps by Kamran Ahmed (274k stars)](https://lnkd.in/gwaxJtr9)
+    7. [Computer Science Papers for System Design by Arpit Adlakha](https://lnkd.in/gkxJ8QAM)
+    8. [All Resources for Coding, LLD and HLD interviews by Arpit Adlakha (1.2k stars)](https://lnkd.in/g8W4NrP5)
+    9. [Coding Interview University (252k stars)](https://lnkd.in/gydeNvaV)
+    10. [System Design Questions/Solutions Collection by Ashish Pratap Singh (10k stars)](https://lnkd.in/g6hT4iVi)
+    11. [What Happens when you type google.com in browser (Most Indepth Answer)](https://lnkd.in/gbWkADQ6)
+    12. [30 seconds of Code (119k stars)](https://lnkd.in/g2MeSvmT)
+    13. [System Design Chapter Wise Explained (28k stars)](https://lnkd.in/gtYDU8UD)
+
 === "Company Tech Blogs"
     Resources from [Sr. Staff SWE at UPS](http://linkedin.com/in/ravindrabhargava)
 
