@@ -25,7 +25,7 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
 3. Click "New codespace" to launch a new environment
 4. Once your Codespace is ready, run the startup script to set up everything automatically:
    ```bash
-   ./scripts/startup.sh
+   ./scripts/target/release/startup
    ```
    This script will:
    - Check if you're in a GitHub Codespaces environment
@@ -38,7 +38,7 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
 <summary><b>Local Development</b></summary>
 
 ### Prerequisites
-- Python 3.7 or higher
+- Python 3.10 or higher
 - pip (Python package manager)
 
 ### Installation
@@ -55,8 +55,9 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-3. Install MkDocs and the Material theme:
+3. Install MkDocs and all dependencies:
    ```bash
+   pip install --upgrade pip
    pip install -r requirements.txt
    ```
 
@@ -65,7 +66,7 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
    pip install -e .
    ```
 
-### Working with MkDocs
+### Building and Serving Locally
 
 - **Start the development server:**
   ```bash
@@ -80,10 +81,10 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
 - **Build the documentation:**
   ```bash
   # Ensure PYTHONPATH includes current directory for custom plugins
-  export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build
+  export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
   
   # On Windows PowerShell:
-  # $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs build
+  # $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs build --verbose
   ```
   The static site will be generated in the `site` directory
 
@@ -93,11 +94,17 @@ This repository is configured for GitHub Codespaces, allowing you to start worki
   pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs serve
   
   # For building (Linux/macOS):
-  pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build
+  pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
   
   # For Windows PowerShell:
   # pip install -e .; $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
   ```
+
+### Verifying Plugin Installation
+To verify that the custom plugin is properly installed:
+```bash
+python -c "import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')"
+```
 </details>
 
 ## Project Information
