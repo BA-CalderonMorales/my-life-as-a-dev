@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
 
-  # Job # 1: Build MkDocs site
+  # Job # 1: Build MkDocs site with versioning
   build:
 
     runs-on: ubuntu-latest
@@ -67,6 +67,31 @@ jobs:
           echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
           echo "Latest tag: $LATEST_TAG"
 
+      - name: Create versions file
+        run: |
+          # Create a new gh-pages branch or use the existing one
+          if ! git ls-remote --heads origin gh-pages | grep -q refs/heads/gh-pages; then
+            git checkout --orphan gh-pages
+            git reset --hard
+            git commit --allow-empty -m "Initial gh-pages commit"
+            git push origin gh-pages
+          fi
+          
+          # Checkout gh-pages branch
+          git fetch origin gh-pages:gh-pages || true
+          git checkout gh-pages
+
+          # Create versions.json at the root with appropriate content
+          echo '[{"version":"'$LATEST_TAG'","title":"'$LATEST_TAG'","aliases":["latest"]}]' > versions.json
+          
+          # Commit and push the versions.json file
+          git add versions.json
+          git commit -m "Update versions.json for version $LATEST_TAG" || echo "No changes to commit"
+          git push origin gh-pages
+          
+          # Return to previous branch
+          git checkout -
+
       - name: Build and deploy with Mike
         run: |
           # Explicitly verify plugin module is available
@@ -84,6 +109,19 @@ jobs:
           
           # Set the default alias to latest
           mike set-default --push latest
+          
+          # Build the site for GitHub Pages deployment
+          mkdocs build
+
+      - name: Copy versions.json to site directory
+        run: |
+          # Ensure versions.json exists in the root of the site
+          git checkout gh-pages -- versions.json
+          cp versions.json site/
+          
+          # Verify the file was copied
+          ls -la site/
+          cat site/versions.json
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
