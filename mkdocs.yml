@@ -68,6 +68,17 @@ plugins:
   - search
   - tags
   - ai_plugin
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+          remove_comments: true
+      js_files:
+          - assets/js/custom/particleBackground.js
+          - assets/js/custom/initParticles.js
+      css_files:
+          - assets/css/custom.css
 
 extra_css:
   - assets/css/custom.css
