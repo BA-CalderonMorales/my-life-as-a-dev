@@ -62,7 +62,7 @@ jobs:
       - name: Get latest version tag
         id: get-latest-tag
         run: |
-          # Get the latest tag or use "latest" if no tags exist
+          # Get the latest tag or use "0.1.0" if no tags exist
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.1.0")
           echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
           echo "Latest tag: $LATEST_TAG"
@@ -78,17 +78,29 @@ jobs:
           # Deploy the latest version with Mike
           mike deploy --push $LATEST_TAG latest
           
-          # THIS IS THE CRITICAL STEP: Set the default version AFTER deploy
+          # This is the critical step: Set the default version AFTER deploy
           mike set-default --push latest
           
-          # List the current versions to verify
+          # List versions to verify
           mike list
+
+      - name: Build site with MkDocs
+        run: |
+          # Set PYTHONPATH to include the local plugins
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
           
-          # Build the site for GitHub Pages deployment
+          # Build the site with MkDocs
           mkdocs build
 
-      - name: Create .nojekyll file
+      - name: Ensure versions.json is in the right place
         run: |
+          # Make sure versions.json exists in the site root for GitHub Pages
+          mike list --json > site/versions.json
+          
+          # Verify versions.json was created correctly
+          echo "Contents of versions.json:"
+          cat site/versions.json
+          
           # Create a .nojekyll file to prevent GitHub Pages from ignoring files
           touch site/.nojekyll
 
