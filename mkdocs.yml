@@ -83,7 +83,10 @@ extra_javascript:
   - { "path": "assets/js/importmap.js", "defer": true }
   - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
   - { "path": "assets/js/custom/initParticles.js", "type": "module" }
+  - assets/js/custom/versionSelector/version-selector.js
 
 extra:
   version:
     provider: mike
+    default: latest
+    json_file: versions.json
