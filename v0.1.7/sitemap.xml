@@ -2,34 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/</loc>
-         <lastmod>2025-05-02</lastmod>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/ai-demo/</loc>
-         <lastmod>2025-05-02</lastmod>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/docs-as-code/</loc>
-         <lastmod>2025-05-02</lastmod>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/</loc>
-         <lastmod>2025-05-02</lastmod>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/life/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/life/test_scenes/alpha/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/life/test_scenes/bravo/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/life/test_scenes/charlie/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/life/test_scenes/delta/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/life/test_scenes/echo/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/life/test_scenes/foxtrot/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/life/test_scenes/golf/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/life/test_scenes/hotel/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/life/test_scenes/india/</loc>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/blog/resources/</loc>
-         <lastmod>2025-05-02</lastmod>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/interests/</loc>
-         <lastmod>2025-05-02</lastmod>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/repositories/</loc>
-         <lastmod>2025-05-02</lastmod>
+         <lastmod>2025-05-06</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.7/repositories/dev_flow_mentor/</loc>
-         <lastmod>2025-05-02</lastmod>
+         <lastmod>2025-05-06</lastmod>
     </url>
 </urlset>
