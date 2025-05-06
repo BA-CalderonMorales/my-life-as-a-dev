@@ -6,12 +6,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rick's Intergalactic Prototype #13</title>
   <style>
-    html, body { margin:0; padding:0; overflow:hidden; background:#000; }
-    #canvas { display:block; width:100%; height:100%; }
-    #fps { position:absolute; top:8px; left:8px; color:#0ff; font:12px monospace; z-index:100; }
-    #subtitle { position:absolute; bottom:16px; width:100%; text-align:center; color:#0ff; font:16px monospace; text-shadow:0 0 5px #0ff; pointer-events:none; }
+    :root {
+      /* Theme colors & fonts */
+      --bg: #000;
+      --primary: #0ff;
+      --font: monospace;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      overflow: hidden;
+      font-family: var(--font);
+    }
+    #canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    /* Shared overlay styles */
+    #fps, #subtitle {
+      position: absolute;
+      color: var(--primary);
+      text-shadow: 0 0 5px var(--primary);
+      pointer-events: none;
+      z-index: 100;
+    }
+    /* FPS counter – small on mobile */
+    #fps {
+      top: 0.5rem;
+      left: 0.5rem;
+      font-size: 0.75rem;
+    }
+    /* Subtitle – centered, constrained width */
+    #subtitle {
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 90%;
+      font-size: 0.875rem;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    /* Tablet & small desktop */
+    @media (min-width: 768px) {
+      #fps {
+        top: 1rem;
+        left: 1rem;
+        font-size: 1rem;
+      }
+      #subtitle {
+        bottom: 1.5rem;
+        font-size: 1.25rem;
+        max-width: 80%;
+      }
+    }
+    /* Large desktop */
+    @media (min-width: 1200px) {
+      #fps {
+        top: 1.25rem;
+        left: 1.25rem;
+        font-size: 1.25rem;
+      }
+      #subtitle {
+        bottom: 2rem;
+        font-size: 1.5rem;
+        max-width: 70%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -90,24 +158,23 @@
       // Touch interactions
       let lastTap = 0, tapCount = 0;
       canvas.addEventListener('touchstart', e=>{
-        const touch = e.touches[0];
-        const now=Date.now();
-        if(now-lastTap<300) tapCount++; else tapCount=1;
-        lastTap=now;
+        const now = Date.now();
+        if(now-lastTap < 300) tapCount++; else tapCount=1;
+        lastTap = now;
         if(tapCount===2){
-          warp = warp>0.5?0.5:5;
+          warp = (warp>0.5 ? 0.5 : 5);
           showSubtitle("Warp factor " + warp.toFixed(1));
         }
       });
       // Pinch to change warp
-      let prevDist=0;
+      let prevDist = 0;
       canvas.addEventListener('touchmove', e=>{
         if(e.touches.length===2){
-          const dx=e.touches[0].clientX-e.touches[1].clientX;
-          const dy=e.touches[0].clientY-e.touches[1].clientY;
-          const dist=Math.hypot(dx,dy);
-          if(prevDist) warp = Math.max(0.5, Math.min(15, warp + (prevDist-dist)*0.01));
-          prevDist=dist;
+          const dx = e.touches[0].clientX - e.touches[1].clientX;
+          const dy = e.touches[0].clientY - e.touches[1].clientY;
+          const dist = Math.hypot(dx,dy);
+          if(prevDist) warp = Math.max(0.5, Math.min(15, warp + (prevDist - dist)*0.01));
+          prevDist = dist;
         }
       });
       canvas.addEventListener('touchend', ()=>prevDist=0);
@@ -122,32 +189,38 @@
       // Main loop
       let lastTime = performance.now(), frame=0;
       function loop(now){
-        const dt = now-lastTime; lastTime=now;
+        const dt = now - lastTime; lastTime = now;
         frame++;
-        if(frame%60===0) fpsEl.textContent = 'FPS: ' + Math.round(1000/dt);
+        if(frame % 60 === 0) {
+          fpsEl.textContent = 'FPS: ' + Math.round(1000/dt);
+        }
 
         // Background nebula
         const scale = 2 + Math.sin(frame*0.005);
         ctx.save();
-        ctx.globalAlpha=0.3;
-        ctx.translate(cx,cy);
-        ctx.rotate(frame*0.0005);
-        ctx.drawImage(nebula, -128*scale + tiltX*50, -128*scale + tiltY*50, 256*scale,256*scale);
+          ctx.globalAlpha = 0.3;
+          ctx.translate(cx, cy);
+          ctx.rotate(frame*0.0005);
+          ctx.drawImage(nebula, -128*scale + tiltX*50, -128*scale + tiltY*50, 256*scale, 256*scale);
         ctx.restore();
 
         // Starfield
-        ctx.fillStyle='rgba(0,0,0,0.2)';
+        ctx.fillStyle = 'rgba(0,0,0,0.2)';
         ctx.fillRect(0,0,W,H);
-        ctx.save(); ctx.translate(cx,cy);
-        stars.forEach(s=>{
-          s.z -= warp;
-          if(s.z<1) { s.z = W; s.x = Math.random()*W - cx; s.y = Math.random()*H - cy; }
-          const k = 300/s.z;
-          const x = s.x * k;
-          const y = s.y * k;
-          ctx.fillStyle = 'hsl(200,100%,' + (100 - k*2) + '%)';
-          ctx.fillRect(x,y,2*k,2*k);
-        });
+        ctx.save(); 
+          ctx.translate(cx,cy);
+          stars.forEach(s=>{
+            s.z -= warp;
+            if(s.z < 1) {
+              s.z = W;
+              s.x = Math.random()*W - cx;
+              s.y = Math.random()*H - cy;
+            }
+            const k = 300 / s.z;
+            const x = s.x * k, y = s.y * k;
+            ctx.fillStyle = 'hsl(200,100%,' + (100 - k*2) + '%)';
+            ctx.fillRect(x, y, 2*k, 2*k);
+          });
         ctx.restore();
 
         requestAnimationFrame(loop);
