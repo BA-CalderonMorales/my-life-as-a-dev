@@ -13,3 +13,5 @@
     - [Echo](./test_scenes/echo.md)
     - [Foxtrot](./test_scenes/foxtrot.md)
     - [Golf](./test_scenes/golf.md)
+    - [Hotel](./test_scenes/hotel.md)
+    - [India](./test_scenes/india.md)
