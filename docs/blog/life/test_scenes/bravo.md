@@ -1,4 +1,4 @@
-# Bravo
+# Dream Scape
 
 ----
 
@@ -233,8 +233,9 @@ class DreamscapeProto4 extends HTMLElement {
 customElements.define('dreamscape-proto4', DreamscapeProto4);
 </script>
 
-=== "Content"
+=== "Dream Scape"
 
-    Testing look and feel
+    !!! info
+        On mobile, this may function differently. For best results, check out on your laptop.
 
     <dreamscape-proto4></dreamscape-proto4>
