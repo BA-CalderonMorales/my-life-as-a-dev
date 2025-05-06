@@ -17,6 +17,7 @@ nav:
   - Blog:
     - blog/index.md
     - Resources: blog/resources/index.md
+    - Life: blog/life/index.md
   - Interests: interests/index.md
   - Repositories:
     - repositories/index.md
