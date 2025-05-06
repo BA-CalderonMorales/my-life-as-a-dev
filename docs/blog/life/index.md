@@ -7,7 +7,7 @@
     Nothing super serious, just some fun to pass the time.
 
     - [Stars and Motion](./test_scenes/alpha.md)
-    - [Bravo](./test_scenes/bravo.md)
+    - [Dream Scape](./test_scenes/bravo.md)
     - [Charlie](./test_scenes/charlie.md)
     - [Delta](./test_scenes/delta.md)
     - [Echo](./test_scenes/echo.md)
