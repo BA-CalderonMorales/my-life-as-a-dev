@@ -247,12 +247,6 @@ function log(evt) { logs.push({ time: Date.now(), type: evt.type, data: evt.deta
       });
     }
   }
-<<<<<<< HEAD
-  customElements.define('stars-motion-scene', StarsMotionScene);
-  </script>
-</body>
-</html>
-=======
   ctx.stroke();
 }
 
@@ -340,4 +334,3 @@ window.addEventListener('beforeunload', () => {
   navigator.sendBeacon('/log', JSON.stringify(logs));
 });
 </script>
->>>>>>> cfceb59 (using styles from css instead of style tag.)
