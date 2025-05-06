@@ -6,7 +6,8 @@ Welcome to my blog space, where I share my thoughts and curate valuable resource
 
 === "My Posts"
     ### Coming Soon
-    - Stay tuned for upcoming blog posts
+    
+    _Content coming soon_
     
 === "Coding"
     ### Programming and Software Development
@@ -26,7 +27,7 @@ Welcome to my blog space, where I share my thoughts and curate valuable resource
 === "Life"
     ### General Life Experiences and Philosophy
     
-    _Content coming soon_
+    Random things I think about I'll add [here](./life/index.md)
     
 === "Resources"
     ### Curated Content From Around The Web
