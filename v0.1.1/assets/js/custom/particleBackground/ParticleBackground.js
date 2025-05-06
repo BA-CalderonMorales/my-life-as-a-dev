@@ -3,8 +3,15 @@
  * Main class that coordinates the enhanced particle animation system
  */
 import * as THREE from 'three';
+import { Logger } from '../logger.js';
 import ThemeDetector from './ThemeDetector.js';
 import ParticleSystem from './ParticleSystem.js';
+
+// Create a module-specific logger
+const logger = new Logger({
+  module: 'ParticleBackground',
+  logLevel: 'info'
+});
 
 class ParticleBackground {
   /**
@@ -12,6 +19,8 @@ class ParticleBackground {
    * @param {HTMLElement|string} container - Container element or ID
    */
   constructor(container) {
+    logger.debug('Creating new particle background instance', 'constructor');
+    
     // Handle container parameter (can be element or ID string)
     if (typeof container === 'string') {
       // Create container if needed
@@ -44,6 +53,8 @@ class ParticleBackground {
     
     // Add subtle camera movement
     this.setupCameraMovement();
+    
+    logger.debug('Particle background instance created successfully', 'constructor');
   }
   
   /**
@@ -184,7 +195,7 @@ class ParticleBackground {
    * @param {boolean} isDarkMode - Whether dark mode is enabled
    */
   handleThemeChange(isDarkMode) {
-    console.log('Theme changed to:', isDarkMode ? 'dark' : 'light');
+    logger.debug(`Theme changed to: ${isDarkMode ? 'dark' : 'light'}`, 'handleThemeChange');
     if (this.particleSystem) {
       this.particleSystem.updateTheme(isDarkMode);
     }
@@ -222,7 +233,7 @@ class ParticleBackground {
    */
   start() {
     if (!this.isRunning && this.renderer) {
-      console.log('Starting particle animation');
+      logger.info('Starting particle animation', 'start');
       this.isRunning = true;
       this.lastFrameTime = 0;
       this.animate();
@@ -234,7 +245,7 @@ class ParticleBackground {
    */
   stop() {
     if (this.animationId) {
-      console.log('Stopping particle animation');
+      logger.info('Stopping particle animation', 'stop');
       cancelAnimationFrame(this.animationId);
       this.animationId = null;
       this.isRunning = false;
