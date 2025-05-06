@@ -2,7 +2,8 @@
 
 === "Test AI Scenes"
 
-    Experimenting with some generqtive AI scene making via various LLMs.
+    !!! info
+        Experimenting with some generative AI scene making via various LLMs.
 
     Nothing super serious, just some fun to pass the time.
 
