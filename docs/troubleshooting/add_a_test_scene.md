@@ -9,8 +9,7 @@ This guide walks you through the process of adding a new test scene to the proje
 1. Create the Markdown file for your scene
 2. Create the component JavaScript file
 3. Create the component CSS file
-4. Update the importmap.js file
-5. Update the mkdocs.yml configuration
+4. Update the mkdocs.yml configuration
 
 ## Step 1: Create the Markdown File
 
@@ -42,6 +41,8 @@ Create a new markdown file under `docs/blog/life/test_scenes/` with a name of yo
   window.DEBUG_YOUR_COMPONENT = true;
 </script>
 ```
+
+> **Note:** Each markdown file includes its own importmap with the necessary imports. This scoped approach means you don't need to modify the global importmap.js file when adding a new scene.
 
 ## Step 2: Create the Component JavaScript File
 
@@ -109,39 +110,7 @@ your-component-name {
 }
 ```
 
-## Step 4: Update the importmap.js File
-
-Update the global import map at `docs/assets/js/importmap.js`:
-
-```javascript
-// Import map for Three.js modules and custom modules
-(function() {
-  // Check if import map already exists to avoid duplicates
-  if (document.querySelector('script[type="importmap"]')) {
-    return;
-  }
-
-  const importMap = document.createElement('script');
-  importMap.type = 'importmap';
-  importMap.textContent = JSON.stringify({
-    imports: {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/",
-      "logger": "./assets/js/custom/logger.js",
-      "versionSelector": "./assets/js/custom/versionSelector/index.js",
-      "dreamscape": "./assets/js/components/dreamscape/dreamscape.js",
-      "dreamscape-proto4": "./assets/js/components/dreamscape-proto4/dreamscape-proto4/dreamscape-proto4.js",
-      "dreamscape-proto6": "./assets/js/components/dreamscape-proto6/dreamscape-proto6.js",
-      "your-component-name": "./assets/js/components/your-component-name/your-component-name.js"
-    }
-  });
-
-  // Add the import map to the document head for better reliability
-  document.head.appendChild(importMap);
-})();
-```
-
-## Step 5: Update the mkdocs.yml Configuration
+## Step 4: Update the mkdocs.yml Configuration
 
 Update the `mkdocs.yml` file to include your component's CSS and JavaScript files:
 

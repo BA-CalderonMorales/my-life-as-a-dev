@@ -225,6 +225,8 @@ Here's how the standalone HTML file was converted to follow the MkDocs pattern:
     </script>
     ```
 
+    > **Note:** Each markdown file includes its own importmap with the necessary imports. This scoped approach means you don't need to modify the global importmap.js file when adding a new scene.
+
 === "2. Extract the JavaScript into a Web Component (dreamscape-proto6.js)"
 
     ```javascript
@@ -292,6 +294,29 @@ Here's how the standalone HTML file was converted to follow the MkDocs pattern:
     }
     ```
 
+=== "4. Update the mkdocs.yml Configuration"
+
+    ```yaml
+    # Under the extra_css section
+    extra_css:
+      - assets/css/custom.css
+      - assets/css/components/test-scene-shared.css
+      - assets/css/components/dreamscape.css
+      - assets/css/components/dreamscape-proto4.css
+      - assets/css/components/dreamscape-proto6.css  # Add your CSS here
+
+    # Under the extra_javascript section
+    extra_javascript:
+      - https://cdnjs.cloudflare.com/ajax/libs/es-module-shims/1.7.3/es-module-shims.min.js
+      - { "path": "assets/js/importmap.js", "defer": true }
+      - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
+      - { "path": "assets/js/custom/initParticles.js", "type": "module" }
+      - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
+      - { "path": "assets/js/components/dreamscape/dreamscape.js", "type": "module" }
+      - { "path": "assets/js/components/dreamscape-proto4/dreamscape-proto4.js", "type": "module" }
+      - { "path": "assets/js/components/dreamscape-proto6/dreamscape-proto6.js", "type": "module" }  # Add your JS here
+    ```
+
 === "Key Steps in the Conversion Process"
 
     1. **Remove the HTML wrapper**:
@@ -311,8 +336,7 @@ Here's how the standalone HTML file was converted to follow the MkDocs pattern:
     - Scope all styles to the custom element name
 
     4. **Update Configuration**:
-    - Add the component to the importmap.js file
-    - Add the CSS and JS files to mkdocs.yml
+    - Add the CSS and JS files to mkdocs.yml configuration
 
 !!! tip
-    By following these steps, you can convert any standalone HTML visualization or demo into a reusable component that fits into the MkDocs pattern of this project.
+    By following these steps, you can convert any standalone HTML visualization or demo into a reusable component that fits into the MkDocs pattern of this project. Each scene is self-contained with its own import map, which simplifies the process of adding new components.
