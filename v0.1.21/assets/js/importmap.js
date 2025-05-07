@@ -12,7 +12,9 @@
       "three": "https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js",
       "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/",
       "logger": "./assets/js/custom/logger.js",
-      "dreamscape": "./assets/js/components/dreamscape/dreamscape.js"
+      "versionSelector": "./assets/js/custom/versionSelector/index.js",
+      "dreamscape": "./assets/js/components/dreamscape/dreamscape.js",
+      "dreamscape-proto4": "./assets/js/components/dreamscape-proto4/dreamscape-proto4/dreamscape-proto4.js"
     }
   });
 

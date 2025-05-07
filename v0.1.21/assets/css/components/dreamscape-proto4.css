@@ -1,19 +1,10 @@
 /**
- * Shared styles for dreamscape test scenes
- * This provides consistent styling across all interactive dreamscape prototypes
+ * Dreamscape Proto 4 styles
+ * This provides styling for the Proto 4 interactive dreamscape visualization
  */
 
-/* Base styles for the canvas container */
-.dreamscape-container {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  height: 100vh;
-  width: 100%;
-  display: block;
-  position: relative;
-  background: #000;
-}
+/* Import shared test scene styles */
+@import url('./test-scene-shared.css');
 
 /* Canvas element styling */
 .dreamscape-canvas {
@@ -36,18 +27,20 @@
   pointer-events: none;
 }
 
-/* Status messages styling */
+/* Proto 4 specific message styles */
 .dreamscape-message {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 0.625rem 1.25rem;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.7);
   color: #fff;
   font: 1rem monospace;
   border-radius: 0.3125rem;
   display: none;
   z-index: 100;
   pointer-events: none;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
 }
