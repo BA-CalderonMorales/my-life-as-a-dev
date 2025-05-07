@@ -3,7 +3,7 @@
 ----
 
 <!-- Simply use the custom element directly as intended by the component -->
-<stars-motion-scene style="display: block; height: 500px; width: 100%;"></stars-motion-scene>
+<stars-motion-scene class="test-scene-container"></stars-motion-scene>
 
 <script type="importmap">
 {
