@@ -15,7 +15,8 @@
       "versionSelector": "./assets/js/custom/versionSelector/index.js",
       "dreamscape": "./assets/js/components/dreamscape/dreamscape.js",
       "dreamscape-proto4": "./assets/js/components/dreamscape-proto4/dreamscape-proto4/dreamscape-proto4.js",
-      "dreamscape-proto6": "./assets/js/components/dreamscape-proto6/dreamscape-proto6.js"
+      "dreamscape-proto6": "./assets/js/components/dreamscape-proto6/dreamscape-proto6.js",
+      "ghibli-masterpiece": "./assets/js/components/ghibli-masterpiece/ghibli-masterpiece.js"
     }
   });
 

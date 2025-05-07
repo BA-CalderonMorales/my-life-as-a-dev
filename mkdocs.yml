@@ -81,6 +81,7 @@ extra_css:
   - assets/css/components/dreamscape.css
   - assets/css/components/dreamscape-proto4.css
   - assets/css/components/dreamscape-proto6.css
+  - assets/css/components/ghibli-masterpiece.css
 
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/es-module-shims/1.7.3/es-module-shims.min.js
@@ -91,6 +92,7 @@ extra_javascript:
   - { "path": "assets/js/components/dreamscape/dreamscape.js", "type": "module" }
   - { "path": "assets/js/components/dreamscape-proto4/dreamscape-proto4.js", "type": "module" }
   - { "path": "assets/js/components/dreamscape-proto6/dreamscape-proto6.js", "type": "module" }
+  - { "path": "assets/js/components/ghibli-masterpiece/ghibli-masterpiece.js", "type": "module" }
 
 extra:
   version:
