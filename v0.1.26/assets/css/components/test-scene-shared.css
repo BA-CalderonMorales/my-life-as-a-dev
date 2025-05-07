@@ -1,0 +1,16 @@
+/**
+ * Shared styles for all test scenes
+ * This provides consistent styling across all interactive test scene prototypes
+ */
+
+/* Base styles for the test scene container */
+.test-scene-container {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 500px;
+  width: 100%;
+  display: block;
+  position: relative;
+  background: #000;
+}
