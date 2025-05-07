@@ -12,10 +12,6 @@ Omaha, Nebraska, United States
 
 🛠️🚀 I build resilient code with strategic vision.
 
-!!! info "Experimenting with AI"
-    I've been exploring AI integration with documentation. If you're curious, check out the 
-    [AI Demo](./ai-demo.md) page. It's still a work in progress, but feel free to take a look.
-
 ----
 
 === "Summary"
@@ -206,3 +202,13 @@ Omaha, Nebraska, United States
 
     ### Old school portfolio site
     - [portfolio.dev](https://brandon-calderon-morales-portfolio.dev)
+
+=== "AI"
+
+    For the AI Enthusiasts out there...
+
+    I've been exploring AI integration with documentation. If you're curious, check out the 
+    [AI Demo](./ai-demo.md) page. It's still a work in progress, but feel free to take a look.
+
+    !!! info "Experimenting with AI"
+        You should also check out my blog/life page to see some neat visual experiences I'm working on with o4-mini-high model. I'm basically serving up self-contained html pages from my phone prompting skills and uploading them to my page to share with people/test my prompting skills. Nice way to pass the time.
