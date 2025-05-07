@@ -5,15 +5,40 @@
  * motion-reactive elements, and gesture controls.
  */
 
-import { defaultLogger as logger } from '../../custom/logger.js';
+// Try to import the logger, but provide a fallback in case it fails
+let logger;
+
+try {
+
+  const module = await import('../../custom/logger.js').catch(() => 
+    import('/assets/js/custom/logger.js')
+  );
+  logger = module.defaultLogger;
+
+} catch (err) {
+
+  // Fallback logger if import fails
+  logger = {
+    setModule: () => {},
+    enableLogs: () => {},
+    setLogLevel: () => {},
+    debug: console.debug.bind(console),
+    info: console.info.bind(console),
+    warn: console.warn.bind(console),
+    error: console.error.bind(console)
+  };
+
+}
 
 export class StarsMotionScene {
+
   /**
    * Create a new StarsMotionScene
    * @param {HTMLElement} container - The container element to render in
    * @param {Object} options - Configuration options
    */
   constructor(container, options = {}) {
+
     this.container = container;
     this.options = Object.assign({
       debug: false,
@@ -23,6 +48,7 @@ export class StarsMotionScene {
 
     // Set up logger
     logger.setModule('dreamscape');
+
     if (this.options.debug) {
       logger.enableLogs();
       logger.setLogLevel('debug');
@@ -447,7 +473,7 @@ if (!customElements.get('stars-motion-scene')) {
     
     disconnectedCallback() {
       // Clean up when element is removed
-      if (this.scene.viewModel.recognition) {
+      if (this.scene?.viewModel?.recognition) {
         this.scene.viewModel.recognition.stop();
       }
     }
