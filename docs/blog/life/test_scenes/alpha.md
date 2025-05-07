@@ -2,11 +2,13 @@
 
 ----
 
-<div class="dreamscape-container">
-  <stars-motion-scene></stars-motion-scene>
-</div>
+<stars-motion-scene class="dreamscape-container"></stars-motion-scene>
 
 <script type="module">
-  // Import the dreamscape component
-  import "dreamscape";
+  import { StarsMotionScene } from "/assets/js/components/dreamscape/dreamscape.js";
+
+  // Make sure importmap is loaded
+  const importMapScript = document.createElement('script');
+  importMapScript.src = "/assets/js/importmap.js";
+  document.head.appendChild(importMapScript);
 </script>
