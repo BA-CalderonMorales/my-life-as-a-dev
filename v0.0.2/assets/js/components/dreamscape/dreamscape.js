@@ -59,22 +59,17 @@ export class StarsMotionScene {
       px: 0,
       py: 0,
       petals: [],
-      bursts: [],
       flings: [],
       dragStart: null,
       dragX: 0, 
       dragY: 0,
-      lastTap: 0,
-      tapCount: 0,
-      scale: 1,
-      pinchDist: 0,
-      msgTimer: 0,
       analyser: null,
       dataArr: null,
       vineCommands: '',
       recognition: null,
       flashTimer: 0,
       fps: 0,
+      scale: 1,
       logs: []
     };
 
@@ -86,18 +81,16 @@ export class StarsMotionScene {
    * Initialize the component DOM and event listeners
    */
   initialize() {
-    // Create canvas, FPS counter and message element
+    // Create canvas and FPS counter
     this.container.innerHTML = `
       <canvas id="canvas" class="dreamscape-canvas" aria-label="Interactive Dreamscape Canvas"></canvas>
       <div id="fps" class="dreamscape-fps" aria-label="FPS Counter">FPS: --</div>
-      <div id="message" class="dreamscape-message" aria-live="polite"></div>
     `;
 
     // Get references to DOM elements
     this.canvas = this.container.querySelector('#canvas');
     this.ctx = this.canvas.getContext('2d');
     this.fpsEl = this.container.querySelector('#fps');
-    this.msgEl = this.container.querySelector('#message');
 
     // Set up event listeners
     this.setupEventListeners();
@@ -201,45 +194,17 @@ export class StarsMotionScene {
   }
 
   /**
-   * Create a radial burst of particles
-   * @param {number} x - X coordinate
-   * @param {number} y - Y coordinate
-   */
-  spawnRadial(x, y) {
-    for (let a = 0; a < 16; a++) {
-      const ang = 2 * Math.PI * (a / 16);
-      this.viewModel.bursts.push({ 
-        x, 
-        y, 
-        vx: Math.cos(ang) * 3, 
-        vy: Math.sin(ang) * 3, 
-        life: 60 
-      });
-    }
-    logger.debug(`Radial burst created at ${x}, ${y}`, 'spawnRadial');
-  }
-
-  /**
    * Handle touch start event
    * @param {TouchEvent} e - Touch start event
    */
   handleTouchStart(e) {
-    this.log(e);
-    
-    // Handle pinch to zoom
-    if (e.touches.length === 2) {
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      this.viewModel.pinchDist = Math.hypot(dx, dy);
-    }
-    
-    // Handle drag start
     const t = e.touches[0];
     this.viewModel.dragStart = { 
       x: t.clientX, 
       y: t.clientY, 
       t: Date.now() 
     };
+    this.log(e);
   }
 
   /**
@@ -247,22 +212,10 @@ export class StarsMotionScene {
    * @param {TouchEvent} e - Touch move event
    */
   handleTouchMove(e) {
-    this.log(e);
-    
-    // Handle pinch zoom
-    if (e.touches.length === 2) {
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      const d = Math.hypot(dx, dy);
-      this.viewModel.scale *= d / this.viewModel.pinchDist;
-      this.viewModel.pinchDist = d;
-      this.viewModel.scale = Math.min(Math.max(this.viewModel.scale, 0.5), 3);
-    }
-    
-    // Track drag position
     const t = e.touches[0];
     this.viewModel.dragX = t.clientX;
     this.viewModel.dragY = t.clientY;
+    this.log(e);
   }
 
   /**
@@ -271,16 +224,6 @@ export class StarsMotionScene {
    */
   handleTouchEnd(e) {
     this.log(e);
-    
-    // Handle double tap
-    const now = Date.now();
-    if (now - this.viewModel.lastTap < 300) {
-      const t = e.changedTouches[0];
-      this.spawnRadial(t.clientX, t.clientY);
-    }
-    this.viewModel.lastTap = now;
-    
-    // Handle fling physics
     if (this.viewModel.dragStart) {
       const dt = Date.now() - this.viewModel.dragStart.t || 1;
       const vx = (this.viewModel.dragX - this.viewModel.dragStart.x) / dt * 10;
@@ -394,19 +337,6 @@ export class StarsMotionScene {
         
         this.log({ type: 'speech', transcript });
         
-        // Handle special commands
-        if (transcript.includes('wubba')) {
-          this.msgEl.textContent = 'Wubba lubba dub dub!';
-          const utterance = new SpeechSynthesisUtterance(this.msgEl.textContent);
-          speechSynthesis.speak(utterance);
-        } else {
-          this.msgEl.textContent = 'You said: ' + transcript;
-        }
-        
-        this.msgEl.style.display = 'block';
-        this.viewModel.msgTimer = 120;
-        
-        // Additional voice commands
         if (transcript.includes('vine')) {
           this.generateVine('F', 'F[+F]F[-F]F', 4);
         }
@@ -418,18 +348,10 @@ export class StarsMotionScene {
         if (transcript.includes('flash')) {
           this.viewModel.flashTimer = 10;
         }
-        
-        if (transcript.includes('burst')) {
-          this.spawnRadial(this.canvas.width/2, this.canvas.height/2);
-        }
       };
       
-      try {
-        this.viewModel.recognition.start();
-        logger.info('Voice recognition initialized', 'setupVoiceRecognition');
-      } catch (error) {
-        logger.warn(`Voice recognition failed: ${error}`, 'setupVoiceRecognition');
-      }
+      this.viewModel.recognition.start();
+      logger.info('Voice recognition initialized', 'setupVoiceRecognition');
     }
   }
 
@@ -443,26 +365,30 @@ export class StarsMotionScene {
     this.viewModel.fps = Math.round(1000 / dt);
     this.fpsEl.textContent = 'FPS: ' + this.viewModel.fps;
 
-    // Save context with scale transform
-    this.ctx.save();
-    this.ctx.setTransform(this.viewModel.scale, 0, 0, this.viewModel.scale, 0, 0);
-    
-    // Clear canvas
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // Background gradient (from bravo.md)
-    this.ctx.fillStyle = '#112';
-    this.ctx.fillRect(
-      -this.canvas.width * 0.1, 
-      -this.canvas.height * 0.1,
-      this.canvas.width * 1.2, 
-      this.canvas.height * 1.2
+    // Parallax background
+    this.ctx.save();
+    this.ctx.translate(this.viewModel.px * 30, this.viewModel.py * 30);
+    const grd = this.ctx.createRadialGradient(
+      this.canvas.width/2, this.canvas.height/2, 100,
+      this.canvas.width/2, this.canvas.height/2, this.canvas.width
     );
+    grd.addColorStop(0, '#002');
+    grd.addColorStop(1, '#220');
+    this.ctx.fillStyle = grd;
+    this.ctx.fillRect(
+      -this.viewModel.px * 50,
+      -this.viewModel.py * 50,
+      this.canvas.width + this.viewModel.px * 100,
+      this.canvas.height + this.viewModel.py * 100
+    );
+    this.ctx.restore();
 
     // Dynamic shader overlay
     const hue = (now / 50) % 360;
     this.ctx.save();
-    this.ctx.globalCompositeOperation = 'lighter';
+    this.ctx.globalCompositeOperation = 'overlay';
     this.ctx.fillStyle = `hsla(${hue},100%,50%,0.02)`;
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.restore();
@@ -478,23 +404,6 @@ export class StarsMotionScene {
     });
     this.viewModel.petals = this.viewModel.petals.filter(p => p.y < this.canvas.height + 10);
 
-    // Bursts (from bravo.md)
-    for (let i = this.viewModel.bursts.length - 1; i >= 0; i--) {
-      const b = this.viewModel.bursts[i];
-      b.x += b.vx;
-      b.y += b.vy;
-      b.life--;
-      
-      this.ctx.fillStyle = 'white';
-      this.ctx.beginPath();
-      this.ctx.arc(b.x, b.y, 3, 0, 2 * Math.PI);
-      this.ctx.fill();
-      
-      if (b.life <= 0) {
-        this.viewModel.bursts.splice(i, 1);
-      }
-    }
-
     // Flings & trails
     this.viewModel.flings.forEach((obj, i) => {
       obj.vy += 0.5;
@@ -507,12 +416,12 @@ export class StarsMotionScene {
         this.ctx.globalAlpha = j / 10;
         this.ctx.lineTo(pt.x, pt.y);
       });
-      this.ctx.strokeStyle = 'cyan';
+      this.ctx.strokeStyle = 'white';
       this.ctx.stroke();
       this.ctx.globalAlpha = 1;
       
       this.ctx.beginPath();
-      this.ctx.fillStyle = 'cyan';
+      this.ctx.fillStyle = 'white';
       this.ctx.arc(obj.x, obj.y, 5, 0, 2 * Math.PI);
       this.ctx.fill();
     });
@@ -544,18 +453,7 @@ export class StarsMotionScene {
 
     // Draw vine
     this.drawVine();
-    
-    // Handle message display
-    if (this.viewModel.msgTimer > 0) {
-      this.viewModel.msgTimer--;
-      if (this.viewModel.msgTimer <= 0) {
-        this.msgEl.style.display = 'none';
-      }
-    }
 
-    // Restore context
-    this.ctx.restore();
-    
     requestAnimationFrame(this.update.bind(this));
   }
 }
