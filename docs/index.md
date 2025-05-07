@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Hi, I'm Brandon A. Calderon Morales 👋
 
 **Product-Minded Software Engineer**  
@@ -188,13 +193,16 @@ Omaha, Nebraska, United States
     ### Professional
     - [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe)
     - [email me](mailto:brandon.ceemoe@gmail.com)
-    
-    ### Technical
-    - [dockerhub:dev-environment](https://hub.docker.com/r/cmoe640/dev-environment)
-    - [portfolio.dev](https://brandon-calderon-morales-portfolio.dev)
-    
-----
 
-!!! info "Experimenting with AI"
-    I've been exploring AI integration with documentation. If you're curious, check out the 
-    [AI Demo](./ai-demo.md) page. It's still a work in progress, but feel free to take a look.
+    ### Social
+    - [Substack](https://substack.com/@bmoedude)
+    - [Blue Sky](https://bsky.app/profile/moe-dude.bsky.social)
+    - [YouTube](https://www.youtube.com/@brandoncalderon7008)
+    - [Twitter](https://x.com/BrandonACalder1)
+
+    ### Technical
+    - [GitHub](https://github.com/BA-CalderonMorales)
+    - [dockerhub:dev-environment](https://hub.docker.com/r/cmoe640/dev-environment)
+
+    ### Old school portfolio site
+    - [portfolio.dev](https://brandon-calderon-morales-portfolio.dev)
