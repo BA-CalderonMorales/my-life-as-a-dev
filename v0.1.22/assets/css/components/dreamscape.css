@@ -3,17 +3,22 @@
  * This provides consistent styling across all interactive dreamscape prototypes
  */
 
-/* Base styles for the canvas container - matching bravo.md */
-.dreamscape-container, 
-html, body {
+/* Base styles for the canvas container - matching bravo.md exactly */
+.dreamscape-container,
+stars-motion-scene {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  height: 100%;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Above content but below navbar */
   background: #111;
 }
 
-/* Canvas element styling - matching bravo.md */
+/* Canvas element styling */
 .dreamscape-canvas,
 #canvas {
   position: absolute;
@@ -23,7 +28,7 @@ html, body {
   height: 100%;
 }
 
-/* FPS counter styling - matching bravo.md */
+/* FPS counter styling */
 .dreamscape-fps,
 #fps {
   position: absolute;
@@ -35,7 +40,7 @@ html, body {
   pointer-events: none;
 }
 
-/* Status messages styling - matching bravo.md */
+/* Status messages styling */
 .dreamscape-message,
 #message {
   position: absolute;
@@ -52,9 +57,32 @@ html, body {
   pointer-events: none;
 }
 
-/* Style for the custom element */
-stars-motion-scene {
-  display: block;
-  width: 100%;
-  height: 100%;
+/* Hide MkDocs navigation when dreamscape is present */
+.md-main__inner {
+  display: none; /* Hide the main content */
+}
+
+/* Allow the title to appear above the dreamscape */
+.md-content__inner {
+  padding: 0;
+  margin: 0;
+}
+
+.md-content__inner h1,
+.md-content__inner hr {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin: 0;
+  padding: 0.8rem 0;
+}
+
+.md-content__inner h1 {
+  color: white;
+  text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Hide everything except the title and the scene */
+.md-content__inner > *:not(h1):not(hr):not(stars-motion-scene):not(script):not(.dreamscape-container) {
+  display: none;
 }
