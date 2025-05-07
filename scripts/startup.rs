@@ -203,12 +203,12 @@ impl Startup {
         self.set_up_mike();
         
         // Determine the mike serve command based on whether we have a draft version
-        let mut cmd_str = String::from("PYTHONPATH=$PYTHONPATH:$(pwd) mike serve --dev-addr=0.0.0.0:8000 --branch gh-pages ");
+        let mut cmd_str = String::new();
         
         // If draft version is specified, add the necessary arguments
         if let Some(version) = &self.draft_version {
             println!("Using draft version: {} (not yet deployed to gh-pages)", version);
-            cmd_str.push_str(&format!("--versions {} ", version));
+            cmd_str.push_str(&format!(""));
             
             // Build the site first with mkdocs
             println!("Building draft documentation for version {}...", version);
@@ -222,14 +222,15 @@ impl Startup {
                 std::process::exit(1);
             }
             
-            // Add the site directory to serve the current build alongside versioned docs
-            cmd_str.push_str("--theme-dir site ");
+            // For draft versions, we just serve the site directly with Python's HTTP server
+            // rather than using mike, as mike doesn't support the --version flag
+            println!("Serving draft version using Python HTTP server...");
+            cmd_str = String::from("cd site && python -m http.server 8000 --bind 0.0.0.0");
         } else {
             println!("Serving all versions on gh-pages branch");
+            // Use mike serve for the standard case (no draft version)
+            cmd_str = String::from("PYTHONPATH=$PYTHONPATH:$(pwd) mike serve --dev-addr=0.0.0.0:8000 --branch gh-pages");
         }
-        
-        // Add background process symbol
-        cmd_str.push('&');
         
         println!("Executing: {}", cmd_str);
         
@@ -237,10 +238,10 @@ impl Startup {
             .arg("-c")
             .arg(&cmd_str)
             .status()
-            .expect("Failed to start mike serve");
+            .expect("Failed to start documentation server");
             
         if !status.success() {
-            eprintln!("Error: Failed to start mike serve.");
+            eprintln!("Error: Failed to start documentation server.");
             std::process::exit(1);
         }
     }
