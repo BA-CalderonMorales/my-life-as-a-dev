@@ -15,6 +15,9 @@ theme:
   custom_dir: docs/overrides
 
   features:
+    - search.suggest
+    - search.highligt
+    - search.share
     - navigation.instant
     - navigation.instang.progress
     - navigation.tracking
