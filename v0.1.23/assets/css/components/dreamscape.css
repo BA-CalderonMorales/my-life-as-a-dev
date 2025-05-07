@@ -3,27 +3,22 @@
  * This provides consistent styling across all interactive dreamscape prototypes
  */
 
-/* MkDocs theme adjustments - ensure dreamscape fits properly in the page */
-.md-content {
-  padding-bottom: 0;
-}
-
-.md-main__inner {
-  margin-bottom: 0;
-}
-
-/* Base styles for the dreamscape container - matching bravo.md */
+/* Base styles for the canvas container - matching bravo.md exactly */
 .dreamscape-container,
 stars-motion-scene {
-  display: block;
-  height: calc(100vh - 120px);
-  margin: 0 -1.2rem;
-  background: #111;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  position: relative;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Above content but below navbar */
+  background: #111;
 }
 
-/* Canvas element styling - exactly like bravo.md */
+/* Canvas element styling */
 .dreamscape-canvas,
 #canvas {
   position: absolute;
@@ -33,7 +28,7 @@ stars-motion-scene {
   height: 100%;
 }
 
-/* FPS counter styling - exactly like bravo.md */
+/* FPS counter styling */
 .dreamscape-fps,
 #fps {
   position: absolute;
@@ -45,7 +40,7 @@ stars-motion-scene {
   pointer-events: none;
 }
 
-/* Status messages styling - exactly like bravo.md */
+/* Status messages styling */
 .dreamscape-message,
 #message {
   position: absolute;
@@ -60,4 +55,34 @@ stars-motion-scene {
   display: none;
   z-index: 100;
   pointer-events: none;
+}
+
+/* Hide MkDocs navigation when dreamscape is present */
+.md-main__inner {
+  display: none; /* Hide the main content */
+}
+
+/* Allow the title to appear above the dreamscape */
+.md-content__inner {
+  padding: 0;
+  margin: 0;
+}
+
+.md-content__inner h1,
+.md-content__inner hr {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin: 0;
+  padding: 0.8rem 0;
+}
+
+.md-content__inner h1 {
+  color: white;
+  text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Hide everything except the title and the scene */
+.md-content__inner > *:not(h1):not(hr):not(stars-motion-scene):not(script):not(.dreamscape-container) {
+  display: none;
 }
