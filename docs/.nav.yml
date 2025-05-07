@@ -32,6 +32,4 @@ nav:
 
     - Dev Flow Mentor: repositories/dev_flow_mentor/index.md
 
-  - Troubleshooting:
-
-    - troubleshooting/index.md
+  - Troubleshooting: troubleshooting
