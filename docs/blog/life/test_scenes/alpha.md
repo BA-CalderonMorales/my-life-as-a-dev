@@ -2,13 +2,22 @@
 
 ----
 
-<stars-motion-scene class="dreamscape-container"></stars-motion-scene>
+<!-- Simply use the custom element directly as intended by the component -->
+<stars-motion-scene style="display: block; height: 500px; width: 100%;"></stars-motion-scene>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/"
+  }
+}
+</script>
 
 <script type="module">
-  import { StarsMotionScene } from "/assets/js/components/dreamscape/dreamscape.js";
+  // Make sure the script has loaded
+  console.log('Loading StarsMotionScene component...');
 
-  // Make sure importmap is loaded
-  const importMapScript = document.createElement('script');
-  importMapScript.src = "/assets/js/importmap.js";
-  document.head.appendChild(importMapScript);
+  // Debug flag to help troubleshooting
+  window.DEBUG_STARS = true;
 </script>
