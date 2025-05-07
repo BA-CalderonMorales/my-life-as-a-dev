@@ -9,7 +9,7 @@ mkdocs-git-authors-plugin>=0.9.5
 mkdocs-panzoom-plugin>=0.1.9
 mkdocs-minify-plugin>=0.7.1
 
-mike>=1.1.2
+mike>=2.1.3
 
 # AI Plugin Dependencies
 openai>=1.3.0
