@@ -11,7 +11,10 @@ To see this example in action, visit: https://ba-calderonmorales.github.io/my-li
 
 If the site is down for any reason, feel free to ping me. It's using GitHub Actions, so don't bet on things being "production grade".
 
-> **⚠️ AI Demo Disclaimer:** The AI integration feature in this repository is for demonstration purposes. When using the [AI Demo](/ai-demo/), you'll need to provide your own OpenAI API key. Please note that OpenAI API usage incurs costs based on token consumption. This project is not responsible for any charges you may incur while using your API key. Always monitor your usage at [OpenAI's usage dashboard](https://platform.openai.com/usage).
+<details>
+   <summary><b>⚠️ AI Demo Disclaimer</b></summary>
+   The AI integration feature in this repository is for demonstration purposes. When using the [AI Demo](/ai-demo/), you'll need to provide your own OpenAI API key. Please note that OpenAI API usage incurs costs based on token consumption. This project is not responsible for any charges you may incur while using your API key. Always monitor your usage at [OpenAI's usage dashboard](https://platform.openai.com/usage).
+</details>
 
 ## Getting Started
 
