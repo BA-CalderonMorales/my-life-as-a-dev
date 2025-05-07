@@ -84,7 +84,8 @@ extra_javascript:
   - { "path": "assets/js/importmap.js", "defer": true }
   - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
   - { "path": "assets/js/custom/initParticles.js", "type": "module" }
-  - assets/js/custom/versionSelector/version-selector.js
+  - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
+  - { "path": "assets/js/components/dreamscape/dreamscape.js", "type": "module" }
 
 extra:
   version:
