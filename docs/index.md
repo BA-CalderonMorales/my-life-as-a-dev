@@ -3,6 +3,8 @@
 **Product-Minded Software Engineer**  
 Omaha, Nebraska, United States
 
+<a class="md-linkedin-button" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=bcalderonmorales-cmoe" target="_blank">Follow on LinkedIn</a>
+
 🛠️🚀 I build resilient code with strategic vision.
 
 !!! info "Experimenting with AI"
