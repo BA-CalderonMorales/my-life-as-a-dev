@@ -24,6 +24,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      # Set the OpenAI API key from GitHub Secrets
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
       - name: Checkout repository
@@ -75,11 +78,18 @@ jobs:
           # Set PYTHONPATH to include the local plugins
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           
-          # Deploy the latest version with Mike
-          mike deploy --push $LATEST_TAG latest
+          # Check if alias 'latest' already exists for this version
+          if mike list | grep -q "$LATEST_TAG.*latest"; then
+            echo "Alias 'latest' already exists for version $LATEST_TAG, skipping deploy"
+          else
+            # Deploy the latest version with Mike
+            mike deploy --push $LATEST_TAG latest
+          fi
           
-          # This is the critical step: Set the default version AFTER deploy
-          mike set-default --push latest
+          # Set default version AFTER deploy if needed
+          if ! mike list | grep -q "default.*latest"; then
+            mike set-default --push latest
+          fi
           
           # List versions to verify
           mike list
