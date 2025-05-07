@@ -24,24 +24,29 @@ Omaha, Nebraska, United States
 
 ## Professional
 
-- **Team Leadership**
-    - Leading DevOps transformations
-    - Mentoring junior engineers
-    - Cross-functional collaboration
-    - Military leadership principles
-    - Agile workflow optimization
-- **Technical Expertise**
-    - CI/CD pipeline design
-    - System architecture
-    - Legacy code modernization
-    - Distributed systems
-    - Development automation
-- **Communication**
-    - Technical documentation
-    - Process standardization
-    - Stakeholder engagement
-    - Knowledge transfer
-    - Teaching/training delivery
+=== "Team Leadership"
+    - **Team Leadership**
+        - Leading DevOps transformations
+        - Mentoring junior engineers
+        - Cross-functional collaboration
+        - Military leadership principles
+        - Agile workflow optimization
+
+=== "Technical Expertise"
+    - **Technical Expertise**
+        - CI/CD pipeline design
+        - System architecture
+        - Legacy code modernization
+        - Distributed systems
+        - Development automation
+
+=== "Communication"
+    - **Communication**
+        - Technical documentation
+        - Process standardization
+        - Stakeholder engagement
+        - Knowledge transfer
+        - Teaching/training delivery
 
 === "Languages"
     - **English**
@@ -51,8 +56,7 @@ Omaha, Nebraska, United States
     - **Full-Stack Web Development Certificate**
 
 === "Professional Timeline"
-
-### "Career Timeline"
+    ### "Career Timeline"
 
     ```mermaid
     gantt
@@ -70,21 +74,20 @@ Omaha, Nebraska, United States
         Legal Administrative Assistant (Boys Town)        :active, m5, 2019-06-01, 3m
     ```
 
-=== "Skills & Expertise"
+## Technical Skills
 
-## "Technical Focus"
+=== "Technical Focus"
+    ```mermaid
+    flowchart TD
+        A[Software Engineering] --> B[CI/CD Optimization]
+        A --> C[Distributed Systems]
+        B --> D[Git & GitHub]
+        B --> E[Jenkins / GitHub Actions]
+        C --> F[Scalable Architecture]
+        C --> G[Workflow Automation]
+    ```
 
-```mermaid
-flowchart TD
-    A[Software Engineering] --> B[CI/CD Optimization]
-    A --> C[Distributed Systems]
-    B --> D[Git & GitHub]
-    B --> E[Jenkins / GitHub Actions]
-    C --> F[Scalable Architecture]
-    C --> G[Workflow Automation]
-```
-
-## "Languages"
+=== "Languages"
     - **C#**
     - **SQL**
     - **JavaScript**
@@ -94,7 +97,7 @@ flowchart TD
     - **Groovy**
     - **Rust**
 
-## "Frameworks"
+=== "Frameworks"
     - **React**
     - **.NET 4.8**
     - **.NET 6+**
