@@ -19,41 +19,29 @@ Omaha, Nebraska, United States
     🛠️⚡ Mission-Driven Engineering | Resilience & Scale | Empower & Democratize
 
     I enjoy the challenge of learning new technologies, adapting to all scenarios, and championing efficiency within development teams. I'm also a father of two beautiful girls and a husband to a wonderful wife. Keep scrolling through this page to learn about me and use the left-hand side links to jump to other important/key sections about me. Cheers!
-    
-=== "Vision Map"
-    ```mermaid
-    flowchart TB
-      A["🎖️ Discipline"] --> B["💡 Innovation"]
-      B --> C["📈 Resilience & Scale"]
-      C --> D["🔧 CI/CD & Distributed Systems"]
-      D --> E["🚀 Scalable Solutions"]
-      E --> F["🤝 Empower Developers"]
-      F --> G["🌍 Democratize Dev Environments"]
-    ```
 
-----
+=== "Top Skills & Certifications"
 
-## Top Skills & Certifications
+## Professional
 
-=== "Professional"
-    - **Team Leadership**
-        - Leading DevOps transformations
-        - Mentoring junior engineers
-        - Cross-functional collaboration
-        - Military leadership principles
-        - Agile workflow optimization
-    - **Technical Expertise**
-        - CI/CD pipeline design
-        - System architecture
-        - Legacy code modernization
-        - Distributed systems
-        - Development automation
-    - **Communication**
-        - Technical documentation
-        - Process standardization
-        - Stakeholder engagement
-        - Knowledge transfer
-        - Teaching/training delivery
+- **Team Leadership**
+    - Leading DevOps transformations
+    - Mentoring junior engineers
+    - Cross-functional collaboration
+    - Military leadership principles
+    - Agile workflow optimization
+- **Technical Expertise**
+    - CI/CD pipeline design
+    - System architecture
+    - Legacy code modernization
+    - Distributed systems
+    - Development automation
+- **Communication**
+    - Technical documentation
+    - Process standardization
+    - Stakeholder engagement
+    - Knowledge transfer
+    - Teaching/training delivery
 
 === "Languages"
     - **English**
@@ -62,11 +50,10 @@ Omaha, Nebraska, United States
 === "Certifications" 
     - **Full-Stack Web Development Certificate**
 
-----
+=== "Professional Timeline"
 
-## Professional Timeline
+### "Career Timeline"
 
-=== "Career Timeline"
     ```mermaid
     gantt
         dateFormat  YYYY-MM-DD
@@ -83,22 +70,21 @@ Omaha, Nebraska, United States
         Legal Administrative Assistant (Boys Town)        :active, m5, 2019-06-01, 3m
     ```
 
-----
+=== "Skills & Expertise"
 
-## Skills & Expertise
+## "Technical Focus"
 
-=== "Technical Focus"
-    ```mermaid
-    flowchart TD
-        A[Software Engineering] --> B[CI/CD Optimization]
-        A --> C[Distributed Systems]
-        B --> D[Git & GitHub]
-        B --> E[Jenkins / GitHub Actions]
-        C --> F[Scalable Architecture]
-        C --> G[Workflow Automation]
-    ```
+```mermaid
+flowchart TD
+    A[Software Engineering] --> B[CI/CD Optimization]
+    A --> C[Distributed Systems]
+    B --> D[Git & GitHub]
+    B --> E[Jenkins / GitHub Actions]
+    C --> F[Scalable Architecture]
+    C --> G[Workflow Automation]
+```
 
-=== "Languages"
+## "Languages"
     - **C#**
     - **SQL**
     - **JavaScript**
@@ -108,7 +94,7 @@ Omaha, Nebraska, United States
     - **Groovy**
     - **Rust**
 
-=== "Frameworks"
+## "Frameworks"
     - **React**
     - **.NET 4.8**
     - **.NET 6+**

@@ -122,6 +122,8 @@ impl DocCli {
         println!("\nCommands:");
         println!("  startup              Start the documentation development environment");
         println!("                       Sets up MkDocs with mike for versioned documentation");
+        println!("    Options:");
+        println!("      --draft-version VERSION   View a specific version not yet deployed to gh-pages");
         println!();
         println!("  bump-version         Bump the documentation version");
         println!("                       Creates a new git tag and optionally deploys it");
@@ -132,10 +134,11 @@ impl DocCli {
         println!("  help, -h, --help     Display this help information");
         println!();
         println!("Examples:");
-        println!("  doc-cli                      # Start interactive menu");
-        println!("  doc-cli startup              # Start development server");
-        println!("  doc-cli bump-version         # Bump the version");
-        println!("  doc-cli deploy               # Deploy all versions");
+        println!("  doc-cli                                  # Start interactive menu");
+        println!("  doc-cli startup                          # Start development server");
+        println!("  doc-cli startup --draft-version 1.2.0    # Start server with draft version 1.2.0");
+        println!("  doc-cli bump-version                     # Bump the version");
+        println!("  doc-cli deploy                           # Deploy all versions");
         
         // Add information about planned features
         println!("\nPlanned Features:");
@@ -157,7 +160,7 @@ impl DocCli {
             // Ensure target directory exists
             std::fs::create_dir_all(self.script_path.join("target/release"))
                 .expect("Failed to create target directory");
-            
+                
             // Use rustc directly instead of cargo
             let status = Command::new("rustc")
                 .current_dir(&self.script_path)
@@ -171,12 +174,52 @@ impl DocCli {
             }
         }
         
-        // Configure interactive I/O
-        let status = Command::new(&binary_path)
-            .stdin(Stdio::inherit())
-            .stdout(Stdio::inherit())
-            .stderr(Stdio::inherit())
-            .status()
+        // Get command line arguments (skip the first two: "doc-cli" and "startup")
+        let mut args = Vec::new();
+        let mut draft_version = None;
+        
+        // Check if draft version was provided
+        if self.args.len() > 2 {
+            let mut i = 2;
+            while i < self.args.len() {
+                if self.args[i] == "--draft-version" && i + 1 < self.args.len() {
+                    draft_version = Some(self.args[i+1].clone());
+                    // Skip both the flag and its value
+                    i += 2;
+                } else {
+                    args.push(self.args[i].clone());
+                    i += 1;
+                }
+            }
+        }
+        
+        // Change to project root for environment setup
+        if let Err(e) = env::set_current_dir(&self.project_root) {
+            eprintln!("Failed to change to project root directory: {}", e);
+            std::process::exit(1);
+        }
+        
+        // Set up command with explicit interactive I/O handling
+        let mut cmd = Command::new(&binary_path);
+        
+        // Add draft version if specified
+        if let Some(version) = draft_version {
+            cmd.args(&["--draft-version", &version]);
+            println!("Using draft version: {}", version);
+        }
+        
+        // Add any other passed arguments
+        if !args.is_empty() {
+            cmd.args(&args);
+        }
+        
+        // Explicitly inherit stdio for interactive use
+        cmd.stdin(Stdio::inherit())
+           .stdout(Stdio::inherit())
+           .stderr(Stdio::inherit());
+        
+        // Run the command and wait for completion
+        let status = cmd.status()
             .expect("Failed to run startup binary");
             
         if !status.success() {

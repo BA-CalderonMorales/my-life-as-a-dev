@@ -5,23 +5,36 @@ use std::process::{Command, Stdio};
 
 // Main entry point
 fn main() {
-    let startup = Startup::new();
+    // Parse command line arguments
+    let args: Vec<String> = env::args().collect();
+    let mut draft_version = None;
+    
+    // Check for --draft-version argument
+    for i in 1..args.len() {
+        if args[i] == "--draft-version" && i + 1 < args.len() {
+            draft_version = Some(args[i + 1].clone());
+            break;
+        }
+    }
+    
+    let startup = Startup::new(draft_version);
     startup.run();
 }
 
 // Startup struct to encapsulate the functionality
 struct Startup {
     project_root: PathBuf,
+    draft_version: Option<String>,
 }
 
 impl Startup {
     // Create a new Startup instance
-    fn new() -> Self {
+    fn new(draft_version: Option<String>) -> Self {
         // Get the project root directory (current directory, since we're running from project root)
         let project_root = env::current_dir().expect("Failed to get current directory");
         println!("Debug - Project root: {}", project_root.display());
         
-        Self { project_root }
+        Self { project_root, draft_version }
     }
 
     // Main execution method
@@ -189,38 +202,34 @@ impl Startup {
         
         self.set_up_mike();
         
-        // Serve all deployed versions locally at root
-        println!("Serving all versions on gh-pages branch at http://localhost:8000");
+        // Determine the mike serve command based on whether we have a draft version
+        let mut cmd_str = String::from("PYTHONPATH=$PYTHONPATH:$(pwd) mike serve --dev-addr=0.0.0.0:8000 --branch gh-pages ");
         
-        // Set PYTHONPATH to include current directory for custom plugins
-        println!("Setting PYTHONPATH to include current directory for custom plugins...");
-        
-        // Prepare a modified environment with PYTHONPATH set
-        let mut cmd_env = env::vars().collect::<Vec<(String, String)>>();
-        let mut has_pythonpath = false;
-        
-        for (key, value) in cmd_env.iter_mut() {
-            if key == "PYTHONPATH" {
-                // Append current dir to existing PYTHONPATH
-                has_pythonpath = true;
-                let current_dir = env::current_dir().expect("Failed to get current directory");
-                *value = format!("{}:{}", value, current_dir.display());
-                println!("Updated PYTHONPATH: {}", value);
-                break;
+        // If draft version is specified, add the necessary arguments
+        if let Some(version) = &self.draft_version {
+            println!("Using draft version: {} (not yet deployed to gh-pages)", version);
+            cmd_str.push_str(&format!("--versions {} ", version));
+            
+            // Build the site first with mkdocs
+            println!("Building draft documentation for version {}...", version);
+            let build_status = Command::new("mkdocs")
+                .args(&["build", "--clean"])
+                .status()
+                .expect("Failed to build site with mkdocs");
+                
+            if !build_status.success() {
+                eprintln!("Error: Failed to build site with mkdocs.");
+                std::process::exit(1);
             }
+            
+            // Add the site directory to serve the current build alongside versioned docs
+            cmd_str.push_str("--theme-dir site ");
+        } else {
+            println!("Serving all versions on gh-pages branch");
         }
         
-        if !has_pythonpath {
-            // Create new PYTHONPATH with current dir
-            let current_dir = env::current_dir().expect("Failed to get current directory");
-            cmd_env.push(("PYTHONPATH".to_string(), current_dir.display().to_string()));
-            println!("Created PYTHONPATH: {}", current_dir.display());
-        }
-        
-        // Using system to execute in background with & and environment variables set
-        let cmd_str = format!(
-            "PYTHONPATH=$PYTHONPATH:$(pwd) mike serve --dev-addr=0.0.0.0:8000 --branch gh-pages &"
-        );
+        // Add background process symbol
+        cmd_str.push('&');
         
         println!("Executing: {}", cmd_str);
         
