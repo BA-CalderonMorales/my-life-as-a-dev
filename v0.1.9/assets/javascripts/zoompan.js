@@ -1,34 +1,15 @@
-let panzoomScrollPosition = 0;
-
-function minimize(instance, box, max, min) {
+function minimize(e, box, max, min) {
   box.classList.remove("panzoom-fullscreen");
   max.classList.remove("panzoom-hidden");
   min.classList.add("panzoom-hidden");
-  panzoom_reset(instance)
-  setTimeout(() => {
-    window.scrollTo(0, panzoomScrollPosition);
-  }, 0);
 }
 
-function maximize(instance, box, max, min) {
-  panzoomScrollPosition =
-    window.pageYOffset || document.documentElement.scrollTop;
-
-  box.classList.add("panzoom-fullscreen");
-  max.classList.add("panzoom-hidden");
-  min.classList.remove("panzoom-hidden");
-}
-
-function escapeFullScreen(e, box, max, min, instance) {
+function escapeFullScreen(e, box, max, min) {
+  // console.log(e,box,);
 
   if (e.keyCode == 27) {
-    minimize(instance, box, max, min);
+    minimize(e, box, max, min);
   }
-}
-
-function panzoom_reset(instance) {
-  instance.moveTo(0, 0);
-  instance.zoomAbs(0, 0, 1);
 }
 
 function add_buttons(box, instance) {
@@ -39,12 +20,12 @@ function add_buttons(box, instance) {
   let info_box = box.querySelector(".panzoom-info-box");
 
   reset.addEventListener("click", function (e) {
-    // instance.moveTo(0, 0);
-    // instance.zoomAbs(0, 0, 1);
-    panzoom_reset(instance);
+    instance.moveTo(0, 0);
+    instance.zoomAbs(0, 0, 1);
   });
   if (info != undefined) {
     info.addEventListener("click", function (e) {
+      // console.log(box);
       if (box.dataset.info == "true") {
         box.dataset.info = false;
         info_box.classList.add("panzoom-hidden");
@@ -56,16 +37,23 @@ function add_buttons(box, instance) {
   }
   if (max != undefined) {
     max.addEventListener("click", function (e) {
-      maximize(instance, box, max, min);
+      //instance.setTransformOrigin({ x: 0.25, y: 0.25 });
+      // box.addEventListener("keydown", escapeFullScreen(e,box,max,min))
+      box.classList.add("panzoom-fullscreen");
+      min.classList.remove("panzoom-hidden");
+      max.classList.add("panzoom-hidden");
+      box.focus();
     });
   }
   if (min != undefined) {
     min.addEventListener("click", function (e) {
-      minimize(instance, box, max, min);
+      box.classList.remove("panzoom-fullscreen");
+      max.classList.remove("panzoom-hidden");
+      min.classList.add("panzoom-hidden");
     });
   }
   box.addEventListener("keydown", function (e) {
-    escapeFullScreen(e, box, max, min, instance);
+    escapeFullScreen(e, box, max, min);
   });
 }
 
@@ -76,6 +64,7 @@ function activate_zoom_pan() {
 
   selectors = JSON.parse(meta_tag.content).selectors;
 
+  // console.log(boxes);
   boxes.forEach((box) => {
     key = box.dataset.key;
 
@@ -87,11 +76,18 @@ function activate_zoom_pan() {
       }
       return true;
     });
+    // elem = box.querySelector(".mermaid");
+
+    // // check if it is an image
+    // if (elem == undefined) {
+    //   elem = box.querySelector("img");
+    // }
 
     if (elem == undefined) {
       return;
     }
 
+    //console.log(elem.nodeName);
     if (
       (elem.nodeName == "DIV" || elem.nodeName == "IMG") &&
       !elem.dataset.zoom
@@ -112,6 +108,7 @@ function activate_zoom_pan() {
           }
         },
         beforeMouseDown: function (e) {
+          // console.log(e);
           switch (key) {
             case "ctrl":
               return !e.ctrlKey && !e.button == 1;
@@ -125,8 +122,10 @@ function activate_zoom_pan() {
         },
         zoomDoubleClickSpeed: 1,
       });
+      // instance.on()
       add_buttons(box, instance);
     }
+    //console.log(elem);
   });
 }
 
@@ -139,6 +138,7 @@ if (pz_theme == "material") {
 
     setTimeout(function () {
       clearInterval(interval);
+      //console.log("Cleared");
     }, 5000);
   });
 } else {
@@ -146,5 +146,6 @@ if (pz_theme == "material") {
 
   setTimeout(function () {
     clearInterval(interval);
+    //console.log("Cleared");
   }, 5000);
 }
