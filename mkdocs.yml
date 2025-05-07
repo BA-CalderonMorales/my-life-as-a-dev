@@ -16,9 +16,11 @@ theme:
 
   features:
     - navigation.instant
+    - navigation.instang.progress
     - navigation.tracking
-    - navigation.expand
     - navigation.indexes
+    - navigation.prune
+    - navigation.footer
     - content.code.copy
     - content.code.annotate
   
