@@ -8,14 +8,14 @@ This page previously demonstrated basic AI-powered content generation features. 
 
 ## Welcome to the AI Playground
 
-The new [AI Playground](./ai-playground/index.md) is your central hub for:
+The new [AI Playground](ai-playground/index.md) is your central hub for:
 
 -   **Repository Exploration**: Get AI-driven insights into code repositories.
 -   **Interactive Scene Creation**: Describe and generate 3D scenes with AI assistance.
 -   **Code Assistance**: Leverage AI to explain, document, or help refactor your code.
 
 <div class="text-center">
-  <a href="./ai-playground/index.md" class="md-button md-button--primary">
+  <a href="ai-playground/index.md" class="md-button md-button--primary">
     Go to the AI Playground
   </a>
 </div>
@@ -36,7 +36,7 @@ The AI Playground is built using:
 2.  Backend services (which you would implement) to securely call OpenAI's API.
 3.  Interactive HTML templates and JavaScript for a dynamic user experience.
 
-We encourage you to explore the [AI Playground](./ai-playground/index.md) to see these features in action!
+We encourage you to explore the [AI Playground](ai-playground/index.md) to see these features in action!
 
 <!-- 
 Old content removed as it's superseded by the AI Playground.
