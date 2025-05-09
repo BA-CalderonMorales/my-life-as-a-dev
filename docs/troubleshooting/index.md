@@ -108,6 +108,41 @@ This page contains solutions to common issues you might encounter when working w
     3. Verify that the gh-pages branch exists and has the correct permissions
     4. If the issue persists, try the manual deployment process described in the first section
 
+    ### Mike Alias Conflict during Deployment
+
+    **Issue**: The GitHub Actions workflow fails during the "Build and deploy with Mike" step with an error similar to:
+    ```
+    error: alias 'latest' already exists for version 'vX.Y.Z'
+    Error: Process completed with exit code 1.
+    ```
+
+    **Cause**: This error occurs when `mike deploy` attempts to assign an alias (commonly `latest`) to a new version, but this alias is already associated with a different, existing version. By default, `mike` does not overwrite existing aliases to prevent accidental changes.
+
+    **Solution**:
+    To resolve this, modify the `mike deploy` command within your GitHub Actions workflow file (typically located at `.github/workflows/github_pages.yml`). Add the `--update-aliases` flag to the command. This flag explicitly permits `mike` to update an existing alias to point to the new version being deployed.
+
+    For example, change:
+    ```yaml
+    mike deploy --push $LATEST_TAG latest
+    ```
+    to:
+    ```yaml
+    mike deploy --push --update-aliases $LATEST_TAG latest
+    ```
+    This ensures that the specified alias (e.g., `latest`) is always updated to reflect the most recently deployed version tag. You can see this in context in the `Build and deploy with Mike` step:
+
+    ```yaml
+    # ...
+          # Check if alias 'latest' already exists for this version
+          if mike list | grep -q "$LATEST_TAG.*latest"; then
+            echo "Alias 'latest' already exists for version $LATEST_TAG, skipping deploy"
+          else
+            # Deploy the latest version with Mike, updating the alias if it exists
+            mike deploy --push --update-aliases $LATEST_TAG latest
+          fi
+    # ...
+    ```
+
 === "Website Display Issues"
 
     ## Missing CSS or JavaScript
