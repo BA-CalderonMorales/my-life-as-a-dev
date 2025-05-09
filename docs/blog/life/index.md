@@ -14,5 +14,5 @@
     - [Cellular Prism](./test_scenes/echo.md)
     - [Colorful Particle Interaction](./test_scenes/foxtrot.md)
     - [Interactive Physics Playground](./test_scenes/golf.md)
-    - [Hotel](./test_scenes/hotel.md) - _Pending Conversion_
-    - [India](./test_scenes/india.md) - _Pending Conversion_
+    - [Kaleidoscopic](./test_scenes/hotel.md)
+    - [Intergalactic](./test_scenes/india.md)
