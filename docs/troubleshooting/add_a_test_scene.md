@@ -8,7 +8,7 @@ For a more automated approach to converting self-contained HTML files to our com
 
 ```bash
 # In your VS Code or GitHub Copilot Chat interface
-@githubcopilot Use the context profile in ai_food/context_profile.json to help me convert my self-contained HTML scene to follow the project's component architecture.
+@githubcopilot Use the context profile in ai_food/add_a_test_scene_profile.json to help me convert my self-contained HTML scene to follow the project's component architecture.
 ```
 
 The context profile defines our project structure and templating patterns, making it easier to:

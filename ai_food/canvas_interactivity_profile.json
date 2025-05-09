@@ -1,0 +1,123 @@
+{
+  "version": "1.0",
+  "name": "Canvas Interactivity Enhancement",
+  "description": "Implementation of touch and mouse interactivity for scene components while preventing scroll propagation",
+  "defaults": {
+    "omitBoilerplatePrompt": true,
+    "strictAvoidHallucinations": true
+  },
+  "interactivity": {
+    "core": {
+      "description": "Core functionality for canvas interactivity includes preventing scroll events from bubbling up to parent window, supporting both touch and mouse input.",
+      "features": [
+        "Prevent default touch actions on canvas",
+        "Stop scroll propagation for touch/mouse events",
+        "Support for passive: false event listeners",
+        "Clean up resources when components are destroyed",
+        "Handle both touch and mouse events in unified way"
+      ]
+    }
+  },
+  "implementations": {
+    "utilityModule": {
+      "path": "docs/assets/js/custom/interactivity-utils.js",
+      "description": "Centralized utility functions for managing interactivity across all scene components",
+      "exports": [
+        "makeCanvasInteractive",
+        "enhanceSceneInteractivity"
+      ],
+      "properUsage": {
+        "makeCanvasInteractive": "MUST provide both container and canvas parameters. Example: interactivityUtils.makeCanvasInteractive(this.container, this.canvas)",
+        "enhanceSceneInteractivity": "Pass only DOM elements (not class instances). Example: interactivityUtils.enhanceSceneInteractivity(this.container)"
+      }
+    },
+    "components": [
+      {
+        "name": "StarsMotionScene",
+        "path": "docs/assets/js/components/dreamscape/dreamscape.js",
+        "description": "Motion-reactive stars and animation scene"
+      },
+      {
+        "name": "DreamscapeProto4",
+        "path": "docs/assets/js/components/dreamscape-proto4/dreamscape-proto4.js",
+        "description": "Particle effects and gesture control visualization"
+      },
+      {
+        "name": "IntergalacticScene",
+        "path": "docs/assets/js/components/intergalactic-scene/intergalactic-scene.js",
+        "description": "Space-themed interactive visualization"
+      },
+      {
+        "name": "ColorParticleArtifact",
+        "path": "docs/assets/js/components/color-particle-artifact/color-particle-artifact.js",
+        "description": "Interactive particle system with color effects"
+      },
+      {
+        "name": "KaleidoscopicScene",
+        "path": "docs/assets/js/components/kaleidoscopic-scene/kaleidoscopic-scene.js",
+        "description": "Kaleidoscope-like patterns with touch interaction"
+      },
+      {
+        "name": "PhysicsPlayground",
+        "path": "docs/assets/js/components/physics-playground/physics-playground.js",
+        "description": "Physics-based interaction scene"
+      }
+    ]
+  },
+  "implementationPattern": {
+    "steps": [
+      "Import interactivity utilities at component top",
+      "Apply passive: false to all relevant event listeners",
+      "Prevent default behavior for scroll events",
+      "Set up proper cleanup handlers",
+      "Test touch interaction on various devices"
+    ],
+    "commonMistakes": [
+      {
+        "error": "Only passing canvas to makeCanvasInteractive",
+        "solution": "Always pass both container and canvas parameters: makeCanvasInteractive(container, canvas)",
+        "details": "The function requires both parameters to properly set up and clean up event listeners"
+      },
+      {
+        "error": "Passing a class instance to enhanceSceneInteractivity",
+        "solution": "Only pass DOM elements: enhanceSceneInteractivity(domElement)",
+        "details": "This function expects an HTMLElement that has a canvas child element"
+      },
+      {
+        "error": "Not cleaning up interactivity handlers",
+        "solution": "Store the cleanup function and call it in disconnectedCallback: if (this.interactivityCleanup) { this.interactivityCleanup.cleanup(); }",
+        "details": "Failing to clean up can cause memory leaks and lingering event handlers"
+      }
+    ]
+  },
+  "testCases": [
+    {
+      "name": "Touch Panning",
+      "description": "Verify touch panning works without scrolling the page"
+    },
+    {
+      "name": "Pinch Zoom",
+      "description": "Verify pinch-to-zoom works without zooming the page"
+    },
+    {
+      "name": "Mouse Drag",
+      "description": "Verify mouse dragging works without scrolling the page"
+    },
+    {
+      "name": "Mouse Wheel",
+      "description": "Verify mouse wheel events are captured by the component"
+    }
+  ],
+  "references": {
+    "documentation": [
+      {
+        "title": "Passive Event Listeners",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scrolling_performance_with_passive_listeners"
+      },
+      {
+        "title": "Touch Events",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Touch_events"
+      }
+    ]
+  }
+}

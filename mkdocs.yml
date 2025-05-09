@@ -98,6 +98,8 @@ extra_javascript:
   - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
   - { "path": "assets/js/custom/initParticles.js", "type": "module" }
   - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
+  - { "path": "assets/js/custom/logger.js", "type": "module" }
+  - { "path": "assets/js/custom/interactivty-utils.js", "type": "module" }
   - { "path": "assets/js/components/dreamscape/dreamscape.js", "type": "module" }
   - { "path": "assets/js/components/dreamscape-proto4/dreamscape-proto4.js", "type": "module" }
   - { "path": "assets/js/components/dreamscape-proto6/dreamscape-proto6.js", "type": "module" }

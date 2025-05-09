@@ -22,7 +22,10 @@ nav:
 
     - Resources: blog/resources/index.md
 
-    - Life: blog/life
+    - Life:
+      - blog/life/index.md
+
+      - Test Scenes: blog/life/test_scenes
 
 
   - Interests: interests/index.md
