@@ -82,8 +82,8 @@ jobs:
           if mike list | grep -q "$LATEST_TAG.*latest"; then
             echo "Alias 'latest' already exists for version $LATEST_TAG, skipping deploy"
           else
-            # Deploy the latest version with Mike
-            mike deploy --push $LATEST_TAG latest
+            # Deploy the latest version with Mike, updating the alias if it exists
+            mike deploy --push --update-aliases $LATEST_TAG latest
           fi
           
           # Set default version AFTER deploy if needed
