@@ -5,9 +5,11 @@
 [![Document Version](https://img.shields.io/badge/docs-latest-blue)](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
 [![OpenAI Integration](https://img.shields.io/badge/AI%20Integration-OpenAI-brightgreen)](https://ba-calderonmorales.github.io/my-life-as-a-dev/ai-demo/)
 
-A better documentation example for everyone to leverage, built with MkDocs and the Material theme.
-
 To see this example in action, visit: https://ba-calderonmorales.github.io/my-life-as-a-dev/
+
+_A better documentation example for everyone to leverage, built with MkDocs and the Material theme._
+
+![image](https://github.com/user-attachments/assets/c0ac59b7-203f-4e78-9dcb-976e6f945304)
 
 If the site is down for any reason, feel free to ping me. It's using GitHub Actions, so don't bet on things being "production grade".
 
