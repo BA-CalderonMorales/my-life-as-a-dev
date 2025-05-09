@@ -2,7 +2,28 @@
 
 > **Disclaimer:** This guide assumes you already have a self-contained HTML file or component that you want to convert to follow the MkDocs pattern used in this project. If you need an example of what a convertible HTML file looks like, check out the [HTML to MkDocs Pattern Conversion Example](./html_to_mkdocs_pattern_example.md) in the troubleshooting section.
 
-This guide walks you through the process of adding a new test scene to the project following the established patterns.
+## Fast Conversion with GitHub Copilot
+
+For a more automated approach to converting self-contained HTML files to our component architecture, you can leverage GitHub Copilot in Agent mode with our context profile:
+
+```bash
+# In your VS Code or GitHub Copilot Chat interface
+@githubcopilot Use the context profile in ai_food/context_profile.json to help me convert my self-contained HTML scene to follow the project's component architecture.
+```
+
+The context profile defines our project structure and templating patterns, making it easier to:
+
+1. Extract components from self-contained HTML
+2. Generate proper file structure
+3. Create component JavaScript files with shadow DOM
+4. Add CSS files in the correct location
+5. Update mkdocs.yml configuration
+
+Using this approach can significantly speed up the conversion process while ensuring consistency with our project's architecture.
+
+## Manual Conversion Process
+
+If you prefer to convert components manually, follow these steps:
 
 ## Overview of Steps
 
