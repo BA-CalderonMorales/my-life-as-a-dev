@@ -207,9 +207,9 @@ Omaha, Nebraska, United States
 
     Are you an AI enthusiast like me? I've been having a blast exploring how AI can be integrated into documentation and in creating interactive tools. 
 
-    To learn more about my journey and what the AI Playground offers, you can start with the [AI Introduction page](./ai-demo.md). It sets the stage for the tools and experiments I've been working on.
+    To learn more about my journey and what the AI Playground offers, you can start with the [AI Introduction page](ai-demo.md). It sets the stage for the tools and experiments I've been working on.
 
-    If you're eager to jump right in and experience it firsthand, head directly to the [AI Playground](./ai-playground/index.md)! This is where the magic happens, and you can find tools like:
+    If you're eager to jump right in and experience it firsthand, head directly to the [AI Playground](ai-playground/index.md)! This is where the magic happens, and you can find tools like:
     
     *   **Repository Explorer**: Get AI-driven insights into code repositories.
     *   **Interactive Scene Creator**: Describe and generate 3D scenes with AI assistance.
