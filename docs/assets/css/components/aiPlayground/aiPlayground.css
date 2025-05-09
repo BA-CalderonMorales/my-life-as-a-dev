@@ -286,3 +286,38 @@ button.primary-action:hover {
     text-align: center;
     padding: 20px;
 }
+
+/* Alert Box Styles */
+.ai-alert {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.ai-alert-title {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.ai-alert p {
+    margin-bottom: 0;
+}
+
+.ai-alert p + p {
+    margin-top: 0.5rem;
+}
+
+/* Info Alert Specifics */
+.ai-alert-info {
+    color: var(--playground-info-text, #75cff0); /* Light blue text */
+    background-color: var(--playground-info-bg, rgba(0, 122, 204, 0.15)); /* Darker blue, slightly transparent */
+    border-color: var(--playground-info-border, #007acc); /* Accent blue border */
+}
+
+.ai-alert-info .ai-alert-title {
+    color: var(--playground-info-title-text, #9cdcfe); /* Brighter blue for title */
+}
