@@ -12,19 +12,16 @@ ignore:
 
 nav:
   - Home: index.md
-
   - AI Demo: ai-demo.md
-
+  - AI Playground: ai-playground/index.md
   - Docs-as-Code: docs-as-code.md
 
   - Blog:
     - blog/index.md
-
     - Resources: blog/resources/index.md
 
     - Life:
       - blog/life/index.md
-
       - Test Scenes: blog/life/test_scenes
 
 
@@ -32,7 +29,6 @@ nav:
 
   - Repositories:
     - repositories/index.md
-
     - Dev Flow Mentor: repositories/dev_flow_mentor/index.md
 
   - Troubleshooting: troubleshooting

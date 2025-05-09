@@ -205,10 +205,15 @@ Omaha, Nebraska, United States
 
 === "AI"
 
-    For the AI Enthusiasts out there...
+    Are you an AI enthusiast like me? I've been having a blast exploring how AI can be integrated into documentation and in creating interactive tools. 
 
-    I've been exploring AI integration with documentation. If you're curious, check out the 
-    [AI Demo](./ai-demo.md) page. It's still a work in progress, but feel free to take a look.
+    To learn more about my journey and what the AI Playground offers, you can start with the [AI Introduction page](./ai-demo.md). It sets the stage for the tools and experiments I've been working on.
 
-    !!! info "Experimenting with AI"
-        You should also check out my blog/life page to see some neat visual experiences I'm working on with o4-mini-high model. I'm basically serving up self-contained html pages from my phone prompting skills and uploading them to my page to share with people/test my prompting skills. Nice way to pass the time.
+    If you're eager to jump right in and experience it firsthand, head directly to the [AI Playground](./ai-playground/index.md)! This is where the magic happens, and you can find tools like:
+    
+    *   **Repository Explorer**: Get AI-driven insights into code repositories.
+    *   **Interactive Scene Creator**: Describe and generate 3D scenes with AI assistance.
+    *   **Code Assistance**: Leverage AI to explain, document, or help refactor your code.
+
+    !!! info "Experimenting with AI & Test Scenes"
+        You'll also find some of my visual experiments and test scenes (often generated with AI assistance) in the [Test Scenes section of my blog](./blog/life/test_scenes/). It's a fun way I explore prompting and share visual concepts.

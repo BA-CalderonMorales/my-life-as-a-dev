@@ -1,0 +1,262 @@
+{
+  "version": "1.6",
+  "defaults": {
+    "initialPrototype": {
+      "format": "self-contained-html",
+      "description": "An interactive AI-powered playground for exploring repositories and generating test scenes",
+      "outputAsFiles": true
+    },
+    "omitBoilerplatePrompt": true,
+    "outputMode": "downloadableFiles",
+    "awaitFeedbackBeforeNextSteps": true,
+    "strictAvoidHallucinations": true,
+    "baselinePrototypeSource": "open-ai-demo.html"
+  },
+  "interaction": {
+    "modeSelection": {
+      "promptChoice": "What would you like to do? (repo-explorer/scene-creator/code-assistant)",
+      "ifRepoExplorer": "initializeRepoExplorer",
+      "ifSceneCreator": "initializeSceneCreator",
+      "ifCodeAssistant": "initializeCodeAssistant"
+    }
+  },
+  "projectLayout": {
+    "aiDemoDir": "docs/ai-playground/",
+    "templatesDir": "docs/assets/templates/",
+    "jsComponentsDir": "docs/assets/js/components/{componentName}/",
+    "cssComponentsDir": "docs/assets/css/components/{componentName}/",
+    "configPath": "mkdocs.yml"
+  },
+  "apiConfiguration": {
+    "keySource": "environment",
+    "variableName": "OPENAI_API_KEY",
+    "defaultModel": "gpt-4",
+    "fallbackModel": "gpt-3.5-turbo",
+    "temperature": 0.7,
+    "securityMeasures": {
+      "clientSideKeyHandling": false,
+      "useProxyEndpoint": true,
+      "rateLimiting": {
+        "enabled": true,
+        "maxRequestsPerMinute": 5
+      }
+    }
+  },
+  "repoExplorerFeature": {
+    "enabled": true,
+    "components": {
+      "repoSelector": {
+        "type": "dropdown",
+        "dataSource": "repository-list.json",
+        "placeholder": "Select a repository to explore"
+      },
+      "insightTypes": {
+        "type": "checkboxGroup",
+        "options": [
+          "Code Structure Analysis",
+          "Documentation Quality Assessment",
+          "Feature Recommendations",
+          "Technology Stack Overview",
+          "Learning Resources"
+        ]
+      },
+      "resultDisplay": {
+        "format": "tabbed-panel",
+        "sections": ["Summary", "Details", "Code Examples", "Recommendations"]
+      }
+    },
+    "aiPrompts": {
+      "repoAnalysis": "Analyze the structure and purpose of the {repoName} repository. Identify key components, technologies used, and provide a high-level overview.",
+      "codeQualityAssessment": "Review the code in {repoName} and provide suggestions for improvements, focusing on {focusArea}.",
+      "learningPathway": "Create a learning pathway for someone who wants to understand and contribute to {repoName}, starting with fundamentals and progressing to advanced topics."
+    }
+  },
+  "sceneCreatorFeature": {
+    "enabled": true,
+    "templates": [
+      {
+        "name": "Basic 3D Scene",
+        "description": "A simple Three.js scene with basic geometry and lighting",
+        "iconClass": "fa-cube"
+      },
+      {
+        "name": "Interactive Animation",
+        "description": "Scene with user-controlled animations and interactive elements",
+        "iconClass": "fa-hand-pointer"
+      },
+      {
+        "name": "Data Visualization",
+        "description": "3D visualization of data with dynamic updates",
+        "iconClass": "fa-chart-bar"
+      },
+      {
+        "name": "Physics Simulation",
+        "description": "Scene with realistic physics behaviors",
+        "iconClass": "fa-atom"
+      },
+      {
+        "name": "Custom Shader",
+        "description": "Advanced visual effects using custom WebGL shaders",
+        "iconClass": "fa-paint-brush"
+      }
+    ],
+    "interface": {
+      "promptInput": {
+        "type": "textarea",
+        "placeholder": "Describe the scene you want to create...",
+        "examplePrompts": [
+          "A floating island with trees and a waterfall",
+          "A solar system with orbiting planets",
+          "A particle system that reacts to music",
+          "A procedural city landscape with day/night cycle"
+        ]
+      },
+      "splitView": {
+        "enabled": true,
+        "leftPanel": "codeEditor",
+        "rightPanel": "livePreview",
+        "resizable": true
+      },
+      "controls": {
+        "generate": "Generate Scene",
+        "refine": "Refine Scene",
+        "save": "Save Scene",
+        "share": "Share Scene"
+      }
+    },
+    "aiPrompts": {
+      "generateScene": "Create a Three.js scene that renders {sceneDescription}. Include detailed code with proper structure, comments, and best practices.",
+      "refineScene": "Improve the following Three.js scene code to {refinementGoal}: {existingCode}",
+      "explainCode": "Explain how the following Three.js code works, highlighting key concepts and techniques: {codeSnippet}"
+    }
+  },
+  "codeAssistantFeature": {
+    "enabled": true,
+    "capabilities": [
+      {
+        "name": "Code Explanation",
+        "description": "Explain what a piece of code does in plain language",
+        "iconClass": "fa-glasses"
+      },
+      {
+        "name": "Documentation Generation",
+        "description": "Create documentation for functions or classes",
+        "iconClass": "fa-file-alt"
+      },
+      {
+        "name": "Code Completion",
+        "description": "Suggest completions for partially written code",
+        "iconClass": "fa-ellipsis-h"
+      },
+      {
+        "name": "Refactoring Suggestions",
+        "description": "Identify and suggest improvements to code",
+        "iconClass": "fa-recycle"
+      },
+      {
+        "name": "Bug Identification",
+        "description": "Find potential bugs or issues in code",
+        "iconClass": "fa-bug"
+      }
+    ],
+    "interface": {
+      "fileExplorer": {
+        "enabled": true,
+        "allowUpload": true,
+        "allowDrag": true
+      },
+      "codeEditor": {
+        "theme": "vs-dark",
+        "features": ["syntax-highlighting", "line-numbers", "code-folding"]
+      },
+      "responsePanel": {
+        "format": "markdown",
+        "actions": ["copy", "insert-at-cursor", "save-as-snippet"]
+      }
+    },
+    "aiPrompts": {
+      "explainCode": "Explain what this code does in simple terms: {codeSnippet}",
+      "generateDocs": "Create comprehensive documentation for this code, including parameters, return values, and examples: {codeSnippet}",
+      "suggestImprovements": "Review this code and suggest improvements for readability, performance, and best practices: {codeSnippet}"
+    }
+  },
+  "userInterface": {
+    "layout": "responsive-grid",
+    "theme": {
+      "primary": "#3454D1",
+      "secondary": "#34D1BF",
+      "background": "#1A1A1A",
+      "text": "#FFFFFF",
+      "accent": "#FFD23F"
+    },
+    "components": {
+      "header": {
+        "title": "AI Playground",
+        "subtitle": "Explore, Create, and Learn with AI Assistance"
+      },
+      "navigation": {
+        "type": "tabs",
+        "items": ["Repository Explorer", "Scene Creator", "Code Assistant"]
+      },
+      "footer": {
+        "credits": "Powered by OpenAI • Created by Brandon A. Calderon Morales",
+        "links": ["GitHub", "API Docs", "Help"]
+      }
+    },
+    "responsiveBehavior": {
+      "breakpoints": {
+        "mobile": "768px",
+        "tablet": "1024px",
+        "desktop": "1280px"
+      }
+    }
+  },
+  "apiEndpoints": {
+    "repoAnalysis": "/api/ai/repo-analysis",
+    "generateScene": "/api/ai/generate-scene",
+    "codeAssistant": "/api/ai/code-assistant"
+  },
+  "securitySettings": {
+    "apiKeyHandling": "server-side-only",
+    "contentFiltering": {
+      "enabled": true,
+      "blockList": ["harmful-content", "sensitive-data", "personal-information"]
+    },
+    "userAuthentication": {
+      "required": false,
+      "provider": "github-oauth"
+    }
+  },
+  "storage": {
+    "saveUserScenes": true,
+    "storageMethod": "localStorage",
+    "exportFormats": ["html", "js", "json"]
+  },
+  "scaffoldCommand": {
+    "triggers": ["ai playground", "init-ai"],
+    "initialAction": ["modeSelection", "generateSelfContainedHtml"],
+    "autoInitialOutput": "self-contained-html",
+    "awaitFeedbackBeforeNextSteps": true,
+    "steps": [
+      "Create docs/ai-playground/index.md",
+      "Create docs/assets/js/components/aiPlayground/aiPlayground.js",
+      "Create docs/assets/css/components/aiPlayground/aiPlayground.css",
+      "Create docs/assets/templates/repo-explorer.html",
+      "Create docs/assets/templates/scene-creator.html",
+      "Create docs/assets/templates/code-assistant.html",
+      "Patch mkdocs.yml: add CSS and JS entries for AI playground"
+    ]
+  },
+  "introductionTemplate": {
+    "title": "# AI Playground",
+    "description": "Welcome to the AI Playground, where you can leverage AI to explore repositories, create interactive 3D scenes, and get assistance with your code. Select a mode to get started!",
+    "securityNote": "Your OpenAI API key is securely handled server-side and never exposed to the client browser. All interactions are rate-limited and content-filtered for safety.",
+    "featuresSection": [
+      "## Features",
+      "- **Repository Explorer**: Get AI-powered insights about your GitHub repositories",
+      "- **Scene Creator**: Generate and preview Three.js 3D scenes using natural language",
+      "- **Code Assistant**: Get help understanding, documenting, and improving your code"
+    ],
+    "usageInstructions": "## How to Use\n\n1. Choose a mode from the tabs above\n2. Follow the specific instructions for each tool\n3. The AI will process your request and provide results in the appropriate format\n\n*Note: Generation may take a few seconds depending on request complexity*"
+  }
+}
