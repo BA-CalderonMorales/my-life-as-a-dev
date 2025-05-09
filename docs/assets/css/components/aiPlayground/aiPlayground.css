@@ -102,14 +102,16 @@
 }
 
 /* Common Form Elements */
-label {
+.ai-playground-container label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
     color: var(--playground-label-text, #bbb);
 }
 
-select, input[type="text"], textarea {
+.ai-playground-container select,
+.ai-playground-container input[type="text"],
+.ai-playground-container textarea {
     width: 100%;
     padding: 0.75rem;
     margin-bottom: 1rem;
@@ -121,7 +123,7 @@ select, input[type="text"], textarea {
     font-size: 0.95em;
 }
 
-textarea {
+.ai-playground-container textarea {
     min-height: 100px;
     resize: vertical;
 }
