@@ -5,14 +5,20 @@
  * combining 2D canvas with THREE.js for the network effect.
  */
 
-// Try to import the logger, but provide a fallback in case it fails
+// Try to import the logger and interactivity utils, but provide fallbacks in case it fails
 let logger;
+let interactivityUtils;
 
 try {
   const module = await import('../../custom/logger.js').catch(() => 
     import('/assets/js/custom/logger.js')
   );
   logger = module.defaultLogger;
+  
+  // Import interactivity utilities
+  interactivityUtils = await import('../../custom/interactivity-utils.js').catch(() => 
+    import('/assets/js/custom/interactivity-utils.js')
+  );
 } catch (err) {
   // Fallback logger if import fails
   logger = {
@@ -23,6 +29,12 @@ try {
     info: console.info.bind(console),
     warn: console.warn.bind(console),
     error: console.error.bind(console)
+  };
+  
+  // Fallback empty interactivity utils
+  interactivityUtils = {
+    makeCanvasInteractive: () => ({ cleanup: () => {} }),
+    enhanceSceneInteractivity: () => null
   };
 }
 
@@ -37,6 +49,7 @@ class ColorParticleArtifact extends HTMLElement {
     `;
     
     // Initialize state
+    this.container = this; // The container is the component itself
     this.canvas = this.querySelector('#particleCanvas');
     this.ctx = this.canvas.getContext('2d');
     this.fpsEl = this.querySelector('#fps');
@@ -61,6 +74,12 @@ class ColorParticleArtifact extends HTMLElement {
     
     // Set up event listeners
     this.setupEventListeners();
+    
+    // Apply interactivity utils if available
+    if (interactivityUtils && interactivityUtils.makeCanvasInteractive) {
+      this.interactivityCleanup = interactivityUtils.makeCanvasInteractive(this.container, this.canvas);
+      console.log('Canvas interactivity applied to Color Particle Artifact');
+    }
     
     // Start animation loop
     this.animate(performance.now());
@@ -104,10 +123,14 @@ class ColorParticleArtifact extends HTMLElement {
       this.logs.push({ t: Date.now(), type: e.type });
     };
     
+    // Note: The interactivity utils will handle the prevention of scroll events,
+    // but we still need to set up our specific interaction handlers
+    
     // Mouse interactions
     this.canvas.addEventListener('mousemove', (e) => {
       log(e);
       this.handleMouseMove(e);
+      // No need to call preventDefault or stopPropagation here as the interactivity utils will handle that
     });
     
     this.canvas.addEventListener('click', (e) => {
@@ -115,17 +138,18 @@ class ColorParticleArtifact extends HTMLElement {
       this.handleClick(e);
     });
     
-    // Touch interactions
+    // Touch interactions - with the interactivity utils in place, we still need these
+    // for our specific particle behavior but not for preventing scrolling
     this.canvas.addEventListener('touchmove', (e) => {
       log(e);
       if (e.touches.length === 1) {
         const touch = e.touches[0];
-        // Convert touch to mousemove-like event
+        // Convert touch to mousemove-like event with correct coordinates
         this.handleMouseMove({
-          offsetX: touch.clientX,
-          offsetY: touch.clientY
+          clientX: touch.clientX,
+          clientY: touch.clientY
         });
-        e.preventDefault();
+        // No need to call preventDefault here as interactivity utils will handle it
       }
     }, { passive: false });
     
@@ -133,10 +157,10 @@ class ColorParticleArtifact extends HTMLElement {
       log(e);
       if (e.touches.length === 1) {
         const touch = e.touches[0];
-        // Convert touch to click-like event
+        // Convert touch to click-like event with correct coordinates
         this.handleClick({
-          offsetX: touch.clientX,
-          offsetY: touch.clientY
+          clientX: touch.clientX,
+          clientY: touch.clientY
         });
       }
     });
@@ -165,11 +189,14 @@ class ColorParticleArtifact extends HTMLElement {
   }
   
   handleMouseMove(e) {
-    const { offsetX, offsetY } = e;
+    // Get canvas-relative coordinates
+    const rect = this.canvas.getBoundingClientRect();
+    const x = (e.clientX !== undefined ? e.clientX : e.offsetX) - rect.left;
+    const y = (e.clientY !== undefined ? e.clientY : e.offsetY) - rect.top;
     
     this.particles.forEach((particle) => {
-      const dx = offsetX - particle.x;
-      const dy = offsetY - particle.y;
+      const dx = x - particle.x;
+      const dy = y - particle.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
       
       if (distance < 100) {
@@ -184,13 +211,16 @@ class ColorParticleArtifact extends HTMLElement {
   }
   
   handleClick(e) {
-    const { offsetX, offsetY } = e;
+    // Get canvas-relative coordinates using the same method as handleMouseMove
+    const rect = this.canvas.getBoundingClientRect();
+    const x = (e.clientX !== undefined ? e.clientX : e.offsetX) - rect.left;
+    const y = (e.clientY !== undefined ? e.clientY : e.offsetY) - rect.top;
     
     // Add particles on click
     for (let i = 0; i < 5; i++) {
       this.particles.push(this.createParticle(
-        offsetX + (Math.random() * 50 - 25),
-        offsetY + (Math.random() * 50 - 25)
+        x + (Math.random() * 50 - 25),
+        y + (Math.random() * 50 - 25)
       ));
     }
     
@@ -334,6 +364,11 @@ class ColorParticleArtifact extends HTMLElement {
   disconnectedCallback() {
     // Clean up event listeners
     window.removeEventListener('resize', this.resize);
+    
+    // Clean up interactivity handlers
+    if (this.interactivityCleanup) {
+      this.interactivityCleanup.cleanup();
+    }
     
     // More cleanup if needed
     this.particles = [];

@@ -2,86 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/ai-demo/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/docs-as-code/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
+    </url>
+    <url>
+         <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/ai-playground/</loc>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/life/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/life/test_scenes/alpha/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/life/test_scenes/bravo/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/life/test_scenes/charlie/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/life/test_scenes/delta/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/life/test_scenes/echo/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/life/test_scenes/foxtrot/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/life/test_scenes/golf/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/life/test_scenes/hotel/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/life/test_scenes/india/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/blog/resources/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/interests/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/repositories/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/repositories/dev_flow_mentor/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/troubleshooting/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/troubleshooting/add_a_test_scene/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
     <url>
          <loc>https://ba-calderonmorales.github.io/my-life-as-a-dev/v0.1.16/troubleshooting/html_to_mkdocs_pattern_example/</loc>
-         <lastmod>2025-05-07</lastmod>
+         <lastmod>2025-05-09</lastmod>
     </url>
 </urlset>
