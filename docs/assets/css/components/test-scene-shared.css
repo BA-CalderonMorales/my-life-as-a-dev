@@ -5,12 +5,86 @@
 
 /* Base styles for the test scene container */
 .test-scene-container {
-  margin: 0;
+  margin: 1rem auto;
   padding: 0;
   overflow: hidden;
-  height: 500px;
-  width: 100%;
+  /* Dynamic height based on viewport size */
+  height: calc(min(70vh, 600px));
+  /* Width that scales but has a maximum size */
+  width: calc(min(100%, 800px));
+  max-width: 100%;
   display: block;
   position: relative;
   background: #000;
+  /* Add rounded corners for better visual separation */
+  border-radius: 8px;
+  /* Add a subtle shadow for depth */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Make sure all canvas elements within the container fit perfectly */
+.test-scene-container canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none; /* Prevent browser's default touch actions */
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+  outline: none; /* Remove outline on focus */
+}
+
+/* Minimal styling for FPS counters that doesn't interfere with functionality */
+.test-scene-container .fps,
+.test-scene-container #fps,
+.test-scene-container .dreamscape-fps {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-family: monospace;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Responsive adjustments for different screen sizes */
+
+/* Large desktop screens */
+@media (min-width: 1200px) {
+  .test-scene-container {
+    height: 45vh; 
+    width: 80%;
+    max-width: 1000px;
+  }
+}
+
+/* Medium desktop screens */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .test-scene-container {
+    height: 40vh;
+    width: 85%;
+  }
+}
+
+/* Tablet screens */
+@media (min-width: 768px) and (max-width: 991px) {
+  .test-scene-container {
+    height: 60vh;
+    width: 90%;
+  }
+}
+
+/* Large mobile screens */
+@media (min-width: 481px) and (max-width: 767px) {
+  .test-scene-container {
+    height: 55vh;
+    width: 95%;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .test-scene-container {
+    height: 55vh;
+    width: 96%;
+    border-radius: 6px;
+    margin: 0.5rem auto;
+  }
 }

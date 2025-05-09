@@ -5,14 +5,20 @@
  * motion gestures, and voice recognition.
  */
 
-// Try to import the logger, but provide a fallback in case it fails
+// Try to import the logger and interactivity utils, but provide fallbacks in case it fails
 let logger;
+let interactivityUtils;
 
 try {
   const module = await import('../../custom/logger.js').catch(() => 
     import('/assets/js/custom/logger.js')
   );
   logger = module.defaultLogger;
+  
+  // Import interactivity utilities
+  interactivityUtils = await import('../../custom/interactivity-utils.js').catch(() => 
+    import('/assets/js/custom/interactivity-utils.js')
+  );
 } catch (err) {
   // Fallback logger if import fails
   logger = {
@@ -23,6 +29,12 @@ try {
     info: console.info.bind(console),
     warn: console.warn.bind(console),
     error: console.error.bind(console)
+  };
+  
+  // Fallback empty interactivity utils
+  interactivityUtils = {
+    makeCanvasInteractive: () => ({ cleanup: () => {} }),
+    enhanceSceneInteractivity: () => null
   };
 }
 
@@ -125,16 +137,30 @@ export class DreamscapeProto4 {
     window.addEventListener('resize', this.resize.bind(this));
 
     // Double-tap → radial burst
-    this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this));
+    this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false });
 
     // Pinch-to-zoom
-    this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this));
-    this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this));
+    this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
+    this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
 
     // Fling physics
-    this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this));
-    this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this));
-    this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this));
+    this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
+    this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+    this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false });
+    
+    // Prevent scroll events on canvas
+    const scrollEvents = ['touchstart', 'touchmove', 'wheel', 'mousewheel', 'DOMMouseScroll'];
+    scrollEvents.forEach(eventName => {
+      this.canvas.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }, { passive: false });
+    });
+    
+    // Apply interactivity utils if available
+    if (interactivityUtils && interactivityUtils.makeCanvasInteractive) {
+      this.interactivityCleanup = interactivityUtils.makeCanvasInteractive(this.container, this.canvas);
+    }
     
     // Additional input logging
     ['touchstart','touchmove','touchend','mousedown','mousemove','mouseup','orientationchange']
@@ -144,6 +170,11 @@ export class DreamscapeProto4 {
     window.addEventListener('beforeunload', () => {
       if (navigator.sendBeacon) {
         navigator.sendBeacon('/log', JSON.stringify(this.viewModel.logs));
+      }
+      
+      // Clean up interactivity handlers if they exist
+      if (this.interactivityCleanup) {
+        this.interactivityCleanup.cleanup();
       }
     });
   }

@@ -5,18 +5,21 @@
  * motion-reactive elements, and gesture controls.
  */
 
-// Try to import the logger, but provide a fallback in case it fails
+// Try to import the logger and interactivity utils, but provide fallbacks in case it fails
 let logger;
+let interactivityUtils;
 
 try {
-
-  const module = await import('../../custom/logger.js').catch(() => 
+  const loggerModule = await import('../../custom/logger.js').catch(() => 
     import('/assets/js/custom/logger.js')
   );
-  logger = module.defaultLogger;
-
+  logger = loggerModule.defaultLogger;
+  
+  // Import interactivity utilities
+  interactivityUtils = await import('../../custom/interactivity-utils.js').catch(() => 
+    import('/assets/js/custom/interactivity-utils.js')
+  );
 } catch (err) {
-
   // Fallback logger if import fails
   logger = {
     setModule: () => {},
@@ -27,7 +30,12 @@ try {
     warn: console.warn.bind(console),
     error: console.error.bind(console)
   };
-
+  
+  // Fallback empty interactivity utils
+  interactivityUtils = {
+    makeCanvasInteractive: () => ({ cleanup: () => {} }),
+    enhanceSceneInteractivity: () => null
+  };
 }
 
 export class StarsMotionScene {
@@ -108,6 +116,11 @@ export class StarsMotionScene {
       this.setupVoiceRecognition();
     }
 
+    // Enhance interactivity using interactivity utils
+    if (interactivityUtils && interactivityUtils.makeCanvasInteractive) {
+      this.interactivityCleanup = interactivityUtils.makeCanvasInteractive(this.container, this.canvas);
+    }
+
     // Start animation loop
     this.lastTime = performance.now();
     this.update(this.lastTime);
@@ -143,9 +156,23 @@ export class StarsMotionScene {
     window.addEventListener('devicemotion', this.handleDeviceMotion.bind(this));
 
     // Touch/mouse handlers
-    this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this));
-    this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this));
-    this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this));
+    this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
+    this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+    this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false });
+    
+    // Prevent default behavior for events that might cause scrolling
+    const scrollEvents = ['touchstart', 'touchmove', 'wheel', 'mousewheel', 'DOMMouseScroll'];
+    scrollEvents.forEach(eventName => {
+      this.canvas.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }, { passive: false });
+    });
+    
+    // Apply interactivity utils if available
+    if (interactivityUtils && interactivityUtils.makeCanvasInteractive) {
+      this.interactivityCleanup = interactivityUtils.makeCanvasInteractive(this.container, this.canvas);
+    }
     
     // Additional input logging
     ['touchstart','touchmove','touchend','mousedown','mousemove','mouseup','orientationchange']
@@ -155,6 +182,11 @@ export class StarsMotionScene {
     window.addEventListener('beforeunload', () => {
       if (navigator.sendBeacon) {
         navigator.sendBeacon('/log', JSON.stringify(this.viewModel.logs));
+      }
+      
+      // Clean up interactivity handlers if they exist
+      if (this.interactivityCleanup) {
+        this.interactivityCleanup.cleanup();
       }
     });
   }
@@ -475,6 +507,9 @@ if (!customElements.get('stars-motion-scene')) {
       // Clean up when element is removed
       if (this.scene?.viewModel?.recognition) {
         this.scene.viewModel.recognition.stop();
+      }
+      if (this.scene?.interactivityCleanup) {
+        this.scene.interactivityCleanup.cleanup();
       }
     }
   });
