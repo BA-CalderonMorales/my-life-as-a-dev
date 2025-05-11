@@ -1,0 +1,99 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "pip" # For Python dependencies via requirements.txt
+    directory: "/" # Location of package manifests (requirements.txt)
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    # Creating an effectively bi-weekly schedule by using groups that alternate weeks
+    groups:
+      group-a:
+        patterns:
+          - "a*"
+          - "b*"
+          - "c*"
+          - "d*"
+          - "e*"
+          - "f*"
+          - "g*"
+          - "h*"
+          - "i*"
+          - "j*"
+          - "k*"
+          - "l*"
+          - "m*"
+        schedule:
+          interval: "weekly"
+          time: "09:00"
+          day: "monday"
+      group-b:
+        patterns:
+          - "n*"
+          - "o*"
+          - "p*"
+          - "q*"
+          - "r*"
+          - "s*"
+          - "t*"
+          - "u*"
+          - "v*"
+          - "w*"
+          - "x*"
+          - "y*"
+          - "z*"
+        schedule:
+          interval: "weekly"
+          time: "09:00"
+          day: "monday"
+          timezone: "America/Los_Angeles"
+    # Ignore rules to prevent breaking changes
+    ignore:
+      # Core MkDocs - foundation of the documentation site
+      - dependency-name: "mkdocs"
+        update-types: ["version-update:semver-major"]
+      
+      # MkDocs Material theme - provides the site appearance
+      - dependency-name: "mkdocs-material"
+        update-types: ["version-update:semver-major"]
+      
+      # MkDocs plugins - extend site functionality
+      - dependency-name: "mkdocs-awesome-nav"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "mkdocs-git-revision-date-localized-plugin"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "mkdocs-git-authors-plugin"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "mkdocs-panzoom-plugin"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "mkdocs-minify-plugin"
+        update-types: ["version-update:semver-major"]
+      
+      # Mike - versioning tool for MkDocs
+      - dependency-name: "mike"
+        update-types: ["version-update:semver-major"]
+      
+      # Markdown extensions
+      - dependency-name: "pymdown-extensions"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "markdown"
+        update-types: ["version-update:semver-major"]
+      
+      # AI-related dependencies
+      - dependency-name: "openai"
+        update-types: ["version-update:semver-major"]
+      
+      # Core dependencies that could affect templates and rendering
+      - dependency-name: "jinja2"
+        update-types: ["version-update:semver-major"]
+      
+      # HTTP and environment handling
+      - dependency-name: "requests"
+        update-types: ["version-update:semver-minor", "version-update:semver-major"]
+      - dependency-name: "python-dotenv"
+        update-types: ["version-update:semver-major"]
