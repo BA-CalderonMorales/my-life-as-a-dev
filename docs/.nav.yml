@@ -12,8 +12,13 @@ ignore:
 
 nav:
   - Home: index.md
-  - AI Demo: ai-demo.md
-  - AI Playground: ai-playground/index.md
+
+  - AI Demo: ai-demo/index.md
+
+  - AI Playground:
+    - Overview: ai-demo/ai-playground/index.md
+    - Playground: ai-demo/ai-playground/playground/index.md
+
   - Docs-as-Code: docs-as-code.md
 
   - Blog:
