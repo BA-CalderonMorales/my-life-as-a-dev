@@ -235,26 +235,7 @@ hide:
       High School Diploma  
       *2009 - 2013*  
 
-=== "Connect"
 
-    ## Connect with Me
-        
-    ### Professional
-    🔹 [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe)  
-    🔹 [email me](mailto:brandon.ceemoe@gmail.com)  
-
-    ### Social
-    🔹 [Substack](https://substack.com/@bmoedude)  
-    🔹 [Blue Sky](https://bsky.app/profile/moe-dude.bsky.social)  
-    🔹 [YouTube](https://www.youtube.com/@brandoncalderon7008)  
-    🔹 [Twitter](https://x.com/BrandonACalder1)  
-
-    ### Technical
-    🔹 [GitHub](https://github.com/BA-CalderonMorales)  
-    🔹 [dockerhub:dev-environment](https://hub.docker.com/r/cmoe640/dev-environment)  
-
-    ### Old school portfolio site
-    🔹 [portfolio.dev](https://brandon-calderon-morales-portfolio.dev)  
 
 ## AI Experiments & Tools
     
@@ -295,30 +276,169 @@ hide:
 <div class="section-divider"></div>
 
 <section class="final-cta" id="connect">
-  <h2>Ready to Connect?</h2>
-  <p>Thanks for visiting my profile! Feel free to explore more of my projects, experiences, and thoughts.</p>
+  <h2>Let's Connect! 🤝</h2>
+  <p>Thanks for visiting my profile! I'm always open to new connections, collaborations, and conversations.</p>
   
-  <div class="cta-container">
-    <a href="https://www.linkedin.com/in/bcalderonmorales-cmoe" class="cta-button" target="_blank">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-        <path fill="currentColor" d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
-      </svg>
-      Connect on LinkedIn
-    </a>
-    <a href="https://github.com/BA-CalderonMorales" class="cta-button" target="_blank">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-        <path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"></path>
-      </svg>
-      View GitHub Projects
-    </a>
-    <a href="mailto:brandon.ceemoe@gmail.com" class="cta-button">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-        <path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
-      </svg>
-      Email Me
-    </a>
+  <div class="social-grid">
+    <!-- Professional -->
+    <div class="social-category">
+      <h3>💼 Professional</h3>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/bcalderonmorales-cmoe" class="social-link linkedin" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+          </svg>
+          LinkedIn
+        </a>
+        <a href="mailto:brandon.ceemoe@gmail.com" class="social-link email">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+          </svg>
+          Email Me
+        </a>
+      </div>
+    </div>
+    
+    <!-- Technical -->
+    <div class="social-category">
+      <h3>🖥️ Technical</h3>
+      <div class="social-links">
+        <a href="https://github.com/BA-CalderonMorales" class="social-link github" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"></path>
+          </svg>
+          GitHub
+        </a>
+        <a href="https://hub.docker.com/r/cmoe640/dev-environment" class="social-link dockerhub" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.185-.186h-2.12a.186.186 0 00-.185.185v1.888c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288z"></path>
+          </svg>
+          DockerHub
+        </a>
+      </div>
+    </div>
+    
+    <!-- Social -->
+    <div class="social-category">
+      <h3>📱 Social</h3>
+      <div class="social-links">
+        <a href="https://www.youtube.com/@brandoncalderon7008" class="social-link youtube" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          YouTube
+        </a>
+        <a href="https://x.com/BrandonACalder1" class="social-link twitter" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          Twitter
+        </a>
+        <a href="https://substack.com/@bmoedude" class="social-link substack" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
+          </svg>
+          Substack
+        </a>
+        <a href="https://bsky.app/profile/moe-dude.bsky.social" class="social-link bluesky" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M12.008 4L4 17.858h15.988L12.008 4zM12 12.5L9.5 17h4.988L12 12.5z"/>
+          </svg>
+          Blue Sky
+        </a>
+      </div>
+    </div>
+    
+    <!-- Portfolio -->
+    <div class="social-category">
+      <h3>🌐 Portfolio</h3>
+      <div class="social-links">
+        <a href="https://brandon-calderon-morales-portfolio.dev" class="social-link portfolio" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2zm-3-7V3.5L18.5 9H13z"/>
+          </svg>
+          Portfolio Site
+        </a>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.social-category {
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(var(--md-primary-fg-color--light-rgb), 0.05);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(var(--md-primary-fg-color--light-rgb), 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-category:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.social-category h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: var(--md-primary-fg-color);
+  border-bottom: 1px solid rgba(var(--md-primary-fg-color--light-rgb), 0.2);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  color: var(--md-typeset-color);
+  transition: background 0.2s ease, transform 0.2s ease;
+  text-decoration: none !important;
+}
+
+.social-link:hover {
+  background: rgba(var(--md-primary-fg-color--light-rgb), 0.1);
+  transform: translateX(3px);
+}
+
+.social-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Social icon colors */
+.social-link.linkedin svg { color: #0077B5; }
+.social-link.github svg { color: #6e5494; }
+.social-link.twitter svg { color: #1DA1F2; }
+.social-link.youtube svg { color: #FF0000; }
+.social-link.substack svg { color: #FF6719; }
+.social-link.dockerhub svg { color: #2496ED; }
+.social-link.email svg { color: #D44638; }
+.social-link.bluesky svg { color: #0085FF; }
+.social-link.portfolio svg { color: #27ae60; }
+
+@media (max-width: 768px) {
+  .social-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 
 <footer class="landing-footer">
   <p>© <span class="copyright-year">2025</span> Brandon A. Calderon Morales</p>
