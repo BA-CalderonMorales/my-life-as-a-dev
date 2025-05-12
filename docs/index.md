@@ -1,8 +1,20 @@
 ---
 hide:
-  - toc
   - navigation
+  - toc
 ---
+
+<style>
+  /* Hide the first H1 in the content area */
+  .md-typeset h1:first-of-type {
+    display: none;
+  }
+
+  .md-source-file {
+    display: none;
+  }
+
+</style>
 
 <div markdown="1" class="home-page">
 
@@ -49,7 +61,7 @@ hide:
 
 <div class="section-divider"></div>
 
-<p class="tagline" id="explore">️🚀I build resilient code with strategic vision.🛠</p>
+<p class="tagline" id="explore">️🚀<em>I build resilient code with strategic vision.</em>🛠</p>
 
 <div class="section-divider"></div>
 
