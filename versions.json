@@ -2,8 +2,8 @@
   "versions": [
     {
       "name": "latest",
-      "version": "1.0.0",
-      "aliases": ["stable", "current"]
+      "version": "0.1.37",
+      "aliases": ["latest"]
     }
   ],
   "current": "latest"
