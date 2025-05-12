@@ -105,9 +105,8 @@ extra_css:
   - assets/css/components/aiPlayground/aiPlayground.css
 
 extra_javascript:
-  - https://cdn.jsdelivr.net/npm/typewriter-effect@2.19.0/dist/typewriter.min.js
-  - https://cdnjs.cloudflare.com/ajax/libs/es-module-shims/1.7.3/es-module-shims.min.js
   - { "path": "assets/js/importmap.js", "defer": true }
+  - { "path": "assets/js/vendor/typewriter.min.js", "type": "module" }
   - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
   - { "path": "assets/js/custom/initParticles.js", "type": "module" }
   - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
