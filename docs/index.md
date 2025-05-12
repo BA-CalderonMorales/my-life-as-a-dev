@@ -27,7 +27,7 @@ hide:
 <h2>Hi, I'm Brandon A. Calderon Morales 👋</h2>
 
 <p class="subtitle">
-    <span class="typewriter-text" data-strings="Product-Minded Software Engineer|DevOps Transformation Specialist|Legacy Code Modernizer|Technical Mentor"></span><br>
+    <span class="typewriter-text" data-strings="Product-Minded Software Engineer|DevOps Transformation Specialist|Aspiring Platform Engineer|Legacy Code Modernizer|Technical Mentor|Full-Stack Software Engineer"></span><br>
     Omaha, Nebraska, United States
 </p>
 

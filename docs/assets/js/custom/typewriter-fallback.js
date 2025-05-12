@@ -37,12 +37,36 @@ const canUseModules = (function() {
   }
   
   function initializeFallback() {
-    // Wait for a reasonable time after page load to check if the main typewriter worked
+    // Listen for typewriter failed event (preferred method)
+    document.addEventListener('typewriter:failed', function() {
+      if (logger.info) {
+        logger.info('Initializing typewriter fallback due to main library failure', 'initializeFallback');
+      } else {
+        console.log('Initializing typewriter fallback due to main library failure');
+      }
+      
+      const fallbackController = new TypewriterFallbackController();
+      fallbackController.initialize();
+    });
+    
+    // Also use a timeout as a safety net
     window.addEventListener('load', function() {
-      setTimeout(function() {
-        const fallbackController = new TypewriterFallbackController();
-        fallbackController.initialize();
-      }, 2000); // Wait 2 seconds to see if main typewriter initializes
+      // Check if Typewriter is available
+      if (!window.Typewriter) {
+        setTimeout(function() {
+          // Double-check after timeout
+          if (!window.Typewriter) {
+            if (logger.info) {
+              logger.info('Initializing typewriter fallback after timeout', 'initializeFallback');
+            } else {
+              console.log('Initializing typewriter fallback after timeout');
+            }
+            
+            const fallbackController = new TypewriterFallbackController();
+            fallbackController.initialize();
+          }
+        }, 3000); // Wait 3 seconds to see if main typewriter initializes
+      }
     });
   }
 

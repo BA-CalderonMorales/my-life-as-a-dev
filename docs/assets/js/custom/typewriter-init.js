@@ -79,7 +79,15 @@ class TypewriterViewModel {
     }
     
     if (!TypewriterLib) {
-      logger.error('Typewriter initialization failed: Typewriter library is not loaded', 'initialize');
+      // Don't log this as an error since we have a fallback mechanism
+      logger.warn('Typewriter library is not loaded, will try fallback', 'initialize');
+      
+      // Listen for the typewriter:loaded event
+      document.addEventListener('typewriter:loaded', () => {
+        // Try initialization again after library is loaded
+        setTimeout(() => this.initialize(element), 100);
+      }, { once: true });
+      
       return false;
     }
 

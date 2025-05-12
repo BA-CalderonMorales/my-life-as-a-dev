@@ -65,6 +65,28 @@
   padding: 1.5rem;
   border-radius: 0 0 8px 8px;
   background-color: var(--md-code-bg-color);
+  max-height: 480px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--md-primary-fg-color--light-rgb), 0.3) transparent;
+}
+
+/* Tab content scrollbar styling */
+.md-typeset .tabbed-set .tabbed-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.md-typeset .tabbed-set .tabbed-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.md-typeset .tabbed-set .tabbed-content::-webkit-scrollbar-thumb {
+  background: rgba(var(--md-primary-fg-color--light-rgb), 0.3);
+  border-radius: 4px;
+}
+
+.md-typeset .tabbed-set .tabbed-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--md-primary-fg-color--light-rgb), 0.6);
 }
 
 /* Tab block styling */
@@ -115,10 +137,49 @@
 @media screen and (max-width: 76.1875em) {
   .md-typeset .tabbed-set .tabbed-content {
     padding: 1rem;
+    max-height: 400px; /* Smaller height on mobile */
   }
   
   .md-typeset .tabbed-set h2 {
     font-size: 1.3rem;
+  }
+  
+  .md-typeset .tabbed-set .tabbed-labels {
+    display: flex;
+    padding: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .md-typeset .tabbed-set .tabbed-labels::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  .md-typeset .tabbed-set .tabbed-labels > label {
+    flex: 0 0 auto;
+    font-size: 0.9rem;
+    padding: 0.7rem 1rem;
+    white-space: nowrap;
+    text-align: center;
+  }
+}
+
+/* Small mobile adjustments */
+@media screen and (max-width: 480px) {
+  .md-typeset .tabbed-set .tabbed-content {
+    max-height: 350px;
+  }
+  
+  .md-typeset .tabbed-set h2 {
+    font-size: 1.2rem;
+  }
+  
+  .md-typeset .tabbed-set .tabbed-labels > label {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -126,5 +187,6 @@
 @media (hover: none) {
   .md-typeset .tabbed-set .tabbed-labels {
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
 }
