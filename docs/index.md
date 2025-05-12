@@ -257,21 +257,21 @@ hide:
       <div class="feature-icon">🤖</div>
       <h3>AI Playground</h3>
       <p>Experiment with interactive AI tools that I've built to enhance creativity and productivity.</p>
-      <a href="./ai-demo/ai-playground/index.md" class="feature-link">Explore the Playground</a>
+      <a href="./ai-demo/ai-playground/playground" class="feature-link">Explore the Playground</a>
     </div>
     
     <div class="feature-card">
       <div class="feature-icon">🧪</div>
       <h3>Visual Experiments</h3>
       <p>Check out my AI-assisted visual scenes and interactive experiments.</p>
-      <a href="./blog/life/test_scenes/" class="feature-link">See Test Scenes</a>
+      <a href="./blog/life/" class="feature-link">See Test Scenes</a>
     </div>
     
     <div class="feature-card">
       <div class="feature-icon">📘</div>
       <h3>AI Journey</h3>
       <p>Learn about how I've been integrating AI into documentation and creative projects.</p>
-      <a href="./ai-demo/index.md" class="feature-link">Read My AI Story</a>
+      <a href="./ai-demo/" class="feature-link">Read My AI Story</a>
     </div>
   </div>
   
