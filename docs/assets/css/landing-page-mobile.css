@@ -65,8 +65,8 @@
   
   /* Smaller profile image on mobile */
   .profile-image {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
   }
 }
 
@@ -82,8 +82,10 @@
   
   /* Better proportion for the profile image */
   .profile-image {
-    width: 100px;
-    height: 100px;
+    width: 160px;
+    height: 160px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   
   /* Optimize feature cards */

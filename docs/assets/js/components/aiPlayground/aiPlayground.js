@@ -92,13 +92,13 @@ class AIPlayground extends HTMLElement {
             if (targetElement) {
                 targetElement.innerHTML = templateHTML;
             } else {
-                console.error(\`Target element \${targetElementId} not found.\`);
+                console.error(`Target element ${targetElementId} not found.`);
             }
         } catch (error) {
-            console.error(\`Error fetching template \${templatePath}:\`, error);
+            console.error(`Error fetching template ${templatePath}:`, error);
             const targetElement = this.shadowRoot.getElementById(targetElementId);
             if (targetElement) {
-                targetElement.innerHTML = \`<p class="error-message">Error loading content. Please try again later.</p>\`;
+                targetElement.innerHTML = `<p class="error-message">Error loading content. Please try again later.</p>`;
             }
         } finally {
             this.isLoading = false;
@@ -164,13 +164,13 @@ class AIPlayground extends HTMLElement {
         if (data.codeExamples && data.codeExamples.length > 0) {
             html += '<h4>Code Examples</h4>';
             data.codeExamples.forEach(ex => {
-                html += \`<pre><code>${ex.code}</code></pre><p>${ex.description}</p>\`;
+                html += `<pre><code>${ex.code}</code></pre><p>${ex.description}</p>`;
             });
         }
         if (data.recommendations && data.recommendations.length > 0) {
             html += '<h4>Recommendations</h4><ul>';
             data.recommendations.forEach(rec => {
-                html += \`<li>${rec}</li>\`;
+                html += `<li>${rec}</li>`;
             });
             html += '</ul>';
         }
@@ -240,11 +240,11 @@ class AIPlayground extends HTMLElement {
                 previewFrame.srcdoc = data.htmlContent; // For self-contained HTML
             } else if (data.jsCode && previewFrame) {
                 // More complex preview setup might be needed if not self-contained
-                const previewContent = \`
+                const previewContent = `
                     <html>
                         <head>
                             <style>body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }</style>
-                            ${ data.cssCode ? \`<style>\${data.cssCode}</style>\` : '' }
+                            ${ data.cssCode ? `<style>${data.cssCode}</style>` : '' }
                         </head>
                         <body>
                             <script type="module">
@@ -252,7 +252,7 @@ class AIPlayground extends HTMLElement {
                             </script>
                         </body>
                     </html>
-                \`;
+                `;
                 previewFrame.srcdoc = previewContent;
             }
             resultsDiv.innerHTML = '<p class="success-message">Scene generated successfully!</p>';
@@ -307,7 +307,7 @@ class AIPlayground extends HTMLElement {
             const data = await response.json(); // Expecting { result: "markdown or text" }
             
             // Render markdown if applicable (using a library or basic conversion)
-            resultsDiv.innerHTML = \`<h3>Assistant Response</h3><div>\${data.result}</div>\`;
+            resultsDiv.innerHTML = `<h3>Assistant Response</h3><div>${data.result}</div>`;
 
         } catch (error) {
             console.error('Code assistant error:', error);

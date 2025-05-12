@@ -44,11 +44,7 @@ const canUseModules = typeof document !== 'undefined' && 'noModule' in HTMLScrip
   class TypewriterCdnModel {
     constructor() {
       this.cdnUrls = [
-        'https://cdn.jsdelivr.net/npm/typewriter-effect@latest/dist/typewriter.min.js',
-        'https://unpkg.com/typewriter-effect@latest/dist/typewriter.min.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/TypewriterJS/2.19.0/typewriter.min.js',
-        'https://cdn.jsdelivr.net/npm/typewriter-effect@2.19.0/dist/typewriter.min.js',
-        'https://unpkg.com/typewriter-effect@2.19.0/dist/typewriter.min.js'
+        '/assets/js/vendor/typewriter.min.js'
       ];
     }
 
@@ -201,11 +197,28 @@ const canUseModules = typeof document !== 'undefined' && 'noModule' in HTMLScrip
       console.log('Loading Typewriter fallback...');
     }
     
-    // Load fallback script
-    const fallbackScript = document.createElement('script');
-    fallbackScript.src = '/assets/js/custom/typewriter-fallback.js';
-    fallbackScript.async = true;
-    document.head.appendChild(fallbackScript);
+    // Create a simple fallback implementation if loading failed
+    if (!window.Typewriter) {
+      window.Typewriter = function(element, options) {
+        const strings = options.strings || [''];
+        if (element) {
+          // Simple non-animated implementation - just show the first string
+          element.textContent = strings[0].split('|')[0];
+          
+          // Add a cursor element
+          const cursor = document.createElement('span');
+          cursor.className = options.cursorClassName || 'Typewriter__cursor';
+          cursor.textContent = options.cursor || '|';
+          element.after(cursor);
+        }
+      };
+      
+      // Signal that we've loaded the fallback
+      const event = new CustomEvent('typewriter:loaded', { 
+        detail: { source: 'fallback' } 
+      });
+      document.dispatchEvent(event);
+    }
   }
   }
 
