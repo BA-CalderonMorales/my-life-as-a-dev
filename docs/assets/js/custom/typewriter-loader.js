@@ -44,9 +44,11 @@ const canUseModules = typeof document !== 'undefined' && 'noModule' in HTMLScrip
   class TypewriterCdnModel {
     constructor() {
       this.cdnUrls = [
+        'https://cdn.jsdelivr.net/npm/typewriter-effect@latest/dist/typewriter.min.js',
+        'https://unpkg.com/typewriter-effect@latest/dist/typewriter.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/TypewriterJS/2.19.0/typewriter.min.js',
         'https://cdn.jsdelivr.net/npm/typewriter-effect@2.19.0/dist/typewriter.min.js',
-        'https://unpkg.com/typewriter-effect@2.19.0/dist/typewriter.min.js',
-        'https://raw.githubusercontent.com/tameemsafi/typewriterjs/master/dist/typewriter.min.js'
+        'https://unpkg.com/typewriter-effect@2.19.0/dist/typewriter.min.js'
       ];
     }
 
@@ -100,12 +102,27 @@ const canUseModules = typeof document !== 'undefined' && 'noModule' in HTMLScrip
         script.src = url;
         script.async = true;
         
+        // Add timeout to prevent hanging
+        const timeout = setTimeout(() => {
+          this.logError(`Timeout loading Typewriter.js from ${url}`);
+          reject(new Error(`Timeout loading script from ${url}`));
+        }, 5000); // 5 second timeout
+        
         script.onload = () => {
+          clearTimeout(timeout);
           this.log(`Typewriter.js loaded successfully from ${url}`);
-          resolve(true);
+          
+          // Additional check to ensure Typewriter is actually available
+          if (window.Typewriter) {
+            resolve(true);
+          } else {
+            this.logError(`Typewriter.js loaded from ${url} but Typewriter object is not available`);
+            reject(new Error(`Typewriter object not available after script load from ${url}`));
+          }
         };
         
         script.onerror = () => {
+          clearTimeout(timeout);
           this.logError(`Failed to load Typewriter.js from ${url}`);
           reject(new Error(`Failed to load script from ${url}`));
         };
@@ -142,16 +159,54 @@ const canUseModules = typeof document !== 'undefined' && 'noModule' in HTMLScrip
       this.viewModel = new TypewriterLoaderViewModel(this.model);
     }
     
-    initialize() {
-      this.viewModel.initialize()
-        .catch(error => {
-          if (logger.error) {
-            logger.error('All attempts to load Typewriter.js failed', 'initialize', error);
+  initialize() {
+    this.viewModel.initialize()
+      .then(success => {
+        if (success && window.Typewriter) {
+          // Signal that Typewriter is ready by dispatching an event
+          const event = new CustomEvent('typewriter:loaded', { 
+            detail: { source: 'CDN' } 
+          });
+          document.dispatchEvent(event);
+          
+          if (logger.info) {
+            logger.info('Typewriter.js loaded and ready', 'initialize');
           } else {
-            console.error('All attempts to load Typewriter.js failed:', error);
+            console.log('Typewriter.js loaded and ready');
           }
+        }
+      })
+      .catch(error => {
+        // Signal that Typewriter failed to load
+        const event = new CustomEvent('typewriter:failed', { 
+          detail: { error: error.message } 
         });
+        document.dispatchEvent(event);
+        
+        if (logger.error) {
+          logger.error('All attempts to load Typewriter.js failed', 'initialize', error);
+        } else {
+          console.error('All attempts to load Typewriter.js failed:', error);
+        }
+        
+        // Load the fallback manually
+        this.loadFallback();
+      });
+  }
+  
+  loadFallback() {
+    if (logger.info) {
+      logger.info('Loading Typewriter fallback...', 'loadFallback');
+    } else {
+      console.log('Loading Typewriter fallback...');
     }
+    
+    // Load fallback script
+    const fallbackScript = document.createElement('script');
+    fallbackScript.src = '/assets/js/custom/typewriter-fallback.js';
+    fallbackScript.async = true;
+    document.head.appendChild(fallbackScript);
+  }
   }
 
 })();
