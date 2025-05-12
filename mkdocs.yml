@@ -92,6 +92,7 @@ extra_css:
   - assets/css/landing-page-scroll.css
   - assets/css/landing-page-headings.css
   - assets/css/landing-page-tabs.css
+  - assets/css/landing-page-cta.css
   - assets/css/components/test-scene-shared.css
   - assets/css/components/dreamscape.css
   - assets/css/components/dreamscape-proto4.css
