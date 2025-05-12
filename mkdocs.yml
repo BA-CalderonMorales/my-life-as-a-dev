@@ -46,6 +46,7 @@ theme:
         name: Switch to dark mode
 
 markdown_extensions:
+  - extra
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.superfences:
@@ -54,10 +55,11 @@ markdown_extensions:
           class: mermaid
   - pymdownx.inlinehilite
   - pymdownx.snippets
+  - pymdownx.extra
   - pymdownx.tabbed:
       alternate_style: true
-  - attr_list
   - md_in_html
+  - attr_list
   - admonition
   - pymdownx.details
 
@@ -82,6 +84,14 @@ plugins:
 
 extra_css:
   - assets/css/custom.css
+  - assets/css/landing-page.css
+  - assets/css/landing-page-extras.css
+  - assets/css/landing-page-bg.css
+  - assets/css/landing-page-mobile.css
+  - assets/css/landing-page-cards.css
+  - assets/css/landing-page-scroll.css
+  - assets/css/landing-page-headings.css
+  - assets/css/landing-page-tabs.css
   - assets/css/components/test-scene-shared.css
   - assets/css/components/dreamscape.css
   - assets/css/components/dreamscape-proto4.css
@@ -94,6 +104,7 @@ extra_css:
   - assets/css/components/aiPlayground/aiPlayground.css
 
 extra_javascript:
+  - https://cdn.jsdelivr.net/npm/typewriter-effect@2.19.0/dist/typewriter.min.js
   - https://cdnjs.cloudflare.com/ajax/libs/es-module-shims/1.7.3/es-module-shims.min.js
   - { "path": "assets/js/importmap.js", "defer": true }
   - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
@@ -101,6 +112,12 @@ extra_javascript:
   - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
   - { "path": "assets/js/custom/logger.js", "type": "module" }
   - { "path": "assets/js/custom/interactivity-utils.js", "type": "module" }
+  - { "path": "assets/js/custom/landingPage.js", "type": "module" }
+  - { "path": "assets/js/custom/typewriter-loader.js", "type": "module" }
+  - { "path": "assets/js/custom/typewriter-init.js", "type": "module" }
+  - { "path": "assets/js/custom/typewriter-fallback.js", "type": "module" }
+  - { "path": "assets/js/custom/scrollEffects.js", "type": "module" }
+  - { "path": "assets/js/custom/networkNodes.js", "type": "module" }
   - { "path": "assets/js/components/dreamscape/dreamscape.js", "type": "module" }
   - { "path": "assets/js/components/dreamscape-proto4/dreamscape-proto4.js", "type": "module" }
   - { "path": "assets/js/components/dreamscape-proto6/dreamscape-proto6.js", "type": "module" }
@@ -111,7 +128,6 @@ extra_javascript:
   - { "path": "assets/js/components/kaleidoscopic-scene/kaleidoscopic-scene.js", "type": "module" }
   - { "path": "assets/js/components/intergalactic-scene/intergalactic-scene.js", "type": "module" }
   - { "path": "assets/js/components/aiPlayground/aiPlayground.js", "type": "module" }
-  - { "path": "assets/js/custom/zoompan.js", "type": "module" }
 
 extra:
   version:

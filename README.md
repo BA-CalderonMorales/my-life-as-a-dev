@@ -234,7 +234,6 @@ my-life-as-a-dev/
 │   ├── .nav.yml           # Navigation configuration - MkDocs Material 
 │   ├── index.md           # Homepage
 │   ├── docs-as-code.md    # Docs-as-Code overview
-│   ├── ai-demo.md         # AI integration overview
 │   ├── assets/            # Images and static files
 │   ├── blog/              # Contains pages relevant to blogs
 │   ├── interests/         # Contains pages relevant to interests

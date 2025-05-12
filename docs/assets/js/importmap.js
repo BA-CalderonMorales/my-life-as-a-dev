@@ -1,4 +1,4 @@
-// Import map for Three.js modules and custom modules
+// Import map for Three.js modules, Typewriter, and custom modules
 (function() {
   // Check if import map already exists to avoid duplicates
   if (document.querySelector('script[type="importmap"]')) {
@@ -10,7 +10,8 @@
   importMap.textContent = JSON.stringify({
     imports: {
       "three": "https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/"
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/",
+      "typewriter": "https://cdn.jsdelivr.net/npm/typewriter-effect@2.19.0/dist/typewriter.min.js"
     }
   });
 
