@@ -1,0 +1,130 @@
+/**
+ * Styles specific for the tabbed sections
+ */
+
+/* Tab labels - header styling */
+.md-typeset .tabbed-set {
+  margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: visible;
+}
+
+/* Tab headers */
+.md-typeset .tabbed-set .tabbed-labels {
+  background-color: var(--md-primary-fg-color--light);
+  border-radius: 8px 8px 0 0;
+  padding: 0.5rem 0.25rem 0 0.25rem;
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Individual tab label styling */
+.md-typeset .tabbed-set .tabbed-labels > label {
+  font-weight: 600;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  padding: 0.8rem 1rem;
+  white-space: nowrap;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+}
+
+/* Hover state for tab labels */
+.md-typeset .tabbed-set .tabbed-labels > label:hover {
+  opacity: 0.9;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Active tab label */
+.md-typeset .tabbed-set input:checked + label,
+.md-typeset .tabbed-set .tabbed-labels > label.tabbed-labels__active {
+  opacity: 1;
+  font-weight: 700;
+  background-color: var(--md-code-bg-color);
+  position: relative;
+}
+
+/* Active tab indicator */
+.md-typeset .tabbed-set input:checked + label::after,
+.md-typeset .tabbed-set .tabbed-labels > label.tabbed-labels__active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--md-primary-fg-color);
+}
+
+/* Tab content area */
+.md-typeset .tabbed-set .tabbed-content {
+  padding: 1.5rem;
+  border-radius: 0 0 8px 8px;
+  background-color: var(--md-code-bg-color);
+}
+
+/* Tab block styling */
+.md-typeset .tabbed-set .tabbed-block {
+  padding: 0;
+  margin: 0;
+}
+
+/* Tab content animations */
+.tabbed-content--active {
+  animation: tabContentFadeIn 0.5s forwards;
+}
+
+/* Sections inside tabs */
+.md-typeset .tabbed-set section {
+  margin: 1rem 0;
+}
+
+/* Headings inside tabs */
+.md-typeset .tabbed-set h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  padding-bottom: 0.5rem;
+}
+
+.md-typeset .tabbed-set h3 {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+/* List items in tabs */
+.md-typeset .tabbed-set ul li,
+.md-typeset .tabbed-set ol li {
+  margin-bottom: 0.5rem;
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .md-typeset .tabbed-set .tabbed-labels {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .tabbed-set .tabbed-content {
+  background-color: var(--md-code-bg-color);
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 76.1875em) {
+  .md-typeset .tabbed-set .tabbed-content {
+    padding: 1rem;
+  }
+  
+  .md-typeset .tabbed-set h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Touch screen scrolling */
+@media (hover: none) {
+  .md-typeset .tabbed-set .tabbed-labels {
+    -webkit-overflow-scrolling: touch;
+  }
+}

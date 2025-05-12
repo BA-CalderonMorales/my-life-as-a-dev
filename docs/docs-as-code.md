@@ -28,7 +28,7 @@ This site leverages several powerful technologies:
 
 We've extended the standard MkDocs capabilities with:
 
-- **[OpenAI Integration](./ai-demo.md)**: AI-assisted content generation
+- **[OpenAI Integration](./ai-demo/index.md)**: AI-assisted content generation
 - **Version Management**: Multiple documentation versions via mike
 - **Custom CLI Tools**: Rust-based utilities for documentation management
 
@@ -40,7 +40,7 @@ Our AI integration plugin provides:
 2. **Code Samples**: Generate relevant code snippets based on natural language descriptions
 3. **Documentation Enhancement**: Improve existing content with AI suggestions
 
-See the [AI Demo](./ai-demo.md) for a live demonstration.
+See the [AI Demo](./ai-demo/index.md) for a live demonstration.
 
 ## Implementation Architecture
 
