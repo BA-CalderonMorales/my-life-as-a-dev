@@ -6,9 +6,24 @@
  * - Model: Data structures for page elements and state
  * - View: DOM elements managed through ViewModel interaction
  * - ViewModel: Business logic connecting models to views
+ * 
+ * This works in coordination with scrollEffects.js which handles parallax and scroll
+ * animations while this focuses on content and UI-specific features.
  */
 
 import { defaultLogger } from './logger.js';
+// We import the scroll effects module but handle the case where it might load after this file
+let scrollEffectsModule = null;
+try {
+  // Dynamic import to avoid circular dependencies
+  import('./scrollEffects.js').then(module => {
+    scrollEffectsModule = module;
+  }).catch(err => {
+    console.error('Error importing scrollEffects.js:', err);
+  });
+} catch (error) {
+  console.error('Error setting up scrollEffects import:', error);
+}
 
 // Initialize module logger
 const logger = defaultLogger.setModule('landingPage');
@@ -75,6 +90,10 @@ class ContentModel {
 
 /**
  * ScrollViewModel - Handles scroll-related logic
+ * 
+ * Note: This class coordinates with scrollEffects.js but has a narrower focus
+ * on scroll indicators and other landing-page specific functionality.
+ * The main scroll animations and parallax effects are handled by scrollEffects.js
  */
 class ScrollViewModel {
   constructor(model) {
@@ -82,19 +101,27 @@ class ScrollViewModel {
   }
 
   initialize() {
-    logger.debug('Initializing scroll functionality', 'initialize');
+    logger.debug('Initializing landing page scroll functionality', 'initialize');
     const { scrollIndicators, scrollProgress } = this.model.initialize();
     
-    // Set up scroll indicators
+    // Set up scroll indicators for quick navigation
     if (scrollIndicators.length > 0) {
       this.setupScrollIndicators(scrollIndicators);
       logger.debug(`${scrollIndicators.length} scroll indicators initialized`, 'initialize');
     }
     
-    // Set up scroll progress tracking
-    if (scrollProgress) {
-      this.setupScrollProgressTracking(scrollProgress);
-      logger.debug('Scroll progress tracking initialized', 'initialize');
+    // We don't need to set up progress tracking here as it's handled by scrollEffects.js
+    // This just ensures the element exists in the DOM for scrollEffects.js to find
+    if (!scrollProgress) {
+      logger.warn('Scroll progress element not found in DOM', 'initialize');
+    }
+    
+    // Add landing-page class to the body if it's not already there
+    // This helps ensure scrollEffects.js will initialize properly
+    if (!document.body.classList.contains('landing-page') && 
+        document.querySelector('.home-page')) {
+      document.body.classList.add('landing-page');
+      logger.debug('Added landing-page class to body element', 'initialize');
     }
   }
 
@@ -118,15 +145,11 @@ class ScrollViewModel {
       });
     });
   }
-
+  
+  // We're leaving this empty as scroll progress is now handled by scrollEffects.js
+  // But we keep the method for compatibility with existing code
   setupScrollProgressTracking(scrollProgressElement) {
-    window.addEventListener('scroll', () => {
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrollPercent = (scrollTop / scrollHeight) * 100;
-      
-      scrollProgressElement.style.width = scrollPercent + '%';
-    });
+    logger.debug('Scroll progress tracking delegated to scrollEffects.js', 'setupScrollProgressTracking');
   }
 }
 
@@ -231,16 +254,36 @@ class LandingPageController {
   initialize() {
     logger.info('Initializing landing page controller', 'initialize');
 
-    // Only run on home page
-    if (!document.querySelector('.md-content__inner.home-page')) {
+    // Check if we're on the home page/landing page
+    const isHomePage = document.querySelector('.md-content__inner.home-page') || 
+                      document.querySelector('.home-page');
+    
+    if (!isHomePage) {
       logger.info('Not on home page, skipping initialization', 'initialize');
       return;
+    }
+    
+    // Mark this as a landing page for other scripts (like scrollEffects.js)
+    if (!document.documentElement.classList.contains('landing-page')) {
+      document.documentElement.classList.add('landing-page');
     }
 
     // Initialize components
     this.scrollViewModel.initialize();
     this.animationViewModel.initialize();
     this.contentViewModel.initialize();
+
+    // If we're on the landing page, ensure scroll effects are triggered
+    try {
+      // Add a small delay to ensure DOM elements are fully rendered
+      setTimeout(() => {
+        // Force scroll event to update progress bar and parallax
+        window.dispatchEvent(new Event('scroll'));
+        logger.debug('Dispatched initial scroll event', 'initialize');
+      }, 200);
+    } catch (error) {
+      logger.error(`Error dispatching initial scroll event: ${error.message}`, 'initialize');
+    }
 
     logger.info('Landing page controller initialized', 'initialize');
   }
