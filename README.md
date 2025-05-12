@@ -1,147 +1,191 @@
-# My Life As A Dev
+<div align="center">
+  <h1>My Life As A Dev</h1>
+  <img src="my-life-as-a-dev-logo.png" alt="My Life As A Dev Logo" width="250">
+  <br><br>
+  <a href="https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions"><img src="https://img.shields.io/github/actions/workflow/status/BA-CalderonMorales/my-life-as-a-dev/github_pages.yml?branch=main&label=build" alt="GitHub Workflow Status"></a>
+  <a href="https://github.com/BA-CalderonMorales/my-life-as-a-dev/blob/main/LICENSE"><img src="https://img.shields.io/github/license/BA-CalderonMorales/my-life-as-a-dev" alt="License"></a>
+  <a href="https://ba-calderonmorales.github.io/my-life-as-a-dev/"><img src="https://img.shields.io/badge/docs-latest-blue" alt="Document Version"></a>
+  <a href="https://ba-calderonmorales.github.io/my-life-as-a-dev/ai-demo/"><img src="https://img.shields.io/badge/AI%20Integration-OpenAI-brightgreen" alt="OpenAI Integration"></a>
+</div>
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/BA-CalderonMorales/my-life-as-a-dev/github_pages.yml?branch=main&label=build)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions)
-[![License](https://img.shields.io/github/license/BA-CalderonMorales/my-life-as-a-dev)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/blob/main/LICENSE)
-[![Document Version](https://img.shields.io/badge/docs-latest-blue)](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
-[![OpenAI Integration](https://img.shields.io/badge/AI%20Integration-OpenAI-brightgreen)](https://ba-calderonmorales.github.io/my-life-as-a-dev/ai-demo/)
+<div align="center">
+  <h3>✨ <i>A better documentation example for everyone to leverage, built with MkDocs and the Material theme.</i> ✨</h3>
+  <a href="https://ba-calderonmorales.github.io/my-life-as-a-dev/" target="_blank">
+    <img src="https://github.com/user-attachments/assets/c0ac59b7-203f-4e78-9dcb-976e6f945304" alt="Example screenshot" width="650">
+    <br>
+    <strong>👆 Click to see the live demo 👆</strong>
+  </a>
+</div>
 
-To see this example in action, visit: https://ba-calderonmorales.github.io/my-life-as-a-dev/
+<br/>
+<div align="center">
+  <em>If the site is down for any reason, feel free to ping me. It's using GitHub Actions + GitHub Pages, so don't bet on things being "production grade".</em>
+</div>
 
-_A better documentation example for everyone to leverage, built with MkDocs and the Material theme._
-
-![image](https://github.com/user-attachments/assets/c0ac59b7-203f-4e78-9dcb-976e6f945304)
-
-If the site is down for any reason, feel free to ping me. It's using GitHub Actions, so don't bet on things being "production grade".
-
+<br/>
 <details>
    <summary><b>⚠️ AI Demo Disclaimer</b></summary>
-   The AI integration feature in this repository is for demonstration purposes. When using the [AI Demo](/ai-demo/), you'll need to provide your own OpenAI API key. Please note that OpenAI API usage incurs costs based on token consumption. This project is not responsible for any charges you may incur while using your API key. Always monitor your usage at [OpenAI's usage dashboard](https://platform.openai.com/usage).
+   <div style="padding: 15px">
+     The AI integration feature in this repository is for demonstration purposes. When using the <a href="/ai-demo/">AI Demo</a>, you'll need to provide your own OpenAI API key. Please note that OpenAI API usage incurs costs based on token consumption. This project is not responsible for any charges you may incur while using your API key. Always monitor your usage at <a href="https://platform.openai.com/usage">OpenAI's usage dashboard</a>.
+   </div>
 </details>
 
-## Getting Started
+## 🚀 Getting Started
 
 <details>
-<summary><b>GitHub Codespaces</b></summary>
+<summary><b>💻 GitHub Codespaces</b></summary>
+<div style="padding: 15px">
+   <p>This repository is configured for GitHub Codespaces, allowing you to start working with the documentation instantly in your browser.</p>
 
-This repository is configured for GitHub Codespaces, allowing you to start working with the documentation instantly in your browser.
+   <ol>
+     <li>Click the green "Code" button on the GitHub repository page</li>
+     <li>Select "Open with Codespaces"</li>
+     <li>Click "New codespace" to launch a new environment</li>
+     <li>Once your Codespace is ready, run the simplified CLI wrapper script:<br/><br/>
+     </li>
 
-1. Click the green "Code" button on the GitHub repository page
-2. Select "Open with Codespaces"
-3. Click "New codespace" to launch a new environment
-4. Once your Codespace is ready, run the simplified CLI wrapper script:
-   ```bash
-   ./doc-cli.sh
-   ```
-   This script will:
-   - Automatically compile all Rust tools to ensure they're up to date
-   - Display an interactive menu to choose which tool to run
-   - Allow you to select "startup" to set up the development environment
+```bash
+./doc-cli.sh startup
+```
+   </ol>
 
-   You can also directly specify which tool to run:
-   ```bash
-   ./doc-cli.sh startup
-   ```
+   <p>This script will:</p>
+   <ul>
+     <li>✅ Automatically compile all Rust tools to ensure they're up to date</li>
+     <li>✅ Display an interactive menu to choose which tool to run</li>
+     <li>✅ Allow you to select "startup" to set up the development environment</li>
+   </ul>
+
+   <p>You can also directly specify which tool to run:</p>
+
+```bash
+./doc-cli.sh startup
+```
+</div>
 </details>
 
 <details>
-<summary><b>Local Development</b></summary>
+<summary><b>🖥️ Local Development</b></summary>
+<div style="padding: 15px">
 
-### Prerequisites
-- Python 3.10 or higher
-- pip (Python package manager)
+   <h3>📋 Prerequisites</h3>
+   <ul>
+     <li>🐍 Python 3.10 or higher</li>
+     <li>📦 pip (Python package manager)</li>
+   </ul>
 
-### Installation
+   <h3>⚙️ Installation</h3>
 
-1. Clone the repository:
+   <ol>
+
+   <li>Clone the repository:</li>     
+
    ```bash
    git clone https://github.com/BA-CalderonMorales/my-life-as-a-dev.git
    cd my-life-as-a-dev
    ```
-
-2. Create and activate a virtual environment (optional but recommended):
+   <li>Create and activate a virtual environment (optional but recommended):</li>
+     
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
-
-3. Install MkDocs and all dependencies:
+   <li>Install MkDocs and all dependencies:</li>
+     
    ```bash
    pip install --upgrade pip
    pip install -r requirements.txt
    ```
-
-4. Install the project in development mode to ensure plugins are available:
+   <li>Install the project in development mode to ensure plugins are available:</li>
+     
    ```bash
    pip install -e .
    ```
+   </ol>
 
-### Building and Serving Locally
+   <h3>🔨 Building and Serving Locally</h3>
 
-- **Start the development server:**
-  ```bash
-  # Ensure PYTHONPATH includes current directory for custom plugins
-  export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs serve
-  
-  # On Windows PowerShell:
-  # $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
-  ```
-  This will launch a local server at http://127.0.0.1:8000/
+   <ul>
 
-- **Build the documentation:**
-  ```bash
-  # Ensure PYTHONPATH includes current directory for custom plugins
-  export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
-  
-  # On Windows PowerShell:
-  # $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs build --verbose
-  ```
-  The static site will be generated in the `site` directory
+   <li><strong>🌐 Start the development server:</strong></li>
+   
+   ```bash
+   # Ensure PYTHONPATH includes current directory for custom plugins
+   export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs serve
 
-- **All-in-one commands:**
-  ```bash
-  # For development server (Linux/macOS):
-  pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs serve
-  
-  # For building (Linux/macOS):
-  pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
-  
-  # For Windows PowerShell:
-  # pip install -e .; $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
-  ```
+   # On Windows PowerShell:
+   # $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
+   ```
 
-### Verifying Plugin Installation
-To verify that the custom plugin is properly installed:
-```bash
-python -c "import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')"
-```
+   <p>This will launch a local server at http://127.0.0.1:8000/</p>
+
+   <li><strong>📦 Build the documentation:</strong></li>
+     
+   ```bash
+   # Ensure PYTHONPATH includes current directory for custom plugins
+   export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
+
+   # On Windows PowerShell:
+   # $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs build --verbose
+   ```
+   <p>The static site will be generated in the <code>site</code> directory</p>
+
+   <li><strong>🔄 All-in-one commands:</strong></li>
+     
+   ```bash
+   # For development server (Linux/macOS):
+   pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs serve
+
+   # For building (Linux/macOS):
+   pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
+
+   # For Windows PowerShell:
+   # pip install -e .; $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
+   ```
+
+   </ul>
+
+   <h3>🔍 Verifying Plugin Installation</h3>
+
+   <p>To verify that the custom plugin is properly installed:</p>
+   
+   ```python
+   python -c "import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')"
+   ```
+
+</div>
+
 </details>
 
-## Project Information
+## 📚 Project Information
 
 <details>
-<summary><b>AI Integration Configuration</b></summary>
+<summary><b>🤖 AI Integration Configuration</b></summary>
+<div style="padding: 15px">
 
-This project includes AI-powered content generation capabilities using OpenAI's API. To use these features, you need to configure your OpenAI API key.
+   <p>This project includes AI-powered content generation capabilities using OpenAI's API. To use these features, you need to configure your OpenAI API key.</p>
 
-### Setting Up Your API Key
+   <h3>🔑 Setting Up Your API Key</h3>
 
-For security reasons, your API key should not be committed to version control. Instead, use one of these methods:
+   <p>For security reasons, your API key should not be committed to version control. Instead, use one of these methods:</p>
 
-#### 1. Using a .env File (Recommended for Local Development)
+   <h4>1️⃣ Using a .env File (Recommended for Local Development)</h4>
 
-Create a `.env` file in the root directory of the project:
+   <p>Create a <code>.env</code> file in the root directory of the project:</p>
 
+   
 ```bash
 # In .env file
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-Make sure to add `.env` to your `.gitignore` file to prevent accidentally committing your API key.
+   <p>Make sure to add <code>.env</code> to your <code>.gitignore</code> file to prevent accidentally committing your API key.</p>
 
-#### 2. Using Environment Variables
+   <h4>2️⃣ Using Environment Variables</h4>
 
-Set the environment variable directly in your terminal:
+   <p>Set the environment variable directly in your terminal:</p>
 
+   
 ```bash
 # For Linux/macOS
 export OPENAI_API_KEY=your_openai_api_key_here
@@ -153,208 +197,285 @@ set OPENAI_API_KEY=your_openai_api_key_here
 $env:OPENAI_API_KEY="your_openai_api_key_here"
 ```
 
-#### 3. Using Browser Storage (Coming Soon)
+   <h4>3️⃣ Using Browser Storage (Coming Soon)</h4>
 
-In future releases, we'll add support for securely storing your API key in your browser's localStorage with encryption.
+   <p>In future releases, we'll add support for securely storing your API key in your browser's localStorage with encryption.</p>
 
-### Verifying Your Configuration
+   <h3>✅ Verifying Your Configuration</h3>
 
-You can verify that your API key is correctly configured by:
+   <p>You can verify that your API key is correctly configured by:</p>
 
-1. Starting the MkDocs development server: `mkdocs serve`
-2. Checking the console logs for a message saying "AI Plugin: API key found in environment variables"
-3. Visiting the [AI Demo page](/ai-demo/) to test the AI features
+   <ol>
+     <li>Starting the MkDocs development server: <code>mkdocs serve</code></li>
+     <li>Checking the console logs for a message saying "AI Plugin: API key found in environment variables"</li>
+     <li>Visiting the <a href="/ai-demo/">AI Demo page</a> to test the AI features</li>
+   </ol>
 
-### Rate Limiting & Token Usage
+   <h3>⚠️ Rate Limiting & Token Usage</h3>
 
-Please be aware that the OpenAI API has rate limits and token usage costs. The AI plugin is designed to be efficient, but be mindful of your API usage.
+   <p>Please be aware that the OpenAI API has rate limits and token usage costs. The AI plugin is designed to be efficient, but be mindful of your API usage.</p>
+</div>
 </details>
 
 <details>
-<summary><b>Project Structure</b></summary>
+<summary><b>📂 Project Structure</b></summary>
+<div style="padding: 15px">
+
+This section outlines the key directories and files in the project to help you navigate and understand its components.
+
+Below is a simplified overview of the project structure:
 
 ```
-mkdocs.yml         # MkDocs configuration file
-docs/
-├── index.md       # Homepage
-└── repositories/  # Repository documentation
-    └── index.md   # Repository index
+my-life-as-a-dev/
+├── mkdocs.yml             # MkDocs configuration file
+├── requirements.txt       # Python dependencies
+├── doc-cli.sh             # CLI wrapper script
+├── docs/                  # Documentation source files
+│   ├── .nav.yml           # Navigation configuration - MkDocs Material 
+│   ├── index.md           # Homepage
+│   ├── docs-as-code.md    # Docs-as-Code overview
+│   ├── ai-demo.md         # AI integration overview
+│   ├── assets/            # Images and static files
+│   ├── blog/              # Contains pages relevant to blogs
+│   ├── interests/         # Contains pages relevant to interests
+│   ├── repositories/      # Contains pages relevant to repositories
+│   ├── ai-demo/           # AI integration demo
+│   ├── overrides/         # MkDocs Material theme overrides
+│   ├── troubleshooting/   # General troubleshooting guide
+├── mkdocs_plugins/        # Custom MkDocs plugins
+│   ├── ai_plugin/         # OpenAI integration plugin
+│   └── version_plugin/    # Documentation versioning plugin
+└── scripts/               # Utility scripts
+    ├── Cargo.toml               # Rust project configuration
+    ├── Cargo.lock               # Rust dependencies lock file
+    ├── doc-cli.rs               # Rust Documentation CLI tool
+    ├── startup.rs               # Startup script for setting up the development environment
+    ├── bump-version.rs          # Version bumping script
+    ├── deploy-all-versions.rs   # Deplyment script for all versions
+
 ```
+
+For the most accurate and up-to-date project structure, please refer to the [GitHub repository](https://github.com/BA-CalderonMorales/my-life-as-a-dev).
+
+</div>
 </details>
 
 <details>
-<summary><b>Documentation Versioning</b></summary>
+<summary><b>📊 Documentation Versioning</b></summary>
+<div style="padding: 15px">
 
-This project uses MkDocs with the mike plugin for versioned documentation. The documentation is automatically deployed to GitHub Pages when changes are pushed to the main branch.
+   <p>This project uses MkDocs with the mike plugin for versioned documentation. The documentation is automatically deployed to GitHub Pages when changes are pushed to the main branch.</p>
 
-### How to Create a New Version
+   <h3>🆕 How to Create a New Version</h3>
 
-To create a new version of the documentation:
+   <p>To create a new version of the documentation:</p>
 
-1. Make sure all your changes are committed and pushed to the main branch.
+   <ol>
 
-2. Run the version bumping script:
+   <li>Make sure all your changes are committed and pushed to the main branch.</li>
+
+   <li>Run the version bumping script:</li>
+     
    ```bash
    ./scripts/bump-version.sh
    ```
 
-3. Select the type of version bump you want to make:
-   - Major (x.0.0): For significant changes
-   - Minor (0.x.0): For new features
-   - Patch (0.0.x): For bug fixes and minor updates
+   <li>Select the type of version bump you want to make:
+      <ul>
+      <li>🔴 <strong>Major (x.0.0)</strong>: For significant changes</li>
+      <li>🟠 <strong>Minor (0.x.0)</strong>: For new features</li>
+      <li>🟢 <strong>Patch (0.0.x)</strong>: For bug fixes and minor updates</li>
+      </ul>
+   </li>
 
-4. Confirm your selection when prompted.
+   <li>Confirm your selection when prompted.</li>
+     <li>The script will:
+       <ul>
+         <li>📌 Create a new Git tag with the version</li>
+         <li>📤 Push the tag to the remote repository</li>
+         <li>🔄 Update the local versions.json file (if it exists)</li>
+       </ul>
+     </li>
+     <li>The GitHub Actions workflow will automatically:
+       <ul>
+         <li>🏗️ Build the documentation with the new version</li>
+         <li>🚀 Deploy it to GitHub Pages</li>
+         <li>🔄 Update version selectors in the documentation</li>
+       </ul>
+     </li>
+   </ol>
 
-5. The script will:
-   - Create a new Git tag with the version
-   - Push the tag to the remote repository
-   - Update the local versions.json file (if it exists)
+   <h3>📚 Available Versions</h3>
 
-6. The GitHub Actions workflow will automatically:
-   - Build the documentation with the new version
-   - Deploy it to GitHub Pages
-   - Update version selectors in the documentation
+   <p>The documentation maintains multiple versions that can be accessed from the version selector in the navigation. This allows users to view documentation for specific releases of the project.</p>
 
-### Available Versions
-
-The documentation maintains multiple versions that can be accessed from the version selector in the navigation. This allows users to view documentation for specific releases of the project.
+</div>
 </details>
 
 <details>
-<summary><b>Testing GitHub Actions Locally</b></summary>
+<summary><b>🧪 Testing GitHub Actions Locally</b></summary>
+<div style="padding: 15px">
 
-This project includes a test workflow that can be run locally using [Act](https://github.com/nektos/act), allowing you to verify the behavior of the GitHub Actions workflow before pushing changes.
+   <p>This project includes a test workflow that can be run locally using <a href="https://github.com/nektos/act">Act</a>, allowing you to verify the behavior of the GitHub Actions workflow before pushing changes.</p>
 
-### Installing Act
+   <h3>📥 Installing Act</h3>
 
-```bash
-# macOS (using Homebrew)
-brew install act
+   
+   ```bash
+   # macOS (using Homebrew)
+   brew install act
 
-# Linux
-curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+   # Linux
+   curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
 
-# Windows (using Chocolatey)
-choco install act-cli
-```
+   # Windows (using Chocolatey)
+   choco install act-cli
+   ```
 
-### Running the Test Workflow
+   <h3>▶️ Running the Test Workflow</h3>
 
-To test the documentation versioning workflow locally:
+   <p>To test the documentation versioning workflow locally:</p>
 
-```bash
-# Run with default parameters
-act -j test_docs -w .github/workflows/test_github_pages.yml
+   ```bash
+   # Run with default parameters
+   act -j test_docs -w .github/workflows/test_github_pages.yml
 
-# Run with a specific version
-act -j test_docs -w .github/workflows/test_github_pages.yml -P version=1.2.3
-```
+   # Run with a specific version
+   act -j test_docs -w .github/workflows/test_github_pages.yml -P version=1.2.3
+   ```
 
-This will simulate the GitHub Actions workflow and show you what would happen during the actual deployment, including:
+   <p>This will simulate the GitHub Actions workflow and show you what would happen during the actual deployment, including:</p>
 
-1. Building the MkDocs site
-2. Running mike commands in dry-run mode
-3. Displaying what versions would be created
+   <ol>
+     <li>🏗️ Building the MkDocs site</li>
+     <li>🔄 Running mike commands in dry-run mode</li>
+     <li>📋 Displaying what versions would be created</li>
+   </ol>
 
-The test workflow is non-destructive and won't push any changes to your repository or deploy actual documentation.
+   <p>The test workflow is non-destructive and won't push any changes to your repository or deploy actual documentation.</p>
+</div>
 </details>
 
 <details>
-<summary><b>Documentation CLI Tool</b></summary>
+<summary><b>🛠️ Documentation CLI Tool</b></summary>
+<div style="padding: 15px">
 
-This project includes a unified command-line tool written in Rust for managing documentation workflows. The tool provides a consistent interface for common tasks related to development, versioning, and deployment.
+   <p>This project includes a unified command-line tool written in Rust for managing documentation workflows. The tool provides a consistent interface for common tasks related to development, versioning, and deployment.</p>
 
-### Using the CLI Tool
+   <h3>⌨️ Using the CLI Tool</h3>
 
-You can run the Documentation CLI tool using:
+   <p>You can run the Documentation CLI tool using:</p>
 
-```bash
-./scripts/target/release/doc-cli
-```
+   <pre><code>./scripts/target/release/doc-cli</code></pre>
 
-Or with a specific command:
+   <p>Or with a specific command:</p>
 
-```bash
-./scripts/target/release/doc-cli [command]
-```
+   <pre><code>./scripts/target/release/doc-cli [command]</code></pre>
 
-### Available Commands
+   <h3>📝 Available Commands</h3>
 
-The tool supports the following commands:
+   <p>The tool supports the following commands:</p>
 
-- **startup**: Start the development environment
-  - Sets up MkDocs with mike for versioned documentation
-  - Installs required dependencies
-  - Starts the documentation server
-  - Example: `doc-cli startup`
+   <ul>
 
-- **bump-version**: Bump the documentation version
-  - Creates a new Git tag with semantic versioning
-  - Offers options to deploy the new version
-  - Can set a version as the "latest" alias
-  - Example: `doc-cli bump-version`
+   <li>
+      <p>🚀 <strong>startup</strong>: Start the development environment</p>
+      <ul>
+      <li>Sets up MkDocs with mike for versioned documentation</li>
+      <li>Installs required dependencies</li>
+      <li>Starts the documentation server</li>
+      <li>Example: <code>doc-cli startup</code></li>
+      </ul>
+   </li>
 
-- **deploy**: Deploy all documentation versions
-  - Deploys all versions from Git tags to GitHub Pages
-  - Avoids redeploying versions that are already present
-  - Supports force-redeployment with the `-f` or `--force` flag
-  - Example: `doc-cli deploy` or `doc-cli deploy --force`
+   <li>
+      <p>📈 <strong>bump-version</strong>: Bump the documentation version</p>
+      <ul>
+      <li>Creates a new Git tag with semantic versioning</li>
+      <li>Offers options to deploy the new version</li>
+      <li>Can set a version as the "latest" alias</li>
+      <li>Example: <code>doc-cli bump-version</code></li>
+      </ul>
+   </li>
 
-- **help**: Show detailed help information
-  - Displays usage information for all commands
-  - Example: `doc-cli help`
+   <li>
+      <p>🚀 <strong>deploy</strong>: Deploy all documentation versions</p>
+      <ul>
+      <li>Deploys all versions from Git tags to GitHub Pages</li>
+      <li>Avoids redeploying versions that are already present</li>
+      <li>Supports force-redeployment with the <code>-f</code> or <code>--force</code> flag</li>
+      <li>Example: <code>doc-cli deploy</code> or <code>doc-cli deploy --force</code></li>
+      </ul>
+   </li>
 
-### Interactive Menu
+   <li>
+      <p>❓ <strong>help</strong>: Show detailed help information</p>
+      <ul>
+      <li>Displays usage information for all commands</li>
+      <li>Example: <code>doc-cli help</code></li>
+      </ul>
+   </li>
 
-Running the tool without any arguments launches an interactive menu where you can select the operation you want to perform.
+</ul>
 
-### Implementation Details
+   <h3>🎮 Interactive Menu</h3>
 
-The CLI tool is written in Rust for performance and reliability. It replaces the original shell scripts with a more robust implementation that follows software engineering best practices:
+   <p>Running the tool without any arguments launches an interactive menu where you can select the operation you want to perform.</p>
 
-- **SOLID principles**: Each command is encapsulated in its own module with a single responsibility
-- **DRY (Don't Repeat Yourself)**: Common functionality is abstracted into reusable components
-- **Error handling**: Comprehensive error handling with informative messages
-- **User experience**: Color-coded output and clear progress indicators
+   <h3>🧰 Implementation Details</h3>
 
-### CLI Wrapper Script
+   <p>The CLI tool is written in Rust for performance and reliability. It replaces the original shell scripts with a more robust implementation that follows software engineering best practices:</p>
 
-For convenience, a wrapper script `doc-cli.sh` is provided. This script simplifies the usage of the CLI tool by:
+   <ul>
+     <li>🧩 <strong>SOLID principles</strong>: Each command is encapsulated in its own module with a single responsibility</li>
+     <li>♻️ <strong>DRY (Don't Repeat Yourself)</strong>: Common functionality is abstracted into reusable components</li>
+     <li>⚠️ <strong>Error handling</strong>: Comprehensive error handling with informative messages</li>
+     <li>✨ <strong>User experience</strong>: Color-coded output and clear progress indicators</li>
+   </ul>
 
-- Automatically compiling all Rust tools to ensure they're up to date
-- Displaying an interactive menu to choose which tool to run
-- Allowing direct execution of specific commands, e.g., `./doc-cli.sh startup`
+   <h3>📜 CLI Wrapper Script</h3>
 
-First, you'll need to make the script executable (this only needs to be done once):
+   <p>For convenience, a wrapper script <code>doc-cli.sh</code> is provided. This script simplifies the usage of the CLI tool by:</p>
 
-```bash
-chmod +x ./doc-cli.sh
-```
+   <ul>
+     <li>🔄 Automatically compiling all Rust tools to ensure they're up to date</li>
+     <li>📋 Displaying an interactive menu to choose which tool to run</li>
+     <li>⚡ Allowing direct execution of specific commands, e.g., <code>./doc-cli.sh startup</code></li>
+   </ul>
 
-Then you can use it as follows:
+   <p>First, you'll need to make the script executable (this only needs to be done once):</p>
 
-```bash
-# Launch interactive menu
+   <pre><code>chmod +x ./doc-cli.sh</code></pre>
+
+   <p>Then you can use it as follows:</p>
+
+   <pre><code># Launch interactive menu
 ./doc-cli.sh
 
 # Run a specific command
-./doc-cli.sh startup
-```
+./doc-cli.sh startup</code></pre>
+</div>
 
 </details>
 
 <details>
-<summary><b>Contributing</b></summary>
+<summary><b>👥 Contributing</b></summary>
+<div style="padding: 15px">
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+   <ol>
+     <li>🍴 Fork the repository</li>
+     <li>🌿 Create your feature branch (<code>git checkout -b feature/amazing-feature</code>)</li>
+     <li>💾 Commit your changes (<code>git commit -m 'Add some amazing feature'</code>)</li>
+     <li>📤 Push to the branch (<code>git push origin feature/amazing-feature</code>)</li>
+     <li>🔄 Open a Pull Request</li>
+   </ol>
+</div>
 </details>
 
 <details>
-<summary><b>License</b></summary>
+<summary><b>📄 License</b></summary>
+<div style="padding: 15px">
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+   <p>This project is licensed under the Apache License 2.0 - see the <a href="LICENSE">LICENSE</a> file for details.</p>
+</div>
 </details>
