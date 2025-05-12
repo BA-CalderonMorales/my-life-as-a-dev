@@ -71,7 +71,7 @@
   padding: 1.5rem;
   border-radius: 0 0 8px 8px;
   background-color: var(--md-code-bg-color);
-  max-height: 480px;
+  max-height: 600px; /* Increased height for better content visibility */
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(var(--md-primary-fg-color--light-rgb), 0.3) transparent;
@@ -143,7 +143,7 @@
 @media screen and (max-width: 76.1875em) {
   .md-typeset .tabbed-set .tabbed-content {
     padding: 1rem;
-    max-height: 400px; /* Smaller height on mobile */
+    max-height: 500px; /* Increased height on mobile, but still smaller than desktop */
   }
   
   .md-typeset .tabbed-set h2 {
@@ -176,7 +176,7 @@
 /* Small mobile adjustments */
 @media screen and (max-width: 480px) {
   .md-typeset .tabbed-set .tabbed-content {
-    max-height: 350px;
+    max-height: 450px; /* Increased height on small mobile devices */
   }
   
   .md-typeset .tabbed-set h2 {

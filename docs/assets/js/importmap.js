@@ -9,7 +9,9 @@
   importMap.type = 'importmap';
   importMap.textContent = JSON.stringify({
     imports: {
+      // Use CDN paths to avoid local file issues
       "three": "https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js",
+      "three/": "https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/",
       "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/",
       "typewriter": "https://cdn.jsdelivr.net/npm/typewriter-effect@2.19.0/dist/typewriter.min.js"
     }
