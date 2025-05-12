@@ -158,16 +158,26 @@ class TabViewModel {
     tabSet.querySelectorAll('input[type="radio"]').forEach(radio => {
       radio.addEventListener('change', () => {
         updateActiveTab();
-        const activeContent = tabSet.querySelector('.tabbed-content > .tabbed-block:nth-of-type(' + (radio.value) + ')');
-        if (activeContent) {
-          contents.forEach(content => {
-            content.classList.remove('tabbed-content--active');
-            content.style.display = 'none';
-          });
-          activeContent.style.display = 'block';
-          setTimeout(() => {
-            activeContent.classList.add('tabbed-content--active');
-          }, 50);
+        
+        try {
+          // Get the index directly from the radio input's position
+          let index = 0;
+          const radios = Array.from(tabSet.querySelectorAll('input[type="radio"]'));
+          index = radios.indexOf(radio) + 1; // 1-based index for nth-of-type
+          
+          const activeContent = tabSet.querySelector(`.tabbed-content > .tabbed-block:nth-of-type(${index})`);
+          if (activeContent) {
+            contents.forEach(content => {
+              content.classList.remove('tabbed-content--active');
+              content.style.display = 'none';
+            });
+            activeContent.style.display = 'block';
+            setTimeout(() => {
+              activeContent.classList.add('tabbed-content--active');
+            }, 50);
+          }
+        } catch (err) {
+          logger.error(`Tab switching error: ${err.message}`, 'setupTabs', err);
         }
       });
     });
