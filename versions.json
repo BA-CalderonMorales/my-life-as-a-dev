@@ -1,0 +1,10 @@
+{
+  "versions": [
+    {
+      "name": "latest",
+      "version": "1.0.0",
+      "aliases": ["stable", "current"]
+    }
+  ],
+  "current": "latest"
+}

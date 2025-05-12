@@ -156,8 +156,11 @@ const canUseModules = typeof document !== 'undefined' && 'noModule' in HTMLScrip
     }
     
   initialize() {
-    this.viewModel.initialize()
-      .then(success => {
+    const result = this.viewModel.initialize();
+    
+    // Check if initialize returns a Promise (backward compatibility)
+    if (result instanceof Promise) {
+      result.then(success => {
         if (success && window.Typewriter) {
           // Signal that Typewriter is ready by dispatching an event
           const event = new CustomEvent('typewriter:loaded', { 
@@ -173,21 +176,35 @@ const canUseModules = typeof document !== 'undefined' && 'noModule' in HTMLScrip
         }
       })
       .catch(error => {
-        // Signal that Typewriter failed to load
-        const event = new CustomEvent('typewriter:failed', { 
-          detail: { error: error.message } 
-        });
-        document.dispatchEvent(event);
-        
-        if (logger.error) {
-          logger.error('All attempts to load Typewriter.js failed', 'initialize', error);
-        } else {
-          console.error('All attempts to load Typewriter.js failed:', error);
-        }
-        
-        // Load the fallback manually
-        this.loadFallback();
+        this.handleLoadError(error);
       });
+    } else if (result === true) {
+      // Already loaded successfully
+      const event = new CustomEvent('typewriter:loaded', { 
+        detail: { source: 'CDN' } 
+      });
+      document.dispatchEvent(event);
+    } else {
+      // Loading failed
+      this.handleLoadError(new Error('Failed to load Typewriter library'));
+    }
+  }
+  
+  handleLoadError(error) {
+    // Signal that Typewriter failed to load
+    const event = new CustomEvent('typewriter:failed', { 
+      detail: { error: error.message } 
+    });
+    document.dispatchEvent(event);
+    
+    if (logger.error) {
+      logger.error('All attempts to load Typewriter.js failed', 'initialize', error);
+    } else {
+      console.error('All attempts to load Typewriter.js failed:', error);
+    }
+    
+    // Load the fallback manually
+    this.loadFallback();
   }
   
   loadFallback() {
