@@ -5,7 +5,12 @@
     !!! info
         Experimenting with some generative AI scene making via various LLMs.
 
-    Nothing super serious, just some fun to pass the time. These are files that were: 1) Originally self-contained HTML files with HTML/CSS/JS in a single file; 2) Converted to use the pattern laid out in [HTML to MkDocs Pattern Example](../../troubleshooting/html_to_mkdocs_pattern_example.md) I made. Going to add more as I see how cool they are.
+    Nothing super serious, just some fun to pass the time. These are files that were:
+    
+    1) Originally self-contained HTML files with HTML/CSS/JS in a single file.<br/>
+    2) Converted to use the pattern laid out in [HTML to MkDocs Pattern Example](../../troubleshooting/html_to_mkdocs_pattern_example.md) I made.<br/>
+    ----
+    Going to add more as I see how cool they are.
 
     - [Stars and Motion](./test_scenes/alpha.md)
     - [Dream Scape](./test_scenes/bravo.md)
