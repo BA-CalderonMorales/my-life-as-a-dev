@@ -4,21 +4,18 @@
 
 ## Tech Articles by Source
 
-=== "Microsoft SWE"
-    Resources from [Sr. SWE at Microsoft](http://linkedin.com/in/fiodar-sazanavets)
+=== "Software Engineering Fundamentals"
+    🔍 Browse engineering practices & methodologies
 
-    <details>
-    <summary>🔍 Show all Microsoft SWE resources</summary>
+    ??? "Resources from [Sr. SWE at Microsoft](http://linkedin.com/in/fiodar-sazanavets)"
 
         🔹 [TDD: How to do it properly and why it's easy](https://www.linkedin.com/pulse/tdd-how-do-properly-why-its-easy-fiodar-sazanavets--sd5cc?utm_source=share&utm_medium=member_ios&utm_campaign=share_via)
 
-    </details>
 
 === ".NET Development"
-    Resources from [Sr. SWE at Borealis](http://linkedin.com/in/kristijankralj)
+    🔍 Explore modern .NET ecosystem tips
 
-    <details>
-    <summary>💻 Show all .NET Development resources</summary>
+    ??? "Resources from [Sr. SWE at Borealis](http://linkedin.com/in/kristijankralj)"
 
         🔹 [Where I host .NET apps in 2025 (top 5 picks)](https://lnkd.in/dHjvd2vV)  
         🔹 [Throwing exceptions kills apps. Here's how to fix that.](https://lnkd.in/dzdXXFnX)  
@@ -28,13 +25,10 @@
         🔹 [Choose your poison: EF Core or Repository Pattern?](https://lnkd.in/djb7KyDd)  
         🔹 [7 powerful LINQ methods you'll wish you knew sooner](https://lnkd.in/dXKw278h)
 
-    </details>
-
 === "Interview & System Design Resources"
-    Resources from [Arpit Adlakha](http://linkedin.com/in/arpit-adlakha-30691a101)
+    🔍 Master technical interviews & architecture
 
-    <details>
-    <summary>🧠 Show all Interview & System Design resources</summary>
+    ??? "Resources from [Arpit Adlakha](http://linkedin.com/in/arpit-adlakha-30691a101)"
 
         🔹 [Tech Interview Handbook by Yangshun Tay (109k stars)](https://lnkd.in/g79Qnp-8)  
         🔹 [System Design Primer by Donne Martin (252k stars)](https://lnkd.in/g89Mtjea)  
@@ -50,13 +44,11 @@
         🔹 [30 seconds of Code (119k stars)](https://lnkd.in/g2MeSvmT)  
         🔹 [System Design Chapter Wise Explained (28k stars)](https://lnkd.in/gtYDU8UD)
 
-    </details>
 
 === "DevOps Blogs"
-    Resources from [DevOps Engineer at DevOps Job Search – Co-Founder](http://linkedin.com/in/tarasowski)
+    🔍 Level up your infrastructure & CI/CD skills
 
-    <details>
-    <summary>⚙️ Show the full list of DevOps resources</summary>
+    ??? "Resources from [DevOps Engineer at DevOps Job Search – Co-Founder](http://linkedin.com/in/tarasowski)"
 
         🔹 [Terraform Project Structure](https://t.co/lKJm0ju673)  
         🔹 [Terraform State](https://t.co/xP0GcHByBm)  
@@ -84,13 +76,11 @@
         🔹 [Lambda Integrations](https://t.co/PRDh5q4Amn)  
         🔹 [Serverless Architecture](https://t.co/pCX9893OIR)
 
-    </details>
 
 === "Company Tech Blogs"
-    Resources from [Sr. Staff SWE at UPS](http://linkedin.com/in/ravindrabhargava)
+    🔍 Discover how industry leaders build at scale
 
-    <details>
-    <summary>🏢 Show all Company Tech resources</summary>
+    ??? "Resources from [Sr. Staff SWE at UPS](http://linkedin.com/in/ravindrabhargava)"
 
         🔹 [Uber Engineering Article](https://lnkd.in/gvga-NEg)  
         🔹 [Figma Engineering Article](https://lnkd.in/gFbvV8Mk)  
@@ -124,5 +114,3 @@
         🔹 [Meta Engineering Article](https://lnkd.in/gc9xnZQ8)  
         🔹 [Grab Tech Article](https://lnkd.in/gfhcUM5y)  
         🔹 [Spotify Engineering Article](https://lnkd.in/gje__jGu)
-
-    </details>
