@@ -35,13 +35,18 @@ hide:
 
 <section class="hero-section" id="hero">
 
-<img src="assets/images/me-today.png" alt="Brandon Calderon Morales" class="profile-image" />
+<video src="assets/images/me-today.mp4" autoplay loop muted playsinline class="profile-image">
+  <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" class="profile-image" />
+</video>
 
 <h2>Hi, I'm Brandon A. Calderon Morales 👋</h2>
 
 <p class="subtitle">
-    <span class="typewriter-text" data-strings="Product-Minded Software Engineer|DevOps Transformation Specialist|Aspiring Platform Engineer|Legacy Code Modernizer|Technical Mentor|Full-Stack Software Engineer"></span><br>
-    Omaha, Nebraska, United States
+    <span class="typewriter-text" data-strings="Product-Minded Software Engineer|DevOps Transformation Specialist|Aspiring Platform Engineer|Legacy Code Modernizer|Technical Mentor|Full-Stack Software Engineer"></span>
+</p>
+
+<p class="subtitle">
+  Omaha, Nebraska, United States
 </p>
 
 <div class="cta-container">
