@@ -6,7 +6,7 @@
 /* Hero section styling */
 .hero-section {
   text-align: center;
-  margin: 3rem 0 4rem;
+  margin: 4rem 0 5rem; /* Increased from 3rem 0 4rem to give more space around the larger image */
   animation: fadeIn 1s ease-in-out;
   position: relative;
 }
@@ -22,6 +22,7 @@
   font-size: 1.25rem;
   margin: 1rem 0 1.5rem;
   opacity: 0.87;
+  min-height: 4.5em; /* Provides enough space for multiline typewriter text */
 }
 
 /* Enhanced typewriter styling */
@@ -34,14 +35,28 @@
   border-radius: 4px;
   position: relative;
   min-height: 1.5em;
-  min-width: 18ch;
+  /* Ensure consistent width to prevent layout jitter */
+  min-width: 30ch;
+}
+
+/* Empty state with custom cursor */
+.typewriter-text.show-cursor-character::before {
+  content: attr(data-cursor);
+  color: var(--md-primary-fg-color);
+  animation: blink 1s step-end infinite;
+}
+
+/* Hide the default cursor when showing our own */
+.typewriter-text.show-cursor-character .Typewriter__cursor {
+  opacity: 0;
 }
 
 .typewriter-text::after {
-  content: '|';
+  content: '';
   position: absolute;
-  left: 50%; /* Position in the center */
-  transform: translateX(-50%); /* Center it exactly */
+  /* Position cursor at end rather than center */
+  left: auto;
+  right: 0.5rem;
   top: 0;
   height: 100%;
   width: 2px;
@@ -49,15 +64,41 @@
   animation: blink 1s step-end infinite;
 }
 
+/* Hide the default typewriter cursor when we use our own */
+.Typewriter__cursor--hidden {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+}
+
 /* Style for Typewriter.js cursor */
 .Typewriter__cursor {
   color: var(--md-primary-fg-color);
   animation: blink 1s step-end infinite;
+  position: relative;
+  top: 0;
+  margin-left: 0;
+  display: inline-block;
+  line-height: inherit;
+  font-weight: normal;
+  /* Ensure the cursor is tall enough to match surrounding text */
+  height: 1em;
+  /* Fix the width to prevent layout shifting */
+  width: 0.5em;
+  overflow: visible;
 }
 
 /* Remove our custom cursor when typewriter is initialized */
 .typewriter-initialized::after {
   display: none;
+}
+
+/* Typewriter wrapper consistency */
+.typewriter-wrapper {
+  display: inline-block;
+  width: 100%;
+  min-height: 1.5em;
+  height: auto;
 }
 
 /* Fallback typewriter styles */
@@ -79,25 +120,31 @@
 
 /* Profile image styling */
 .profile-image {
-  width: 180px;
-  height: 180px;
+  width: 240px;  /* Increased from 180px */
+  height: 240px; /* Increased from 180px */
   border-radius: 50%;
   object-fit: cover;
-  margin: 0 auto .5rem;
+  margin: 0 auto .75rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  border: 3px solid var(--md-primary-fg-color);
+  border: 4px solid var(--md-primary-fg-color); /* Slightly thicker border */
   transition: all 0.3s ease;
   position: relative;
   z-index: 1;
 }
 
+/* Ensure video elements with profile-image class display properly */
+video.profile-image {
+  object-fit: cover;
+  background-color: transparent;
+}
+
 .profile-image::before {
   content: '';
   position: absolute;
-  top: -8px;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
+  top: -10px;  /* Increased from -8px */
+  left: -10px;  /* Increased from -8px */
+  right: -10px;  /* Increased from -8px */
+  bottom: -10px;  /* Increased from -8px */
   border-radius: 50%;
   background: linear-gradient(45deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
   z-index: -1;
@@ -107,8 +154,8 @@
 
 .profile-image:hover {
   transform: scale(1.05) rotate(-5deg);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-  border-width: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); /* Enhanced shadow for larger image */
+  border-width: 5px; /* Increased from 4px for better proportion */
 }
 
 @keyframes rotate {
@@ -249,7 +296,7 @@
 /* Tablet and mobile responsiveness */
 @media screen and (max-width: 76.1875em) {
   .hero-section {
-    margin: 2rem 0 3rem;
+    margin: 3rem 0 4rem; /* Increased from 2rem 0 3rem to match larger profile image */
   }
   
   .hero-section h1 {
@@ -259,8 +306,8 @@
 
 @media screen and (max-width: 600px) {
   .profile-image {
-    width: 150px;
-    height: 150px;
+    width: 180px;  /* Increased from 150px */
+    height: 180px;  /* Increased from 150px */
   }
   
   .hero-section h1 {
@@ -269,6 +316,11 @@
   
   .hero-section p.subtitle {
     font-size: 1.1rem;
+    min-height: 5.5em; /* Adjusted height for mobile */
+  }
+  
+  .typewriter-text {
+    min-width: 20ch; /* Smaller width on mobile */
   }
 }
 

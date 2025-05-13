@@ -20,12 +20,27 @@ const logger = defaultLogger.setModule('typewriter');
 class TypewriterModel {
   constructor(defaultStrings = []) {
     this._defaultStrings = defaultStrings;
+    this._isEmptyState = true;
   }
 
   getStrings(element) {
     return element.getAttribute('data-strings') ? 
            element.getAttribute('data-strings').split('|') : 
            this._defaultStrings;
+  }
+  
+  /**
+   * Check if the typewriter is in an empty state (when we should show the cursor directly)
+   */
+  isEmptyState() {
+    return this._isEmptyState;
+  }
+  
+  /**
+   * Set the empty state of the typewriter
+   */
+  setEmptyState(isEmpty) {
+    this._isEmptyState = isEmpty;
   }
 }
 
@@ -95,20 +110,31 @@ class TypewriterViewModel {
       // Remove any existing content that might interfere with the typewriter
       element.innerHTML = '';
       
+      // Initially mark as empty and set up for cursor display
+      element.classList.add('show-cursor-character');
+      element.setAttribute('data-cursor', '|');
+      
       const strings = this.model.getStrings(element);
       logger.debug(`Typewriter strings: [${strings.join(', ')}]`, 'initialize');
       
-      // Configure custom cursor to match our CSS
+      // Configure custom cursor to match our CSS with optimized options
       const instance = new TypewriterLib(element, {
         strings: strings,
         autoStart: true,
         loop: true,
         delay: 75,
         deleteSpeed: 30,
-        cursor: '|',
-        cursorClassName: 'Typewriter__cursor',
-        wrapperClassName: 'typewriter-wrapper'
+        cursor: '', // We'll manage cursor visibility separately
+        cursorClassName: 'Typewriter__cursor Typewriter__cursor--hidden', // Hide the default cursor
+        wrapperClassName: 'typewriter-wrapper',
+        // Add these options to make the typing smoother and more natural
+        skipAddStyles: false, // Let our CSS handle the styling
+        pauseFor: 1500, // Pause longer between phrases
+        stringSplitter: null // Use default string splitter for better control
       });
+      
+      // Setup observers to track typewrwriter state and show/hide cursor
+      this._setupTypewriterObserver(element, instance);
       
       // Store the instance on the element to access it later if needed
       element.typewriter = instance;
@@ -122,6 +148,50 @@ class TypewriterViewModel {
       logger.error(`Typewriter initialization error: ${error.message}`, 'initialize', error);
       return false;
     }
+  }
+  
+  /**
+   * Setup an observer to monitor changes to the typewriter content
+   * This allows us to show a custom cursor when the text is empty
+   */
+  _setupTypewriterObserver(element, instance) {
+    if (!element) return;
+    
+    // Create mutation observer to watch for changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+          // Check if content is empty (or just whitespace)
+          const textContent = element.textContent.trim();
+          const isEmpty = textContent === '' || textContent === '|';
+          
+          // Update model state
+          this.model.setEmptyState(isEmpty);
+          
+          if (isEmpty) {
+            // If empty, manually add the cursor character
+            if (!element.classList.contains('show-cursor-character')) {
+              element.classList.add('show-cursor-character');
+              element.setAttribute('data-cursor', '|');
+            }
+          } else {
+            // Content exists, remove manual cursor
+            element.classList.remove('show-cursor-character');
+            element.removeAttribute('data-cursor');
+          }
+        }
+      });
+    });
+    
+    // Configure and start the observer
+    observer.observe(element, { 
+      childList: true, 
+      characterData: true, 
+      subtree: true 
+    });
+    
+    // Store observer reference for cleanup
+    element._typewriterObserver = observer;
   }
 }
 
@@ -323,6 +393,10 @@ document.addEventListener('DOMContentLoaded', function() {
           if (window.Typewriter) {
             const element = document.querySelector('.typewriter-text');
             if (element) {
+              // Set initial cursor if empty
+              element.classList.add('show-cursor-character');
+              element.setAttribute('data-cursor', '|');
+              
               const strings = element.getAttribute('data-strings') ? 
                 element.getAttribute('data-strings').split('|') : 
                 ['Product-Minded Software Engineer', 'DevOps Transformation Specialist', 'Legacy Code Modernizer', 'Technical Mentor'];
@@ -332,9 +406,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 autoStart: true,
                 loop: true,
                 delay: 75,
-                deleteSpeed: 30
+                deleteSpeed: 30,
+                cursor: '', // Use our custom cursor implementation
+                cursorClassName: 'Typewriter__cursor Typewriter__cursor--hidden',
               });
               console.log('Typewriter recovery executed');
+              
+              // Setup observer to monitor empty state
+              const observer = new MutationObserver((mutations) => {
+                const isEmpty = element.textContent.trim() === '' || element.textContent.trim() === '|';
+                if (isEmpty) {
+                  element.classList.add('show-cursor-character');
+                  element.setAttribute('data-cursor', '|');
+                } else {
+                  element.classList.remove('show-cursor-character');
+                }
+              });
+              
+              observer.observe(element, { childList: true, characterData: true, subtree: true });
             }
           }
         `;

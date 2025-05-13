@@ -63,10 +63,10 @@
     box-shadow: 0 0 0.2rem rgba(0,0,0,.1), 0 0.2rem 0.4rem rgba(0,0,0,.2);
   }
   
-  /* Smaller profile image on mobile */
+  /* Profile image on tablets */
   .profile-image {
-    width: 140px;
-    height: 140px;
+    width: 200px;  /* Increased from 140px */
+    height: 200px;  /* Increased from 140px */
   }
 }
 
@@ -80,10 +80,10 @@
     font-size: 1.5rem;
   }
   
-  /* Better proportion for the profile image */
+  /* Better proportion for the profile image on small mobile */
   .profile-image {
-    width: 160px;
-    height: 160px;
+    width: 180px;  /* Increased from 160px */
+    height: 180px;  /* Increased from 160px */
     margin-top: 1rem;
     margin-bottom: 1rem;
   }
