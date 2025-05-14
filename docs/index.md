@@ -4,7 +4,7 @@ hide:
   - toc
 ---
 
-<style>
+<style>  
   /* Hide the first H1 in the content area */
   .md-typeset h1:first-of-type {
     display: none;
@@ -35,21 +35,48 @@ hide:
 
 <section class="hero-section" id="hero">
 
-<video src="assets/images/me-today.mp4" autoplay loop muted playsinline class="profile-image">
-  <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" class="profile-image" />
-</video>
+  <div class="profile-section">
 
-<h2>Hi, I'm Brandon A. Calderon Morales 👋</h2>
+  <video src="assets/images/me-today.mp4" autoplay loop muted playsinline class="profile-image">
+    <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" class="profile-image" />
+  </video>
 
-<p class="subtitle">
-    <span class="typewriter-text" data-strings="Product-Minded Software Engineer|DevOps Transformation Specialist|Aspiring Platform Engineer|Legacy Code Modernizer|Technical Mentor|Full-Stack Software Engineer"></span>
-</p>
+  </div>
 
-<p class="subtitle">
-  Omaha, Nebraska, United States
-</p>
+  <div class="scroll-indicator" data-target="intro">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+    </svg>
+  </div>
 
-<div class="cta-container">
+
+</section>
+
+<div class="scroll-progress"></div> <!-- hero section end -->
+
+<section class="intro-section" id="intro">
+
+  <div class="intro-section">
+
+  <h2>Hi, I'm Brandon A. Calderon Morales 👋</h2>
+
+  <p class="subtitle">
+      <span class="typewriter-text" data-strings="Product-Minded Software Engineer|DevOps Transformation Specialist|Aspiring Platform Engineer|Legacy Code Modernizer|Technical Mentor|Full-Stack Software Engineer"></span>
+  </p>
+
+  <p class="subtitle">
+    Omaha, Nebraska, United States
+  </p>
+
+  </div>
+
+</section>
+
+<div class="section-divider"></div> <!-- intro section end -->
+
+<div class="cta-section">
+
+  <div class="cta-container">
 
   <a class="cta-button" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=bcalderonmorales-cmoe" target="_blank">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -65,29 +92,23 @@ hide:
       Explore My Profile
   </a>
 
-</div>
-
-<div class="scroll-indicator" data-target="explore">
-
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-    <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
-  </svg>
+  </div>
 
 </div>
-
-</section>
-
-<div class="section-divider"></div>
 
 <p class="tagline" id="explore">️🚀<em>I build resilient code with strategic vision.</em>🛠</p>
 
-<div class="section-divider"></div>
+</section>
 
-<section class="tabbed-experience" id="tabs"></section>
+<div class="section-divider"></div> <!-- cta section end -->
+
+<section class="tabbed-experience" id="tabs">
 
 <h2 class="section-title">Discover More About Me</h2>
 
 <p class="section-subtitle">Explore different aspects of my professional journey and personal interests</p>
+
+</section>
 
 </div>
 
@@ -265,10 +286,8 @@ hide:
       High School Diploma  
       *2009 - 2013*  
 
-
-
-## AI Experiments & Tools
-    
+<div class="home-page">
+ 
 <div class="featured-section ai-section">
   <div class="feature-cards">
     <div class="feature-card">
@@ -371,7 +390,10 @@ hide:
       DockerHub
     </a>
   </div>
+
 </section>
+
+</div>
 
 <footer class="landing-footer">
   <p>© <span class="copyright-year">2025</span> Brandon A. Calderon Morales</p>

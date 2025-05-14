@@ -11,8 +11,30 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100%/* Enhanced profile image with better hover effect */
+.profile-image {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 3px solid var(--md-primary-fg-color);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.profile-image:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Fixed height typewriter container to prevent layout shifts */
+.typewriter-text {
+  display: inline-block;
+  min-height: 1.6em;
+  min-width: 30ch;
+}
   z-index: -1;
   pointer-events: none;
   opacity: 0.75; /* Adjust transparency */
@@ -90,7 +112,7 @@
   transform: translateX(-50%);
   cursor: pointer;
   animation: bounce 2s infinite;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.8s ease;
   padding: 0.5rem;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
@@ -231,12 +253,16 @@ html.js-enabled {
   width: 100%;
 }
 
-/* Enhanced hero section with depth effect */
+/* Enhanced hero section with distinct visual sections */
 .hero-section {
   position: relative;
   overflow: hidden;
   margin: 4rem 0 5rem;
   padding: 2rem 1rem;
+  min-height: calc(100vh - 64px); /* Full viewport height minus header */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .hero-section::before {
@@ -253,6 +279,29 @@ html.js-enabled {
   );
   z-index: -1;
   pointer-events: none;
+}
+
+/* Create distinct vertical sections */
+.hero-section .profile-section {
+  margin-bottom: 2rem;
+}
+
+.hero-section .intro-section {
+  margin-bottom: 2.5rem;
+}
+
+.hero-section .cta-section {
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CTA section becomes partially transparent when scrolled past the threshold but still in view */
+.hero-section .cta-section.scrolled {
+  opacity: 0.95;
+  transform: translateY(-10px) scale(0.98);
 }
 
 /* Enhanced profile image with better hover effect */
@@ -288,6 +337,32 @@ html.js-enabled {
   margin: 0.5rem;
   position: relative;
   overflow: hidden;
+  z-index: 10;
+}
+
+/* CTA container styling for better visual grouping */
+.cta-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1.5rem 0;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(4px);
+  position: relative;
+}
+
+/* Add a subtle highlight effect behind the CTA buttons */
+.cta-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--md-primary-fg-color--rgb), 0.05);
+  border-radius: 0.5rem;
+  z-index: -1;
 }
 
 .cta-button::before {
