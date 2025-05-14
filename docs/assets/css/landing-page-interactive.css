@@ -1,0 +1,385 @@
+/**
+ * Enhanced interactive elements for the landing page
+ * - Smooth scrolling effects
+ * - Reveal animations
+ * - THREE.js background styling
+ * - Mobile optimizations
+ */
+
+/* THREE.js background container */
+#three-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.75; /* Adjust transparency */
+  transition: opacity 0.5s ease;
+}
+
+/* Adjust opacity based on color scheme */
+[data-md-color-scheme="default"] #three-background {
+  opacity: 0.6; /* More transparent in light mode */
+}
+
+[data-md-color-scheme="slate"] #three-background {
+  opacity: 0.75; /* More visible in dark mode */
+}
+
+/* Enhanced scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(
+    to right, 
+    var(--md-primary-fg-color),
+    var(--md-accent-fg-color)
+  );
+  width: 0%;
+  transition: width 0.2s;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(var(--md-primary-fg-color--rgb), 0.5);
+}
+
+/* Scroll to top button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.scroll-to-top.visible {
+  opacity: 0.8;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+.scroll-to-top svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Enhanced scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  animation: bounce 2s infinite;
+  transition: opacity 0.5s ease;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  z-index: 2;
+}
+
+.scroll-indicator.faded {
+  opacity: 0;
+}
+
+.scroll-indicator svg {
+  width: 2rem;
+  height: 2rem;
+  fill: var(--md-primary-fg-color);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+/* Enhanced section transitions and animations */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-element.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Apply different animations to different element types */
+.section-title.reveal-element {
+  transform: translateY(30px);
+  transition-delay: 0.1s;
+}
+
+.section-subtitle.reveal-element {
+  transform: translateY(20px);
+  transition-delay: 0.2s;
+}
+
+.tagline.reveal-element {
+  transform: translateY(15px);
+  transition-delay: 0.05s;
+}
+
+.feature-card.reveal-element {
+  transform: translateY(25px) scale(0.95);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.feature-card.reveal-element.revealed {
+  transform: translateY(0) scale(1);
+}
+
+/* Apply staggered animations to feature cards */
+.feature-cards .feature-card:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.feature-cards .feature-card:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.feature-cards .feature-card:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+/* Enhanced section dividers with animated gradient */
+.section-divider {
+  height: 1px;
+  width: 100%;
+  margin: 3rem 0;
+  background: linear-gradient(to right, transparent, var(--md-primary-fg-color), transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(var(--md-primary-fg-color--rgb), 0.8),
+    transparent
+  );
+  animation: shimmer 3s infinite;
+  opacity: 0.7;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+/* Better smooth scroll behavior */
+html.js-enabled {
+  scroll-behavior: auto !important; /* Override default for custom implementation */
+}
+
+.smooth-scroll-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.smooth-scroll-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--md-accent-fg-color);
+  transition: width 0.3s ease;
+}
+
+.smooth-scroll-link:hover::after {
+  width: 100%;
+}
+
+/* Enhanced hero section with depth effect */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  margin: 4rem 0 5rem;
+  padding: 2rem 1rem;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(var(--md-primary-fg-color--rgb), 0.05) 0%,
+    transparent 70%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Enhanced profile image with better hover effect */
+.profile-image {
+  border-radius: 50%;
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  border: 3px solid var(--md-primary-fg-color);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.profile-image:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced CTA buttons with modern hover effect */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  text-decoration: none;
+  border-radius: 2rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 6px rgba(var(--md-primary-fg-color--rgb), 0.2);
+  margin: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 14px rgba(var(--md-primary-fg-color--rgb), 0.3);
+}
+
+.cta-button:hover::before {
+  transform: translateX(100%);
+}
+
+.cta-button svg {
+  margin-right: 0.5rem;
+}
+
+/* Enhanced section highlighting effect when targeted by hash */
+:target {
+  animation: highlight-section 2s ease;
+}
+
+@keyframes highlight-section {
+  0% {
+    background-color: rgba(var(--md-accent-fg-color--rgb), 0.1);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Mobile optimizations */
+@media screen and (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .scroll-indicator {
+    bottom: 1rem;
+  }
+  
+  .hero-section {
+    margin: 2rem 0 3rem;
+  }
+  
+  .profile-image {
+    width: 350px;
+    height: 350px;
+  }
+  
+  .section-divider {
+    margin: 2rem 0;
+  }
+}
+
+/* Animation optimizations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-element {
+    transition-duration: 0.1s;
+  }
+  
+  .section-divider::after {
+    animation: none;
+  }
+  
+  .scroll-indicator {
+    animation: none;
+  }
+  
+  .cta-button:hover {
+    transform: none;
+  }
+  
+  .profile-image:hover {
+    transform: none;
+  }
+}
