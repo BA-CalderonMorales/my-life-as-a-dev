@@ -49,7 +49,6 @@ hide:
     </svg>
   </div>
 
-
 </section>
 
 <div class="scroll-progress"></div> <!-- hero section end -->
