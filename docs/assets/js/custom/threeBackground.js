@@ -21,6 +21,9 @@ class ThreeBackground {
       backgroundColor: 0x000000,
       particleCount: window.innerWidth > 768 ? 150 : 80, // Fewer particles on mobile
       maxConnections: window.innerWidth > 768 ? 5 : 3,  // Fewer connections on mobile
+      lowPerformanceParticleCount: 60,    // Lower particle count for low-end devices
+      lowPerformanceMaxConnections: 2,    // Fewer connections for low-end devices
+      updateFrequency: 1,                 // Update every frame by default
       ...options
     };
 
@@ -428,19 +431,31 @@ class ThreeBackground {
     const delta = this.clock.getDelta();
     this.time += delta;
     
-    // Animate particles
-    this.updateParticles(delta);
+    // Track frame for performance optimization
+    // Only update every N frames if in low performance mode
+    if (!this.frameCounter) this.frameCounter = 0;
+    this.frameCounter++;
     
-    // Update connections between particles
-    this.updateConnections();
+    // Check if we should update this frame (for performance)
+    const shouldUpdate = !this.isLowPerformanceMode || 
+                        (this.frameCounter % this.options.updateFrequency === 0);
     
-    // Apply subtle rotation to entire system
-    this.particleGroup.rotation.y += 0.001;
+    if (shouldUpdate) {
+      // Animate particles
+      this.updateParticles(delta);
+      
+      // Update connections between particles
+      this.updateConnections();
+      
+      // Apply subtle rotation to entire system - speed based on performance mode
+      const rotationSpeed = this.isLowPerformanceMode ? 0.0005 : 0.001;
+      this.particleGroup.rotation.y += rotationSpeed;
+      
+      // Apply camera effects based on active section
+      this.updateCameraForSection();
+    }
     
-    // Apply camera effects based on active section
-    this.updateCameraForSection();
-    
-    // Render scene
+    // Always render scene
     this.renderer.render(this.scene, this.camera);
   }
   
@@ -593,6 +608,76 @@ class ThreeBackground {
       }
       logger.debug('ThreeBackground animation stopped');
     }
+  }
+  
+  /**
+   * Check if background is currently active
+   */
+  isActive() {
+    return this.isRunning;
+  }
+  
+  /**
+   * Set performance monitor for adaptive rendering
+   */
+  setPerformanceMonitor(monitor) {
+    this.performanceMonitor = monitor;
+    logger.debug('Performance monitor attached to ThreeBackground');
+  }
+  
+  /**
+   * Set low performance mode
+   * @param {boolean} isLowPerf - Whether to enable low performance mode
+   */
+  setLowPerformanceMode(isLowPerf) {
+    if (isLowPerf === this.isLowPerformanceMode) return;
+    
+    this.isLowPerformanceMode = isLowPerf;
+    
+    // Apply performance optimizations
+    if (isLowPerf) {
+      // Store original values
+      this.originalOptions = {
+        particleCount: this.options.particleCount,
+        maxConnections: this.options.maxConnections,
+        updateFrequency: this.options.updateFrequency
+      };
+      
+      // Apply low performance settings
+      this.options.particleCount = this.options.lowPerformanceParticleCount;
+      this.options.maxConnections = this.options.lowPerformanceMaxConnections;
+      this.options.updateFrequency = 2; // Update every other frame
+      
+      // Recreate particles with lower count
+      this.recreateParticles();
+      
+      logger.info('ThreeBackground switched to low performance mode');
+    } else if (this.originalOptions) {
+      // Restore original settings
+      this.options.particleCount = this.originalOptions.particleCount;
+      this.options.maxConnections = this.originalOptions.maxConnections;
+      this.options.updateFrequency = this.originalOptions.updateFrequency;
+      
+      // Recreate particles with original count
+      this.recreateParticles();
+      
+      logger.info('ThreeBackground restored to normal performance mode');
+    }
+  }
+  
+  /**
+   * Recreate particles with current settings
+   */
+  recreateParticles() {
+    // Remove existing particles
+    if (this.particleGroup) {
+      this.scene.remove(this.particleGroup);
+    }
+    
+    // Create new particles
+    this.createParticles();
+    
+    logger.debug(`Particles recreated with count: ${this.options.particleCount}`);
   }
   
   dispose() {

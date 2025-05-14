@@ -3,12 +3,16 @@
  * - 3D Background with THREE.js
  * - Smooth scrolling
  * - Intersection Observer animations
+ * - Section transitions and reveals
+ * - Performance monitoring and optimizations
  * - Mobile optimizations
  */
 import { defaultLogger } from './logger.js';
 import ThreeBackground from './threeBackground.js';
 import backgroundFallback from './threeBackgroundFallback.js';
 import smoothScroll from './smoothScroll.js';
+import performanceMonitor from './performanceMonitor.js';
+import sectionTransitions from './sectionTransitions.js';
 
 // Set up logger
 const logger = defaultLogger.setModule('modernUI');
@@ -71,9 +75,13 @@ class ModernUI {
    * Main initialization method
    */
   init() {
+    // Initialize performance monitoring first
+    setTimeout(() => this.initPerformanceMonitor(), 0);
+    
     // Initialize in sequence for better performance
-    setTimeout(() => this.initProgressBar(), 0);
+    setTimeout(() => this.initProgressBar(), 100);
     setTimeout(() => this.initRevealAnimations(), 200);
+    setTimeout(() => this.initSectionTransitions(), 300);
     setTimeout(() => this.initThreeBackground(), 500);
     setTimeout(() => this.initScrollIndicator(), 800);
     
@@ -84,6 +92,56 @@ class ModernUI {
     this.setupScrollToTop();
     
     logger.info('Modern UI features initialized');
+  }
+  
+  /**
+   * Initialize performance monitoring
+   */
+  initPerformanceMonitor() {
+    performanceMonitor.setCallbacks({
+      onLowPerformance: () => {
+        // Reduce visual complexity when performance is low
+        if (this.threeBackground) {
+          // Reduce particle count and complexity
+          this.threeBackground.setLowPerformanceMode(true);
+        }
+        
+        // Add class to body to allow CSS performance optimizations
+        document.body.classList.add('low-performance-mode');
+      },
+      onVeryLowPerformance: () => {
+        // Drastically reduce visual effects or switch to fallback
+        if (this.threeBackground && this.threeBackground.isActive) {
+          // Either disable or switch to fallback
+          this.threeBackground.stop();
+          backgroundFallback.init();
+        }
+        
+        // Add class for very low performance CSS adjustments
+        document.body.classList.add('very-low-performance-mode');
+      },
+      onGoodPerformance: () => {
+        // Restore full visual complexity
+        if (this.threeBackground) {
+          this.threeBackground.setLowPerformanceMode(false);
+        }
+        
+        // Remove performance limitation classes
+        document.body.classList.remove('low-performance-mode');
+        document.body.classList.remove('very-low-performance-mode');
+      }
+    });
+    
+    // Start monitoring
+    performanceMonitor.startMonitoring();
+  }
+  
+  /**
+   * Initialize section transitions
+   */
+  initSectionTransitions() {
+    sectionTransitions.init();
+    logger.debug('Section transitions initialized');
   }
   
   /**
@@ -165,27 +223,41 @@ class ModernUI {
         return;
       }
       
-      // Don't initialize on mobile by default to save resources
-      if (this.isMobile) {
-        // Check if explicitly enabled on mobile
-        if (!(urlParams.has('background') && urlParams.get('background') === 'true')) {
-          logger.debug('Background disabled on mobile for performance');
-          // Use fallback on mobile instead
-          backgroundFallback.init();
-          backgroundFallback.start();
-          return;
-        }
+      // Check device capabilities with performance monitor
+      const shouldUseThreeJs = !performanceMonitor.deviceInfo.isLowEndDevice || 
+                               (urlParams.has('background') && urlParams.get('background') === 'true');
+      
+      // Don't initialize on mobile/low-end devices by default to save resources
+      if (!shouldUseThreeJs) {
+        logger.debug('THREE.js background disabled for performance reasons');
+        // Use fallback on mobile/low-end devices instead
+        backgroundFallback.init();
+        backgroundFallback.start();
+        return;
       }
       
-      // Initialize Three.js background
+      // Initialize Three.js background with optimized settings
+      const isMobile = performanceMonitor.deviceInfo.isMobile;
+      const isLowEnd = performanceMonitor.deviceInfo.isLowEndDevice;
+      
       this.threeBackground = new ThreeBackground({
-        // Use fewer particles on mobile
-        particleCount: this.isMobile ? 60 : 150,
-        particleSize: this.isMobile ? 0.1 : 0.15
+        // Optimize particle count based on device capabilities
+        particleCount: isMobile ? (isLowEnd ? 40 : 60) : 150,
+        particleSize: isMobile ? 0.1 : 0.15,
+        maxConnections: isMobile ? (isLowEnd ? 2 : 3) : 5,
+        density: isMobile ? 0.5 : 0.8,
+        // Allow custom optimization based on URL params
+        ...this.getCustomThreeParams()
       });
+      
+      // Set up THREE.js performance adaptation
+      if (this.threeBackground.setPerformanceMonitor) {
+        this.threeBackground.setPerformanceMonitor(performanceMonitor);
+      }
+      
       this.threeBackground.start();
       
-      // Add pause/resume on visibility change
+      // Add pause/resume on visibility change to save resources
       document.addEventListener('visibilitychange', () => {
         if (document.hidden && this.threeBackground) {
           this.threeBackground.stop();
@@ -194,7 +266,18 @@ class ModernUI {
         }
       });
       
-      logger.info('THREE.js background initialized');
+      // Add resize handler with throttling for performance
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        if (resizeTimeout) clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          if (this.threeBackground && this.threeBackground.handleResize) {
+            this.threeBackground.handleResize();
+          }
+        }, 200);
+      });
+      
+      logger.info('THREE.js background initialized with performance optimization');
     } catch (error) {
       logger.error(`Failed to initialize THREE.js background: ${error.message}`);
       
@@ -210,10 +293,33 @@ class ModernUI {
   }
   
   /**
-   * Initialize scroll indicator animation
+   * Get custom THREE.js parameters from URL
+   */
+  getCustomThreeParams() {
+    const params = {};
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Check for custom THREE.js parameters
+    if (urlParams.has('particleCount')) {
+      params.particleCount = parseInt(urlParams.get('particleCount'), 10);
+    }
+    if (urlParams.has('particleSize')) {
+      params.particleSize = parseFloat(urlParams.get('particleSize'));
+    }
+    if (urlParams.has('maxConnections')) {
+      params.maxConnections = parseInt(urlParams.get('maxConnections'), 10);
+    }
+    
+    return params;
+  }
+  
+  /**
+   * Initialize scroll indicator animation and section behaviors
    */
   initScrollIndicator() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
+    const ctaSection = document.querySelector('.cta-section');
+    const heroSection = document.querySelector('.hero-section');
     if (!scrollIndicator) return;
     
     // Add click event listener
@@ -228,17 +334,47 @@ class ModernUI {
       }
     });
     
-    // Fade out scroll indicator when scrolling down
+    // Calculate hero section dimensions
+    let heroHeight = 0;
+    if (heroSection) {
+      heroHeight = heroSection.offsetHeight;
+    }
+    
+    // Create enhanced scroll handling
     window.addEventListener('scroll', () => {
       const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollY > 100) {
+      const viewportHeight = window.innerHeight;
+      
+      // Define thresholds for different scroll effects
+      // Adjust these thresholds based on content layout
+      const scrollIndicatorThreshold = viewportHeight * 0.4;  // 40% of viewport height
+      const ctaSectionThreshold = heroHeight * 0.7;          // 70% of hero section height
+      
+      // Calculate progress through hero section
+      const heroProgress = Math.min(scrollY / heroHeight, 1);
+      
+      // Handle scroll indicator fade - delay the fade out
+      if (scrollY > scrollIndicatorThreshold) {
         scrollIndicator.classList.add('faded');
       } else {
         scrollIndicator.classList.remove('faded');
       }
+      
+      // Handle CTA section transition - only start transitioning after significant scroll
+      if (ctaSection) {
+        if (scrollY > ctaSectionThreshold) {
+          ctaSection.classList.add('scrolled');
+          // Calculate opacity based on scroll position for smoother transition
+          const opacity = Math.max(0.5, 1 - (heroProgress - 0.7) * 2);
+          ctaSection.style.opacity = opacity;
+        } else {
+          ctaSection.classList.remove('scrolled');
+          ctaSection.style.opacity = 1;
+        }
+      }
     });
     
-    logger.debug('Scroll indicator initialized');
+    logger.debug('Scroll indicator initialized with enhanced behaviors');
   }
   
   /**
