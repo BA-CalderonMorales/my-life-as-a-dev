@@ -23,7 +23,6 @@ theme:
     - navigation.tracking
     - navigation.indexes
     - navigation.prune
-    - navigation.footer
     - content.code.copy
     - content.code.annotate
   
