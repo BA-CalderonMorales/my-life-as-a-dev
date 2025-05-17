@@ -30,6 +30,19 @@
    </div>
 </details>
 
+## 🔮 Visualize Codebase
+
+<details>
+  <summary>👁️ Brief Overview of Codebase</summary>
+  
+  You can also view the gitdiagram [here](https://gitdiagram.com/ba-calderonmorales/my-life-as-a-dev) - thanks [gitdiagram](https://github.com/ahmedkhaleel2004/gitdiagram)!
+  
+  ![diagram](https://github.com/user-attachments/assets/6757807a-13e5-4cc8-8be4-7a69b0e72b5f)
+
+</details>
+
+
+
 ## 🚀 Getting Started
 
 <details>
