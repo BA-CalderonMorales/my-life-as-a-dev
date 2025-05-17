@@ -1,0 +1,40 @@
+/* Enhanced scroll indicator styles */
+.scroll-indicator {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    cursor: pointer;
+}
+.scroll-indicator::before {
+    content: 'Scroll';
+    position: absolute;
+    top: -1.5rem;
+    font-size: 0.875rem;
+    color: var(--md-secondary-fg);
+    opacity: 0;
+    animation: fade 2s infinite;
+}
+.scroll-indicator svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--md-primary-fg);
+    filter: drop-shadow(0 0 5px var(--md-primary-fg));
+    animation: bounce 2s infinite, hue 5s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
+    40% { transform: translateY(-15px) scale(1.2); }
+    60% { transform: translateY(-7px) scale(1.1); }
+}
+@keyframes fade {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+@keyframes hue {
+    0% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(45deg); }
+    100% { filter: hue-rotate(0deg); }
+}

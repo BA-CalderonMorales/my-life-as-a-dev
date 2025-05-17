@@ -1,0 +1,325 @@
+/* General Playground Styles */
+.ai-playground-container {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--playground-bg, #1e1e1e);
+    color: var(--playground-text, #d4d4d4);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 90vh; /* Adjust as needed */
+    max-width: 1200px;
+    margin: 1rem auto;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.playground-header {
+    background-color: var(--playground-header-bg, #252526);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--playground-border, #333);
+}
+
+.playground-header h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5em;
+    color: var(--playground-title-text, #fff);
+}
+
+.playground-nav {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.playground-nav button {
+    background-color: var(--playground-nav-button-bg, #333);
+    color: var(--playground-nav-button-text, #ccc);
+    border: 1px solid var(--playground-nav-button-border, #444);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.playground-nav button:hover {
+    background-color: var(--playground-nav-button-hover-bg, #444);
+    color: var(--playground-nav-button-hover-text, #fff);
+}
+
+.playground-nav button.active {
+    background-color: var(--playground-primary-accent, #007acc);
+    color: var(--playground-nav-button-active-text, #fff);
+    border-color: var(--playground-primary-accent, #007acc);
+}
+
+.playground-main {
+    flex-grow: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    background-color: var(--playground-main-bg, #1e1e1e);
+}
+
+.playground-footer {
+    background-color: var(--playground-footer-bg, #252526);
+    padding: 0.75rem 1.5rem;
+    text-align: center;
+    font-size: 0.85em;
+    border-top: 1px solid var(--playground-border, #333);
+    color: var(--playground-footer-text, #888);
+}
+
+/* Loader Styles */
+.loader, .loader-small {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-size: 1.2em;
+    color: var(--playground-accent, #007acc);
+}
+
+.loader-small {
+    font-size: 1em;
+    padding: 1rem;
+}
+
+/* Error and Success Messages */
+.error-message {
+    color: var(--playground-error-text, #f44336);
+    background-color: var(--playground-error-bg, rgba(244, 67, 54, 0.1));
+    border: 1px solid var(--playground-error-border, #f44336);
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
+.success-message {
+    color: var(--playground-success-text, #4caf50);
+    background-color: var(--playground-success-bg, rgba(76, 175, 80, 0.1));
+    border: 1px solid var(--playground-success-border, #4caf50);
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
+/* Common Form Elements */
+.ai-playground-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--playground-label-text, #bbb);
+}
+
+.ai-playground-container select,
+.ai-playground-container input[type="text"],
+.ai-playground-container textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    background-color: var(--playground-input-bg, #2d2d2d);
+    color: var(--playground-input-text, #ccc);
+    border: 1px solid var(--playground-input-border, #3f3f3f);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 0.95em;
+}
+
+.ai-playground-container textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+button.primary-action {
+    background-color: var(--playground-primary-accent, #007acc);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+button.primary-action:hover {
+    background-color: var(--playground-primary-accent-hover, #005a9e);
+}
+
+/* Mode Specific Placeholder Styles */
+#repo-explorer-content,
+#scene-creator-content,
+#code-assistant-content {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Repository Explorer Specifics */
+.repo-explorer-form .insight-options label {
+    display: inline-block;
+    margin-right: 1rem;
+    font-weight: normal;
+}
+.repo-explorer-form .insight-options input[type="checkbox"] {
+    margin-right: 0.3rem;
+    width: auto;
+}
+#repoResults {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: var(--playground-results-bg, #252526);
+    border-radius: 4px;
+    border: 1px solid var(--playground-border, #333);
+}
+#repoResults h3, #repoResults h4 {
+    color: var(--playground-title-text, #fff);
+    margin-top: 0;
+}
+#repoResults pre {
+    background-color: #1a1a1a;
+    padding: 0.5rem;
+    border-radius: 3px;
+    overflow-x: auto;
+}
+
+/* Scene Creator Specifics */
+.scene-creator-layout {
+    display: flex;
+    gap: 1rem;
+    height: calc(100% - 2rem); /* Adjust based on padding */
+}
+
+.scene-creator-controls {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.scene-creator-preview {
+    flex: 1;
+    border: 1px solid var(--playground-border, #333);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+#sceneCodeEditor {
+    flex-grow: 1;
+    font-family: "Courier New", Courier, monospace;
+}
+
+#scenePreviewFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #fff; /* Default preview background */
+}
+
+#sceneResults {
+    margin-top: 1rem;
+}
+
+/* Code Assistant Specifics */
+#codeInputEditor {
+    min-height: 150px;
+    font-family: "Courier New", Courier, monospace;
+}
+
+#assistantResults {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: var(--playground-results-bg, #252526);
+    border-radius: 4px;
+    border: 1px solid var(--playground-border, #333);
+}
+#assistantResults h3 {
+    color: var(--playground-title-text, #fff);
+    margin-top: 0;
+}
+#assistantResults div {
+    white-space: pre-wrap; /* To respect newlines from AI */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .playground-header h1 {
+        font-size: 1.2em;
+    }
+    .playground-nav {
+        flex-direction: column;
+    }
+    .playground-nav button {
+        width: 100%;
+        margin-bottom: 0.3rem;
+    }
+    .scene-creator-layout {
+        flex-direction: column;
+        height: auto;
+    }
+    .scene-creator-preview {
+        min-height: 300px; /* Ensure preview is usable on mobile */
+    }
+}
+
+/* Add Font Awesome if not already globally available */
+/* You might want to include this in your main HTML or a shared CSS file */
+/* @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"); */
+
+.ai-button i {
+    margin-right: 8px;
+}
+
+.action-btn i {
+    font-size: 1em; /* Adjust icon size if needed */
+}
+
+.preview-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #777;
+    font-style: italic;
+}
+
+.results-placeholder {
+    color: #777;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Alert Box Styles */
+.ai-alert {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.ai-alert-title {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.ai-alert p {
+    margin-bottom: 0;
+}
+
+.ai-alert p + p {
+    margin-top: 0.5rem;
+}
+
+/* Info Alert Specifics */
+.ai-alert-info {
+    color: var(--playground-info-text, #75cff0); /* Light blue text */
+    background-color: var(--playground-info-bg, rgba(0, 122, 204, 0.15)); /* Darker blue, slightly transparent */
+    border-color: var(--playground-info-border, #007acc); /* Accent blue border */
+}
+
+.ai-alert-info .ai-alert-title {
+    color: var(--playground-info-title-text, #9cdcfe); /* Brighter blue for title */
+}
