@@ -9,6 +9,10 @@ site_description: >
 theme:
   name: material
 
+  font:
+    text: Roboto
+    code: Fira Code
+
   icon:
     repo: fontawesome/brands/github
   
