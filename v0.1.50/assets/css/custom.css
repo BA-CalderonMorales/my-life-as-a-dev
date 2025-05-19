@@ -1,0 +1,49 @@
+/**
+ * Custom CSS for Brandon's Simplified Life
+ * Core styles that apply to all pages (non-landing pages)
+ * 
+ * Note: Landing page specific styles have been moved to landing-page.css
+ * to keep the codebase DRY (Don't Repeat Yourself)
+ */
+
+/* Import landing page styles for components that might be shared */
+@import url('landing-page.css');
+
+/* 
+ * Particle background and gradient overlay styles have been moved to landing-page.css
+ * Header and navigation styles for consistent UI across the site
+ */
+
+/* LinkedIn button styling - kept here for global access */
+.md-linkedin-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  text-align: center;
+  outline: none;
+  text-decoration: none !important;
+  color: #ffffff !important;
+  width: 180px;
+  height: 36px;
+  border-radius: 4px;
+  background-color: #0A66C2;
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.md-linkedin-button:hover {
+  background-color: #0d77e4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.md-linkedin-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
