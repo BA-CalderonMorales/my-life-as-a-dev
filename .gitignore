@@ -1,0 +1,6 @@
+.env
+bin/
+scripts/
+site/
+venv/
+mkdocs_plugins/
