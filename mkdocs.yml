@@ -141,9 +141,3 @@ extra_javascript:
   - { "path": "assets/js/components/kaleidoscopic-scene/kaleidoscopic-scene.js", "type": "module" }
   - { "path": "assets/js/components/intergalactic-scene/intergalactic-scene.js", "type": "module" }
   - { "path": "assets/js/components/aiPlayground/aiPlayground.js", "type": "module" }
-
-extra:
-  version:
-    provider: mike
-    default: latest
-    json_file: versions.json
