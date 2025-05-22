@@ -112,32 +112,4 @@ extra_css:
   - assets/css/components/aiPlayground/aiPlayground.css
 
 extra_javascript:
-  - { "path": "assets/js/importmap.js", "defer": true }
-  - { "path": "assets/js/vendor/typewriter.min.js", "type": "module" }
-  - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
-  - { "path": "assets/js/custom/initParticles.js", "type": "module" }
-  - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
-  - { "path": "assets/js/custom/logger.js", "type": "module" }
-  - { "path": "assets/js/custom/interactivity-utils.js", "type": "module" }
-  - { "path": "assets/js/custom/landingPage.js", "type": "module" }
-  - { "path": "assets/js/custom/typewriter-loader.js", "type": "module" }
-  - { "path": "assets/js/custom/typewriter-init.js", "type": "module" }
-  - { "path": "assets/js/custom/typewriter-fallback.js", "type": "module" }
-  - { "path": "assets/js/custom/scrollEffects.js", "type": "module" }
-  - { "path": "assets/js/custom/networkNodes.js", "type": "module" }
-  - { "path": "assets/js/custom/threeBackground.js", "type": "module" }
-  - { "path": "assets/js/custom/threeBackgroundFallback.js", "type": "module" }
-  - { "path": "assets/js/custom/smoothScroll.js", "type": "module" }
-  - { "path": "assets/js/custom/performanceMonitor.js", "type": "module" }
-  - { "path": "assets/js/custom/sectionTransitions.js", "type": "module" }
-  - { "path": "assets/js/custom/initModernUI.js", "type": "module" }
-  - { "path": "assets/js/components/dreamscape/dreamscape.js", "type": "module" }
-  - { "path": "assets/js/components/dreamscape-proto4/dreamscape-proto4.js", "type": "module" }
-  - { "path": "assets/js/components/dreamscape-proto6/dreamscape-proto6.js", "type": "module" }
-  - { "path": "assets/js/components/ghibli-masterpiece/ghibli-masterpiece.js", "type": "module" }
-  - { "path": "assets/js/components/cellular-prism/cellular-prism.js", "type": "module" }
-  - { "path": "assets/js/components/color-particle-artifact/color-particle-artifact.js", "type": "module" }
-  - { "path": "assets/js/components/physics-playground/physics-playground.js", "type": "module" }
-  - { "path": "assets/js/components/kaleidoscopic-scene/kaleidoscopic-scene.js", "type": "module" }
-  - { "path": "assets/js/components/intergalactic-scene/intergalactic-scene.js", "type": "module" }
-  - { "path": "assets/js/components/aiPlayground/aiPlayground.js", "type": "module" }
+  - assets/js/importmap.js
