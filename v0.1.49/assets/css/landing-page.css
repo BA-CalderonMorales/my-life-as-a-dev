@@ -5,11 +5,10 @@
 
 /* Hero section styling */
 .hero-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at top, #f0f0f0, transparent);
+  text-align: center;
+  margin: 4rem 0 5rem; /* Increased from 3rem 0 4rem to give more space around the larger image */
+  animation: fadeIn 1s ease-in-out;
+  position: relative;
 }
 
 .hero-section h1 {
