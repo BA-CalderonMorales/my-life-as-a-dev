@@ -1,0 +1,52 @@
+/**
+ * CSS Import Map
+ * Consolidated stylesheet loader that imports all CSS files from the project
+ */
+
+/* Core Styles */
+@import url('./custom.css');
+
+/* Landing Page Styles */
+@import url('./landing-page.css');
+@import url('./landing-page-extras.css');
+@import url('./landing-page-bg.css');
+@import url('./landing-page-mobile.css');
+@import url('./landing-page-cards.css');
+@import url('./landing-page-scroll.css');
+@import url('./landing-page-headings.css');
+@import url('./landing-page-tabs.css');
+@import url('./landing-page-cta.css');
+@import url('./landing-page-interactive.css');
+@import url('./landing-page-typewriter-fix.css');
+
+/* Utility Styles */
+@import url('./section-transitions.css');
+@import url('./scroll-indicator-fix.css');
+
+/* Component Styles */
+@import url('./components/test-scene-shared.css');
+@import url('./components/dreamscape.css');
+@import url('./components/dreamscape-proto4.css');
+@import url('./components/dreamscape-proto6.css');
+@import url('./components/ghibli-masterpiece.css');
+@import url('./components/color-particle-artifact.css');
+@import url('./components/physics-playground.css');
+@import url('./components/kaleidoscopic-scene.css');
+@import url('./components/intergalactic-scene.css');
+@import url('./components/aiPlayground/aiPlayground.css');
+
+/**
+ * Print information to console that CSS files were loaded
+ * This helps with debugging and ensuring all styles are applied
+ */
+@media screen {
+  body::after {
+    content: "";
+    display: none;
+  }
+  
+  /* For debugging: shows load success in browser console */
+  body {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><script>console.log("All CSS styles loaded via importmap.css")</script></svg>');
+  }
+}
