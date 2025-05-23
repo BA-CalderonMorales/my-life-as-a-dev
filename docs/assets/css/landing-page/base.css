@@ -1,34 +1,65 @@
 /**
  * Landing Page Base Styles
- * Foundation styles from original landing-page.css
+ * Refined foundation for a harmonious visual symphony
  */
 
 .landing-page {
   position: relative;
   overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  color: var(--ghibli-text-dark);
+  background-color: var(--ghibli-cream);
+  transition: var(--transition-standard);
+}
+
+[data-md-color-scheme="slate"] .landing-page {
+  background-color: var(--ghibli-night-mist);
+  color: var(--ghibli-text-dark);
 }
 
 .landing-page .md-content {
   position: relative;
+  max-width: 100%;
+  padding: 0;
 }
 
-/* Core semantic structure */
+/* Core semantic structure - refined spacing rhythm */
 .landing-page section {
-  margin: 2rem 0;
-  padding: 1rem;
+  margin: 4rem 0;
+  padding: 2rem 1.5rem;
   position: relative;
+  transition: var(--transition-standard);
 }
 
-/* Section divider styles - consolidated from multiple files */
+/* Section divider styles - refined for elegance */
 .section-divider {
   position: relative;
   overflow: hidden;
-  height: 2px;
-  margin: 3rem 0;
-  background: rgba(var(--md-primary-fg-color--rgb), 0.1);
+  height: 1px;
+  margin: 5rem auto;
+  max-width: 80%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--ghibli-field),
+    transparent
+  );
+  opacity: 0.3;
+  transition: var(--transition-standard);
 }
 
-/* Import the shimmer effect from landing-page-bg.css */
+[data-md-color-scheme="slate"] .section-divider {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--ghibli-night-field),
+    transparent
+  );
+  opacity: 0.4;
+}
+
+/* Gentle shimmer effect - more subtle and elegant */
 .section-divider::after {
   content: '';
   position: absolute;
@@ -36,24 +67,42 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to right, transparent, var(--md-primary-fg-color), transparent);
-  animation: shimmer 2.5s infinite;
-  opacity: 0.5;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7), transparent);
+  animation: gentle-shimmer 4s ease-in-out infinite;
+  opacity: 0.4;
 }
 
-@keyframes shimmer {
+[data-md-color-scheme="slate"] .section-divider::after {
+  opacity: 0.25;
+}
+
+@keyframes gentle-shimmer {
   0% {
-    transform: translateX(-150%);
+    transform: translateX(-100%);
   }
-  100% {
-    transform: translateX(150%);
+  50%, 100% {
+    transform: translateX(100%);
   }
 }
 
-/* Generic container styles */
+/* Generic container styles - with refined spacing */
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
+  transition: var(--transition-standard);
+}
+
+/* Enhance focus areas with gentle highlighting */
+.highlight-container {
+  background-color: rgba(var(--ghibli-field), 0.05);
+  border-radius: var(--border-radius-medium);
+  padding: 2rem;
+  box-shadow: var(--box-shadow-soft);
+  transition: var(--transition-standard);
+}
+
+[data-md-color-scheme="slate"] .highlight-container {
+  background-color: rgba(var(--ghibli-night-field), 0.1);
 }

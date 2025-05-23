@@ -1,35 +1,60 @@
 /**
  * Landing Page Interactions and Animations
- * Scroll effects, hover interactions, and animations
- * Consolidated from landing-page-interactive.css and landing-page-scroll.css
+ * Gentle, Ghibli-inspired animations and interactions
+ * Creating a harmonious flow throughout the experience
  */
 
-/* Scroll fade-in animation from landing-page-scroll.css */
-.scroll-fade {
+/* Scroll reveal animations - gentle and smooth */
+.scroll-reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(25px);
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
-.scroll-fade.visible {
+.scroll-reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Staggered animations */
+/* Left-to-right reveal */
+.reveal-ltr {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-ltr.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Right-to-left reveal */
+.reveal-rtl {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-rtl.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Staggered animations - more refined */
 .stagger-item {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(15px);
 }
 
 .stagger-item.visible {
-  animation: fadeInUp 0.6s ease forwards;
+  animation: gentle-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-@keyframes fadeInUp {
+@keyframes gentle-rise {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(15px);
   }
   to {
     opacity: 1;
@@ -37,54 +62,147 @@
   }
 }
 
-/* Scroll indicator from landing-page-scroll.css */
+/* Scroll indicator - refined and gentle */
 .scroll-indicator {
   position: absolute;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  animation: bounce 2s infinite;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--box-shadow-soft);
+  cursor: pointer;
+  animation: gentle-float 3s ease-in-out infinite;
+  transition: var(--transition-standard);
+  z-index: 2;
+}
+
+[data-md-color-scheme="slate"] .scroll-indicator {
+  background-color: rgba(40, 40, 45, 0.7);
+}
+
+.scroll-indicator:hover {
+  transform: translateX(-50%) scale(1.1);
+  box-shadow: var(--box-shadow-medium);
 }
 
 .scroll-indicator svg {
-  width: 30px;
-  height: 30px;
-  fill: var(--md-primary-fg-color);
+  width: 20px;
+  height: 20px;
+  fill: var(--ghibli-accent);
+  transition: var(--transition-standard);
 }
 
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
+[data-md-color-scheme="slate"] .scroll-indicator svg {
+  fill: var(--ghibli-night-accent);
+}
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
   }
-  40% {
-    transform: translateY(-15px);
-  }
-  60% {
-    transform: translateY(-7px);
+  50% {
+    transform: translateX(-50%) translateY(-8px);
   }
 }
 
-/* Hover interactions */
+/* Refined hover interactions */
+.hover-lift {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, box-shadow;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow-medium);
+}
+
+/* Subtle zoom effect */
 .hover-zoom {
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
 .hover-zoom:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-/* Typewriter cursor animation */
-.typewriter-cursor {
+/* Typewriter effect - more refined */
+.typewriter-text {
+  position: relative;
   display: inline-block;
-  width: 3px;
-  height: 1em;
-  background: currentColor;
-  margin-left: 2px;
-  animation: blink 1s step-end infinite;
-  vertical-align: middle;
 }
 
-@keyframes blink {
+.typewriter-text::after {
+  content: '|';
+  position: absolute;
+  right: -0.1em;
+  color: var(--ghibli-accent);
+  animation: cursor-blink 1.2s step-end infinite;
+}
+
+[data-md-color-scheme="slate"] .typewriter-text::after {
+  color: var(--ghibli-night-accent);
+}
+
+@keyframes cursor-blink {
   from, to { opacity: 1; }
   50% { opacity: 0; }
+}
+
+/* Focus effect for interactive elements */
+.focus-glow {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.focus-glow:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--ghibli-field), 0.3);
+}
+
+[data-md-color-scheme="slate"] .focus-glow:focus {
+  box-shadow: 0 0 0 3px rgba(var(--ghibli-night-field), 0.3);
+}
+
+/* Image hover effect */
+.img-hover {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: brightness(1) contrast(1);
+  will-change: transform, filter;
+}
+
+.img-hover:hover {
+  transform: scale(1.02);
+  filter: brightness(1.05) contrast(1.05);
+}
+
+/* Scroll progress tracking */
+.scroll-progress {
+  height: 3px;
+  background: linear-gradient(
+    to right, 
+    var(--ghibli-field), 
+    var(--ghibli-accent)
+  );
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  z-index: 1000;
+  transition: width 0.2s ease;
+}
+
+[data-md-color-scheme="slate"] .scroll-progress {
+  background: linear-gradient(
+    to right, 
+    var(--ghibli-night-field), 
+    var(--ghibli-night-accent)
+  );
 }

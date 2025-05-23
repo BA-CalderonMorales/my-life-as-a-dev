@@ -20,10 +20,10 @@ theme:
 
   features:
     - search.suggest
-    - search.highligt
+    - search.highlight
     - search.share
     - navigation.instant
-    - navigation.instang.progress
+    - navigation.instant.progress
     - navigation.tracking
     - navigation.indexes
     - navigation.prune
@@ -32,18 +32,18 @@ theme:
   
   # Start with dark mode by default
   palette:
-    # Dark mode (now listed first to make it default)
+    # Dark mode - soft summer night tones
     - scheme: slate
-      primary: blue
-      accent: blue
+      primary: custom-blue
+      accent: custom-orange
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
     
-    # Light mode
+    # Light mode - soft summer day tones
     - scheme: default
-      primary: indigo
-      accent: indigo
+      primary: custom-teal
+      accent: custom-coral
       toggle:
         icon: material/weather-night
         name: Switch to dark mode

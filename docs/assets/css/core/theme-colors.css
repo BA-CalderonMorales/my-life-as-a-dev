@@ -1,0 +1,101 @@
+/**
+ * Ghibli-Inspired Symphony Theme
+ * Creating a harmonious, family-oriented experience through color and subtle motion
+ */
+
+:root {
+  /* Light theme - Warm dawn palette inspired by Ghibli skies */
+  --ghibli-sky: #99ccdd;                    /* Soft pastel sky blue */
+  --ghibli-sunset: #f0b27a;                 /* Warm sunset orange */
+  --ghibli-field: #a6bb8d;                 /* Gentle meadow green */
+  --ghibli-cream: #fff8e7;                 /* Soft warm paper background */
+  --ghibli-mist: #f9f5f0;                  /* Gentle mist overlay */
+  --ghibli-accent: #e67e22;                /* Warm accent - Paprika orange */
+  
+  /* Text colors for readability and warmth */
+  --ghibli-text-dark: #3c4043;             /* Warm charcoal gray */
+  --ghibli-text-medium: #5f6368;           /* Medium warm gray */
+  --ghibli-text-light: #80868b;            /* Light warm gray */
+  
+  /* Material Design integration */
+  --md-primary-fg-color: var(--ghibli-field);
+  --md-primary-fg-color--light: var(--ghibli-sky);
+  --md-primary-fg-color--dark: #8ca97a;
+  --md-accent-fg-color: var(--ghibli-accent);
+  --md-default-bg-color: var(--ghibli-cream);
+  
+  /* Custom properties for consistent use */
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 16px;
+  --box-shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --box-shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --transition-standard: all 0.3s ease;
+}
+
+/* Dark theme - Twilight palette inspired by Ghibli night scenes */
+[data-md-color-scheme="slate"] {
+  --ghibli-night-sky: #1a2639;             /* Deep twilight blue */
+  --ghibli-night-field: #3d5157;           /* Evening forest green */
+  --ghibli-moonlight: #f9d56e;             /* Gentle moonlight gold */
+  --ghibli-night-mist: #1c2331;            /* Dark warm mist */
+  --ghibli-starlight: #e8e3d0;             /* Soft warm starlight */
+  --ghibli-night-accent: #e67e22;          /* Consistent warm accent */
+  
+  /* Text colors for dark theme with warmth */
+  --ghibli-text-dark: var(--ghibli-starlight);
+  --ghibli-text-medium: #d2cfc1;
+  --ghibli-text-light: #b8b5aa;
+  
+  /* Material Design integration */
+  --md-primary-fg-color: var(--ghibli-night-field);
+  --md-primary-fg-color--light: var(--ghibli-moonlight);
+  --md-primary-fg-color--dark: #304048;
+  --md-accent-fg-color: var(--ghibli-night-accent);
+  --md-default-bg-color: var(--ghibli-night-mist);
+}
+
+/* Fluid gradient backgrounds - Ghibli-inspired */
+.ghibli-gradient {
+  background: linear-gradient(135deg, 
+    var(--ghibli-cream) 0%, 
+    var(--ghibli-mist) 30%, 
+    var(--ghibli-sky) 100%);
+  background-size: 400% 400%;
+  animation: gentleBreeze 30s ease-in-out infinite;
+}
+
+[data-md-color-scheme="slate"] .ghibli-gradient {
+  background: linear-gradient(135deg, 
+    var(--ghibli-night-mist) 0%, 
+    var(--ghibli-night-sky) 50%, 
+    rgba(61, 81, 87, 0.8) 100%);
+  background-size: 400% 400%;
+}
+
+/* Subtle paper texture overlay */
+.texture-overlay {
+  position: relative;
+}
+
+.texture-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+}
+
+[data-md-color-scheme="slate"] .texture-overlay::before {
+  opacity: 0.2;
+}
+
+@keyframes gentleBreeze {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}

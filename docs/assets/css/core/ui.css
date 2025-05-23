@@ -1,100 +1,169 @@
 /**
- * UI Element Styles
- * Common UI components and interactive elements
- * Consolidates scroll-indicator-fix.css and UI elements from custom.css
+ * Journey UI Elements - Organic, flowing interface components
  */
 
-/* From scroll-indicator-fix.css */
-.scroll-indicator {
+/* Cards that feel like floating leaves */
+.md-typeset .card,
+.journey-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem 0;
-  cursor: pointer;
+  overflow: hidden;
 }
 
-.scroll-indicator::before {
-  content: 'Scroll';
+[data-md-color-scheme="slate"] .md-typeset .card,
+[data-md-color-scheme="slate"] .journey-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.journey-card::before {
+  content: '';
   position: absolute;
-  top: -1.5rem;
-  font-size: 0.875rem;
-  color: var(--md-secondary-fg);
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.6s ease;
+}
+
+.journey-card:hover::before {
+  left: 100%;
+}
+
+.journey-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Buttons that feel like smooth pebbles */
+.md-typeset .md-button,
+.journey-button {
+  background: linear-gradient(135deg, var(--journey-grass), var(--journey-sky));
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+.journey-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--journey-sunset), var(--journey-moonlight));
   opacity: 0;
-  animation: fade 2s infinite;
+  transition: opacity 0.3s ease;
 }
 
-.scroll-indicator svg {
-  width: 2.5rem;
-  height: 2.5rem;
-  fill: var(--md-primary-fg-color);
-  animation: bounce 2s infinite;
+.journey-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-@keyframes fade {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 1; }
+.journey-button:hover::before {
+  opacity: 1;
 }
 
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-10px); }
-  60% { transform: translateY(-5px); }
+/* Header that flows with the page */
+.md-header {
+  background: rgba(250, 245, 230, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Button styling - from custom.css */
-.md-typeset .md-button {
-  color: var(--md-primary-fg-color);
-  border-color: var(--md-primary-fg-color);
+[data-md-color-scheme="slate"] .md-header {
+  background: rgba(15, 23, 42, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.md-typeset .md-button:hover {
-  background-color: var(--md-primary-fg-color);
-  color: var(--md-primary-bg-color);
-  border-color: var(--md-primary-fg-color);
+/* Scrolled header effect */
+.md-header.scrolled {
+  background: rgba(250, 245, 230, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.md-typeset .md-button--primary {
-  background-color: var(--md-primary-fg-color);
-  color: var(--md-primary-bg-color);
-  border-color: var(--md-primary-fg-color);
+[data-md-color-scheme="slate"] .md-header.scrolled {
+  background: rgba(15, 23, 42, 0.95);
 }
 
-.md-typeset .md-button--primary:hover {
-  background-color: var(--md-primary-fg-color--dark);
-  border-color: var(--md-primary-fg-color--dark);
+/* Navigation that feels like a flowing river */
+.md-nav__link {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 8px;
+  position: relative;
 }
 
-/* Card styling from custom.css */
-.md-typeset .card {
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
-  border-radius: 4px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+.md-nav__link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 0;
+  background: linear-gradient(180deg, var(--journey-grass), var(--journey-sunset));
+  transition: height 0.3s ease;
+  transform: translateY(-50%);
+  border-radius: 2px;
 }
 
-[data-md-color-scheme="default"] .md-typeset .card {
-  background-color: rgba(255, 255, 255, 0.8);
+.md-nav__link:hover::before,
+.md-nav__link--active::before {
+  height: 70%;
 }
 
-[data-md-color-scheme="slate"] .md-typeset .card {
-  background-color: rgba(45, 47, 59, 0.8);
+.md-nav__link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
 }
 
-.md-typeset .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+/* Content sections that flow like chapters in a story */
+.md-content__inner > * {
+  animation: fadeInFlow 0.8s ease-out;
 }
 
-/* Admonition enhancements from custom.css */
-.md-typeset .admonition {
-  font-size: 0.8rem;
-  border-left: 0;
-  border-radius: 4px;
+@keyframes fadeInFlow {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.md-typeset .admonition-title {
-  border-top-right-radius: 4px;
-  border-top-left-radius: 4px;
+/* Search that feels organic */
+.md-search__form {
+  border-radius: 25px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.md-search__input {
+  border-radius: 25px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.md-search__input:focus {
+  box-shadow: 0 0 0 3px rgba(143, 188, 143, 0.3);
 }

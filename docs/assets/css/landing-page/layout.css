@@ -1,23 +1,57 @@
 /**
  * Landing Page Layout Styles
- * Grid layouts, flex containers, and structural elements
- * Consolidated from various landing-page-*.css files
+ * Refined grid layouts and structural elements for a harmonious experience
  */
 
-/* Hero section layout */
+/* Hero section layout - embracing the Ghibli artwork style */
 .hero-section {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 60vh;
-  padding: 2rem 1rem;
+  min-height: 70vh;
+  padding: 3rem 1.5rem;
   text-align: center;
   overflow: hidden;
+  transition: var(--transition-standard);
 }
 
-/* Hero section background effect from landing-page-bg.css */
+/* Profile section styling */
+.profile-section {
+  position: relative;
+  margin-bottom: 2rem;
+  transition: var(--transition-standard);
+}
+
+/* Profile image styling - Ghibli-like framing */
+.profile-image {
+  width: 260px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.profile-image:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+[data-md-color-scheme="slate"] .profile-image {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Hero section background - Ghibli-inspired cloudscape */
 .hero-section::before {
   content: '';
   position: absolute;
@@ -26,53 +60,160 @@
   right: -50px;
   bottom: -50px;
   z-index: -1;
-  background: radial-gradient(
-    circle at center,
-    rgba(var(--md-primary-fg-color--light-rgb), 0.15) 0%,
-    rgba(var(--md-primary-fg-color--light-rgb), 0) 70%
-  );
-  opacity: 0.6;
+  background: 
+    radial-gradient(
+      circle at 70% 30%,
+      rgba(var(--ghibli-sky), 0.15) 0%,
+      rgba(var(--ghibli-field), 0.05) 60%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(var(--ghibli-sunset), 0.1),
+      rgba(var(--ghibli-field), 0.05)
+    );
+  opacity: 0.8;
+  transition: var(--transition-standard);
 }
 
-/* Feature grid layout */
+[data-md-color-scheme="slate"] .hero-section::before {
+  background: 
+    radial-gradient(
+      circle at 70% 30%,
+      rgba(var(--ghibli-moonlight), 0.05) 0%,
+      rgba(var(--ghibli-night-field), 0.1) 60%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(var(--ghibli-night-sky), 0.3),
+      rgba(var(--ghibli-night-field), 0.1)
+    );
+}
+
+/* Scroll indicator - subtle guidance */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: var(--box-shadow-soft);
+  cursor: pointer;
+  transition: var(--transition-standard);
+  animation: subtle-bounce 2s infinite;
+}
+
+[data-md-color-scheme="slate"] .scroll-indicator {
+  background-color: rgba(40, 40, 45, 0.7);
+}
+
+.scroll-indicator svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--ghibli-accent);
+}
+
+@keyframes subtle-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-8px); }
+}
+
+/* Introduction section layout */
+.intro-section {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Feature grid layout - refined for better hierarchy */
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2.5rem;
+  margin: 3rem 0;
 }
 
-/* Two-column layout */
+/* Two-column layout - more refined spacing */
 .two-column {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 3rem;
   align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-/* Tabbed content layout from landing-page-tabs.css */
-.tabbed-content {
-  margin: 2rem 0;
+/* Tabbed content layout - refined for harmony */
+.tabbed-experience {
+  margin: 3rem 0;
+  background-color: rgba(var(--ghibli-cream), 0.4);
+  border-radius: var(--border-radius-large);
+  padding: 2rem;
+  box-shadow: var(--box-shadow-soft);
+  transition: var(--transition-standard);
+}
+
+[data-md-color-scheme="slate"] .tabbed-experience {
+  background-color: rgba(var(--ghibli-night-mist), 0.3);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--ghibli-text-medium);
+  margin-bottom: 2.5rem;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.1rem;
+  transition: var(--transition-standard);
 }
 
 .tabs {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(var(--md-primary-fg-color--rgb), 0.2);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(var(--ghibli-field), 0.2);
+  padding-bottom: 1rem;
+  justify-content: center;
+  transition: var(--transition-standard);
+}
+
+[data-md-color-scheme="slate"] .tabs {
+  border-bottom: 1px solid rgba(var(--ghibli-night-field), 0.3);
 }
 
 .tab-content {
   display: none;
-  padding: 1rem;
+  padding: 1.5rem;
+  border-radius: var(--border-radius-medium);
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: var(--transition-standard);
+}
+
+[data-md-color-scheme="slate"] .tab-content {
+  background-color: rgba(40, 40, 45, 0.3);
 }
 
 .tab-content.active {
   display: block;
-  animation: fadeIn 0.5s ease-in-out;
+  animation: gentle-fade-in 0.7s ease-in-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes gentle-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

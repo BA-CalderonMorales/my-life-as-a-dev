@@ -1,21 +1,22 @@
 /**
  * Shared styles for dreamscape test scenes
- * This provides consistent styling across all interactive dreamscape prototypes
+ * Uses base-component.css and adds dreamscape-specific styling
  */
 
-/* Base styles for the canvas container */
+/* Base styles for the canvas container - extends component-container */
 .dreamscape-container {
+  /* Uses base-component.css foundation with dreamscape-specific adjustments */
   margin: 0;
   padding: 0;
   overflow: hidden;
-  height: 100vh;
+  height: 100vh; /* Full viewport height for immersive experience */
   width: 100%;
   display: block;
   position: relative;
   background: #000;
 }
 
-/* Canvas element styling */
+/* Canvas element styling - extends component-canvas */
 .dreamscape-canvas {
   position: absolute;
   top: 0;

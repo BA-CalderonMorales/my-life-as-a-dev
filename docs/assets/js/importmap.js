@@ -1,6 +1,12 @@
 /**
  * Simple Module Loader
  * Serves as a centralized entry point for loading all JavaScript modules
+ * 
+ * Note: CSS is loaded via importmap.css which provides a similar structure for styles:
+ * - Theme variables (theme-colors.css)
+ * - Core styles (core/index.css)
+ * - Component styles (components/index.css)
+ * - Landing page styles (landing-page/index.css)
  */
 (function () {
 
@@ -28,6 +34,7 @@
     const loadScripts = () => {
         // All scripts from mkdocs.yml extra_javascript (minus importmap.js itself)
         const scripts = [
+            { path: "assets/js/custom/ghibli-symphony.js", type: "text/javascript" }, // New Ghibli-inspired UI script
             { path: "assets/js/vendor/typewriter.min.js", type: "module" },
             { path: "assets/js/custom/particleBackground.js", type: "module" },
             { path: "assets/js/custom/initParticles.js", type: "module" },
@@ -35,13 +42,8 @@
             { path: "assets/js/custom/logger.js", type: "module" },
             { path: "assets/js/custom/interactivity-utils.js", type: "module" },
             { path: "assets/js/custom/landingPage.js", type: "module" },
-            { path: "assets/js/custom/typewriter-loader.js", type: "module" },
             { path: "assets/js/custom/typewriter-init.js", type: "module" },
             { path: "assets/js/custom/typewriter-fallback.js", type: "module" },
-            { path: "assets/js/custom/scrollEffects.js", type: "module" },
-            { path: "assets/js/custom/networkNodes.js", type: "module" },
-            { path: "assets/js/custom/threeBackground.js", type: "module" },
-            { path: "assets/js/custom/threeBackgroundFallback.js", type: "module" },
             { path: "assets/js/custom/smoothScroll.js", type: "module" },
             { path: "assets/js/custom/performanceMonitor.js", type: "module" },
             { path: "assets/js/custom/sectionTransitions.js", type: "module" },

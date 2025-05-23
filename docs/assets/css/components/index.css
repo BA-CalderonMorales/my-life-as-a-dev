@@ -1,11 +1,18 @@
 /**
  * Components Module - Main index file
  * Consolidates all component styles into organized categories
- * filepath: /workspaces/my-life-as-a-dev/docs/assets/css/components/index.css
  */
 
-/* Shared styles for all components */
+/* Base component styles - imported first to ensure foundation styles are available */
+@import url('./base-component.css');
+
+/* Legacy shared styles - maintained for backwards compatibility */
 @import url('./test-scene-shared.css');
+
+/**
+ * Component Categories
+ * Each group is organized by purpose and functionality
+ */
 
 /* Dreamscape family components */
 @import url('./dreamscape.css');

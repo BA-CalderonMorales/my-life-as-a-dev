@@ -1,10 +1,11 @@
 /**
  * Shared styles for all test scenes
- * This provides consistent styling across all interactive test scene prototypes
+ * Extends base-component.css with test-scene specific styling
  */
 
 /* Base styles for the test scene container */
 .test-scene-container {
+  /* Inherits common properties from component-container via the base component css */
   margin: 1rem auto;
   padding: 0;
   overflow: hidden;

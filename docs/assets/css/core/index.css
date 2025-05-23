@@ -1,6 +1,7 @@
 /**
  * Core Styles Module - Main index file
  * Foundation styles that apply across the entire site
+ * Note: theme-colors.css is now imported directly in importmap.css
  */
 
 /* Base styles and theme customizations */
@@ -22,7 +23,8 @@
  * These styles form the foundation of the entire site.
  * 
  * Core Categories:
- * - Base: Typography, colors, variables, and basic styling
+ * - Theme: Color variables and theme settings
+ * - Base: Typography, colors, and basic styling
  * - Layout: Page structure, grid systems, and responsiveness
  * - Animations: Core animations, transitions, and effects
  * - UI: Common UI elements and component foundations

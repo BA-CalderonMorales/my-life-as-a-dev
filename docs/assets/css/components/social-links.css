@@ -1,0 +1,215 @@
+/**
+ * Social media links and connections
+ * Styled for harmonious integration with the Ghibli-inspired design
+ */
+
+/* Social links container */
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 2rem auto;
+  flex-wrap: wrap;
+}
+
+/* Individual social link styling */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: rgba(var(--ghibli-field), 0.1);
+  color: var(--ghibli-text-dark);
+  transition: var(--transition-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-link:hover {
+  transform: translateY(-3px);
+  background-color: var(--ghibli-field);
+  color: white;
+}
+
+[data-md-color-scheme="slate"] .social-link {
+  background-color: rgba(var(--ghibli-night-field), 0.2);
+  color: var(--ghibli-text-dark);
+}
+
+[data-md-color-scheme="slate"] .social-link:hover {
+  background-color: var(--ghibli-night-field);
+}
+
+.social-link svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+/* Ripple effect for social links */
+.social-link::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.social-link:focus::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0) translate(-50%, -50%);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(20) translate(-50%, -50%);
+    opacity: 0;
+  }
+}
+
+/* Expanded social buttons for main connections */
+.social-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  background-color: rgba(var(--ghibli-field), 0.1);
+  color: var(--ghibli-text-dark);
+  border-radius: var(--border-radius-medium);
+  text-decoration: none;
+  transition: var(--transition-standard);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.social-button:hover {
+  transform: translateY(-3px);
+  background-color: var(--ghibli-field);
+  color: white;
+}
+
+[data-md-color-scheme="slate"] .social-button {
+  background-color: rgba(var(--ghibli-night-field), 0.15);
+  color: var(--ghibli-text-dark);
+}
+
+[data-md-color-scheme="slate"] .social-button:hover {
+  background-color: var(--ghibli-night-field);
+}
+
+.social-button svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Social buttons container */
+.social-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1.5rem auto;
+}
+
+/* Social divider */
+.social-divider {
+  text-align: center;
+  margin: 2rem auto 1.5rem;
+  position: relative;
+  color: var(--ghibli-text-medium);
+  font-size: 0.9rem;
+}
+
+.social-divider::before,
+.social-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background-color: rgba(var(--ghibli-field), 0.2);
+}
+
+.social-divider::before {
+  left: 0;
+}
+
+.social-divider::after {
+  right: 0;
+}
+
+[data-md-color-scheme="slate"] .social-divider::before,
+[data-md-color-scheme="slate"] .social-divider::after {
+  background-color: rgba(var(--ghibli-night-field), 0.3);
+}
+
+/* Secondary links area - smaller, less prominent links */
+.secondary-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem auto;
+}
+
+.secondary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: var(--ghibli-text-medium);
+  border-radius: var(--border-radius-medium);
+  text-decoration: none;
+  transition: var(--transition-standard);
+  font-size: 0.85rem;
+  border: 1px solid rgba(var(--ghibli-field), 0.1);
+}
+
+.secondary-link:hover {
+  background-color: rgba(var(--ghibli-field), 0.05);
+  color: var(--ghibli-text-dark);
+  border-color: rgba(var(--ghibli-field), 0.2);
+  transform: translateY(-2px);
+}
+
+[data-md-color-scheme="slate"] .secondary-link {
+  border-color: rgba(var(--ghibli-night-field), 0.2);
+}
+
+[data-md-color-scheme="slate"] .secondary-link:hover {
+  background-color: rgba(var(--ghibli-night-field), 0.1);
+  border-color: rgba(var(--ghibli-night-field), 0.3);
+}
+
+.secondary-link svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .social-buttons {
+    flex-direction: column;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .social-button {
+    justify-content: center;
+  }
+}

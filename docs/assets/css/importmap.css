@@ -1,15 +1,19 @@
 /**
  * CSS Import Map - Main entry point for all styles
+ * Simplified structure with clear separation of concerns
  */
 
-/* Core Styles Module (consolidated) */
+/* Theme variables - imported first so they're available to all other styles */
+@import url('./core/theme-colors.css');
+
+/* Core foundation styles */
 @import url('./core/index.css');
 
-/* Landing Page Module (consolidated) */
-@import url('./landing-page/index.css');
-
-/* Components Module (consolidated) */
+/* Component-specific styles */
 @import url('./components/index.css');
+
+/* Landing page specific styles */
+@import url('./landing-page/index.css');
 
 /**
  * Print information to console that CSS files were loaded
