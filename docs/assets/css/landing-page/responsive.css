@@ -1,0 +1,82 @@
+/**
+ * Landing Page Responsive Styles
+ * Mobile and responsive adjustments
+ * Consolidated from landing-page-mobile.css
+ */
+
+/* Medium screens */
+@media (max-width: 960px) {
+  .landing-page h1 {
+    font-size: 2.4rem;
+  }
+  
+  .hero-heading {
+    font-size: 3rem;
+  }
+  
+  .landing-page .subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .two-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small screens */
+@media (max-width: 768px) {
+  .landing-page h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-heading {
+    font-size: 2.5rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .tabs {
+    flex-direction: column;
+  }
+  
+  .tab-button {
+    width: 100%;
+    text-align: left;
+    border-left: 2px solid transparent;
+    border-bottom: none;
+  }
+  
+  .tab-button.active {
+    border-left-color: var(--md-primary-fg-color);
+    border-bottom-color: transparent;
+  }
+  
+  .hero-section {
+    min-height: 40vh;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .landing-page h1 {
+    font-size: 1.8rem;
+  }
+  
+  .hero-heading {
+    font-size: 2.2rem;
+  }
+  
+  .landing-page h2 {
+    font-size: 1.6rem;
+  }
+  
+  .landing-page section {
+    margin: 1rem 0;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+}

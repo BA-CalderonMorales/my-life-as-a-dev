@@ -1,0 +1,59 @@
+/**
+ * Landing Page Base Styles
+ * Foundation styles from original landing-page.css
+ */
+
+.landing-page {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.landing-page .md-content {
+  position: relative;
+}
+
+/* Core semantic structure */
+.landing-page section {
+  margin: 2rem 0;
+  padding: 1rem;
+  position: relative;
+}
+
+/* Section divider styles - consolidated from multiple files */
+.section-divider {
+  position: relative;
+  overflow: hidden;
+  height: 2px;
+  margin: 3rem 0;
+  background: rgba(var(--md-primary-fg-color--rgb), 0.1);
+}
+
+/* Import the shimmer effect from landing-page-bg.css */
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, var(--md-primary-fg-color), transparent);
+  animation: shimmer 2.5s infinite;
+  opacity: 0.5;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
+
+/* Generic container styles */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}

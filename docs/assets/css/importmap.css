@@ -1,27 +1,14 @@
 /**
- * CSS Import Map
- * Consolidated stylesheet loader that imports all CSS files from the project
+ * CSS Import Map - Main entry point for all styles
  */
 
-/* Core Styles */
+/* Core/Base Styles */
 @import url('./custom.css');
-
-/* Landing Page Styles */
-@import url('./landing-page.css');
-@import url('./landing-page-extras.css');
-@import url('./landing-page-bg.css');
-@import url('./landing-page-mobile.css');
-@import url('./landing-page-cards.css');
-@import url('./landing-page-scroll.css');
-@import url('./landing-page-headings.css');
-@import url('./landing-page-tabs.css');
-@import url('./landing-page-cta.css');
-@import url('./landing-page-interactive.css');
-@import url('./landing-page-typewriter-fix.css');
-
-/* Utility Styles */
 @import url('./section-transitions.css');
 @import url('./scroll-indicator-fix.css');
+
+/* Landing Page Module (consolidated) */
+@import url('./landing-page/index.css');
 
 /* Component Styles */
 @import url('./components/test-scene-shared.css');
