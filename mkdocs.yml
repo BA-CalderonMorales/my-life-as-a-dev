@@ -67,7 +67,6 @@ markdown_extensions:
       alternate_style: true
 
 plugins:
-  - ai_plugin
   - awesome-nav
   - git-authors:
       show_email_address: true
