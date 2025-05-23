@@ -2,25 +2,14 @@
  * CSS Import Map - Main entry point for all styles
  */
 
-/* Core/Base Styles */
-@import url('./custom.css');
-@import url('./section-transitions.css');
-@import url('./scroll-indicator-fix.css');
+/* Core Styles Module (consolidated) */
+@import url('./core/index.css');
 
 /* Landing Page Module (consolidated) */
 @import url('./landing-page/index.css');
 
-/* Component Styles */
-@import url('./components/test-scene-shared.css');
-@import url('./components/dreamscape.css');
-@import url('./components/dreamscape-proto4.css');
-@import url('./components/dreamscape-proto6.css');
-@import url('./components/ghibli-masterpiece.css');
-@import url('./components/color-particle-artifact.css');
-@import url('./components/physics-playground.css');
-@import url('./components/kaleidoscopic-scene.css');
-@import url('./components/intergalactic-scene.css');
-@import url('./components/aiPlayground/aiPlayground.css');
+/* Components Module (consolidated) */
+@import url('./components/index.css');
 
 /**
  * Print information to console that CSS files were loaded

@@ -1,0 +1,70 @@
+/**
+ * Layout Styles
+ * Page structure and layout components
+ */
+
+/* Header styling - from custom.css */
+.md-header {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+/* Theme-specific header styling */
+[data-md-color-scheme="default"] .md-header {
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1), 
+              0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+}
+
+[data-md-color-scheme="slate"] .md-header {
+  background-color: rgba(35, 37, 49, 0.85);
+  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.2), 
+              0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
+}
+
+/* Main container styling */
+.md-container {
+  padding-top: 0.5rem;
+}
+
+/* Content section spacing */
+.md-content__inner {
+  padding-top: 1rem;
+  padding-bottom: 4rem;
+}
+
+/* Make code blocks responsive */
+.md-typeset pre {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Container for special sections */
+.custom-container {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+/* Responsive layout adjustments */
+@media screen and (max-width: 76.1875em) {
+  .md-nav--primary .md-nav__title {
+    background-color: var(--md-primary-fg-color);
+    color: var(--md-primary-bg-color);
+  }
+}
+
+/* Grid layout helpers */
+.grid {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}

@@ -1,0 +1,44 @@
+/**
+ * Components Module - Main index file
+ * Consolidates all component styles into organized categories
+ * filepath: /workspaces/my-life-as-a-dev/docs/assets/css/components/index.css
+ */
+
+/* Shared styles for all components */
+@import url('./test-scene-shared.css');
+
+/* Dreamscape family components */
+@import url('./dreamscape.css');
+@import url('./dreamscape-proto4.css');
+@import url('./dreamscape-proto6.css');
+
+/* Visual scene components */
+@import url('./ghibli-masterpiece.css');
+@import url('./color-particle-artifact.css');
+@import url('./kaleidoscopic-scene.css');
+@import url('./intergalactic-scene.css');
+
+/* Interactive components */
+@import url('./physics-playground.css');
+@import url('./cellular-prism.css');
+
+/* Application components */
+@import url('./aiPlayground/aiPlayground.css');
+
+/**
+ * Components Registry
+ * -------------------------------------------------
+ * This file serves as the entry point for all component styles.
+ * Each component stylesheet is imported above and organized by category.
+ * 
+ * To add a new component:
+ * 1. Create the component CSS file in the appropriate directory
+ * 2. Add an import statement in the relevant section above
+ * 
+ * Component Categories:
+ * - Shared: Common styles shared across components
+ * - Dreamscape: All dreamscape visualization variants
+ * - Visual: Scene-based visual components
+ * - Interactive: Components with user interaction
+ * - Application: Full application components
+ */
