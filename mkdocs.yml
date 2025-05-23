@@ -49,24 +49,25 @@ theme:
         name: Switch to dark mode
 
 markdown_extensions:
+  - admonition
+  - attr_list
   - extra
+  - md_in_html
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.extra
+  - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.extra
   - pymdownx.tabbed:
       alternate_style: true
-  - md_in_html
-  - attr_list
-  - admonition
-  - pymdownx.details
 
 plugins:
+  - ai_plugin
   - awesome-nav
   - git-authors:
       show_email_address: true
@@ -74,16 +75,15 @@ plugins:
   - git-revision-date-localized:
       timezone: America/North_Dakota/Center
   - mike
-  - panzoom
-  - search
-  - tags
-  - ai_plugin
   - minify:
       minify_html: true
       minify_js: true
       minify_css: true
       htmlmin_opts:
           remove_comments: true
+  - panzoom
+  - search
+  - tags
 
 extra_css:
   - assets/css/importmap.css
