@@ -10,14 +10,14 @@ let logger;
 let interactivityUtils;
 
 try {
-  const module = await import('../../custom/logger.js').catch(() => 
-    import('/assets/js/custom/logger.js')
+  const module = await import('../../core/logger.js').catch(() => 
+    import('/assets/js/core/logger.js')
   );
   logger = module.defaultLogger;
   
   // Import interactivity utilities
-  interactivityUtils = await import('../../custom/interactivity-utils.js').catch(() => 
-    import('/assets/js/custom/interactivity-utils.js')
+  interactivityUtils = await import('../../core/interactivity-utils.js').catch(() => 
+    import('/assets/js/core/interactivity-utils.js')
   );
 } catch (err) {
   // Fallback logger if import fails

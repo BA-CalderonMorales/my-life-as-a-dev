@@ -1,18 +1,10 @@
 /**
  * Simple Module Loader
  * Serves as a centralized entry point for loading all JavaScript modules
- * 
- * Note: CSS is loaded via importmap.css which provides a similar structure for styles:
- * - Theme variables (theme-colors.css)
- * - Core styles (core/index.css)
- * - Component styles (components/index.css)
- * - Landing page styles (landing-page/index.css)
  */
 (function () {
-
     // Set up Three.js CDN imports
     const setupThreeJsImports = () => {
-
         if (document.querySelector('script[type="importmap"]')) {
             return;
         }
@@ -32,25 +24,23 @@
 
     // Load all scripts from mkdocs.yml
     const loadScripts = () => {
-
         // All scripts from mkdocs.yml extra_javascript (minus importmap.js itself)
         const scripts = [
-
             // Core scripts
             { path: "assets/js/core/logger.js", type: "module" },
-            // ----------------------------------------------------------------------------------------
+            { path: "assets/js/core/interactivity-utils.js", type: "module" },  // Added core utility
+            { path: "assets/js/core/scrollEffects.js", type: "module" },        // Added core utility
+            
+            // Components
+            { path: "assets/js/components/ambient-background/ambient-background.js", type: "module" },
+            
             // Page scripts
-            // ----------------------------------------------------------------------------------------
-            // - Home
             { path: "assets/js/pages/home/landingPage.js", type: "module" },
             { path: "assets/js/pages/home/sectionTransitions.js", type: "module" },
             { path: "assets/js/pages/home/smoothScroll.js", type: "module" },
-            // - AI Playground
             { path: "assets/js/pages/aiPlayground/aiPlayground.js", type: "module" },
-            // ----------------------------------------------------------------------------------------
-            // Component scripts:
-            // ----------------------------------------------------------------------------------------
-            // - Test Scenes
+            
+            // Component scripts - Test Scenes
             { path: "assets/js/components/dreamscape/dreamscape.js", type: "module" },
             { path: "assets/js/components/dreamscape-proto4/dreamscape-proto4.js", type: "module" },
             { path: "assets/js/components/dreamscape-proto6/dreamscape-proto6.js", type: "module" },
@@ -62,26 +52,61 @@
             { path: "assets/js/components/intergalactic-scene/intergalactic-scene.js", type: "module" },
         ];
 
+        // Create container for three.js background early
+        if (!document.getElementById('three-background')) {
+            const bgContainer = document.createElement('div');
+            bgContainer.id = 'three-background';
+            document.body.prepend(bgContainer);
+        }
+
         // Load all scripts in order
+        let loadedScripts = 0;
+        const totalScripts = scripts.length;
+        
         scripts.forEach(script => {
             const scriptElement = document.createElement('script');
             scriptElement.type = script.type || 'text/javascript';
-            // Remove the leading slash that was causing 404 errors
             scriptElement.src = script.path;
             document.body.appendChild(scriptElement);
 
             // Add error handling to help with debugging
             scriptElement.onerror = () => {
-                console.warn(`Failed to load: ${ script.path }`);
+                console.warn(`Failed to load: ${script.path}`);
+                checkAllLoaded();
             };
 
             scriptElement.onload = () => {
-                console.log(`Successfully loaded: ${ script.path }`);
+                console.log(`Successfully loaded: ${script.path}`);
+                checkAllLoaded();
             };
-
         });
-
-        console.log('All scripts loaded via importmap.js');
+        
+        function checkAllLoaded() {
+            loadedScripts++;
+            if (loadedScripts === totalScripts) {
+                console.log('All scripts loaded via importmap.js');
+                initializeThreeJsBackground();
+            }
+        }
+    };
+    
+    // Initialize the ambient background after all scripts are loaded
+    const initializeThreeJsBackground = async () => {
+        try {
+            // Get the AmbientBackground class - Use consistent path
+            const { default: AmbientBackground } = await import('./components/ambient-background/ambient-background.js');
+            
+            // Initialize the ambient background
+            window.ambientBackground = new AmbientBackground({
+                particleCount: 800,
+                speed: 0.05,
+                colorMode: 'theme'
+            });
+            
+            console.log("Ambient background initialized");
+        } catch (error) {
+            console.error("Failed to initialize ambient background:", error);
+        }
     };
 
     // Initialize when DOM is ready
@@ -89,5 +114,4 @@
         setupThreeJsImports();
         loadScripts();
     });
-
 })();

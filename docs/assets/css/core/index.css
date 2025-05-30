@@ -1,0 +1,19 @@
+/**
+ * Core Module - Main entry point for core styles
+ * Contains foundation styles used throughout the application
+ */
+
+/* Base styles and resets */
+@import url('./base.css');
+
+/* Theme colors and variables */
+@import url('./theme-colors.css');
+
+/* Layout utilities */
+@import url('./layout.css');
+
+/* Animation definitions */
+@import url('./animations.css');
+
+/* UI components base styles */
+@import url('./ui.css');

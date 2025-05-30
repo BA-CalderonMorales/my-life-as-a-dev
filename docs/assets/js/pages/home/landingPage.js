@@ -1,4 +1,3 @@
-
 /**
  * LandingPage.js - MVVM Implementation
  * 
@@ -11,22 +10,22 @@
  * animations while this focuses on content and UI-specific features.
  */
 
-import { defaultLogger } from '../../core/logger.js';
-// We import the scroll effects module but handle the case where it might load after this file
-let scrollEffectsModule = null;
-try {
-  // Dynamic import to avoid circular dependencies
-  import('./scrollEffects.js').then(module => {
-    scrollEffectsModule = module;
-  }).catch(err => {
-    console.error('Error importing scrollEffects.js:', err);
-  });
-} catch (error) {
-  console.error('Error setting up scrollEffects import:', error);
-}
+import { Logger } from '../../core/logger.js';  // Use named import instead of default import
+import ScrollEffects from '../../core/scrollEffects.js';
+
+const logger = new Logger('landingPage');
 
 // Initialize module logger
-const logger = defaultLogger.setModule('landingPage');
+const defaultLogger = {
+  setModule: (moduleName) => {
+    return {
+      debug: (...args) => console.debug(`[${moduleName}]`, ...args),
+      info: (...args) => console.info(`[${moduleName}]`, ...args),
+      warn: (...args) => console.warn(`[${moduleName}]`, ...args),
+      error: (...args) => console.error(`[${moduleName}]`, ...args),
+    };
+  },
+};
 
 // ================ MODELS ================
 
@@ -294,3 +293,53 @@ document.addEventListener('DOMContentLoaded', function() {
   const app = new LandingPageController();
   app.initialize();
 });
+
+/**
+ * LandingPage - Class to encapsulate landing page behaviors
+ */
+class LandingPage {
+  constructor() {
+    this.initialized = false;
+    this.scrollEffects = null;
+    this.init();
+  }
+
+  async init() {
+    if (this.initialized) return;
+    
+    logger.debug('Initializing landing page');
+    
+    try {
+      // Initialize scroll effects
+      this.scrollEffects = new ScrollEffects();
+      
+      // Additional landing page specific initialization can go here
+      this.setupHeroAnimation();
+      this.setupProjectCards();
+      
+      this.initialized = true;
+      logger.info('Landing page initialized');
+    } catch (error) {
+      logger.error('Error initializing landing page', error);
+    }
+  }
+
+  setupHeroAnimation() {
+    // Hero section specific animations/interactions
+    logger.debug('Setting up hero animation');
+    // Implementation would go here
+  }
+  
+  setupProjectCards() {
+    // Project cards specific animations/interactions
+    logger.debug('Setting up project cards');
+    // Implementation would go here
+  }
+}
+
+// Initialize landing page
+document.addEventListener('DOMContentLoaded', () => {
+  new LandingPage();
+});
+
+export default LandingPage;

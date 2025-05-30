@@ -8,6 +8,9 @@
  * - YAGNI: Includes only necessary features without overengineering
  */
 
+/**
+ * Enhanced logging utility with support for different log levels and environments
+ */
 class Logger {
   /**
    * Creates a new Logger instance with the specified configuration

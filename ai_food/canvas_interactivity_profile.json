@@ -20,7 +20,7 @@
   },
   "implementations": {
     "utilityModule": {
-      "path": "docs/assets/js/custom/interactivity-utils.js",
+      "path": "docs/assets/js/core/interactivity-utils.js",
       "description": "Centralized utility functions for managing interactivity across all scene components",
       "exports": [
         "makeCanvasInteractive",

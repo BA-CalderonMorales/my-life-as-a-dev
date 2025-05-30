@@ -10,8 +10,8 @@ let interactivityUtils;
 
 try {
   // Import interactivity utilities
-  interactivityUtils = await import('../../custom/interactivity-utils.js').catch(() => 
-    import('/assets/js/custom/interactivity-utils.js')
+  interactivityUtils = await import('../../core/interactivity-utils.js').catch(() => 
+    import('/assets/js/core/interactivity-utils.js')
   );
 } catch (err) {
   console.warn('Failed to load interactivity utilities:', err);
