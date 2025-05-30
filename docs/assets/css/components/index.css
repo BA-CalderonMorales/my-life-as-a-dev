@@ -1,33 +1,17 @@
 /**
  * Components Module - Main index file
- * Consolidates all component styles into organized categories
+ * Consolidated for improved performance and reduced stylesheet count
  */
-
-/* Base component styles - imported first to ensure foundation styles are available */
-@import url('./base-component.css');
-
-/* Legacy shared styles - maintained for backwards compatibility */
-@import url('./test-scene-shared.css');
 
 /**
  * Component Categories
- * Each group is organized by purpose and functionality
+ * Simplified imports to reduce HTTP requests
  */
 
-/* Dreamscape family components */
+/* Minimal component-specific overrides */
+/* Only include component CSS if it contains styles not covered by test-scenes.css */
 @import url('./dreamscape.css');
-@import url('./dreamscape-proto4.css');
-@import url('./dreamscape-proto6.css');
-
-/* Visual scene components */
 @import url('./ghibli-masterpiece.css');
-@import url('./color-particle-artifact.css');
-@import url('./kaleidoscopic-scene.css');
-@import url('./intergalactic-scene.css');
-
-/* Interactive components */
-@import url('./physics-playground.css');
-@import url('./cellular-prism.css');
 
 /* Application components */
 @import url('./aiPlayground/aiPlayground.css');

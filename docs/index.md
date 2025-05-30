@@ -1,324 +1,296 @@
 ---
 hide:
   - toc
+  - navigation
+title: Home
 ---
 
-<style>  
-  /* Hide the first H1 in the content area */
-  .md-typeset h1:first-of-type {
-    display: none;
-  }
+<div class="home-page">
 
-  .md-source-file {
-    display: none;
-  }
-</style>
-
-<!-- Main container with Ghibli styling -->
-<div markdown="1" class="home-page ghibli-gradient texture-overlay">
-
-<!-- Scroll progress indicator -->
-<div class="scroll-progress"></div>
-
-<!-- Decorative accent circles -->
-<div class="accent-circle accent-circle-1"></div>
-<div class="accent-circle accent-circle-2"></div>
-
-<!-- Hero section -->
-<section class="hero-section scroll-reveal" id="hero">
-
-<!-- Profile image section -->
+<section class="hero-section" id="hero">
 <div class="profile-section">
-
-<img src="./assets/images/me-today.png" alt="Brandon Calderon Morales" class="profile-image img-hover">
-
+  <img src="./assets/images/me-today.png" alt="Brandon Calderon Morales" class="profile-image">
 </div>
 
-<!-- Hero text content -->
-# Hi, I'm Brandon Calderon{.hero-heading .scroll-reveal}
+<h1 class="hero-heading">Hi, I'm Brandon Calderon</h1>
 
-<p class="subtitle scroll-reveal">
-<span class="typewriter-text" data-strings="Product-Minded Software Engineer|DevOps Transformation Specialist|Legacy Code Modernizer|Technical Mentor|Full-Stack Engineer"></span>
+<p class="subtitle">
+  Product-Minded Software Engineer | DevOps Transformation Specialist | Legacy Code Modernizer
 </p>
 
-<p class="subtitle scroll-reveal">
-Omaha, Nebraska, United States
+<p class="subtitle">
+  Omaha, Nebraska, United States
 </p>
 
-<div class="scroll-indicator" data-target="intro">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-<path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
-</svg>
+<div class="scroll-indicator" onclick="document.getElementById('intro').scrollIntoView({behavior: 'smooth'})">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+    <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+  </svg>
 </div>
 </section>
 
-<!-- Section divider -->
-<div class="section-divider"></div>
-
-<!-- Introduction section -->
-<section class="intro-section" id="intro" markdown="1">
-
-## Welcome to My Digital Home{.scroll-reveal}
-
-<p class="subtitle scroll-reveal">
-I'm passionate about building resilient software systems with a strategic vision, creating elegant solutions to complex problems, and mentoring others along the way.
-</p>
-
-<div class="cta-container scroll-reveal">
-<a class="cta-button" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=bcalderonmorales-cmoe" target="_blank">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-<path fill="currentColor" d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
-</svg>
-Connect on LinkedIn
-</a>
-
-<a href="#explore" class="cta-button secondary">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-<path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2zm0 8h2v2h-2z"></path>
-</svg>
-Explore My Journey
-</a>
+<div class="section-divider">
+  <div class="divider-ornament"></div>
 </div>
 
-<p class="tagline scroll-reveal" id="explore">️
+<section class="intro-section" id="intro">
+<h2 class="section-title">Welcome to My Digital Home</h2>
 
-🚀<em>Building resilient code with strategic vision</em>🛠
+<p class="section-subtitle">
+  I'm passionate about building resilient software systems with a strategic vision, creating elegant solutions to complex problems, and mentoring others along the way.
+</p>
 
+<div class="cta-container">
+  <a class="cta-button primary" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=bcalderonmorales-cmoe" target="_blank">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path fill="currentColor" d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+    </svg>
+    Connect on LinkedIn
+  </a>
+
+  <a href="#explore" class="cta-button secondary">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2zm0 8h2v2h-2z"></path>
+    </svg>
+    Explore My Journey
+  </a>
+</div>
+
+<p class="tagline" id="explore">
+  <span>🚀 <em>Building resilient code with strategic vision</em> 🛠</span>
 </p>
 </section>
 
-<!-- Section divider -->
-<div class="section-divider"></div>
-
-<!-- Tabbed experience section -->
-<section class="tabbed-experience highlight-container" id="tabs" markdown="1">
-
-## Discover My Journey { .section-title .scroll-reveal }
-
-<p class="section-subtitle scroll-reveal">
-Explore different aspects of my professional experience and personal interests
-</p>
-
-<div class="tabs scroll-reveal">
-<!-- Tabs will be handled by MkDocs Material -->
+<div class="section-divider">
+  <div class="divider-ornament"></div>
 </div>
+
+<section class="tabbed-experience" id="tabs">
+<h2 class="section-title">Discover My Journey</h2>
+
+<p class="section-subtitle">
+  Explore different aspects of my professional experience and personal interests
+</p>
 </section>
 
 </div>
 
+<!-- Tabs need to be outside the container for proper pymdownx.tabbed rendering -->
 === "Summary"
 
-## Summary
-
-🛠️⚡ Mission-Driven Engineering | Resilience & Scale | Empower & Democratize
-
-I enjoy the challenge of learning new technologies, adapting to all scenarios, and championing efficiency within development teams. I'm also a father of two beautiful girls and a husband to a wonderful wife. Keep scrolling through this page to learn about me and use the left-hand side links to jump to other important/key sections about me. Cheers!
-
-### Top Skills
-🔹 DevOps Transformation  
-🔹 CI/CD Pipeline Optimization  
-🔹 Legacy Code Modernization  
-🔹 Technical Mentorship  
-🔹 Process Standardization  
+    ## Summary
+    
+    🛠️⚡ Mission-Driven Engineering | Resilience & Scale | Empower & Democratize
+    
+    I enjoy the challenge of learning new technologies, adapting to all scenarios, and championing efficiency within development teams. I'm also a father of two beautiful girls and a husband to a wonderful wife. Keep scrolling through this page to learn about me and use the left-hand side links to jump to other important/key sections about me. Cheers!
+    
+    ### Top Skills
+    🔹 DevOps Transformation  
+    🔹 CI/CD Pipeline Optimization  
+    🔹 Legacy Code Modernization  
+    🔹 Technical Mentorship  
+    🔹 Process Standardization  
 
 === "Professional"
 
-## Professional Background
-
-### Team Leadership
-🔹 Leading DevOps transformations  
-🔹 Mentoring junior engineers  
-🔹 Cross-functional collaboration  
-🔹 Military leadership principles  
-🔹 Agile workflow optimization  
-
-### Technical Expertise
-🔹 CI/CD pipeline design  
-🔹 System architecture  
-🔹 Legacy code modernization  
-🔹 Distributed systems  
-🔹 Development automation  
-
-### Communication
-🔹 Technical documentation  
-🔹 Process standardization  
-🔹 Stakeholder engagement  
-🔹 Knowledge transfer  
-🔹 Teaching/training delivery  
-
-### Languages
-🔹 English (Native)  
-🔹 Spanish (Conversational)  
-
-### Certifications
-🔹 Full-Stack Web Development Certificate  
-
-### Career Timeline
-```mermaid
-gantt
-dateFormat  YYYY-MM-DD
-title Career Timeline
-section Software Engineering
-Software Engineer, Sr. Professional (Fiserv) :active, f1, 2024-01-01, 1y4m
-Software Engineer (Leidos)                      :active, f2, 2021-10-01, 1y8m
-Web Services Developer (Insight Global)         :active, f3, 2023-05-01, 7m
-section Military & Legal
-Military Trainee, Sr. Professional (Fiserv)       :active, m1, 2023-11-01, 3m
-Legal Chief (US Marine Corps)                     :active, m2, 2018-06-01, 11m
-Court Reporter (US Marine Corps)                  :active, m3, 2016-08-01, 1y10m
-Legal Specialist (US Marine Corps)                :active, m4, 2014-12-01, 1y9m
-Legal Administrative Assistant (Boys Town)        :active, m5, 2019-06-01, 3m
-```
+    ## Professional Background
+    
+    ### Team Leadership
+    🔹 Leading DevOps transformations  
+    🔹 Mentoring junior engineers  
+    🔹 Cross-functional collaboration  
+    🔹 Military leadership principles  
+    🔹 Agile workflow optimization  
+    
+    ### Technical Expertise
+    🔹 CI/CD pipeline design  
+    🔹 System architecture  
+    🔹 Legacy code modernization  
+    🔹 Distributed systems  
+    🔹 Development automation  
+    
+    ### Communication
+    🔹 Technical documentation  
+    🔹 Process standardization  
+    🔹 Stakeholder engagement  
+    🔹 Knowledge transfer  
+    🔹 Teaching/training delivery  
+    
+    ### Languages
+    🔹 English (Native)  
+    🔹 Spanish (Conversational)  
+    
+    ### Certifications
+    🔹 Full-Stack Web Development Certificate  
+    
+    ### Career Timeline
+    ```mermaid
+    gantt
+    dateFormat  YYYY-MM-DD
+    title Career Timeline
+    section Software Engineering
+    Software Engineer, Sr. Professional (Fiserv) :active, f1, 2024-01-01, 1y4m
+    Software Engineer (Leidos)                      :active, f2, 2021-10-01, 1y8m
+    Web Services Developer (Insight Global)         :active, f3, 2023-05-01, 7m
+    section Military & Legal
+    Military Trainee, Sr. Professional (Fiserv)       :active, m1, 2023-11-01, 3m
+    Legal Chief (US Marine Corps)                     :active, m2, 2018-06-01, 11m
+    Court Reporter (US Marine Corps)                  :active, m3, 2016-08-01, 1y10m
+    Legal Specialist (US Marine Corps)                :active, m4, 2014-12-01, 1y9m
+    Legal Administrative Assistant (Boys Town)        :active, m5, 2019-06-01, 3m
+    ```
 
 === "Technical Skills"
 
-## Technical Skills
-
-### Technical Focus
-
-```mermaid
-flowchart TD
-A[Software Engineering] --> B[CI/CD Optimization]
-A --> C[Distributed Systems]
-B --> D[Git & GitHub]
-B --> E[Jenkins / GitHub Actions]
-C --> F[Scalable Architecture]
-C --> G[Workflow Automation]
-```
-
-### Languages
-🔹 C#  
-🔹 SQL  
-🔹 JavaScript  
-🔹 TypeScript  
-🔹 XML  
-🔹 YAML  
-🔹 Groovy  
-🔹 Rust  
-
-### Frameworks
-🔹 React  
-🔹 .NET 4.8  
-🔹 .NET 6+  
-
-### Tools
-🔹 Visual Studio  
-🔹 VS Code  
-🔹 MSSQL  
-🔹 CyberArk  
-🔹 Splunk  
-🔹 Confluence  
-🔹 SharePoint  
-🔹 ServiceNow  
-🔹 Fortify SCA  
-🔹 Jenkins  
-🔹 GitHub Actions  
+    ## Technical Skills
+    
+    ### Technical Focus
+    
+    ```mermaid
+    flowchart TD
+    A[Software Engineering] --> B[CI/CD Optimization]
+    A --> C[Distributed Systems]
+    B --> D[Git & GitHub]
+    B --> E[Jenkins / GitHub Actions]
+    C --> F[Scalable Architecture]
+    C --> G[Workflow Automation]
+    ```
+    
+    ### Languages
+    🔹 C#  
+    🔹 SQL  
+    🔹 JavaScript  
+    🔹 TypeScript  
+    🔹 XML  
+    🔹 YAML  
+    🔹 Groovy  
+    🔹 Rust  
+    
+    ### Frameworks
+    🔹 React  
+    🔹 .NET 4.8  
+    🔹 .NET 6+  
+    
+    ### Tools
+    🔹 Visual Studio  
+    🔹 VS Code  
+    🔹 MSSQL  
+    🔹 CyberArk  
+    🔹 Splunk  
+    🔹 Confluence  
+    🔹 SharePoint  
+    🔹 ServiceNow  
+    🔹 Fortify SCA  
+    🔹 Jenkins  
+    🔹 GitHub Actions  
 
 === "Experience"
 
-## Experience Highlights
-
-### Fiserv
-🔹 **Role:** Software Engineer, Sr. Professional  
-🔹 **Duration:** January 2024 - Present (1 year 4 months)  
-🔹 **Location:** Omaha, Nebraska, United States  
-🔹 **Highlights:**  
-- Spearheaded migration from Jenkins to GitHub Actions to optimize CI/CD workflows.  
-- Resolved critical CI/CD issues and standardized workflows to boost team efficiency.  
-- Mentored junior engineers and contributed to high-level design and user story creation.  
-
-🔹 **Previous Role:** Military Trainee, Sr. Professional  
-🔹 **Duration:** November 2023 - January 2024 (3 months)  
-🔹 Gained insights into project management and business analysis as part of a specialized training program.  
-🔹 Enhanced soft skills including communication, teamwork, and leadership.  
-
-### Insight Global
-🔹 **Role:** Web Services Developer  
-🔹 **Duration:** May 2023 - November 2023 (7 months)  
-🔹 **Location:** Bellevue, Nebraska, United States  
-🔹 **Highlights:**  
-- Developed and maintained web services using C#, SQL, and JavaScript.  
-- Managed design, implementation, refactoring, and bug fixes within a legacy codebase.  
-
-### Leidos
-🔹 **Role:** Software Engineer  
-🔹 **Duration:** October 2021 - May 2023 (1 year 8 months)  
-🔹 **Location:** Omaha, Nebraska, United States  
-🔹 **Highlights:**  
-- Worked as both a Frontend and DevOps engineer.  
-- Configured development environments using Linux, VS Code, and Vim.  
-- Built and maintained shared React components and contributed to agile workflows.  
-
-### Military Service
-
-#### United States Marine Corps
-🔹 **Legal Chief:** June 2018 - April 2019 (11 months) – Morón De La Frontera, Andalusia, Spain  
-🔹 **Court Reporter:** August 2016 - May 2018 (1 year 10 months) – Camp Lejeune, North Carolina  
-🔹 **Legal Specialist:** December 2014 - August 2016 (1 year 9 months) – Camp Lejeune, North Carolina  
-
-#### Boys Town National Research Hospital
-🔹 **Role:** Legal Administrative Assistant  
-🔹 **Duration:** June 2019 - August 2019 (3 months)  
-🔹 **Location:** Boys Town, Nebraska  
+    ## Experience Highlights
+    
+    ### Fiserv
+    🔹 **Role:** Software Engineer, Sr. Professional  
+    🔹 **Duration:** January 2024 - Present (1 year 4 months)  
+    🔹 **Location:** Omaha, Nebraska, United States  
+    🔹 **Highlights:**  
+    - Spearheaded migration from Jenkins to GitHub Actions to optimize CI/CD workflows.  
+    - Resolved critical CI/CD issues and standardized workflows to boost team efficiency.  
+    - Mentored junior engineers and contributed to high-level design and user story creation.  
+    
+    🔹 **Previous Role:** Military Trainee, Sr. Professional  
+    🔹 **Duration:** November 2023 - January 2024 (3 months)  
+    🔹 Gained insights into project management and business analysis as part of a specialized training program.  
+    🔹 Enhanced soft skills including communication, teamwork, and leadership.  
+    
+    ### Insight Global
+    🔹 **Role:** Web Services Developer  
+    🔹 **Duration:** May 2023 - November 2023 (7 months)  
+    🔹 **Location:** Bellevue, Nebraska, United States  
+    🔹 **Highlights:**  
+    - Developed and maintained web services using C#, SQL, and JavaScript.  
+    - Managed design, implementation, refactoring, and bug fixes within a legacy codebase.  
+    
+    ### Leidos
+    🔹 **Role:** Software Engineer  
+    🔹 **Duration:** October 2021 - May 2023 (1 year 8 months)  
+    🔹 **Location:** Omaha, Nebraska, United States  
+    🔹 **Highlights:**  
+    - Worked as both a Frontend and DevOps engineer.  
+    - Configured development environments using Linux, VS Code, and Vim.  
+    - Built and maintained shared React components and contributed to agile workflows.  
+    
+    ### Military Service
+    
+    #### United States Marine Corps
+    🔹 **Legal Chief:** June 2018 - April 2019 (11 months) – Morón De La Frontera, Andalusia, Spain  
+    🔹 **Court Reporter:** August 2016 - May 2018 (1 year 10 months) – Camp Lejeune, North Carolina  
+    🔹 **Legal Specialist:** December 2014 - August 2016 (1 year 9 months) – Camp Lejeune, North Carolina  
+    
+    #### Boys Town National Research Hospital
+    🔹 **Role:** Legal Administrative Assistant  
+    🔹 **Duration:** June 2019 - August 2019 (3 months)  
+    🔹 **Location:** Boys Town, Nebraska  
 
 === "Education"
 
-## Education
+    ## Education
+    
+    ### University
+    🔹 **University of Nebraska at Omaha**  
+    Bachelor's Degree in Multidisciplinary Studies (Computer Science Concentration)  
+    *August 2013 - December 2025*  
+    
+    ### Certificates
+    🔹 **devCodeCamp**  
+    Certificate, Full-Stack Software Development  
+    *May 2021 - August 2021*  
+    
+    ### Early Education
+    🔹 **Omaha South Magnet High School**  
+    High School Diploma  
+    *2009 - 2013*  
 
-### University
-🔹 **University of Nebraska at Omaha**  
-Bachelor's Degree in Multidisciplinary Studies (Computer Science Concentration)  
-*August 2013 - December 2025*  
+<!-- Resume the styled content after tabs -->
+<div class="home-page">
 
-### Certificates
-🔹 **devCodeCamp**  
-Certificate, Full-Stack Software Development  
-*May 2021 - August 2021*  
-
-### Early Education
-🔹 **Omaha South Magnet High School**  
-High School Diploma  
-*2009 - 2013*  
-
-<div class="home-page" markdown="1">
-
-<!-- Featured AI section -->
-<div class="featured-section ai-section" markdown="1">
+<div class="featured-section ai-section">
 <div class="feature-cards">
-<div class="feature-card" markdown="1">
+<div class="feature-card">
 <div class="feature-icon">🤖</div>
-### AI Playground
+<h3>AI Playground</h3>
 
 Experiment with interactive AI tools that I've built to enhance creativity and productivity.
 
-[Explore the Playground](./ai-demo/ai-playground/playground){.feature-link}
+<a href="./ai-demo/ai-playground/playground" class="feature-link">Explore the Playground</a>
 </div>
 
-<div class="feature-card" markdown="1">
+<div class="feature-card">
 <div class="feature-icon">🧪</div>
-### Visual Experiments
+<h3>Visual Experiments</h3>
 
 Check out my AI-assisted visual scenes and interactive experiments.
 
-[See Test Scenes](./blog/life/){.feature-link}
+<a href="./blog/life/" class="feature-link">See Test Scenes</a>
 </div>
 
-<div class="feature-card" markdown="1">
+<div class="feature-card">
 <div class="feature-icon">📘</div>
-### AI Journey
+<h3>AI Journey</h3>
 
 Learn about how I've been integrating AI into documentation and creative projects.
 
-[Read My AI Story](./ai-demo/){.feature-link}
+<a href="./ai-demo/" class="feature-link">Read My AI Story</a>
 </div>
 </div>
 
-<div class="ai-tools-showcase" markdown="1">
-### Featured AI Tools
+<div class="ai-tools-showcase">
+<h3>Featured AI Tools</h3>
 
-* **Repository Explorer**: Get AI-driven insights into code repositories
-* **Interactive Scene Creator**: Generate 3D scenes with AI assistance
-* **Code Assistance**: Leverage AI for code explanations and documentation
+<ul>
+<li>Repository Explorer: Get AI-driven insights into code repositories</li>
+<li>Interactive Scene Creator: Generate 3D scenes with AI assistance</li>
+<li>Code Assistance: Leverage AI for code explanations and documentation</li>
+</ul>
 </div>
 </div>
 
@@ -393,10 +365,8 @@ DockerHub
 
 </section>
 
-</div>
-
 <footer class="landing-footer">
 <p>© <span class="copyright-year">2025</span> Brandon A. Calderon Morales</p>
 </footer>
 
-</div> <!-- End home-page div -->
+</div>

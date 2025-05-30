@@ -2,7 +2,7 @@
  * Enhanced section transitions with scroll effects
  * Manages section-based scrolling animations and reveals
  */
-import { defaultLogger } from './logger.js';
+import { defaultLogger } from '../../core/logger.js';
 
 // Set up logger
 const logger = defaultLogger.setModule('sectionTransitions');
@@ -22,6 +22,13 @@ class SectionTransitions {
       animationDelay: 100,     // Base delay for staggered animations
       animationDelayIncrement: 100, // Increment for stagger
       reducedMotion: false     // Honor reduced motion preference
+    };
+    
+    // Scroll progress tracking
+    this.scrollProgress = {
+      indicator: null,
+      enabled: true,
+      throttleDelay: 20
     };
     
     // Check for reduced motion preference
@@ -47,6 +54,9 @@ class SectionTransitions {
     
     // Create observers
     this.createObservers();
+    
+    // Initialize scroll progress
+    this.initScrollProgress();
     
     // Handle scrolled sections that may already be in view
     this.checkInitialSectionVisibility();
@@ -264,6 +274,44 @@ class SectionTransitions {
       childList: true,
       subtree: true
     });
+  }
+
+  /**
+   * Initialize scroll progress tracking
+   */
+  initScrollProgress() {
+    // Find the progress indicator
+    this.scrollProgress.indicator = document.querySelector('.scroll-progress');
+    
+    if (this.scrollProgress.indicator) {
+      // Set up scroll listener with throttling for performance
+      let lastScrollTime = 0;
+      
+      window.addEventListener('scroll', () => {
+        const now = Date.now();
+        if (now - lastScrollTime > this.scrollProgress.throttleDelay) {
+          lastScrollTime = now;
+          this.updateScrollProgress();
+        }
+      }, { passive: true });
+      
+      // Initial update
+      this.updateScrollProgress();
+      logger.debug('Scroll progress initialized');
+    }
+  }
+  
+  /**
+   * Update the scroll progress indicator
+   */
+  updateScrollProgress() {
+    if (!this.scrollProgress.indicator || !this.scrollProgress.enabled) return;
+    
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    
+    this.scrollProgress.indicator.style.width = `${progress}%`;
   }
 
   /**

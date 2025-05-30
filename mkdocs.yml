@@ -34,16 +34,16 @@ theme:
   palette:
     # Dark mode - soft summer night tones
     - scheme: slate
-      primary: custom-blue
-      accent: custom-orange
+      primary: indigo
+      accent: amber
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
     
     # Light mode - soft summer day tones
     - scheme: default
-      primary: custom-teal
-      accent: custom-coral
+      primary: teal
+      accent: deep orange
       toggle:
         icon: material/weather-night
         name: Switch to dark mode

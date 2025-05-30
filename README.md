@@ -100,8 +100,20 @@
    <li>Create and activate a virtual environment (optional but recommended):</li>
      
    ```bash
+   # Create virtual environment
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   # Activate virtual environment
+   # On Linux/macOS:
+   source venv/bin/activate
+   
+   # On Windows (Git Bash):
+   source venv/Scripts/activate
+   
+   # On Windows (Command Prompt):
+   venv\Scripts\activate
+   
+   # On Windows (PowerShell):
+   venv\Scripts\Activate.ps1
    ```
    <li>Install MkDocs and all dependencies:</li>
      

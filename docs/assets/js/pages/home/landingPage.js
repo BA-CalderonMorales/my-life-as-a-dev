@@ -11,7 +11,7 @@
  * animations while this focuses on content and UI-specific features.
  */
 
-import { defaultLogger } from './logger.js';
+import { defaultLogger } from '../../core/logger.js';
 // We import the scroll effects module but handle the case where it might load after this file
 let scrollEffectsModule = null;
 try {

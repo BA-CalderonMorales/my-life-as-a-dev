@@ -32,22 +32,25 @@
 
     // Load all scripts from mkdocs.yml
     const loadScripts = () => {
+
         // All scripts from mkdocs.yml extra_javascript (minus importmap.js itself)
         const scripts = [
-            { path: "assets/js/custom/ghibli-symphony.js", type: "text/javascript" }, // New Ghibli-inspired UI script
-            { path: "assets/js/vendor/typewriter.min.js", type: "module" },
-            { path: "assets/js/custom/particleBackground.js", type: "module" },
-            { path: "assets/js/custom/initParticles.js", type: "module" },
-            { path: "assets/js/custom/versionSelector.js", type: "module" },
-            { path: "assets/js/custom/logger.js", type: "module" },
-            { path: "assets/js/custom/interactivity-utils.js", type: "module" },
-            { path: "assets/js/custom/landingPage.js", type: "module" },
-            { path: "assets/js/custom/typewriter-init.js", type: "module" },
-            { path: "assets/js/custom/typewriter-fallback.js", type: "module" },
-            { path: "assets/js/custom/smoothScroll.js", type: "module" },
-            { path: "assets/js/custom/performanceMonitor.js", type: "module" },
-            { path: "assets/js/custom/sectionTransitions.js", type: "module" },
-            { path: "assets/js/custom/initModernUI.js", type: "module" },
+
+            // Core scripts
+            { path: "assets/js/core/logger.js", type: "module" },
+            // ----------------------------------------------------------------------------------------
+            // Page scripts
+            // ----------------------------------------------------------------------------------------
+            // - Home
+            { path: "assets/js/pages/home/landingPage.js", type: "module" },
+            { path: "assets/js/pages/home/sectionTransitions.js", type: "module" },
+            { path: "assets/js/pages/home/smoothScroll.js", type: "module" },
+            // - AI Playground
+            { path: "assets/js/pages/aiPlayground/aiPlayground.js", type: "module" },
+            // ----------------------------------------------------------------------------------------
+            // Component scripts:
+            // ----------------------------------------------------------------------------------------
+            // - Test Scenes
             { path: "assets/js/components/dreamscape/dreamscape.js", type: "module" },
             { path: "assets/js/components/dreamscape-proto4/dreamscape-proto4.js", type: "module" },
             { path: "assets/js/components/dreamscape-proto6/dreamscape-proto6.js", type: "module" },
@@ -57,7 +60,6 @@
             { path: "assets/js/components/physics-playground/physics-playground.js", type: "module" },
             { path: "assets/js/components/kaleidoscopic-scene/kaleidoscopic-scene.js", type: "module" },
             { path: "assets/js/components/intergalactic-scene/intergalactic-scene.js", type: "module" },
-            { path: "assets/js/components/aiPlayground/aiPlayground.js", type: "module" }
         ];
 
         // Load all scripts in order
@@ -76,6 +78,7 @@
             scriptElement.onload = () => {
                 console.log(`Successfully loaded: ${ script.path }`);
             };
+
         });
 
         console.log('All scripts loaded via importmap.js');

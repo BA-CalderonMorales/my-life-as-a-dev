@@ -1,0 +1,11 @@
+/**
+ * Pages Module - Entry point for page-specific styles
+ * Consolidates all page-specific styling
+ */
+
+/* Landing page specific styles */
+@import url('./landing-page.css');
+
+/* Future page-specific styles can be added here */
+/* @import url('./blog-page.css'); */
+/* @import url('./portfolio-page.css'); */

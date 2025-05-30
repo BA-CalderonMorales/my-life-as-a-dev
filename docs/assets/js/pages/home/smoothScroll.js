@@ -2,7 +2,7 @@
  * SmoothScroll.js
  * Enhanced smooth scrolling with easing functions for a quality UI experience
  */
-import { defaultLogger } from './logger.js';
+import { defaultLogger } from '../../core/logger.js';
 
 // Set up logger
 const logger = defaultLogger.setModule('smoothScroll');
@@ -64,43 +64,33 @@ class SmoothScroll {
     logger.debug('SmoothScroll initialized');
   }
   
+  /**
+   * Initialize smooth scrolling
+   */
   init() {
-    // Attach event listeners to all anchor links
-    document.addEventListener('DOMContentLoaded', () => {
-      // Add click event listeners to all in-page anchor links
-      document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
-        anchor.addEventListener('click', this.handleAnchorClick);
-      });
-      
-      // Add custom class to all in-page links for styling
-      document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
-        anchor.classList.add('smooth-scroll-link');
-      });
-      
-      // Special handling for scroll indicator
-      document.querySelectorAll('.scroll-indicator').forEach(indicator => {
-        indicator.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetId = indicator.getAttribute('data-target');
-          if (targetId) {
-            this.scrollToElement(document.getElementById(targetId));
-          }
-        });
-      });
-      
-      // Handle hash in URL on page load
-      setTimeout(() => {
-        if (window.location.hash) {
-          const targetId = window.location.hash.substring(1);
+    logger.debug('Initializing smooth scroll');
+    
+    // Add event listeners for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', this.handleAnchorClick);
+    });
+    
+    // Add event listeners for scroll indicators
+    document.querySelectorAll('.scroll-indicator').forEach(indicator => {
+      indicator.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = indicator.getAttribute('data-target');
+        if (targetId) {
           const targetElement = document.getElementById(targetId);
           if (targetElement) {
             this.scrollToElement(targetElement);
           }
         }
-      }, 100);
+      });
     });
     
-    logger.debug('Smooth scroll handlers attached');
+    logger.debug('Smooth scroll initialized');
+    return this;
   }
   
   handleAnchorClick(e) {

@@ -1,28 +1,45 @@
-/* General Playground Styles */
+/* General Playground Styles with Ghibli-inspired theme */
 .ai-playground-container {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--playground-bg, #1e1e1e);
-    color: var(--playground-text, #d4d4d4);
-    border-radius: 8px;
+    background-color: var(--ghibli-cream, #fff8e7);
+    color: var(--ghibli-text-dark, #3c4043);
+    border-radius: var(--border-radius-large, 16px);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     height: 90vh; /* Adjust as needed */
     max-width: 1200px;
     margin: 1rem auto;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    box-shadow: var(--box-shadow-medium, 0 8px 20px rgba(0,0,0,0.15));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Dark mode styling */
+[data-md-color-scheme="slate"] .ai-playground-container {
+    background-color: var(--ghibli-night-mist, #1c2331);
+    color: var(--ghibli-text-dark, #e8e3d0);
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
 .playground-header {
-    background-color: var(--playground-header-bg, #252526);
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--playground-border, #333);
+    background-color: var(--md-primary-fg-color, #009688);
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-md-color-scheme="slate"] .playground-header {
+    background-color: var(--md-primary-fg-color, #3f51b5);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 
 .playground-header h1 {
     margin: 0 0 0.5rem 0;
     font-size: 1.5em;
-    color: var(--playground-title-text, #fff);
+    color: var(--ghibli-text-dark, #3c4043);
+}
+
+[data-md-color-scheme="slate"] .playground-header h1 {
+    color: var(--ghibli-starlight, #e8e3d0);
 }
 
 .playground-nav {
@@ -31,40 +48,64 @@
 }
 
 .playground-nav button {
-    background-color: var(--playground-nav-button-bg, #333);
-    color: var(--playground-nav-button-text, #ccc);
-    border: 1px solid var(--playground-nav-button-border, #444);
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    background-color: var(--md-primary-fg-color--light, #4db6ac);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--border-radius-medium, 8px);
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .playground-nav button:hover {
-    background-color: var(--playground-nav-button-hover-bg, #444);
-    color: var(--playground-nav-button-hover-text, #fff);
+    background-color: var(--md-accent-fg-color, #ff5722);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .playground-nav button.active {
-    background-color: var(--playground-primary-accent, #007acc);
-    color: var(--playground-nav-button-active-text, #fff);
-    border-color: var(--playground-primary-accent, #007acc);
+    background-color: var(--md-accent-fg-color, #ff5722);
+    color: white;
+    box-shadow: 0 3px 10px rgba(255, 87, 34, 0.3);
+}
+
+[data-md-color-scheme="slate"] .playground-nav button {
+    background-color: var(--md-primary-fg-color--light, #7986cb);
+}
+
+[data-md-color-scheme="slate"] .playground-nav button:hover,
+[data-md-color-scheme="slate"] .playground-nav button.active {
+    background-color: var(--md-accent-fg-color, #ffc107);
 }
 
 .playground-main {
     flex-grow: 1;
-    padding: 1.5rem;
+    padding: 1.75rem;
     overflow-y: auto;
-    background-color: var(--playground-main-bg, #1e1e1e);
+    background-color: var(--ghibli-cream, #fff8e7);
+    color: var(--ghibli-text-medium, #5f6368);
+}
+
+[data-md-color-scheme="slate"] .playground-main {
+    background-color: var(--ghibli-night-mist, #1c2331);
+    color: var(--ghibli-text-medium, #d2cfc1);
 }
 
 .playground-footer {
-    background-color: var(--playground-footer-bg, #252526);
+    background-color: var(--ghibli-mist, #f9f5f0);
     padding: 0.75rem 1.5rem;
     text-align: center;
     font-size: 0.85em;
-    border-top: 1px solid var(--playground-border, #333);
-    color: var(--playground-footer-text, #888);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--ghibli-text-light, #80868b);
+}
+
+[data-md-color-scheme="slate"] .playground-footer {
+    background-color: var(--ghibli-night-sky, #1a2639);
+    border-top-color: rgba(255, 255, 255, 0.1);
+    color: var(--ghibli-text-light, #b8b5aa);
 }
 
 /* Loader Styles */
@@ -102,11 +143,19 @@
 }
 
 /* Common Form Elements */
+.ai-playground-container .form-group {
+    margin-bottom: 1.25rem;
+}
+
 .ai-playground-container label {
     display: block;
     margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--playground-label-text, #bbb);
+    color: var(--ghibli-text-dark, #3c4043);
+    font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .ai-playground-container label {
+    color: var(--ghibli-text-dark, #e8e3d0);
 }
 
 .ai-playground-container select,
@@ -115,32 +164,56 @@
     width: 100%;
     padding: 0.75rem;
     margin-bottom: 1rem;
-    background-color: var(--playground-input-bg, #2d2d2d);
-    color: var(--playground-input-text, #ccc);
-    border: 1px solid var(--playground-input-border, #3f3f3f);
-    border-radius: 4px;
+    background-color: white;
+    color: var(--ghibli-text-dark, #3c4043);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius-medium, 8px);
     box-sizing: border-box;
     font-size: 0.95em;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-.ai-playground-container textarea {
-    min-height: 100px;
-    resize: vertical;
+[data-md-color-scheme="slate"] .ai-playground-container select,
+[data-md-color-scheme="slate"] .ai-playground-container input[type="text"],
+[data-md-color-scheme="slate"] .ai-playground-container textarea {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--ghibli-text-dark, #e8e3d0);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.ai-playground-container select:focus,
+.ai-playground-container input[type="text"]:focus,
+.ai-playground-container textarea:focus {
+    outline: none;
+    border-color: var(--ghibli-field, #a6bb8d);
+    box-shadow: 0 0 0 3px rgba(166, 187, 141, 0.2);
+}
+
+[data-md-color-scheme="slate"] .ai-playground-container select:focus,
+[data-md-color-scheme="slate"] .ai-playground-container input[type="text"]:focus,
+[data-md-color-scheme="slate"] .ai-playground-container textarea:focus {
+    border-color: var(--ghibli-night-field, #3d5157);
+    box-shadow: 0 0 0 3px rgba(61, 81, 87, 0.2);
 }
 
 button.primary-action {
-    background-color: var(--playground-primary-accent, #007acc);
-    color: #fff;
+    background-color: var(--ghibli-accent, #e67e22);
+    color: white;
     padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius-medium, 8px);
     cursor: pointer;
     font-size: 1em;
-    transition: background-color 0.2s ease;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 button.primary-action:hover {
-    background-color: var(--playground-primary-accent-hover, #005a9e);
+    background-color: #d35400;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Mode Specific Placeholder Styles */
@@ -291,11 +364,12 @@ button.primary-action:hover {
 
 /* Alert Box Styles */
 .ai-alert {
-    padding: 1rem;
+    padding: 1.25rem;
     margin-bottom: 1.5rem;
     border: 1px solid transparent;
-    border-radius: 4px;
-    font-size: 0.9em;
+    border-radius: var(--border-radius-medium, 8px);
+    font-size: 0.95em;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .ai-alert-title {
@@ -315,11 +389,21 @@ button.primary-action:hover {
 
 /* Info Alert Specifics */
 .ai-alert-info {
-    color: var(--playground-info-text, #75cff0); /* Light blue text */
-    background-color: var(--playground-info-bg, rgba(0, 122, 204, 0.15)); /* Darker blue, slightly transparent */
-    border-color: var(--playground-info-border, #007acc); /* Accent blue border */
+    background-color: rgba(153, 204, 221, 0.15);
+    border-color: var(--ghibli-sky, #99ccdd);
+    color: var(--ghibli-text-dark, #3c4043);
+}
+
+[data-md-color-scheme="slate"] .ai-alert-info {
+    background-color: rgba(61, 81, 87, 0.15);
+    border-color: var(--ghibli-night-field, #3d5157);
+    color: var(--ghibli-text-dark, #e8e3d0);
 }
 
 .ai-alert-info .ai-alert-title {
-    color: var(--playground-info-title-text, #9cdcfe); /* Brighter blue for title */
+    color: var(--ghibli-field, #a6bb8d);
+}
+
+[data-md-color-scheme="slate"] .ai-alert-info .ai-alert-title {
+    color: var(--ghibli-night-field, #3d5157);
 }

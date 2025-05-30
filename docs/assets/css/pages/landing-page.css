@@ -1,0 +1,482 @@
+/**
+ * Landing Page Styles - With tabs integration
+ * Compatible with MkDocs Material theme
+ */
+
+/* Main layout styles */
+.home-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Hero section - simplified to work with MkDocs */
+.hero-section {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+}
+
+.profile-section {
+  margin-bottom: 1.5rem;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--md-primary-fg-color);
+  transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+}
+
+/* Typography - leverage MkDocs variables */
+.hero-heading {
+  color: var(--md-primary-fg-color);
+  margin-bottom: 1rem;
+  font-weight: 700;
+  display: block;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  font-style: italic;
+  color: var(--md-accent-fg-color);
+  margin: 1.5rem 0;
+}
+
+/* Section styling */
+.section-title {
+  color: var(--md-primary-fg-color);
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  display: block;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 2rem;
+}
+
+/* CTA Buttons - use MkDocs button styling as base */
+.cta-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  text-decoration: none !important;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.cta-button.primary {
+  background-color: var(--md-primary-fg-color);
+  color: #fff !important;
+}
+
+.cta-button.primary:hover {
+  background-color: var(--md-accent-fg-color);
+  transform: translateY(-1px);
+  color: #fff !important;
+}
+
+.cta-button.secondary {
+  background-color: transparent;
+  color: var(--md-primary-fg-color) !important;
+  border-color: var(--md-primary-fg-color);
+}
+
+.cta-button.secondary:hover {
+  background-color: var(--md-primary-fg-color);
+  color: #fff !important;
+}
+
+.cta-button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Section dividers - subtle and minimal */
+.section-divider {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.divider-ornament {
+  width: 60px;
+  height: 1px;
+  background-color: var(--md-default-fg-color--lightest);
+  margin: 0 auto;
+}
+
+/* Scroll indicator - minimal animation */
+.scroll-indicator {
+  margin-top: 2rem;
+  cursor: pointer;
+  color: var(--md-accent-fg-color);
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Tab styling - custom appearance but compatible with pymdownx */
+.tabbed-set {
+  margin: 2rem auto !important;
+  max-width: 1200px;
+  padding: 0 1rem;
+  min-height: 650px; /* Account for tab labels + content + margins */
+}
+
+.tabbed-set .tabbed-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  background-color: var(--md-code-bg-color);
+  padding: 0.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  justify-content: center;
+}
+
+.tabbed-set .tabbed-labels > label {
+  cursor: pointer;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+  color: var(--md-default-fg-color);
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+/* Active tab label */
+.tabbed-set .tabbed-labels > label:hover,
+.tabbed-set .tabbed-control:checked + .tabbed-labels > label {
+  background-color: var(--md-primary-fg-color);
+  color: white;
+}
+
+/* Modified Tab styling for fixed-height scrollable tabs */
+
+/* Set a fixed height for tab content */
+.tabbed-set .tabbed-content {
+  padding: 2rem;
+  background-color: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0 0 0.5rem 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  height: 500px;  /* Fixed height */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  position: relative;
+}
+
+/* Style the scrollbar for a cleaner look */
+.tabbed-set .tabbed-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tabbed-set .tabbed-content::-webkit-scrollbar-track {
+  background: var(--md-default-bg-color);
+  border-radius: 0 0 4px 0;
+}
+
+.tabbed-set .tabbed-content::-webkit-scrollbar-thumb {
+  background-color: var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+}
+
+.tabbed-set .tabbed-content::-webkit-scrollbar-thumb:hover {
+  background-color: var(--md-default-fg-color--lighter);
+}
+
+/* Add a subtle fade effect at the bottom to indicate scrollable content */
+.tabbed-set .tabbed-content:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to top, var(--md-default-bg-color), transparent);
+  pointer-events: none;
+  opacity: 0.7;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+/* Ensure consistent tab block styling */
+.tabbed-set .tabbed-block {
+  padding-bottom: 1.5rem; /* Add padding at bottom for fade effect */
+}
+
+/* Tab content styling */
+.tabbed-set .tabbed-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Feature cards section - after tabs */
+.featured-section {
+  margin: 3rem 0;
+  padding: 2rem;
+  background-color: var(--md-code-bg-color);
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--md-accent-fg-color);
+}
+
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.feature-card {
+  padding: 1.5rem;
+  background-color: var(--md-default-bg-color);
+  border-radius: 0.5rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  margin-top: 0 !important;
+}
+
+.feature-link {
+  color: var(--md-accent-fg-color) !important;
+  text-decoration: none !important;
+  font-weight: 500;
+}
+
+.feature-link:hover {
+  text-decoration: underline !important;
+}
+
+/* AI tools showcase */
+.ai-tools-showcase {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background-color: var(--md-default-bg-color);
+  border-radius: 0.5rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.ai-tools-showcase ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.ai-tools-showcase li {
+  margin-bottom: 0.5rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Social buttons section */
+.final-cta {
+  text-align: center;
+  padding: 3rem 1rem;
+  margin-top: 3rem;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.social-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  text-decoration: none !important;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: white !important;
+}
+
+.social-button.linkedin {
+  background-color: #0077b5;
+}
+
+.social-button.github {
+  background-color: #333;
+}
+
+.social-button.email {
+  background-color: #ea4335;
+}
+
+.social-button.portfolio {
+  background-color: var(--md-accent-fg-color);
+}
+
+.social-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white !important;
+}
+
+.social-button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Secondary links */
+.social-divider {
+  margin: 2rem 0 1rem;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.9rem;
+}
+
+.secondary-links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.secondary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--md-default-fg-color--light) !important;
+  text-decoration: none !important;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.secondary-link:hover {
+  color: var(--md-accent-fg-color) !important;
+}
+
+.secondary-link svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Footer */
+.landing-footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--md-default-fg-color--light);
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+  margin-top: 3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 1.5rem 1rem;
+  }
+  
+  .profile-image {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .cta-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .social-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .secondary-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .tabbed-set .tabbed-labels {
+    flex-direction: column;
+  }
+  
+  .tabbed-set .tabbed-content {
+    padding: 1rem;
+    height: 400px; /* Smaller height on mobile */
+  }
+}
+
+@media (min-width: 1200px) {
+  .tabbed-set .tabbed-content {
+    height: 550px; /* Taller height on larger screens */
+  }
+}
+
+/* Fix any MkDocs specific styling issues */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-weight: 700;
+  color: var(--md-primary-fg-color);
+}
+
+.md-typeset .tabbed-block>p:first-child {
+  margin-top: 0;
+}
+
+/* Fix tab margins and scrollbars */
+.tabbed-set {
+  overflow: visible !important;
+}
+
+.tabbed-block {
+  overflow-x: auto;
+}
+
+/* Tabbed experience section */
+.tabbed-experience {
+  margin-bottom: 0;
+  text-align: center;
+}

@@ -13,7 +13,7 @@
   width: 100%;
   display: block;
   position: relative;
-  background: #000;
+  background: var(--md-primary-fg-color--dark, #303f9f);
 }
 
 /* Canvas element styling - extends component-canvas */
@@ -30,10 +30,10 @@
   position: absolute;
   top: 0.3125rem;
   left: 0.3125rem;
-  color: #0f0;
+  color: var(--md-accent-fg-color, #ffc107);
   font: 0.75rem monospace;
   z-index: 100;
-  text-shadow: 0 0 5px #0f0;
+  text-shadow: 0 0 5px var(--md-accent-fg-color, #ffc107);
   pointer-events: none;
 }
 

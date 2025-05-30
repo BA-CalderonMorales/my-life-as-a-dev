@@ -1,5 +1,4 @@
 ignore:
-
   - docs/overrides
   - scripts
   - .gitignore
@@ -11,28 +10,40 @@ ignore:
   - mkdocs.yml
 
 nav:
+
+  # Home Page
   - Home: index.md
 
-  - AI Demo: ai-demo/index.md
+  # AI Pages
+  - AI Demo:
+    - Overview: ai-demo/index.md
+    - AI Playground:
+      - Overview: ai-demo/ai-playground/index.md
+      - Playground:
+        - Overview: ai-demo/ai-playground/playground/index.md
 
-  - AI Playground:
-    - Playground: ai-demo/ai-playground/playground/index.md
-
+  # Docs-as-Code Page
   - Docs-as-Code: docs-as-code.md
 
+  # Blog Pages
   - Blog:
-    - blog/index.md
+    - Overview: blog/index.md
     - Resources: blog/resources/index.md
-
     - Life:
       - blog/life/index.md
       - blog/life/test_scenes
 
-
+  # Interests Page
   - Interests: interests/index.md
 
+  # Repository Pages
   - Repositories:
     - repositories/index.md
     - Dev Flow Mentor: repositories/dev_flow_mentor/index.md
 
+  # Troubleshooting Pages
   - Troubleshooting: troubleshooting
+
+  # Developer Docs Pages
+  - Developer Docs:
+    - CSS Structure: assets/css/README.md

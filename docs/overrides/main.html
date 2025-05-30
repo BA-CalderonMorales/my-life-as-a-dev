@@ -4,6 +4,8 @@
   <meta name="site_url" content="{{ config.site_url }}">
   <!-- Set initial favicon -->
   <link rel="icon" href="{{ config.theme.logo | url }}" />
+  <!-- Add description for SEO -->
+  <meta name="description" content="Brandon's simplified life - A collection of notes, resources, and tools for developers, engineers, and tech enthusiasts">
 {% endblock %}
 
 {% block classes %}
@@ -12,6 +14,12 @@
   {% else %}
     {{ super() }}
   {% endif %}
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+  
+  <!-- Add any other header content here -->
 {% endblock %}
 
 {% block content %}
