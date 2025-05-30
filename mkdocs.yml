@@ -27,6 +27,11 @@ theme:
     - navigation.tracking
     - navigation.indexes
     - navigation.prune
+    - navigation.tabs          # Top-level navigation tabs
+    - navigation.tabs.sticky   # Makes tabs sticky
+    - navigation.sections      # Enables sections in navigation
+    - navigation.expand        # Expands sections by default
+    - navigation.top           # Back to top button
     - content.code.copy
     - content.code.annotate
   

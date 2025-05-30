@@ -22,7 +22,7 @@ title: Home
   Omaha, Nebraska, United States
 </p>
 
-<div class="scroll-indicator" onclick="document.getElementById('intro').scrollIntoView({behavior: 'smooth'})">
+<div class="scroll-indicator" onclick="document.getElementById('intro').scrollIntoView({behavior: 'smooth', block: 'center'})">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
     <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
   </svg>
@@ -48,12 +48,12 @@ title: Home
     Connect on LinkedIn
   </a>
 
-  <a href="#explore" class="cta-button secondary">
+  <div class="cta-button secondary" onclick="document.getElementById('tabs').scrollIntoView({behavior: 'smooth', block: 'center'})">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
       <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2zm0 8h2v2h-2z"></path>
     </svg>
     Explore My Journey
-  </a>
+  </div>
 </div>
 
 <p class="tagline" id="explore">
@@ -72,6 +72,10 @@ title: Home
   Explore different aspects of my professional experience and personal interests
 </p>
 </section>
+
+<div class="section-divider">
+  <div class="divider-ornament"></div>
+</div>
 
 </div>
 
@@ -253,6 +257,11 @@ title: Home
 <!-- Resume the styled content after tabs -->
 <div class="home-page">
 
+<!-- Add section divider after tabs -->
+<div class="section-divider">
+  <div class="divider-ornament"></div>
+</div>
+
 <div class="featured-section ai-section">
 <div class="feature-cards">
 <div class="feature-card">
@@ -294,7 +303,10 @@ Learn about how I've been integrating AI into documentation and creative project
 </div>
 </div>
 
-<div class="section-divider"></div>
+<!-- Add section divider before final CTA -->
+<div class="section-divider">
+  <div class="divider-ornament"></div>
+</div>
 
 <section class="final-cta" id="connect">
 <h2>Let's Connect! 🤝</h2>

@@ -8,13 +8,24 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
+  scroll-snap-type: y mandatory;
 }
 
-/* Hero section - simplified to work with MkDocs */
+/* Make each major section a snap target */
+.hero-section,
+.intro-section,
+.tabbed-experience,
+.featured-section.ai-section,
+.final-cta {
+  scroll-snap-align: start;
+}
+
+/* Hero section - significantly more space */
 .hero-section {
   text-align: center;
-  padding: 2rem 1rem;
-  margin-bottom: 2rem;
+  padding: 4rem 0 8rem 0; /* Much larger bottom padding */
+  margin-bottom: 6rem; /* Increased from 2rem */
+  min-height: 100vh;
 }
 
 .profile-section {
@@ -117,17 +128,18 @@
   height: 1rem;
 }
 
-/* Section dividers - subtle and minimal */
+/* Section dividers - much more prominent spacing */
 .section-divider {
-  margin: 3rem 0;
+  margin: 8rem 0; /* Doubled from 4rem */
+  height: 2px;
   text-align: center;
 }
 
 .divider-ornament {
   width: 60px;
-  height: 1px;
+  height: 4px;
   background-color: var(--md-default-fg-color--lightest);
-  margin: 0 auto;
+  margin: 4rem auto; /* Doubled from 2rem */
 }
 
 /* Scroll indicator - minimal animation */
@@ -136,6 +148,11 @@
   cursor: pointer;
   color: var(--md-accent-fg-color);
   animation: bounce 2s infinite;
+  transition: transform 0.2s ease;
+}
+
+.scroll-indicator:hover {
+  transform: scale(1.1);
 }
 
 @keyframes bounce {
@@ -256,6 +273,11 @@
   border-left: 4px solid var(--md-accent-fg-color);
 }
 
+.featured-section.ai-section {
+  padding: 8rem 0; /* Increased from 6rem */
+  margin: 8rem 0; /* Increased from 6rem */
+}
+
 .feature-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -317,8 +339,8 @@
 /* Social buttons section */
 .final-cta {
   text-align: center;
-  padding: 3rem 1rem;
-  margin-top: 3rem;
+  padding: 8rem 0 4rem 0; /* Increased top padding */
+  margin-top: 10rem; /* Massive space above final CTA */
 }
 
 .social-buttons {
@@ -411,10 +433,24 @@
   margin-top: 3rem;
 }
 
+/* Add scroll margin for better centering */
+.intro-section {
+  scroll-margin-top: 2rem;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .home-page {
+    scroll-snap-type: y proximity;
+  }
+  
+  .intro-section {
+    scroll-margin-top: 1rem;
+  }
+  
   .hero-section {
-    padding: 1.5rem 1rem;
+    padding: 4rem 0 6rem 0; /* Still generous on mobile */
+    margin-bottom: 4rem;
   }
   
   .profile-image {
@@ -445,6 +481,34 @@
   .tabbed-set .tabbed-content {
     padding: 1rem;
     height: 400px; /* Smaller height on mobile */
+  }
+  
+  .intro-section {
+    padding: 6rem 0; /* Generous mobile padding */
+    margin: 4rem 0; /* Good mobile margins */
+  }
+  
+  .tabbed-experience {
+    padding: 6rem 0 4rem 0; /* Good mobile spacing */
+    margin: 4rem 0 6rem 0;
+  }
+  
+  .featured-section.ai-section {
+    padding: 6rem 0; /* Generous mobile spacing */
+    margin: 6rem 0;
+  }
+  
+  .final-cta {
+    padding: 6rem 0 4rem 0; /* Good mobile spacing */
+    margin-top: 6rem;
+  }
+  
+  .section-divider {
+    margin: 5rem 0; /* Proportional mobile spacing */
+  }
+  
+  .divider-ornament {
+    margin: 3rem auto;
   }
 }
 
@@ -479,4 +543,16 @@
 .tabbed-experience {
   margin-bottom: 0;
   text-align: center;
+  padding: 8rem 0 6rem 0; /* Much larger padding */
+  margin: 6rem 0 8rem 0; /* Dramatic margins around tabs */
+}
+
+/* Ensure tabs container has proper spacing */
+.tabbed-experience + div {
+  margin-top: 6rem; /* Increased space after tabs content */
+}
+
+/* Add breathing room around the home page container */
+.home-page {
+  margin-bottom: 6rem; /* More space before footer */
 }
