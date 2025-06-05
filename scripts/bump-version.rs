@@ -62,7 +62,7 @@ impl VersionBumper {
         
         if deploy_choice == 3 {
             println!("{}Note:{} You can deploy this version later using:", YELLOW, NC);
-            println!("  {}./scripts/deploy-all-versions.sh{} (to deploy all versions)", BLUE, NC);
+            println!("  {}doc-cli deploy{} (to deploy all versions)", BLUE, NC);
             println!("  or");
             println!("  {}mike deploy v{} --branch gh-pages --push{} (to deploy just this version)", BLUE, new_version, NC);
         }
