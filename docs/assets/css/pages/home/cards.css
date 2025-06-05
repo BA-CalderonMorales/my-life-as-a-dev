@@ -217,17 +217,6 @@
   opacity: 0.7;
 }
 
-/* Progress indicator */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: linear-gradient(to right, var(--md-primary-fg-color), var(--md-accent-fg-color));
-  width: 0%;
-  transition: width 0.2s;
-  z-index: 1000;
-}
 
 /* Responsive layout */
 @media screen and (max-width: 960px) {

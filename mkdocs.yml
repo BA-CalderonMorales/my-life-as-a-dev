@@ -87,28 +87,27 @@ plugins:
 
 extra_css:
   - assets/css/custom.css
-  - assets/css/landing-page.css
-  - assets/css/landing-page-extras.css
-  - assets/css/landing-page-bg.css
-  - assets/css/landing-page-mobile.css
-  - assets/css/landing-page-cards.css
-  - assets/css/landing-page-scroll.css
-  - assets/css/landing-page-headings.css
-  - assets/css/landing-page-tabs.css
-  - assets/css/landing-page-cta.css
-  - assets/css/landing-page-interactive.css
-  - assets/css/landing-page-typewriter-fix.css
+  - assets/css/common/animations.css
+  - assets/css/pages/home/base.css
+  - assets/css/pages/home/extras.css
+  - assets/css/pages/home/mobile.css
+  - assets/css/pages/home/cards.css
+  - assets/css/pages/home/scroll.css
+  - assets/css/pages/home/headings.css
+  - assets/css/pages/home/tabs.css
+  - assets/css/pages/home/cta.css
+  - assets/css/pages/home/typewriter-fix.css
+  - assets/css/pages/repositories/base.css
   - assets/css/section-transitions.css
-  - assets/css/scroll-indicator-fix.css
   - assets/css/components/test-scene-shared.css
-  - assets/css/components/dreamscape.css
-  - assets/css/components/dreamscape-proto4.css
-  - assets/css/components/dreamscape-proto6.css
-  - assets/css/components/ghibli-masterpiece.css
-  - assets/css/components/color-particle-artifact.css
-  - assets/css/components/physics-playground.css
-  - assets/css/components/kaleidoscopic-scene.css
-  - assets/css/components/intergalactic-scene.css
+  - assets/css/components/dreamscape/styles.css
+  - assets/css/components/dreamscape-proto4/styles.css
+  - assets/css/components/dreamscape-proto6/styles.css
+  - assets/css/components/ghibli-masterpiece/styles.css
+  - assets/css/components/color-particle-artifact/styles.css
+  - assets/css/components/physics-playground/styles.css
+  - assets/css/components/kaleidoscopic-scene/styles.css
+  - assets/css/components/intergalactic-scene/styles.css
   - assets/css/components/aiPlayground/aiPlayground.css
 
 extra_javascript:
