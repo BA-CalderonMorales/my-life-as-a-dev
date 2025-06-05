@@ -2,7 +2,16 @@
 hide:
   - navigation
   - toc
-template: home.html
+hero:
+  image: assets/images/me-today.png
+  name: "Hi, I'm Brandon A. Calderon Morales"
+  text: "Product-Minded Engineer, DevOps Enthusiast and Full-Stack Developer."
+  actions:
+    - text: "Explore My AI Story"
+      link: ./ai-demo/
+      type: primary
+    - text: "Connect"
+      link: "#connect"
 ---
 
 <div markdown="1" class="home-page">
@@ -353,3 +362,4 @@ template: home.html
 </footer>
 
 </div> <!-- End home-page div -->
+
