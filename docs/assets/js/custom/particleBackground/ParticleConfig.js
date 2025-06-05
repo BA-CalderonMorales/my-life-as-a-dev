@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Configuration settings for the particle background
  */

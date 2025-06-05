@@ -1,3 +1,4 @@
+"use strict";
 // Kaleidoscopic Scene Component
 class KaleidoscopicScene extends HTMLElement {
   constructor() {

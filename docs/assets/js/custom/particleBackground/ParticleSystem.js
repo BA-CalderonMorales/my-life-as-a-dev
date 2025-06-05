@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Manages the enhanced particle animation system
  */

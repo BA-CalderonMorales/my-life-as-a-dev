@@ -1,3 +1,4 @@
+"use strict";
 // Intergalactic Scene Component
 class IntergalacticScene extends HTMLElement {
   constructor() {

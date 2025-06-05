@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Dreamscape Prototype 4 Component
  * 

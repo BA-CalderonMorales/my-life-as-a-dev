@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Main entry point for particle background
  * This file makes the ParticleBackground class available globally

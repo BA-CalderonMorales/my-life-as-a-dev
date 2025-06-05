@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Main entry point for particle initialization
  * This file initializes the particle background system

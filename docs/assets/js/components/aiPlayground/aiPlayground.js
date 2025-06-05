@@ -1,3 +1,4 @@
+"use strict";
 class AIPlayground extends HTMLElement {
     constructor() {
         super();
