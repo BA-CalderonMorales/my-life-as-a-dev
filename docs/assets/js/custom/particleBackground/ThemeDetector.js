@@ -11,6 +11,12 @@ class ThemeDetector {
   constructor(onThemeChange) {
     this.onThemeChange = onThemeChange;
     this.isDarkMode = this.detectDarkMode();
+
+    // Bind handlers so they can be removed later
+    this.handleClick = this.handleClick.bind(this);
+    this.handleDOMLoaded = this.handleDOMLoaded.bind(this);
+    this.handleMutations = this.handleMutations.bind(this);
+
     this.setupListeners();
   }
 
@@ -29,44 +35,24 @@ class ThemeDetector {
    */
   setupListeners() {
     // Direct event listener for the theme toggle button
-    document.addEventListener('click', (e) => {
-      if (e.target.closest('.md-header__button[data-md-component="palette"]')) {
-        console.log('Theme button click detected');
-        
-        // Wait for theme to apply then update
-        setTimeout(() => {
-          this.checkTheme();
-        }, 100);
-      }
-    });
-    
+    document.addEventListener('click', this.handleClick);
+
     // MutationObserver approach as backup
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && 
-           (mutation.attributeName === 'data-md-color-scheme' || 
-            mutation.attributeName === 'class')) {
-          // Allow time for theme change to fully apply
-          setTimeout(() => this.checkTheme(), 100);
-        }
-      });
-    });
-    
+    this.observer = new MutationObserver(this.handleMutations);
+
     // Start observing both html and body elements
-    observer.observe(document.documentElement, { 
+    this.observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['data-md-color-scheme', 'class']
     });
-    
-    observer.observe(document.body, { 
+
+    this.observer.observe(document.body, {
       attributes: true,
       attributeFilter: ['data-md-color-scheme', 'class']
     });
-    
+
     // Check for initial theme after DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      this.checkTheme();
-    });
+    document.addEventListener('DOMContentLoaded', this.handleDOMLoaded);
   }
 
   /**
@@ -89,6 +75,55 @@ class ThemeDetector {
    */
   isDark() {
     return this.isDarkMode;
+  }
+
+  /**
+   * Click handler for palette button
+   * @param {Event} e
+   */
+  handleClick(e) {
+    if (e.target.closest('.md-header__button[data-md-component="palette"]')) {
+      console.log('Theme button click detected');
+      setTimeout(() => {
+        this.checkTheme();
+      }, 100);
+    }
+  }
+
+  /**
+   * DOMContentLoaded handler
+   */
+  handleDOMLoaded() {
+    this.checkTheme();
+  }
+
+  /**
+   * Mutation observer callback
+   * @param {MutationRecord[]} mutations
+   */
+  handleMutations(mutations) {
+    mutations.forEach((mutation) => {
+      if (
+        mutation.type === 'attributes' &&
+        (mutation.attributeName === 'data-md-color-scheme' ||
+          mutation.attributeName === 'class')
+      ) {
+        setTimeout(() => this.checkTheme(), 100);
+      }
+    });
+  }
+
+  /**
+   * Clean up event listeners and observers
+   */
+  dispose() {
+    document.removeEventListener('click', this.handleClick);
+    document.removeEventListener('DOMContentLoaded', this.handleDOMLoaded);
+
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = null;
+    }
   }
 }
 

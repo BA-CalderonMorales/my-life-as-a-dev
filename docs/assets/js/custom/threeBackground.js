@@ -695,6 +695,11 @@ class ThreeBackground {
   dispose() {
     // Stop animation
     this.stop();
+
+    // Clean up theme detector if present
+    if (this.themeDetector && typeof this.themeDetector.dispose === 'function') {
+      this.themeDetector.dispose();
+    }
     
     // Remove event listeners
     window.removeEventListener('resize', this.handleResize);
