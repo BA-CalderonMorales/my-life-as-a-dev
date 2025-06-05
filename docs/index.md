@@ -19,7 +19,7 @@ hero:
 
 <div markdown="1" class="home-page">
 
-<section class="intro-section" id="intro">
+<section class="intro-section scroll-section" id="intro">
 
   <div class="intro-section">
   <img src="assets/images/me-today.png" alt="Brandon A. Calderon Morales" class="profile-image">
@@ -68,7 +68,7 @@ hero:
 
 <div class="section-divider"></div> <!-- cta section end -->
 
-<section class="tabbed-experience" id="tabs">
+<section class="tabbed-experience scroll-section" id="tabs">
 
 <h2 class="section-title">Discover More About Me</h2>
 
@@ -290,7 +290,7 @@ hero:
 
 <div class="section-divider"></div>
 
-<section class="final-cta" id="connect">
+<section class="final-cta scroll-section" id="connect">
   <h2>Let's Connect! 🤝</h2>
   <p>Thanks for visiting my profile! I'm always open to new connections, collaborations, and conversations.</p>
   
