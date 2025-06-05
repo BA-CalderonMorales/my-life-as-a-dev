@@ -2,111 +2,39 @@
 hide:
   - toc
 ---
-
-<style>  
-  /* Hide the first H1 in the content area */
-  .md-typeset h1:first-of-type {
-    display: none;
-  }
-
-  .md-source-file {
-    display: none;
-  }
-
-  /* Reserve vertical space around the entire subtitle (typewriter + location) */
-  .subtitle {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    /* Optionally force a minimum height so even an empty span still takes space */
-    /* min-height: 3em; */
-  }
-
-  /* Give the typewriter span its own inline‐block box with vertical padding */
-  .typewriter-text {
-    display: inline-block;
-    padding: 0.5rem 0;
-  }
-</style>
-
-<div markdown="1" class="home-page">
-
-<div class="scroll-progress"></div>
-
-<section class="hero-section" id="hero">
-
-  <div class="profile-section">
-
-  <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" class="profile-image" />
-
-  </div>
-
-  <div class="scroll-indicator" data-target="intro">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
-    </svg>
-  </div>
-
-</section>
-
-<div class="scroll-progress"></div> <!-- hero section end -->
-
-<section class="intro-section" id="intro">
-
-  <div class="intro-section">
-
-  <h2>Hi, I'm Brandon A. Calderon Morales 👋</h2>
-
-  <p class="subtitle">
-      <span class="typewriter-text" data-strings="Product-Minded Software Engineer|DevOps Transformation Specialist|Aspiring Platform Engineer|Legacy Code Modernizer|Technical Mentor|Full-Stack Software Engineer"></span>
-  </p>
-
-  <p class="subtitle">
+hero:
+  name: Hi, I'm Brandon A. Calderon Morales 👋
+  text: |
+    Product-Minded Software Engineer
+    DevOps Transformation Specialist
+    Aspiring Platform Engineer
+    Legacy Code Modernizer
+    Technical Mentor
+    Full-Stack Software Engineer
     Omaha, Nebraska, United States
-  </p>
+  image: assets/images/me-today.png
+  tagline: "️🚀 I build resilient code with strategic vision. 🛠"
+  actions:
+    - icon: fontawesome/brands/linkedin
+      label: Follow on LinkedIn
+      link: https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=bcalderonmorales-cmoe
+    - icon: material/arrow-right
+      label: Explore My Profile
+      link: '#explore'
+features:
+  - icon: material/robot
+    title: AI Playground
+    description: Experiment with interactive AI tools to enhance creativity and productivity.
+    link: ./ai-demo/ai-playground/playground
+  - icon: material/flask
+    title: Visual Experiments
+    description: Explore my AI-assisted visual scenes and interactive experiments.
+    link: ./blog/life/
+  - icon: material/book-open-page-variant
+    title: AI Journey
+    description: Learn how I've been integrating AI into documentation and creative projects.
+    link: ./ai-demo/
 
-  </div>
-
-</section>
-
-<div class="section-divider"></div> <!-- intro section end -->
-
-<div class="cta-section">
-
-  <div class="cta-container">
-
-  <a class="cta-button" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=bcalderonmorales-cmoe" target="_blank">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="currentColor" d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
-      </svg>
-      Follow on LinkedIn
-  </a>
-
-  <a href="#explore" class="cta-button">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2zm0 8h2v2h-2z"></path>
-      </svg>
-      Explore My Profile
-  </a>
-
-  </div>
-
-</div>
-
-<p class="tagline" id="explore">️🚀<em>I build resilient code with strategic vision.</em>🛠</p>
-
-</section>
-
-<div class="section-divider"></div> <!-- cta section end -->
-
-<section class="tabbed-experience" id="tabs">
-
-<h2 class="section-title">Discover More About Me</h2>
-
-<p class="section-subtitle">Explore different aspects of my professional journey and personal interests</p>
-
-</section>
-
-</div>
 
 === "Summary"
 
@@ -282,44 +210,6 @@ hide:
       High School Diploma  
       *2009 - 2013*  
 
-<div class="home-page">
- 
-<div class="featured-section ai-section">
-  <div class="feature-cards">
-    <div class="feature-card">
-      <div class="feature-icon">🤖</div>
-      <h3>AI Playground</h3>
-      <p>Experiment with interactive AI tools that I've built to enhance creativity and productivity.</p>
-      <a href="./ai-demo/ai-playground/playground" class="feature-link">Explore the Playground</a>
-    </div>
-    
-    <div class="feature-card">
-      <div class="feature-icon">🧪</div>
-      <h3>Visual Experiments</h3>
-      <p>Check out my AI-assisted visual scenes and interactive experiments.</p>
-      <a href="./blog/life/" class="feature-link">See Test Scenes</a>
-    </div>
-    
-    <div class="feature-card">
-      <div class="feature-icon">📘</div>
-      <h3>AI Journey</h3>
-      <p>Learn about how I've been integrating AI into documentation and creative projects.</p>
-      <a href="./ai-demo/" class="feature-link">Read My AI Story</a>
-    </div>
-  </div>
-  
-  <div class="ai-tools-showcase">
-    <h3>Featured AI Tools</h3>
-    <ul class="tool-list">
-      <li><strong>Repository Explorer</strong>: Get AI-driven insights into code repositories</li>
-      <li><strong>Interactive Scene Creator</strong>: Generate 3D scenes with AI assistance</li>
-      <li><strong>Code Assistance</strong>: Leverage AI for code explanations and documentation</li>
-    </ul>
-  </div>
-</div>
-
-<div class="section-divider"></div>
-
 <section class="final-cta" id="connect">
   <h2>Let's Connect! 🤝</h2>
   <p>Thanks for visiting my profile! I'm always open to new connections, collaborations, and conversations.</p>
@@ -389,10 +279,3 @@ hide:
 
 </section>
 
-</div>
-
-<footer class="landing-footer">
-  <p>© <span class="copyright-year">2025</span> Brandon A. Calderon Morales</p>
-</footer>
-
-</div> <!-- End home-page div -->
