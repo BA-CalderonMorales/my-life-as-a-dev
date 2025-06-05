@@ -35,4 +35,53 @@ nav:
     - repositories/index.md
     - Dev Flow Mentor: repositories/dev_flow_mentor/index.md
 
+    - my-life-as-a-dev: repositories/my_life_as_a_dev/index.md
+    - flowhive-creativity: repositories/flowhive_creativity/index.md
+    - family-fun-schedule: repositories/family_fun_schedule/index.md
+    - solid-infrastructure-architect: repositories/solid_infrastructure_architect/index.md
+    - dev-environment: repositories/dev_environment/index.md
+    - dev-environment-workflows: repositories/dev_environment_workflows/index.md
+    - Vimrc-No-Plugins: repositories/vimrc_no_plugins/index.md
+    - portfolio: repositories/portfolio/index.md
+    - golang-api: repositories/golang_api/index.md
+    - GoFundamentals: repositories/gofundamentals/index.md
+    - CSharpRefresher: repositories/csharprefresher/index.md
+    - ecommerce-template: repositories/ecommerce_template/index.md
+    - Construction-Ecommerce-Frontend: repositories/construction_ecommerce_frontend/index.md
+    - Construction-Ecommerce-Backend: repositories/construction_ecommerce_backend/index.md
+    - 3dTextThreeJss: repositories/3dtextthreejss/index.md
+    - ExperimentingWithThreeJs: repositories/experimentingwiththreejs/index.md
+    - Amazon-Clone: repositories/amazon_clone/index.md
+    - Angular-Typescript-Tutorial-Part-I: repositories/angular_typescript_tutorial_part_i/index.md
+    - Angular-Typescript-Tutorial-Part-II: repositories/angular_typescript_tutorial_part_ii/index.md
+    - FacebookMessenger-Clone: repositories/facebookmessenger_clone/index.md
+    - TravelAdvisor-Frontend: repositories/traveladvisor_frontend/index.md
+    - BookLibraryProject: repositories/booklibraryproject/index.md
+    - DayTripGenerator: repositories/daytripgenerator/index.md
+    - Chat-App-MicrosoftTeamsClone: repositories/chat_app_microsoftteamsclone/index.md
+    - FlashcardProject-Frontend: repositories/flashcardproject_frontend/index.md
+    - ReactWorkSheetExercises: repositories/reactworksheetexercises/index.md
+    - RockPaperScissorsLizardSpock_Python: repositories/rockpaperscissorslizardspock_python/index.md
+    - CreatingAMockCrypto: repositories/creatingamockcrypto/index.md
+    - SuperheroesCreatorProject: repositories/superheroescreatorproject/index.md
+    - TrashCollectorProject: repositories/trashcollectorproject/index.md
+    - SweepstakesGenerator: repositories/sweepstakesgenerator/index.md
+    - RobotsVsDinosaurs: repositories/robotsvsdinosaurs/index.md
+    - MusicLibraryProject-Backend: repositories/musiclibraryproject_backend/index.md
+    - FlashcardProject-Backend: repositories/flashcardproject_backend/index.md
+    - YouTubeCloneProject_Backend: repositories/youtubecloneproject_backend/index.md
+    - DebuggingProject: repositories/debuggingproject/index.md
+    - Portfolio-Site: repositories/portfolio_site/index.md
+    - Personal-Site-HTML5: repositories/personal_site_html5/index.md
+    - PortfolioWebsite: repositories/portfoliowebsite/index.md
+    - TinDogProject: repositories/tindogproject/index.md
+    - PersonalSite-NoBootsrap: repositories/personalsite_nobootsrap/index.md
+    - DOM-DocumentObjectModel: repositories/dom_documentobjectmodel/index.md
+    - JavaRefresh: repositories/javarefresh/index.md
+    - RockPaperScissorsLizardSpock_C-Sharp: repositories/rockpaperscissorslizardspock_c_sharp/index.md
+    - hw4: repositories/hw4/index.md
+    - hw5: repositories/hw5/index.md
+    - angular-example-code: repositories/angular_example_code/index.md
+    - Box_Physics: repositories/box_physics/index.md
+    - SQLZoo-Practice: repositories/sqlzoo_practice/index.md
   - Troubleshooting: troubleshooting
