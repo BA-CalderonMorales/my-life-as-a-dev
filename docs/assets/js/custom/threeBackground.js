@@ -4,6 +4,7 @@
  */
 import * as THREE from 'three';
 import { defaultLogger } from './logger.js';
+import ThemeDetector from './particleBackground/ThemeDetector.js';
 
 // Set up logger
 const logger = defaultLogger.setModule('threeBackground');
@@ -26,6 +27,14 @@ class ThreeBackground {
       updateFrequency: 1,                 // Update every frame by default
       ...options
     };
+
+    // Theme detection
+    this.themeDetector = new ThemeDetector(() => {
+      this.applyThemeColors();
+    });
+
+    // Apply initial CSS-based colors
+    this.applyThemeColors();
 
     // Animation properties
     this.animationId = null;
@@ -165,6 +174,7 @@ class ThreeBackground {
     // Store particle data for animation
     this.particlePositions = positions;
     this.particleVelocities = velocities;
+    this.particleMaterial = particleMaterial;
     this.particleSystem = new THREE.Points(particleGeometry, particleMaterial);
     
     // Add to scene
@@ -182,6 +192,7 @@ class ThreeBackground {
     // Line material
     const lineMaterial = new THREE.LineBasicMaterial({
       vertexColors: true,
+      color: this.options.lineColor,
       blending: THREE.AdditiveBlending,
       transparent: true,
       opacity: 0.5,
@@ -189,6 +200,7 @@ class ThreeBackground {
     });
     
     // Create line system and add to scene
+    this.lineMaterial = lineMaterial;
     this.lineSystem = new THREE.LineSegments(this.lineGeometry, lineMaterial);
     this.particleGroup.add(this.lineSystem);
   }
@@ -587,6 +599,32 @@ class ThreeBackground {
     
     // Update line geometry
     this.lineSystem.geometry.attributes.position.needsUpdate = true;
+  }
+
+  applyThemeColors() {
+    const styles = getComputedStyle(document.documentElement);
+    const particleVar = styles.getPropertyValue('--three-particle-color').trim();
+    const lineVar = styles.getPropertyValue('--three-line-color').trim();
+
+    if (particleVar) {
+      const color = new THREE.Color(particleVar);
+      this.options.particleColor = color.getHex();
+      if (this.particleMaterial) {
+        this.particleMaterial.color.set(color);
+      }
+    }
+
+    if (lineVar) {
+      const color = new THREE.Color(lineVar);
+      this.options.lineColor = color.getHex();
+      if (this.lineMaterial) {
+        this.lineMaterial.color.set(color);
+      }
+    }
+
+    if (this.renderer && this.scene && this.camera) {
+      this.renderer.render(this.scene, this.camera);
+    }
   }
 
   start() {
