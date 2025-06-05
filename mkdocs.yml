@@ -94,6 +94,7 @@ extra_css:
   - assets/css/pages/home/mobile.css
   - assets/css/pages/home/cards.css
   - assets/css/pages/home/scroll.css
+  - assets/css/pages/home/section-scroll.css
   - assets/css/pages/home/headings.css
   - assets/css/pages/home/tabs.css
   - assets/css/pages/home/cta.css
@@ -128,6 +129,7 @@ extra_javascript:
   - { "path": "assets/js/custom/threeBackground.js", "type": "module" }
   - { "path": "assets/js/custom/threeBackgroundFallback.js", "type": "module" }
   - { "path": "assets/js/custom/smoothScroll.js", "type": "module" }
+  - { "path": "assets/js/custom/sectionScroller.js", "type": "module" }
   - { "path": "assets/js/custom/performanceMonitor.js", "type": "module" }
   - { "path": "assets/js/custom/sectionTransitions.js", "type": "module" }
   - { "path": "assets/js/custom/initModernUI.js", "type": "module" }
