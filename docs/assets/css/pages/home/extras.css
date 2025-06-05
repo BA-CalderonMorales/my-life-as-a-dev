@@ -15,7 +15,7 @@
 }
 
 /* Hide page title on the landing page */
-.landing-page .md-content__inner > h1:first-child {
+.landing-page .home-page-wrapper > h1:first-child {
   display: none;
 }
 
