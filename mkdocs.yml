@@ -98,6 +98,7 @@ extra_css:
   - assets/css/landing-page-cta.css
   - assets/css/landing-page-interactive.css
   - assets/css/landing-page-typewriter-fix.css
+  - assets/css/landing-page-inline.css
   - assets/css/section-transitions.css
   - assets/css/scroll-indicator-fix.css
   - assets/css/components/test-scene-shared.css
