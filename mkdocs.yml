@@ -23,7 +23,7 @@ theme:
     - search.highlight
     - search.share
     - navigation.instant
-    - navigation.instang.progress
+    - navigation.instant.progress
     - navigation.tracking
     - navigation.indexes
     - navigation.prune
