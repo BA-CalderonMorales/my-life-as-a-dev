@@ -168,3 +168,50 @@
     font-size: 1.75rem;
   }
 }
+
+/* Responsive hero layout */
+.mdx-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.mdx-hero .profile-image {
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .mdx-hero {
+    flex-direction: row;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .mdx-hero .profile-image {
+    margin: 0 2rem 0 0;
+  }
+}
+
+/* Intro section layout */
+.intro-section > .intro-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .intro-section > .intro-section {
+    flex-direction: row;
+    text-align: left;
+    justify-content: center;
+  }
+
+  .intro-section > .intro-section .profile-image {
+    margin-right: 2rem;
+    margin-bottom: 0;
+  }
+}
