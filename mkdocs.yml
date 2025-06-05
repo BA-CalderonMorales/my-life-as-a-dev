@@ -108,7 +108,7 @@ extra_css:
   - assets/css/components/physics-playground/styles.css
   - assets/css/components/kaleidoscopic-scene/styles.css
   - assets/css/components/intergalactic-scene/styles.css
-  - assets/css/components/aiPlayground/aiPlayground.css
+  - assets/css/components/aiPlayground/styles.css
 
 extra_javascript:
   - { "path": "assets/js/importmap.js", "defer": true }
