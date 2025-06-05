@@ -3,6 +3,11 @@
  * Handles theme detection and theme change events
  */
 
+import { defaultLogger } from '../logger.js';
+
+// Module specific logger
+const logger = defaultLogger.setModule('ThemeDetector');
+
 class ThemeDetector {
   /**
    * Creates a new theme detector
@@ -31,8 +36,8 @@ class ThemeDetector {
     // Direct event listener for the theme toggle button
     document.addEventListener('click', (e) => {
       if (e.target.closest('.md-header__button[data-md-component="palette"]')) {
-        console.log('Theme button click detected');
-        
+        logger.debug('Theme button click detected', 'setupListeners');
+
         // Wait for theme to apply then update
         setTimeout(() => {
           this.checkTheme();
