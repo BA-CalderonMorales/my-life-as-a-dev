@@ -36,9 +36,7 @@ hide:
 
   <div class="profile-section">
 
-  <video src="assets/images/me-today.mp4" autoplay loop muted playsinline class="profile-image">
-    <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" class="profile-image" />
-  </video>
+  <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" class="profile-image" />
 
   </div>
 
