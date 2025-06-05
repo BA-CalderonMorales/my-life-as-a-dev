@@ -53,6 +53,9 @@ jobs:
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           mkdocs build
 
+      - name: Generate versions.json
+        run: mike list --json > site/versions.json
+
       - name: Test Mike deployment (information only)
         run: |
           TEST_VERSION=${{ github.event.inputs.version }}
@@ -65,7 +68,7 @@ jobs:
       - name: Show versions that would be created
         run: |
           echo "Current version.json content:"
-          cat docs/versions.json || echo "versions.json does not exist or is empty"
+          cat site/versions.json || echo "versions.json does not exist or is empty"
           echo ""
           echo "This would generate a version in the documentation with:"
           TEST_VERSION=${{ github.event.inputs.version }}
