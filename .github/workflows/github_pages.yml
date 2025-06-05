@@ -6,6 +6,8 @@ on:
     branches:
       - main
 
+  pull_request:
+
   workflow_dispatch:
 
 permissions:
@@ -71,6 +73,7 @@ jobs:
           echo "Latest tag: $LATEST_TAG"
 
       - name: Build and deploy with Mike
+        if: github.event_name != 'pull_request'
         run: |
           # Explicitly verify plugin module is available
           python -c "import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')"
@@ -121,6 +124,7 @@ jobs:
 
   # Job # 2: Deploy to GitHub Pages
   deploy:
+    if: github.event_name != 'pull_request'
 
     needs: build
 
@@ -134,3 +138,21 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  deploy-preview:
+    if: github.event_name == 'pull_request'
+
+    needs: build
+
+    environment:
+      name: github-pages-preview
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy Preview to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          preview: true
