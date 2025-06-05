@@ -3,16 +3,15 @@
  * Enhancing the particle background and overall aesthetics
  */
 
-/* Default warm colors for the THREE.js background */
-:root {
-  --three-particle-color: #ffa07a;
-  --three-line-color: #ff8a65;
+/* Theme colors for the THREE.js background */
+[data-md-color-scheme="default"] {
+  --three-particle-color: #225599;
+  --three-line-color: #334466;
 }
 
-/* Dark mode adjustments */
 [data-md-color-scheme="slate"] {
-  --three-particle-color: #ffcb8c;
-  --three-line-color: #ffb86b;
+  --three-particle-color: #88aaff;
+  --three-line-color: #6677cc;
 }
 
 /* Ensure particle background container is properly positioned */
