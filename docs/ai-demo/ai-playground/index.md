@@ -36,7 +36,7 @@ Welcome to the AI Playground, where you can leverage AI to explore repositories,
 
 This playground utilizes a custom web component (`<ai-playground>`) that dynamically loads content and interacts with backend API endpoints (not yet implemented in this example) for AI processing. The component manages different states for each mode (Repository Explorer, Scene Creator, Code Assistant) and fetches HTML templates for their UIs.
 
-*   **Styling**: Component-specific styles are located in `docs/assets/css/components/aiPlayground/aiPlayground.css`.
+*   **Styling**: Component-specific styles are located in `docs/assets/css/components/aiPlayground/styles.css`.
 *   **JavaScript Logic**: The core logic for the component is in `docs/assets/js/components/aiPlayground/aiPlayground.js`.
 *   **HTML Templates**: UI templates for each mode are in `docs/assets/templates/` (`repo-explorer.html`, `scene-creator.html`, `code-assistant.html`).
 
