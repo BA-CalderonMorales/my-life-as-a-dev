@@ -1,3 +1,4 @@
+"use strict";
 
 /**
  * ScrollEffects.js - MVVM implementation of scroll-based animations and effects

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Stars and Motion Dreamscape Component
  * 

@@ -1,3 +1,4 @@
+"use strict";
 // Ghibli Forest Spirits Component
 class GhibliMasterpiece extends HTMLElement {
   connectedCallback() {

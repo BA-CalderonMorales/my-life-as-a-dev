@@ -1,3 +1,4 @@
+"use strict";
 // Interactive Canvas Dreamscape Component
 class DreamscapeProto6 extends HTMLElement {
   connectedCallback(){

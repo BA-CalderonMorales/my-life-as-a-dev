@@ -1,3 +1,4 @@
+"use strict";
 /**
  * ThemeDetector.js
  * Handles theme detection and theme change events

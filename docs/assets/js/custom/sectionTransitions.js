@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Enhanced section transitions with scroll effects
  * Manages section-based scrolling animations and reveals

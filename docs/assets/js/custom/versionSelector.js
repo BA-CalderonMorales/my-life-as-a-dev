@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Version Selector module - Re-export from the encapsulated module
  * 
