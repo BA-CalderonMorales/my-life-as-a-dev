@@ -1,0 +1,32 @@
+/**
+ * Scroll snapping and accent colors for landing page
+ */
+.landing-page.scroll-container {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+.scroll-section {
+  scroll-snap-align: start;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  min-height: 100vh;
+}
+
+.landing-page {
+  --landing-accent: #2aa198;
+  --landing-accent-hover: #258b84;
+}
+
+.landing-page a.cta-button,
+.landing-page .social-button,
+.landing-page .secondary-link {
+  background-color: var(--landing-accent);
+  color: #ffffff !important;
+}
+
+.landing-page a.cta-button:hover,
+.landing-page .social-button:hover,
+.landing-page .secondary-link:hover {
+  background-color: var(--landing-accent-hover);
+}
