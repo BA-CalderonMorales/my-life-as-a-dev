@@ -9,6 +9,11 @@
   padding: 0 1rem;
 }
 
+/* Hide Table of Contents on the landing page */
+.landing-page .md-sidebar--secondary {
+  display: none;
+}
+
 /* Tagline styling */
 .tagline {
   font-size: 1.25rem;
