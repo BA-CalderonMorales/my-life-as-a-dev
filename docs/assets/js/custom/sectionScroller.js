@@ -1,7 +1,7 @@
 "use strict";
 /**
  * SectionScroller.js
- * Implements scroll snapping for landing page sections
+ * Adjusts landing page sections to match viewport height
  */
 import { defaultLogger } from './logger.js';
 
@@ -27,7 +27,6 @@ class SectionScroller {
 
     this.applySectionHeights();
     window.addEventListener('resize', this.resizeHandler);
-    document.documentElement.classList.add('scroll-container');
     logger.info(`SectionScroller initialized with ${this.sections.length} sections`);
   }
 
