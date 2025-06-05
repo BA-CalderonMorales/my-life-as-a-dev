@@ -25,7 +25,7 @@ class AIPlayground extends HTMLElement {
 
     render() {
         this.shadowRoot.innerHTML = `
-            <link rel="stylesheet" href="/assets/css/components/aiPlayground/aiPlayground.css">
+            <link rel="stylesheet" href="/assets/css/components/aiPlayground/styles.css">
             <div class="ai-playground-container">
                 <header class="playground-header">
                     <h1>AI Playground</h1>
