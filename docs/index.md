@@ -19,6 +19,7 @@ hero:
 <section class="intro-section" id="intro">
 
   <div class="intro-section">
+  <img src="assets/images/me-today.png" alt="Brandon A. Calderon Morales" class="profile-image">
 
   <h2>Hi, I'm Brandon A. Calderon Morales 👋</h2>
 
