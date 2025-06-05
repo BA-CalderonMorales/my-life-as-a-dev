@@ -14,6 +14,11 @@
   display: none;
 }
 
+/* Hide page title on the landing page */
+.landing-page .md-content__inner > h1:first-child {
+  display: none;
+}
+
 /* Tagline styling */
 .tagline {
   font-size: 1.25rem;

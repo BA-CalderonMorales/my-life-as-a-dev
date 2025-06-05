@@ -120,8 +120,8 @@
 
 /* Profile image styling */
 .profile-image {
-  width: 500px;  /* Increased from 180px */
-  height: 500px; /* Increased from 180px */
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
   object-fit: cover;
   margin: 0 auto .75rem;
@@ -295,8 +295,8 @@ video.profile-image {
 
 @media screen and (max-width: 600px) {
   .profile-image {
-    width: 350px;  /* Increased from 150px */
-    height: 350px;  /* Increased from 150px */
+    width: 210px;
+    height: 210px;
   }
   
   .hero-section h1 {
