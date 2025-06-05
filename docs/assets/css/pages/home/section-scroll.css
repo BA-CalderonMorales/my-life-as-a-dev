@@ -1,13 +1,11 @@
 /**
- * Scroll snapping and accent colors for landing page
+ * Layout and accent colors for landing page
  */
-.landing-page.scroll-container {
+.landing-page {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
 }
 
 .scroll-section {
-  scroll-snap-align: start;
   padding-top: 2rem;
   padding-bottom: 2rem;
   min-height: 100vh;
