@@ -65,8 +65,8 @@
   
   /* Profile image on tablets */
   .profile-image {
-    width: 200px;  /* Increased from 140px */
-    height: 200px;  /* Increased from 140px */
+    width: 120px;
+    height: 120px;
   }
 }
 
@@ -82,8 +82,8 @@
   
   /* Better proportion for the profile image on small mobile */
   .profile-image {
-    width: 180px;  /* Increased from 160px */
-    height: 180px;  /* Increased from 160px */
+    width: 110px;
+    height: 110px;
     margin-top: 1rem;
     margin-bottom: 1rem;
   }

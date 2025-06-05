@@ -13,14 +13,12 @@ class ThreeBackground {
     this.options = {
       containerId: 'three-background',
       interactive: true,
-      density: window.innerWidth > 768 ? 0.8 : 0.5, // Lower density on mobile
       scrollFactor: 0.05,
-      particleSize: window.innerWidth > 768 ? 0.15 : 0.1,
-      backgroundColor: 0x000000,
-      particleCount: window.innerWidth > 768 ? 150 : 80, // Fewer particles on mobile
-      maxConnections: window.innerWidth > 768 ? 5 : 3,  // Fewer connections on mobile
-      lowPerformanceParticleCount: 60,    // Lower particle count for low-end devices
-      lowPerformanceMaxConnections: 2,    // Fewer connections for low-end devices
+      backgroundColor: 0x202820,
+      planeCount: window.innerWidth > 768 ? 20 : 10,
+      planeSize: 0.5,
+      planeColor: 0xffffff,
+      trailColor: 0xffffff,
       updateFrequency: 1,                 // Update every frame by default
       ...options
     };
@@ -31,11 +29,11 @@ class ThreeBackground {
     const lineColor = styles.getPropertyValue('--three-line-color').trim();
 
     if (particleColor) {
-      this.options.particleColor = new THREE.Color(particleColor);
+      this.options.planeColor = new THREE.Color(particleColor);
     }
 
     if (lineColor) {
-      this.options.lineColor = new THREE.Color(lineColor);
+      this.options.trailColor = new THREE.Color(lineColor);
     }
 
     // Animation properties
@@ -109,100 +107,40 @@ class ThreeBackground {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.container.appendChild(this.renderer.domElement);
-    
+
+    // Apply gradient background via CSS variables
+    this.container.style.background =
+      `linear-gradient(135deg, var(--three-bg-start) 0%, var(--three-bg-middle) 70%, var(--three-bg-end) 100%)`;
+
     // Create particles
     this.createParticles();
   }
 
   createParticles() {
-    // Particle group
+    // Replace traditional particles with paper airplanes
     this.particleGroup = new THREE.Group();
     this.scene.add(this.particleGroup);
-    
-    // Create particles
-    const particleGeometry = new THREE.BufferGeometry();
-    const particleMaterial = new THREE.PointsMaterial({
-      color: this.options.particleColor,
-      size: this.options.particleSize,
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      sizeAttenuation: true,
-      depthWrite: false
-    });
 
-    // Get device pixel ratio but limit it for performance
-    const dpr = Math.min(window.devicePixelRatio, 2);
-    
-    // Create particle texture for better appearance
-    const particleTexture = this.createParticleTexture();
-    particleMaterial.map = particleTexture;
-    
-    // Create particle positions
-    const count = this.options.particleCount;
-    const positions = new Float32Array(count * 3);
-    const velocities = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
+    const geometry = new THREE.ConeGeometry(this.options.planeSize, this.options.planeSize * 2, 3);
+    geometry.rotateX(Math.PI / 2);
 
-    // Set up particles with positions and velocities
-    for (let i = 0; i < count; i++) {
-      const i3 = i * 3;
-      
-      // Particle position - distribute in a sphere
-      const radius = 15 * (0.5 + Math.random() * 0.5);
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.random() * Math.PI;
-      
-      positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
-      positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      positions[i3 + 2] = radius * Math.cos(phi);
-      
-      // Particle velocity - give them a small initial velocity
-      velocities[i3] = (Math.random() - 0.5) * 0.05;
-      velocities[i3 + 1] = (Math.random() - 0.5) * 0.05;
-      velocities[i3 + 2] = (Math.random() - 0.5) * 0.05;
+    this.planes = [];
+    for (let i = 0; i < this.options.planeCount; i++) {
+      const material = new THREE.MeshBasicMaterial({ color: this.options.planeColor });
+      const plane = new THREE.Mesh(geometry, material);
+      plane.position.set((Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30);
+      plane.userData.velocity = new THREE.Vector3((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1);
 
-      // Particle color - slight variation
-      const hue = 0.6 + Math.random() * 0.1; // Blue range
-      const color = new THREE.Color().setHSL(hue, 1, 0.5 + Math.random() * 0.5);
-      colors[i3] = color.r;
-      colors[i3 + 1] = color.g;
-      colors[i3 + 2] = color.b;
+      const trailGeom = new THREE.BufferGeometry();
+      trailGeom.setAttribute('position', new THREE.Float32BufferAttribute([0,0,0,0,0,0], 3));
+      const trailMat = new THREE.LineBasicMaterial({ color: this.options.trailColor, transparent: true, opacity: 0.5 });
+      const trail = new THREE.Line(trailGeom, trailMat);
+      plane.userData.trail = trail;
+
+      this.particleGroup.add(trail);
+      this.particleGroup.add(plane);
+      this.planes.push(plane);
     }
-
-    // Set attributes
-    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    
-    // Store particle data for animation
-    this.particlePositions = positions;
-    this.particleVelocities = velocities;
-    this.particleSystem = new THREE.Points(particleGeometry, particleMaterial);
-    
-    // Add to scene
-    this.particleGroup.add(this.particleSystem);
-
-    // Line system for connections between particles
-    this.linePositions = new Float32Array(this.options.maxConnections * count * 3 * 2);
-    this.lineColors = new Float32Array(this.options.maxConnections * count * 3 * 2);
-    this.lineGeometry = new THREE.BufferGeometry();
-    
-    // Set initial positions for lines
-    this.lineGeometry.setAttribute('position', new THREE.BufferAttribute(this.linePositions, 3));
-    this.lineGeometry.setAttribute('color', new THREE.BufferAttribute(this.lineColors, 3));
-    
-    // Line material
-    const lineMaterial = new THREE.LineBasicMaterial({
-      color: this.options.lineColor,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      transparent: true,
-      opacity: 0.5,
-      depthWrite: false
-    });
-    
-    // Create line system and add to scene
-    this.lineSystem = new THREE.LineSegments(this.lineGeometry, lineMaterial);
-    this.particleGroup.add(this.lineSystem);
   }
   
   createParticleTexture() {
@@ -485,120 +423,28 @@ class ThreeBackground {
   }
 
   updateParticles(delta) {
-    const positions = this.particlePositions;
-    const velocities = this.particleVelocities;
-    const count = positions.length / 3;
-    
-    // Apply scroll effect to all particles
-    const scrollEffect = this.scrollVelocity * this.options.scrollFactor;
-    
-    for (let i = 0; i < count; i++) {
-      const i3 = i * 3;
-      
-      // Update positions based on velocity
-      positions[i3] += velocities[i3];
-      positions[i3 + 1] += velocities[i3 + 1];
-      positions[i3 + 2] += velocities[i3 + 2];
-      
-      // Apply scroll velocity
-      positions[i3 + 1] -= scrollEffect;
-      
-      // Dampen velocities over time (friction)
-      velocities[i3] *= 0.99;
-      velocities[i3 + 1] *= 0.99;
-      velocities[i3 + 2] *= 0.99;
-      
-      // Contain particles in a sphere
-      const distance = Math.sqrt(
-        positions[i3] * positions[i3] +
-        positions[i3 + 1] * positions[i3 + 1] +
-        positions[i3 + 2] * positions[i3 + 2]
-      );
-      
-      // If too far, push back toward center
-      if (distance > 20) {
-        velocities[i3] -= positions[i3] * 0.001;
-        velocities[i3 + 1] -= positions[i3 + 1] * 0.001;
-        velocities[i3 + 2] -= positions[i3 + 2] * 0.001;
-      }
-    }
-    
-    // Update geometry
-    this.particleSystem.geometry.attributes.position.needsUpdate = true;
+    const limit = 30;
+    this.planes.forEach(plane => {
+      plane.position.add(plane.userData.velocity);
+
+      ['x', 'y', 'z'].forEach(axis => {
+        if (plane.position[axis] > limit) plane.position[axis] = -limit;
+        if (plane.position[axis] < -limit) plane.position[axis] = limit;
+      });
+
+      plane.rotation.z += delta;
+
+      const start = plane.position.clone();
+      const end = start.clone().sub(plane.userData.velocity.clone().multiplyScalar(10));
+      const arr = plane.userData.trail.geometry.attributes.position.array;
+      arr[0] = start.x; arr[1] = start.y; arr[2] = start.z;
+      arr[3] = end.x; arr[4] = end.y; arr[5] = end.z;
+      plane.userData.trail.geometry.attributes.position.needsUpdate = true;
+    });
   }
 
   updateConnections() {
-    const positions = this.particlePositions;
-    const colors = this.lineColors;
-    const linePositions = this.linePositions;
-    
-    const count = positions.length / 3;
-    const maxDistance = 5; // Maximum distance for connections
-    const maxConnections = this.options.maxConnections;
-    
-    let lineIndex = 0;
-    
-    // Reset connection counter for each particle
-    const connectionCounts = new Array(count).fill(0);
-    
-    // Check all pairs of particles
-    for (let i = 0; i < count; i++) {
-      const i3 = i * 3;
-      const ix = positions[i3];
-      const iy = positions[i3 + 1];
-      const iz = positions[i3 + 2];
-      
-      // Skip if already at max connections
-      if (connectionCounts[i] >= maxConnections) continue;
-      
-      // Find nearest particles
-      for (let j = i + 1; j < count; j++) {
-        // Skip if target already at max connections
-        if (connectionCounts[j] >= maxConnections) continue;
-        
-        const j3 = j * 3;
-        const jx = positions[j3];
-        const jy = positions[j3 + 1];
-        const jz = positions[j3 + 2];
-        
-        // Calculate distance
-        const dx = ix - jx;
-        const dy = iy - jy;
-        const dz = iz - jz;
-        const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        
-        // Connect if close enough
-        if (distance < maxDistance) {
-          // Add line segment
-          if (lineIndex < this.linePositions.length - 6) {
-            // First point
-            linePositions[lineIndex++] = ix;
-            linePositions[lineIndex++] = iy;
-            linePositions[lineIndex++] = iz;
-            
-            // Second point
-            linePositions[lineIndex++] = jx;
-            linePositions[lineIndex++] = jy;
-            linePositions[lineIndex++] = jz;
-            
-            // Update connection counts
-            connectionCounts[i]++;
-            connectionCounts[j]++;
-            
-            // Exit if max connections reached
-            if (connectionCounts[i] >= maxConnections) break;
-          }
-        }
-      }
-    }
-    
-    // Fill remaining line positions with zeros
-    while (lineIndex < this.linePositions.length) {
-      linePositions[lineIndex++] = 0;
-    }
-    
-    // Update line geometry
-    this.lineSystem.geometry.attributes.position.needsUpdate = true;
+    // Trails are updated in updateParticles; nothing else to do here
   }
 
   start() {
@@ -650,14 +496,11 @@ class ThreeBackground {
     if (isLowPerf) {
       // Store original values
       this.originalOptions = {
-        particleCount: this.options.particleCount,
-        maxConnections: this.options.maxConnections,
+        planeCount: this.options.planeCount,
         updateFrequency: this.options.updateFrequency
       };
-      
-      // Apply low performance settings
-      this.options.particleCount = this.options.lowPerformanceParticleCount;
-      this.options.maxConnections = this.options.lowPerformanceMaxConnections;
+
+      this.options.planeCount = Math.round(this.options.planeCount / 2);
       this.options.updateFrequency = 2; // Update every other frame
       
       // Recreate particles with lower count
@@ -666,8 +509,7 @@ class ThreeBackground {
       logger.info('ThreeBackground switched to low performance mode');
     } else if (this.originalOptions) {
       // Restore original settings
-      this.options.particleCount = this.originalOptions.particleCount;
-      this.options.maxConnections = this.originalOptions.maxConnections;
+      this.options.planeCount = this.originalOptions.planeCount;
       this.options.updateFrequency = this.originalOptions.updateFrequency;
       
       // Recreate particles with original count
@@ -681,15 +523,11 @@ class ThreeBackground {
    * Recreate particles with current settings
    */
   recreateParticles() {
-    // Remove existing particles
     if (this.particleGroup) {
       this.scene.remove(this.particleGroup);
     }
-    
-    // Create new particles
     this.createParticles();
-    
-    logger.debug(`Particles recreated with count: ${this.options.particleCount}`);
+    logger.debug(`Particles recreated with count: ${this.options.planeCount}`);
   }
   
   dispose() {
@@ -707,22 +545,16 @@ class ThreeBackground {
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('touchmove', this.handleTouchMove);
     
-    // Dispose geometry
-    if (this.particleSystem && this.particleSystem.geometry) {
-      this.particleSystem.geometry.dispose();
-    }
-    
-    if (this.lineSystem && this.lineSystem.geometry) {
-      this.lineSystem.geometry.dispose();
-    }
-    
-    // Dispose materials
-    if (this.particleSystem && this.particleSystem.material) {
-      this.particleSystem.material.dispose();
-    }
-    
-    if (this.lineSystem && this.lineSystem.material) {
-      this.lineSystem.material.dispose();
+    // Dispose plane geometries and materials
+    if (this.planes) {
+      this.planes.forEach(p => {
+        if (p.geometry) p.geometry.dispose();
+        if (p.material) p.material.dispose();
+        if (p.userData.trail) {
+          if (p.userData.trail.geometry) p.userData.trail.geometry.dispose();
+          if (p.userData.trail.material) p.userData.trail.material.dispose();
+        }
+      });
     }
     
     // Remove from DOM
