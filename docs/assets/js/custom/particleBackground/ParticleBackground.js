@@ -1,3 +1,4 @@
+"use strict";
 /**
  * ParticleBackground.js
  * Main class that coordinates the enhanced particle animation system

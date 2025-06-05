@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Performance monitoring for animations and THREE.js
  * Helps optimize rendering based on device capabilities

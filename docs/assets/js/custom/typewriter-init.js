@@ -1,3 +1,4 @@
+"use strict";
 
 /**
  * MVVM Implementation for Site Interactivity

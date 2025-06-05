@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Fallback for THREE.js background if it fails to load
  * This provides a simpler CSS-based background effect

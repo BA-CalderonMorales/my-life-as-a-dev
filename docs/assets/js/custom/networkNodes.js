@@ -1,3 +1,4 @@
+"use strict";
 
 document.addEventListener('DOMContentLoaded', function() {
   // Only run on landing page

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Cellular Prism Component - Colorful cellular automaton visualization
  * 

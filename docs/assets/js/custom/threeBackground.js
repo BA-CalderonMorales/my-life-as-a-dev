@@ -1,3 +1,4 @@
+"use strict";
 /**
  * ThreeBackground.js
  * Modern animated background using THREE.js with scroll interactions
