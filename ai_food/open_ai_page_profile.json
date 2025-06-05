@@ -240,7 +240,7 @@
     "steps": [
       "Create docs/ai-playground/index.md",
       "Create docs/assets/js/components/aiPlayground/aiPlayground.js",
-      "Create docs/assets/css/components/aiPlayground/aiPlayground.css",
+      "Create docs/assets/css/components/aiPlayground/styles.css",
       "Create docs/assets/templates/repo-explorer.html",
       "Create docs/assets/templates/scene-creator.html",
       "Create docs/assets/templates/code-assistant.html",
