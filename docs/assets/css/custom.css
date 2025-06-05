@@ -5,13 +5,13 @@
 
 /* Theme colors for the THREE.js background */
 [data-md-color-scheme="default"] {
-  --three-particle-color: #225599;
-  --three-line-color: #334466;
+  --three-particle-color: #708470;
+  --three-line-color: #556655;
 }
 
 [data-md-color-scheme="slate"] {
-  --three-particle-color: #88aaff;
-  --three-line-color: #6677cc;
+  --three-particle-color: #90a890;
+  --three-line-color: #708470;
 }
 
 /* Ensure particle background container is properly positioned */
