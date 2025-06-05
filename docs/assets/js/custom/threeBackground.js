@@ -16,8 +16,6 @@ class ThreeBackground {
       density: window.innerWidth > 768 ? 0.8 : 0.5, // Lower density on mobile
       scrollFactor: 0.05,
       particleSize: window.innerWidth > 768 ? 0.15 : 0.1,
-      particleColor: 0x0088ff,
-      lineColor: 0x0066cc,
       backgroundColor: 0x000000,
       particleCount: window.innerWidth > 768 ? 150 : 80, // Fewer particles on mobile
       maxConnections: window.innerWidth > 768 ? 5 : 3,  // Fewer connections on mobile
@@ -26,6 +24,19 @@ class ThreeBackground {
       updateFrequency: 1,                 // Update every frame by default
       ...options
     };
+
+    // Load colors from CSS variables
+    const styles = getComputedStyle(document.documentElement);
+    const particleColor = styles.getPropertyValue('--three-particle-color').trim();
+    const lineColor = styles.getPropertyValue('--three-line-color').trim();
+
+    if (particleColor) {
+      this.options.particleColor = new THREE.Color(particleColor);
+    }
+
+    if (lineColor) {
+      this.options.lineColor = new THREE.Color(lineColor);
+    }
 
     // Animation properties
     this.animationId = null;
@@ -181,6 +192,7 @@ class ThreeBackground {
     
     // Line material
     const lineMaterial = new THREE.LineBasicMaterial({
+      color: this.options.lineColor,
       vertexColors: true,
       blending: THREE.AdditiveBlending,
       transparent: true,

@@ -3,6 +3,18 @@
  * Enhancing the particle background and overall aesthetics
  */
 
+/* Default warm colors for the THREE.js background */
+:root {
+  --three-particle-color: #ffa07a;
+  --three-line-color: #ff8a65;
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] {
+  --three-particle-color: #ffcb8c;
+  --three-line-color: #ffb86b;
+}
+
 /* Ensure particle background container is properly positioned */
 #particles-background {
   position: fixed;
