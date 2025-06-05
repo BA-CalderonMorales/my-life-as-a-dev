@@ -1,4 +1,5 @@
 ---
+layout: fullwidth
 hide:
   - navigation
   - toc
