@@ -3,31 +3,6 @@ hide:
   - toc
 ---
 
-<style>  
-  /* Hide the first H1 in the content area */
-  .md-typeset h1:first-of-type {
-    display: none;
-  }
-
-  .md-source-file {
-    display: none;
-  }
-
-  /* Reserve vertical space around the entire subtitle (typewriter + location) */
-  .subtitle {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    /* Optionally force a minimum height so even an empty span still takes space */
-    /* min-height: 3em; */
-  }
-
-  /* Give the typewriter span its own inline‐block box with vertical padding */
-  .typewriter-text {
-    display: inline-block;
-    padding: 0.5rem 0;
-  }
-</style>
-
 <div markdown="1" class="home-page">
 
 <div class="scroll-progress"></div>
