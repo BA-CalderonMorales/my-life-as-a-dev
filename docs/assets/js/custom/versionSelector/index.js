@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Version Selector module - Main entry point
  * Provides version selection functionality for documentation

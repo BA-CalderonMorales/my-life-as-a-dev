@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Initialize modern UI features for the landing page
  * - 3D Background with THREE.js

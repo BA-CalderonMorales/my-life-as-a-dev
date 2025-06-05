@@ -1,3 +1,4 @@
+"use strict";
 // Import map for Three.js modules, Typewriter, and custom modules
 (function() {
   // Check if import map already exists to avoid duplicates

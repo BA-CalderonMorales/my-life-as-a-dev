@@ -1,3 +1,4 @@
+"use strict";
 // Physics Playground Component
 class PhysicsPlayground extends HTMLElement {
   constructor() {

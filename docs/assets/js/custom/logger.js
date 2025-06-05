@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Logger.js - A configurable logging utility for My Life as a Dev
  * 

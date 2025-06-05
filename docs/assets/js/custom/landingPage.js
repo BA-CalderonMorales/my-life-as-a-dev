@@ -1,3 +1,4 @@
+"use strict";
 
 /**
  * LandingPage.js - MVVM Implementation

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * SmoothScroll.js
  * Enhanced smooth scrolling with easing functions for a quality UI experience
