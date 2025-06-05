@@ -20,7 +20,7 @@ theme:
 
   features:
     - search.suggest
-    - search.highligt
+    - search.highlight
     - search.share
     - navigation.instant
     - navigation.instang.progress
