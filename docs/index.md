@@ -1,29 +1,20 @@
 ---
 hide:
+  - navigation
   - toc
+hero:
+  image: assets/images/me-today.png
+  name: "Hi, I'm Brandon A. Calderon Morales"
+  text: "Product-Minded Engineer, DevOps Enthusiast and Full-Stack Developer."
+  actions:
+    - text: "Explore My AI Story"
+      link: ./ai-demo/
+      type: primary
+    - text: "Connect"
+      link: "#connect"
 ---
 
 <div markdown="1" class="home-page">
-
-<div class="scroll-progress"></div>
-
-<section class="hero-section" id="hero">
-
-  <div class="profile-section">
-
-  <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" class="profile-image" />
-
-  </div>
-
-  <div class="scroll-indicator" data-target="intro">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
-    </svg>
-  </div>
-
-</section>
-
-<div class="scroll-progress"></div> <!-- hero section end -->
 
 <section class="intro-section" id="intro">
 
@@ -371,3 +362,4 @@ hide:
 </footer>
 
 </div> <!-- End home-page div -->
+
