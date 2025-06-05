@@ -5,13 +5,19 @@
 
 /* Theme colors for the THREE.js background */
 [data-md-color-scheme="default"] {
-  --three-particle-color: #225599;
-  --three-line-color: #334466;
+  --three-particle-color: #708470;
+  --three-line-color: #556655;
+  --three-bg-start: #f0f4f0;
+  --three-bg-middle: #c2d0c2;
+  --three-bg-end: #708470;
 }
 
 [data-md-color-scheme="slate"] {
-  --three-particle-color: #88aaff;
-  --three-line-color: #6677cc;
+  --three-particle-color: #90a890;
+  --three-line-color: #708470;
+  --three-bg-start: #1e2420;
+  --three-bg-middle: #2c3a30;
+  --three-bg-end: #4d6050;
 }
 
 /* Ensure particle background container is properly positioned */
@@ -24,6 +30,10 @@
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
+}
+
+#three-background {
+  background: linear-gradient(135deg, var(--three-bg-start) 0%, var(--three-bg-middle) 70%, var(--three-bg-end) 100%);
 }
 
 /* Add subtle gradient overlay to improve text readability over particles */

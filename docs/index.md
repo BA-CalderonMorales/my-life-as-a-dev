@@ -2,6 +2,7 @@
 hide:
   - navigation
   - toc
+  - title
 hero:
   image: assets/images/me-today.png
   name: "Hi, I'm Brandon A. Calderon Morales"
@@ -363,4 +364,9 @@ hero:
 </footer>
 
 </div> <!-- End home-page div -->
+
+<script>
+  document.documentElement.classList.add('landing-page');
+  document.body.classList.add('landing-page');
+</script>
 

@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block classes %}
-  {% if page.url == "index.html" or page.url == "/" %}
+  {% if page.url == '' %}
     {{ super() }} landing-page
   {% else %}
     {{ super() }}
@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-  {% if page.url == "index.html" or page.url == "/" %}
+  {% if page.url == '' %}
     <div class="scroll-progress"></div>
     <div class="home-page-wrapper">
       {{ super() }}
