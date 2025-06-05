@@ -82,7 +82,7 @@ section.in-view, [data-section].in-view {
 
 /* Enhanced section distinctions with proper spacing */
 .hero-section {
-  min-height: 80vh;
+  min-height: 65vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -198,7 +198,7 @@ section.in-view, [data-section].in-view {
 /* Mobile optimizations */
 @media screen and (max-width: 768px) {
   .hero-section {
-    min-height: 85vh;
+    min-height: 70vh;
   }
   
   .profile-section {

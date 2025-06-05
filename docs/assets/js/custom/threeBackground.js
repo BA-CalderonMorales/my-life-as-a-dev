@@ -16,7 +16,7 @@ class ThreeBackground {
       density: window.innerWidth > 768 ? 0.8 : 0.5, // Lower density on mobile
       scrollFactor: 0.05,
       particleSize: window.innerWidth > 768 ? 0.15 : 0.1,
-      backgroundColor: 0x000000,
+      backgroundColor: 0x202820,
       particleCount: window.innerWidth > 768 ? 150 : 80, // Fewer particles on mobile
       maxConnections: window.innerWidth > 768 ? 5 : 3,  // Fewer connections on mobile
       lowPerformanceParticleCount: 60,    // Lower particle count for low-end devices
