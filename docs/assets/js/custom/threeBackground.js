@@ -579,7 +579,7 @@ class ThreeBackground {
             // Second point
             linePositions[lineIndex++] = jx;
             linePositions[lineIndex++] = jy;
-            linePositions[lineIndex++] = iz;
+            linePositions[lineIndex++] = jz;
             
             // Update connection counts
             connectionCounts[i]++;
