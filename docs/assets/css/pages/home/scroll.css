@@ -26,17 +26,6 @@
   background-color: rgba(var(--md-primary-fg-color--rgb), 0.5);
 }
 
-/* Progress bar */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: linear-gradient(to right, var(--md-primary-fg-color), var(--md-accent-fg-color));
-  width: 0%;
-  transition: width 0.2s;
-  z-index: 1000;
-}
 
 /* Section transitions */
 .home-page section {

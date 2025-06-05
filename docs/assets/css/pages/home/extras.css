@@ -38,17 +38,6 @@
   margin: 4rem 0;
 }
 
-/* Progress bar for scrolling */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: var(--md-primary-fg-color);
-  z-index: 1000;
-  width: 0%;
-  transition: width 0.1s ease;
-}
 
 /* AI section styling */
 .featured-section {
@@ -146,29 +135,6 @@
   opacity: 0.7;
 }
 
-/* Fade-in animation for sections */
-.fade-in-section {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-in-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Reveal element animations */
-.reveal-element {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.reveal-element.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* Home page wrapper - helps with full-width content */
 .home-page-wrapper .md-content__inner {

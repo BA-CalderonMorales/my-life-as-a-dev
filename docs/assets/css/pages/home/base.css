@@ -272,18 +272,7 @@ video.profile-image {
   60% { transform: translateY(-10px) translateX(-50%); }
 }
 
-/* Tab content animations */
-.fade-in-section {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-in-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+/* Tab animations */
 .tabbed-content--active {
   animation: tabContentFadeIn 0.5s forwards;
 }
@@ -404,4 +393,238 @@ video.profile-image {
 /* Theme-specific adjustments */
 [data-md-color-scheme="slate"] .md-typeset .tabbed-set .tabbed-labels {
   background-color: rgba(255, 255, 255, 0.05);
+}
+
+/*---------------------------------------------------------------------*/
+/* Background effects from former landing-page-bg.css                  */
+/*---------------------------------------------------------------------*/
+
+/* Gradient background overlay for landing page */
+.landing-page .md-content {
+  position: relative;
+}
+
+.landing-page .md-content::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.4;
+  pointer-events: none;
+  background-size: 200% 200%;
+  background-attachment: fixed;
+  animation: gradientBG 15s ease infinite;
+}
+
+/* Light mode gradient */
+[data-md-color-scheme="default"] .landing-page .md-content::before {
+  background: linear-gradient(-45deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(var(--md-primary-fg-color--light-rgb), 0.05) 25%,
+    rgba(var(--md-accent-fg-color--transparent), 0.1) 50%,
+    rgba(var(--md-primary-fg-color--light-rgb), 0.05) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Dark mode gradient */
+[data-md-color-scheme="slate"] .landing-page .md-content::before {
+  background: linear-gradient(-45deg,
+    rgba(35, 37, 48, 0) 0%,
+    rgba(var(--md-primary-fg-color--light-rgb), 0.05) 25%,
+    rgba(var(--md-accent-fg-color--transparent), 0.1) 50%,
+    rgba(var(--md-primary-fg-color--light-rgb), 0.05) 75%,
+    rgba(35, 37, 48, 0) 100%
+  );
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Special styles for the hero section background */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  z-index: -1;
+  background: radial-gradient(
+    circle at center,
+    rgba(var(--md-primary-fg-color--light-rgb), 0.15) 0%,
+    rgba(var(--md-primary-fg-color--light-rgb), 0) 70%
+  );
+  opacity: 0.6;
+}
+
+/* Enhanced section dividers */
+.section-divider {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, var(--md-primary-fg-color), transparent);
+  animation: shimmer 2.5s infinite;
+  opacity: 0.5;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
+
+/*---------------------------------------------------------------------*/
+/* Interactive elements from former landing-page-interactive.css        */
+/*---------------------------------------------------------------------*/
+
+/* THREE.js background container */
+#three-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.75;
+  transition: opacity 0.5s ease;
+}
+
+[data-md-color-scheme="default"] #three-background {
+  opacity: 0.6;
+}
+
+[data-md-color-scheme="slate"] #three-background {
+  opacity: 0.75;
+}
+
+
+/* Scroll to top button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.scroll-to-top.visible {
+  opacity: 0.8;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+.scroll-to-top svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Smooth scroll links */
+html.js-enabled {
+  scroll-behavior: auto !important;
+}
+
+.smooth-scroll-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.smooth-scroll-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--md-accent-fg-color);
+  transition: width 0.3s ease;
+}
+
+.smooth-scroll-link:hover::after {
+  width: 100%;
+}
+
+
+.section-title.reveal-element {
+  transform: translateY(30px);
+  transition-delay: 0.1s;
+}
+
+.section-subtitle.reveal-element {
+  transform: translateY(20px);
+  transition-delay: 0.2s;
+}
+
+.tagline.reveal-element {
+  transform: translateY(15px);
+  transition-delay: 0.05s;
+}
+
+.feature-card.reveal-element {
+  transform: translateY(25px) scale(0.95);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.feature-card.reveal-element.revealed {
+  transform: translateY(0) scale(1);
+}
+
+/* Highlight section when targeted */
+:target {
+  animation: highlight-section 2s ease;
+}
+
+@keyframes highlight-section {
+  0% {
+    background-color: rgba(var(--md-accent-fg-color--rgb), 0.1);
+  }
+  100% {
+    background-color: transparent;
+  }
 }
