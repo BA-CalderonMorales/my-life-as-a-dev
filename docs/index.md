@@ -3,6 +3,7 @@ hide:
   - navigation
   - toc
   - title
+---
 hero:
   image: assets/images/me-today.png
   name: "Hi, I'm Brandon A. Calderon Morales"
