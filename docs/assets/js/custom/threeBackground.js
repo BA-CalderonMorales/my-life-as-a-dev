@@ -5,6 +5,7 @@
  */
 import * as THREE from 'three';
 import { defaultLogger } from './logger.js';
+import ThemeDetector from './particleBackground/ThemeDetector.js';
 
 // Set up logger
 const logger = defaultLogger.setModule('threeBackground');
@@ -51,7 +52,11 @@ class ThreeBackground {
     
     // Set up event listeners
     this.setupEventListeners();
-    
+
+    // Set up theme detector to respond to palette changes
+    this.themeDetector = new ThemeDetector(() => this.updateTheme());
+    this.updateTheme();
+
     // Track scroll position for effects
     this.scrollY = 0;
     this.lastScrollY = 0;
@@ -517,6 +522,36 @@ class ThreeBackground {
       this.recreateParticles();
       
       logger.info('ThreeBackground restored to normal performance mode');
+    }
+  }
+
+  /**
+   * Update colors when theme changes
+   */
+  updateTheme() {
+    const styles = getComputedStyle(document.documentElement);
+    const planeColor = styles.getPropertyValue('--three-particle-color').trim();
+    const trailColor = styles.getPropertyValue('--three-line-color').trim();
+    const bgStart = styles.getPropertyValue('--three-bg-start').trim();
+    const bgMiddle = styles.getPropertyValue('--three-bg-middle').trim();
+    const bgEnd = styles.getPropertyValue('--three-bg-end').trim();
+
+    if (planeColor) {
+      this.options.planeColor = new THREE.Color(planeColor);
+      if (this.planes) {
+        this.planes.forEach(p => p.material.color.set(this.options.planeColor));
+      }
+    }
+
+    if (trailColor) {
+      this.options.trailColor = new THREE.Color(trailColor);
+      if (this.planes) {
+        this.planes.forEach(p => p.userData.trail.material.color.set(this.options.trailColor));
+      }
+    }
+
+    if (bgStart && bgMiddle && bgEnd) {
+      this.container.style.background = `linear-gradient(135deg, ${bgStart} 0%, ${bgMiddle} 70%, ${bgEnd} 100%)`;
     }
   }
   
