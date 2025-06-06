@@ -5,6 +5,7 @@
  */
 import * as THREE from 'three';
 import { defaultLogger } from './logger.js';
+import ThemeDetector from './particleBackground/ThemeDetector.js';
 
 // Set up logger
 const logger = defaultLogger.setModule('threeBackground');
@@ -48,6 +49,11 @@ class ThreeBackground {
     
     // Initialize THREE.js
     this.initializeScene();
+
+    // Set up theme detection to react to palette changes
+    this.themeDetector = new ThemeDetector(() => {
+      this.handleThemeChange();
+    });
     
     // Set up event listeners
     this.setupEventListeners();
@@ -446,6 +452,26 @@ class ThreeBackground {
 
   updateConnections() {
     // Trails are updated in updateParticles; nothing else to do here
+  }
+
+  handleThemeChange() {
+    const styles = getComputedStyle(document.documentElement);
+    const particleColor = styles.getPropertyValue('--three-particle-color').trim();
+    const lineColor = styles.getPropertyValue('--three-line-color').trim();
+
+    if (particleColor) {
+      this.options.planeColor = new THREE.Color(particleColor);
+      if (this.planes) {
+        this.planes.forEach(p => p.material.color.set(this.options.planeColor));
+      }
+    }
+
+    if (lineColor) {
+      this.options.trailColor = new THREE.Color(lineColor);
+      if (this.planes) {
+        this.planes.forEach(p => p.userData.trail.material.color.set(this.options.trailColor));
+      }
+    }
   }
 
   start() {
