@@ -1,0 +1,21 @@
+#three-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.75;
+  transition: opacity 0.5s ease;
+  background: linear-gradient(135deg, var(--three-bg-start) 0%, var(--three-bg-middle) 70%, var(--three-bg-end) 100%);
+}
+
+[data-md-color-scheme="default"] #three-background {
+  opacity: 0.6;
+}
+
+[data-md-color-scheme="slate"] #three-background {
+  opacity: 0.75;
+}
+

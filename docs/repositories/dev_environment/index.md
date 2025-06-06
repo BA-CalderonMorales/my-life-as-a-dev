@@ -4,7 +4,7 @@
 
 [![Experimental](https://img.shields.io/badge/Status-Experimental-orange.svg)](https://shields.io/)
 [![Version](https://img.shields.io/badge/Version-0.0.1-blue.svg)](https://shields.io/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](docs/CONTRIBUTING.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/BA-CalderonMorales/dev-environment/blob/main/docs/CONTRIBUTING.md)
 
 ⚠️ **EXPERIMENTAL STATUS - USE AT YOUR OWN RISK** ⚠️
 
@@ -34,7 +34,7 @@ Prerequisites:
 - Git
 - Internet connection
 
-For detailed setup instructions, see our [Quick Start Guide](docs/QUICK_START/README.md).
+For detailed setup instructions, see our [Quick Start Guide on GitHub](https://github.com/BA-CalderonMorales/dev-environment/blob/main/docs/QUICK_START/README.md).
 
 ## Project Status & Roadmap
 
@@ -64,7 +64,7 @@ For detailed setup instructions, see our [Quick Start Guide](docs/QUICK_START/RE
 - Language-specific images 🚧
 - CLI tool development 🚧
 
-For detailed milestones and progress, see our [Milestones](docs/MILESTONES.md) document.
+For detailed milestones and progress, see our [Milestones](https://github.com/BA-CalderonMorales/dev-environment/blob/main/docs/MILESTONES.md) document.
 
 ### Known Limitations
 - Early development stage (v0.0.1)
@@ -73,21 +73,21 @@ For detailed milestones and progress, see our [Milestones](docs/MILESTONES.md) d
 
 ## Documentation
 
-All documentation is in the [docs/](docs/README.md) directory:
-- [Requirements](docs/REQUIREMENTS.md)
-- [Quick Start Guide](docs/QUICK_START/README.md)
-- [Troubleshooting](docs/TROUBLESHOOTING.md)
-- [Contributing](docs/CONTRIBUTING.md)
+All documentation is in the project's `docs/` directory on GitHub:
+- [Requirements](https://github.com/BA-CalderonMorales/dev-environment/blob/main/docs/REQUIREMENTS.md)
+- [Quick Start Guide](https://github.com/BA-CalderonMorales/dev-environment/blob/main/docs/QUICK_START/README.md)
+- [Troubleshooting](https://github.com/BA-CalderonMorales/dev-environment/blob/main/docs/TROUBLESHOOTING.md)
+- [Contributing](https://github.com/BA-CalderonMorales/dev-environment/blob/main/docs/CONTRIBUTING.md)
 
 ## Legal Notice
 
-This software is provided "AS IS", without warranty of any kind. See [LICENSE](LICENSE).
+This software is provided "AS IS", without warranty of any kind. See the [LICENSE](https://github.com/BA-CalderonMorales/dev-environment/blob/main/LICENSE) file on GitHub.
 
 ## Stay Connected
 
 - 🌟 Star this repo for updates
 - 🍴 Fork the repo to customize your own version
-- 🤝 Want to help? Check out our [Contributing Guide](docs/CONTRIBUTING.md)
+- 🤝 Want to help? Check out our [Contributing Guide](https://github.com/BA-CalderonMorales/dev-environment/blob/main/docs/CONTRIBUTING.md)
 - 🔗 Follow me on [GitHub](https://github.com/BA-CalderonMorales)
 - 🔵 Connect with us on [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe/)
 

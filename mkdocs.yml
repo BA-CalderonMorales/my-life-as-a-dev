@@ -90,6 +90,7 @@ extra_css:
   - assets/css/custom.css
   - assets/css/common/animations.css
   - assets/css/pages/home/base.css
+  - assets/css/pages/home/three-bg.css
   - assets/css/pages/home/extras.css
   - assets/css/pages/home/mobile.css
   - assets/css/pages/home/cards.css
@@ -119,6 +120,7 @@ extra_javascript:
   - { "path": "assets/js/custom/initParticles.js", "type": "module" }
   - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
   - { "path": "assets/js/custom/logger.js", "type": "module" }
+  - { "path": "assets/js/custom/themeSwitcher.js", "type": "module" }
   - { "path": "assets/js/custom/interactivity-utils.js", "type": "module" }
   - { "path": "assets/js/custom/landingPage.js", "type": "module" }
   - { "path": "assets/js/custom/typewriter-loader.js", "type": "module" }
@@ -126,6 +128,7 @@ extra_javascript:
   - { "path": "assets/js/custom/typewriter-fallback.js", "type": "module" }
   - { "path": "assets/js/custom/scrollEffects.js", "type": "module" }
   - { "path": "assets/js/custom/networkNodes.js", "type": "module" }
+  - { "path": "assets/js/custom/background3D.js", "type": "module" }
   - { "path": "assets/js/custom/threeBackground.js", "type": "module" }
   - { "path": "assets/js/custom/threeBackgroundFallback.js", "type": "module" }
   - { "path": "assets/js/custom/smoothScroll.js", "type": "module" }

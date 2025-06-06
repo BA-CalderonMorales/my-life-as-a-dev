@@ -32,9 +32,6 @@
   overflow: hidden;
 }
 
-#three-background {
-  background: linear-gradient(135deg, var(--three-bg-start) 0%, var(--three-bg-middle) 70%, var(--three-bg-end) 100%);
-}
 
 /* Add subtle gradient overlay to improve text readability over particles */
 .md-main {

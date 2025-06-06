@@ -9,8 +9,7 @@
  * - Mobile optimizations
  */
 import { defaultLogger } from './logger.js';
-import ThreeBackground from './threeBackground.js';
-import backgroundFallback from './threeBackgroundFallback.js';
+import { initBackground, disposeBackground } from './background3D.js';
 import smoothScroll from './smoothScroll.js';
 import performanceMonitor from './performanceMonitor.js';
 import sectionTransitions from './sectionTransitions.js';
@@ -113,9 +112,8 @@ class ModernUI {
       onVeryLowPerformance: () => {
         // Drastically reduce visual effects or switch to fallback
         if (this.threeBackground && this.threeBackground.isActive) {
-          // Either disable or switch to fallback
           this.threeBackground.stop();
-          backgroundFallback.init();
+          disposeBackground();
         }
         
         // Add class for very low performance CSS adjustments
@@ -217,79 +215,10 @@ class ModernUI {
    */
   initThreeBackground() {
     try {
-      // Check URL parameters first
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('background') && urlParams.get('background') === 'false') {
-        logger.debug('Background disabled via URL parameter');
-        return;
-      }
-      
-      // Check device capabilities with performance monitor
-      const shouldUseThreeJs = !performanceMonitor.deviceInfo.isLowEndDevice || 
-                               (urlParams.has('background') && urlParams.get('background') === 'true');
-      
-      // Don't initialize on mobile/low-end devices by default to save resources
-      if (!shouldUseThreeJs) {
-        logger.debug('THREE.js background disabled for performance reasons');
-        // Use fallback on mobile/low-end devices instead
-        backgroundFallback.init();
-        backgroundFallback.start();
-        return;
-      }
-      
-      // Initialize Three.js background with optimized settings
-      const isMobile = performanceMonitor.deviceInfo.isMobile;
-      const isLowEnd = performanceMonitor.deviceInfo.isLowEndDevice;
-      
-      this.threeBackground = new ThreeBackground({
-        // Optimize particle count based on device capabilities
-        particleCount: isMobile ? (isLowEnd ? 40 : 60) : 150,
-        particleSize: isMobile ? 0.1 : 0.15,
-        maxConnections: isMobile ? (isLowEnd ? 2 : 3) : 5,
-        density: isMobile ? 0.5 : 0.8,
-        // Allow custom optimization based on URL params
-        ...this.getCustomThreeParams()
-      });
-      
-      // Set up THREE.js performance adaptation
-      if (this.threeBackground.setPerformanceMonitor) {
-        this.threeBackground.setPerformanceMonitor(performanceMonitor);
-      }
-      
-      this.threeBackground.start();
-      
-      // Add pause/resume on visibility change to save resources
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden && this.threeBackground) {
-          this.threeBackground.stop();
-        } else if (this.threeBackground) {
-          this.threeBackground.start();
-        }
-      });
-      
-      // Add resize handler with throttling for performance
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        if (resizeTimeout) clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          if (this.threeBackground && this.threeBackground.handleResize) {
-            this.threeBackground.handleResize();
-          }
-        }, 200);
-      });
-      
-      logger.info('THREE.js background initialized with performance optimization');
+      this.threeBackground = initBackground(this.getCustomThreeParams());
+      logger.info('3D background initialized');
     } catch (error) {
-      logger.error(`Failed to initialize THREE.js background: ${error.message}`);
-      
-      // Use fallback if THREE.js fails
-      try {
-        backgroundFallback.init();
-        backgroundFallback.start();
-        logger.info('Using fallback background due to THREE.js failure');
-      } catch (fallbackError) {
-        logger.error(`Fallback background also failed: ${fallbackError.message}`);
-      }
+      logger.error(`Failed to start background: ${error.message}`);
     }
   }
   
