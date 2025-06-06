@@ -1,37 +1,29 @@
+import json
 import re
-import requests
 from pathlib import Path
 from datetime import datetime, timedelta
+
+from utils import slug, cached_get
 
 OWNER = "BA-CalderonMorales"
 BASE_DIR = Path(__file__).resolve().parent.parent / "docs" / "repositories"
 INDEX_FILE = Path(__file__).resolve().parent.parent / "docs" / "repositories" / "index.md"
 
 
-def slug(name: str) -> str:
-    return name.lower().replace('-', '_')
-
-
 def fetch_repo_info(repo: str):
     url = f"https://api.github.com/repos/{OWNER}/{repo}"
-    try:
-        resp = requests.get(url, timeout=10)
-        if resp.status_code == 200:
-            return resp.json()
-    except requests.RequestException:
-        pass
+    text = cached_get(url)
+    if text:
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            return None
     return None
 
 
 def fetch_readme(repo: str, branch: str) -> str | None:
     url = f"https://raw.githubusercontent.com/{OWNER}/{repo}/{branch}/README.md"
-    try:
-        resp = requests.get(url, timeout=10)
-        if resp.status_code == 200:
-            return resp.text
-    except requests.RequestException:
-        pass
-    return None
+    return cached_get(url)
 
 
 def get_repo_names() -> list[str]:

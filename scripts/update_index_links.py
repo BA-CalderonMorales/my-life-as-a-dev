@@ -1,11 +1,11 @@
 import re
 from pathlib import Path
 
+from utils import slug
+
 INDEX_FILE = Path(__file__).resolve().parent.parent / "docs" / "repositories" / "index.md"
 
 
-def slug(name: str) -> str:
-    return name.lower().replace('-', '_')
 
 
 def main():
