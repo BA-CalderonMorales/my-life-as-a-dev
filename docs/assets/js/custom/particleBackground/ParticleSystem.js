@@ -3,6 +3,7 @@
  * Manages the enhanced particle animation system
  */
 import * as THREE from 'three';
+import { readMaterialColors } from '../threeTheme.js';
 
 class ParticleSystem {
   /**
@@ -27,9 +28,9 @@ class ParticleSystem {
     this.maxConnections = isMobile ? 3 : 5;
     this.maxDistance = 8;
     this.lineOpacity = isDark ? 0.15 : 0.1;
-    
+
     // Color settings based on theme
-    this.setThemeColors(isDark);
+    this.setThemeColors();
     
     // Initialize the particle system
     this.init();
@@ -39,18 +40,11 @@ class ParticleSystem {
    * Set theme-based colors
    * @param {boolean} isDark - Whether dark mode is enabled
    */
-  setThemeColors(isDark) {
-    if (isDark) {
-      // Darker background - brighter particles
-      this.particleColor = 0x88aaff;
-      this.accentColor = 0x4488ff;
-      this.lineColor = 0x6677cc;
-    } else {
-      // Light background - subtler particles
-      this.particleColor = 0x225599;
-      this.accentColor = 0x3366bb;
-      this.lineColor = 0x334466;
-    }
+  setThemeColors() {
+    const { primaryColor, accentColor } = readMaterialColors(true);
+    this.particleColor = primaryColor.getHex();
+    this.accentColor = accentColor.getHex();
+    this.lineColor = primaryColor.getHex();
   }
   
   /**
@@ -236,7 +230,7 @@ class ParticleSystem {
    */
   updateTheme(isDark) {
     this.isDark = isDark;
-    this.setThemeColors(isDark);
+    this.setThemeColors();
     
     if (this.particleSystem) {
       this.particleSystem.material.color.set(this.particleColor);

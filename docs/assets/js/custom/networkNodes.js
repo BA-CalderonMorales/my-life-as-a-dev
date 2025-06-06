@@ -1,5 +1,8 @@
 "use strict";
 
+import ThemeDetector from './particleBackground/ThemeDetector.js';
+import { readPrimaryRGB } from './threeTheme.js';
+
 document.addEventListener('DOMContentLoaded', function() {
   // Only run on landing page
   if (!document.body.classList.contains('landing-page')) {
@@ -30,35 +33,20 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Colors based on theme
   function getThemeColors() {
-    const isDarkTheme = document.body.getAttribute('data-md-color-scheme') === 'slate';
-    
-    if (isDarkTheme) {
-      return {
-        nodeColor: 'rgba(100, 149, 237, 0.6)', // Cornflower blue for dark theme
-        lineColor: 'rgba(100, 149, 237, 0.2)',  // Lighter blue for connections
-        glowColor: 'rgba(100, 149, 237, 0.1)'   // Glow effect
-      };
-    } else {
-      return {
-        nodeColor: 'rgba(66, 133, 244, 0.6)',  // Google blue for light theme
-        lineColor: 'rgba(66, 133, 244, 0.15)', // Lighter blue for connections
-        glowColor: 'rgba(66, 133, 244, 0.05)'  // Glow effect
-      };
-    }
+    const rgb = readPrimaryRGB();
+    return {
+      nodeColor: `rgba(${rgb}, 0.6)`,
+      lineColor: `rgba(${rgb}, 0.15)`,
+      glowColor: `rgba(${rgb}, 0.05)`
+    };
   }
   
   let colors = getThemeColors();
-  
+
   // Watch for theme changes
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.attributeName === 'data-md-color-scheme') {
-        colors = getThemeColors();
-      }
-    });
+  const detector = new ThemeDetector(() => {
+    colors = getThemeColors();
   });
-  
-  observer.observe(document.body, { attributes: true });
   
   // Create nodes
   for (let i = 0; i < nodeCount; i++) {

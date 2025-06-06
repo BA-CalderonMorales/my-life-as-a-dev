@@ -34,16 +34,16 @@ theme:
   palette:
     # Dark mode (now listed first to make it default)
     - scheme: slate
-      primary: blue
-      accent: blue
+      primary: '#008080'
+      accent: '#d2b48c'
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
-    
+
     # Light mode
     - scheme: default
-      primary: indigo
-      accent: indigo
+      primary: '#008080'
+      accent: '#d2b48c'
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
