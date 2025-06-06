@@ -1,0 +1,19 @@
+/**
+ * Theme color variables
+ */
+
+[data-md-color-scheme="default"] {
+  --three-particle-color: #008080;
+  --three-line-color: #d2b48c;
+  --three-bg-start: #ffffff;
+  --three-bg-middle: #d2b48c;
+  --three-bg-end: #008080;
+}
+
+[data-md-color-scheme="slate"] {
+  --three-particle-color: #80cbc4;
+  --three-line-color: #d2b48c;
+  --three-bg-start: #1e1e1e;
+  --three-bg-middle: #2d2a26;
+  --three-bg-end: #005a5a;
+}

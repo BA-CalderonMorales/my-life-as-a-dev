@@ -5,6 +5,7 @@
  */
 import * as THREE from 'three';
 import { defaultLogger } from './logger.js';
+import ThemeDetector from './particleBackground/ThemeDetector.js';
 
 // Set up logger
 const logger = defaultLogger.setModule('threeBackground');
@@ -24,18 +25,13 @@ class ThreeBackground {
       ...options
     };
 
-    // Load colors from CSS variables
-    const styles = getComputedStyle(document.documentElement);
-    const particleColor = styles.getPropertyValue('--three-particle-color').trim();
-    const lineColor = styles.getPropertyValue('--three-line-color').trim();
+    // Theme detector to react to palette changes
+    this.themeDetector = new ThemeDetector(() => {
+      this.updateColorsFromCSS();
+    });
 
-    if (particleColor) {
-      this.options.planeColor = new THREE.Color(particleColor);
-    }
-
-    if (lineColor) {
-      this.options.trailColor = new THREE.Color(lineColor);
-    }
+    // Load initial colors
+    this.updateColorsFromCSS();
 
     // Animation properties
     this.animationId = null;
@@ -48,6 +44,9 @@ class ThreeBackground {
     
     // Initialize THREE.js
     this.initializeScene();
+
+    // Apply colors now that container exists
+    this.updateColorsFromCSS();
     
     // Set up event listeners
     this.setupEventListeners();
@@ -517,6 +516,33 @@ class ThreeBackground {
       this.recreateParticles();
       
       logger.info('ThreeBackground restored to normal performance mode');
+    }
+  }
+
+  /**
+   * Update colors from CSS variables
+   */
+  updateColorsFromCSS() {
+    const styles = getComputedStyle(document.documentElement);
+    const particleColor = styles.getPropertyValue('--three-particle-color').trim();
+    const lineColor = styles.getPropertyValue('--three-line-color').trim();
+
+    if (particleColor) {
+      this.options.planeColor = new THREE.Color(particleColor);
+      if (this.planes) {
+        this.planes.forEach(p => p.material.color.set(this.options.planeColor));
+      }
+    }
+
+    if (lineColor) {
+      this.options.trailColor = new THREE.Color(lineColor);
+      if (this.planes) {
+        this.planes.forEach(p => p.userData.trail.material.color.set(this.options.trailColor));
+      }
+    }
+
+    if (this.container) {
+      this.container.style.background = `linear-gradient(135deg, var(--three-bg-start) 0%, var(--three-bg-middle) 70%, var(--three-bg-end) 100%)`;
     }
   }
   
