@@ -27,6 +27,7 @@ Future Development:
 import os
 import logging
 from mkdocs.plugins import BasePlugin
+from dotenv import load_dotenv
 
 # Initialize logger for this plugin
 log = logging.getLogger("mkdocs.plugins.ai_plugin")
@@ -56,7 +57,10 @@ class AIPlugin(BasePlugin):
             config: The potentially modified configuration dictionary
         """
         log.info("AI Plugin: Initializing...")
-        
+
+        # Load environment variables from .env if present
+        load_dotenv()
+
         # Check if OpenAI API key is available
         api_key = os.environ.get("OPENAI_API_KEY")
         if api_key:
