@@ -5,6 +5,8 @@
  */
 import * as THREE from 'three';
 import { defaultLogger } from './logger.js';
+import ThemeDetector from './particleBackground/ThemeDetector.js';
+import { readThreeColors } from './threeTheme.js';
 
 // Set up logger
 const logger = defaultLogger.setModule('threeBackground');
@@ -24,18 +26,13 @@ class ThreeBackground {
       ...options
     };
 
-    // Load colors from CSS variables
-    const styles = getComputedStyle(document.documentElement);
-    const particleColor = styles.getPropertyValue('--three-particle-color').trim();
-    const lineColor = styles.getPropertyValue('--three-line-color').trim();
+    // Load initial colors from CSS variables
+    const { planeColor, trailColor } = readThreeColors();
+    this.options.planeColor = planeColor;
+    this.options.trailColor = trailColor;
 
-    if (particleColor) {
-      this.options.planeColor = new THREE.Color(particleColor);
-    }
-
-    if (lineColor) {
-      this.options.trailColor = new THREE.Color(lineColor);
-    }
+    // React to palette changes
+    this.themeDetector = new ThemeDetector(() => this.updateColorsFromCSS());
 
     // Animation properties
     this.animationId = null;
@@ -172,6 +169,21 @@ class ThreeBackground {
     const texture = new THREE.CanvasTexture(canvas);
     texture.needsUpdate = true;
     return texture;
+  }
+
+  updateColorsFromCSS() {
+    const { planeColor, trailColor } = readThreeColors();
+    this.options.planeColor = planeColor;
+    this.options.trailColor = trailColor;
+
+    if (this.planes) {
+      this.planes.forEach(p => {
+        if (p.material) p.material.color.set(planeColor);
+        if (p.userData.trail && p.userData.trail.material) {
+          p.userData.trail.material.color.set(trailColor);
+        }
+      });
+    }
   }
 
   setupEventListeners() {

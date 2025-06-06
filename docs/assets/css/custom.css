@@ -5,19 +5,19 @@
 
 /* Theme colors for the THREE.js background */
 [data-md-color-scheme="default"] {
-  --three-particle-color: #708470;
-  --three-line-color: #556655;
-  --three-bg-start: #f0f4f0;
-  --three-bg-middle: #c2d0c2;
-  --three-bg-end: #708470;
+  --three-plane-color: #008080;
+  --three-trail-color: #d2b48c;
+  --three-bg-start: #e0f2f1;
+  --three-bg-middle: #fff7e6;
+  --three-bg-end: #b2dfdb;
 }
 
 [data-md-color-scheme="slate"] {
-  --three-particle-color: #90a890;
-  --three-line-color: #708470;
-  --three-bg-start: #1e2420;
-  --three-bg-middle: #2c3a30;
-  --three-bg-end: #4d6050;
+  --three-plane-color: #80cbc4;
+  --three-trail-color: #bfa37c;
+  --three-bg-start: #1b2b28;
+  --three-bg-middle: #3b3223;
+  --three-bg-end: #294341;
 }
 
 /* Ensure particle background container is properly positioned */
