@@ -16,7 +16,8 @@ class ThreeBackground {
       interactive: true,
       scrollFactor: 0.05,
       backgroundColor: 0x202820,
-      planeCount: window.innerWidth > 768 ? 20 : 10,
+      // Fewer planes for a calmer background
+      planeCount: window.innerWidth > 768 ? 12 : 6,
       planeSize: 0.5,
       planeColor: 0xffffff,
       trailColor: 0xffffff,
@@ -118,30 +119,39 @@ class ThreeBackground {
   }
 
   createParticles() {
-    // Replace traditional particles with paper airplanes
+    // Use an InstancedMesh for improved performance
     this.particleGroup = new THREE.Group();
     this.scene.add(this.particleGroup);
 
     const geometry = new THREE.ConeGeometry(this.options.planeSize, this.options.planeSize * 2, 3);
     geometry.rotateX(Math.PI / 2);
+    const material = new THREE.MeshBasicMaterial({ color: this.options.planeColor });
 
-    this.planes = [];
+    this.instancedPlanes = new THREE.InstancedMesh(geometry, material, this.options.planeCount);
+    this.particleGroup.add(this.instancedPlanes);
+
+    this.planeData = [];
+    const dummy = new THREE.Object3D();
+
     for (let i = 0; i < this.options.planeCount; i++) {
-      const material = new THREE.MeshBasicMaterial({ color: this.options.planeColor });
-      const plane = new THREE.Mesh(geometry, material);
-      plane.position.set((Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30);
-      plane.userData.velocity = new THREE.Vector3((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1);
+      const position = new THREE.Vector3((Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30);
+      const velocity = new THREE.Vector3((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1);
+
+      dummy.position.copy(position);
+      dummy.rotation.z = Math.random() * Math.PI * 2;
+      dummy.updateMatrix();
+      this.instancedPlanes.setMatrixAt(i, dummy.matrix);
 
       const trailGeom = new THREE.BufferGeometry();
       trailGeom.setAttribute('position', new THREE.Float32BufferAttribute([0,0,0,0,0,0], 3));
       const trailMat = new THREE.LineBasicMaterial({ color: this.options.trailColor, transparent: true, opacity: 0.5 });
       const trail = new THREE.Line(trailGeom, trailMat);
-      plane.userData.trail = trail;
-
       this.particleGroup.add(trail);
-      this.particleGroup.add(plane);
-      this.planes.push(plane);
+
+      this.planeData.push({ velocity, trail });
     }
+
+    this.instancedPlanes.instanceMatrix.needsUpdate = true;
   }
   
   createParticleTexture() {
@@ -425,23 +435,33 @@ class ThreeBackground {
 
   updateParticles(delta) {
     const limit = 30;
-    this.planes.forEach(plane => {
-      plane.position.add(plane.userData.velocity);
+    const dummy = new THREE.Object3D();
+
+    for (let i = 0; i < this.options.planeCount; i++) {
+      this.instancedPlanes.getMatrixAt(i, dummy.matrix);
+      dummy.matrix.decompose(dummy.position, dummy.quaternion, dummy.scale);
+
+      const data = this.planeData[i];
+      dummy.position.add(data.velocity);
 
       ['x', 'y', 'z'].forEach(axis => {
-        if (plane.position[axis] > limit) plane.position[axis] = -limit;
-        if (plane.position[axis] < -limit) plane.position[axis] = limit;
+        if (dummy.position[axis] > limit) dummy.position[axis] = -limit;
+        if (dummy.position[axis] < -limit) dummy.position[axis] = limit;
       });
 
-      plane.rotation.z += delta;
+      dummy.rotation.z += delta;
+      dummy.updateMatrix();
+      this.instancedPlanes.setMatrixAt(i, dummy.matrix);
 
-      const start = plane.position.clone();
-      const end = start.clone().sub(plane.userData.velocity.clone().multiplyScalar(10));
-      const arr = plane.userData.trail.geometry.attributes.position.array;
+      const start = dummy.position.clone();
+      const end = start.clone().sub(data.velocity.clone().multiplyScalar(10));
+      const arr = data.trail.geometry.attributes.position.array;
       arr[0] = start.x; arr[1] = start.y; arr[2] = start.z;
       arr[3] = end.x; arr[4] = end.y; arr[5] = end.z;
-      plane.userData.trail.geometry.attributes.position.needsUpdate = true;
-    });
+      data.trail.geometry.attributes.position.needsUpdate = true;
+    }
+
+    this.instancedPlanes.instanceMatrix.needsUpdate = true;
   }
 
   updateConnections() {
@@ -547,13 +567,16 @@ class ThreeBackground {
     window.removeEventListener('touchmove', this.handleTouchMove);
     
     // Dispose plane geometries and materials
-    if (this.planes) {
-      this.planes.forEach(p => {
-        if (p.geometry) p.geometry.dispose();
-        if (p.material) p.material.dispose();
-        if (p.userData.trail) {
-          if (p.userData.trail.geometry) p.userData.trail.geometry.dispose();
-          if (p.userData.trail.material) p.userData.trail.material.dispose();
+    if (this.instancedPlanes) {
+      this.instancedPlanes.geometry.dispose();
+      this.instancedPlanes.material.dispose();
+    }
+
+    if (this.planeData) {
+      this.planeData.forEach(p => {
+        if (p.trail) {
+          if (p.trail.geometry) p.trail.geometry.dispose();
+          if (p.trail.material) p.trail.material.dispose();
         }
       });
     }
