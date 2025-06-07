@@ -17,16 +17,16 @@ This document provides an example of a standalone HTML file that can be converte
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rick's Interactive Canvas Dreamscape</title>
     <style>
-        body { 
-        margin: 0; 
-        overflow: hidden; 
-        background: #000; 
+        body {
+        margin: 0;
+        overflow: hidden;
+        background: #000;
         touch-action: none;
         font-family: sans-serif;
         }
         canvas {
-        display: block; 
-        width: 100vw; 
+        display: block;
+        width: 100vw;
         height: 100vh;
         }
         #fps {
@@ -339,4 +339,4 @@ Here's how the standalone HTML file was converted to follow the MkDocs pattern:
     - Add the CSS and JS files to mkdocs.yml configuration
 
 !!! tip
-    By following these steps, you can convert any standalone HTML visualization or demo into a reusable component that fits into the MkDocs pattern of this project. Each scene is self-contained with its own import map, which simplifies the process of adding new components.
+By following these steps, you can convert any standalone HTML visualization or demo into a reusable component that fits into the MkDocs pattern of this project. Each scene is self-contained with its own import map, which simplifies the process of adding new components.

@@ -15,7 +15,7 @@ This page contains solutions to common issues you might encounter when working w
 
     **Cause**: This occurs when the local gh-pages branch created by the deployment script has a different history than the remote gh-pages branch on GitHub. Git refuses to push because these branches have unrelated commit histories.
 
-    **Solution**: 
+    **Solution**:
 
     1. Delete the remote gh-pages branch:
 
@@ -28,16 +28,16 @@ This page contains solutions to common issues you might encounter when working w
     ```bash
     ./doc-cli.sh
     ```
-    
+
     Then select the deployment option. Alternatively, run the command directly:
-    
+
     ```bash
     ./scripts/target/release/doc-cli deploy
     ```
 
     3. This will create a fresh gh-pages branch locally and push it to GitHub without history conflicts.
 
-    **Prevention**: 
+    **Prevention**:
     - Avoid manually modifying the gh-pages branch
     - Always use the CLI tool for deployments
     - If you need to force deployment, consider deleting the remote gh-pages branch first

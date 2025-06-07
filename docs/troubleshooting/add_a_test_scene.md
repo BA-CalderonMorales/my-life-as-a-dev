@@ -39,9 +39,10 @@ Create a new markdown file under `docs/blog/life/test_scenes/` with a name of yo
 ```markdown
 # Your Scene Title
 
-----
+---
 
 <!-- Simply use the custom element directly as intended by the component -->
+
 <your-component-name class="test-scene-container"></your-component-name>
 
 <script type="importmap">
@@ -78,29 +79,29 @@ class YourComponentClass extends HTMLElement {
       <!-- Your HTML structure here -->
       <div class="your-component-container"></div>
     `;
-    
+
     // Component setup logic
     this.initializeComponent();
   }
-  
+
   initializeComponent() {
     // Initialize your scene, add event listeners, etc.
-    console.log('Component initialized');
-    
+    console.log("Component initialized");
+
     // Set up animation loop if needed
     this.animate();
   }
-  
+
   animate() {
     // Animation loop if needed
     requestAnimationFrame(() => this.animate());
-    
+
     // Update your component's visuals
   }
 }
 
 // Register the custom element
-customElements.define('your-component-name', YourComponentClass);
+customElements.define("your-component-name", YourComponentClass);
 
 // Export the component
 export default YourComponentClass;
@@ -113,7 +114,7 @@ Create the component CSS file at `docs/assets/css/components/your-component-name
 ```css
 /* Styles for Your Scene Component */
 /* Import shared test scene styles */
-@import url('./test-scene-shared.css');
+@import url("./test-scene-shared.css");
 
 /* Component-specific styling */
 your-component-name {
@@ -143,7 +144,7 @@ extra_css:
   - assets/css/components/dreamscape.css
   - assets/css/components/dreamscape-proto4.css
   - assets/css/components/dreamscape-proto6.css
-  - assets/css/components/your-component-name.css  # Add your CSS here
+  - assets/css/components/your-component-name.css # Add your CSS here
 
 # Under the extra_javascript section
 extra_javascript:
@@ -152,10 +153,22 @@ extra_javascript:
   - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
   - { "path": "assets/js/custom/initParticles.js", "type": "module" }
   - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
-  - { "path": "assets/js/components/dreamscape/dreamscape.js", "type": "module" }
-  - { "path": "assets/js/components/dreamscape-proto4/dreamscape-proto4.js", "type": "module" }
-  - { "path": "assets/js/components/dreamscape-proto6/dreamscape-proto6.js", "type": "module" }
-  - { "path": "assets/js/components/your-component-name/your-component-name.js", "type": "module" }  # Add your JS here
+  - {
+      "path": "assets/js/components/dreamscape/dreamscape.js",
+      "type": "module",
+    }
+  - {
+      "path": "assets/js/components/dreamscape-proto4/dreamscape-proto4.js",
+      "type": "module",
+    }
+  - {
+      "path": "assets/js/components/dreamscape-proto6/dreamscape-proto6.js",
+      "type": "module",
+    }
+  - {
+      "path": "assets/js/components/your-component-name/your-component-name.js",
+      "type": "module",
+    } # Add your JS here
 ```
 
 ## Real-World Example
@@ -167,9 +180,10 @@ Here's a simplified example of the changes made for the "Interactive Canvas Drea
 ```markdown
 # Interactive Canvas Dreamscape
 
-----
+---
 
 <!-- Simply use the custom element directly as intended by the component -->
+
 <dreamscape-proto6 class="test-scene-container"></dreamscape-proto6>
 
 <script type="importmap">
@@ -196,7 +210,7 @@ Here's a simplified example of the changes made for the "Interactive Canvas Drea
 ```javascript
 // Interactive Canvas Dreamscape Component
 class DreamscapeProto6 extends HTMLElement {
-  connectedCallback(){
+  connectedCallback() {
     this.innerHTML = `
       <canvas id="canvas" aria-label="Interactive Dreamscape Canvas"></canvas>
       <div id="fps">FPS: --</div>
@@ -207,7 +221,7 @@ class DreamscapeProto6 extends HTMLElement {
 }
 
 // Register the custom element
-customElements.define('dreamscape-proto6', DreamscapeProto6);
+customElements.define("dreamscape-proto6", DreamscapeProto6);
 
 // Export the component
 export default DreamscapeProto6;
@@ -218,7 +232,7 @@ export default DreamscapeProto6;
 ```css
 /* Styles for the Interactive Canvas Dreamscape */
 /* Import shared test scene styles */
-@import url('./test-scene-shared.css');
+@import url("./test-scene-shared.css");
 
 dreamscape-proto6 {
   display: block;

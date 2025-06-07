@@ -30,7 +30,7 @@
    </div>
 </details>
 
-##  Visualize Codebase
+## Visualize Codebase
 
 <details>
   <summary> Brief Overview of Codebase</summary>
@@ -41,9 +41,7 @@
 
 </details>
 
-
-
-##  Developer Onboarding
+## Developer Onboarding
 
 <details>
 <summary><b> GitHub Codespaces</b></summary>
@@ -60,6 +58,7 @@
 ```bash
 ./doc-cli.sh startup
 ```
+
    </ol>
 
    <p>This script will:</p>
@@ -74,6 +73,7 @@
 ```bash
 ./doc-cli.sh startup
 ```
+
 </div>
 </details>
 
@@ -91,12 +91,13 @@
 
    <ol>
 
-   <li>Clone the repository:</li>     
+   <li>Clone the repository:</li>
 
-   ```bash
-   git clone https://github.com/BA-CalderonMorales/my-life-as-a-dev.git
-   cd my-life-as-a-dev
-   ```
+```bash
+git clone https://github.com/BA-CalderonMorales/my-life-as-a-dev.git
+cd my-life-as-a-dev
+```
+
    <li>Create and activate a virtual environment (optional but recommended):</li>
      
    ```bash
@@ -126,21 +127,24 @@
    # Ensure PYTHONPATH includes current directory for custom plugins
    export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs serve
 
-   # On Windows PowerShell:
-   # $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
-   ```
+# On Windows PowerShell:
 
-   <p>This will launch a local server at http://127.0.0.1:8000/</p>
+# $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
 
-   <li><strong> Build the documentation:</strong></li>
-     
-   ```bash
-   # Ensure PYTHONPATH includes current directory for custom plugins
-   export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
+````
 
-   # On Windows PowerShell:
-   # $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs build --verbose
-   ```
+<p>This will launch a local server at http://127.0.0.1:8000/</p>
+
+<li><strong> Build the documentation:</strong></li>
+
+```bash
+# Ensure PYTHONPATH includes current directory for custom plugins
+export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
+
+# On Windows PowerShell:
+# $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs build --verbose
+````
+
    <p>The static site will be generated in the <code>site</code> directory</p>
 
    <li><strong> All-in-one commands:</strong></li>
@@ -149,28 +153,31 @@
    # For development server (Linux/macOS):
    pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs serve
 
-   # For building (Linux/macOS):
-   pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
+# For building (Linux/macOS):
 
-   # For Windows PowerShell:
-   # pip install -e .; $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
-   ```
+pip install -e . && export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
 
-   </ul>
+# For Windows PowerShell:
 
-   <h3> Verifying Plugin Installation</h3>
+# pip install -e .; $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
 
-   <p>To verify that the custom plugin is properly installed:</p>
-   
-   ```python
-   python -c "import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')"
-   ```
+````
+
+</ul>
+
+<h3> Verifying Plugin Installation</h3>
+
+<p>To verify that the custom plugin is properly installed:</p>
+
+```python
+python -c "import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')"
+````
 
 </div>
 
 </details>
 
-##  Project Information
+## Project Information
 
 <details>
 <summary><b> AI Integration Configuration</b></summary>
@@ -186,7 +193,6 @@
 
    <p>Create a <code>.env</code> file in the root directory of the project:</p>
 
-   
 ```bash
 # In .env file
 OPENAI_API_KEY=your_openai_api_key_here
@@ -198,7 +204,6 @@ OPENAI_API_KEY=your_openai_api_key_here
 
    <p>Set the environment variable directly in your terminal:</p>
 
-   
 ```bash
 # For Linux/macOS
 export OPENAI_API_KEY=your_openai_api_key_here
@@ -244,7 +249,7 @@ my-life-as-a-dev/
 ├── requirements.txt       # Python dependencies
 ├── doc-cli.sh             # CLI wrapper script
 ├── docs/                  # Documentation source files
-│   ├── .nav.yml           # Navigation configuration - MkDocs Material 
+│   ├── .nav.yml           # Navigation configuration - MkDocs Material
 │   ├── index.md           # Homepage
 │   ├── docs-as-code.md    # Docs-as-Code overview
 │   ├── assets/            # Images and static files
@@ -332,29 +337,28 @@ For the most accurate and up-to-date project structure, please refer to the [Git
 
    <h3> Installing Act</h3>
 
-   
-   ```bash
-   # macOS (using Homebrew)
-   brew install act
+```bash
+# macOS (using Homebrew)
+brew install act
 
-   # Linux
-   curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+# Linux
+curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
 
-   # Windows (using Chocolatey)
-   choco install act-cli
-   ```
+# Windows (using Chocolatey)
+choco install act-cli
+```
 
    <h3> Running the Test Workflow</h3>
 
    <p>To test the documentation versioning workflow locally:</p>
 
-   ```bash
-   # Run with default parameters
-   act -j test_docs -w .github/workflows/test_github_pages.yml
+```bash
+# Run with default parameters
+act -j test_docs -w .github/workflows/test_github_pages.yml
 
-   # Run with a specific version
-   act -j test_docs -w .github/workflows/test_github_pages.yml -P version=1.2.3
-   ```
+# Run with a specific version
+act -j test_docs -w .github/workflows/test_github_pages.yml -P version=1.2.3
+```
 
    <p>This will simulate the GitHub Actions workflow and show you what would happen during the actual deployment, including:</p>
 

@@ -1,4 +1,4 @@
-<!-- 
+<!--
 This page now serves as an introduction to the new AI Playground.
 -->
 
@@ -10,9 +10,9 @@ This page previously demonstrated basic AI-powered content generation features. 
 
 The new [AI Playground](./ai-playground/playground/) is your central hub for:
 
--   **Repository Exploration**: Get AI-driven insights into code repositories.
--   **Interactive Scene Creation**: Describe and generate 3D scenes with AI assistance.
--   **Code Assistance**: Leverage AI to explain, document, or help refactor your code.
+- **Repository Exploration**: Get AI-driven insights into code repositories.
+- **Interactive Scene Creation**: Describe and generate 3D scenes with AI assistance.
+- **Code Assistance**: Leverage AI to explain, document, or help refactor your code.
 
 <div class="text-center">
   <a href="./ai-playground/playground/" class="md-button md-button--primary">
@@ -38,6 +38,6 @@ The AI Playground is built using:
 
 We encourage you to explore the [AI Playground](./ai-playground/playground/) to see these features in action!
 
-<!-- 
+<!--
 Old content removed as it's superseded by the AI Playground.
 -->

@@ -1,0 +1,3 @@
+default: true
+MD013: false    # ignore line length
+MD033: false    # allow inline HTML
