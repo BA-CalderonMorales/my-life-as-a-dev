@@ -41,15 +41,15 @@ class ParticleSystem {
    */
   setThemeColors(isDark) {
     if (isDark) {
-      // Darker background - brighter particles
-      this.particleColor = 0x88aaff;
-      this.accentColor = 0x4488ff;
-      this.lineColor = 0x6677cc;
+      // Dark theme - cooler blues with better contrast
+      this.particleColor = 0x64b5f6;  // Material blue 300
+      this.accentColor = 0x42a5f5;   // Material blue 400
+      this.lineColor = 0x1e88e5;     // Material blue 600
     } else {
-      // Light background - subtler particles
-      this.particleColor = 0x225599;
-      this.accentColor = 0x3366bb;
-      this.lineColor = 0x334466;
+      // Light theme - deeper blues for better visibility
+      this.particleColor = 0x2c5aa0;  // Deep blue
+      this.accentColor = 0x1e3a8a;   // Darker blue
+      this.lineColor = 0x4a7abd;     // Medium blue
     }
   }
   
