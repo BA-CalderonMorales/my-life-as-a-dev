@@ -24,26 +24,11 @@ class ThreeBackground {
       ...options
     };
 
+    // Initialize theme detection
+    this.setupThemeDetection();
+
     // Load colors from CSS variables with fallbacks
-    const styles = getComputedStyle(document.documentElement);
-    const particleColor = styles.getPropertyValue('--three-particle-color').trim();
-    const lineColor = styles.getPropertyValue('--three-line-color').trim();
-
-    if (particleColor) {
-      this.options.planeColor = new THREE.Color(particleColor);
-    } else {
-      // Fallback colors based on theme detection
-      const isDark = document.documentElement.getAttribute('data-md-color-scheme') === 'slate';
-      this.options.planeColor = new THREE.Color(isDark ? 0x64b5f6 : 0x2c5aa0);
-    }
-
-    if (lineColor) {
-      this.options.trailColor = new THREE.Color(lineColor);
-    } else {
-      // Fallback colors based on theme detection
-      const isDark = document.documentElement.getAttribute('data-md-color-scheme') === 'slate';
-      this.options.trailColor = new THREE.Color(isDark ? 0x42a5f5 : 0x4a7abd);
-    }
+    this.updateColorsFromTheme();
 
     // Animation properties
     this.animationId = null;
@@ -70,6 +55,76 @@ class ThreeBackground {
     this.activeSection = null;
     
     logger.debug('ThreeBackground initialized');
+  }
+
+  setupThemeDetection() {
+    // Watch for theme changes
+    this.themeObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && 
+            mutation.attributeName === 'data-md-color-scheme') {
+          this.updateColorsFromTheme();
+        }
+      });
+    });
+    
+    // Observe both html and body elements
+    this.themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-md-color-scheme']
+    });
+    
+    this.themeObserver.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['data-md-color-scheme']
+    });
+  }
+
+  updateColorsFromTheme() {
+    const styles = getComputedStyle(document.documentElement);
+    const particleColor = styles.getPropertyValue('--three-particle-color').trim();
+    const lineColor = styles.getPropertyValue('--three-line-color').trim();
+
+    if (particleColor) {
+      this.options.planeColor = new THREE.Color(particleColor);
+    } else {
+      // Fallback colors based on theme detection
+      const isDark = this.detectDarkMode();
+      this.options.planeColor = new THREE.Color(isDark ? 0x64b5f6 : 0x2c5aa0);
+    }
+
+    if (lineColor) {
+      this.options.trailColor = new THREE.Color(lineColor);
+    } else {
+      // Fallback colors based on theme detection
+      const isDark = this.detectDarkMode();
+      this.options.trailColor = new THREE.Color(isDark ? 0x42a5f5 : 0x4a7abd);
+    }
+
+    // Update existing materials if they exist
+    this.updateExistingMaterials();
+
+    logger.debug('Colors updated for theme change', 'updateColorsFromTheme');
+  }
+
+  detectDarkMode() {
+    const htmlScheme = document.documentElement.getAttribute('data-md-color-scheme');
+    const bodyScheme = document.body.getAttribute('data-md-color-scheme');
+    return (htmlScheme === 'slate' || bodyScheme === 'slate');
+  }
+
+  updateExistingMaterials() {
+    if (!this.planes) return;
+
+    // Update plane materials
+    this.planes.forEach(plane => {
+      if (plane.material) {
+        plane.material.color.copy(this.options.planeColor);
+      }
+      if (plane.userData.trail && plane.userData.trail.material) {
+        plane.userData.trail.material.color.copy(this.options.trailColor);
+      }
+    });
   }
 
   initializeContainer() {
@@ -542,6 +597,12 @@ class ThreeBackground {
   dispose() {
     // Stop animation
     this.stop();
+
+    // Clean up theme observer
+    if (this.themeObserver) {
+      this.themeObserver.disconnect();
+      this.themeObserver = null;
+    }
 
     // Clean up theme detector if present
     if (this.themeDetector && typeof this.themeDetector.dispose === 'function') {

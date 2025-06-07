@@ -75,14 +75,14 @@
 }
 
 /* Header in dark mode - Better harmony */
-[data-md-color-scheme="slate"] .md-header {
+[data-md_color-scheme="slate"] .md-header {
   background-color: rgba(26, 31, 46, 0.8);
 }
 
 /* Fix navigation text visibility in light mode */
 [data-md-color-scheme="default"] .md-header__title,
 [data-md-color-scheme="default"] .md-header__topic,
-[data-md-color-scheme="default"] .md-header__button,
+[data-md_color-scheme="default"] .md-header__button,
 [data-md_color-scheme="default"] .md-header__source,
 [data-md_color-scheme="default"] .md-search__input,
 [data-md_color-scheme="default"] .md-nav__title,
@@ -139,11 +139,11 @@
   }
   
   [data-md-color-scheme="default"] .md-nav--primary .md-nav__title {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(248, 249, 251, 0.8);
   }
   
-  [data-md-color-scheme="slate"] .md-nav--primary .md-nav__title {
-    background-color: rgba(35, 37, 49, 0.8);
+  [data-md_color-scheme="slate"] .md-nav--primary .md-nav__title {
+    background-color: rgba(26, 31, 46, 0.8);
   }
 }
 
