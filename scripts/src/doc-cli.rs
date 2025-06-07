@@ -147,29 +147,89 @@ impl DocCli {
         println!("  - Custom port option for 'startup' command");
     }
 
+    // Helper method to find rustc
+    fn find_rustc(&self) -> Result<String, String> {
+        // Try rustc directly first
+        if Command::new("rustc").arg("--version").output().is_ok() {
+            return Ok("rustc".to_string());
+        }
+        
+        // Try common installation paths
+        let common_paths = [
+            "/usr/bin/rustc",
+            "/usr/local/bin/rustc",
+            "/opt/homebrew/bin/rustc",
+        ];
+        
+        for path in &common_paths {
+            if std::path::Path::new(path).exists() {
+                return Ok(path.to_string());
+            }
+        }
+        
+        // Try to find via which command
+        if let Ok(output) = Command::new("which").arg("rustc").output() {
+            let path_string = String::from_utf8_lossy(&output.stdout);
+            let path = path_string.trim();
+            if !path.is_empty() && std::path::Path::new(path).exists() {
+                return Ok(path.to_string());
+            }
+        }
+        
+        Err("rustc not found".to_string())
+    }
+
+    // Helper method to build a Rust binary
+    fn build_rust_binary(&self, source_file: &str, binary_name: &str) -> Result<(), String> {
+        let binary_path = self.script_path.join(format!("target/release/{}", binary_name));
+        let source_path = self.script_path.join(format!("src/{}.rs", source_file));
+        
+        if !source_path.exists() {
+            return Err(format!("Source file not found: {}", source_path.display()));
+        }
+        
+        println!("{} binary not found. Building it first...", binary_name);
+        
+        // Ensure target directory exists
+        std::fs::create_dir_all(self.script_path.join("target/release"))
+            .map_err(|e| format!("Failed to create target directory: {}", e))?;
+        
+        // Find rustc
+        let rustc_cmd = self.find_rustc().map_err(|_| {
+            format!(
+                "rustc not found. Please install Rust:\n\
+                 - Visit https://rustup.rs/ to install Rust\n\
+                 - Or install via package manager:\n\
+                   Ubuntu/Debian: sudo apt install rustc\n\
+                   Fedora: sudo dnf install rust\n\
+                   Arch: sudo pacman -S rust\n\
+                 - Make sure rustc is in your PATH"
+            )
+        })?;
+        
+        // Build the binary
+        let status = Command::new(&rustc_cmd)
+            .current_dir(&self.script_path)
+            .args(&["-o", binary_path.to_str().unwrap(), source_path.to_str().unwrap()])
+            .status()
+            .map_err(|e| format!("Failed to execute rustc: {}", e))?;
+            
+        if !status.success() {
+            return Err(format!("Failed to build {} binary", binary_name));
+        }
+        
+        Ok(())
+    }
+
     // Execute the startup functionality
     fn run_startup(&self) {
         println!("\n🚀 Running startup script...\n");
         
         let binary_path = self.script_path.join("target/release/startup");
-        let source_path = self.script_path.join("startup.rs");
         
         if !binary_path.exists() {
-            println!("Startup binary not found. Building it first...");
-            
-            // Ensure target directory exists
-            std::fs::create_dir_all(self.script_path.join("target/release"))
-                .expect("Failed to create target directory");
-                
-            // Use rustc directly instead of cargo
-            let status = Command::new("rustc")
-                .current_dir(&self.script_path)
-                .args(&["-o", binary_path.to_str().unwrap(), source_path.to_str().unwrap()])
-                .status()
-                .expect("Failed to build startup binary");
-                
-            if !status.success() {
-                eprintln!("Error: Failed to build startup binary.");
+            if let Err(e) = self.build_rust_binary("startup", "startup") {
+                eprintln!("Error: {}", e);
                 std::process::exit(1);
             }
         }
@@ -233,24 +293,10 @@ impl DocCli {
         println!("\n🔄 Running version bump script...\n");
         
         let binary_path = self.script_path.join("target/release/bump-version");
-        let source_path = self.script_path.join("bump-version.rs");
         
         if !binary_path.exists() {
-            println!("Bump version binary not found. Building it first...");
-            
-            // Ensure target directory exists
-            std::fs::create_dir_all(self.script_path.join("target/release"))
-                .expect("Failed to create target directory");
-                
-            // Use rustc directly instead of cargo
-            let status = Command::new("rustc")
-                .current_dir(&self.script_path)
-                .args(&["-o", binary_path.to_str().unwrap(), source_path.to_str().unwrap()])
-                .status()
-                .expect("Failed to build bump-version binary");
-                
-            if !status.success() {
-                eprintln!("Error: Failed to build bump-version binary.");
+            if let Err(e) = self.build_rust_binary("bump-version", "bump-version") {
+                eprintln!("Error: {}", e);
                 std::process::exit(1);
             }
         }
@@ -280,24 +326,10 @@ impl DocCli {
         println!("\n🚀 Running deploy-all-versions script...\n");
         
         let binary_path = self.script_path.join("target/release/deploy-all-versions");
-        let source_path = self.script_path.join("deploy-all-versions.rs");
         
         if !binary_path.exists() {
-            println!("Deploy-all-versions binary not found. Building it first...");
-            
-            // Ensure target directory exists
-            std::fs::create_dir_all(self.script_path.join("target/release"))
-                .expect("Failed to create target directory");
-                
-            // Use rustc directly instead of cargo
-            let status = Command::new("rustc")
-                .current_dir(&self.script_path)
-                .args(&["-o", binary_path.to_str().unwrap(), source_path.to_str().unwrap()])
-                .status()
-                .expect("Failed to build deploy-all-versions binary");
-                
-            if !status.success() {
-                eprintln!("Error: Failed to build deploy-all-versions binary.");
+            if let Err(e) = self.build_rust_binary("deploy-all-versions", "deploy-all-versions") {
+                eprintln!("Error: {}", e);
                 std::process::exit(1);
             }
         }
