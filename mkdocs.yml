@@ -26,6 +26,8 @@ theme:
     - navigation.instant.progress
     - navigation.tracking
     - navigation.indexes
+    - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.prune
     - content.code.copy
     - content.code.annotate
