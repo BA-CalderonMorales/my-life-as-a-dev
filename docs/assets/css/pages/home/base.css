@@ -28,9 +28,9 @@
 /* Enhanced typewriter styling */
 .typewriter-text {
   display: inline-block;
-  color: var(--md-primary-fg-color);
   font-weight: 600;
   padding: 0.25rem 0.5rem;
+  color: var(--md-primary-fg-color);
   background: rgba(var(--md-primary-fg-color--rgb), 0.1);
   border-radius: 4px;
   position: relative;
@@ -171,14 +171,14 @@ video.profile-image {
   }
 }
 
-/* Custom LinkedIn button */
+/* Custom LinkedIn button - Use site colors but keep LinkedIn branding feel */
 .md-linkedin-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.75rem 1.5rem;
-  background-color: #0077B5;
-  color: white !important;
+  background-color: var(--md-primary-fg-color) !important;
+  color: var(--md-primary-bg-color) !important;
   text-decoration: none;
   border-radius: 4px;
   font-weight: 500;
@@ -190,7 +190,7 @@ video.profile-image {
 }
 
 .md-linkedin-button:hover {
-  background-color: #005e8d;
+  background-color: var(--md-accent-fg-color) !important;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
@@ -327,7 +327,7 @@ video.profile-image {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Call to action styling */
+/* Call to action styling - Use site theme colors */
 .cta-container {
   display: flex;
   flex-wrap: wrap;
@@ -342,10 +342,10 @@ video.profile-image {
   align-items: center;
   justify-content: center;
   padding: 0.75rem 1.5rem;
-  background-color: var(--md-primary-fg-color);
+  background-color: var(--md-primary-fg-color) !important;
   color: var(--md-primary-bg-color) !important;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   font-weight: 500;
   transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -354,6 +354,7 @@ video.profile-image {
   z-index: 1;
   min-width: 180px;
   text-align: center;
+  border: none;
 }
 
 .cta-button::before {
@@ -363,20 +364,16 @@ video.profile-image {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
+  background: rgba(255, 255, 255, 0.1);
   transform: translateX(-100%);
   transition: transform 0.6s ease;
   z-index: -1;
 }
 
 .cta-button:hover {
-  transform: translateY(-2px) scale(1.03);
+  transform: translateY(-2px) scale(1.02);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background-color: var(--md-accent-fg-color) !important;
 }
 
 .cta-button:hover::before {
@@ -391,7 +388,7 @@ video.profile-image {
 }
 
 .cta-button:hover svg {
-  transform: scale(1.2) rotate(5deg);
+  transform: scale(1.1) rotate(5deg);
 }
 
 /* Theme-specific adjustments */

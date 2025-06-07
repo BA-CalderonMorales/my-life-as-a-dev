@@ -88,8 +88,10 @@ class BackgroundFallback {
     // Check if CSS already exists
     if (document.getElementById('background-fallback-css')) return;
     
-    // Detect current theme
-    const isDark = document.documentElement.getAttribute('data-md-color-scheme') === 'slate';
+    // Get theme colors from CSS custom properties
+    const styles = getComputedStyle(document.documentElement);
+    const bgColor = styles.getPropertyValue('--three-bg-color').trim() || 
+                   (this.detectDarkMode() ? '#0f172a' : '#f8fafe');
     
     // Create stylesheet
     const style = document.createElement('style');
@@ -106,6 +108,7 @@ class BackgroundFallback {
         z-index: -1;
         overflow: hidden;
         pointer-events: none;
+        background-color: ${bgColor};
       }
       
       .bg-gradient {
@@ -116,10 +119,10 @@ class BackgroundFallback {
         height: 100%;
         background: radial-gradient(
           ellipse at center,
-          ${isDark ? 'rgba(100, 181, 246, 0.1)' : 'rgba(44, 90, 160, 0.1)'} 0%,
-          ${isDark ? 'rgba(100, 181, 246, 0.05)' : 'rgba(44, 90, 160, 0.05)'} 50%,
-          transparent 100%
+          var(--three-particle-color, ${this.detectDarkMode() ? '#90caf9' : '#607d8b'}) 0%,
+          transparent 70%
         );
+        opacity: 0.1;
       }
       
       .bg-shapes {
@@ -135,11 +138,10 @@ class BackgroundFallback {
         border-radius: 50%;
         background: radial-gradient(
           circle at center,
-          ${isDark ? 'rgba(100, 181, 246, 0.15)' : 'rgba(44, 90, 160, 0.15)'},
-          ${isDark ? 'rgba(100, 181, 246, 0.08)' : 'rgba(44, 90, 160, 0.08)'} 40%,
+          var(--three-particle-color, ${this.detectDarkMode() ? '#90caf9' : '#607d8b'}),
           transparent 70%
         );
-        opacity: ${isDark ? '0.5' : '0.4'};
+        opacity: 0.08;
         animation: float 15s infinite ease-in-out;
       }
       
@@ -205,6 +207,11 @@ class BackgroundFallback {
     
     // Add to document head
     document.head.appendChild(style);
+  }
+
+  detectDarkMode() {
+    return document.documentElement.getAttribute('data-md-color-scheme') === 'slate' ||
+           document.body.getAttribute('data-md-color-scheme') === 'slate';
   }
   
   start() {

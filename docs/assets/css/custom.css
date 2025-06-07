@@ -3,21 +3,23 @@
  * Enhancing the particle background and overall aesthetics
  */
 
-/* Theme colors for the THREE.js background - Updated for better harmony */
+/* Theme colors for the THREE.js background - Better colors that complement the image */
 [data-md-color-scheme="default"] {
-  --three-particle-color: #2c5aa0;
-  --three-line-color: #4a7abd;
-  --three-bg-start: #f8f9fb;
-  --three-bg-middle: #e1e8f0;
-  --three-bg-end: #c5d4e6;
+  --three-particle-color: var(--md-primary-fg-color);
+  --three-line-color: var(--md-accent-fg-color);
+  --three-bg-start: #f0f4f8;
+  --three-bg-middle: #f5f7fa;
+  --three-bg-end: #e8f4f8;
+  --three-bg-color: #f8fafe;
 }
 
 [data-md-color-scheme="slate"] {
-  --three-particle-color: #64b5f6;
-  --three-line-color: #42a5f5;
-  --three-bg-start: #1a1f2e;
-  --three-bg-middle: #232a3d;
-  --three-bg-end: #2d3748;
+  --three-particle-color: var(--md-primary-fg-color);
+  --three-line-color: var(--md-accent-fg-color);
+  --three-bg-start: #0a0e1a;
+  --three-bg-middle: #111827;
+  --three-bg-end: #1f2937;
+  --three-bg-color: #0f172a;
 }
 
 /* Ensure particle background container is properly positioned */
@@ -69,66 +71,94 @@
   transition: all 0.3s ease;
 }
 
-/* Header in light mode - Better contrast */
+/* Header in light mode - Ensure proper contrast */
 [data-md-color-scheme="default"] .md-header {
-  background-color: rgba(248, 249, 251, 0.9);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* Header in dark mode - Better harmony */
-[data-md_color-scheme="slate"] .md-header {
-  background-color: rgba(26, 31, 46, 0.8);
+/* Header in dark mode - Fix colors */
+[data-md-color-scheme="slate"] .md-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Fix navigation text visibility in light mode */
+/* Fix ALL navigation text visibility in light mode */
+[data-md-color-scheme="default"] .md-header *,
 [data-md-color-scheme="default"] .md-header__title,
-[data-md-color-scheme="default"] .md-header__topic,
+[data-md_color-scheme="default"] .md-header__topic,
 [data-md_color-scheme="default"] .md-header__button,
 [data-md_color-scheme="default"] .md-header__source,
-[data-md_color-scheme="default"] .md-search__input,
 [data-md_color-scheme="default"] .md-nav__title,
-[data-md_color-scheme="default"] .md-nav__link {
-  color: rgba(0, 0, 0, 0.87) !important; /* Darker text for better visibility in light mode */
+[data-md_color-scheme="default"] .md-nav__link,
+[data-md_color-scheme="default"] .md-nav__item .md-nav__link,
+[data-md_color-scheme="default"] .md-header .md-nav__link {
+  color: rgba(0, 0, 0, 0.87) !important;
 }
 
-/* Ensure navigation buttons and icons are visible in light mode */
-[data-md-color-scheme="default"] .md-header__button .md-icon,
-[data-md_color-scheme="default"] .md-search__icon,
-[data-md_color-scheme="default"] .md-nav__button .md-icon {
-  color: rgba(0, 0, 0, 0.7) !important;
+/* Ensure navigation text is visible in dark mode */
+[data-md-color-scheme="slate"] .md-header *,
+[data-md-color-scheme="slate"] .md-header__title,
+[data-md_color-scheme="slate"] .md-header__topic,
+[data-md_color-scheme="slate"] .md-header__button,
+[data-md_color-scheme="slate"] .md-header__source,
+[data-md_color-scheme="slate"] .md-nav__title,
+[data-md_color-scheme="slate"] .md-nav__link,
+[data-md_color-scheme="slate"] .md-nav__item .md-nav__link,
+[data-md_color-scheme="slate"] .md-header .md-nav__link {
+  color: rgba(255, 255, 255, 0.87) !important;
 }
 
-/* Enhance search box in light mode */
+/* Fix search input in light mode */
 [data-md-color-scheme="default"] .md-search__input {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
 
 [data-md-color-scheme="default"] .md-search__input::placeholder {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.6) !important;
 }
 
-/* Enhance shadows for better depth on cards */
-.md-typeset .admonition,
-.md-typeset details {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+/* Ensure ALL navigation buttons and icons are visible in both modes */
+[data-md-color-scheme="default"] .md-header .md-icon,
+[data-md_color-scheme="default"] .md-header__button .md-icon,
+[data-md_color-scheme="default"] .md-search__icon,
+[data-md_color-scheme="default"] .md-nav__button .md-icon,
+[data-md_color-scheme="default"] .md-header__button[data-md-component="palette"] .md-icon {
+  color: rgba(0, 0, 0, 0.8) !important;
 }
 
-/* Subtle hover effect on cards */
-.md-typeset .admonition:hover,
-.md-typeset details:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+[data-md-color-scheme="slate"] .md-header .md-icon,
+[data-md_color-scheme="slate"] .md-header__button .md-icon,
+[data-md_color-scheme="slate"] .md-search__icon,
+[data-md_color-scheme="slate"] .md-nav__button .md-icon,
+[data-md_color-scheme="slate"] .md-header__button[data-md-component="palette"] .md-icon {
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
-/* Enhance code blocks with better contrast and subtle shadow */
-.md-typeset pre > code {
-  border-radius: 6px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+/* Fix dropdown menus and mobile navigation in light mode */
+[data-md-color-scheme="default"] .md-nav__list,
+[data-md_color-scheme="default"] .md-nav--primary .md-nav__list {
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
-[data-md-color-scheme="slate"] .md-typeset pre > code {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+[data-md-color-scheme="default"] .md-nav__item .md-nav__link:hover {
+  color: var(--md-primary-fg-color) !important;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Ensure proper color scheme for links and emphasis elements */
+.md-typeset a,
+.md-typeset .md-button,
+.md-typeset .md-card__title,
+.md-typeset .md-card__subtitle {
+  color: var(--md-primary-fg-color);
+}
+
+.md-typeset a:hover,
+.md-typeset .md-button:hover,
+.md-typeset .md-card__title:hover,
+.md-typeset .md-card__subtitle:hover {
+  color: var(--md-accent-fg-color);
 }
 
 /* Better mobile experience */
@@ -139,11 +169,30 @@
   }
   
   [data-md-color-scheme="default"] .md-nav--primary .md-nav__title {
-    background-color: rgba(248, 249, 251, 0.8);
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    color: rgba(0, 0, 0, 0.87) !important;
   }
   
-  [data-md_color-scheme="slate"] .md-nav--primary .md-nav__title {
-    background-color: rgba(26, 31, 46, 0.8);
+  [data-md-color-scheme="slate"] .md-nav--primary .md-nav__title {
+    background-color: rgba(15, 23, 42, 0.9) !important;
+    color: rgba(255, 255, 255, 0.87) !important;
+  }
+  
+  /* Mobile navigation items */
+  [data-md-color-scheme="default"] .md-nav--primary .md-nav__item .md-nav__link {
+    color: rgba(0, 0, 0, 0.87) !important;
+  }
+  
+  [data-md-color-scheme="slate"] .md-nav--primary .md-nav__item .md-nav__link {
+    color: rgba(255, 255, 255, 0.87) !important;
+  }
+  
+  [data-md-color-scheme="default"] .md-nav--primary {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+  }
+  
+  [data-md_color-scheme="slate"] .md-nav--primary {
+    background-color: rgba(15, 23, 42, 0.9) !important;
   }
 }
 
