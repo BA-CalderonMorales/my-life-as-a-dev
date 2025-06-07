@@ -31,7 +31,12 @@ impl Startup {
     // Create a new Startup instance
     fn new(draft_version: Option<String>) -> Self {
         // Get the project root directory (current directory, since we're running from project root)
-        let project_root = env::current_dir().expect("Failed to get current directory");
+        let current_dir = env::current_dir().expect("Failed to get current directory");
+        let project_root = if current_dir.ends_with("scripts") {
+            current_dir.parent().unwrap().to_path_buf()
+        } else {
+            current_dir
+        };
         println!("Debug - Project root: {}", project_root.display());
         
         Self { project_root, draft_version }
@@ -180,7 +185,7 @@ impl Startup {
 
     // Start the MkDocs development server
     fn start_documentation_server(&self) {
-        println!("Starting versioned documentation server via Mike...");
+        println!("Starting documentation server...");
         
         // Change to the project root directory where mkdocs.yml is located
         if let Err(e) = env::set_current_dir(&self.project_root) {
@@ -200,20 +205,27 @@ impl Startup {
             _ => println!("Warning: Plugin module verification failed. This may cause issues with custom plugins.")
         }
         
-        self.set_up_mike();
+        // Check if mike is available for versioning by trying to import it
+        let mike_available = Command::new("python")
+            .arg("-c")
+            .arg("import mike; print('mike available')")
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .status()
+            .is_ok();
         
-        // Determine the mike serve command based on whether we have a draft version
-        let mut cmd_str = String::new();
+        if mike_available {
+            println!("Mike is available, but using standard MkDocs serve for simplicity");
+        }
         
-        // If draft version is specified, add the necessary arguments
-        if let Some(version) = &self.draft_version {
-            println!("Using draft version: {} (not yet deployed to gh-pages)", version);
-            cmd_str.push_str(&format!(""));
+        // Determine the serve command based on availability and draft version
+        let cmd_str = if let Some(version) = &self.draft_version {
+            println!("Using draft version: {} (not yet deployed)", version);
             
             // Build the site first with mkdocs
             println!("Building draft documentation for version {}...", version);
-            let build_status = Command::new("mkdocs")
-                .args(&["build", "--clean"])
+            let build_status = Command::new("python")
+                .args(&["-m", "mkdocs", "build", "--clean"])
                 .status()
                 .expect("Failed to build site with mkdocs");
                 
@@ -222,15 +234,13 @@ impl Startup {
                 std::process::exit(1);
             }
             
-            // For draft versions, we just serve the site directly with Python's HTTP server
-            // rather than using mike, as mike doesn't support the --version flag
+            // For draft versions, serve the built site directly
             println!("Serving draft version using Python HTTP server...");
-            cmd_str = String::from("cd site && python -m http.server 8000 --bind 0.0.0.0");
+            "cd site && python -m http.server 8000 --bind 0.0.0.0".to_string()
         } else {
-            println!("Serving all versions on gh-pages branch");
-            // Use mike serve for the standard case (no draft version)
-            cmd_str = String::from("PYTHONPATH=$PYTHONPATH:$(pwd) mike serve --dev-addr=0.0.0.0:8000 --branch gh-pages");
-        }
+            println!("Using standard MkDocs serve");
+            "PYTHONPATH=$PYTHONPATH:$(pwd) python -m mkdocs serve --dev-addr=0.0.0.0:8000".to_string()
+        };
         
         println!("Executing: {}", cmd_str);
         
@@ -244,28 +254,6 @@ impl Startup {
             eprintln!("Error: Failed to start documentation server.");
             std::process::exit(1);
         }
-    }
-
-    // Set up mike versioning
-    fn set_up_mike(&self) {
-        // Ensure the gh-pages branch is fetched locally
-        let _ = Command::new("git")
-            .args(&["fetch", "origin", "gh-pages", "--depth=1"])
-            .status()
-            .expect("Failed to fetch gh-pages branch");
-        
-        // Ensure a 'latest' alias exists (point to latest tag)
-        let _ = Command::new("mike")
-            .args(&["alias", "latest", "latest", "-b", "gh-pages", "-r", "origin"])
-            .stdout(Stdio::null())
-            .stderr(Stdio::null())
-            .status();
-        
-        // Set default version alias to 'latest' on gh-pages branch (with remote)
-        let _ = Command::new("mike")
-            .args(&["set-default", "latest", "--branch", "gh-pages", "--remote", "origin"])
-            .status()
-            .expect("Failed to set default mike version");
     }
 
     // Show completion message
