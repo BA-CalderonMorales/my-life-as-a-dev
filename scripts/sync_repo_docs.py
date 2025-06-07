@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from utils import slug, cached_get
+from utils import cached_get, slug
 
 REPOS = {
     "Vimrc-No-Plugins": "develop",

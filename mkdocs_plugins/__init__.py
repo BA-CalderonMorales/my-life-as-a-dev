@@ -7,11 +7,13 @@ Currently includes:
 """
 
 # Version of the plugins package
-__version__ = '0.1.0'
+__version__ = "0.1.0"
 
 # Expose the AIPlugin class at the package level for easier imports
 try:
     from mkdocs_plugins.ai_plugin import AIPlugin
+
+    __all__ = ["AIPlugin"]
 except ImportError:
     # This allows the package to be imported even if submodules are missing
     # (helps with module discovery)
