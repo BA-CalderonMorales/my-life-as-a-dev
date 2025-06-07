@@ -113,7 +113,7 @@ extra_css:
   - assets/css/components/aiPlayground/styles.css
 
 extra_javascript:
-  - { "path": "assets/js/importmap.js", "defer": true }
+  - { "path": "assets/importmap.json", "type": "importmap" }
   - { "path": "assets/js/vendor/typewriter.min.js", "type": "module" }
   - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
   - { "path": "assets/js/custom/initParticles.js", "type": "module" }

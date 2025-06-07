@@ -225,7 +225,7 @@ Here's how the standalone HTML file was converted to follow the MkDocs pattern:
     </script>
     ```
 
-    > **Note:** Each markdown file includes its own importmap with the necessary imports. This scoped approach means you don't need to modify the global importmap.js file when adding a new scene.
+    > **Note:** Each markdown file includes its own importmap with the necessary imports. This scoped approach means you don't need to modify the global importmap.json file when adding a new scene.
 
 === "2. Extract the JavaScript into a Web Component (dreamscape-proto6.js)"
 
@@ -308,7 +308,7 @@ Here's how the standalone HTML file was converted to follow the MkDocs pattern:
     # Under the extra_javascript section
     extra_javascript:
       - https://cdnjs.cloudflare.com/ajax/libs/es-module-shims/1.7.3/es-module-shims.min.js
-      - { "path": "assets/js/importmap.js", "defer": true }
+      - { "path": "assets/importmap.json", "type": "importmap" }
       - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
       - { "path": "assets/js/custom/initParticles.js", "type": "module" }
       - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
