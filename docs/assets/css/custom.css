@@ -202,6 +202,48 @@
   z-index: 2;
 }
 
+/* Button styling for better visibility */
+button, .btn, .md-button, input[type="button"], input[type="submit"] {
+  background-color: var(--md-primary-fg-color) !important;
+  color: var(--md-primary-bg-color) !important;
+  border: 1px solid var(--md-primary-fg-color) !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+button:hover, .btn:hover, .md-button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+  background-color: var(--md-accent-fg-color) !important;
+  border-color: var(--md-accent-fg-color) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Ensure button text is always visible */
+[data-md-color-scheme="default"] button,
+[data-md-color-scheme="default"] .btn,
+[data-md_color-scheme="default"] .md-button,
+[data-md_color-scheme="default"] input[type="button"],
+[data-md_color-scheme="default"] input[type="submit"] {
+  background-color: #1976d2 !important;
+  color: #ffffff !important;
+  border-color: #1976d2 !important;
+}
+
+[data-md-color-scheme="slate"] button,
+[data-md_color-scheme="slate"] .btn,
+[data-md_color-scheme="slate"] .md-button,
+[data-md_color-scheme="slate"] input[type="button"],
+[data-md_color-scheme="slate"] input[type="submit"] {
+  background-color: #64b5f6 !important;
+  color: #000000 !important;
+  border-color: #64b5f6 !important;
+}
+
 /* Version selector styling */
 .md-version {
   position: relative;
