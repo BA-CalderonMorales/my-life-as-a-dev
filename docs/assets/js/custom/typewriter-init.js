@@ -59,20 +59,6 @@ class TabModel {
   }
 }
 
-/**
- * AnimationModel - Manages animation data
- */
-class AnimationModel {
-  constructor() {
-    this.sections = [];
-  }
-
-  initialize() {
-    this.sections = Array.from(document.querySelectorAll('.tabbed-set .tabbed-content section, .tabbed-set .tabbed-content .fade-in-section'));
-    return this.sections;
-  }
-}
-
 // ================ VIEWMODELS ================
 
 /**
@@ -258,34 +244,6 @@ class TabViewModel {
   }
 }
 
-/**
- * AnimationViewModel - Manages animation logic
- */
-class AnimationViewModel {
-  constructor(model) {
-    this.model = model;
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    });
-  }
-
-  initialize() {
-    const sections = this.model.initialize();
-    
-    sections.forEach(section => {
-      section.classList.add('fade-in-section');
-      this.observer.observe(section);
-    });
-  }
-}
-
 // ================ APP INITIALIZATION ================
 
 /**
@@ -302,12 +260,10 @@ class AppController {
     ]);
     
     this.tabModel = new TabModel();
-    this.animationModel = new AnimationModel();
 
     // Initialize viewModels
     this.typewriterViewModel = new TypewriterViewModel(this.typewriterModel);
     this.tabViewModel = new TabViewModel(this.tabModel);
-    this.animationViewModel = new AnimationViewModel(this.animationModel);
   }
 
   initialize() {
@@ -329,10 +285,6 @@ class AppController {
     // Initialize tabs
     this.tabViewModel.initialize();
     logger.debug('Tab functionality initialized', 'initialize');
-
-    // Initialize animations
-    this.animationViewModel.initialize();
-    logger.debug('Animations initialized', 'initialize');
     
     logger.info('Typewriter controller initialization complete', 'initialize');
   }
