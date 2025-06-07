@@ -427,7 +427,8 @@ if (!customElements.get('dreamscape-proto4')) {
   customElements.define('dreamscape-proto4', class extends HTMLElement {
     connectedCallback() {
       // Create a new scene when the element is added to the DOM
-      this.classList.add('dreamscape-container');
+      // Use the shared test scene container styling
+      this.classList.add('test-scene-container');
       this.scene = new DreamscapeProto4(this, {
         debug: window.location.hostname === 'localhost' || 
                window.location.hostname === '127.0.0.1' ||
