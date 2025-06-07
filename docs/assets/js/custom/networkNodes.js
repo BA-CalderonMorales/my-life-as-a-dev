@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Colors based on theme
   function getThemeColors() {
-    const isDarkTheme = document.body.getAttribute('data-md-color-scheme') === 'slate';
+    const isDarkTheme = document.documentElement.getAttribute('data-md-color-scheme') === 'slate' ||
+                       document.body.getAttribute('data-md-color-scheme') === 'slate';
     
     if (isDarkTheme) {
       return {
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   let colors = getThemeColors();
   
-  // Watch for theme changes
+  // Watch for theme changes - improved detection
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.attributeName === 'data-md-color-scheme') {
@@ -58,6 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
+  // Observe both elements for theme changes
+  observer.observe(document.documentElement, { attributes: true });
   observer.observe(document.body, { attributes: true });
   
   // Create nodes

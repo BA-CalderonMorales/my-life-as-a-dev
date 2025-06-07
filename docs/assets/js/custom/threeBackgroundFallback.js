@@ -14,7 +14,43 @@ class BackgroundFallback {
     this.container = null;
     this.isInitialized = false;
     
+    // Setup theme observation
+    this.setupThemeDetection();
+    
     logger.debug('BackgroundFallback initialized');
+  }
+
+  setupThemeDetection() {
+    // Watch for theme changes to update colors
+    this.themeObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && 
+            mutation.attributeName === 'data-md-color-scheme') {
+          this.updateThemeColors();
+        }
+      });
+    });
+    
+    // Observe theme changes
+    this.themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-md-color-scheme']
+    });
+  }
+
+  updateThemeColors() {
+    // Re-add CSS with updated theme colors
+    if (this.isInitialized) {
+      this.removeFallbackCSS();
+      this.addFallbackCSS();
+    }
+  }
+
+  removeFallbackCSS() {
+    const existingStyle = document.getElementById('background-fallback-css');
+    if (existingStyle) {
+      existingStyle.remove();
+    }
   }
   
   init() {
@@ -52,11 +88,14 @@ class BackgroundFallback {
     // Check if CSS already exists
     if (document.getElementById('background-fallback-css')) return;
     
+    // Detect current theme
+    const isDark = document.documentElement.getAttribute('data-md-color-scheme') === 'slate';
+    
     // Create stylesheet
     const style = document.createElement('style');
     style.id = 'background-fallback-css';
     
-    // CSS for the fallback background
+    // CSS for the fallback background with theme-aware colors
     style.textContent = `
       .background-fallback {
         position: fixed;
@@ -77,17 +116,8 @@ class BackgroundFallback {
         height: 100%;
         background: radial-gradient(
           ellipse at center,
-          rgba(44, 90, 160, 0.1) 0%,
-          rgba(44, 90, 160, 0.05) 50%,
-          transparent 100%
-        );
-      }
-      
-      [data-md-color-scheme="slate"] .bg-gradient {
-        background: radial-gradient(
-          ellipse at center,
-          rgba(100, 181, 246, 0.1) 0%,
-          rgba(100, 181, 246, 0.05) 50%,
+          ${isDark ? 'rgba(100, 181, 246, 0.1)' : 'rgba(44, 90, 160, 0.1)'} 0%,
+          ${isDark ? 'rgba(100, 181, 246, 0.05)' : 'rgba(44, 90, 160, 0.05)'} 50%,
           transparent 100%
         );
       }
@@ -105,24 +135,14 @@ class BackgroundFallback {
         border-radius: 50%;
         background: radial-gradient(
           circle at center,
-          rgba(44, 90, 160, 0.15),
-          rgba(44, 90, 160, 0.08) 40%,
+          ${isDark ? 'rgba(100, 181, 246, 0.15)' : 'rgba(44, 90, 160, 0.15)'},
+          ${isDark ? 'rgba(100, 181, 246, 0.08)' : 'rgba(44, 90, 160, 0.08)'} 40%,
           transparent 70%
         );
-        opacity: 0.4;
+        opacity: ${isDark ? '0.5' : '0.4'};
         animation: float 15s infinite ease-in-out;
       }
       
-      [data-md-color-scheme="slate"] .shape {
-        background: radial-gradient(
-          circle at center,
-          rgba(100, 181, 246, 0.15),
-          rgba(100, 181, 246, 0.08) 40%,
-          transparent 70%
-        );
-        opacity: 0.5;
-      }
-
       .shape-1 {
         width: 300px;
         height: 300px;
@@ -176,14 +196,6 @@ class BackgroundFallback {
         }
       }
       
-      [data-md-color-scheme="slate"] .shape {
-        opacity: 0.4;
-      }
-      
-      [data-md-color-scheme="default"] .shape {
-        opacity: 0.3;
-      }
-      
       @media (prefers-reduced-motion: reduce) {
         .shape {
           animation: none;
@@ -212,6 +224,15 @@ class BackgroundFallback {
   }
   
   dispose() {
+    // Clean up theme observer
+    if (this.themeObserver) {
+      this.themeObserver.disconnect();
+      this.themeObserver = null;
+    }
+
+    // Remove CSS
+    this.removeFallbackCSS();
+
     // Remove from DOM
     if (this.container && this.container.parentNode) {
       this.container.parentNode.removeChild(this.container);

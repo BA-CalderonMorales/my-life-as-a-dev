@@ -42,21 +42,19 @@ class ThemeDetector {
   setupListeners() {
     // Direct event listener for the theme toggle button
     document.addEventListener('click', (e) => {
-    
-      if (e.target.closest('.md-header__button[data-md-component="palette"]')) {
-      
+      if (e.target.closest('.md-header__button[data-md-component="palette"]') ||
+          e.target.closest('[data-md-component="palette"]')) {
+        
         logger.debug('Theme button click detected', 'setupListeners');
 
         // Wait for theme to apply then update
         setTimeout(() => {
           this.checkTheme();
         }, 100);
-      
       }
-    
     });
     
-    // MutationObserver approach as backup
+    // MutationObserver approach as primary method
     this.observer = new MutationObserver(this.handleMutations);
 
     // Start observing both html and body elements
@@ -71,7 +69,12 @@ class ThemeDetector {
     });
 
     // Check for initial theme after DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', this.handleDOMLoaded);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', this.handleDOMLoaded);
+    } else {
+      // DOM is already loaded
+      setTimeout(() => this.checkTheme(), 100);
+    }
   }
 
   /**
@@ -127,7 +130,8 @@ class ThemeDetector {
         (mutation.attributeName === 'data-md-color-scheme' ||
           mutation.attributeName === 'class')
       ) {
-        setTimeout(() => this.checkTheme(), 100);
+        logger.debug('Theme mutation detected', 'handleMutations');
+        setTimeout(() => this.checkTheme(), 50);
       }
     });
   }
