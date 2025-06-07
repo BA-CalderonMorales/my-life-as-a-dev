@@ -169,3 +169,62 @@
     align-items: center;
   }
 }
+
+/**
+ * Call-to-action styling for the landing page
+ * Updated to use consistent site button styling only for "Other Platforms"
+ */
+
+/* Only "Other Platforms" buttons use Material theme colors */
+.other-platforms .md-button,
+.other-platforms .md-button--primary,
+.other-platforms .cta-button {
+  background-color: var(--md-primary-fg-color) !important;
+  color: var(--md-primary-bg-color) !important;
+  border-color: var(--md-primary-fg-color) !important;
+}
+
+.other-platforms .md-button:hover,
+.other-platforms .md-button--primary:hover,
+.other-platforms .cta-button:hover {
+  background-color: var(--md-accent-fg-color) !important;
+  border-color: var(--md-accent-fg-color) !important;
+  color: var(--md-primary-bg-color) !important;
+}
+
+/* Keep branded buttons with their original colors */
+.md-linkedin-button {
+  background-color: #0077B5 !important;
+  color: #ffffff !important;
+}
+
+.md-linkedin-button:hover {
+  background-color: #005582 !important;
+  color: #ffffff !important;
+}
+
+/* GitHub button keeps its styling */
+a[href*="github.com"]:not(.other-platforms *) {
+  /* Keep original GitHub styling */
+}
+
+/* Email button keeps its styling */
+a[href^="mailto:"]:not(.other-platforms *) {
+  /* Keep original email styling */
+}
+
+/* Portfolio button keeps its styling */
+a[href*="profile"]:not(.other-platforms *) {
+  /* Keep original profile button styling */
+}
+
+/* Ensure consistent spacing for CTA sections */
+.cta-section {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.cta-section .md-button {
+  margin: 0.5rem;
+  min-width: 160px;
+}

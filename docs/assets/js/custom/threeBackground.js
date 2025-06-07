@@ -81,24 +81,55 @@ class ThreeBackground {
   }
 
   updateColorsFromTheme() {
+    // Get Material Design theme colors directly
     const styles = getComputedStyle(document.documentElement);
+    
+    // Get background color from CSS custom property
+    const bgColor = styles.getPropertyValue('--three-bg-color').trim();
+    
+    // Try to get the actual Material theme colors
+    const primaryColor = styles.getPropertyValue('--md-primary-fg-color').trim();
+    const accentColor = styles.getPropertyValue('--md-accent-fg-color').trim();
+    
+    // Also check CSS custom properties as fallback
     const particleColor = styles.getPropertyValue('--three-particle-color').trim();
     const lineColor = styles.getPropertyValue('--three-line-color').trim();
 
-    if (particleColor) {
-      this.options.planeColor = new THREE.Color(particleColor);
+    // Update background color if available
+    if (bgColor) {
+      const bgColorObj = new THREE.Color(bgColor);
+      if (this.renderer) {
+        this.renderer.setClearColor(bgColorObj);
+      }
+      this.options.backgroundColor = bgColorObj.getHex();
     } else {
-      // Fallback colors based on theme detection
+      // Fallback background based on theme
       const isDark = this.detectDarkMode();
-      this.options.planeColor = new THREE.Color(isDark ? 0x64b5f6 : 0x2c5aa0);
+      const fallbackBg = new THREE.Color(isDark ? 0x0f172a : 0xf8fafe);
+      if (this.renderer) {
+        this.renderer.setClearColor(fallbackBg);
+      }
+      this.options.backgroundColor = fallbackBg.getHex();
     }
 
-    if (lineColor) {
+    if (primaryColor) {
+      this.options.planeColor = new THREE.Color(primaryColor);
+    } else if (particleColor) {
+      this.options.planeColor = new THREE.Color(particleColor);
+    } else {
+      // Final fallback based on theme detection
+      const isDark = this.detectDarkMode();
+      this.options.planeColor = new THREE.Color(isDark ? 0x90caf9 : 0x607d8b);
+    }
+
+    if (accentColor) {
+      this.options.trailColor = new THREE.Color(accentColor);
+    } else if (lineColor) {
       this.options.trailColor = new THREE.Color(lineColor);
     } else {
-      // Fallback colors based on theme detection
+      // Final fallback based on theme detection
       const isDark = this.detectDarkMode();
-      this.options.trailColor = new THREE.Color(isDark ? 0x42a5f5 : 0x4a7abd);
+      this.options.trailColor = new THREE.Color(isDark ? 0x81c784 : 0x03a9f4);
     }
 
     // Update existing materials if they exist
@@ -163,14 +194,7 @@ class ThreeBackground {
     this.camera.position.z = 25;
     
     // Create renderer
-    this.renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      antialias: window.innerWidth > 768, // Disable on mobile for performance
-      powerPreference: "high-performance"
-    });
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.container.appendChild(this.renderer.domElement);
+    this.initializeRenderer();
 
     // Apply gradient background via CSS variables
     this.container.style.background =
@@ -178,6 +202,37 @@ class ThreeBackground {
 
     // Create particles
     this.createParticles();
+  }
+
+  initializeRenderer() {
+    try {
+      this.renderer = new THREE.WebGLRenderer({ 
+        antialias: true, 
+        alpha: false,
+        powerPreference: "high-performance"
+      });
+      
+      // Set initial background color from theme
+      const styles = getComputedStyle(document.documentElement);
+      const bgColor = styles.getPropertyValue('--three-bg-color').trim();
+      
+      if (bgColor) {
+        this.renderer.setClearColor(new THREE.Color(bgColor));
+      } else {
+        const isDark = this.detectDarkMode();
+        this.renderer.setClearColor(new THREE.Color(isDark ? 0x0f172a : 0xf8fafe));
+      }
+      
+      this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      
+      this.container.appendChild(this.renderer.domElement);
+      
+      logger.debug('WebGL renderer initialized');
+    } catch (error) {
+      logger.error('Failed to initialize WebGL renderer:', error);
+      throw error;
+    }
   }
 
   createParticles() {

@@ -1,5 +1,5 @@
 /**
- * Layout and accent colors for landing page
+ * Layout and scroll behavior for landing page
  */
 .landing-page {
   scroll-behavior: smooth;
@@ -11,12 +11,12 @@
   min-height: 100vh;
 }
 
+/* Remove conflicting color definitions that override our CTA styles */
+/* These were overriding the Other Platforms button colors */
+/*
 .landing-page {
   --landing-accent: #2aa198;
   --landing-accent-hover: #258b84;
-}
-
-.landing-page a.cta-button,
 .landing-page .social-button,
 .landing-page .secondary-link {
   background-color: var(--landing-accent);

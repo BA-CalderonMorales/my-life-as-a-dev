@@ -28,22 +28,35 @@ document.addEventListener('DOMContentLoaded', function() {
   const nodes = [];
   const nodeCount = Math.min(Math.floor(window.innerWidth / 30), 50); // Responsive node count
   
-  // Colors based on theme
+  // Colors based on theme - Use Material theme colors
   function getThemeColors() {
+    const styles = getComputedStyle(document.documentElement);
+    const primaryColor = styles.getPropertyValue('--md-primary-fg-color').trim();
+    const accentColor = styles.getPropertyValue('--md-accent-fg-color').trim();
+    
+    if (primaryColor && accentColor) {
+      return {
+        nodeColor: primaryColor.replace('rgb', 'rgba').replace(')', ', 0.7)'),
+        lineColor: accentColor.replace('rgb', 'rgba').replace(')', ', 0.25)'),
+        glowColor: primaryColor.replace('rgb', 'rgba').replace(')', ', 0.15)')
+      };
+    }
+    
+    // Fallback colors
     const isDarkTheme = document.documentElement.getAttribute('data-md-color-scheme') === 'slate' ||
                        document.body.getAttribute('data-md-color-scheme') === 'slate';
     
     if (isDarkTheme) {
       return {
-        nodeColor: 'rgba(100, 181, 246, 0.7)',  // Material blue 300
-        lineColor: 'rgba(100, 181, 246, 0.25)', // Lighter connections
-        glowColor: 'rgba(100, 181, 246, 0.15)'  // Subtle glow
+        nodeColor: 'rgba(144, 202, 249, 0.7)',  // Material blue 200
+        lineColor: 'rgba(129, 199, 132, 0.25)', // Material green 300
+        glowColor: 'rgba(144, 202, 249, 0.15)'  // Subtle glow
       };
     } else {
       return {
-        nodeColor: 'rgba(44, 90, 160, 0.8)',    // Deep blue for visibility
-        lineColor: 'rgba(74, 122, 189, 0.2)',   // Medium blue connections
-        glowColor: 'rgba(44, 90, 160, 0.1)'     // Subtle glow
+        nodeColor: 'rgba(96, 125, 139, 0.8)',   // Blue grey 500
+        lineColor: 'rgba(3, 169, 244, 0.2)',    // Light blue 500
+        glowColor: 'rgba(96, 125, 139, 0.1)'    // Subtle glow
       };
     }
   }

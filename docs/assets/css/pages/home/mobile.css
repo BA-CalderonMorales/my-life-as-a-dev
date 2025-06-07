@@ -82,8 +82,8 @@
   
   /* Better proportion for the profile image on small mobile */
   .profile-image {
-    width: 110px;
-    height: 110px;
+    width: 200px;
+    height: 200px;
     margin-top: 1rem;
     margin-bottom: 1rem;
   }
