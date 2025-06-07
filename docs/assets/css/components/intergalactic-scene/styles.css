@@ -1,6 +1,6 @@
 /* Styles for the Intergalactic Scene Component */
 /* Import shared test scene styles */
-@import url('./test-scene-shared.css');
+@import url('../test-scene-shared.css');
 
 /* Component-specific styling */
 intergalactic-scene {
