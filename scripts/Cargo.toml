@@ -6,18 +6,16 @@ description = "Documentation maintenance tools for my-life-as-a-dev"
 
 [[bin]]
 name = "doc-cli"
-path = "doc-cli.rs"
+path = "src/doc-cli.rs"
 
 [[bin]]
 name = "startup"
-path = "startup.rs"
+path = "src/startup.rs"
 
 [[bin]]
 name = "bump-version"
-path = "bump-version.rs"
+path = "src/bump-version.rs"
 
 [[bin]]
 name = "deploy-all-versions"
-path = "deploy-all-versions.rs"
-
-[dependencies]
+path = "src/deploy-all-versions.rs"
