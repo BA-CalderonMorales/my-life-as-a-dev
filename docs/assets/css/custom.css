@@ -3,21 +3,21 @@
  * Enhancing the particle background and overall aesthetics
  */
 
-/* Theme colors for the THREE.js background */
+/* Theme colors for the THREE.js background - Updated for better harmony */
 [data-md-color-scheme="default"] {
-  --three-particle-color: #708470;
-  --three-line-color: #556655;
-  --three-bg-start: #f0f4f0;
-  --three-bg-middle: #c2d0c2;
-  --three-bg-end: #708470;
+  --three-particle-color: #2c5aa0;
+  --three-line-color: #4a7abd;
+  --three-bg-start: #f8f9fb;
+  --three-bg-middle: #e1e8f0;
+  --three-bg-end: #c5d4e6;
 }
 
 [data-md-color-scheme="slate"] {
-  --three-particle-color: #90a890;
-  --three-line-color: #708470;
-  --three-bg-start: #1e2420;
-  --three-bg-middle: #2c3a30;
-  --three-bg-end: #4d6050;
+  --three-particle-color: #64b5f6;
+  --three-line-color: #42a5f5;
+  --three-bg-start: #1a1f2e;
+  --three-bg-middle: #232a3d;
+  --three-bg-end: #2d3748;
 }
 
 /* Ensure particle background container is properly positioned */
@@ -53,13 +53,13 @@
   transition: background 0.3s ease-in-out;
 }
 
-/* Overlay gradients based on theme */
+/* Overlay gradients based on theme - Updated for better contrast */
 [data-md-color-scheme="default"] .md-main::before {
-  background: radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6));
+  background: radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0), rgba(248, 249, 251, 0.7));
 }
 
 [data-md-color-scheme="slate"] .md-main::before {
-  background: radial-gradient(circle at 30% 80%, rgba(35, 37, 49, 0), rgba(35, 37, 49, 0.5));
+  background: radial-gradient(circle at 30% 80%, rgba(26, 31, 46, 0), rgba(26, 31, 46, 0.6));
 }
 
 /* Enhance header on transparent background */
@@ -69,31 +69,31 @@
   transition: all 0.3s ease;
 }
 
-/* Header in light mode */
+/* Header in light mode - Better contrast */
 [data-md-color-scheme="default"] .md-header {
-  background-color: rgba(255, 255, 255, 0.85); /* Increased opacity for better contrast */
+  background-color: rgba(248, 249, 251, 0.9);
 }
 
-/* Header in dark mode */
+/* Header in dark mode - Better harmony */
 [data-md-color-scheme="slate"] .md-header {
-  background-color: rgba(35, 37, 49, 0.7);
+  background-color: rgba(26, 31, 46, 0.8);
 }
 
 /* Fix navigation text visibility in light mode */
 [data-md-color-scheme="default"] .md-header__title,
 [data-md-color-scheme="default"] .md-header__topic,
 [data-md-color-scheme="default"] .md-header__button,
-[data-md-color-scheme="default"] .md-header__source,
-[data-md-color-scheme="default"] .md-search__input,
-[data-md-color-scheme="default"] .md-nav__title,
-[data-md-color-scheme="default"] .md-nav__link {
+[data-md_color-scheme="default"] .md-header__source,
+[data-md_color-scheme="default"] .md-search__input,
+[data-md_color-scheme="default"] .md-nav__title,
+[data-md_color-scheme="default"] .md-nav__link {
   color: rgba(0, 0, 0, 0.87) !important; /* Darker text for better visibility in light mode */
 }
 
 /* Ensure navigation buttons and icons are visible in light mode */
 [data-md-color-scheme="default"] .md-header__button .md-icon,
-[data-md-color-scheme="default"] .md-search__icon,
-[data-md-color-scheme="default"] .md-nav__button .md-icon {
+[data-md_color-scheme="default"] .md-search__icon,
+[data-md_color-scheme="default"] .md-nav__button .md-icon {
   color: rgba(0, 0, 0, 0.7) !important;
 }
 

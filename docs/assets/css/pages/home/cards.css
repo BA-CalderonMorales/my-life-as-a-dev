@@ -145,12 +145,18 @@
 
 /* AI Tools section styling */
 .ai-tools-showcase {
-  background: rgba(var(--md-primary-fg-color--rgb), 0.1);
+  background: rgba(44, 90, 160, 0.08);
   border-radius: 8px;
   padding: 1.5rem;
   margin-top: 2rem;
-  border: 1px solid rgba(var(--md-primary-fg-color--rgb), 0.2);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(44, 90, 160, 0.2);
+  box-shadow: 0 5px 15px rgba(44, 90, 160, 0.1);
+}
+
+[data-md-color-scheme="slate"] .ai-tools-showcase {
+  background: rgba(100, 181, 246, 0.08);
+  border-color: rgba(100, 181, 246, 0.2);
+  box-shadow: 0 5px 15px rgba(100, 181, 246, 0.1);
 }
 
 .ai-tools-showcase h3 {

@@ -34,15 +34,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (isDarkTheme) {
       return {
-        nodeColor: 'rgba(100, 149, 237, 0.6)', // Cornflower blue for dark theme
-        lineColor: 'rgba(100, 149, 237, 0.2)',  // Lighter blue for connections
-        glowColor: 'rgba(100, 149, 237, 0.1)'   // Glow effect
+        nodeColor: 'rgba(100, 181, 246, 0.7)',  // Material blue 300
+        lineColor: 'rgba(100, 181, 246, 0.25)', // Lighter connections
+        glowColor: 'rgba(100, 181, 246, 0.15)'  // Subtle glow
       };
     } else {
       return {
-        nodeColor: 'rgba(66, 133, 244, 0.6)',  // Google blue for light theme
-        lineColor: 'rgba(66, 133, 244, 0.15)', // Lighter blue for connections
-        glowColor: 'rgba(66, 133, 244, 0.05)'  // Glow effect
+        nodeColor: 'rgba(44, 90, 160, 0.8)',    // Deep blue for visibility
+        lineColor: 'rgba(74, 122, 189, 0.2)',   // Medium blue connections
+        glowColor: 'rgba(44, 90, 160, 0.1)'     // Subtle glow
       };
     }
   }

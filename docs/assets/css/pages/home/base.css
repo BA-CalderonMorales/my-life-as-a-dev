@@ -141,14 +141,18 @@ video.profile-image {
 .profile-image::before {
   content: '';
   position: absolute;
-  top: -10px;  /* Increased from -8px */
-  left: -10px;  /* Increased from -8px */
-  right: -10px;  /* Increased from -8px */
-  bottom: -10px;  /* Increased from -8px */
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
   border-radius: 50%;
-  background: linear-gradient(45deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+  background: linear-gradient(45deg, 
+    var(--md-primary-fg-color), 
+    #64b5f6,
+    var(--md-accent-fg-color)
+  );
   z-index: -1;
-  opacity: 0.5;
+  opacity: 0.6;
   animation: rotate 6s linear infinite;
 }
 
@@ -422,22 +426,22 @@ video.profile-image {
 /* Light mode gradient */
 [data-md-color-scheme="default"] .landing-page .md-content::before {
   background: linear-gradient(-45deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(var(--md-primary-fg-color--light-rgb), 0.05) 25%,
-    rgba(var(--md-accent-fg-color--transparent), 0.1) 50%,
-    rgba(var(--md-primary-fg-color--light-rgb), 0.05) 75%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(248, 249, 251, 0) 0%,
+    rgba(44, 90, 160, 0.08) 25%,
+    rgba(74, 122, 189, 0.12) 50%,
+    rgba(44, 90, 160, 0.08) 75%,
+    rgba(248, 249, 251, 0) 100%
   );
 }
 
 /* Dark mode gradient */
 [data-md-color-scheme="slate"] .landing-page .md-content::before {
   background: linear-gradient(-45deg,
-    rgba(35, 37, 48, 0) 0%,
-    rgba(var(--md-primary-fg-color--light-rgb), 0.05) 25%,
-    rgba(var(--md-accent-fg-color--transparent), 0.1) 50%,
-    rgba(var(--md-primary-fg-color--light-rgb), 0.05) 75%,
-    rgba(35, 37, 48, 0) 100%
+    rgba(26, 31, 46, 0) 0%,
+    rgba(100, 181, 246, 0.08) 25%,
+    rgba(66, 165, 245, 0.12) 50%,
+    rgba(100, 181, 246, 0.08) 75%,
+    rgba(26, 31, 46, 0) 100%
   );
 }
 
@@ -469,10 +473,18 @@ video.profile-image {
   z-index: -1;
   background: radial-gradient(
     circle at center,
-    rgba(var(--md-primary-fg-color--light-rgb), 0.15) 0%,
-    rgba(var(--md-primary-fg-color--light-rgb), 0) 70%
+    rgba(44, 90, 160, 0.12) 0%,
+    rgba(44, 90, 160, 0) 70%
   );
-  opacity: 0.6;
+  opacity: 0.7;
+}
+
+[data-md-color-scheme="slate"] .hero-section::before {
+  background: radial-gradient(
+    circle at center,
+    rgba(100, 181, 246, 0.12) 0%,
+    rgba(100, 181, 246, 0) 70%
+  );
 }
 
 /* Enhanced section dividers */

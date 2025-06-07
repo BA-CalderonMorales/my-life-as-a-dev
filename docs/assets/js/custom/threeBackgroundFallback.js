@@ -77,8 +77,17 @@ class BackgroundFallback {
         height: 100%;
         background: radial-gradient(
           ellipse at center,
-          rgba(var(--md-primary-fg-color--rgb), 0.1) 0%,
-          rgba(var(--md-primary-fg-color--rgb), 0.05) 50%,
+          rgba(44, 90, 160, 0.1) 0%,
+          rgba(44, 90, 160, 0.05) 50%,
+          transparent 100%
+        );
+      }
+      
+      [data-md-color-scheme="slate"] .bg-gradient {
+        background: radial-gradient(
+          ellipse at center,
+          rgba(100, 181, 246, 0.1) 0%,
+          rgba(100, 181, 246, 0.05) 50%,
           transparent 100%
         );
       }
@@ -96,14 +105,24 @@ class BackgroundFallback {
         border-radius: 50%;
         background: radial-gradient(
           circle at center,
-          rgba(var(--md-primary-fg-color--rgb), 0.2),
-          rgba(var(--md-primary-fg-color--rgb), 0.1) 40%,
+          rgba(44, 90, 160, 0.15),
+          rgba(44, 90, 160, 0.08) 40%,
           transparent 70%
         );
-        opacity: 0.3;
+        opacity: 0.4;
         animation: float 15s infinite ease-in-out;
       }
       
+      [data-md-color-scheme="slate"] .shape {
+        background: radial-gradient(
+          circle at center,
+          rgba(100, 181, 246, 0.15),
+          rgba(100, 181, 246, 0.08) 40%,
+          transparent 70%
+        );
+        opacity: 0.5;
+      }
+
       .shape-1 {
         width: 300px;
         height: 300px;

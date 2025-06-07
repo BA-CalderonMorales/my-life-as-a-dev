@@ -15,26 +15,34 @@ class ThreeBackground {
       containerId: 'three-background',
       interactive: true,
       scrollFactor: 0.05,
-      backgroundColor: 0x202820,
+      backgroundColor: 0x1a1f2e,
       planeCount: window.innerWidth > 768 ? 20 : 10,
       planeSize: 0.5,
-      planeColor: 0xffffff,
-      trailColor: 0xffffff,
-      updateFrequency: 1,                 // Update every frame by default
+      planeColor: 0x64b5f6,
+      trailColor: 0x42a5f5,
+      updateFrequency: 1,
       ...options
     };
 
-    // Load colors from CSS variables
+    // Load colors from CSS variables with fallbacks
     const styles = getComputedStyle(document.documentElement);
     const particleColor = styles.getPropertyValue('--three-particle-color').trim();
     const lineColor = styles.getPropertyValue('--three-line-color').trim();
 
     if (particleColor) {
       this.options.planeColor = new THREE.Color(particleColor);
+    } else {
+      // Fallback colors based on theme detection
+      const isDark = document.documentElement.getAttribute('data-md-color-scheme') === 'slate';
+      this.options.planeColor = new THREE.Color(isDark ? 0x64b5f6 : 0x2c5aa0);
     }
 
     if (lineColor) {
       this.options.trailColor = new THREE.Color(lineColor);
+    } else {
+      // Fallback colors based on theme detection
+      const isDark = document.documentElement.getAttribute('data-md-color-scheme') === 'slate';
+      this.options.trailColor = new THREE.Color(isDark ? 0x42a5f5 : 0x4a7abd);
     }
 
     // Animation properties
