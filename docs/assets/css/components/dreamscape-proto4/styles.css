@@ -4,7 +4,7 @@
  */
 
 /* Import shared test scene styles */
-@import url('./test-scene-shared.css');
+@import url('../test-scene-shared.css');
 
 /* Canvas element styling */
 .dreamscape-canvas {
