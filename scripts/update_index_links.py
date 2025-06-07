@@ -3,14 +3,16 @@ from pathlib import Path
 
 from utils import slug
 
-INDEX_FILE = Path(__file__).resolve().parent.parent / "docs" / "repositories" / "index.md"
-
-
+INDEX_FILE = (
+    Path(__file__).resolve().parent.parent / "docs" / "repositories" / "index.md"
+)
 
 
 def main():
     lines = INDEX_FILE.read_text(encoding="utf-8").splitlines()
-    pattern = re.compile(r"^(\s*\d+\.\s+\*\*\[([^\]]+)\]\(https://github.com/BA-CalderonMorales/[^)]+\)\*\*.*)")
+    pattern = re.compile(
+        r"^(\s*\d+\.\s+\*\*\[([^\]]+)\]\(https://github.com/BA-CalderonMorales/[^)]+\)\*\*.*)"
+    )
     new_lines = []
     i = 0
     while i < len(lines):
@@ -19,10 +21,12 @@ def main():
         if m:
             repo = m.group(2)
             new_lines.append(line)
-            next_line = lines[i+1] if i+1 < len(lines) else ""
+            next_line = lines[i + 1] if i + 1 < len(lines) else ""
             slug_dir = slug(repo)
             if f"./{slug_dir}/index.md" not in next_line:
-                new_lines.append(f"        {line.strip().split('.')[0]}. [documentation](./{slug_dir}/index.md)")
+                new_lines.append(
+                    f"        {line.strip().split('.')[0]}. [documentation](./{slug_dir}/index.md)"
+                )
             i += 1
         else:
             if not line.startswith("root@"):  # remove accidental prompt text

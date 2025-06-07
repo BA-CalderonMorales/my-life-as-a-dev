@@ -1,13 +1,15 @@
 import json
 import re
-from pathlib import Path
 from datetime import datetime, timedelta
+from pathlib import Path
 
-from utils import slug, cached_get
+from utils import cached_get, slug
 
 OWNER = "BA-CalderonMorales"
 BASE_DIR = Path(__file__).resolve().parent.parent / "docs" / "repositories"
-INDEX_FILE = Path(__file__).resolve().parent.parent / "docs" / "repositories" / "index.md"
+INDEX_FILE = (
+    Path(__file__).resolve().parent.parent / "docs" / "repositories" / "index.md"
+)
 
 
 def fetch_repo_info(repo: str):
