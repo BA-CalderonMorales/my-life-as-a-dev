@@ -15207,7 +15207,7 @@ class WebGLRenderer {
 
 			_pixelRatio = value;
 
-			this.setSize( _width, _height, false );
+                        this.setSize(_width, _height, false);
 
 		};
 
