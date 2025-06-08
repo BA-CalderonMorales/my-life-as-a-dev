@@ -14,11 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const CONFIG = {
     // Number of clouds rendered in the sphere
     planeCount: Math.min(Math.floor((window.innerWidth * window.innerHeight) / 500), 600),
-    baseSpeed: 0.01,
+    baseSpeed: 0.005, // slower base speed for more stagnation
     scrollBoost: 0.0005,
-    maxBoost: 0.015,
+    maxBoost: 0.01,
     sphereRadius: 300,
-    fov: 250, // perspective depth
+    radiusVariation: 80, // different cloud "altitudes"
+    fov: 400, // closer perspective
+    blackHoleRadius: 0.5, // radians of influence around the poles
+    blackHoleStrength: 0.02,
     colors: {
       plane: '#ffffff',
       background: 'transparent'
@@ -60,12 +63,13 @@ document.addEventListener('DOMContentLoaded', function() {
   observer.observe(document.documentElement, { attributes: true });
   observer.observe(document.body, { attributes: true });
 
-  // Generate clouds with random spherical positions
+  // Generate clouds with random spherical positions and varied altitude
   const planes = [];
   for (let i = 0; i < CONFIG.planeCount; i++) {
     planes.push({
       theta: Math.random() * Math.PI * 2,
       phi: (Math.random() - 0.5) * Math.PI,
+      radiusOffset: (Math.random() - 0.5) * CONFIG.radiusVariation,
       size: 30 + Math.random() * 70
     });
   }
@@ -94,15 +98,44 @@ document.addEventListener('DOMContentLoaded', function() {
     ctx.restore();
   }
 
+  function drawBlackHole(x, y, radius) {
+    const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+    gradient.addColorStop(0, 'rgba(0,0,0,1)');
+    gradient.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
   function animate() {
     ctx.fillStyle = CONFIG.colors.background;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const speed = CONFIG.baseSpeed + extraSpeed;
+
+    // Draw black holes at each pole
+    const bhScale = CONFIG.fov / (CONFIG.fov + 0);
+    const bhX = canvas.width / 2;
+    const bhYTop = -CONFIG.sphereRadius * bhScale + canvas.height / 2;
+    const bhYBottom = CONFIG.sphereRadius * bhScale + canvas.height / 2;
+    drawBlackHole(bhX, bhYTop, CONFIG.sphereRadius * 0.25 * bhScale);
+    drawBlackHole(bhX, bhYBottom, CONFIG.sphereRadius * 0.25 * bhScale);
+
     for (const plane of planes) {
       plane.theta += speed;
 
-      const r = CONFIG.sphereRadius;
+      // Apply simple gravitational pull towards each pole
+      const distNorth = Math.abs(plane.phi + Math.PI / 2);
+      const distSouth = Math.abs(plane.phi - Math.PI / 2);
+      if (distNorth < CONFIG.blackHoleRadius) {
+        plane.phi -= CONFIG.blackHoleStrength / (distNorth * distNorth + 0.1);
+      }
+      if (distSouth < CONFIG.blackHoleRadius) {
+        plane.phi += CONFIG.blackHoleStrength / (distSouth * distSouth + 0.1);
+      }
+
+      const r = CONFIG.sphereRadius + plane.radiusOffset;
       const x3d = Math.cos(plane.theta) * Math.cos(plane.phi) * r;
       const y3d = Math.sin(plane.phi) * r;
       const z3d = Math.sin(plane.theta) * Math.cos(plane.phi) * r;

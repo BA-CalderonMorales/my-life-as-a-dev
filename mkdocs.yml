@@ -36,7 +36,7 @@ theme:
   palette:
     # Dark mode (now listed first to make it default)
     - scheme: slate
-      primary: blue grey
+      primary: blue
       accent: light blue
       toggle:
         icon: material/weather-sunny
@@ -44,8 +44,8 @@ theme:
     
     # Light mode
     - scheme: default
-      primary: blue grey
-      accent: blue
+      primary: blue
+      accent: light blue
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
