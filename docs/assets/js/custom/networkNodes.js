@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Configuration object for easy tweaks
   const CONFIG = {
-    planeCount: Math.min(Math.floor(window.innerWidth / 25), 60),
+    planeCount: Math.min(Math.floor(window.innerWidth / 15), 150),
     baseSpeed: 0.01,
     scrollBoost: 0.002,
     maxBoost: 0.03,
@@ -32,9 +32,16 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', resizeCanvas);
 
   function getThemeColors() {
-    const styles = getComputedStyle(document.documentElement);
-    const planeColor = styles.getPropertyValue('--md-accent-fg-color').trim();
-    const backgroundColor = styles.getPropertyValue('--md-default-bg-color').trim();
+    const rootStyles = getComputedStyle(document.documentElement);
+    const bodyStyles = getComputedStyle(document.body);
+    const planeColor = (rootStyles.getPropertyValue('--md-accent-fg-color') ||
+                        bodyStyles.getPropertyValue('--md-accent-fg-color')).trim();
+    const backgroundColor = (
+      rootStyles.getPropertyValue('--three-bg-color') ||
+      bodyStyles.getPropertyValue('--three-bg-color') ||
+      rootStyles.getPropertyValue('--md-default-bg-color') ||
+      bodyStyles.getPropertyValue('--md-default-bg-color')
+    ).trim();
 
     return {
       plane: planeColor || CONFIG.colors.plane,
@@ -57,8 +64,11 @@ document.addEventListener('DOMContentLoaded', function() {
     planes.push({
       angle: Math.random() * Math.PI * 2,
       radius: 150 + Math.random() * 250,
-      y: (Math.random() - 0.5) * 400,
-      size: 8 + Math.random() * 8
+      baseY: (Math.random() - 0.5) * 400,
+      amplitude: 10 + Math.random() * 20,
+      oscillationSpeed: 0.5 + Math.random(),
+      phase: Math.random() * Math.PI * 2,
+      size: 50 + Math.random() * 200
     });
   }
 
@@ -98,7 +108,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (scale <= 0) continue; // behind camera
 
       const x2d = x3d * scale + canvas.width / 2;
-      const y2d = plane.y * scale + canvas.height / 2;
+      const yDynamic = plane.baseY + Math.sin(plane.angle * plane.oscillationSpeed + plane.phase) * plane.amplitude;
+      const y2d = yDynamic * scale + canvas.height / 2;
       const planeSize = plane.size * scale;
       const rotation = plane.angle + Math.PI / 2;
 
