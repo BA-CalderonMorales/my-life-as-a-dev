@@ -1,7 +1,7 @@
 "use strict";
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Create canvas for the cloud sphere background
+  // Create canvas for the paper airplane sphere background
   const sphereCanvas = document.createElement('canvas');
   sphereCanvas.id = 'background-canvas';
   sphereCanvas.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;';
@@ -12,13 +12,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Configuration object for easy tweaks
   const CONFIG = {
-    // Number of clouds rendered in the sphere
-    planeCount: Math.min(Math.floor((window.innerWidth * window.innerHeight) / 500), 600),
-    baseSpeed: 0.01,
+    // Number of paper airplanes rendered in the sphere (reduced for performance)
+    planeCount: Math.min(Math.floor((window.innerWidth * window.innerHeight) / 1400), 250),
+    baseSpeed: 0.003, // more stagnation
     scrollBoost: 0.0005,
-    maxBoost: 0.015,
+    maxBoost: 0.01,
     sphereRadius: 300,
-    fov: 250, // perspective depth
+    radiusVariation: 120, // different altitude levels
+    fov: 400, // closer perspective
+    blackHoleRadius: 0.5, // radians of influence around the poles
+    blackHoleStrength: 0.02,
+    blackHoleSwirl: 0.15, // rotational pull
     colors: {
       plane: '#ffffff',
       background: 'transparent'
@@ -34,21 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', resizeCanvas);
 
   function getThemeColors() {
-    const rootStyles = getComputedStyle(document.documentElement);
-    const bodyStyles = getComputedStyle(document.body);
-    const planeColor = (rootStyles.getPropertyValue('--md-accent-fg-color') ||
-                        bodyStyles.getPropertyValue('--md-accent-fg-color')).trim();
-    const backgroundColor = (
-      rootStyles.getPropertyValue('--three-bg-color') ||
-      bodyStyles.getPropertyValue('--three-bg-color') ||
-      rootStyles.getPropertyValue('--md-default-bg-color') ||
-      bodyStyles.getPropertyValue('--md-default-bg-color')
-    ).trim();
-
-    return {
-      plane: planeColor || CONFIG.colors.plane,
-      background: backgroundColor || CONFIG.colors.background
-    };
+    const scheme = document.documentElement.getAttribute('data-md-color-scheme');
+    if (scheme === 'default') {
+      return { plane: '#ffffff', background: '#3d9970' }; // green background
+    }
+    return { plane: '#000000', background: '#ff7e5e' }; // sunset background
   }
 
   CONFIG.colors = getThemeColors();
@@ -60,12 +54,16 @@ document.addEventListener('DOMContentLoaded', function() {
   observer.observe(document.documentElement, { attributes: true });
   observer.observe(document.body, { attributes: true });
 
-  // Generate clouds with random spherical positions
+  // Generate planes with random spherical positions and varied altitude
   const planes = [];
   for (let i = 0; i < CONFIG.planeCount; i++) {
     planes.push({
       theta: Math.random() * Math.PI * 2,
       phi: (Math.random() - 0.5) * Math.PI,
+      radiusOffset: (Math.random() - 0.5) * CONFIG.radiusVariation,
+      oscAmp: 0.1 + Math.random() * 0.3,
+      oscSpeed: 0.2 + Math.random() * 0.6,
+      oscPhase: Math.random() * Math.PI * 2,
       size: 30 + Math.random() * 70
     });
   }
@@ -73,24 +71,26 @@ document.addEventListener('DOMContentLoaded', function() {
   let extraSpeed = 0;
   let lastScrollY = window.scrollY;
 
-  function drawCloud(x, y, size, rotation) {
+  function drawPlane(x, y, size, rotation) {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(rotation);
     ctx.scale(size, size);
-    ctx.globalAlpha = 0.7;
     ctx.beginPath();
-    ctx.arc(-0.3, 0, 0.35, 0, Math.PI * 2);
-    ctx.arc(0.1, -0.2, 0.45, 0, Math.PI * 2);
-    ctx.arc(0.5, 0.1, 0.3, 0, Math.PI * 2);
+    ctx.moveTo(0, -1.5); // nose
+    ctx.lineTo(1, 0.5);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-1, 0.5);
     ctx.closePath();
     ctx.fill();
-    ctx.globalAlpha = 0.3;
+
     ctx.beginPath();
-    ctx.arc(-0.1, 0.3, 0.1, 0, Math.PI * 2);
-    ctx.arc(0.4, 0.4, 0.15, 0, Math.PI * 2);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0.5, 1);
+    ctx.lineTo(-0.5, 1);
+    ctx.closePath();
     ctx.fill();
-    ctx.globalAlpha = 1;
+
     ctx.restore();
   }
 
@@ -99,10 +99,42 @@ document.addEventListener('DOMContentLoaded', function() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const speed = CONFIG.baseSpeed + extraSpeed;
+
+    // Apply wormhole-like pull and swirl at each pole
+
     for (const plane of planes) {
       plane.theta += speed;
 
-      const r = CONFIG.sphereRadius;
+      // Oscillate altitude slightly for natural motion
+      const phiOsc = Math.sin(plane.theta * plane.oscSpeed + plane.oscPhase) * plane.oscAmp;
+      plane.phi += phiOsc * speed;
+
+      // Apply gravitational pull and rotational swirl towards each pole
+      const distNorth = Math.abs(plane.phi + Math.PI / 2);
+      const distSouth = Math.abs(plane.phi - Math.PI / 2);
+      if (distNorth < CONFIG.blackHoleRadius) {
+        plane.phi -= CONFIG.blackHoleStrength / (distNorth + 0.01);
+        plane.theta += CONFIG.blackHoleSwirl * (CONFIG.blackHoleRadius - distNorth);
+      }
+      if (distSouth < CONFIG.blackHoleRadius) {
+        plane.phi += CONFIG.blackHoleStrength / (distSouth + 0.01);
+        plane.theta += CONFIG.blackHoleSwirl * (CONFIG.blackHoleRadius - distSouth);
+      }
+
+      // Remove planes that have been pulled beyond view and spawn new ones
+      if (plane.phi < -Math.PI / 2 - 0.2 || plane.phi > Math.PI / 2 + 0.2) {
+        Object.assign(plane, {
+          theta: Math.random() * Math.PI * 2,
+          phi: (Math.random() - 0.5) * Math.PI,
+          radiusOffset: (Math.random() - 0.5) * CONFIG.radiusVariation,
+          oscAmp: 0.1 + Math.random() * 0.3,
+          oscSpeed: 0.2 + Math.random() * 0.6,
+          oscPhase: Math.random() * Math.PI * 2,
+          size: 30 + Math.random() * 70
+        });
+      }
+
+      const r = CONFIG.sphereRadius + plane.radiusOffset;
       const x3d = Math.cos(plane.theta) * Math.cos(plane.phi) * r;
       const y3d = Math.sin(plane.phi) * r;
       const z3d = Math.sin(plane.theta) * Math.cos(plane.phi) * r;
@@ -115,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const rotation = plane.theta + Math.PI / 2;
 
       ctx.fillStyle = CONFIG.colors.plane;
-      drawCloud(x2d, y2d, planeSize / 10, rotation); // divide to map to drawCloud scale
+      drawPlane(x2d, y2d, planeSize / 10, rotation); // divide to map to drawPlane scale
     }
 
     extraSpeed *= 0.95; // decay scroll boost
