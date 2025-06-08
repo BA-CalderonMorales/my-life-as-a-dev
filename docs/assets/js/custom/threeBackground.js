@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   container.appendChild(renderer.domElement);
 
   const cylinderHeight = window.innerHeight * 2;
-  const cylinderRadius = Math.max(window.innerWidth, window.innerHeight);
+  const baseRadius = Math.max(window.innerWidth, window.innerHeight);
 
   const planeGeometry = new THREE.PlaneGeometry(20, 10);
   const planeCount = Math.floor(Math.min(Math.floor((window.innerWidth * window.innerHeight) / 1400), 250) / 2);
@@ -30,10 +30,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const material = new THREE.MeshBasicMaterial({ color: colors.plane, side: THREE.DoubleSide });
     const mesh = new THREE.Mesh(planeGeometry, material);
     const theta = Math.random() * Math.PI * 2;
+    const radius = baseRadius * (0.8 + Math.random() * 0.4);
     const y = (Math.random() - 0.5) * cylinderHeight;
-    mesh.position.set(Math.cos(theta) * cylinderRadius, y, Math.sin(theta) * cylinderRadius);
-    mesh.rotation.y = theta + Math.PI / 2;
-    planes.push({ mesh, theta });
+    mesh.position.set(Math.cos(theta) * radius, y, Math.sin(theta) * radius);
+    mesh.rotation.set(Math.random() * Math.PI, theta + Math.PI / 2, Math.random() * Math.PI);
+    planes.push({ mesh, theta, radius });
     scene.add(mesh);
   }
 
@@ -53,13 +54,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
 
-  const speed = 0.002;
+  const baseSpeed = 0.002;
+  let scrollVelocity = 0;
+  window.addEventListener('scroll', () => {
+    scrollVelocity = window.scrollY * 0.000005;
+  });
+
   function animate() {
     requestAnimationFrame(animate);
+    const speed = baseSpeed + scrollVelocity;
     planes.forEach(p => {
       p.theta += speed;
-      p.mesh.position.x = Math.cos(p.theta) * cylinderRadius;
-      p.mesh.position.z = Math.sin(p.theta) * cylinderRadius;
+      p.mesh.position.x = Math.cos(p.theta) * p.radius;
+      p.mesh.position.z = Math.sin(p.theta) * p.radius;
       p.mesh.rotation.y = p.theta + Math.PI / 2;
     });
     renderer.render(scene, camera);
@@ -68,9 +75,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function getThemeColors() {
-  const scheme = document.documentElement.getAttribute('data-md-color-scheme');
-  if (scheme === 'default') {
-    return { plane: '#ffffff', background: '#3d9970' };
-  }
-  return { plane: '#000000', background: '#ff7e5e' };
+  const style = getComputedStyle(document.documentElement);
+  return {
+    plane: style.getPropertyValue('--three-particle-color').trim() || '#ffffff',
+    background: style.getPropertyValue('--three-bg-color').trim() || '#3d9970'
+  };
 }
