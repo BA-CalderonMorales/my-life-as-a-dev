@@ -28,6 +28,70 @@ document.addEventListener('DOMContentLoaded', async () => {
     () => new THREE.SphereGeometry(8, 12, 12)
   ];
 
+  // -- Cosmic elements inspired by SVG demo --
+
+  // Central sun
+  const sun = new THREE.Mesh(
+    new THREE.SphereGeometry(6, 16, 16),
+    new THREE.MeshBasicMaterial({ color: 0xffd700 })
+  );
+  scene.add(sun);
+
+  // Orbiting planets
+  const planetConfigs = [
+    { distance: 15, size: 1, color: 0x808080, speed: 0.02, dir: 1 },
+    { distance: 25, size: 2, color: 0xd2b48c, speed: 0.015, dir: -1 },
+    { distance: 35, size: 2.2, color: 0x00bfff, speed: 0.012, dir: 1 },
+    { distance: 45, size: 1.8, color: 0xffa500, speed: 0.009, dir: 1 },
+    { distance: 60, size: 4, color: 0xcd853f, speed: 0.006, dir: -1 }
+  ];
+  const planets = planetConfigs.map(cfg => {
+    const mesh = new THREE.Mesh(
+      new THREE.SphereGeometry(cfg.size, 12, 12),
+      new THREE.MeshBasicMaterial({ color: cfg.color })
+    );
+    mesh.userData = { theta: Math.random() * Math.PI * 2, cfg };
+    scene.add(mesh);
+    return mesh;
+  });
+
+  // Moving objects (shooting star, rocket, alien)
+  const movers = [];
+
+  function randomEdgePosition() {
+    const side = Math.floor(Math.random() * 4);
+    if (side === 0) return { x: -100, y: (Math.random() - 0.5) * 120 };
+    if (side === 1) return { x: 100, y: (Math.random() - 0.5) * 120 };
+    if (side === 2) return { x: (Math.random() - 0.5) * 120, y: -100 };
+    return { x: (Math.random() - 0.5) * 120, y: 100 };
+  }
+
+  function createMover(size, color, duration) {
+    const geo = new THREE.ConeGeometry(size, size * 2, 4);
+    const mat = new THREE.MeshBasicMaterial({ color });
+    const mesh = new THREE.Mesh(geo, mat);
+    resetMover(mesh);
+    mesh.userData.duration = duration;
+    scene.add(mesh);
+    movers.push(mesh);
+  }
+
+  function resetMover(mesh) {
+    const start = randomEdgePosition();
+    const end = randomEdgePosition();
+    mesh.position.set(start.x, start.y, 0);
+    mesh.userData = Object.assign(mesh.userData || {}, {
+      start,
+      end,
+      startTime: performance.now()
+    });
+  }
+
+  // Create initial movers
+  createMover(1, 0xffffff, 10000); // shooting star
+  setTimeout(() => createMover(1.5, 0xc0c0c0, 12000), 20000); // rocket after 20s
+  setTimeout(() => createMover(1.6, 0x90ee90, 14000), 40000); // alien after 40s
+
   const planeCount = Math.floor(Math.min(Math.floor((window.innerWidth * window.innerHeight) / 1000), 300));
   const planes = [];
 
@@ -75,6 +139,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       p.mesh.position.x = Math.cos(p.theta) * p.radius;
       p.mesh.position.z = Math.sin(p.theta) * p.radius;
       p.mesh.rotation.y = p.theta + Math.PI / 2;
+    });
+    planets.forEach(planet => {
+      const { cfg } = planet.userData;
+      planet.userData.theta += cfg.speed * cfg.dir;
+      planet.position.x = Math.cos(planet.userData.theta) * cfg.distance;
+      planet.position.y = Math.sin(planet.userData.theta) * cfg.distance;
+    });
+    const now = performance.now();
+    movers.forEach(m => {
+      const t = (now - m.userData.startTime) / m.userData.duration;
+      if (t >= 1) {
+        resetMover(m);
+        return;
+      }
+      m.position.x = m.userData.start.x + (m.userData.end.x - m.userData.start.x) * t;
+      m.position.y = m.userData.start.y + (m.userData.end.y - m.userData.start.y) * t;
     });
     renderer.render(scene, camera);
   }
