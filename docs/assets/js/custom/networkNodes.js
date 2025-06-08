@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Configuration object for easy tweaks
   const CONFIG = {
-    planeCount: Math.min(Math.floor(window.innerWidth / 25), 60),
+    planeCount: Math.min(Math.floor(window.innerWidth / 20), 80),
     baseSpeed: 0.01,
     scrollBoost: 0.002,
     maxBoost: 0.03,
@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const observer = new MutationObserver(() => {
     CONFIG.colors = getThemeColors();
   });
-  observer.observe(document.documentElement, { attributes: true });
-  observer.observe(document.body, { attributes: true });
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-md-color-scheme', 'class', 'style'] });
+  observer.observe(document.body, { attributes: true, attributeFilter: ['data-md-color-scheme', 'class', 'style'] });
 
   // Generate planes with random positions
   const planes = [];
@@ -57,8 +57,10 @@ document.addEventListener('DOMContentLoaded', function() {
     planes.push({
       angle: Math.random() * Math.PI * 2,
       radius: 150 + Math.random() * 250,
-      y: (Math.random() - 0.5) * 400,
-      size: 8 + Math.random() * 8
+      yBase: (Math.random() - 0.5) * 400,
+      size: 20 + Math.random() * 200, // up to ~220px when close
+      verticalPhase: Math.random() * Math.PI * 2,
+      amplitude: 20 + Math.random() * 30
     });
   }
 
@@ -94,16 +96,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
       const x3d = Math.cos(plane.angle) * plane.radius;
       const z3d = Math.sin(plane.angle) * plane.radius;
+      const y3d = plane.yBase + Math.sin(plane.angle + plane.verticalPhase) * plane.amplitude;
       const scale = CONFIG.fov / (CONFIG.fov + z3d);
       if (scale <= 0) continue; // behind camera
 
       const x2d = x3d * scale + canvas.width / 2;
-      const y2d = plane.y * scale + canvas.height / 2;
+      const y2d = y3d * scale + canvas.height / 2;
       const planeSize = plane.size * scale;
       const rotation = plane.angle + Math.PI / 2;
 
       ctx.fillStyle = CONFIG.colors.plane;
-      drawPlane(x2d, y2d, planeSize / 10, rotation); // divide to map to drawPlane scale
+      drawPlane(x2d, y2d, planeSize / 6, rotation);
     }
 
     extraSpeed *= 0.95; // decay scroll boost
