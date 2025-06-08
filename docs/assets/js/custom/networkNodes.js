@@ -1,7 +1,7 @@
 "use strict";
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Create canvas for the paper airplane sphere background
+  // Create canvas for the cloud sphere background
   const sphereCanvas = document.createElement('canvas');
   sphereCanvas.id = 'background-canvas';
   sphereCanvas.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;';
@@ -12,12 +12,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Configuration object for easy tweaks
   const CONFIG = {
+    // Number of clouds rendered in the sphere
     planeCount: Math.min(Math.floor((window.innerWidth * window.innerHeight) / 500), 600),
     baseSpeed: 0.01,
     scrollBoost: 0.0005,
     maxBoost: 0.015,
     sphereRadius: 300,
-    fov: 400, // perspective depth
+    fov: 250, // perspective depth
     colors: {
       plane: '#ffffff',
       background: 'transparent'
@@ -59,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
   observer.observe(document.documentElement, { attributes: true });
   observer.observe(document.body, { attributes: true });
 
-  // Generate planes with random spherical positions
+  // Generate clouds with random spherical positions
   const planes = [];
   for (let i = 0; i < CONFIG.planeCount; i++) {
     planes.push({
@@ -72,22 +73,24 @@ document.addEventListener('DOMContentLoaded', function() {
   let extraSpeed = 0;
   let lastScrollY = window.scrollY;
 
-  function drawPlane(x, y, size, rotation) {
+  function drawCloud(x, y, size, rotation) {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(rotation);
     ctx.scale(size, size);
+    ctx.globalAlpha = 0.7;
     ctx.beginPath();
-    ctx.moveTo(0, -2);
-    ctx.lineTo(0.8, 0);
-    ctx.lineTo(0.2, 0);
-    ctx.lineTo(0.2, 1.5);
-    ctx.lineTo(0, 0.8);
-    ctx.lineTo(-0.2, 1.5);
-    ctx.lineTo(-0.2, 0);
-    ctx.lineTo(-0.8, 0);
+    ctx.arc(-0.3, 0, 0.35, 0, Math.PI * 2);
+    ctx.arc(0.1, -0.2, 0.45, 0, Math.PI * 2);
+    ctx.arc(0.5, 0.1, 0.3, 0, Math.PI * 2);
     ctx.closePath();
     ctx.fill();
+    ctx.globalAlpha = 0.3;
+    ctx.beginPath();
+    ctx.arc(-0.1, 0.3, 0.1, 0, Math.PI * 2);
+    ctx.arc(0.4, 0.4, 0.15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
     ctx.restore();
   }
 
@@ -112,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const rotation = plane.theta + Math.PI / 2;
 
       ctx.fillStyle = CONFIG.colors.plane;
-      drawPlane(x2d, y2d, planeSize / 10, rotation); // divide to map to drawPlane scale
+      drawCloud(x2d, y2d, planeSize / 10, rotation); // divide to map to drawCloud scale
     }
 
     extraSpeed *= 0.95; // decay scroll boost
