@@ -1,21 +1,22 @@
 "use strict";
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Create canvas for the paper airplane vortex
-  const vortexCanvas = document.createElement('canvas');
-  vortexCanvas.id = 'background-canvas';
-  vortexCanvas.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;';
-  document.body.appendChild(vortexCanvas);
+  // Create canvas for the paper airplane sphere background
+  const sphereCanvas = document.createElement('canvas');
+  sphereCanvas.id = 'background-canvas';
+  sphereCanvas.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;';
+  document.body.appendChild(sphereCanvas);
 
   const canvas = document.getElementById('background-canvas');
   const ctx = canvas.getContext('2d');
 
   // Configuration object for easy tweaks
   const CONFIG = {
-    planeCount: Math.min(Math.floor(window.innerWidth / 8), 250),
+    planeCount: Math.min(Math.floor((window.innerWidth * window.innerHeight) / 500), 600),
     baseSpeed: 0.01,
     scrollBoost: 0.0005,
     maxBoost: 0.015,
+    sphereRadius: 300,
     fov: 400, // perspective depth
     colors: {
       plane: '#ffffff',
@@ -58,16 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
   observer.observe(document.documentElement, { attributes: true });
   observer.observe(document.body, { attributes: true });
 
-  // Generate planes with random positions
+  // Generate planes with random spherical positions
   const planes = [];
   for (let i = 0; i < CONFIG.planeCount; i++) {
     planes.push({
-      angle: Math.random() * Math.PI * 2,
-      radius: 150 + Math.random() * 250,
-      baseY: (Math.random() - 0.5) * 400,
-      amplitude: 10 + Math.random() * 20,
-      oscillationSpeed: 0.5 + Math.random(),
-      phase: Math.random() * Math.PI * 2,
+      theta: Math.random() * Math.PI * 2,
+      phi: (Math.random() - 0.5) * Math.PI,
       size: 30 + Math.random() * 70
     });
   }
@@ -100,18 +97,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const speed = CONFIG.baseSpeed + extraSpeed;
     for (const plane of planes) {
-      plane.angle += speed;
+      plane.theta += speed;
 
-      const x3d = Math.cos(plane.angle) * plane.radius;
-      const z3d = Math.sin(plane.angle) * plane.radius;
+      const r = CONFIG.sphereRadius;
+      const x3d = Math.cos(plane.theta) * Math.cos(plane.phi) * r;
+      const y3d = Math.sin(plane.phi) * r;
+      const z3d = Math.sin(plane.theta) * Math.cos(plane.phi) * r;
       const scale = CONFIG.fov / (CONFIG.fov + z3d);
       if (scale <= 0) continue; // behind camera
 
       const x2d = x3d * scale + canvas.width / 2;
-      const yDynamic = plane.baseY + Math.sin(plane.angle * plane.oscillationSpeed + plane.phase) * plane.amplitude;
-      const y2d = yDynamic * scale + canvas.height / 2;
+      const y2d = y3d * scale + canvas.height / 2;
       const planeSize = plane.size * scale;
-      const rotation = plane.angle + Math.PI / 2;
+      const rotation = plane.theta + Math.PI / 2;
 
       ctx.fillStyle = CONFIG.colors.plane;
       drawPlane(x2d, y2d, planeSize / 10, rotation); // divide to map to drawPlane scale
