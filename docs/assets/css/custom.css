@@ -16,10 +16,11 @@
 [data-md-color-scheme="slate"] {
   --three-particle-color: var(--md-primary-fg-color);
   --three-line-color: var(--md-accent-fg-color);
-  --three-bg-start: #0a0e1a;
-  --three-bg-middle: #111827;
-  --three-bg-end: #1f2937;
-  --three-bg-color: #0f172a;
+  /* Warm brown tones for dark mode */
+  --three-bg-start: #2d1b0a;
+  --three-bg-middle: #3b2a18;
+  --three-bg-end: #4d3722;
+  --three-bg-color: #3b2f2f;
 }
 
 /* Ensure particle background container is properly positioned */
