@@ -30,11 +30,32 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // -- Cosmic elements inspired by SVG demo --
 
-  // Central sun
-  const sun = new THREE.Mesh(
-    new THREE.SphereGeometry(6, 16, 16),
-    new THREE.MeshBasicMaterial({ color: 0xffd700 })
-  );
+  // Central sun with radial gradient
+  function createSun() {
+    const size = 128;
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    const gradient = ctx.createRadialGradient(
+      size / 2,
+      size / 2,
+      0,
+      size / 2,
+      size / 2,
+      size / 2
+    );
+    gradient.addColorStop(0, 'white');
+    gradient.addColorStop(1, 'gold');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size, size);
+    const texture = new THREE.CanvasTexture(canvas);
+    const material = new THREE.SpriteMaterial({ map: texture });
+    const sprite = new THREE.Sprite(material);
+    sprite.scale.set(12, 12, 1);
+    return sprite;
+  }
+
+  const sun = createSun();
   scene.add(sun);
 
   // Orbiting planets
@@ -109,15 +130,61 @@ document.addEventListener('DOMContentLoaded', async () => {
     scene.add(mesh);
   }
 
+  // Background stars with varied sizes and opacities
+  const starLayers = [];
+  function addStarLayer(count, size, opacity) {
+    const geom = new THREE.BufferGeometry();
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 200;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 200;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 200;
+    }
+    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const mat = new THREE.PointsMaterial({ color: 0xffffff, size, transparent: true, opacity });
+    const points = new THREE.Points(geom, mat);
+    starLayers.push(points);
+    scene.add(points);
+  }
+
+  addStarLayer(80, 0.4, 0.6);
+  addStarLayer(100, 0.6, 0.8);
+  addStarLayer(60, 0.8, 0.4);
+
   function updateTheme() {
     const c = getThemeColors();
     scene.background.set(c.background);
     planes.forEach(p => p.mesh.material.color.set(c.plane));
+    updateOpacity();
   }
 
-  const observer = new MutationObserver(updateTheme);
-  observer.observe(document.documentElement, { attributes: true });
-  observer.observe(document.body, { attributes: true });
+  const themeObserver = new MutationObserver(updateTheme);
+  themeObserver.observe(document.documentElement, { attributes: true });
+  themeObserver.observe(document.body, { attributes: true });
+
+  // Track visibility of the intro section to fade background
+  const introSection = document.querySelector('.intro-section');
+  let defaultOpacity = parseFloat(getComputedStyle(container).opacity) || 0.7;
+  let introVisible = true;
+
+  function updateOpacity() {
+    defaultOpacity = parseFloat(getComputedStyle(container).opacity) || 0.7;
+    container.style.opacity = introVisible ? defaultOpacity : 0;
+  }
+
+  if (introSection) {
+    const visObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        introVisible = entry.isIntersecting;
+      });
+      updateOpacity();
+    }, { threshold: 0.1 });
+    visObserver.observe(introSection);
+  }
+
+  // Set initial opacity based on current theme
+  updateOpacity();
+
 
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -134,6 +201,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   function animate() {
     requestAnimationFrame(animate);
     const speed = baseSpeed + scrollVelocity;
+    if (!introVisible) {
+      renderer.render(scene, camera);
+      return;
+    }
     planes.forEach(p => {
       p.theta += speed * p.speedMult;
       p.mesh.position.x = Math.cos(p.theta) * p.radius;
@@ -145,6 +216,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       planet.userData.theta += cfg.speed * cfg.dir;
       planet.position.x = Math.cos(planet.userData.theta) * cfg.distance;
       planet.position.y = Math.sin(planet.userData.theta) * cfg.distance;
+    });
+    starLayers.forEach(layer => {
+      layer.rotation.y += 0.0005;
     });
     const now = performance.now();
     movers.forEach(m => {
