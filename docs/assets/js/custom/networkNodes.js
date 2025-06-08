@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Configuration object for easy tweaks
   const CONFIG = {
-    planeCount: Math.min(Math.floor(window.innerWidth / 15), 150),
+    planeCount: Math.min(Math.floor(window.innerWidth / 8), 250),
     baseSpeed: 0.01,
-    scrollBoost: 0.002,
-    maxBoost: 0.03,
+    scrollBoost: 0.0005,
+    maxBoost: 0.015,
     fov: 400, // perspective depth
     colors: {
       plane: '#ffffff',
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
       amplitude: 10 + Math.random() * 20,
       oscillationSpeed: 0.5 + Math.random(),
       phase: Math.random() * Math.PI * 2,
-      size: 50 + Math.random() * 200
+      size: 30 + Math.random() * 70
     });
   }
 
@@ -82,13 +82,13 @@ document.addEventListener('DOMContentLoaded', function() {
     ctx.scale(size, size);
     ctx.beginPath();
     ctx.moveTo(0, -2);
-    ctx.lineTo(-3, 1);
-    ctx.lineTo(-0.6, 0.6);
-    ctx.lineTo(-1, 2);
-    ctx.lineTo(0, 1.2);
-    ctx.lineTo(1, 2);
-    ctx.lineTo(0.6, 0.6);
-    ctx.lineTo(3, 1);
+    ctx.lineTo(0.8, 0);
+    ctx.lineTo(0.2, 0);
+    ctx.lineTo(0.2, 1.5);
+    ctx.lineTo(0, 0.8);
+    ctx.lineTo(-0.2, 1.5);
+    ctx.lineTo(-0.2, 0);
+    ctx.lineTo(-0.8, 0);
     ctx.closePath();
     ctx.fill();
     ctx.restore();
