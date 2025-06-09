@@ -1,0 +1,572 @@
+/**
+ * Grid-based responsive layout for better visual proportions
+ * Clean design with proper spacing and vertical organization
+ */
+
+/* ===== GRID LAYOUT SYSTEM ===== */
+.section-grid {
+  display: grid;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ===== DESKTOP LAYOUT (1024px+) ===== */
+@media screen and (min-width: 1024px) {
+  
+  /* Main container with increased spacing */
+  .home-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  /* Hero/Intro section with better vertical spacing */
+  .intro-section {
+    padding: 5rem 0;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Intro section content layout - Vertically centered */
+  .intro-section .intro-section {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 3.5rem 5rem; /* Increased row & column gap for better spacing */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: auto;
+    padding: 0;
+  }
+
+  /* Grid positioning for desktop - Vertical organization with image side by side */
+  .intro-section .profile-image {
+    grid-column: 1;
+    grid-row: 1 / span 3; /* Image spans all three rows */
+    justify-self: center;
+    align-self: center;
+  }
+
+  /* Title on top right */
+  .intro-section h2 {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+    align-self: end;
+  }
+
+  /* Typewriter text in middle right */
+  .intro-section .subtitle:first-of-type {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+    align-self: center;
+    margin: 1rem 0;
+  }
+
+  /* Location at bottom right */
+  .intro-section .subtitle:last-of-type {
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: start;
+    align-self: start;
+    text-align: left;
+  }
+
+  /* Profile image - Clean styling without heavy effects */
+  .profile-image {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    border: 6px solid var(--md-primary-fg-color);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    transition: all 0.4s ease;
+    margin-right: 2rem;
+  }
+
+  .profile-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+  }
+
+  /* Typography - Clean and readable */
+  .intro-section h2 {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+    margin: 0 0 1.5rem 0 !important;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .intro-section .subtitle {
+    font-size: 1.5rem;
+    margin: 0;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+
+  /* Typewriter text - Clean background */
+  .typewriter-text {
+    font-size: 1.4rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    background: rgba(var(--md-primary-fg-color--rgb), 0.08);
+    border: 1px solid rgba(var(--md-primary-fg-color--rgb), 0.15);
+    display: inline-block;
+    min-width: 35ch;
+  }
+
+  /* CTA Section improvements */
+  .cta-section {
+    padding: 3rem 0;
+    margin: 4rem 0;
+  }
+
+  .cta-container {
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .cta-button {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    min-width: 220px;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Tagline enhancement - Remove glass overlay */
+  .tagline {
+    font-size: 1.6rem;
+    margin: 3rem 0;
+    padding: 2rem;
+    border-radius: 15px;
+    background: rgba(var(--md-primary-fg-color--rgb), 0.06);
+    border: 1px solid rgba(var(--md-primary-fg-color--rgb), 0.15);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Section dividers */
+  .section-divider {
+    margin: 5rem auto;
+    width: 70%;
+    height: 4px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      var(--md-primary-fg-color), 
+      var(--md-accent-fg-color), 
+      var(--md-primary-fg-color), 
+      transparent);
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .section-divider::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 8px;
+    background: var(--md-primary-fg-color);
+    border-radius: 4px;
+  }
+
+  /* Tabbed experience improvements */
+  .tabbed-experience {
+    margin: 6rem 0;
+    padding: 3rem 0;
+  }
+
+  .section-title {
+    font-size: 3rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .section-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+    max-width: 900px;
+  }
+
+  /* Tab content enhancements */
+  .md-typeset .tabbed-set {
+    margin: 3rem 0;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+  }
+
+  .md-typeset .tabbed-set .tabbed-labels {
+    padding: 1rem;
+    border-radius: 15px 15px 0 0;
+  }
+
+  .md-typeset .tabbed-set .tabbed-labels > label {
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    margin: 0 0.5rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .md-typeset .tabbed-set .tabbed-labels > label:hover {
+    background-color: rgba(var(--md-primary-fg-color--rgb), 0.1);
+    transform: translateY(-2px);
+  }
+
+  .md-typeset .tabbed-set .tabbed-content {
+    padding: 3rem;
+    max-height: 700px;
+    border-radius: 0 0 15px 15px;
+  }
+
+  /* Feature cards improvements - Clean without gradients */
+  .feature-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin: 3rem 0;
+  }
+
+  .feature-card {
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    background: var(--md-default-bg-color);
+    border: 2px solid rgba(var(--md-primary-fg-color--rgb), 0.12);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    border-color: var(--md-primary-fg-color);
+  }
+
+  .feature-icon {
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 20px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.6rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .feature-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* AI tools showcase - Clean design */
+  .ai-tools-showcase {
+    padding: 3rem;
+    border-radius: 15px;
+    margin-top: 3rem;
+    background: rgba(var(--md-primary-fg-color--rgb), 0.04);
+    border: 1px solid rgba(var(--md-primary-fg-color--rgb), 0.12);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Final CTA section - Clean without heavy gradients */
+  .final-cta {
+    padding: 4rem 2rem;
+    margin: 5rem 0;
+    border-radius: 20px;
+    background: rgba(var(--md-primary-fg-color--rgb), 0.04);
+    border: 1px solid rgba(var(--md-primary-fg-color--rgb), 0.12);
+  }
+
+  .final-cta h2 {
+    font-size: 3rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .final-cta p {
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Social buttons enhancements */
+  .social-buttons {
+    gap: 1.5rem;
+    margin: 3rem 0;
+  }
+
+  .social-button {
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    min-width: 160px;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .social-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  }
+
+  .secondary-links {
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .secondary-link {
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+  }
+
+  .secondary-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* ===== TABLET LAYOUT IMPROVEMENTS ===== */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  
+  .home-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Hero/Intro grid: 2 items top, 2 items bottom for tablets */
+  .intro-section {
+    padding: 4rem 0;
+  }
+
+  .intro-section .intro-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 3rem;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Grid positioning for tablet - Two on top, two on bottom */
+  .intro-section .profile-image {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    margin-right: 1rem;
+  }
+
+  .intro-section h2 {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+    align-self: center;
+    margin-left: 1rem;
+  }
+
+  .intro-section .subtitle:first-of-type {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: end;
+    text-align: right;
+    margin-right: 1rem;
+  }
+
+  .intro-section .subtitle:last-of-type {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+    text-align: left;
+    margin-left: 1rem;
+  }
+
+  /* Profile image tablet sizing */
+  .profile-image {
+    width: 280px;
+    height: 280px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .intro-section h2 {
+    font-size: 2.8rem !important;
+    margin: 0 !important;
+  }
+
+  .intro-section .subtitle {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+
+  .typewriter-text {
+    font-size: 1.2rem;
+    min-width: 30ch;
+  }
+
+  /* Section spacing */
+  .section-divider {
+    margin: 4rem auto;
+    width: 60%;
+  }
+
+  .tabbed-experience {
+    margin: 4rem 0;
+    padding: 2rem 0;
+  }
+
+  .section-title {
+    font-size: 2.5rem !important;
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+    max-width: 700px;
+  }
+
+  /* Feature cards tablet layout */
+  .feature-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature-card {
+    padding: 2rem;
+    border-radius: 15px;
+  }
+
+  .feature-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+
+  /* CTA improvements */
+  .cta-button {
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+    min-width: 200px;
+  }
+
+  .final-cta {
+    padding: 4rem 1.5rem;
+    margin: 4rem 0;
+    border-radius: 20px;
+  }
+
+  .social-button {
+    padding: 0.9rem 1.3rem;
+    min-width: 150px;
+  }
+}
+
+/* ===== ENHANCED VISUAL EFFECTS ===== */
+
+/* Scroll-triggered animations for better visual impact */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Apply animations to sections */
+.hero-section {
+  animation: slideInUp 0.8s ease-out;
+}
+
+.intro-section {
+  animation: slideInUp 0.8s ease-out 0.2s both;
+}
+
+.feature-card:nth-child(1) {
+  animation: slideInLeft 0.8s ease-out 0.4s both;
+}
+
+.feature-card:nth-child(2) {
+  animation: scaleIn 0.8s ease-out 0.6s both;
+}
+
+.feature-card:nth-child(3) {
+  animation: slideInRight 0.8s ease-out 0.8s both;
+}
+
+.final-cta {
+  animation: slideInUp 0.8s ease-out 1s both;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero-section,
+  .intro-section,
+  .feature-card,
+  .final-cta {
+    animation: none;
+  }
+  
+  .profile-image:hover,
+  .feature-card:hover,
+  .cta-button:hover,
+  .social-button:hover {
+    transform: none;
+  }
+}
