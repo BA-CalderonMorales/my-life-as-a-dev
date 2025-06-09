@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Scroll progress tracking
   let scrollProgress = 0;
   let maxScroll = 0;
+  let scrollTarget = window.pageYOffset || document.documentElement.scrollTop; // target scroll position from event
+  let scrollPosition = scrollTarget; // interpolated scroll position
 
   // Create magical Ghibli-style geometries
   function createGhibliParticle(type) {
@@ -41,8 +43,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Floating spirit orbs like soot sprites
         return new THREE.SphereGeometry(0.3, 8, 6);
       case 'leaf':
-        // Floating leaves
-        const leafGeometry = new THREE.PlaneGeometry(0.8, 1.2);
+        // Floating leaves with subtle depth
+        const leafGeometry = new THREE.BoxGeometry(0.8, 1.2, 0.1);
         leafGeometry.rotateX(Math.random() * Math.PI);
         return leafGeometry;
       case 'crystal':
@@ -90,25 +92,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Create materials with Ghibli-inspired colors
     let material;
     if (type === 'leaf') {
-      material = new THREE.MeshLambertMaterial({ 
+      material = new THREE.MeshStandardMaterial({
         color: ghibliColors.leaves,
         transparent: true,
         opacity: 0.8,
-        side: THREE.DoubleSide
+        side: THREE.DoubleSide,
+        metalness: 0.7,
+        roughness: 0.2
       });
     } else if (type === 'spirit') {
-      material = new THREE.MeshLambertMaterial({ 
+      material = new THREE.MeshStandardMaterial({
         color: ghibliColors.spirits,
         transparent: true,
         opacity: 0.9,
-        emissive: new THREE.Color(ghibliColors.spirits).multiplyScalar(0.3) // Stronger glow for spirits
+        emissive: new THREE.Color(ghibliColors.spirits).multiplyScalar(0.3), // Stronger glow for spirits
+        metalness: 0.7,
+        roughness: 0.2
       });
     } else {
-      material = new THREE.MeshLambertMaterial({ 
+      material = new THREE.MeshStandardMaterial({
         color: type === 'crystal' ? ghibliColors.crystals : ghibliColors.seeds,
         transparent: true,
         opacity: 0.7,
-        emissive: type === 'crystal' ? new THREE.Color(ghibliColors.crystals).multiplyScalar(0.1) : 0x000000
+        emissive: type === 'crystal' ? new THREE.Color(ghibliColors.crystals).multiplyScalar(0.1) : 0x000000,
+        metalness: 0.7,
+        roughness: 0.2
       });
     }
     
@@ -165,6 +173,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   const ambientLight = new THREE.AmbientLight(0xFFF8DC, 0.6); // Warm cornsilk light
   scene.add(ambientLight);
 
+  // Base white ambient light for subtle illumination
+  const baseAmbient = new THREE.AmbientLight(0xffffff, 0.2);
+  scene.add(baseAmbient);
+
   // Magical point light with Ghibli warmth
   const magicalLight = new THREE.PointLight(0xFFD700, 0.4, 100); // Golden light
   magicalLight.position.set(0, 0, 30);
@@ -174,6 +186,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const sunLight = new THREE.DirectionalLight(0xFFFACD, 0.3); // Lemon chiffon
   sunLight.position.set(50, 50, 50);
   scene.add(sunLight);
+
+  // Soft directional light with a faint green tint
+  const terminalLight = new THREE.DirectionalLight(0xd0ffdd, 0.4);
+  terminalLight.position.set(-30, 30, 30);
+  scene.add(terminalLight);
 
   // Dynamic scroll-influenced light for cinematic effect
   const scrollLight = new THREE.PointLight(0xFFE4B5, 0.5, 50); // Moccasin warm light
@@ -221,10 +238,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Scroll progress calculation with smooth experience
   function updateScrollProgress() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     maxScroll = Math.max(maxScroll, docHeight);
-    scrollProgress = maxScroll > 0 ? Math.min(scrollTop / maxScroll, 1) : 0;
+
+    // Interpolate towards the target scroll position
+    scrollPosition += (scrollTarget - scrollPosition) * 0.08;
+    scrollProgress = maxScroll > 0 ? Math.min(scrollPosition / maxScroll, 1) : 0;
     
     // Update camera position based on scroll for cinematic effect
     const targetZ = 60 - scrollProgress * 30; // More dramatic camera movement
@@ -318,12 +337,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
 
-  // Scroll event with throttling for performance
+  // Scroll event updates target position only
   let scrollTimeout;
   window.addEventListener('scroll', () => {
     if (scrollTimeout) return;
     scrollTimeout = setTimeout(() => {
-      updateScrollProgress();
+      scrollTarget = window.pageYOffset || document.documentElement.scrollTop;
       scrollTimeout = null;
     }, 16); // ~60fps
   });
@@ -334,6 +353,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   function animate(currentTime) {
     requestAnimationFrame(animate);
+
+    // Update scroll-based state
+    updateScrollProgress();
     
     const deltaTime = currentTime - lastTime;
     lastTime = currentTime;
