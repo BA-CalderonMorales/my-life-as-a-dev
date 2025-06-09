@@ -131,11 +131,11 @@
 }
 
 /* Dark mode adjustments */
-[data-md-color-scheme="slate"] .md-typeset .tabbed-set .tabbed-labels {
+[data-theme="slate"] .md-typeset .tabbed-set .tabbed-labels {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-[data-md-color-scheme="slate"] .md-typeset .tabbed-set .tabbed-content {
+[data-theme="slate"] .md-typeset .tabbed-set .tabbed-content {
   background-color: var(--md-code-bg-color);
 }
 

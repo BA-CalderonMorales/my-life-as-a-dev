@@ -153,7 +153,7 @@
   box-shadow: 0 5px 15px rgba(44, 90, 160, 0.1);
 }
 
-[data-md-color-scheme="slate"] .ai-tools-showcase {
+[data-theme="slate"] .ai-tools-showcase {
   background: rgba(100, 181, 246, 0.08);
   border-color: rgba(100, 181, 246, 0.2);
   box-shadow: 0 5px 15px rgba(100, 181, 246, 0.1);

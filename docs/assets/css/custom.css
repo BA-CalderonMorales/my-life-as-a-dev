@@ -3,28 +3,23 @@
  * Enhancing the particle background and overall aesthetics
  */
 
-/* Theme colors for the THREE.js background - Better colors that complement the image */
-[data-md-color-scheme="default"] {
-  --three-particle-color: var(--md-primary-fg-color);
-  --three-line-color: var(--md-accent-fg-color);
-  --three-bg-start: #f0f4f8;
-  --three-bg-middle: #f5f7fa;
-  --three-bg-end: #e8f4f8;
-  --three-bg-color: #f8fafe;
+:root {
+  --three-particle-color: #1976d2; /* Default light theme color */
+  /* Custom Ghibli-inspired background colors */
+  --md-default-bg-color: #f1f8e9; /* Soft light green for light theme */
+  --md-primary-fg-color: #2e7d32; /* Forest green accent */
 }
 
-[data-md-color-scheme="slate"] {
-  --three-particle-color: var(--md-primary-fg-color);
-  --three-line-color: var(--md-accent-fg-color);
-  /* Warm brown tones for dark mode */
-  --three-bg-start: #2d1b0a;
-  --three-bg-middle: #3b2a18;
-  --three-bg-end: #4d3722;
-  --three-bg-color: #3b2f2f;
+[data-theme="slate"] {
+  --three-particle-color: #4fc3f7; /* Brighter cyan for better visibility */
+  --three-line-color: #4fc3f7;
+  /* Custom warm brown for dark theme */
+  --md-default-bg-color: #3e2723; /* Rich warm brown */
+  --md-default-fg-color--light: #8d6e63; /* Lighter brown accent */
 }
 
 /* Ensure particle background container is properly positioned */
-#particles-background {
+#three-background {
   position: fixed;
   top: 0;
   left: 0;
@@ -32,11 +27,7 @@
   height: 100%;
   z-index: -1;
   pointer-events: none;
-  overflow: hidden;
-}
-
-#three-background {
-  background: linear-gradient(135deg, var(--three-bg-start) 0%, var(--three-bg-middle) 70%, var(--three-bg-end) 100%);
+  /* Transparent background - let MkDocs theme handle the background */
 }
 
 /* Add subtle gradient overlay to improve text readability over particles */
@@ -56,13 +47,13 @@
   transition: background 0.3s ease-in-out;
 }
 
-/* Overlay gradients based on theme - Updated for better contrast */
-[data-md-color-scheme="default"] .md-main::before {
-  background: radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0), rgba(248, 249, 251, 0.7));
+/* Overlay gradients based on theme - Updated for Ghibli colors */
+[data-theme="default"] .md-main::before {
+  background: radial-gradient(circle at 70% 20%, rgba(76, 175, 80, 0.1), rgba(241, 248, 233, 0.4));
 }
 
-[data-md-color-scheme="slate"] .md-main::before {
-  background: radial-gradient(circle at 30% 80%, rgba(26, 31, 46, 0), rgba(26, 31, 46, 0.6));
+[data-theme="slate"] .md-main::before {
+  background: radial-gradient(circle at 30% 80%, rgba(141, 110, 99, 0.1), rgba(62, 39, 35, 0.5));
 }
 
 /* Enhance header on transparent background */
@@ -73,18 +64,18 @@
 }
 
 /* Header in light mode - Ensure proper contrast */
-[data-md-color-scheme="default"] .md-header {
+[data-theme="default"] .md-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Header in dark mode - Fix colors */
-[data-md-color-scheme="slate"] .md-header {
+[data-theme="slate"] .md-header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Fix ALL navigation text visibility in light mode */
-[data-md-color-scheme="default"] .md-header *,
-[data-md-color-scheme="default"] .md-header__title,
+[data-theme="default"] .md-header *,
+[data-theme="default"] .md-header__title,
 [data-md_color-scheme="default"] .md-header__topic,
 [data-md_color-scheme="default"] .md-header__button,
 [data-md_color-scheme="default"] .md-header__source,
@@ -96,8 +87,8 @@
 }
 
 /* Ensure navigation text is visible in dark mode */
-[data-md-color-scheme="slate"] .md-header *,
-[data-md-color-scheme="slate"] .md-header__title,
+[data-theme="slate"] .md-header *,
+[data-theme="slate"] .md-header__title,
 [data-md_color-scheme="slate"] .md-header__topic,
 [data-md_color-scheme="slate"] .md-header__button,
 [data-md_color-scheme="slate"] .md-header__source,
@@ -109,18 +100,18 @@
 }
 
 /* Fix search input in light mode */
-[data-md-color-scheme="default"] .md-search__input {
+[data-theme="default"] .md-search__input {
   background-color: rgba(0, 0, 0, 0.05) !important;
   color: rgba(0, 0, 0, 0.87) !important;
   border: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
 
-[data-md-color-scheme="default"] .md-search__input::placeholder {
+[data-theme="default"] .md-search__input::placeholder {
   color: rgba(0, 0, 0, 0.6) !important;
 }
 
 /* Ensure ALL navigation buttons and icons are visible in both modes */
-[data-md-color-scheme="default"] .md-header .md-icon,
+[data-theme="default"] .md-header .md-icon,
 [data-md_color-scheme="default"] .md-header__button .md-icon,
 [data-md_color-scheme="default"] .md-search__icon,
 [data-md_color-scheme="default"] .md-nav__button .md-icon,
@@ -128,7 +119,7 @@
   color: rgba(0, 0, 0, 0.8) !important;
 }
 
-[data-md-color-scheme="slate"] .md-header .md-icon,
+[data-theme="slate"] .md-header .md-icon,
 [data-md_color-scheme="slate"] .md-header__button .md-icon,
 [data-md_color-scheme="slate"] .md-search__icon,
 [data-md_color-scheme="slate"] .md-nav__button .md-icon,
@@ -137,12 +128,12 @@
 }
 
 /* Fix dropdown menus and mobile navigation in light mode */
-[data-md-color-scheme="default"] .md-nav__list,
+[data-theme="default"] .md-nav__list,
 [data-md_color-scheme="default"] .md-nav--primary .md-nav__list {
   background-color: rgba(255, 255, 255, 0.95);
 }
 
-[data-md-color-scheme="default"] .md-nav__item .md-nav__link:hover {
+[data-theme="default"] .md-nav__item .md-nav__link:hover {
   color: var(--md-primary-fg-color) !important;
   background-color: rgba(0, 0, 0, 0.05);
 }
@@ -169,26 +160,26 @@
     -webkit-backdrop-filter: blur(8px);
   }
   
-  [data-md-color-scheme="default"] .md-nav--primary .md-nav__title {
+  [data-theme="default"] .md-nav--primary .md-nav__title {
     background-color: rgba(255, 255, 255, 0.95) !important;
     color: rgba(0, 0, 0, 0.87) !important;
   }
   
-  [data-md-color-scheme="slate"] .md-nav--primary .md-nav__title {
+  [data-theme="slate"] .md-nav--primary .md-nav__title {
     background-color: rgba(15, 23, 42, 0.9) !important;
     color: rgba(255, 255, 255, 0.87) !important;
   }
   
   /* Mobile navigation items */
-  [data-md-color-scheme="default"] .md-nav--primary .md-nav__item .md-nav__link {
+  [data-theme="default"] .md-nav--primary .md-nav__item .md-nav__link {
     color: rgba(0, 0, 0, 0.87) !important;
   }
   
-  [data-md-color-scheme="slate"] .md-nav--primary .md-nav__item .md-nav__link {
+  [data-theme="slate"] .md-nav--primary .md-nav__item .md-nav__link {
     color: rgba(255, 255, 255, 0.87) !important;
   }
   
-  [data-md-color-scheme="default"] .md-nav--primary {
+  [data-theme="default"] .md-nav--primary {
     background-color: rgba(255, 255, 255, 0.95) !important;
   }
   
@@ -225,8 +216,8 @@ button:hover, .btn:hover, .md-button:hover, input[type="button"]:hover, input[ty
 }
 
 /* Ensure button text is always visible */
-[data-md-color-scheme="default"] button,
-[data-md-color-scheme="default"] .btn,
+[data-theme="default"] button,
+[data-theme="default"] .btn,
 [data-md_color-scheme="default"] .md-button,
 [data-md_color-scheme="default"] input[type="button"],
 [data-md_color-scheme="default"] input[type="submit"] {
@@ -235,7 +226,7 @@ button:hover, .btn:hover, .md-button:hover, input[type="button"]:hover, input[ty
   border-color: #1976d2 !important;
 }
 
-[data-md-color-scheme="slate"] button,
+[data-theme="slate"] button,
 [data-md_color-scheme="slate"] .btn,
 [data-md_color-scheme="slate"] .md-button,
 [data-md_color-scheme="slate"] input[type="button"],
