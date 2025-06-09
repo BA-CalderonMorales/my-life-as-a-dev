@@ -5,17 +5,6 @@ hide:
   - toc
   - title
 ---
-hero:
-  image: assets/images/me-today.png
-  name: "Hi, I'm Brandon A. Calderon Morales"
-  text: "Product-Minded Engineer, DevOps Enthusiast and Full-Stack Developer."
-  actions:
-    - text: "Explore My AI Story"
-      link: ./ai-demo/
-      type: primary
-    - text: "Connect"
-      link: "#connect"
----
 
 <div markdown="1" class="home-page">
 
@@ -24,7 +13,7 @@ hero:
   <div class="intro-section">
   <img src="assets/images/me-today.png" alt="Brandon A. Calderon Morales" class="profile-image">
 
-  <h2>Hi, I'm Brandon A. Calderon Morales 👋</h2>
+  <h2>Hi, I'm Brandon 👋</h2>
 
   <p class="subtitle">
       <span class="typewriter-text" data-strings="Product-Minded Software Engineer|DevOps Transformation Specialist|Aspiring Platform Engineer|Legacy Code Modernizer|Technical Mentor|Full-Stack Software Engineer"></span>
@@ -82,48 +71,48 @@ hero:
 
     ## Summary
         
-    🛠️⚡ Mission-Driven Engineering | Resilience & Scale | Empower & Democratize
+    Mission-Driven Engineering | Resilience & Scale | Empower & Democratize
 
     I enjoy the challenge of learning new technologies, adapting to all scenarios, and championing efficiency within development teams. I'm also a father of two beautiful girls and a husband to a wonderful wife. Keep scrolling through this page to learn about me and use the left-hand side links to jump to other important/key sections about me. Cheers!
     
     ### Top Skills
-    🔹 DevOps Transformation  
-    🔹 CI/CD Pipeline Optimization  
-    🔹 Legacy Code Modernization  
-    🔹 Technical Mentorship  
-    🔹 Process Standardization  
+    • DevOps Transformation  
+    • CI/CD Pipeline Optimization  
+    • Legacy Code Modernization  
+    • Technical Mentorship  
+    • Process Standardization  
 
 === "Professional"
 
     ## Professional Background
     
     ### Team Leadership
-    🔹 Leading DevOps transformations  
-    🔹 Mentoring junior engineers  
-    🔹 Cross-functional collaboration  
-    🔹 Military leadership principles  
-    🔹 Agile workflow optimization  
+    → Leading DevOps transformations  
+    → Mentoring junior engineers  
+    → Cross-functional collaboration  
+    → Military leadership principles  
+    → Agile workflow optimization  
 
     ### Technical Expertise
-    🔹 CI/CD pipeline design  
-    🔹 System architecture  
-    🔹 Legacy code modernization  
-    🔹 Distributed systems  
-    🔹 Development automation  
+    → CI/CD pipeline design  
+    → System architecture  
+    → Legacy code modernization  
+    → Distributed systems  
+    → Development automation  
 
     ### Communication
-    🔹 Technical documentation  
-    🔹 Process standardization  
-    🔹 Stakeholder engagement  
-    🔹 Knowledge transfer  
-    🔹 Teaching/training delivery  
+    → Technical documentation  
+    → Process standardization  
+    → Stakeholder engagement  
+    → Knowledge transfer  
+    → Teaching/training delivery  
 
     ### Languages
-    🔹 English (Native)  
-    🔹 Spanish (Conversational)  
+    → English (Native)  
+    → Spanish (Conversational)  
 
     ### Certifications
-    🔹 Full-Stack Web Development Certificate  
+    → Full-Stack Web Development Certificate  
         
     ### Career Timeline
     ```mermaid
@@ -159,64 +148,64 @@ hero:
     ```
 
     ### Languages
-    🔹 C#  
-    🔹 SQL  
-    🔹 JavaScript  
-    🔹 TypeScript  
-    🔹 XML  
-    🔹 YAML  
-    🔹 Groovy  
-    🔹 Rust  
+    • C#  
+    • SQL  
+    • JavaScript  
+    • TypeScript  
+    • XML  
+    • YAML  
+    • Groovy  
+    • Rust  
 
     ### Frameworks
-    🔹 React  
-    🔹 .NET 4.8  
-    🔹 .NET 6+  
+    • React  
+    • .NET 4.8  
+    • .NET 6+  
 
     ### Tools
-    🔹 Visual Studio  
-    🔹 VS Code  
-    🔹 MSSQL  
-    🔹 CyberArk  
-    🔹 Splunk  
-    🔹 Confluence  
-    🔹 SharePoint  
-    🔹 ServiceNow  
-    🔹 Fortify SCA  
-    🔹 Jenkins  
-    🔹 GitHub Actions  
+    • Visual Studio  
+    • VS Code  
+    • MSSQL  
+    • CyberArk  
+    • Splunk  
+    • Confluence  
+    • SharePoint  
+    • ServiceNow  
+    • Fortify SCA  
+    • Jenkins  
+    • GitHub Actions  
 
 === "Experience"
 
     ## Experience Highlights
         
     ### Fiserv
-    🔹 **Role:** Software Engineer, Sr. Professional  
-    🔹 **Duration:** January 2024 - Present (1 year 4 months)  
-    🔹 **Location:** Omaha, Nebraska, United States  
-    🔹 **Highlights:**  
+    * **Role:** Software Engineer, Sr. Professional  
+    * **Duration:** January 2024 - Present (1 year 4 months)  
+    * **Location:** Omaha, Nebraska, United States  
+    * **Highlights:**  
         - Spearheaded migration from Jenkins to GitHub Actions to optimize CI/CD workflows.  
         - Resolved critical CI/CD issues and standardized workflows to boost team efficiency.  
         - Mentored junior engineers and contributed to high-level design and user story creation.  
 
-    🔹 **Previous Role:** Military Trainee, Sr. Professional  
-    🔹 **Duration:** November 2023 - January 2024 (3 months)  
-    🔹 Gained insights into project management and business analysis as part of a specialized training program.  
-    🔹 Enhanced soft skills including communication, teamwork, and leadership.  
+    * **Previous Role:** Military Trainee, Sr. Professional  
+    * **Duration:** November 2023 - January 2024 (3 months)  
+    * Gained insights into project management and business analysis as part of a specialized training program.  
+    * Enhanced soft skills including communication, teamwork, and leadership.  
 
     ### Insight Global
-    🔹 **Role:** Web Services Developer  
-    🔹 **Duration:** May 2023 - November 2023 (7 months)  
-    🔹 **Location:** Bellevue, Nebraska, United States  
-    🔹 **Highlights:**  
+    * **Role:** Web Services Developer  
+    * **Duration:** May 2023 - November 2023 (7 months)  
+    * **Location:** Bellevue, Nebraska, United States  
+    * **Highlights:**  
         - Developed and maintained web services using C#, SQL, and JavaScript.  
         - Managed design, implementation, refactoring, and bug fixes within a legacy codebase.  
         
     ### Leidos
-    🔹 **Role:** Software Engineer  
-    🔹 **Duration:** October 2021 - May 2023 (1 year 8 months)  
-    🔹 **Location:** Omaha, Nebraska, United States  
-    🔹 **Highlights:**  
+    * **Role:** Software Engineer  
+    * **Duration:** October 2021 - May 2023 (1 year 8 months)  
+    * **Location:** Omaha, Nebraska, United States  
+    * **Highlights:**  
         - Worked as both a Frontend and DevOps engineer.  
         - Configured development environments using Linux, VS Code, and Vim.  
         - Built and maintained shared React components and contributed to agile workflows.  
@@ -224,69 +213,35 @@ hero:
     ### Military Service
 
     #### United States Marine Corps
-    🔹 **Legal Chief:** June 2018 - April 2019 (11 months) – Morón De La Frontera, Andalusia, Spain  
-    🔹 **Court Reporter:** August 2016 - May 2018 (1 year 10 months) – Camp Lejeune, North Carolina  
-    🔹 **Legal Specialist:** December 2014 - August 2016 (1 year 9 months) – Camp Lejeune, North Carolina  
+    * **Legal Chief:** June 2018 - April 2019 (11 months) – Morón De La Frontera, Andalusia, Spain  
+    * **Court Reporter:** August 2016 - May 2018 (1 year 10 months) – Camp Lejeune, North Carolina  
+    * **Legal Specialist:** December 2014 - August 2016 (1 year 9 months) – Camp Lejeune, North Carolina  
 
     #### Boys Town National Research Hospital
-    🔹 **Role:** Legal Administrative Assistant  
-    🔹 **Duration:** June 2019 - August 2019 (3 months)  
-    🔹 **Location:** Boys Town, Nebraska  
+    * **Role:** Legal Administrative Assistant  
+    * **Duration:** June 2019 - August 2019 (3 months)  
+    * **Location:** Boys Town, Nebraska  
 
 === "Education"
 
     ## Education
         
     ### University
-    🔹 **University of Nebraska at Omaha**  
+    * **University of Nebraska at Omaha**  
       Bachelor's Degree in Multidisciplinary Studies (Computer Science Concentration)  
       *August 2013 - December 2025*  
 
     ### Certificates
-    🔹 **devCodeCamp**  
+    * **devCodeCamp**  
       Certificate, Full-Stack Software Development  
       *May 2021 - August 2021*  
 
     ### Early Education
-    🔹 **Omaha South Magnet High School**  
+    * **Omaha South Magnet High School**  
       High School Diploma  
       *2009 - 2013*  
 
 <div class="home-page">
- 
-<div class="featured-section ai-section">
-  <div class="feature-cards">
-    <div class="feature-card">
-      <div class="feature-icon">🤖</div>
-      <h3>AI Playground</h3>
-      <p>Experiment with interactive AI tools that I've built to enhance creativity and productivity.</p>
-      <a href="./ai-demo/ai-playground/playground" class="feature-link">Explore the Playground</a>
-    </div>
-    
-    <div class="feature-card">
-      <div class="feature-icon">🧪</div>
-      <h3>Visual Experiments</h3>
-      <p>Check out my AI-assisted visual scenes and interactive experiments.</p>
-      <a href="./blog/life/" class="feature-link">See Test Scenes</a>
-    </div>
-    
-    <div class="feature-card">
-      <div class="feature-icon">📘</div>
-      <h3>AI Journey</h3>
-      <p>Learn about how I've been integrating AI into documentation and creative projects.</p>
-      <a href="./ai-demo/" class="feature-link">Read My AI Story</a>
-    </div>
-  </div>
-  
-  <div class="ai-tools-showcase">
-    <h3>Featured AI Tools</h3>
-    <ul class="tool-list">
-      <li><strong>Repository Explorer</strong>: Get AI-driven insights into code repositories</li>
-      <li><strong>Interactive Scene Creator</strong>: Generate 3D scenes with AI assistance</li>
-      <li><strong>Code Assistance</strong>: Leverage AI for code explanations and documentation</li>
-    </ul>
-  </div>
-</div>
 
 <div class="section-divider"></div>
 

@@ -61,6 +61,8 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 1000; /* Higher z-index to ensure header is above all content */
 }
 
 /* Header in light mode - Ensure proper contrast */

@@ -1,0 +1,9 @@
+/**
+ * Fix for navigation tabs sticky behavior and z-index issues
+ */
+
+/* For cta-buttons to ensure they don't overlap with tabs */
+.cta-button, .cta-container {
+  position: relative;
+  z-index: 2; /* Ensure below tabs and header */
+}
