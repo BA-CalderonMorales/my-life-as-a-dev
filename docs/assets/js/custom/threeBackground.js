@@ -237,8 +237,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function getThemeColors() {
   const style = getComputedStyle(document.documentElement);
+  const planeColor = style.getPropertyValue('--three-particle-color').trim();
+  const bgColor = style.getPropertyValue('--three-bg-color').trim();
+  
+  console.log('CSS Custom Properties:', {
+    plane: planeColor || 'NOT FOUND',
+    background: bgColor || 'NOT FOUND'
+  });
+  
   return {
-    plane: style.getPropertyValue('--three-particle-color').trim() || '#ffffff',
-    background: style.getPropertyValue('--three-bg-color').trim() || '#3d9970'
+    plane: planeColor || '#ffffff',
+    background: bgColor || '#3d9970'
   };
 }

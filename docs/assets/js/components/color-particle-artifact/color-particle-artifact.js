@@ -40,7 +40,7 @@ try {
 }
 
 // Import THREE.js from the import map
-import * as THREE from 'three';
+const THREE = await import('three');
 
 class ColorParticleArtifact extends HTMLElement {
   connectedCallback() {
