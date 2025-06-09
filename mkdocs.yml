@@ -102,6 +102,7 @@ extra_css:
   - assets/css/pages/home/cta.css
   - assets/css/pages/home/typewriter-fix.css
   - assets/css/pages/home/responsive-layout.css
+  - assets/css/navigation-fix.css
   - assets/css/pages/repositories/base.css
   - assets/css/section-transitions.css
   - assets/css/components/test-scene-shared.css

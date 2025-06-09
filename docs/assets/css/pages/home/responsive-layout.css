@@ -188,26 +188,36 @@
 
   /* Tabbed experience improvements */
   .tabbed-experience {
-    margin: 6rem 0;
-    padding: 3rem 0;
+    margin: 8rem 0; /* Increased vertical margin */
+    padding: 4rem 0; /* More vertical padding */
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .section-title {
-    font-size: 3rem !important;
-    margin-bottom: 2rem !important;
+    font-size: 3.2rem !important; /* Slightly larger font size */
+    margin-bottom: 2.5rem !important; /* More bottom margin */
+    text-align: center;
   }
 
   .section-subtitle {
     font-size: 1.3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem; /* More bottom margin */
     max-width: 900px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* Tab content enhancements */
   .md-typeset .tabbed-set {
-    margin: 3rem 0;
+    margin: 4rem 0; /* More vertical margin */
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .md-typeset .tabbed-set .tabbed-labels {
@@ -237,19 +247,25 @@
   /* Feature cards improvements - Clean without gradients */
   .feature-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2.5rem;
-    margin: 3rem 0;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 4rem; /* Increased gap between cards */
+    margin: 5rem 0; /* More vertical margin */
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .feature-card {
-    padding: 2.5rem;
+    padding: 3rem; /* More padding inside cards */
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     background: var(--md-default-bg-color);
     border: 2px solid rgba(var(--md-primary-fg-color--rgb), 0.12);
     transition: all 0.3s ease;
     position: relative;
+    height: 100%; /* Ensure consistent height */
+    display: flex;
+    flex-direction: column;
   }
 
   .feature-card:hover {
@@ -267,14 +283,16 @@
   }
 
   .feature-card h3 {
-    font-size: 1.6rem !important;
-    margin-bottom: 1rem !important;
+    font-size: 1.8rem !important;
+    margin-bottom: 1.5rem !important;
+    line-height: 1.3;
   }
 
   .feature-card p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
   }
 
   /* AI tools showcase - Clean design */

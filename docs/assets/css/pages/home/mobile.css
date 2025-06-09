@@ -31,11 +31,18 @@
   /* Make features stack nicely */
   .feature-cards {
     gap: 1rem;
+    margin: 1.5rem 0;
   }
   
   /* Adjust spacing for mobile */
   .section-divider {
     margin: 2rem auto;
+  }
+  
+  /* Better layout for AI section */
+  .featured-section {
+    padding: 1.25rem 1rem;
+    margin: 1.5rem 0;
   }
   
   /* Better readable text on mobile */
@@ -91,6 +98,15 @@
   /* Optimize feature cards */
   .feature-card {
     padding: 1rem;
+    min-height: unset;
+  }
+  
+  .feature-cards {
+    margin: 1rem 0;
+  }
+  
+  .featured-section {
+    padding: 1rem 0.75rem;
   }
   
   /* Adjust typewriter for better visibility */

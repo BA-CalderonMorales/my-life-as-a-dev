@@ -335,6 +335,8 @@ video.profile-image {
   gap: 1rem;
   margin: 2rem 0;
   width: 100%;
+  position: relative;
+  z-index: 2; /* Set lower z-index to ensure it stays below navigation */
 }
 
 .cta-button {
@@ -351,7 +353,7 @@ video.profile-image {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
-  z-index: 1;
+  z-index: 2; /* Lower z-index to stay below the navigation */
   min-width: 180px;
   text-align: center;
   border: none;
