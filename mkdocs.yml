@@ -117,7 +117,6 @@ extra_css:
 extra_javascript:
   - { "path": "assets/js/importmap.js", "defer": true }
   - { "path": "assets/js/vendor/typewriter.min.js", "type": "module" }
-  - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
   - { "path": "assets/js/custom/initParticles.js", "type": "module" }
   - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
   - { "path": "assets/js/custom/logger.js", "type": "module" }
@@ -129,7 +128,6 @@ extra_javascript:
   - { "path": "assets/js/custom/scrollEffects.js", "type": "module" }
   - { "path": "assets/js/custom/networkNodes.js", "type": "module" }
   - { "path": "assets/js/custom/threeBackground.js", "type": "module" }
-  - { "path": "assets/js/custom/threeBackgroundFallback.js", "type": "module" }
   - { "path": "assets/js/custom/smoothScroll.js", "type": "module" }
   - { "path": "assets/js/custom/sectionScroller.js", "type": "module" }
   - { "path": "assets/js/custom/performanceMonitor.js", "type": "module" }
