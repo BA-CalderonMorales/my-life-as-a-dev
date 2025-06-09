@@ -4,15 +4,15 @@
  */
 
 :root {
-  --three-particle-color: #1976d2; /* Default light theme color */
-  /* Custom Ghibli-inspired background colors */
+  --three-particle-color: #33ff33; /* Default light theme color */
+  /* Custom Fallout-inspired background colors */
   --md-default-bg-color: #f1f8e9; /* Soft light green for light theme */
   --md-primary-fg-color: #2e7d32; /* Forest green accent */
 }
 
 [data-theme="slate"] {
-  --three-particle-color: #4fc3f7; /* Brighter cyan for better visibility */
-  --three-line-color: #4fc3f7;
+  --three-particle-color: #33ff33; /* Brighter green for better visibility */
+  --three-line-color: #33ff33;
   /* Custom warm brown for dark theme */
   --md-default-bg-color: #3e2723; /* Rich warm brown */
   --md-default-fg-color--light: #8d6e63; /* Lighter brown accent */
@@ -47,7 +47,7 @@
   transition: background 0.3s ease-in-out;
 }
 
-/* Overlay gradients based on theme - Updated for Ghibli colors */
+/* Overlay gradients based on theme */
 [data-theme="default"] .md-main::before {
   background: radial-gradient(circle at 70% 20%, rgba(76, 175, 80, 0.1), rgba(241, 248, 233, 0.4));
 }
@@ -223,9 +223,9 @@ button:hover, .btn:hover, .md-button:hover, input[type="button"]:hover, input[ty
 [data-md_color-scheme="default"] .md-button,
 [data-md_color-scheme="default"] input[type="button"],
 [data-md_color-scheme="default"] input[type="submit"] {
-  background-color: #1976d2 !important;
+  background-color: #33ff33 !important;
   color: #ffffff !important;
-  border-color: #1976d2 !important;
+  border-color: #33ff33 !important;
 }
 
 [data-theme="slate"] button,

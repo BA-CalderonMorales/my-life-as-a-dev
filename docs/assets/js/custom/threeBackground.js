@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   container.appendChild(renderer.domElement);
 
-  // Ghibli-inspired magical particle system
-  const particleCount = 60; // Slightly reduced for cleaner Ghibli aesthetic
+  // Fallout-inspired particle system
+  const particleCount = 60;
   const particles = [];
   const maxConnectionDistance = 30;
   
@@ -34,17 +34,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   let scrollProgress = 0;
   let maxScroll = 0;
 
-  // Create magical Ghibli-style geometries
-  function createGhibliParticle(type) {
+  // Create simple geometries with a hint of depth
+  function createParticle(type) {
     switch(type) {
       case 'spirit':
         // Floating spirit orbs like soot sprites
         return new THREE.SphereGeometry(0.3, 8, 6);
       case 'leaf':
-        // Floating leaves
-        const leafGeometry = new THREE.PlaneGeometry(0.8, 1.2);
-        leafGeometry.rotateX(Math.random() * Math.PI);
-        return leafGeometry;
+        // Slightly thickened plane for more presence
+        return new THREE.BoxGeometry(0.8, 1.2, 0.1);
       case 'crystal':
         // Magical crystals
         return new THREE.OctahedronGeometry(0.4);
@@ -56,61 +54,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // Ghibli color palette based on theme
-  function getGhibliColors() {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'slate';
-    
-    if (isDark) {
-      return {
-        spirits: '#FFE55C',    // Warm golden spirits like Calcifer's flame
-        leaves: '#7FB069',     // Forest green leaves
-        crystals: '#87CEEB',   // Sky blue crystals like Laputa stones
-        seeds: '#DDA0DD',      // Lavender seeds like Howl's magic
-        connections: '#FFD700' // Golden magical connections
-      };
-    } else {
-      return {
-        spirits: '#FF6B6B',    // Coral spirits like Ponyo's magic
-        leaves: '#4ECDC4',     // Teal leaves like river spirits
-        crystals: '#45B7D1',   // Blue crystals like sky magic
-        seeds: '#96CEB4',      // Mint seeds like forest spirits
-        connections: '#FF8C94' // Soft pink connections
-      };
-    }
+  // Simple color palette
+  function getFalloutColors() {
+    return {
+      particles: '#33ff33',
+      connections: '#33ff33'
+    };
   }
-  
-  // Create magical Ghibli-inspired particles
-  const ghibliColors = getGhibliColors();
+
+  // Create particles
+  const falloutColors = getFalloutColors();
   const particleTypes = ['spirit', 'leaf', 'crystal', 'seed'];
-  
+
   for (let i = 0; i < particleCount; i++) {
     const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
-    const geometry = createGhibliParticle(type);
-    
-    // Create materials with Ghibli-inspired colors
-    let material;
-    if (type === 'leaf') {
-      material = new THREE.MeshLambertMaterial({ 
-        color: ghibliColors.leaves,
-        transparent: true,
-        opacity: 0.8,
-        side: THREE.DoubleSide
-      });
-    } else if (type === 'spirit') {
-      material = new THREE.MeshLambertMaterial({ 
-        color: ghibliColors.spirits,
-        transparent: true,
-        opacity: 0.9,
-        emissive: new THREE.Color(ghibliColors.spirits).multiplyScalar(0.3) // Stronger glow for spirits
-      });
-    } else {
-      material = new THREE.MeshLambertMaterial({ 
-        color: type === 'crystal' ? ghibliColors.crystals : ghibliColors.seeds,
-        transparent: true,
-        opacity: 0.7,
-        emissive: type === 'crystal' ? new THREE.Color(ghibliColors.crystals).multiplyScalar(0.1) : 0x000000
-      });
-    }
+    const geometry = createParticle(type);
+
+    const material = new THREE.MeshStandardMaterial({
+      color: falloutColors.particles,
+      metalness: 0.7,
+      roughness: 0.2
+    });
     
     const particle = new THREE.Mesh(geometry, material);
     
@@ -122,11 +86,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     particle.position.set(x, y, z);
     
-    // Ghibli-style gentle movement parameters
+  // Gentle movement parameters
     particle.userData = {
       type: type,
       originalPosition: particle.position.clone(),
-      baseSpeed: 0.0008 + Math.random() * 0.0012, // Gentle Ghibli pace
+      baseSpeed: 0.0008 + Math.random() * 0.0012, // Gentle pace
       amplitude: 2 + Math.random() * 4, // Organic floating range
       phaseX: Math.random() * Math.PI * 2,
       phaseY: Math.random() * Math.PI * 2,
@@ -141,7 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     scene.add(particle);
   }
 
-  // Magical connection system - more subtle for Ghibli aesthetic
+  // Connection system
   const connectionLines = [];
   const linePool = [];
   
@@ -150,37 +114,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     const material = new THREE.LineBasicMaterial({ 
       transparent: true,
       opacity: 0,
-      blending: THREE.NormalBlending // Less intense than additive for Ghibli feel
+      blending: THREE.NormalBlending
     });
     const line = new THREE.Line(geometry, material);
     return line;
   }
 
-  // Fewer connections for cleaner Ghibli aesthetic
+  // Pool of connection lines
   for (let i = 0; i < 80; i++) {
     linePool.push(createConnectionLine());
   }
 
-  // Warm, soft lighting like golden hour in Ghibli films
-  const ambientLight = new THREE.AmbientLight(0xFFF8DC, 0.6); // Warm cornsilk light
+  // Fallout style lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
   scene.add(ambientLight);
 
-  // Magical point light with Ghibli warmth
-  const magicalLight = new THREE.PointLight(0xFFD700, 0.4, 100); // Golden light
-  magicalLight.position.set(0, 0, 30);
-  scene.add(magicalLight);
-
-  // Add subtle directional light like sunlight through trees
-  const sunLight = new THREE.DirectionalLight(0xFFFACD, 0.3); // Lemon chiffon
-  sunLight.position.set(50, 50, 50);
-  scene.add(sunLight);
+  const directionalLight = new THREE.DirectionalLight(0x88ff88, 0.4);
+  directionalLight.position.set(30, 50, 30);
+  directionalLight.castShadow = true;
+  scene.add(directionalLight);
 
   // Dynamic scroll-influenced light for cinematic effect
-  const scrollLight = new THREE.PointLight(0xFFE4B5, 0.5, 50); // Moccasin warm light
+  const scrollLight = new THREE.PointLight(0x33ff33, 0.5, 50);
   scrollLight.position.set(0, 0, 20);
   scene.add(scrollLight);
 
-  // Magical connection system with Ghibli-style subtlety
+  // Update connection visibility
   function updateConnections() {
     connectionLines.forEach(line => {
       line.visible = false;
@@ -188,7 +147,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     
     let lineIndex = 0;
-    const ghibliColors = getGhibliColors();
+    const falloutColors = getFalloutColors();
     
     // Create fewer, more meaningful connections
     for (let i = 0; i < particles.length && lineIndex < linePool.length; i++) {
@@ -208,7 +167,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           const baseOpacity = Math.pow((maxConnectionDistance - distance) / maxConnectionDistance, 3);
           const scrollInfluence = 0.2 + scrollProgress * 0.4; // More subtle
           line.material.opacity = baseOpacity * scrollInfluence * 0.3; // Much more subtle
-          line.material.color.setHex(parseInt(ghibliColors.connections.replace('#', '0x'))); // Dynamic connection color
+          line.material.color.setHex(parseInt(falloutColors.connections.replace('#', '0x'))); // Dynamic connection color
           line.visible = true;
           
           connectionLines[lineIndex] = line;
@@ -220,28 +179,28 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Scroll progress calculation with smooth experience
+  let targetCameraZ = 60;
+  let targetCameraY = 0;
+  let targetLightY = 0;
+  let targetLightIntensity = 0.5;
+
   function updateScrollProgress() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     maxScroll = Math.max(maxScroll, docHeight);
     scrollProgress = maxScroll > 0 ? Math.min(scrollTop / maxScroll, 1) : 0;
-    
-    // Update camera position based on scroll for cinematic effect
-    const targetZ = 60 - scrollProgress * 30; // More dramatic camera movement
-    const targetY = scrollProgress * -15; // More pronounced vertical movement
-    camera.position.z += (targetZ - camera.position.z) * 0.08; // Faster transitions
-    camera.position.y += (targetY - camera.position.y) * 0.08;
-    
-    // Update scroll light position and intensity
-    scrollLight.position.y = -scrollProgress * 40; // More dramatic light movement
-    scrollLight.intensity = 0.5 + scrollProgress * 0.6; // Higher intensity range
+
+    targetCameraZ = 60 - scrollProgress * 30;
+    targetCameraY = scrollProgress * -15;
+    targetLightY = -scrollProgress * 40;
+    targetLightIntensity = 0.5 + scrollProgress * 0.6;
   }
 
   function updateTheme() {
-    console.log('Updating Ghibli theme');
-    
-    // Update particle colors to match new Ghibli palette
-    const ghibliColors = getGhibliColors();
+    console.log('Updating Fallout theme');
+
+    // Update particle colors to match new palette
+    const falloutColors = getFalloutColors();
     
     particles.forEach(particle => {
       const type = particle.userData.type;
@@ -249,19 +208,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       
       switch(type) {
         case 'spirit':
-          targetColor = new THREE.Color(ghibliColors.spirits);
+          targetColor = new THREE.Color(falloutColors.particles);
           break;
         case 'leaf':
-          targetColor = new THREE.Color(ghibliColors.leaves);
+          targetColor = new THREE.Color(falloutColors.particles);
           break;
         case 'crystal':
-          targetColor = new THREE.Color(ghibliColors.crystals);
+          targetColor = new THREE.Color(falloutColors.particles);
           break;
         case 'seed':
-          targetColor = new THREE.Color(ghibliColors.seeds);
+          targetColor = new THREE.Color(falloutColors.particles);
           break;
         default:
-          targetColor = new THREE.Color(ghibliColors.spirits);
+          targetColor = new THREE.Color(falloutColors.particles);
       }
       
       particle.material.color.lerp(targetColor, 0.1);
@@ -272,7 +231,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
     
-    console.log('Ghibli theme update complete');
+  console.log('Fallout theme update complete');
     updateOpacity();
   }
 
@@ -342,22 +301,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Smooth mouse influence
     mouseX += (targetMouseX - mouseX) * 0.08; // More responsive mouse tracking
     mouseY += (targetMouseY - mouseY) * 0.08;
-    
+
     // Subtle camera sway based on mouse
     camera.position.x += (mouseX * 4 - camera.position.x) * 0.04; // More pronounced mouse effect
     camera.position.y += (mouseY * 4 - camera.position.y) * 0.04;
+
+    // Lerp camera and light towards scroll-based targets
+    camera.position.z += (targetCameraZ - camera.position.z) * 0.08;
+    camera.position.y += (targetCameraY - camera.position.y) * 0.08;
+    scrollLight.position.y += (targetLightY - scrollLight.position.y) * 0.08;
+    scrollLight.intensity += (targetLightIntensity - scrollLight.intensity) * 0.08;
 
     if (!introVisible) {
       renderer.render(scene, camera);
       return;
     }
 
-    // Enhanced Ghibli-style particle animation
+    // Particle animation
     particles.forEach((particle, index) => {
       const userData = particle.userData;
       const scrollInfluence = scrollProgress * userData.scrollInfluence;
       
-      // Gentle floating motion like Ghibli magic
+      // Gentle floating motion
       const baseX = userData.originalPosition.x + 
         Math.sin(time * userData.baseSpeed + userData.phaseX) * userData.amplitude;
       const baseY = userData.originalPosition.y + 
@@ -429,7 +394,7 @@ function getThemeColors() {
   });
   
   // Provide fallbacks if CSS vars aren't found
-  const finalParticle = particleColor || '#1976d2';
+  const finalParticle = particleColor || '#33ff33';
   
   console.log('Final colors being returned:', {
     particle: finalParticle
