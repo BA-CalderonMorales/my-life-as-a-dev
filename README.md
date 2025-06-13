@@ -1,17 +1,13 @@
 <div align="center">
   <h1>My Life As A Dev</h1>
-  <img src="my-life-as-a-dev-logo.png" alt="My Life As A Dev Logo" width="250">
   <br><br>
   <a href="https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions"><img src="https://img.shields.io/github/actions/workflow/status/BA-CalderonMorales/my-life-as-a-dev/github_pages.yml?branch=main&label=build" alt="GitHub Workflow Status"></a>
   <a href="https://github.com/BA-CalderonMorales/my-life-as-a-dev/blob/main/LICENSE"><img src="https://img.shields.io/github/license/BA-CalderonMorales/my-life-as-a-dev" alt="License"></a>
   <a href="https://ba-calderonmorales.github.io/my-life-as-a-dev/"><img src="https://img.shields.io/badge/docs-latest-blue" alt="Document Version"></a>
-  <a href="https://ba-calderonmorales.github.io/my-life-as-a-dev/ai-demo/"><img src="https://img.shields.io/badge/AI%20Integration-OpenAI-brightgreen" alt="OpenAI Integration"></a>
 </div>
 
 <div align="center">
-  <h3><i>A reference implementation for technical documentation using MkDocs and the Material theme.</i></h3>
   <a href="https://ba-calderonmorales.github.io/my-life-as-a-dev/" target="_blank">
-    <img src="https://github.com/user-attachments/assets/c0ac59b7-203f-4e78-9dcb-976e6f945304" alt="Example screenshot" width="650">
     <br>
     <strong>Click to see the live demo</strong>
   </a>
