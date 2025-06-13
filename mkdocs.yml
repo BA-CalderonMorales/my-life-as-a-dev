@@ -91,6 +91,7 @@ plugins:
 extra_css:
   - assets/css/custom.css
   - assets/css/common/animations.css
+  - assets/css/common/modal.css
   - assets/css/pages/home/base.css
   - assets/css/pages/home/extras.css
   - assets/css/pages/home/mobile.css
