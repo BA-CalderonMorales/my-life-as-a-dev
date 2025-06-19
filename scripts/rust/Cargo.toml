@@ -1,0 +1,42 @@
+[package]
+name = "doc-tools"
+version = "0.1.0"
+edition = "2021"
+description = "Documentation maintenance tools for my-life-as-a-dev"
+
+[lib]
+name = "doc_tools"
+path = "lib/mod.rs"
+
+[[bin]]
+name = "doc-cli"
+path = "src/doc-cli.rs"
+
+# Binary for startup functionality
+[[bin]]
+name = "startup"
+path = "lib/startup/mod.rs"
+
+# Binary for version bumping
+[[bin]]
+name = "bump_version"
+path = "lib/bump_version/mod.rs"
+
+# Binary for deployment
+[[bin]]
+name = "deploy_all_versions"
+path = "lib/deploy_all_versions/mod.rs"
+
+[dependencies]
+# Common dependencies go here
+chrono = "0.4.37"
+lazy_static = "1.4.0"
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3", features = ["winuser"] }  # Windows-specific dependencies
+
+[target.'cfg(unix)'.dependencies]
+nix = "0.30.1"  # Unix-specific dependencies
+
+[dev-dependencies]
+# Test-only dependencies go here

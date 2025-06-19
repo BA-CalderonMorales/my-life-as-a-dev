@@ -173,3 +173,13 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Scripts - Track these directories
+!/scripts/rust/
+!/scripts/rust/lib/
+!/scripts/rust/lib/**
+!/scripts/rust/src/
+!/scripts/rust/src/**
+
+# Scripts - Ignore build artifacts
+/scripts/rust/target/
