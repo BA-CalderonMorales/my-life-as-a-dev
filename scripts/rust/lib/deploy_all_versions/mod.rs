@@ -1,3 +1,5 @@
+//! Module for deploying all versions: smart and force options available.
+ 
 use std::env;
 use std::io::{self, Write};
 use std::process::Command;
@@ -5,28 +7,35 @@ use std::str;
 use std::thread;
 use std::time::Duration;
 
-// ANSI color codes
-const GREEN: &str = "\x1b[0;32m";
-const YELLOW: &str = "\x1b[1;33m";
-const BLUE: &str = "\x1b[0;34m";
-const RED: &str = "\x1b[0;31m";
-const NC: &str = "\x1b[0m"; // No Color
+// Constants for colored outputs
+pub const GREEN: &str = "\x1b[0;32m";
+pub const YELLOW: &str = "\x1b[1;33m";
+pub const BLUE: &str = "\x1b[0;34m";
+pub const RED: &str = "\x1b[0;31m";
+pub const NC: &str = "\x1b[0m"; // No Color
 
-fn main() {
+/// Main entry point for deploying all versions.
+#[allow(dead_code)]
+pub fn main() {
+
     let args: Vec<String> = env::args().collect();
     let mut force = false;
     let mut interactive = true;
 
     // Parse command line arguments
     for arg in &args[1..] {
+
         match arg.as_str() {
+
             "-f" | "--force" => {
                 force = true;
                 interactive = false;
             },
+
             "-n" | "--non-interactive" => {
                 interactive = false;
             },
+
             _ => {
                 eprintln!("{}Unknown option: {}{}", RED, arg, NC);
                 eprintln!("Usage: deploy-all-versions [-f|--force] [-n|--non-interactive]");
@@ -34,20 +43,26 @@ fn main() {
                 eprintln!("  -n, --non-interactive  Skip interactive prompts");
                 std::process::exit(1);
             }
+
         }
+
     }
     
     // Always display the prompt selection before anything else
     if interactive {
+
         force = select_deployment_mode();
+
     }
     
     let deployer = Deployer::new(force);
     deployer.run();
+
 }
 
-// Prompt the user to choose between regular and force deployment
-fn select_deployment_mode() -> bool {
+/// Prompt the user to choose between regular and force deployment
+pub fn select_deployment_mode() -> bool {
+
     // Clear the terminal to make the prompt more visible
     println!("\n\n");
     println!("{}============================================================{}", BLUE, NC);
@@ -71,7 +86,9 @@ fn select_deployment_mode() -> bool {
     // Read user input
     let mut choice = String::new();
     match io::stdin().read_line(&mut choice) {
+
         Ok(_) => {
+
             match choice.trim() {
                 "1" => {
                     println!("\n{}Smart deploy selected. Only missing versions will be deployed.{}\n", GREEN, NC);
@@ -87,14 +104,20 @@ fn select_deployment_mode() -> bool {
                 }
             }
         },
+
         Err(_) => {
+
             println!("{}Error reading input. Defaulting to Smart Deploy mode.{}\n", RED, NC);
             false
+
         }
+
     }
 }
 
-struct Deployer {
+/// Handles deployment of all versions
+#[derive(Debug)]
+pub struct Deployer {
     force: bool,
     current_branch: String,
     main_tags: Vec<String>,
@@ -102,7 +125,10 @@ struct Deployer {
 }
 
 impl Deployer {
-    fn new(force: bool) -> Self {
+
+    /// Creates a new Deployer instance
+    pub fn new(force: bool) -> Self {
+
         let current_branch = Self::get_current_branch();
         
         Self {
@@ -111,9 +137,12 @@ impl Deployer {
             main_tags: Vec::new(),
             deployed_versions: Vec::new(),
         }
+
     }
     
-    fn run(&self) {
+    // Runs the deployment process
+    pub fn run(&self) {
+
         self.fetch_tags_and_branch();
         
         // Get main branch tags
@@ -141,9 +170,12 @@ impl Deployer {
         } else {
             println!("{}No tags found in main branch. Nothing to deploy.{}", RED, NC);
         }
+
     }
     
-    fn fetch_tags_and_branch(&self) {
+    // Remaining public methods...
+
+    pub fn fetch_tags_and_branch(&self) {
         println!("{}Fetching tags and gh-pages branch...{}", BLUE, NC);
         
         // Fetch all tags
@@ -167,7 +199,7 @@ impl Deployer {
         }
     }
     
-    fn get_current_branch() -> String {
+    pub fn get_current_branch() -> String {
         let output = Command::new("git")
             .args(["rev-parse", "--abbrev-ref", "HEAD"])
             .output()
@@ -176,7 +208,7 @@ impl Deployer {
         String::from_utf8_lossy(&output.stdout).trim().to_string()
     }
     
-    fn get_tags_from_main(&self) -> Vec<String> {
+    pub fn get_tags_from_main(&self) -> Vec<String> {
         println!("{}Temporarily switching to main branch to get accurate tags...{}", BLUE, NC);
         
         // Switch to main branch
@@ -219,7 +251,7 @@ impl Deployer {
         tags
     }
     
-    fn get_deployed_versions(&mut self) {
+    pub fn get_deployed_versions(&mut self) {
         if self.force {
             return;
         }
@@ -286,7 +318,7 @@ impl Deployer {
     }
     
     // New method to get versions from versions.json as a backup strategy
-    fn get_versions_from_json(&self) -> Vec<String> {
+    pub fn get_versions_from_json(&self) -> Vec<String> {
         // Get versions.json file from gh-pages branch
         let output = Command::new("git")
             .args(["show", "gh-pages:versions.json"])
@@ -305,7 +337,7 @@ impl Deployer {
         }
     }
     
-    fn parse_versions_json(json_content: &str) -> Vec<String> {
+    pub fn parse_versions_json(json_content: &str) -> Vec<String> {
         let mut versions = Vec::new();
         
         // Improved JSON parsing - look for any format that might contain version info
@@ -328,7 +360,7 @@ impl Deployer {
         versions
     }
     
-    fn deploy_versions(&self) -> (usize, usize) {
+    pub fn deploy_versions(&self) -> (usize, usize) {
         println!("{}Deploying versions to gh-pages branch...{}", BLUE, NC);
         
         if self.force {
@@ -365,7 +397,7 @@ impl Deployer {
         (deployed_count, skipped_count)
     }
     
-    fn set_latest_alias(&self) {
+    pub fn set_latest_alias(&self) {
         if self.main_tags.is_empty() {
             return;
         }
@@ -395,7 +427,7 @@ impl Deployer {
         }
     }
     
-    fn push_gh_pages(&self) {
+    pub fn push_gh_pages(&self) {
         println!("{}Pushing gh-pages branch to origin...{}", BLUE, NC);
         
         let status = Command::new("git")
@@ -408,7 +440,7 @@ impl Deployer {
         }
     }
     
-    fn show_completion_stats(&self, stats: (usize, usize)) {
+    pub fn show_completion_stats(&self, stats: (usize, usize)) {
         let (deployed_count, skipped_count) = stats;
         let total_tags = self.main_tags.len();
         

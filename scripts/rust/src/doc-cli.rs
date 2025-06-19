@@ -5,7 +5,10 @@ use std::io::{self, Write};
 
 fn main() {
     let mut app = DocCli::new();
-    app.run();
+    if let Err(e) = app.run() {
+        eprintln!("Error: {}", e);
+        std::process::exit(1);
+    }
 }
 
 // DocCli struct to handle all documentation utilities
@@ -19,45 +22,66 @@ impl DocCli {
     // Create a new DocCli instance
     fn new() -> Self {
         let args: Vec<String> = env::args().collect();
+        
+        // Get current working directory and executable path
         let current_dir = env::current_dir().expect("Failed to get current directory");
+        let current_exe = env::current_exe().expect("Failed to get current executable path");
         
-        // Determine if we're in the scripts directory or the project root
-        let is_in_scripts = current_dir.file_name().map_or(false, |name| name == "scripts");
-        
-        // Set script_path to the scripts directory
-        let script_path = if is_in_scripts {
-            current_dir.clone()
+        // Determine paths based on where we're running from
+        let (project_root, script_path) = if current_exe.file_name().unwrap_or_default() == "doc-cli.exe" && current_dir.ends_with("my-life-as-a-dev") {
+            // Running ./doc-cli.exe from project root
+            let script_path = current_dir.join("scripts").join("rust");
+            (current_dir, script_path)
+        } else if current_exe.parent().unwrap_or(&current_dir).ends_with("target/release") || current_exe.parent().unwrap_or(&current_dir).ends_with("target/debug") {
+            // Running from cargo build output
+            let script_path = current_dir.clone();
+            let project_root = script_path.parent().and_then(|p| p.parent()).unwrap_or(&current_dir).to_path_buf();
+            (project_root, script_path)
         } else {
-            current_dir.join("scripts")
-        };
-        
-        // Set project_root to the parent of scripts
-        let project_root = if is_in_scripts {
-            current_dir.parent().unwrap_or(&current_dir).to_path_buf()
-        } else {
-            current_dir.clone()
+            // Fallback: try to detect based on current directory
+            if current_dir.ends_with("scripts/rust") || current_dir.ends_with("scripts\\rust") {
+                let project_root = current_dir.parent().and_then(|p| p.parent()).unwrap_or(&current_dir).to_path_buf();
+                (project_root, current_dir)
+            } else {
+                // Last resort: assume we're in project root
+                let script_path = current_dir.join("scripts").join("rust");
+                (current_dir.clone(), script_path)
+            }
         };
         
         println!("Debug - script_path: {:?}", script_path);
         println!("Debug - project_root: {:?}", project_root);
         
-        Self { 
-            project_root,
+        // Process command line arguments
+        let mut filtered_args = Vec::new();
+        
+        for arg in &args {
+            if arg == "--help" || arg == "-h" {
+                // Handle help flag immediately
+                let _ = Self::show_help();
+                std::process::exit(0);
+            } else {
+                filtered_args.push(arg.clone());
+            }
+        }
+        
+        DocCli {
+            args: filtered_args,
             script_path,
-            args,
+            project_root,
         }
     }
 
     // Main execution method
-    fn run(&mut self) {
+    fn run(&mut self) -> std::io::Result<()> {
         self.print_header();
 
         if self.args.len() <= 1 {
-            self.print_menu();
-            self.handle_user_choice();
+            self.print_menu()?;
+            self.handle_user_choice()
         } else {
             let command = &self.args[1];
-            self.handle_command(command);
+            self.handle_command(command)
         }
     }
 
@@ -69,19 +93,22 @@ impl DocCli {
     }
 
     // Print the main menu
-    fn print_menu(&self) {
+    fn print_menu(&self) -> std::io::Result<()> {
         println!("\nAvailable commands:");
-        println!("  1. startup       - Start the development environment");
+        println!("  1. startup       - Start the development environment (GitHub Codespaces)");
         println!("  2. bump-version  - Bump the documentation version");
         println!("  3. deploy        - Deploy all versions to GitHub Pages");
         println!("  h. help          - Show command help information");
         println!();
+        println!("💡 For local development, use: ./doc-cli.exe startup --local");
+        println!();
         print!("Enter your choice (1-3 or h) or command name: ");
-        io::stdout().flush().unwrap();
+        io::stdout().flush()?;
+        Ok(())
     }
 
     // Handle user choice from the menu
-    fn handle_user_choice(&mut self) {
+    fn handle_user_choice(&mut self) -> std::io::Result<()> {
         let mut choice = String::new();
         io::stdin().read_line(&mut choice).expect("Failed to read input");
         let choice = choice.trim();
@@ -90,32 +117,39 @@ impl DocCli {
             "1" | "startup" => self.handle_command("startup"),
             "2" | "bump-version" => self.handle_command("bump-version"),
             "3" | "deploy" => self.handle_command("deploy"),
-            "h" | "help" => self.handle_command("help"),
+            "h" | "help" => {
+                Self::show_help()?;
+                Ok(())
+            },
             _ => {
                 println!("Invalid choice: {}. Please try again.", choice);
-                self.print_menu();
-                self.handle_user_choice();
+                self.print_menu()?;
+                self.handle_user_choice()
             }
         }
     }
 
     // Handle a specific command
-    fn handle_command(&self, command: &str) {
+    fn handle_command(&self, command: &str) -> std::io::Result<()> {
         match command {
             "startup" => self.run_startup(),
-            "bump-version" => self.run_bump_version(),
-            "deploy" | "deploy-all-versions" => self.run_deploy_all_versions(),
-            "help" | "--help" | "-h" => self.show_help(),
+            "bump-version" | "bump_version" => self.run_bump_version(),
+            "deploy" | "deploy-all-versions" | "deploy_all_versions" => self.run_deploy_all_versions(),
+            "help" | "--help" | "-h" => {
+                Self::show_help()?;
+                Ok(())
+            },
             _ => {
-                println!("Unknown command: {}. Available commands: startup, bump-version, deploy, help", command);
-                println!("Use 'doc-cli help' to see more details about available commands.");
+                eprintln!("Unknown command: {}", command);
+                eprintln!("Available commands: startup, bump-version, deploy, help");
+                eprintln!("Use 'doc-cli help' to see more details about available commands.");
                 std::process::exit(1);
             }
         }
     }
 
     // Show help information
-    fn show_help(&self) {
+    fn show_help() -> std::io::Result<()> {
         println!("\n📋 Documentation CLI Tool Help");
         println!("==============================\n");
         println!("Usage: doc-cli [COMMAND] [OPTIONS]");
@@ -123,28 +157,14 @@ impl DocCli {
         println!("  startup              Start the documentation development environment");
         println!("                       Sets up MkDocs with mike for versioned documentation");
         println!("    Options:");
+        println!("      --local           Run in local mode");
+        println!("      --codespaces      Run in GitHub Codespaces environment");
         println!("      --draft-version VERSION   View a specific version not yet deployed to gh-pages");
         println!();
         println!("  bump-version         Bump the documentation version");
-        println!("                       Creates a new git tag and optionally deploys it");
-        println!();
-        println!("  deploy               Deploy all versions to GitHub Pages");
-        println!("                       Uses mike to deploy to the gh-pages branch");
-        println!();
-        println!("  help, -h, --help     Display this help information");
-        println!();
-        println!("Examples:");
-        println!("  doc-cli                                  # Start interactive menu");
-        println!("  doc-cli startup                          # Start development server");
-        println!("  doc-cli startup --draft-version 1.2.0    # Start server with draft version 1.2.0");
-        println!("  doc-cli bump-version                     # Bump the version");
-        println!("  doc-cli deploy                           # Deploy all versions");
-        
-        // Add information about planned features
-        println!("\nPlanned Features:");
-        println!("  - Force deployment option for 'deploy' command");
-        println!("  - Version selection for 'bump-version' command");
-        println!("  - Custom port option for 'startup' command");
+        println!("  deploy              Deploy all versions of the documentation");
+        println!("  help                Show this help message");
+        Ok(())
     }
 
     // Helper method to find rustc
@@ -182,7 +202,9 @@ impl DocCli {
     // Helper method to build a Rust binary
     fn build_rust_binary(&self, source_file: &str, binary_name: &str) -> Result<(), String> {
         let binary_path = self.script_path.join(format!("target/release/{}", binary_name));
-        let source_path = self.script_path.join(format!("src/{}.rs", source_file));
+        
+        // Look for source file in the lib/ directory structure
+        let source_path = self.script_path.join("lib").join(source_file).join("mod.rs");
         
         if !source_path.exists() {
             return Err(format!("Source file not found: {}", source_path.display()));
@@ -222,23 +244,26 @@ impl DocCli {
     }
 
     // Execute the startup functionality
-    fn run_startup(&self) {
+    fn run_startup(&self) -> std::io::Result<()> {
         println!("\n🚀 Running startup script...\n");
         
         let binary_path = self.script_path.join("target/release/startup");
         
         if !binary_path.exists() {
             if let Err(e) = self.build_rust_binary("startup", "startup") {
-                eprintln!("Error: {}", e);
-                std::process::exit(1);
+                return Err(std::io::Error::new(
+                    std::io::ErrorKind::NotFound,
+                    format!("Failed to build startup binary: {}", e)
+                ));
             }
         }
         
         // Get command line arguments (skip the first two: "doc-cli" and "startup")
         let mut args = Vec::new();
         let mut draft_version = None;
+        let mut local_mode = false;
+        let mut codespaces = false;
         
-        // Check if draft version was provided
         if self.args.len() > 2 {
             let mut i = 2;
             while i < self.args.len() {
@@ -246,6 +271,12 @@ impl DocCli {
                     draft_version = Some(self.args[i+1].clone());
                     // Skip both the flag and its value
                     i += 2;
+                } else if self.args[i] == "--local" {
+                    local_mode = true;
+                    i += 1;
+                } else if self.args[i] == "--codespaces" {
+                    codespaces = true;
+                    i += 1;
                 } else {
                     args.push(self.args[i].clone());
                     i += 1;
@@ -254,10 +285,12 @@ impl DocCli {
         }
         
         // Change to project root for environment setup
-        if let Err(e) = env::set_current_dir(&self.project_root) {
-            eprintln!("Failed to change to project root directory: {}", e);
-            std::process::exit(1);
-        }
+        env::set_current_dir(&self.project_root).map_err(|e| {
+            std::io::Error::new(
+                std::io::ErrorKind::NotFound,
+                format!("Failed to change to project root directory: {}", e)
+            )
+        })?;
         
         // Set up command with explicit interactive I/O handling
         let mut cmd = Command::new(&binary_path);
@@ -266,6 +299,16 @@ impl DocCli {
         if let Some(version) = draft_version {
             cmd.args(&["--draft-version", &version]);
             println!("Using draft version: {}", version);
+        }
+        
+        // Add local mode if specified
+        if local_mode {
+            cmd.arg("--local");
+        }
+        
+        // Add codespaces mode if specified
+        if codespaces {
+            cmd.arg("--codespaces");
         }
         
         // Add any other passed arguments
@@ -279,59 +322,60 @@ impl DocCli {
            .stderr(Stdio::inherit());
         
         // Run the command and wait for completion
-        let status = cmd.status()
-            .expect("Failed to run startup binary");
+        let status = cmd.status()?;
             
         if !status.success() {
-            eprintln!("Error: Startup script failed with exit code: {}", status);
-            std::process::exit(status.code().unwrap_or(1));
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::Other,
+                format!("Startup script failed with exit code: {}", status)
+            ));
         }
+        
+        Ok(())
     }
 
     // Execute the bump-version functionality
-    fn run_bump_version(&self) {
+    fn run_bump_version(&self) -> std::io::Result<()> {
         println!("\n🔄 Running version bump script...\n");
         
-        let binary_path = self.script_path.join("target/release/bump-version");
+        let binary_name = "bump_version";
+        let binary_path = self.script_path.join(format!("target/release/{}", binary_name));
         
         if !binary_path.exists() {
-            if let Err(e) = self.build_rust_binary("bump-version", "bump-version") {
-                eprintln!("Error: {}", e);
-                std::process::exit(1);
-            }
+            self.build_rust_binary(binary_name, binary_name)
+                .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
         }
         
         // Change to project root for git operations
-        if let Err(e) = env::set_current_dir(&self.project_root) {
-            eprintln!("Failed to change to project root directory: {}", e);
-            std::process::exit(1);
-        }
+        env::set_current_dir(&self.project_root)?;
         
         // Configure interactive I/O
         let status = Command::new(&binary_path)
             .stdin(Stdio::inherit())
             .stdout(Stdio::inherit())
             .stderr(Stdio::inherit())
-            .status()
-            .expect("Failed to run bump-version binary");
+            .status()?;
             
         if !status.success() {
-            eprintln!("Error: Bump version script failed with exit code: {}", status);
-            std::process::exit(status.code().unwrap_or(1));
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::Other,
+                format!("Bump version script failed with exit code: {}", status)
+            ));
         }
+        
+        Ok(())
     }
 
     // Execute the deploy-all-versions functionality
-    fn run_deploy_all_versions(&self) {
+    fn run_deploy_all_versions(&self) -> std::io::Result<()> {
         println!("\n🚀 Running deploy-all-versions script...\n");
         
-        let binary_path = self.script_path.join("target/release/deploy-all-versions");
+        let binary_name = "deploy_all_versions";
+        let binary_path = self.script_path.join(format!("target/release/{}", binary_name));
         
         if !binary_path.exists() {
-            if let Err(e) = self.build_rust_binary("deploy-all-versions", "deploy-all-versions") {
-                eprintln!("Error: {}", e);
-                std::process::exit(1);
-            }
+            self.build_rust_binary(binary_name, binary_name)
+                .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
         }
         
         // Get command line arguments (skip the first two: "doc-cli" and "deploy")
@@ -341,10 +385,7 @@ impl DocCli {
         }
         
         // Change to project root for git operations
-        if let Err(e) = env::set_current_dir(&self.project_root) {
-            eprintln!("Failed to change to project root directory: {}", e);
-            std::process::exit(1);
-        }
+        env::set_current_dir(&self.project_root)?;
         
         // Set up command with explicit interactive I/O handling
         let mut cmd = Command::new(&binary_path);
@@ -355,18 +396,20 @@ impl DocCli {
         }
         
         // Explicitly inherit stdio for interactive use
-        // This ensures prompts are shown and can be responded to
         cmd.stdin(Stdio::inherit())
            .stdout(Stdio::inherit())
            .stderr(Stdio::inherit());
         
         // Run the command and wait for completion
-        let status = cmd.status()
-            .expect("Failed to run deploy-all-versions binary");
+        let status = cmd.status()?;
             
         if !status.success() {
-            eprintln!("Error: Deploy-all-versions script failed with exit code: {}", status);
-            std::process::exit(status.code().unwrap_or(1));
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::Other,
+                format!("Deploy-all-versions script failed with exit code: {}", status)
+            ));
         }
+        
+        Ok(())
     }
 }
