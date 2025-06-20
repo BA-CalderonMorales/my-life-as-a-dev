@@ -11,28 +11,11 @@ ignore:
   - mkdocs.yml
 
 nav:
+
   - Home: index.md
 
-  - AI Demo: ai-demo/index.md
+  - Projects: projects/index.md
 
-  - AI Playground:
-    - Playground: ai-demo/ai-playground/playground/index.md
+  - Docs-as-Code: docs-as-code/index.md
 
-  - Docs-as-Code: docs-as-code.md
-
-  - Blog:
-    - blog/index.md
-    - Resources: blog/resources/index.md
-
-    - Life:
-      - blog/life/index.md
-      - blog/life/test_scenes
-
-
-  - Interests: interests/index.md
-
-  - Repositories:
-    - repositories/index.md
-    - Dev Flow Mentor: repositories/dev_flow_mentor/index.md
-
-  - Troubleshooting: troubleshooting
+  - Repositories: repositories/index.md
