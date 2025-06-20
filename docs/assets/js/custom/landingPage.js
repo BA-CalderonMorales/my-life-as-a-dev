@@ -295,3 +295,94 @@ document.addEventListener('DOMContentLoaded', function() {
   const app = new LandingPageController();
   app.initialize();
 });
+
+// ================ NAVIGATION CLEANUP ================
+
+/**
+ * Cleanup logic to ensure pages contain the right content
+ * This addresses the workflow requirement that clicking Home tab then other tabs
+ * should not cause expected content (TOC, GitHub repo link) to disappear
+ */
+
+function cleanupLandingPageClass() {
+  const currentPath = window.location.pathname;
+  const isLandingPage = 
+    currentPath === '/' || 
+    currentPath === '/index.html' || 
+    currentPath.endsWith('/my-life-as-a-dev/') ||
+    currentPath.endsWith('/my-life-as-a-dev/index.html') ||
+    currentPath.endsWith('/index');
+  
+  // If we're not on the landing page, remove the landing-page class
+  if (!isLandingPage) {
+    if (document.body.classList.contains("landing-page")) {
+      document.body.classList.remove("landing-page");
+      logger.debug("Removed landing-page class from body", "cleanup");
+    }
+    if (document.documentElement.classList.contains("landing-page")) {
+      document.documentElement.classList.remove("landing-page");
+      logger.debug("Removed landing-page class from documentElement", "cleanup");
+    }
+  }
+}
+
+// Enhanced cleanup for MkDocs Material navigation
+function setupNavigationCleanup() {
+  // Listen for MkDocs Material navigation events
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a[href]');
+    if (link && link.href && !link.href.includes('#')) {
+      // Check if it's a navigation link (tabs, nav, header)
+      const isNavLink = link.closest('.md-nav') || 
+                        link.closest('.md-tabs') || 
+                        link.closest('.md-header');
+      
+      if (isNavLink) {
+        // Delay cleanup to allow navigation to complete
+        setTimeout(() => {
+          cleanupLandingPageClass();
+          // Double-check after a longer delay for AJAX navigation
+          setTimeout(cleanupLandingPageClass, 500);
+        }, 100);
+      }
+    }
+  });
+  
+  // Use MutationObserver to detect content changes (for AJAX navigation)
+  const observer = new MutationObserver(function(mutations) {
+    let contentChanged = false;
+    mutations.forEach(function(mutation) {
+      if (mutation.type === 'childList' && 
+          (mutation.target.classList.contains('md-content') ||
+           mutation.target.classList.contains('md-content__inner'))) {
+        contentChanged = true;
+      }
+    });
+    
+    if (contentChanged) {
+      setTimeout(cleanupLandingPageClass, 50);
+    }
+  });
+  
+  // Start observing content changes
+  const contentArea = document.querySelector('.md-content');
+  if (contentArea) {
+    observer.observe(contentArea, {
+      childList: true,
+      subtree: true
+    });
+  }
+}
+
+// Initialize cleanup on DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+  // Clean up on initial load
+  cleanupLandingPageClass();
+  
+  // Setup comprehensive navigation cleanup
+  setupNavigationCleanup();
+  
+  // Listen for browser navigation events
+  window.addEventListener('popstate', cleanupLandingPageClass);
+  window.addEventListener('hashchange', cleanupLandingPageClass);
+});

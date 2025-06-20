@@ -1,0 +1,36 @@
+{
+	"name": "my-life-as-a-dev",
+	"version": "1.0.0",
+	"description": "portfolio site using mkdocs",
+	"main": "docs/index.md",
+	"directories": {
+		"doc": "docs"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/BA-CalderonMorales/my-life-as-a-dev.git"
+	},
+	"keywords": [
+		"python",
+		"mkdocs",
+		"js",
+		"css",
+		"html",
+		"markdown",
+		"rust"
+	],
+	"author": "Brandon A. Calderon-Morales",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/BA-CalderonMorales/my-life-as-a-dev/issues"
+	},
+	"homepage": "https://github.com/BA-CalderonMorales/my-life-as-a-dev#readme",
+	"devDependencies": {
+		"@biomejs/biome": "2.0.0",
+		"stylelint": "^16.21.0",
+		"stylelint-config-standard": "^38.0.0"
+	}
+}

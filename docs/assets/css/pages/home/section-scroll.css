@@ -2,17 +2,19 @@
  * Layout and scroll behavior for landing page
  */
 .landing-page {
-  scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
 .scroll-section {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  min-height: 100vh;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	min-height: 100vh;
 }
 
 /* Remove conflicting color definitions that override our CTA styles */
+
 /* These were overriding the Other Platforms button colors */
+
 /*
 .landing-page {
   --landing-accent: #2aa198;
@@ -28,3 +30,4 @@
 .landing-page .secondary-link:hover {
   background-color: var(--landing-accent-hover);
 }
+*/

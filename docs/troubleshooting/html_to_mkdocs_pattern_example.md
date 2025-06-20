@@ -231,34 +231,34 @@ Here's how the standalone HTML file was converted to follow the MkDocs pattern:
 
     ```javascript
     // Interactive Canvas Dreamscape Component
-    class DreamscapeProto6 extends HTMLElement {
-    connectedCallback(){
-        this.innerHTML = `
-        <canvas id="canvas" aria-label="Interactive Dreamscape Canvas"></canvas>
-        <div id="fps">FPS: --</div>
-        `;
-        const canvas = this.querySelector('#canvas'),
-            ctx    = canvas.getContext('2d'),
-            fpsEl  = this.querySelector('#fps');
-        const logs = [], log = e => logs.push({t:Date.now(),type:e.type});
-
-        function resize(){
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        // The rest of the JavaScript code from the original HTML file goes here...
-        // Everything enclosed within the connectedCallback method
-    }
-    }
-
-    // Register the custom element
-    customElements.define('dreamscape-proto6', DreamscapeProto6);
-
-    // Export the component
-    export default DreamscapeProto6;
+            class DreamscapeProto6 extends HTMLElement {
+            connectedCallback(){
+                this.innerHTML = `
+                <canvas id="canvas" aria-label="Interactive Dreamscape Canvas"></canvas>
+                <div id="fps">FPS: --</div>
+                `;
+                const canvas = this.querySelector('#canvas'),
+                    ctx    = canvas.getContext('2d'),
+                    fpsEl  = this.querySelector('#fps');
+                const logs = [], log = e => logs.push({t:Date.now(),type:e.type});
+        
+                function resize(){
+                canvas.width  = window.innerWidth;
+                canvas.height = window.innerHeight;
+                }
+                window.addEventListener('resize', resize);
+                resize();
+        
+                // The rest of the JavaScript code from the original HTML file goes here...
+                // Everything enclosed within the connectedCallback method
+            }
+            }
+        
+            // Register the custom element
+            customElements.define('dreamscape-proto6', DreamscapeProto6);
+        
+            // Export the component
+            export default DreamscapeProto6;
     ```
 
 === "3. Extract the CSS into a Component CSS File (dreamscape-proto6.css)"
@@ -298,23 +298,23 @@ Here's how the standalone HTML file was converted to follow the MkDocs pattern:
 
     ```yaml
     # Under the extra_css section
-    extra_css:
-      - assets/css/custom.css
-      - assets/css/components/test-scene-shared.css
-      - assets/css/components/dreamscape.css
-      - assets/css/components/dreamscape-proto4.css
-      - assets/css/components/dreamscape-proto6.css  # Add your CSS here
-
-    # Under the extra_javascript section
-    extra_javascript:
-      - https://cdnjs.cloudflare.com/ajax/libs/es-module-shims/1.7.3/es-module-shims.min.js
-      - { "path": "assets/js/importmap.js", "defer": true }
-      - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
-      - { "path": "assets/js/custom/initParticles.js", "type": "module" }
-      - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
-      - { "path": "assets/js/components/dreamscape/dreamscape.js", "type": "module" }
-      - { "path": "assets/js/components/dreamscape-proto4/dreamscape-proto4.js", "type": "module" }
-      - { "path": "assets/js/components/dreamscape-proto6/dreamscape-proto6.js", "type": "module" }  # Add your JS here
+            extra_css:
+              - assets/css/custom.css
+              - assets/css/components/test-scene-shared.css
+              - assets/css/components/dreamscape.css
+              - assets/css/components/dreamscape-proto4.css
+              - assets/css/components/dreamscape-proto6.css  # Add your CSS here
+        
+            # Under the extra_javascript section
+            extra_javascript:
+              - https://cdnjs.cloudflare.com/ajax/libs/es-module-shims/1.7.3/es-module-shims.min.js
+              - { "path": "assets/js/importmap.js", "defer": true }
+              - { "path": "assets/js/custom/particleBackground.js", "type": "module" }
+              - { "path": "assets/js/custom/initParticles.js", "type": "module" }
+              - { "path": "assets/js/custom/versionSelector.js", "type": "module" }
+              - { "path": "assets/js/components/dreamscape/dreamscape.js", "type": "module" }
+              - { "path": "assets/js/components/dreamscape-proto4/dreamscape-proto4.js", "type": "module" }
+              - { "path": "assets/js/components/dreamscape-proto6/dreamscape-proto6.js", "type": "module" }  # Add your JS here
     ```
 
 === "Key Steps in the Conversion Process"

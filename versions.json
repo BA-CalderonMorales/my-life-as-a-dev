@@ -1,10 +1,10 @@
 {
-  "versions": [
-    {
-      "name": "latest",
-      "version": "0.1.37",
-      "aliases": ["latest"]
-    }
-  ],
-  "current": "latest"
+	"versions": [
+		{
+			"name": "latest",
+			"version": "0.1.37",
+			"aliases": ["latest"]
+		}
+	],
+	"current": "latest"
 }
