@@ -4,214 +4,212 @@
 
 /* Make the page full-width when navigation is hidden */
 .home-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 1rem;
 }
 
 /* Hide Table of Contents on the landing page */
 .landing-page .md-sidebar--secondary {
-  display: none;
+	display: none;
 }
 
 /* Hide page title on the landing page */
 .landing-page .home-page-wrapper > h1:first-child {
-  display: none;
+	display: none;
 }
 
 /* Tagline styling */
 .tagline {
-  font-size: 1.25rem;
-  text-align: center;
-  font-weight: 500;
-  margin: 2rem 0;
-  opacity: 0.87;
+	font-size: 1.25rem;
+	text-align: center;
+	font-weight: 500;
+	margin: 2rem 0;
+	opacity: 0.87;
 }
 
 /* Section titles */
 .section-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+	text-align: center;
+	font-size: 2rem;
+	margin-bottom: 0.5rem;
 }
 
 .section-subtitle {
-  text-align: center;
-  font-size: 1.1rem;
-  opacity: 0.75;
-  max-width: 700px;
-  margin: 0 auto 2rem;
+	text-align: center;
+	font-size: 1.1rem;
+	opacity: 0.75;
+	max-width: 700px;
+	margin: 0 auto 2rem;
 }
 
 /* Tab experience section */
 .tabbed-experience {
-  margin: 4rem 0;
+	margin: 4rem 0;
 }
-
 
 /* AI section styling */
 .featured-section {
-  margin: 2rem 0;
+	margin: 2rem 0;
 }
 
 .feature-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-  margin-bottom: 2rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	justify-content: center;
+	margin-bottom: 2rem;
 }
 
 .feature-card {
-  background-color: rgba(var(--md-primary-fg-color--light-rgb), 0.05);
-  border-radius: 8px;
-  padding: 1.5rem;
-  width: calc(33.333% - 1rem);
-  min-width: 250px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+	background-color: rgb(var(--md-primary-fg-color--light-rgb), 0.05);
+	border-radius: 8px;
+	padding: 1.5rem;
+	width: calc(33.333% - 1rem);
+	min-width: 250px;
+	box-shadow: 0 4px 6px rgb(0 0 0 / 5%);
+	transition: all 0.3s ease;
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgb(0 0 0 / 10%);
 }
 
 .feature-icon {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+	font-size: 2rem;
+	margin-bottom: 1rem;
 }
 
 .feature-card h3 {
-  font-size: 1.25rem;
-  margin-top: 0;
+	font-size: 1.25rem;
+	margin-top: 0;
 }
 
 .feature-link {
-  display: inline-block;
-  margin-top: 1rem;
-  color: var(--md-primary-fg-color);
-  font-weight: 500;
-  text-decoration: none;
-  position: relative;
+	display: inline-block;
+	margin-top: 1rem;
+	color: var(--md-primary-fg-color);
+	font-weight: 500;
+	text-decoration: none;
+	position: relative;
 }
 
-.feature-link:after {
-  content: "→";
-  margin-left: 5px;
-  transition: transform 0.2s ease;
-  display: inline-block;
+.feature-link::after {
+	content: "→";
+	margin-left: 5px;
+	transition: transform 0.2s ease;
+	display: inline-block;
 }
 
-.feature-link:hover:after {
-  transform: translateX(3px);
+.feature-link:hover::after {
+	transform: translateX(3px);
 }
 
 .ai-tools-showcase {
-  background-color: rgba(var(--md-primary-fg-color--light-rgb), 0.05);
-  border-radius: 8px;
-  padding: 1.5rem;
+	background-color: rgb(var(--md-primary-fg-color--light-rgb), 0.05);
+	border-radius: 8px;
+	padding: 1.5rem;
 }
 
 .tool-list {
-  list-style-type: none;
-  padding-left: 0;
+	list-style-type: none;
+	padding-left: 0;
 }
 
 .tool-list li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+	padding: 0.5rem 0;
+	border-bottom: 1px solid rgb(0 0 0 / 5%);
 }
 
 .tool-list li:last-child {
-  border-bottom: none;
+	border-bottom: none;
 }
 
 /* Final call to action section */
 .final-cta {
-  text-align: center;
-  padding: 3rem 0;
+	text-align: center;
+	padding: 3rem 0;
 }
 
 .final-cta h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+	font-size: 2rem;
+	margin-bottom: 1rem;
 }
 
 /* Footer */
 .landing-footer {
-  text-align: center;
-  margin: 4rem 0 2rem;
-  opacity: 0.7;
+	text-align: center;
+	margin: 4rem 0 2rem;
+	opacity: 0.7;
 }
-
 
 /* Home page wrapper - helps with full-width content */
 .home-page-wrapper .md-content__inner {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 /* Responsive adjustments */
-@media screen and (max-width: 960px) {
-  .feature-card {
-    width: calc(50% - 1rem);
-  }
+@media screen and (width <= 960px) {
+	.feature-card {
+		width: calc(50% - 1rem);
+	}
 }
 
-@media screen and (max-width: 600px) {
-  .feature-card {
-    width: 100%;
-  }
-  
-  .section-title {
-    font-size: 1.75rem;
-  }
+@media screen and (width <= 600px) {
+	.feature-card {
+		width: 100%;
+	}
+
+	.section-title {
+		font-size: 1.75rem;
+	}
 }
 
 /* Responsive hero layout */
 .mdx-hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 1.5rem;
 }
 
 .mdx-hero .profile-image {
-  margin-bottom: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 
-@media screen and (min-width: 768px) {
-  .mdx-hero {
-    flex-direction: row;
-    justify-content: center;
-    text-align: left;
-  }
+@media screen and (width >= 768px) {
+	.mdx-hero {
+		flex-direction: row;
+		justify-content: center;
+		text-align: left;
+	}
 
-  .mdx-hero .profile-image {
-    margin: 0 2rem 0 0;
-  }
+	.mdx-hero .profile-image {
+		margin: 0 2rem 0 0;
+	}
 }
 
 /* Intro section layout */
 .intro-section > .intro-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 1rem;
 }
 
-@media screen and (min-width: 768px) {
-  .intro-section > .intro-section {
-    flex-direction: row;
-    text-align: left;
-    justify-content: center;
-  }
+@media screen and (width >= 768px) {
+	.intro-section > .intro-section {
+		flex-direction: row;
+		text-align: left;
+		justify-content: center;
+	}
 
-  .intro-section > .intro-section .profile-image {
-    margin-right: 2rem;
-    margin-bottom: 0;
-  }
+	.intro-section > .intro-section .profile-image {
+		margin-right: 2rem;
+		margin-bottom: 0;
+	}
 }

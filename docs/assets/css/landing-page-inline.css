@@ -5,23 +5,25 @@
 
 /* Hide the first H1 in the content area */
 .md-typeset h1:first-of-type {
-  display: none;
+	display: none;
 }
 
 .md-source-file {
-  display: none;
+	display: none;
 }
 
 /* Reserve vertical space around the entire subtitle (typewriter + location) */
 .subtitle {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  /* Optionally force a minimum height so even an empty span still takes space */
-  /* min-height: 3em; */
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+
+	/* Optionally force a minimum height so even an empty span still takes space */
+
+	/* min-height: 3em; */
 }
 
 /* Give the typewriter span its own inline-block box with vertical padding */
 .typewriter-text {
-  display: inline-block;
-  padding: 0.5rem 0;
+	display: inline-block;
+	padding: 0.5rem 0;
 }

@@ -31,6 +31,7 @@ theme:
     - navigation.prune
     - content.code.copy
     - content.code.annotate
+    - toc.follow
   
   # Start with dark mode by default
   palette:
@@ -78,6 +79,7 @@ plugins:
       timezone: America/North_Dakota/Center
   - mike
   - panzoom
+  - print-site
   - search
   - tags
   - ai_plugin
@@ -115,6 +117,8 @@ extra_css:
   - assets/css/components/kaleidoscopic-scene/styles.css
   - assets/css/components/intergalactic-scene/styles.css
   - assets/css/components/aiPlayground/styles.css
+  - assets/css/components/minimalistic-tabs.css
+  - assets/css/components/project-showcase.css
 
 extra_javascript:
   - { "path": "assets/js/importmap.js", "defer": true }

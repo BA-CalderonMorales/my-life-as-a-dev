@@ -1,0 +1,167 @@
+/**
+ * Minimalistic Tab Styling - Professional & Clean
+ * Overrides the existing bold tab styling with a subtle, professional approach
+ */
+
+/* Reset the heavy box shadow and make tabs more subtle */
+.md-typeset .tabbed-set {
+	margin: 1.5rem 0;
+	box-shadow: none;
+	border: 1px solid rgb(var(--md-default-fg-color--lightest-rgb), 0.12);
+	border-radius: 6px;
+	overflow: hidden;
+	background: transparent;
+}
+
+/* Minimalistic tab headers */
+.md-typeset .tabbed-set .tabbed-labels {
+	background-color: rgb(var(--md-default-fg-color--lightest-rgb), 0.03);
+	border-radius: 0;
+	padding: 0;
+	display: flex;
+	overflow-x: auto;
+	scrollbar-width: none;
+	border-bottom: 1px solid rgb(var(--md-default-fg-color--lightest-rgb), 0.08);
+	position: relative;
+	-ms-overflow-style: none;
+}
+
+.md-typeset .tabbed-set .tabbed-labels::-webkit-scrollbar {
+	display: none;
+}
+
+/* Clean, minimal tab labels */
+.md-typeset .tabbed-set .tabbed-labels > label {
+	font-weight: 500;
+	opacity: 0.7;
+	transition: all 0.15s ease;
+	padding: 0.75rem 1.25rem;
+	white-space: nowrap;
+	cursor: pointer;
+	border-radius: 0;
+	position: relative;
+	font-size: 0.9rem;
+	color: var(--md-default-fg-color--light);
+	background: transparent;
+	border: none;
+	border-right: 1px solid rgb(var(--md-default-fg-color--lightest-rgb), 0.06);
+}
+
+.md-typeset .tabbed-set .tabbed-labels > label:last-child {
+	border-right: none;
+}
+
+/* Subtle hover effect */
+.md-typeset .tabbed-set .tabbed-labels > label:hover {
+	opacity: 0.9;
+	background-color: rgb(var(--md-primary-fg-color--light-rgb), 0.04);
+	color: var(--md-default-fg-color);
+}
+
+/* Active tab - clean and professional */
+.md-typeset .tabbed-set input:checked + label,
+.md-typeset .tabbed-set .tabbed-labels > label.tabbed-labels__active {
+	opacity: 1;
+	font-weight: 600;
+	background-color: rgb(var(--md-primary-fg-color--light-rgb), 0.06);
+	color: var(--md-primary-fg-color);
+	position: relative;
+}
+
+/* Minimal active tab indicator - thin line instead of thick bar */
+.md-typeset .tabbed-set input:checked + label::after,
+.md-typeset .tabbed-set .tabbed-labels > label.tabbed-labels__active::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background-color: var(--md-primary-fg-color);
+	opacity: 0.8;
+}
+
+/* Clean tab content area */
+.md-typeset .tabbed-set .tabbed-content {
+	padding: 1.5rem;
+	border-radius: 0;
+	background-color: transparent;
+	max-height: 500px;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: rgb(var(--md-default-fg-color--lightest-rgb), 0.2)
+		transparent;
+}
+
+/* Minimal scrollbar styling */
+.md-typeset .tabbed-set .tabbed-content::-webkit-scrollbar {
+	width: 4px;
+}
+
+.md-typeset .tabbed-set .tabbed-content::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.md-typeset .tabbed-set .tabbed-content::-webkit-scrollbar-thumb {
+	background: rgb(var(--md-default-fg-color--lightest-rgb), 0.2);
+	border-radius: 2px;
+}
+
+.md-typeset .tabbed-set .tabbed-content::-webkit-scrollbar-thumb:hover {
+	background: rgb(var(--md-default-fg-color--lightest-rgb), 0.4);
+}
+
+/* Dark theme adjustments */
+[data-md-color-scheme="slate"] .md-typeset .tabbed-set {
+	border-color: rgb(255 255 255 / 8%);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .tabbed-set .tabbed-labels {
+	background-color: rgb(255 255 255 / 2%);
+	border-bottom-color: rgb(255 255 255 / 5%);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .tabbed-set .tabbed-labels > label {
+	border-right-color: rgb(255 255 255 / 4%);
+}
+
+[data-md-color-scheme="slate"]
+	.md-typeset
+	.tabbed-set
+	.tabbed-labels
+	> label:hover {
+	background-color: rgb(var(--md-primary-fg-color--light-rgb), 0.08);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .tabbed-set input:checked + label,
+[data-md-color-scheme="slate"]
+	.md-typeset
+	.tabbed-set
+	.tabbed-labels
+	> label.tabbed-labels__active {
+	background-color: rgb(var(--md-primary-fg-color--light-rgb), 0.12);
+}
+
+/* Mobile responsiveness */
+@media screen and (width <= 768px) {
+	.md-typeset .tabbed-set .tabbed-labels > label {
+		padding: 0.6rem 1rem;
+		font-size: 0.85rem;
+	}
+
+	.md-typeset .tabbed-set .tabbed-content {
+		padding: 1rem;
+		max-height: 400px;
+	}
+}
+
+@media screen and (width <= 480px) {
+	.md-typeset .tabbed-set .tabbed-labels > label {
+		padding: 0.5rem 0.75rem;
+		font-size: 0.8rem;
+	}
+
+	.md-typeset .tabbed-set .tabbed-content {
+		padding: 0.75rem;
+	}
+}

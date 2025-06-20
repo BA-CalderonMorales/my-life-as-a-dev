@@ -133,14 +133,14 @@ This page contains solutions to common issues you might encounter when working w
 
     ```yaml
     # ...
-          # Check if alias 'latest' already exists for this version
-          if mike list | grep -q "$LATEST_TAG.*latest"; then
-            echo "Alias 'latest' already exists for version $LATEST_TAG, skipping deploy"
-          else
-            # Deploy the latest version with Mike, updating the alias if it exists
-            mike deploy --push --update-aliases $LATEST_TAG latest
-          fi
-    # ...
+                  # Check if alias 'latest' already exists for this version
+                  if mike list | grep -q "$LATEST_TAG.*latest"; then
+                    echo "Alias 'latest' already exists for version $LATEST_TAG, skipping deploy"
+                  else
+                    # Deploy the latest version with Mike, updating the alias if it exists
+                    mike deploy --push --update-aliases $LATEST_TAG latest
+                  fi
+            # ...
     ```
 
 === "Website Display Issues"
