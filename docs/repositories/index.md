@@ -10,37 +10,44 @@ These are listed in order of importance. Those that are more important for me ar
 
 ### Structure
 
-```markdown
+This documentation follows a clear, hierarchical structure designed for easy navigation and quick information retrieval. The structure is organized to help developers:
 
-    - repositories/
-        - my-life-as-a-dev/
-            - index.md (about the project)
-            - quick_start/
-              - index.md (includes how to run locally)
-            - details/
-              - index.md (includes additional details about the project)            - 
-            
-        - immersive-awe-canvas/
-            - index.md (about the project)
-            - quick_start/
-              - index.md (includes how to run locally)
-            - details/
-              - index.md (includes additional details about the project)
+- **Quickly understand** the project's purpose and setup
+- **Easily locate** specific documentation sections
+- **Maintain consistency** across different repositories
+- **Scale documentation** as the project grows
 
-        - rust-terminal-forge/
-            - index.md (about the project)
-            - quick_start/
-              - index.md (includes how to run locally)
-            - details/
-              - index.md (includes additional details about the project)
+Each repository includes standard sections for getting started, project details, and specific documentation areas, ensuring a familiar experience across all projects.
 
-        - shadow-scroll-blossom/
-            - index.md (about the project)
-            - quick_start/
-              - index.md (includes how to run locally)
-            - details/
-              - index.md (includes additional details about the project)
+```yaml
+- repositories/
+    - my-life-as-a-dev/
+        - index.md (about the project)
+        - quick_start/
+            - index.md (includes how to run locally)
+        - details/
+            - index.md (includes additional details about the project)            - 
+        
+    - immersive-awe-canvas/
+        - index.md (about the project)
+        - quick_start/
+            - index.md (includes how to run locally)
+        - details/
+            - index.md (includes additional details about the project)
 
+    - rust-terminal-forge/
+        - index.md (about the project)
+        - quick_start/
+            - index.md (includes how to run locally)
+        - details/
+            - index.md (includes additional details about the project)
+
+    - shadow-scroll-blossom/
+        - index.md (about the project)
+        - quick_start/
+            - index.md (includes how to run locally)
+        - details/
+            - index.md (includes additional details about the project)
 ```
 
 ### Rust Terminal Forge
