@@ -336,6 +336,8 @@ impl DocCli {
 
     // Execute the bump-version functionality
     fn run_bump_version(&self) -> std::io::Result<()> {
+        use std::io::{self, Write};
+        
         println!("\n🔄 Running version bump script...\n");
         
         let binary_name = "bump_version";
@@ -349,7 +351,10 @@ impl DocCli {
         // Change to project root for git operations
         env::set_current_dir(&self.project_root)?;
         
-        // Configure interactive I/O
+        // Flush stdout before running the command
+        io::stdout().flush()?;
+        
+        // Use the standard Command API with inherited stdio
         let status = Command::new(&binary_path)
             .stdin(Stdio::inherit())
             .stdout(Stdio::inherit())

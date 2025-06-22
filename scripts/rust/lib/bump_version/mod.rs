@@ -1,6 +1,6 @@
 //! Module for handling version bumping functionality
 
-use std::io::{self, Write};
+use std::io::{self, Write, stdin};
 use std::process::Command;
 
 // Constants for colored outputs
@@ -55,7 +55,6 @@ impl VersionBumper {
         // Get bump type from user
         let bump_type = self.prompt_bump_type();
         
-        // Calculate new version
         let new_version = self.calculate_new_version(bump_type);
         println!("{}New version will be:{} {}", YELLOW, NC, new_version);
         
@@ -70,20 +69,11 @@ impl VersionBumper {
         // Create and push git tag
         self.create_git_tag(&new_version);
         
-        // Ask about deployment
-        let deploy_choice = self.prompt_deployment();
-        self.handle_deployment(&new_version, deploy_choice);
+        println!("\n{}Version bump to {} complete!{}", GREEN, new_version, NC);
+        println!("\n{}To deploy this version, run:{} doc-cli deploy", YELLOW, NC);
+        println!("This will perform a smart deploy, only deploying versions that aren't already deployed.");
+        println!("\nOr to deploy just this version: mike deploy v{} --branch gh-pages --push", new_version);
         
-        println!("{}Version bump to {} complete!{}", GREEN, new_version, NC);
-        
-        if deploy_choice == 3 {
-
-            println!("{}Note:{} You can deploy this version later using:", YELLOW, NC);
-            println!("  {}doc-cli deploy{} (to deploy all versions)", BLUE, NC);
-            println!("  or");
-            println!("  {}mike deploy v{} --branch gh-pages --push{} (to deploy just this version)", BLUE, new_version, NC);
-
-        }
     }
 
     // Remaining public methods...
@@ -124,21 +114,29 @@ impl VersionBumper {
     }
     
     pub fn prompt_bump_type(&self) -> u8 {
-        println!("What kind of version bump do you want to make?");
-        println!("1) Major ({}.0.0)", self.major + 1);
-        println!("2) Minor ({}.{}.0)", self.major, self.minor + 1);
-        println!("3) Patch ({}.{}.{})", self.major, self.minor, self.patch + 1);
+        println!("\n{}What kind of version bump do you want to make?{}", YELLOW, NC);
+        println!("{}1){} Major ({}.0.0)", BLUE, NC, self.major + 1);
+        println!("{}2){} Minor ({}.{}.0)", BLUE, NC, self.major, self.minor + 1);
+        println!("{}3){} Patch ({}.{}.{})", BLUE, NC, self.major, self.minor, self.patch + 1);
+        
+        let stdin = stdin();
         
         loop {
-            print!("Enter choice [1-3]: ");
-            io::stdout().flush().unwrap();
+            print!("{}Enter choice [1-3]: {}", YELLOW, NC);
+            if let Err(e) = io::stdout().flush() {
+                eprintln!("{}Error: {}{}", RED, e, NC);
+                continue;
+            }
             
-            let mut choice = String::new();
-            io::stdin().read_line(&mut choice).expect("Failed to read input");
+            let mut input = String::new();
+            if let Err(e) = stdin.read_line(&mut input) {
+                eprintln!("\n{}Error reading input: {}{}", RED, e, NC);
+                continue;
+            }
             
-            match choice.trim() {
-                "1" | "2" | "3" => return choice.trim().parse().unwrap(),
-                _ => println!("Invalid option. Please enter 1, 2, or 3.")
+            match input.trim() {
+                "1" | "2" | "3" => return input.trim().parse().unwrap(),
+                _ => println!("\n{}Invalid option. Please enter 1, 2, or 3.{}", YELLOW, NC)
             }
         }
     }
@@ -191,94 +189,6 @@ impl VersionBumper {
         }
     }
     
-    pub fn prompt_deployment(&self) -> u8 {
-        println!("\n{}Do you want to deploy this version to gh-pages with mike?{}", YELLOW, NC);
-        println!("1) Yes, deploy as a regular version");
-        println!("2) Yes, deploy as a regular version AND set as 'latest'");
-        println!("3) No, skip deployment");
-        
-        loop {
-            print!("Enter choice [1-3]: ");
-            io::stdout().flush().unwrap();
-            
-            let mut choice = String::new();
-            io::stdin().read_line(&mut choice).expect("Failed to read input");
-            
-            match choice.trim() {
-                "1" | "2" | "3" => return choice.trim().parse().unwrap(),
-                _ => println!("Invalid option. Please enter 1, 2, or 3.")
-            }
-        }
-    }
-    
-    pub fn handle_deployment(&self, new_version: &str, deploy_choice: u8) {
-        let tag_name = format!("v{}", new_version);
-        
-        match deploy_choice {
-            1 => {
-                println!("{}Deploying {} to gh-pages...{}", BLUE, tag_name, NC);
-                
-                let status = Command::new("mike")
-                    .args(&["deploy", &tag_name, "--branch", "gh-pages", "--push"])
-                    .status()
-                    .expect("Failed to deploy with mike");
-                    
-                if status.success() {
-                    println!("{}Deployment complete!{}", GREEN, NC);
-                } else {
-                    eprintln!("Error: Failed to deploy version.");
-                }
-            },
-            2 => {
-                println!("{}Deploying {} to gh-pages and setting as 'latest'...{}", BLUE, tag_name, NC);
-                
-                // First deploy the version
-                let status = Command::new("mike")
-                    .args(&["deploy", &tag_name, "--branch", "gh-pages"])
-                    .status()
-                    .expect("Failed to deploy with mike");
-                    
-                if !status.success() {
-                    eprintln!("Error: Failed to deploy version.");
-                    return;
-                }
-                
-                // Then set it as latest
-                let status = Command::new("mike")
-                    .args(&["deploy", &tag_name, "latest", "--branch", "gh-pages", "--update-aliases"])
-                    .status()
-                    .expect("Failed to set as latest");
-                    
-                if !status.success() {
-                    eprintln!("Error: Failed to set version as latest.");
-                    return;
-                }
-                
-                // Set default to latest
-                let status = Command::new("mike")
-                    .args(&["set-default", "latest", "--branch", "gh-pages"])
-                    .status()
-                    .expect("Failed to set default version");
-                    
-                if !status.success() {
-                    eprintln!("Error: Failed to set default version.");
-                    return;
-                }
-                
-                // Push changes
-                let status = Command::new("git")
-                    .args(&["push", "origin", "gh-pages"])
-                    .status()
-                    .expect("Failed to push changes");
-                    
-                if status.success() {
-                    println!("{}Deployment complete and set as 'latest'!{}", GREEN, NC);
-                } else {
-                    eprintln!("Error: Failed to push gh-pages branch.");
-                }
-            },
-            3 => println!("Skipping deployment to gh-pages."),
-            _ => println!("Invalid option. Skipping deployment.")
-        }
-    }
+    // Deployment functionality has been moved to deploy_all_versions module
+    // Please use `doc-cli deploy` to deploy versions
 }
