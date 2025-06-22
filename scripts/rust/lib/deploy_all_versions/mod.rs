@@ -78,7 +78,10 @@ pub fn select_deployment_mode() -> bool {
     
     // Ensure flush to make prompt immediately visible
     print!("\n{}Please enter your choice [1/2]: {}", BLUE, NC);
-    io::stdout().flush().unwrap();
+    if let Err(e) = io::stdout().flush() {
+        eprintln!("{}Failed to flush stdout: {}{}", RED, e, NC);
+        std::process::exit(1);
+    }
     
     // Small delay to ensure terminal has time to display the prompt
     thread::sleep(Duration::from_millis(100));
@@ -182,7 +185,10 @@ impl Deployer {
         let status = Command::new("git")
             .args(["fetch", "--tags"])
             .status()
-            .expect("Failed to fetch git tags");
+            .unwrap_or_else(|e| {
+                eprintln!("{}Failed to fetch git tags: {}{}", RED, e, NC);
+                std::process::exit(1);
+            });
             
         if !status.success() {
             eprintln!("{}Error: Failed to fetch git tags.{}", RED, NC);
@@ -192,7 +198,10 @@ impl Deployer {
         let output = Command::new("git")
             .args(["fetch", "origin", "gh-pages:gh-pages"])
             .output()
-            .expect("Failed to fetch gh-pages branch");
+            .unwrap_or_else(|e| {
+                eprintln!("{}Failed to fetch gh-pages branch: {}{}", RED, e, NC);
+                std::process::exit(1);
+            });
             
         if !output.status.success() {
             println!("{}Warning: gh-pages branch doesn't exist yet. It will be created.{}", YELLOW, NC);
@@ -203,7 +212,10 @@ impl Deployer {
         let output = Command::new("git")
             .args(["rev-parse", "--abbrev-ref", "HEAD"])
             .output()
-            .expect("Failed to get current branch");
+            .unwrap_or_else(|e| {
+                eprintln!("{}Failed to get current branch: {}{}", RED, e, NC);
+                std::process::exit(1);
+            });
             
         String::from_utf8_lossy(&output.stdout).trim().to_string()
     }
@@ -215,7 +227,10 @@ impl Deployer {
         let status = Command::new("git")
             .args(["checkout", "main"])
             .status()
-            .expect("Failed to switch to main branch");
+            .unwrap_or_else(|e| {
+                eprintln!("{}Failed to switch to main branch: {}{}", RED, e, NC);
+                std::process::exit(1);
+            });
             
         if !status.success() {
             eprintln!("{}Error: Cannot switch to main branch. Make sure it exists.{}", RED, NC);
@@ -226,7 +241,10 @@ impl Deployer {
         let output = Command::new("git")
             .args(["tag", "--sort=v:refname"])
             .output()
-            .expect("Failed to get git tags");
+            .unwrap_or_else(|e| {
+                eprintln!("{}Failed to get git tags: {}{}", RED, e, NC);
+                std::process::exit(1);
+            });
             
         let tags: Vec<String> = String::from_utf8_lossy(&output.stdout)
             .split('\n')
@@ -241,7 +259,10 @@ impl Deployer {
         let status = Command::new("git")
             .args(["checkout", &self.current_branch])
             .status()
-            .expect("Failed to switch back to original branch");
+            .unwrap_or_else(|e| {
+                eprintln!("{}Failed to switch back to original branch: {}{}", RED, e, NC);
+                std::process::exit(1);
+            });
             
         if !status.success() {
             eprintln!("{}Error: Failed to switch back to original branch.{}", RED, NC);
@@ -260,7 +281,10 @@ impl Deployer {
         let output = Command::new("git")
             .args(["rev-parse", "--verify", "gh-pages"])
             .output()
-            .expect("Failed to verify gh-pages branch");
+            .unwrap_or_else(|e| {
+                eprintln!("{}Failed to verify gh-pages branch: {}{}", RED, e, NC);
+                std::process::exit(1);
+            });
             
         if !output.status.success() {
             println!("{}No gh-pages branch found. Will deploy all versions.{}", YELLOW, NC);
@@ -276,7 +300,10 @@ impl Deployer {
         let output = Command::new("git")
             .args(["ls-tree", "--name-only", "gh-pages"])
             .output()
-            .expect("Failed to list directories in gh-pages branch");
+            .unwrap_or_else(|e| {
+                eprintln!("{}Failed to list directories in gh-pages branch: {}{}", RED, e, NC);
+                std::process::exit(1);
+            });
             
         if !output.status.success() {
             println!("{}Failed to list contents of gh-pages branch. Will deploy all versions.{}", YELLOW, NC);
@@ -349,7 +376,7 @@ impl Deployer {
                     if let Some(end) = line[start..].find('"') {
                         let version = line[start..(start + end)].trim();
                         // Only accept versions that look like v0.1.2 format
-                        if version.starts_with('v') || version.chars().next().unwrap_or('x').is_digit(10) {
+                        if version.starts_with('v') || version.chars().next().map_or(false, |c| c.is_digit(10)) {
                             versions.push(version.to_string());
                         }
                     }
@@ -360,8 +387,65 @@ impl Deployer {
         versions
     }
     
+    /// Check if mike is available as a Python module
+    fn check_mike_installed(&self) -> bool {
+        match Command::new("python")
+            .args(["-c", "from mike import driver; print('mike is available')"])
+            .output() {
+                Ok(output) => {
+                    if !output.status.success() {
+                        eprintln!("{}mike check failed: {}{}", YELLOW, String::from_utf8_lossy(&output.stderr), NC);
+                    }
+                    output.status.success()
+                },
+                Err(e) => {
+                    eprintln!("{}Failed to check mike installation: {}{}", YELLOW, e, NC);
+                    false
+                }
+            }
+    }
+    
+    /// Install mike using pip if it's not already installed
+    fn install_mike(&self) -> bool {
+        println!("{}Installing mike using pip...{}", BLUE, NC);
+        
+        let status = Command::new("python")
+            .args(["-m", "pip", "install", "--upgrade", "mike"])
+            .status()
+            .unwrap_or_else(|e| {
+                eprintln!("{}Failed to run pip install: {}{}", RED, e, NC);
+                std::process::exit(1);
+            });
+            
+        status.success()
+    }
+    
+    /// Ensure mike is installed and available
+    fn ensure_mike_installed(&self) {
+        if !self.check_mike_installed() {
+            println!("{}mike not found. Attempting to install...{}", YELLOW, NC);
+            if !self.install_mike() {
+                eprintln!("\n{}Error: Failed to install mike. Please install it manually using:{}", RED, NC);
+                eprintln!("{}  pip install mike{}", BLUE, NC);
+                std::process::exit(1);
+            }
+            
+            // Verify installation
+            if !self.check_mike_installed() {
+                eprintln!("\n{}Error: mike installation failed. Please install it manually using:{}", RED, NC);
+                eprintln!("{}  pip install mike{}", BLUE, NC);
+                std::process::exit(1);
+            }
+            
+            println!("{}mike installed successfully!{}", GREEN, NC);
+        }
+    }
+    
     pub fn deploy_versions(&self) -> (usize, usize) {
         println!("{}Deploying versions to gh-pages branch...{}", BLUE, NC);
+        
+        // Ensure mike is installed before proceeding
+        self.ensure_mike_installed();
         
         if self.force {
             println!("{}Force mode enabled. All versions will be deployed regardless of existing state.{}", YELLOW, NC);
@@ -382,16 +466,31 @@ impl Deployer {
             
             println!("{}Deploying version: {}{}", BLUE, tag, NC);
             
-            let status = Command::new("mike")
-                .args(["deploy", tag, "--branch", "gh-pages"])
-                .status()
-                .expect("Failed to deploy version with mike");
+            println!("{}Running mike deploy for version {}{}", BLUE, tag, NC);
+            
+            // Try running mike using python -m mike
+            let output = match Command::new("python")
+                .args(["-m", "mike.driver", "deploy", tag, "--branch", "gh-pages"])
+                .output() {
+                    Ok(output) => output,
+                    Err(e) => {
+                        eprintln!("\n{}Failed to execute mike command: {}{}", RED, e, NC);
+                        eprintln!("{}Please ensure Python and mike are properly installed.{}", YELLOW, NC);
+                        eprintln!("{}Try running: python -m pip install --upgrade mike{}", BLUE, NC);
+                        std::process::exit(1);
+                    }
+                };
                 
-            if status.success() {
-                deployed_count += 1;
-            } else {
-                eprintln!("{}Error: Failed to deploy version {}.{}", RED, tag, NC);
+            if !output.status.success() {
+                eprintln!("\n{}mike deploy failed with status: {}{}", RED, output.status, NC);
+                eprintln!("{}Error output:{}\n{}{}", RED, NC, String::from_utf8_lossy(&output.stderr), NC);
+                eprintln!("{}Standard output:{}\n{}{}", BLUE, NC, String::from_utf8_lossy(&output.stdout), NC);
+                std::process::exit(1);
             }
+            
+            // If we got here, the deployment was successful
+            deployed_count += 1;
+            println!("{}Successfully deployed version {}{}", GREEN, tag, NC);
         }
         
         (deployed_count, skipped_count)
@@ -402,41 +501,75 @@ impl Deployer {
             return;
         }
         
-        let latest_tag = &self.main_tags[self.main_tags.len() - 1];
+        let latest_tag = match self.main_tags.last() {
+            Some(tag) => tag,
+            None => {
+                eprintln!("{}No tags found to set as latest{}", RED, NC);
+                return;
+            }
+        };
+        
         println!("\n{}Setting 'latest' alias to: {}{}", BLUE, latest_tag, NC);
         
-        // Set the tag as latest
-        let status = Command::new("mike")
-            .args(["deploy", latest_tag, "latest", "--branch", "gh-pages", "--update-aliases"])
-            .status()
-            .expect("Failed to set latest alias");
+        let output = match Command::new("python")
+            .args(["-m", "mike.driver", "set-default", latest_tag, "--branch", "gh-pages"])
+            .output() {
+                Ok(output) => output,
+                Err(e) => {
+                    eprintln!("\n{}Failed to set latest alias: {}{}", RED, e, NC);
+                    eprintln!("{}Please ensure mike is installed and in your PATH.{}", YELLOW, NC);
+                    std::process::exit(1);
+                }
+            };
             
-        if !status.success() {
-            eprintln!("{}Error: Failed to set {} as latest.{}", RED, latest_tag, NC);
-            return;
+        if !output.status.success() {
+            eprintln!("\n{}Failed to set 'latest' alias{}", RED, NC);
+            eprintln!("{}Error output:{}\n{}{}", RED, NC, String::from_utf8_lossy(&output.stderr), NC);
+            eprintln!("{}Standard output:{}\n{}{}", BLUE, NC, String::from_utf8_lossy(&output.stdout), NC);
+            std::process::exit(1);
         }
         
         // Set default to latest
-        let status = Command::new("mike")
-            .args(["set-default", "latest", "--branch", "gh-pages"])
-            .status()
-            .expect("Failed to set default version");
+        println!("\n{}Setting 'latest' alias to: {}{}", BLUE, "latest", NC);
+        
+        let output = match Command::new("python")
+            .args(["-m", "mike.driver", "set-default", "latest", "--branch", "gh-pages"])
+            .output() {
+                Ok(output) => output,
+                Err(e) => {
+                    eprintln!("\n{}Failed to set default version: {}{}", RED, e, NC);
+                    eprintln!("{}Please ensure mike is installed and in your PATH.{} ", YELLOW, NC);
+                    std::process::exit(1);
+                }
+            };
             
-        if !status.success() {
-            eprintln!("{}Error: Failed to set default version.{}", RED, NC);
+        if !output.status.success() {
+            eprintln!("\n{}Failed to set default version{}", RED, NC);
+            eprintln!("{}Error output:{}\n{}{}", RED, NC, String::from_utf8_lossy(&output.stderr), NC);
+            eprintln!("{}Standard output:{}\n{}{}", BLUE, NC, String::from_utf8_lossy(&output.stdout), NC);
+            std::process::exit(1);
         }
     }
     
     pub fn push_gh_pages(&self) {
-        println!("{}Pushing gh-pages branch to origin...{}", BLUE, NC);
+        println!("\n{}Pushing changes to gh-pages branch...{}", BLUE, NC);
         
-        let status = Command::new("git")
-            .args(["push", "origin", "gh-pages"])
-            .status()
-            .expect("Failed to push gh-pages branch");
+        let output = match Command::new("python")
+            .args(["-m", "mike.driver", "set-default", "--push", "--branch", "gh-pages"])
+            .output() {
+                Ok(output) => output,
+                Err(e) => {
+                    eprintln!("\n{}Failed to push changes to gh-pages: {}{}", RED, e, NC);
+                    eprintln!("{}Please ensure mike is installed and in your PATH.{}", YELLOW, NC);
+                    std::process::exit(1);
+                }
+            };
             
-        if !status.success() {
-            eprintln!("{}Error: Failed to push gh-pages branch.{}", RED, NC);
+        if !output.status.success() {
+            eprintln!("\n{}Failed to push changes to gh-pages branch{}", RED, NC);
+            eprintln!("{}Error output:{}\n{}{}", RED, NC, String::from_utf8_lossy(&output.stderr), NC);
+            eprintln!("{}Standard output:{}\n{}{}", BLUE, NC, String::from_utf8_lossy(&output.stdout), NC);
+            std::process::exit(1);
         }
     }
     
