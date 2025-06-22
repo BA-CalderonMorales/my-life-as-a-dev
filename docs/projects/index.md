@@ -4,9 +4,7 @@ A curated collection of my key software engineering projects, each showcasing di
 
 ## Docs-as-Code Portfolio
 
-```markdown title="My Life as a Dev"
-A comprehensive documentation portfolio built with MkDocs Material, featuring AI integration and versioned documentation.
-```
+> A comprehensive documentation portfolio built with MkDocs Material, featuring AI integration and versioned documentation.
 
 <div class="grid cards" markdown>
 
@@ -17,7 +15,7 @@ A comprehensive documentation portfolio built with MkDocs Material, featuring AI
 
 ### Key Features
 
-- :material-robot: **AI Integration**: Built-in OpenAI plugin for interactive documentation
+- :material-robot: **AI Integration _(Comming Soon)_**: Built-in LLM plugin for interactive documentation
 - :material-git: **Version Control**: Full Git-based versioning with mike
 - :material-tools: **Developer Tooling**: Custom Rust CLI for documentation management
 - :material-code-json: **Structured Content**: Well-organized documentation with Material for MkDocs
@@ -26,9 +24,7 @@ A comprehensive documentation portfolio built with MkDocs Material, featuring AI
 
 ## Immersive Awe Canvas
 
-```markdown title="Interactive 3D Playground"
-A creative coding environment for building and exploring interactive 3D scenes in the browser.
-```
+> A creative coding environment for building and exploring interactive 3D scenes in the browser.
 
 <div class="grid cards" markdown>
 
@@ -48,9 +44,7 @@ A creative coding environment for building and exploring interactive 3D scenes i
 
 ## Shadow Scroll Blossom
 
-```markdown title="Generative Art Playground"
-An interactive canvas that creates beautiful particle effects and visualizations in response to user input.
-```
+> An interactive canvas that creates beautiful particle effects and visualizations in response to user input.
 
 <div class="grid cards" markdown>
 
@@ -62,7 +56,7 @@ An interactive canvas that creates beautiful particle effects and visualizations
 ### Key Features
 
 - :material-brush: **Generative Art**: Dynamic particle systems and visual effects
-- :material-mouse-move: **Interactive**: Responds to mouse and touch input
+- :material-rodent: **Interactive**: Responds to mouse and touch input
 - :material-palette-swatch: **Theme Support**: Multiple color schemes and themes
 - :material-cellphone: **Mobile Optimized**: Touch-friendly interface
 
@@ -70,9 +64,7 @@ An interactive canvas that creates beautiful particle effects and visualizations
 
 ## Rust Terminal Forge
 
-```markdown title="Web-based Terminal Emulator"
-A secure, browser-based terminal emulator built with Rust and WebAssembly.
-```
+> A secure, browser-based terminal emulator built with TypeScript/React to use Rust online.
 
 <div class="grid cards" markdown>
 
@@ -84,9 +76,9 @@ A secure, browser-based terminal emulator built with Rust and WebAssembly.
 ### Key Features
 
 - :material-console: **Terminal Emulation**: Full-featured terminal in the browser
-- :material-language-rust: **Rust Backend**: High-performance with WebAssembly
 - :material-shield-lock: **Secure**: Sandboxed execution environment
 - :material-web: **Modern Web**: Built with React and TypeScript
+- :material-language-rust: **Rust**: Allow Rust to be used in terminal for people to play with it online
 
 ---
 
