@@ -10,10 +10,8 @@ A comprehensive documentation portfolio built with MkDocs Material, featuring AI
 
 <div class="grid cards" markdown>
 
--   :material-github: **Repository**: [BA-CalderonMorales/my-life-as-a-dev](https://github.com/BA-CalderonMorales/my-life-as-a-dev)
--   :material-web: **Live Demo**: [Documentation Site](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
--   :material-tag: **Version**: ![GitHub release](https://img.shields.io/github/v/release/BA-CalderonMorales/my-life-as-a-dev)
--   :material-license: **License**: [Apache 2.0](https://github.com/BA-CalderonMorales/my-life-as-a-dev/blob/main/LICENSE)
+- :material-github: **Repository**: [BA-CalderonMorales/my-life-as-a-dev](https://github.com/BA-CalderonMorales/my-life-as-a-dev)
+- :material-web: **Live Demo**: [Documentation Site](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
 
 </div>
 
@@ -34,10 +32,8 @@ A creative coding environment for building and exploring interactive 3D scenes i
 
 <div class="grid cards" markdown>
 
--   :material-github: **Repository**: [BA-CalderonMorales/immersive-awe-canvas](https://github.com/BA-CalderonMorales/immersive-awe-canvas)
--   :material-web: **Live Demo**: [Immersive Awe Canvas](https://immersive-awe-canvas.lovable.app)
--   :material-tag: **Version**: ![GitHub release](https://img.shields.io/github/v/release/BA-CalderonMorales/immersive-awe-canvas)
--   :material-license: **License**: [MIT](https://github.com/BA-CalderonMorales/immersive-awe-canvas/blob/main/LICENSE)
+- :material-github: **Repository**: [BA-CalderonMorales/immersive-awe-canvas](https://github.com/BA-CalderonMorales/immersive-awe-canvas)
+- :material-web: **Live Demo**: [Immersive Awe Canvas](https://immersive-awe-canvas.lovable.app)
 
 </div>
 
@@ -58,10 +54,8 @@ An interactive canvas that creates beautiful particle effects and visualizations
 
 <div class="grid cards" markdown>
 
--   :material-github: **Repository**: [BA-CalderonMorales/shadow-scroll-blossom](https://github.com/BA-CalderonMorales/shadow-scroll-blossom)
--   :material-web: **Live Demo**: [Shadow Scroll Blossom](https://ba-calderonmorales.github.io/shadow-scroll-blossom/)
--   :material-tag: **Version**: ![GitHub release](https://img.shields.io/github/v/release/BA-CalderonMorales/shadow-scroll-blossom)
--   :material-license: **License**: [MIT](https://github.com/BA-CalderonMorales/shadow-scroll-blossom/blob/main/LICENSE)
+- :material-github: **Repository**: [BA-CalderonMorales/shadow-scroll-blossom](https://github.com/BA-CalderonMorales/shadow-scroll-blossom)
+- :material-web: **Live Demo**: [Shadow Scroll Blossom](https://ba-calderonmorales.github.io/shadow-scroll-blossom/)
 
 </div>
 
@@ -82,10 +76,8 @@ A secure, browser-based terminal emulator built with Rust and WebAssembly.
 
 <div class="grid cards" markdown>
 
--   :material-github: **Repository**: [BA-CalderonMorales/rust-terminal-forge](https://github.com/BA-CalderonMorales/rust-terminal-forge)
--   :material-web: **Live Demo**: [Rust Terminal Forge](https://ba-calderonmorales.github.io/rust-terminal-forge/)
--   :material-tag: **Version**: ![GitHub release](https://img.shields.io/github/v/release/BA-CalderonMorales/rust-terminal-forge)
--   :material-license: **License**: [MIT](https://github.com/BA-CalderonMorales/rust-terminal-forge/blob/main/LICENSE)
+- :material-github: **Repository**: [BA-CalderonMorales/rust-terminal-forge](https://github.com/BA-CalderonMorales/rust-terminal-forge)
+- :material-web: **Live Demo**: [Rust Terminal Forge](https://ba-calderonmorales.github.io/rust-terminal-forge/)
 
 </div>
 
@@ -98,32 +90,39 @@ A secure, browser-based terminal emulator built with Rust and WebAssembly.
 
 ---
 
-## Technical Stack
+## Development Approach
 
-### Core Technologies
+### Technical Toolbox
 
-- **Frontend**: React, TypeScript, Tailwind CSS, Three.js
-- **Backend**: Rust (WASM), Node.js
-- **Documentation**: MkDocs, Material for MkDocs
-- **CI/CD**: GitHub Actions, GitHub Pages
-- **Hosting**: GitHub Pages, Lovable
+- **Languages & Frameworks**: JavaScript/TypeScript, React, Rust (WASM), Python, Node.js
+- **AI/ML Tools**: OpenAI Codex, Lovable, GPT4All, Local LLMs
+- **Infrastructure**: GitHub Actions, Docker, GitHub Pages
+- **IDEs & Tools**: GitHub Copilot, Windsurf, VS Code
+
+### Engineering Principles
+
+- **SOLID**: Single responsibility, Open/closed, Liskov substitution, Interface segregation, Dependency inversion
+- **DRY**: Eliminate duplication through abstraction and reusable components
+- **KISS**: Favor simplicity and clarity over unnecessary complexity
+- **YAGNI**: Build only what's needed now, avoid speculative features
 
 ### Development Practices
 
-- :material-git: Git-based workflow with semantic versioning
-- :material-test-tube: Comprehensive testing
-- :material-docker: Containerized development environments
-- :material-book-open-page-variant: Detailed documentation
-- :material-share-variant: Open source with permissive licenses
+- :material-git: Git workflows with semantic versioning
+- :material-test-tube: Test-driven development
+- :material-docker: Containerized environments
+- :material-robot: AI-assisted development
+- :material-shield-check: Automated security scanning
+- :material-code-braces: Code reviews & pair programming
+
+### Philosophy
+
+I focus on delivering value through clean, maintainable code and rapid iteration. Each project uses a tailored technology stack chosen for its specific requirements, ensuring the right tool for the job while maintaining high standards of quality and maintainability.
 
 ## Getting Involved
 
-Contributions are welcome! Each project has its own contribution guidelines in its repository. Feel free to open issues or submit pull requests for any improvements or bug fixes.
+Contributions are welcome! Check each project's repository for contribution guidelines. Feel free to open issues or submit pull requests for any improvements or bug fixes.
 
-## License
+## Open Source Philosophy
 
-All projects are open source and available under permissive licenses (primarily MIT and Apache 2.0). See individual repositories for specific licensing information.
-
----
-
-*Last updated: June 2024*
+I believe in the power of open source to drive innovation and learning. My projects reflect a commitment to clean, maintainable code and knowledge sharing within the developer community.
