@@ -16,6 +16,6 @@ nav:
 
   - Projects: projects/index.md
 
-  - Docs-as-Code: docs-as-code/index.md
-
   - Repositories: repositories/index.md
+
+  - Docs-as-Code: docs-as-code/index.md
