@@ -11,7 +11,7 @@ theme:
   
   # Custom logo and favicon
   logo: assets/images/me-today.png
-  favicon: assets/images/favicon.ico
+  favicon: assets/images/favicon/favicon.ico
   
   # Typography
   font:
