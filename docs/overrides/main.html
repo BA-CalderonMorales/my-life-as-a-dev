@@ -68,19 +68,22 @@
       height: 200px;
       border-radius: 50%;
       overflow: hidden;
-      border: 4px solid white;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 3px solid var(--md-primary-fg-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transition: all 0.25s ease;
     }
     
     .hero-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
     
-    .hero-image:hover {
-      transform: scale(1.05);
+    .hero-image-container:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border-color: var(--md-accent-fg-color);
     }
     
     @media screen and (max-width: 768px) {
