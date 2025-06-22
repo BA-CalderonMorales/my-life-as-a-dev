@@ -85,5 +85,3 @@ cargo build --release
 ## Next Steps
 
 - Explore the [Details](/repositories/my-life-as-a-dev/details/) section for advanced configuration
-- Check out the [AI Demo](/ai-demo/) to see the AI integration in action
-- Review the [Versioning Guide](/repositories/my-life-as-a-dev/versioning/) for documentation version management
