@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+
+  <meta name="site_url" content="{{ config.site_url }}">
+
+  <!-- Set initial favicon -->
+  <link rel="icon" href="{{ config.theme.logo | url }}" />
+
+{% endblock %}
+
+{% block classes %}
+
+  {% if page.url == '' %}
+
+    {{ super() }} landing-page
+
+  {% else %}
+
+    {{ super() }}
+
+  {% endif %}
+
+{% endblock %}
+
+{% block content %}
+  {% if page.url == '' %}
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-image-container">
+          <img 
+            src="{{ 'assets/images/me-today.png' | url }}" 
+            alt="Brandon A. Calderon-Morales" 
+            class="hero-image"
+            loading="eager"
+          >
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  
+  {{ super() }}
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}
+  <style>
+    .hero-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+      background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-accent-fg-color) 100%);
+      margin-bottom: 2rem;
+    }
+    
+    .hero-content {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .hero-image-container {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--md-primary-fg-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transition: all 0.25s ease;
+    }
+    
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.3s ease-in-out;
+    }
+    
+    .hero-image-container:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border-color: var(--md-accent-fg-color);
+    }
+    
+    @media screen and (max-width: 768px) {
+      .hero-image-container {
+        width: 160px;
+        height: 160px;
+      }
+    }
+  </style>
+{% endblock %}
