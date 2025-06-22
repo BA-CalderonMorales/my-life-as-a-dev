@@ -8,16 +8,39 @@ site_description: >
 
 theme:
   name: material
-
+  
+  # Custom logo and favicon
+  logo: assets/images/me-today.png
+  favicon: assets/images/favicon.ico
+  
+  # Typography
   font:
     text: Roboto
     code: Fira Code
-
+    
+  # Icons
   icon:
     repo: fontawesome/brands/github
-  
+    
+  # Custom overrides
   custom_dir: docs/overrides
+  
+  # Hero section
+  hero:
+    # The image to display in the hero section
+    image: assets/images/me-today.png
+    # Optional: image size (default: 200px)
+    image_size: 200px
+    # Optional: image style (default: 'border-radius: 50%')
+    image_style: 'border-radius: 50%'
+    # Optional: text alignment (default: center)
+    align: center
+    # Optional: text color (default: white)
+    text_color: white
+    # Optional: background color (default: primary)
+    background_color: primary
 
+  # Theme features
   features:
     - search.suggest
     - search.highlight
