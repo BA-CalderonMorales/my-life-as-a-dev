@@ -19,12 +19,6 @@
 </div>
 
 <br/>
-<details>
-   <summary><b> AI Demo Disclaimer</b></summary>
-   <div style="padding: 15px">
-     The AI integration feature in this repository is for demonstration purposes. When using the <a href="/ai-demo/">AI Demo</a>, you'll need to provide your own OpenAI API key. Please note that OpenAI API usage incurs costs based on token consumption. This project is not responsible for any charges you may incur while using your API key. Always monitor your usage at <a href="https://platform.openai.com/usage">OpenAI's usage dashboard</a>.
-   </div>
-</details>
 
 ##  Visualize Codebase
 
@@ -169,64 +163,6 @@
 ##  Project Information
 
 <details>
-<summary><b> AI Integration Configuration</b></summary>
-<div style="padding: 15px">
-
-   <p>This project includes AI-powered content generation capabilities using OpenAI's API. To use these features, you need to configure your OpenAI API key.</p>
-
-   <h3> Setting Up Your API Key</h3>
-
-   <p>For security reasons, your API key should not be committed to version control. Instead, use one of these methods:</p>
-
-   <h4>1 Using a .env File (Recommended for Local Development)</h4>
-
-   <p>Create a <code>.env</code> file in the root directory of the project:</p>
-
-   
-```bash
-# In .env file
-OPENAI_API_KEY=your_openai_api_key_here
-```
-
-   <p>Make sure to add <code>.env</code> to your <code>.gitignore</code> file to prevent accidentally committing your API key.</p>
-
-   <h4>2 Using Environment Variables</h4>
-
-   <p>Set the environment variable directly in your terminal:</p>
-
-   
-```bash
-# For Linux/macOS
-export OPENAI_API_KEY=your_openai_api_key_here
-
-# For Windows (Command Prompt)
-set OPENAI_API_KEY=your_openai_api_key_here
-
-# For Windows (PowerShell)
-$env:OPENAI_API_KEY="your_openai_api_key_here"
-```
-
-   <h4>3 Using Browser Storage (Coming Soon)</h4>
-
-   <p>In future releases, we'll add support for securely storing your API key in your browser's localStorage with encryption.</p>
-
-   <h3> Verifying Your Configuration</h3>
-
-   <p>You can verify that your API key is correctly configured by:</p>
-
-   <ol>
-     <li>Starting the MkDocs development server: <code>mkdocs serve</code></li>
-     <li>Checking the console logs for a message saying "AI Plugin: API key found in environment variables"</li>
-     <li>Visiting the <a href="/ai-demo/">AI Demo page</a> to test the AI features</li>
-   </ol>
-
-   <h3> Rate Limiting & Token Usage</h3>
-
-   <p>Please be aware that the OpenAI API has rate limits and token usage costs. The AI plugin is designed to be efficient, but be mindful of your API usage.</p>
-</div>
-</details>
-
-<details>
 <summary><b> Project Structure</b></summary>
 <div style="padding: 15px">
 
@@ -242,24 +178,12 @@ my-life-as-a-dev/
 ├── docs/                  # Documentation source files
 │   ├── .nav.yml           # Navigation configuration - MkDocs Material 
 │   ├── index.md           # Homepage
-│   ├── docs-as-code.md    # Docs-as-Code overview
 │   ├── assets/            # Images and static files
-│   ├── blog/              # Contains pages relevant to blogs
-│   ├── interests/         # Contains pages relevant to interests
 │   ├── repositories/      # Contains pages relevant to repositories
-│   ├── ai-demo/           # AI integration demo
 │   ├── overrides/         # MkDocs Material theme overrides
-│   ├── troubleshooting/   # General troubleshooting guide
 ├── mkdocs_plugins/        # Custom MkDocs plugins
-│   ├── ai_plugin/         # OpenAI integration plugin
 │   └── version_plugin/    # Documentation versioning plugin
 └── scripts/               # Utility scripts
-    ├── Cargo.toml               # Rust project configuration
-    ├── Cargo.lock               # Rust dependencies lock file
-    ├── doc-cli.rs               # Rust Documentation CLI tool
-    ├── startup.rs               # Startup script for setting up the development environment
-    ├── bump-version.rs          # Version bumping script
-    ├── deploy-all-versions.rs   # Deplyment script for all versions
 
 ```
 
