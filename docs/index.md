@@ -20,16 +20,16 @@ I’m a self-taught developer on track to complete a B.S. in Multidisciplinary S
 
 ## Projects & Experiments
 
-- **Docs-as-Code Portfolio**  
-  A personal documentation hub built with MkDocs Material and a custom AI plugin.  
+- :material-book-open-page-variant: **[Docs-as-Code Portfolio](https://ba-calderonmorales.github.io/my-life-as-a-dev/)**
+  A personal documentation hub built with MkDocs Material and a custom AI plugin.
 
-- **Immersive Awe Canvas**  
-  Browser-based 3D worlds built with Three.js and WebGL.  
+- :material-cube-outline: **[Immersive Awe Canvas](https://immersive-awe-canvas.lovable.app)**
+  Browser-based 3D worlds built with Three.js and WebGL.
 
-- **Shadow Scroll Blossom**  
-  Interactive art and generative visuals powered by AI-assisted coding.  
+- :material-brush: **[Shadow Scroll Blossom](https://ba-calderonmorales.github.io/shadow-scroll-blossom)**
+  Interactive art and generative visuals powered by AI-assisted coding.
 
-- **Rust Terminal Forge**  
+- :material-console: **[Rust Terminal Forge](https://ba-calderonmorales.github.io/rust-terminal-forge/)**
   A WebAssembly-based terminal emulator combining Rust tooling with a React interface.
 
 ---
