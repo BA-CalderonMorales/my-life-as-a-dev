@@ -18,6 +18,7 @@ setup(
     entry_points={
         "mkdocs.plugins": [
             "ai_plugin = mkdocs_plugins.ai_plugin:AIPlugin",
+            "pickaxe_rag_plugin = mkdocs_plugins.pickaxe_rag_plugin:PickaxeRAGPlugin",
         ],
     },
     # External dependencies required by this plugin
@@ -26,6 +27,7 @@ setup(
         "mkdocs>=1.6.1",  # MkDocs base package
         "openai>=1.3.0",  # OpenAI API client for AI content generation
         "python-dotenv>=1.0.0",  # For loading API keys from .env files
+        "requests>=2.31.0",  # HTTP client used by Pickaxe RAG integration
     ],
     # Uncomment and fill these in if you want to publish the plugin to PyPI
     # url="https://github.com/BA-CalderonMorales/my-life-as-a-dev",

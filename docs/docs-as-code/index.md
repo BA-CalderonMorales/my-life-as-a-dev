@@ -41,6 +41,7 @@ Our AI integration plugin provides:
 3. **Documentation Enhancement**: Improve existing content with AI suggestions
 
 See the [AI Demo](./ai-demo/index.md) for a live demonstration.
+Additional support for [Pickaxe RAG](../pickaxe_rag.md) allows you to embed answers directly in docs.
 
 ## Implementation Architecture
 

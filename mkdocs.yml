@@ -112,6 +112,7 @@ plugins:
   - search
   - tags
   - ai_plugin
+  - pickaxe_rag_plugin
   - minify:
       minify_html: true
       minify_js: true
