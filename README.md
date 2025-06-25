@@ -398,3 +398,8 @@ For the most accurate and up-to-date project structure, please refer to the [Git
    <p>This project is licensed under the Apache License 2.0 - see the <a href="LICENSE">LICENSE</a> file for details.</p>
 </div>
 </details>
+
+## AI Features
+
+- **OpenAI Integration** via `ai_plugin` for content generation.
+- **Pickaxe RAG** via `pickaxe_rag_plugin` to embed answers directly in docs. See [Pickaxe RAG Integration](docs/pickaxe_rag.md).

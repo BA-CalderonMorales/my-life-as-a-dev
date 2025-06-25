@@ -18,6 +18,7 @@ setup(
     entry_points={
         "mkdocs.plugins": [
             "ai_plugin = mkdocs_plugins.ai_plugin:AIPlugin",
+            "pickaxe_rag_plugin = mkdocs_plugins.pickaxe_rag_plugin:PickaxeRAGPlugin",
         ],
     },
     # External dependencies required by this plugin
