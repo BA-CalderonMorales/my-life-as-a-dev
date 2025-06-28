@@ -59,8 +59,9 @@ graph TD
 ## Automation Scripts
 
 Helper scripts in `scripts/python` keep repository pages up to date. These utilities
-fetch README files using `utils.cached_get`. Set the environment variable `GH_TOKEN`
-(or `GITHUB_TOKEN`) to authenticate GitHub requests and avoid rate limits.
+fetch README files using `utils.cached_get` and query the GitHub API with
+`utils.cached_get_json`. Set the environment variable `GH_TOKEN` (or
+`GITHUB_TOKEN`) to authenticate GitHub requests and avoid rate limits.
 `generate_repo_pages.py` supports `--base-dir` to control where pages are written
 and `--force-refresh` to bypass the cache when fetching files.
 
