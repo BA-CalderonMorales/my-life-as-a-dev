@@ -72,6 +72,9 @@ jobs:
           echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
           echo "Latest tag: $LATEST_TAG"
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Build and deploy with Mike
         if: github.event_name != 'pull_request'
         run: |
