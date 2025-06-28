@@ -56,6 +56,12 @@ graph TD
     I -->|Requests| G
 ```
 
+## Automation Scripts
+
+Helper scripts in `scripts/python` keep repository pages up to date. These utilities
+fetch README files using `utils.cached_get`. Set the environment variable `GH_TOKEN`
+(or `GITHUB_TOKEN`) to authenticate GitHub requests and avoid rate limits.
+
 ## Best Practices
 
 When working with this docs-as-code platform:
