@@ -14,7 +14,7 @@
 
 ## About Me
 
-I’m a self-taught developer on track to complete a B.S. in Multidisciplinary Studies (Computer Science) at the University of Nebraska at Omaha in 2025. Once a U.S. Marine Corps Legal Chief, I now apply military discipline and adaptability to software engineering. I specialize in resilient distributed systems, CI/CD pipeline automation, and docs-as-code practices. Outside of work, I’m a husband and father based in Omaha, NE. Images throughout this site now open in a smooth lightbox for a more modern feel.
+I’m a self-taught developer on track to complete a B.S. in Multidisciplinary Studies (Computer Science) at the University of Nebraska at Omaha in 2025. Once a U.S. Marine Corps Legal Chief, I now apply military discipline and adaptability to software engineering. I specialize in resilient distributed systems, CI/CD pipeline automation, and docs-as-code practices. Outside of work, I’m a husband and father based in Omaha, NE.
 
 ---
 
