@@ -1,10 +1,9 @@
-import json
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
 import argparse
 
-from utils import cached_get, slug
+from utils import cached_get_json, cached_get, slug
 
 OWNER = "BA-CalderonMorales"
 DEFAULT_BASE_DIR = Path(__file__).resolve().parent.parent / "docs" / "repositories"
@@ -15,13 +14,7 @@ INDEX_FILE = (
 
 def fetch_repo_info(repo: str, *, force: bool = False):
     url = f"https://api.github.com/repos/{OWNER}/{repo}"
-    text = cached_get(url, force=force)
-    if text:
-        try:
-            return json.loads(text)
-        except json.JSONDecodeError:
-            return None
-    return None
+    return cached_get_json(url, force=force)
 
 
 def fetch_readme(repo: str, branch: str, *, force: bool = False) -> str | None:
