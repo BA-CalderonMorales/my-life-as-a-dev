@@ -38,5 +38,44 @@ class TestCachedGet(unittest.TestCase):
                     self.assertEqual(result, "cached")
                     session.get.assert_not_called()
 
+class TestCachedGetJson(unittest.TestCase):
+    def test_returns_json_from_cache(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            url = "https://example.com/data.json"
+            cache_key = utils.hashlib.sha256(url.encode()).hexdigest()
+            cache_file = Path(tmpdir) / cache_key
+            cache_file.write_text('{"foo": 1}')
+            with mock.patch.object(utils, "CACHE_DIR", Path(tmpdir)):
+                with mock.patch.object(utils, "_session") as session:
+                    result = utils.cached_get_json(url)
+                    self.assertEqual(result, {"foo": 1})
+                    session.get.assert_not_called()
+
+    def test_force_refresh_fetches_json(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            url = "https://example.com/data.json"
+            cache_key = utils.hashlib.sha256(url.encode()).hexdigest()
+            cache_file = Path(tmpdir) / cache_key
+            cache_file.write_text("{\"foo\": 1}")
+            with mock.patch.object(utils, "CACHE_DIR", Path(tmpdir)):
+                with mock.patch.object(utils, "_session") as session:
+                    session.get.return_value.status_code = 200
+                    session.get.return_value.text = '{"bar": 2}'
+                    result = utils.cached_get_json(url, force=True)
+                    self.assertEqual(result, {"bar": 2})
+                    session.get.assert_called_once()
+
+    def test_invalid_json_returns_none(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            url = "https://example.com/bad.json"
+            cache_key = utils.hashlib.sha256(url.encode()).hexdigest()
+            cache_file = Path(tmpdir) / cache_key
+            cache_file.write_text("not json")
+            with mock.patch.object(utils, "CACHE_DIR", Path(tmpdir)):
+                with mock.patch.object(utils, "_session") as session:
+                    result = utils.cached_get_json(url)
+                    self.assertIsNone(result)
+                    session.get.assert_not_called()
+
 if __name__ == "__main__":
     unittest.main()
