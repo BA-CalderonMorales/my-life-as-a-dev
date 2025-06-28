@@ -18,3 +18,4 @@ python-dotenv>=1.0.0
 requests>=2.31.0
 markdown>=3.5.1
 jinja2>=3.1.2
+mkdocs-glightbox>=0.3.0
