@@ -1342,5 +1342,15 @@ The key is to write clean, testable, functional code that evolves through small,
 
 ## Project Standards
 
-This repository uses MkDocs with the Material theme for documentation and includes Rust-based tooling. Adhere to the official best practices and conventions for MkDocs, MkDocs Material, and Rust throughout the project.
+This repository uses MkDocs with the Material theme and a custom AI plugin. All documentation tooling is Python based and the helper CLI is written in Rust.
+
+### Working with the Docs
+
+- Use **Python 3.10+**.
+- Run `make setup` to install dependencies and register the local plugin.
+- Run `make serve` while editing to start the MkDocs development server.
+- Run `make build` to generate the static site.
+- Documentation versions are managed with `mike`; use `./scripts/bump-version.sh` to create new versions when needed.
+
+Follow official best practices for MkDocs, MkDocs Material, and Rust across the project.
 

@@ -5,22 +5,19 @@ These rules keep development consistent across the project. The document is inte
 ## General Principles
 
 - Follow Test-Driven Development. Write tests before production code and keep changes small.
-- Use strict TypeScript and prefer immutable patterns.
+- Use Python 3.10 or higher and prefer immutable patterns and small pure functions.
 - When looking for solutions, consult **context7** and the guidance in **MEMORY.md**. Do not copy text from MEMORY.md into this file.
 
 ## Local Workflow
 
-Use these npm scripts during feature work:
+Use these Makefile targets during feature work:
 
-- `npm ci` – install dependencies
-- `npm start` – run the Metro bundler
-- `npm run ios` – run the iOS app
-- `npm run android` – run the Android app
-- `npm test` – run the full test suite
-- `npm run typecheck` – run TypeScript checks
-- `npm run build` – build release artifacts with Fastlane
+- `make setup` – install Python dependencies and the local MkDocs plugin
+- `make serve` – start the MkDocs development server
+- `make build` – build the static site
+- `make cli` – run the Rust-based documentation CLI
 
-Run `npm ci`, `npm test`, `npm run typecheck`, and `npm run build` before pushing changes. CI uses the same commands.
+Run `make setup` and `make build` before pushing changes. CI uses the same commands.
 
 ## Commit Standards
 
@@ -48,7 +45,7 @@ After merging into `develop`, automatically open a PR that merges `develop` into
 
 ## Continuous Integration
 
-All dependencies must be installed with `npm ci` in CI jobs. The Super-Linter runs on every pull request via `.github/workflows/super-linter.yml`.
+All dependencies must be installed using `make setup` in CI jobs. The Super-Linter runs on every pull request via `.github/workflows/super-linter.yml`.
 
-Ensure we find ways to mitigate any current Super-Linter failures as we continue to make incremental changes. Failures should not cause us to break existing functionality or alter the current UI appearance. Take a balanced approach when addressing linter issues.
+Ensure we find ways to mitigate any current Super-Linter failures as we continue to make incremental changes. Failures should not cause us to break existing functionality or alter the current documentation appearance. Take a balanced approach when addressing linter issues.
 
