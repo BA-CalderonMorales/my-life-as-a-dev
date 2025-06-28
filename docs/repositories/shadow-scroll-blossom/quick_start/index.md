@@ -81,6 +81,6 @@ The project is automatically deployed to GitHub Pages on every push to the `main
 
 ## Next Steps
 
-- Explore the [Details](/repositories/shadow-scroll-blossom/details/) for advanced configuration
-- Learn how to [create custom themes](/repositories/shadow-scroll-blossom/details/#custom-themes)
-- Check out the [keyboard shortcuts](/repositories/shadow-scroll-blossom/details/#keyboard-shortcuts)
+- Explore the [Details](../details/index.md) for advanced configuration
+- Learn how to [create custom themes](../details/index.md#custom-themes)
+- Check out the [keyboard shortcuts](../details/index.md#keyboard-shortcuts)

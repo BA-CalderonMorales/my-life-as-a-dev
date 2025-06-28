@@ -18,7 +18,7 @@ This project serves as my personal documentation hub, showcasing my work, though
 
 - :material-github: [GitHub Repository](https://github.com/BA-CalderonMorales/my-life-as-a-dev)
 - :material-web: [Live Demo](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
-- :material-api: [AI Demo](/ai-demo/)
+- :material-api: AI Demo *(coming soon)*
 
 ## Project Status
 
@@ -29,8 +29,8 @@ This project serves as my personal documentation hub, showcasing my work, though
 
 ## Getting Started
 
-Visit the [Quick Start](/repositories/my-life-as-a-dev/quick_start/) guide for setup instructions and development workflows.
+Visit the [Quick Start](quick_start/index.md) guide for setup instructions and development workflows.
 
 ## Documentation
 
-Explore the [Details](/repositories/my-life-as-a-dev/details/) section for in-depth information about the project's architecture, features, and contribution guidelines.
+Explore the [Details](details/index.md) section for in-depth information about the project's architecture, features, and contribution guidelines.
