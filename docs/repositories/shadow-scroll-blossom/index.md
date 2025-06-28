@@ -27,8 +27,8 @@ Shadow Scroll Blossom is an interactive canvas that creates colorful particle tr
 
 ## Getting Started
 
-Visit the [Quick Start](/repositories/shadow-scroll-blossom/quick_start/) guide for setup instructions and development workflows.
+Visit the [Quick Start](quick_start/index.md) guide for setup instructions and development workflows.
 
 ## Documentation
 
-Explore the [Details](/repositories/shadow-scroll-blossom/details/) section for in-depth information about the project's architecture, features, and contribution guidelines.
+Explore the [Details](details/index.md) section for in-depth information about the project's architecture, features, and contribution guidelines.

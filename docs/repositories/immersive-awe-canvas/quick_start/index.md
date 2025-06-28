@@ -91,6 +91,6 @@ The project is automatically deployed to GitHub Pages on every push to the `main
 
 ## Next Steps
 
-- Explore the [Details](/repositories/immersive-awe-canvas/details/) for advanced configuration
-- Check out the [keyboard shortcuts](#keyboard-shortcuts) for navigation
-- Learn how to [create custom worlds](/repositories/immersive-awe-canvas/details/#creating-custom-worlds)
+- Explore the [Details](../details/index.md) for advanced configuration
+- Check out the [keyboard shortcuts](../details/index.md#keyboard-shortcuts) for navigation
+- Learn how to [create custom worlds](../details/index.md#creating-custom-worlds)
