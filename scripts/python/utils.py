@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import os
+import re
 from pathlib import Path
 
 import requests
@@ -18,11 +19,17 @@ CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 def slug(name: str) -> str:
     """Convert a repository name to a filesystem-friendly slug."""
-    return name.lower().replace("-", "_")
+    slugified = name.lower()
+    slugified = re.sub(r"[^a-z0-9]+", "_", slugified)
+    return slugified.strip("_")
 
 
 def cached_get(
-    url: str, *, timeout: int = 10, headers: dict[str, str] | None = None
+    url: str,
+    *,
+    timeout: int = 10,
+    headers: dict[str, str] | None = None,
+    force: bool = False,
 ) -> str | None:
     """Fetch a URL and cache the result on disk.
 
@@ -32,7 +39,7 @@ def cached_get(
     cache_key = hashlib.sha256(url.encode()).hexdigest()
     cache_file = CACHE_DIR / cache_key
 
-    if cache_file.exists():
+    if cache_file.exists() and not force:
         return cache_file.read_text(encoding="utf-8")
 
     if headers is None:
