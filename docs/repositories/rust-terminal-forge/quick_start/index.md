@@ -91,6 +91,6 @@ The project is automatically deployed to GitHub Pages on every push to the `main
 
 ## Next Steps
 
-- Explore the [Details](/repositories/rust-terminal-forge/details/) for advanced configuration
-- Learn about the [terminal features](/repositories/rust-terminal-forge/details/#terminal-features)
-- Check out the [keyboard shortcuts](/repositories/rust-terminal-forge/details/#keyboard-shortcuts)
+- Explore the [Details](../details/index.md) for advanced configuration
+- Learn about the [terminal features](../details/index.md#terminal-features)
+- Check out the [keyboard shortcuts](../details/index.md#keyboard-shortcuts)

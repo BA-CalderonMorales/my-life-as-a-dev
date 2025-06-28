@@ -84,4 +84,4 @@ cargo build --release
 
 ## Next Steps
 
-- Explore the [Details](/repositories/my-life-as-a-dev/details/) section for advanced configuration
+- Explore the [Details](../details/index.md) section for advanced configuration
