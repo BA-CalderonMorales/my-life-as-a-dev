@@ -2,19 +2,20 @@ import json
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
+import argparse
 
 from utils import cached_get, slug
 
 OWNER = "BA-CalderonMorales"
-BASE_DIR = Path(__file__).resolve().parent.parent / "docs" / "repositories"
+DEFAULT_BASE_DIR = Path(__file__).resolve().parent.parent / "docs" / "repositories"
 INDEX_FILE = (
     Path(__file__).resolve().parent.parent / "docs" / "repositories" / "index.md"
 )
 
 
-def fetch_repo_info(repo: str):
+def fetch_repo_info(repo: str, *, force: bool = False):
     url = f"https://api.github.com/repos/{OWNER}/{repo}"
-    text = cached_get(url)
+    text = cached_get(url, force=force)
     if text:
         try:
             return json.loads(text)
@@ -23,9 +24,9 @@ def fetch_repo_info(repo: str):
     return None
 
 
-def fetch_readme(repo: str, branch: str) -> str | None:
+def fetch_readme(repo: str, branch: str, *, force: bool = False) -> str | None:
     url = f"https://raw.githubusercontent.com/{OWNER}/{repo}/{branch}/README.md"
-    return cached_get(url)
+    return cached_get(url, force=force)
 
 
 def get_repo_names() -> list[str]:
@@ -34,12 +35,12 @@ def get_repo_names() -> list[str]:
     return pattern.findall(text)
 
 
-def create_page(repo: str):
-    info = fetch_repo_info(repo)
+def create_page(repo: str, *, base_dir: Path, force: bool = False):
+    info = fetch_repo_info(repo, force=force)
     content = ""
     if info and not info.get("private", False):
         branch = info.get("default_branch", "main")
-        readme = fetch_readme(repo, branch)
+        readme = fetch_readme(repo, branch, force=force)
         if readme:
             content = readme
         else:
@@ -58,14 +59,31 @@ def create_page(repo: str):
     else:
         content += "\n\n_It's been a while since this repo was updated._"
 
-    target_dir = BASE_DIR / slug(repo)
+    target_dir = base_dir / slug(repo)
     target_dir.mkdir(parents=True, exist_ok=True)
     (target_dir / "index.md").write_text(content.rstrip() + "\n", encoding="utf-8")
 
 
-def main():
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Generate repository pages")
+    parser.add_argument(
+        "--base-dir",
+        type=Path,
+        default=DEFAULT_BASE_DIR,
+        help="Directory where pages will be created",
+    )
+    parser.add_argument(
+        "--force-refresh",
+        action="store_true",
+        help="Ignore cached responses and fetch fresh data",
+    )
+    args = parser.parse_args()
+
+    base_dir = args.base_dir
+    base_dir.mkdir(parents=True, exist_ok=True)
+
     for repo in get_repo_names():
-        create_page(repo)
+        create_page(repo, base_dir=base_dir, force=args.force_refresh)
 
 
 if __name__ == "__main__":
