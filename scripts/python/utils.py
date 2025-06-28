@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import os
 import re
+import json
 from pathlib import Path
 
 import requests
@@ -54,4 +55,15 @@ def cached_get(
             return resp.text
     except requests.RequestException:
         pass
+    return None
+
+
+def cached_get_json(url: str, *, force: bool = False, timeout: int = 10, headers: dict[str, str] | None = None):
+    """Fetch a URL expecting a JSON response and return the parsed data."""
+    text = cached_get(url, force=force, timeout=timeout, headers=headers)
+    if text:
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            return None
     return None
