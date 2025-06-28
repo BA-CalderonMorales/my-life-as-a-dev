@@ -108,6 +108,7 @@ plugins:
       timezone: America/North_Dakota/Center
   - mike
   - panzoom
+  - glightbox
   - print-site
   - search
   - tags
