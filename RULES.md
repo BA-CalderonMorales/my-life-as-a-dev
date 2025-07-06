@@ -7,6 +7,7 @@ These rules keep development consistent across the project. The document is inte
 - Follow Test-Driven Development. Write tests before production code and keep changes small.
 - Use Python 3.10 or higher and prefer immutable patterns and small pure functions.
 - When looking for solutions, consult **context7** and the guidance in **MEMORY.md**. Do not copy text from MEMORY.md into this file.
+- Refer to the **Software Engineering Laws** section in **MEMORY.md** for decision-making patterns and historical context.
 
 ## Local Workflow
 
