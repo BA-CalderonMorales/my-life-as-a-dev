@@ -1354,3 +1354,79 @@ This repository uses MkDocs with the Material theme and a custom AI plugin. All 
 
 Follow official best practices for MkDocs, MkDocs Material, and Rust across the project.
 
+## Software Engineering Laws: Expanded Interpretations & Examples
+
+This section summarizes classic engineering laws and their real-world implications. Review these principles when planning or reflecting on work.
+
+### Index
+
+- Murphy’s Law
+- Brook’s Law
+- Hofstadter’s Law
+- Conway’s Law
+- Postel’s Law
+- Pareto Principle
+- The Peter Principle
+- Kerckhoffs’s Principle
+- Linus’s Law
+- Moore’s Law
+- Wirth’s Law
+- Ninety-ninety Rule
+- Knuth’s Optimization Principle
+- Norvig’s Law
+
+### Murphy’s Law
+
+**“Anything that can go wrong, will go wrong.”** Defensive coding, robust testing, and solid rollback plans help mitigate inevitable failures.
+
+### Brook’s Law
+
+**“Adding manpower to a late software project makes it later.”** More people can increase coordination overhead—refine scope and processes first.
+
+### Hofstadter’s Law
+
+**“It always takes longer than you expect, even when you take into account Hofstadter’s Law.”** Pad estimates to account for hidden complexity.
+
+### Conway’s Law
+
+**“Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations.”** Align team structure with the architecture you want.
+
+### Postel’s Law
+
+**“Be conservative in what you send, be liberal in what you accept.”** Write strict outputs, but gracefully handle varied inputs.
+
+### Pareto Principle
+
+**“80% of consequences come from 20% of causes.”** Focus on the small fraction of code that drives most outcomes.
+
+### The Peter Principle
+
+**“In a hierarchy, every employee tends to rise to his level of incompetence.”** Provide growth paths that value both technical and managerial expertise.
+
+### Kerckhoffs’s Principle
+
+**“A cryptosystem should be secure even if everything about the system, except the key, is public knowledge.”** Depend on key secrecy, not algorithm secrecy.
+
+### Linus’s Law
+
+**“Given enough eyeballs, all bugs are shallow.”** Encourage open collaboration and code review.
+
+### Moore’s Law
+
+**“Transistor count doubles approximately every 18–24 months.”** Hardware improves quickly, but relying on this can lead to bloat.
+
+### Wirth’s Law
+
+**“Software gets slower faster than hardware gets faster.”** Feature creep and heavy frameworks can overwhelm hardware gains.
+
+### Ninety-ninety Rule
+
+**“The first 90% of the code takes 10% of the time; the remaining 10% takes the other 90% of the time.”** Final polishing often consumes most of the schedule.
+
+### Knuth’s Optimization Principle
+
+**“Premature optimization is the root of all evil.”** Optimize only after profiling reveals true bottlenecks.
+
+### Norvig’s Law
+
+**“Any technology that surpasses 50% penetration will never double again.”** Recognize maturity and adjust growth strategies accordingly.
