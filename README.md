@@ -22,6 +22,8 @@
 
 ##  Developer Onboarding
 
+> **⚠️ WSL Compatibility Notice**: We're actively working on improving WSL compatibility for the doc-cli tool. In the meantime, if you encounter issues with the doc-cli tool in WSL environments, you can run the documentation server directly using `mkdocs serve`.
+
 <details>
 <summary><b> GitHub Codespaces</b></summary>
 <div style="padding: 15px">
@@ -150,15 +152,18 @@
 ##  Project Information
 
 <details>
-<summary><b> Project Structure</b></summary>
+<summary><b> Framework Architecture</b></summary>
 <div style="padding: 15px">
 
-This section outlines the key directories and files in the project to help you navigate and understand its components.
+This repository follows a consistent **agents/** framework architecture that has been successfully implemented across multiple projects. This approach was refined through lessons learned from the [immersive-awe-canvas](https://github.com/BA-CalderonMorales/immersive-awe-canvas) architectural updates.
 
-Below is a simplified overview of the project structure:
+### Framework Structure
 
 ```
 my-life-as-a-dev/
+├── agents/                # Agent framework directory
+│   ├── RULES.md           # Repository workflow rules and guidelines
+│   └── MEMORY.md          # Comprehensive development guidelines for LLMs/agents
 ├── mkdocs.yml             # MkDocs configuration file
 ├── requirements.txt       # Python dependencies
 ├── doc-cli.sh             # CLI wrapper script
@@ -171,8 +176,35 @@ my-life-as-a-dev/
 ├── mkdocs_plugins/        # Custom MkDocs plugins
 │   └── version_plugin/    # Documentation versioning plugin
 └── scripts/               # Utility scripts
-
 ```
+
+### Framework Benefits
+
+- **Consistent Structure**: Standardized approach across all repositories
+- **Easy Adoption**: Framework can be easily adopted by other developers and open source projects
+- **Clear Guidelines**: Well-defined development and contribution workflows
+- **Agent-Friendly**: Optimized for AI-assisted development workflows
+- **Scalable**: Proven architecture that scales across multiple project types
+
+### Cross-Repository Consistency
+
+This framework has been implemented across multiple repositories:
+
+- **immersive-awe-canvas**: 3D creative coding playground (original framework implementation)
+- **my-life-as-a-dev**: Documentation consolidation hub (this repository)
+- **rust-terminal-forge**: Secure terminal interface
+- **shadow-scroll-blossom**: Interactive canvas experience
+
+Each repository maintains the same `agents/` structure while adapting the specific rules and memory guidelines to their domain requirements.
+
+</div>
+</details>
+
+<details>
+<summary><b> Project Structure</b></summary>
+<div style="padding: 15px">
+
+This section outlines the key directories and files in the project to help you navigate and understand its components.
 
 For the most accurate and up-to-date project structure, please refer to the [GitHub repository](https://github.com/BA-CalderonMorales/my-life-as-a-dev).
 
