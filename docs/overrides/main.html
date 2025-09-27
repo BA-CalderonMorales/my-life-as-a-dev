@@ -2,95 +2,142 @@
 
 {% block extrahead %}
 
-  <meta name="site_url" content="{{ config.site_url }}">
+<meta name="site_url" content="{{ config.site_url }}">
 
-  <!-- Set initial favicon -->
-  <link rel="icon" href="{{ config.theme.logo | url }}" />
+<!-- Set initial favicon -->
+<link rel="icon" href="{{ config.theme.logo | url }}" />
 
 {% endblock %}
 
 {% block classes %}
 
-  {% if page.url == '' %}
+{% if page.url == '' %}
 
-    {{ super() }} landing-page
+{{ super() }} landing-page
 
-  {% else %}
+{% else %}
 
-    {{ super() }}
+{{ super() }}
 
-  {% endif %}
+{% endif %}
 
 {% endblock %}
 
 {% block content %}
-  {% if page.url == '' %}
-    <div class="hero-container">
-      <div class="hero-content">
-        <div class="hero-image-container">
-          <img 
-            src="{{ 'assets/images/me-today.png' | url }}" 
-            alt="Brandon A. Calderon-Morales" 
-            class="hero-image"
-            loading="eager"
-          >
-        </div>
-      </div>
+{% if page.url == '' %}
+<div class="hero-container">
+  <div class="hero-content">
+    <div class="hero-image-container">
+      <img src="{{ 'assets/images/me-today.png' | url }}" alt="Brandon A. Calderon-Morales" class="hero-image"
+        loading="eager">
     </div>
-  {% endif %}
-  
-  {{ super() }}
+  </div>
+</div>
+{% endif %}
+
+{{ super() }}
+
+<details>
+  <summary><b> Ask this page (AI)</b></summary>
+  <div style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 10px;">
+    <div style="display:flex; gap:8px; align-items:center; margin-bottom: 8px;">
+      <input id="ai-q" type="text" placeholder="Ask a question about this page…"
+        style="flex:1; padding:8px; border:1px solid #ccc; border-radius:4px;" />
+      <button id="ai-ask" style="padding:8px 12px;">Ask</button>
+    </div>
+    <div id="ai-a" style="white-space:pre-wrap; font-family: var(--md-text-font-family, system-ui, sans-serif);"></div>
+    <small>Answers are restricted to this page content. Requires GITHUB_TOKEN set in environment.</small>
+  </div>
+</details>
+
+<script>
+  (function () {
+    function getTextContent() {
+      try {
+        return document.body.innerText || '';
+      } catch (e) {
+        return '';
+      }
+    }
+    function wire() {
+      var btn = document.getElementById('ai-ask');
+      if (!btn) return;
+      btn.addEventListener('click', async function () {
+        var q = document.getElementById('ai-q').value;
+        var a = document.getElementById('ai-a');
+        a.textContent = 'Thinking…';
+        try {
+          const res = await fetch('http://127.0.0.1:8765/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: q, context: getTextContent() })
+          });
+          if (!res.ok) throw new Error(await res.text());
+          const data = await res.json();
+          a.textContent = data.answer || '(no answer)';
+        } catch (e) {
+          a.textContent = 'Error: ' + e;
+        }
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', wire);
+    } else {
+      wire();
+    }
+  })();
+</script>
 {% endblock %}
 
 {% block styles %}
-  {{ super() }}
-  <style>
-    .hero-container {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem 1rem;
-      background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-accent-fg-color) 100%);
-      margin-bottom: 2rem;
-    }
-    
-    .hero-content {
-      max-width: 1200px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
+{{ super() }}
+<style>
+  .hero-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-accent-fg-color) 100%);
+    margin-bottom: 2rem;
+  }
+
+  .hero-content {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-image-container {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--md-primary-fg-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.25s ease;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hero-image-container:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-color: var(--md-accent-fg-color);
+  }
+
+  @media screen and (max-width: 768px) {
     .hero-image-container {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid var(--md-primary-fg-color);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      transition: all 0.25s ease;
+      width: 160px;
+      height: 160px;
     }
-    
-    .hero-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: all 0.3s ease-in-out;
-    }
-    
-    .hero-image-container:hover {
-      transform: scale(1.03);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      border-color: var(--md-accent-fg-color);
-    }
-    
-    @media screen and (max-width: 768px) {
-      .hero-image-container {
-        width: 160px;
-        height: 160px;
-      }
-    }
-  </style>
+  }
+</style>
 {% endblock %}

@@ -29,26 +29,26 @@
 <div style="padding: 15px">
    <p>This repository is configured for GitHub Codespaces, allowing you to start working with the documentation instantly in your browser.</p>
 
-   <ol>
+  <ol>
      <li>Click the green "Code" button on the GitHub repository page</li>
      <li>Select "Open with Codespaces"</li>
      <li>Click "New codespace" to launch a new environment</li>
-     <li>Once your Codespace is ready, run the simplified CLI wrapper script:<br/><br/>
+  <li>Once your Codespace is ready, run the Linux-native CLI (recommended):<br/><br/>
      </li>
 
 ```bash
-./doc-cli.sh startup
+doc-cli startup
 ```
    </ol>
 
-   <p>This script will:</p>
+  <p>This command will:</p>
    <ul>
      <li> Automatically compile all Rust tools to ensure they're up to date</li>
      <li> Display an interactive menu to choose which tool to run</li>
      <li> Allow you to select "startup" to set up the development environment</li>
    </ul>
 
-   <p>You can also directly specify which tool to run:</p>
+  <p>You can also use the wrapper script (alternative):</p>
 
 ```bash
 ./doc-cli.sh startup
@@ -315,13 +315,21 @@ For the most accurate and up-to-date project structure, please refer to the [Git
 
    <h3> Using the CLI Tool</h3>
 
-   <p>You can run the Documentation CLI tool using:</p>
+  <p>You can run the Documentation CLI tool using the Linux-native binary (recommended in Dev Container/Codespaces):</p>
 
-   <pre><code>./scripts/target/release/doc-cli</code></pre>
+  <pre><code>doc-cli</code></pre>
 
-   <p>Or with a specific command:</p>
+  <p>Or directly via the repo-level shim:</p>
 
-   <pre><code>./scripts/target/release/doc-cli [command]</code></pre>
+  <pre><code>./doc-cli</code></pre>
+
+  <p>If you prefer the explicit Cargo target path, the binary is located at:</p>
+
+  <pre><code>./scripts/rust/target/release/doc-cli</code></pre>
+
+  <p>Run with a specific command:</p>
+
+  <pre><code>doc-cli [command]</code></pre>
 
    <h3> Available Commands</h3>
 
@@ -386,7 +394,7 @@ For the most accurate and up-to-date project structure, please refer to the [Git
 
    <h3> CLI Wrapper Script</h3>
 
-   <p>For convenience, a wrapper script <code>doc-cli.sh</code> is provided. This script simplifies the usage of the CLI tool by:</p>
+  <p>For convenience, a wrapper script <code>doc-cli.sh</code> is also provided (optional). This script simplifies the usage of the CLI tool by:</p>
 
    <ul>
      <li> Automatically compiling all Rust tools to ensure they're up to date</li>
@@ -394,9 +402,26 @@ For the most accurate and up-to-date project structure, please refer to the [Git
      <li> Allowing direct execution of specific commands, e.g., <code>./doc-cli.sh startup</code></li>
    </ul>
 
-   <p>First, you'll need to make the script executable (this only needs to be done once):</p>
+  <p>First, you'll need to make the script executable (this only needs to be done once):</p>
 
    <pre><code>chmod +x ./doc-cli.sh</code></pre>
+
+   <h3> Troubleshooting</h3>
+
+   <ul>
+     <li><strong>doc-cli: command not found</strong>
+       <ul>
+         <li>Open the repository in the Dev Container, or run:<br/>
+         <code>bash .devcontainer/scripts/setup-dev-environment.sh</code></li>
+         <li>This installs the binary via Cargo and creates a <code>./doc-cli</code> shim.</li>
+       </ul>
+     </li>
+     <li><strong>Permission denied: ./doc-cli</strong>
+       <ul>
+         <li>Ensure it’s executable: <code>chmod +x ./doc-cli</code></li>
+       </ul>
+     </li>
+   </ul>
 
    <p>Then you can use it as follows:</p>
 

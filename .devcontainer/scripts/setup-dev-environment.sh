@@ -45,6 +45,22 @@ if [ -f "$ROOT_DIR/requirements.txt" ]; then
   uv pip install -r "$ROOT_DIR/requirements.txt"
 fi
 
+# Install doc-cli Rust binary to PATH and create repo-level shim
+if command -v cargo >/dev/null 2>&1; then
+  if ! command -v doc-cli >/dev/null 2>&1; then
+    log "Installing doc-cli (cargo install)"
+    (cd "$ROOT_DIR/scripts/rust" && cargo install --path . --bin doc-cli)
+  else
+    log "doc-cli already installed"
+  fi
+  # Create a convenient symlink so ./doc-cli works in repo root
+  DOC_BIN_PATH="$(command -v doc-cli || true)"
+  if [ -n "$DOC_BIN_PATH" ] && [ -x "$DOC_BIN_PATH" ]; then
+    ln -sf "$DOC_BIN_PATH" "$ROOT_DIR/doc-cli"
+    chmod +x "$ROOT_DIR/doc-cli" || true
+  fi
+fi
+
 # Quick MkDocs sanity check (does not start server)
 if command -v mkdocs >/dev/null 2>&1; then
   log "Running MkDocs sanity check (build config)..."
@@ -73,8 +89,10 @@ echo "--------------------------------------------------"
 echo "Next steps:"
 echo "1) MkDocs dev server (optional):"
 echo "   uv run mkdocs serve -a 0.0.0.0:8000"
-echo "2) Build Rust tool (optional):"
+echo "2) Doc CLI help:"
+echo "   doc-cli --help    # or ./doc-cli"
+echo "3) Build Rust tools (optional):"
 echo "   cd scripts/rust && cargo build"
-echo "3) Install/update Python deps:"
+echo "4) Install/update Python deps:"
 echo "   uv pip install -r requirements.txt"
 echo "=================================================="
