@@ -24,7 +24,6 @@
       "extensions": [
         "vadimcn.vscode-lldb",
         "tamasfe.even-better-toml",
-        "rust-lang.rust-analyzer",
         "ms-vscode.vscode-typescript-next",
         "ms-python.python",
         "ms-python.vscode-pylance",
