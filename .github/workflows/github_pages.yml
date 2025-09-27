@@ -5,8 +5,12 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '.devcontainer/**'
 
   pull_request:
+    paths-ignore:
+      - '.devcontainer/**'
 
   workflow_dispatch:
 
