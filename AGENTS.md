@@ -56,6 +56,17 @@ Ensure we find ways to mitigate any current Super-Linter failures as we continue
 
 ## Code Style and Standards
 
+### Documentation Standards
+
+**CRITICAL: ABSOLUTELY NO EMOJIS**
+
+- **NEVER use emojis** in documentation files (*.md)
+- **NEVER use emojis** in code comments
+- **NEVER use emojis** in commit messages
+- Use plain text section headers instead of emoji prefixes
+- Use Material Design icons via `:material-icon-name:` syntax if visual indicators are needed
+- Keep documentation clean, professional, and emoji-free
+
 ### Python Guidelines
 
 - **Python 3.10+** is required

@@ -157,6 +157,7 @@ See **AGENTS.md** for comprehensive guidelines on:
 - Testing approach
 
 Key principles:
+- **ABSOLUTELY NO EMOJIS** in documentation, code, or commits
 - Follow Test-Driven Development where applicable
 - Use Python 3.10+ with immutable patterns and pure functions
 - Use Conventional Commits format (feat:, fix:, chore:, etc.)
