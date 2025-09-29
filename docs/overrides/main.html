@@ -1,90 +1,160 @@
 {% extends "base.html" %}
 
 {% block extrahead %}
-
 <meta name="site_url" content="{{ config.site_url }}">
-
-<!-- Set initial favicon -->
 <link rel="icon" href="{{ config.theme.logo | url }}" />
-
 {% endblock %}
 
 {% block classes %}
-
-{% if page.url == '' %}
-
-{{ super() }} landing-page
-
-{% else %}
-
-{{ super() }}
-
-{% endif %}
-
+{{ super() }}{% if page.url == '' %} landing-page{% endif %}
 {% endblock %}
 
-{% block content %}
-{% if page.url == '' %}
-<div class="hero-container">
-  <div class="hero-content">
-    <div class="hero-image-container">
-      <img src="{{ 'assets/images/me-today.png' | url }}" alt="Brandon A. Calderon-Morales" class="hero-image"
-        loading="eager">
-    </div>
-  </div>
-</div>
-{% endif %}
-
+{% block scripts %}
 {{ super() }}
-
-<details>
-  <summary><b> Ask this page (AI)</b></summary>
-  <div style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 10px;">
-    <div style="display:flex; gap:8px; align-items:center; margin-bottom: 8px;">
-      <input id="ai-q" type="text" placeholder="Ask a question about this page…"
-        style="flex:1; padding:8px; border:1px solid #ccc; border-radius:4px;" />
-      <button id="ai-ask" style="padding:8px 12px;">Ask</button>
-    </div>
-    <div id="ai-a" style="white-space:pre-wrap; font-family: var(--md-text-font-family, system-ui, sans-serif);"></div>
-    <small>Answers are restricted to this page content. Requires GITHUB_TOKEN set in environment.</small>
-  </div>
-</details>
-
 <script>
   (function () {
+    var COACHMARK_KEY = 'ai_fab_coachmark_v1';
     function getTextContent() {
-      try {
-        return document.body.innerText || '';
-      } catch (e) {
-        return '';
-      }
+      try { return document.body.innerText || ''; } catch (e) { return ''; }
     }
-    function wire() {
-      var btn = document.getElementById('ai-ask');
-      if (!btn) return;
-      btn.addEventListener('click', async function () {
-        var q = document.getElementById('ai-q').value;
-        var a = document.getElementById('ai-a');
-        a.textContent = 'Thinking…';
-        try {
-          const res = await fetch('http://127.0.0.1:8765/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ question: q, context: getTextContent() })
-          });
-          if (!res.ok) throw new Error(await res.text());
-          const data = await res.json();
-          a.textContent = data.answer || '(no answer)';
-        } catch (e) {
-          a.textContent = 'Error: ' + e;
+    function resolveProxyUrl() {
+      var loc = window.location; var host = loc.host || '';
+      if (/\.app\.github\.dev$/.test(host)) {
+        var gh = host.replace(/-8000(\.|$)/, '-8765$1');
+        return 'https://' + gh + '/chat';
+      }
+      if (host.includes('localhost') || host.includes('127.0.0.1')) {
+        return 'http://127.0.0.1:8765/chat';
+      }
+      var generic = host.replace(':8000', ':8765');
+      return (loc.protocol + '//' + generic + '/chat');
+    }
+    function createUi() {
+      // Guard: don't duplicate if already present (e.g., during instant navigation)
+      var existingFab = document.querySelector('.ai-fab');
+      var existingPanel = document.querySelector('.ai-panel');
+      if (existingFab && existingPanel) return { fab: existingFab, panel: existingPanel };
+
+      var fab = document.createElement('button');
+      fab.className = 'ai-fab md-button md-button--primary';
+      fab.textContent = 'Ask page (AI)';
+      fab.setAttribute('aria-label', 'Ask this page with AI');
+      var panel = document.createElement('div'); panel.className = 'ai-panel';
+        panel.innerHTML = [
+          '<h4>Ask this page</h4>',
+          '<div id="ai-conn" class="ai-conn" style="margin: 0 0 8px 0; font-size: .85em; opacity: .85;"></div>',
+          '<div id="ai-qs" class="ai-qs"></div>',
+          '<div id="ai-a" class="ai-a"></div>',
+          '<div class="ai-foot">Answers are restricted to this page content. Requires GITHUB_TOKEN set in environment.</div>'
+        ].join('');
+      document.body.appendChild(fab); document.body.appendChild(panel);
+      fab.addEventListener('click', function () {
+        panel.classList.toggle('open');
+        // Dismiss any attention affordances on interaction
+        fab.classList.remove('ai-attention');
+        var cm = document.querySelector('.ai-coachmark'); if (cm) cm.remove();
+        try { localStorage.setItem(COACHMARK_KEY, '1'); } catch (_) { }
+      });
+
+      // One-time coachmark and subtle pulse to help discovery
+      try {
+        if (!localStorage.getItem(COACHMARK_KEY)) {
+          fab.classList.add('ai-attention');
+          showCoachmarkNear(fab, 'Ask this page');
+          setTimeout(function () { fab.classList.remove('ai-attention'); }, 6000);
         }
+      } catch (_) { }
+      return { fab: fab, panel: panel };
+    }
+    function showCoachmarkNear(anchor, text) {
+      var cm = document.createElement('div');
+      cm.className = 'ai-coachmark';
+      cm.textContent = text;
+      document.body.appendChild(cm);
+      // Position just above the FAB, aligned right
+      var r = anchor.getBoundingClientRect();
+      cm.style.position = 'fixed';
+      cm.style.right = (Math.max(20, (window.innerWidth - r.right) + 20)) + 'px';
+      cm.style.bottom = (window.innerHeight - r.top + 12) + 'px';
+      // Auto-hide after a few seconds or on click
+      var hide = function () { if (cm && cm.parentNode) cm.parentNode.removeChild(cm); };
+      cm.addEventListener('click', hide);
+      setTimeout(hide, 6500);
+    }
+    function renderQuestions() {
+      var defaults = [
+        'What is this page about?',
+        'Summarize the key points.',
+        'List any commands or steps.',
+        'What should I do next?'
+      ];
+      var byPath = {
+        '/projects/': ['What projects are listed?', 'How are projects organized?'],
+        '/docs-as-code/': ['Docs-as-code basics?', 'How to contribute?']
+      };
+      var path = location.pathname; var qs = byPath[path] || defaults;
+      var wrap = document.getElementById('ai-qs'); if (!wrap) return [];
+      wrap.innerHTML = '';
+      return qs.map(function (text) {
+        var btn = document.createElement('button');
+        btn.className = 'md-button md-button--primary';
+        btn.style.padding = '6px 10px';
+        btn.textContent = text; wrap.appendChild(btn); return btn;
       });
     }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', wire);
-    } else {
-      wire();
+    async function ask(q) {
+      var a = document.getElementById('ai-a'); a.textContent = 'Thinking…';
+      try {
+        const res = await fetch(resolveProxyUrl(), {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: q, context: getTextContent() })
+        });
+        if (!res.ok) throw new Error(await res.text());
+        const data = await res.json(); a.textContent = data.answer || '(no answer)';
+      } catch (e) { a.textContent = 'Error: ' + e; }
     }
+    function wire() {
+      createUi();
+      // Probe connection immediately to surface helpful guidance (Codespaces port auth / token)
+      probeProxy();
+      var buttons = renderQuestions();
+      buttons.forEach(function (b) { b.addEventListener('click', function () { ask(b.textContent); }); });
+    }
+    async function probeProxy() {
+      var loc = window.location; var host = loc.host || '';
+      var chatUrl = resolveProxyUrl();
+      var healthUrl = chatUrl.replace('/chat', '/health');
+      var conn = document.getElementById('ai-conn');
+      if (!conn) return;
+      try {
+        const res = await fetch(healthUrl, { method: 'GET' });
+        if (!res.ok) {
+          const txt = await res.text().catch(() => '');
+          conn.innerHTML = 'AI proxy reachable but not ready: ' + (txt || res.status);
+          return;
+        }
+        const data = await res.json().catch(() => ({}));
+        if (data && data.ok === false) {
+          if ((data.error || '').toLowerCase().includes('github_token')) {
+            conn.innerHTML = 'Set GITHUB_TOKEN in your environment for answers.';
+          } else {
+            conn.textContent = 'AI proxy not ready: ' + (data.error || 'unknown');
+          }
+        } else {
+          conn.textContent = '';
+        }
+      } catch (e) {
+        // Likely Codespaces port auth. Offer a link to authorize the port.
+        if (/\.app\.github\.dev$/.test(host)) {
+          var proxyHost = host.replace(/-8000(\.|$)/, '-8765$1');
+          var url = 'https://' + proxyHost + '/health';
+          conn.innerHTML = 'AI proxy needs authorization for this port. <a href="' + url + '" target="_blank" rel="noopener">Click to enable</a> and then try again.';
+        } else {
+          conn.textContent = 'Unable to reach AI proxy: ' + e;
+        }
+      }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wire); else wire();
   })();
 </script>
 {% endblock %}
@@ -92,6 +162,105 @@
 {% block styles %}
 {{ super() }}
 <style>
+  .ai-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    border-radius: 9999px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
+  }
+
+  /* Subtle one-time attention pulse */
+  .ai-fab.ai-attention {
+    animation: aiPulse 1.2s ease-out 0s 3;
+  }
+
+  @keyframes aiPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(66, 133, 244, 0.45);
+    }
+
+    70% {
+      box-shadow: 0 0 0 10px rgba(66, 133, 244, 0);
+    }
+
+    100% {
+      box-shadow: 0 0 0 0 rgba(66, 133, 244, 0);
+    }
+  }
+
+  .ai-panel {
+    position: fixed;
+    bottom: 84px;
+    right: 20px;
+    z-index: 1000;
+    width: min(420px, 92vw);
+    max-height: 60vh;
+    overflow: auto;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 12px;
+    background: var(--md-default-bg-color);
+    color: var(--md-default-fg-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+    padding: 12px;
+    display: none;
+  }
+
+  .ai-panel.open {
+    display: block;
+  }
+
+  .ai-panel h4 {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+  }
+
+  .ai-qs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .ai-a {
+    white-space: pre-wrap;
+    font-family: var(--md-text-font-family, system-ui, sans-serif);
+  }
+
+  .ai-foot {
+    opacity: .7;
+    font-size: .8em;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 600px) {
+    .ai-panel {
+      right: 12px;
+      left: 12px;
+      width: auto;
+    }
+
+    .ai-fab {
+      right: 12px;
+      bottom: 12px;
+    }
+  }
+
+  /* Coachmark tooltip */
+  .ai-coachmark {
+    background: var(--md-default-bg-color);
+    color: var(--md-default-fg-color);
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: .85rem;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .25);
+    cursor: pointer;
+    opacity: 0.98;
+    user-select: none;
+  }
+
   .hero-container {
     width: 100%;
     display: flex;
