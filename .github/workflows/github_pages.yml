@@ -7,10 +7,20 @@ on:
       - main
     paths-ignore:
       - '.devcontainer/**'
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
+      - '.github/copilot-instructions.md'
+      - '.cursorrules'
+      - '.cursor/rules/**'
 
   pull_request:
     paths-ignore:
       - '.devcontainer/**'
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
+      - '.github/copilot-instructions.md'
+      - '.cursorrules'
+      - '.cursor/rules/**'
 
   workflow_dispatch:
 
