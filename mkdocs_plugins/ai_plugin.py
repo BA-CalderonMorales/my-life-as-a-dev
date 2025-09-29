@@ -73,9 +73,18 @@ class AIPlugin(BasePlugin):
         return config
 
     def on_page_markdown(self, markdown: str, page: Page, config: MkDocsConfig, files):
+        # AI Chat Feature: DISABLED for production
+        # See AGENTS.md section "AI/RAG Security and Implementation Plan" for details
+        # To enable: uncomment the widget injection code below
+
+        # Return unmodified markdown (no AI widget injection)
+        return markdown
+
+        # DISABLED CODE - Uncomment when security requirements are met:
+        """
         # Inject a collapsible per-page chat widget at the end of the page
         # The widget posts to the local ai_proxy at /chat with question + page content
-        widget = """
+        widget = \"\"\"
 
 <details>
 <summary><b> Ask this page (AI)</b></summary>
@@ -112,8 +121,9 @@ class AIPlugin(BasePlugin):
 })();
 </script>
 
+        \"\"\"
+        return markdown + "\\n\\n" + widget
         """
-        return markdown + "\n\n" + widget
 
 
 def get_plugin():

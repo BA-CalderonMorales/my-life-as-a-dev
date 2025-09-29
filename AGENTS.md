@@ -290,6 +290,90 @@ This project currently does not have automated tests. When adding tests:
 - Aim for high coverage of business logic
 - Test through public APIs where possible
 
+## AI/RAG Security and Implementation Plan
+
+### Current Status (NOT SHIPPED)
+
+The AI-powered per-page chat feature is **NOT currently enabled** in production builds. The code exists but is disabled to ensure proper security planning before deployment.
+
+### Implementation Components
+
+The repository contains the following AI-related components (currently disabled):
+
+1. **AI Proxy** (`scripts/python/ai_proxy.py`): FastAPI service using GitHub Models via Azure AI Inference
+2. **MkDocs Plugin** (`mkdocs_plugins/ai_plugin.py`): Plugin that would inject chat UI into documentation pages
+3. **Frontend UI** (`docs/overrides/main.html`): Floating action button and chat panel (currently commented out)
+
+### Security Requirements Before Enabling
+
+Before shipping the AI chat feature, the following must be addressed:
+
+#### 1. Secure Deployment Architecture
+
+- **Do NOT expose tokens directly in the browser or client-side code**
+- Deploy the AI proxy to a secure, dedicated server (not localhost/Codespaces only)
+- Use proper authentication and rate limiting on the proxy server
+- Implement request/response logging for security auditing
+
+#### 2. Logging and Monitoring
+
+Even for side projects, proper logging prevents security nightmares:
+
+- **Log all queries and responses** with timestamps and (hashed) user identifiers
+- Track token usage and costs per request
+- Monitor for suspicious patterns (injection attempts, excessive usage, etc.)
+- Store logs in a queryable format for security review
+
+#### 3. Access Control
+
+- Implement API key rotation strategy
+- Use environment-specific tokens (dev/staging/prod)
+- Consider implementing user authentication before allowing queries
+- Rate limit per IP/session to prevent abuse
+
+#### 4. Content Security
+
+- Sanitize all user inputs before sending to the model
+- Implement output filtering to prevent sensitive data leakage
+- Add context length limits to prevent excessive token usage
+- Validate that responses stay within page context (no hallucinations)
+
+### Why GitHub Models Isn't Enough
+
+While GitHub is integrating models into their tooling, deploying our own proxy provides:
+
+1. **Centralized Logging**: All requests flow through our infrastructure where we control logging
+2. **Cost Control**: Track and limit token usage across all documentation sites
+3. **Security Auditing**: Review logs for attempted exploits or misuse patterns
+4. **Flexibility**: Can switch providers or models without changing frontend code
+5. **Privacy**: User questions don't go directly to external APIs from their browser
+
+### Future Implementation Checklist
+
+When ready to enable the AI chat feature:
+
+- [ ] Deploy AI proxy to secure hosting (e.g., Railway, Fly.io, Cloud Run)
+- [ ] Implement proper authentication on proxy endpoints
+- [ ] Set up structured logging with retention policy
+- [ ] Add rate limiting (per IP and globally)
+- [ ] Create monitoring dashboard for usage/costs
+- [ ] Document incident response procedures
+- [ ] Enable frontend UI components in `docs/overrides/main.html`
+- [ ] Remove plugin injection or make it conditional on deployment environment
+- [ ] Add user-facing documentation about the AI feature capabilities and limitations
+- [ ] Test thoroughly in staging environment before production rollout
+
+### Development Testing Only
+
+The AI proxy can be run locally for development/testing:
+
+```bash
+export GITHUB_TOKEN="your_token_here"
+uv run python scripts/python/ai_proxy.py
+```
+
+This is ONLY for local testing. Do not deploy the docs with AI features enabled until the security requirements above are met.
+
 ## Iterating on This Document
 
 This file is meant to be a living document that evolves with the project. When making significant architectural changes:

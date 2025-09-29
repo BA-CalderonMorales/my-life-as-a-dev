@@ -11,6 +11,10 @@
 
 {% block scripts %}
 {{ super() }}
+<!-- AI Chat Feature: DISABLED for production
+     See AGENTS.md section "AI/RAG Security and Implementation Plan" for details
+     To enable: uncomment this block and ensure security requirements are met
+
 <script>
   (function () {
     var COACHMARK_KEY = 'ai_fab_coachmark_v1';
@@ -157,11 +161,15 @@
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wire); else wire();
   })();
 </script>
+-->
 {% endblock %}
 
 {% block styles %}
 {{ super() }}
 <style>
+  /* AI Chat Feature Styles: DISABLED for production
+     Uncomment when enabling the AI chat feature
+
   .ai-fab {
     position: fixed;
     bottom: 20px;
@@ -171,7 +179,6 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
   }
 
-  /* Subtle one-time attention pulse */
   .ai-fab.ai-attention {
     animation: aiPulse 1.2s ease-out 0s 3;
   }
@@ -247,7 +254,6 @@
     }
   }
 
-  /* Coachmark tooltip */
   .ai-coachmark {
     background: var(--md-default-bg-color);
     color: var(--md-default-fg-color);
@@ -260,7 +266,9 @@
     opacity: 0.98;
     user-select: none;
   }
+  */
 
+  /* Hero Section Styles */
   .hero-container {
     width: 100%;
     display: flex;
