@@ -1,15 +1,35 @@
 {
   "name": "My Life as a Dev",
-  "build": { "dockerfile": "./Dockerfile" },
+  "build": {
+    "dockerfile": "./Dockerfile"
+  },
   "remoteUser": "vscode",
   "mounts": [
     "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
   ],
-  "forwardPorts": [3000, 8000, 8080],
+  "forwardPorts": [
+    3000,
+    8000,
+    8080,
+    8765
+  ],
   "portsAttributes": {
-    "3000": { "label": "Development Server", "onAutoForward": "silent" },
-    "8000": { "label": "Local File Server", "onAutoForward": "silent" },
-    "8080": { "label": "Alternative Server", "onAutoForward": "silent" }
+    "3000": {
+      "label": "Development Server",
+      "onAutoForward": "silent"
+    },
+    "8000": {
+      "label": "Local File Server",
+      "onAutoForward": "silent"
+    },
+    "8080": {
+      "label": "Alternative Server",
+      "onAutoForward": "silent"
+    },
+    "8765": {
+      "label": "AI Proxy",
+      "onAutoForward": "silent"
+    }
   },
   "containerEnv": {
     "RUST_LOG": "debug",
@@ -18,7 +38,10 @@
     "RUST_BACKTRACE": "1"
   },
   "updateContentCommand": "bash .devcontainer/scripts/setup-dev-environment.sh",
-  "postCreateCommand": ["bash", ".devcontainer/scripts/setup-dev-environment.sh"],
+  "postCreateCommand": [
+    "bash",
+    ".devcontainer/scripts/setup-dev-environment.sh"
+  ],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -31,8 +54,13 @@
         "GitHub.copilot-chat"
       ],
       "settings": {
-        "files.watcherExclude": { "**/target/**": true },
-        "search.exclude": { "**/target": true, "**/Cargo.lock": true },
+        "files.watcherExclude": {
+          "**/target/**": true
+        },
+        "search.exclude": {
+          "**/target": true,
+          "**/Cargo.lock": true
+        },
         "editor.formatOnSave": true,
         "python.defaultInterpreterPath": "/workspaces/my-life-as-a-dev/.venv/bin/python"
       }

@@ -5,6 +5,8 @@ use std::io::{self, Write};
 use std::net::TcpStream;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
+use std::thread::sleep;
+use std::time::Duration;
 
 /// Main entry point for application startup
 #[allow(dead_code)]
@@ -140,8 +142,22 @@ impl Startup {
             return;
         }
 
+        // Prefer using the project's venv python if available, then uv run, then system python
+        let venv_python = if cfg!(windows) {
+            self.project_root
+                .join(".venv")
+                .join("Scripts")
+                .join("python.exe")
+        } else {
+            self.project_root.join(".venv").join("bin").join("python")
+        };
+
         let mut cmd;
-        if Self::command_exists("uv") {
+        if venv_python.exists() {
+            cmd = Command::new(venv_python);
+            cmd.current_dir(&self.project_root)
+                .arg(proxy_script.to_str().unwrap());
+        } else if Self::command_exists("uv") {
             cmd = Command::new("uv");
             cmd.current_dir(&self.project_root).args(&[
                 "run",
@@ -149,34 +165,55 @@ impl Startup {
                 proxy_script.to_str().unwrap(),
             ]);
         } else {
-            let venv_python = if cfg!(windows) {
-                self.project_root
-                    .join(".venv")
-                    .join("Scripts")
-                    .join("python.exe")
-            } else {
-                self.project_root.join(".venv").join("bin").join("python")
-            };
-            if venv_python.exists() {
-                cmd = Command::new(venv_python);
-                cmd.current_dir(&self.project_root)
-                    .arg(proxy_script.to_str().unwrap());
-            } else {
-                let py = if cfg!(windows) { "python" } else { "python3" };
-                cmd = Command::new(py);
-                cmd.current_dir(&self.project_root)
-                    .arg(proxy_script.to_str().unwrap());
-            }
+            let py = if cfg!(windows) { "python" } else { "python3" };
+            cmd = Command::new(py);
+            cmd.current_dir(&self.project_root)
+                .arg(proxy_script.to_str().unwrap());
         }
 
         // Inherit environment; run detached (no stdio, don't wait)
-        let _ = cmd
-            .stdin(Stdio::null())
-            .stdout(Stdio::null())
-            .stderr(Stdio::null())
+        // If running in Codespaces, bind proxy on all interfaces for port forwarding
+        if self.is_codespaces_environment() {
+            cmd.env("HOST", "0.0.0.0");
+        }
+
+        // Capture logs to ai_proxy.log for debugging
+        let log_path = self.project_root.join("ai_proxy.log");
+        let log_file = std::fs::File::create(&log_path).ok();
+        let log_file_err = std::fs::OpenOptions::new()
+            .append(true)
+            .open(&log_path)
+            .ok();
+
+        let mut child_cmd = cmd.stdin(Stdio::null());
+        if let Some(f) = log_file {
+            child_cmd = child_cmd.stdout(Stdio::from(f));
+        }
+        if let Some(f) = log_file_err {
+            child_cmd = child_cmd.stderr(Stdio::from(f));
+        }
+
+        let _ = child_cmd
             .spawn()
-            .map(|_| println!("AI proxy launched."))
+            .map(|_| println!("AI proxy launched. Logging to {}", log_path.display()))
             .map_err(|e| println!("Warning: Failed to launch AI proxy: {}", e));
+
+        // Wait briefly for the proxy to become ready
+        let mut ready = false;
+        for _ in 0..25 {
+            if TcpStream::connect(addr).is_ok() {
+                println!("AI proxy is ready at {}", addr);
+                ready = true;
+                break;
+            }
+            sleep(Duration::from_millis(200));
+        }
+        if !ready {
+            println!(
+                "Warning: AI proxy did not become ready in time. Check {} for errors.",
+                log_path.display()
+            );
+        }
     }
 
     // Check if we're in GitHub Codespaces
@@ -209,14 +246,8 @@ impl Startup {
             .unwrap_or(false)
     }
 
-    // Install dependencies from requirements.txt without touching system Python
+    // Install dependencies from requirements.txt into the project venv (always ensure AI proxy deps are present)
     fn install_dependencies(&self) {
-        // If MkDocs is already available, skip installing
-        if Self::command_exists("mkdocs") {
-            println!("MkDocs detected in PATH. Skipping dependency installation.");
-            return;
-        }
-
         // First try to find requirements.txt in the project root
         let requirements_path = self.project_root.join("requirements.txt");
 
@@ -228,7 +259,7 @@ impl Startup {
         };
 
         println!(
-            "\nInstalling dependencies from {}...",
+            "\nEnsuring Python dependencies from {} are installed in project venv...",
             requirements_path.display()
         );
 
@@ -284,33 +315,7 @@ impl Startup {
             }
             if let Ok(status) = cmd.status() {
                 if status.success() {
-                    // Also install the local mkdocs plugin package (editable install)
-                    let mut install_local = Command::new("uv");
-                    install_local
-                        .current_dir(&self.project_root)
-                        .args(&["pip", "install", "-e", "."]);
-                    if venv_bin.exists() {
-                        let mut new_path = env::var("PATH").unwrap_or_default();
-                        let venv_bin_str = venv_bin.to_string_lossy().to_string();
-                        new_path = format!("{}:{}", venv_bin_str, new_path);
-                        install_local.env("PATH", new_path);
-                        install_local.env("VIRTUAL_ENV", venv_dir.to_string_lossy().to_string());
-                    }
-                    match install_local.status() {
-                        Ok(s) if s.success() => return,
-                        Ok(s) => {
-                            eprintln!(
-                                "Warning: uv pip install -e . failed (status {}). Will try python venv.",
-                                s
-                            );
-                        }
-                        Err(e) => {
-                            eprintln!(
-                                "Warning: Failed to execute uv to install local package: {}",
-                                e
-                            );
-                        }
-                    }
+                    return;
                 } else {
                     eprintln!(
                         "Warning: uv pip install failed (status {}). Will try python venv.",
@@ -352,15 +357,7 @@ impl Startup {
                 .status();
         match pip_install {
             Ok(s) if s.success() => {
-                // Install local package so MkDocs can discover the ai_plugin entry point
-                let pip_path = venv_bin.join(if cfg!(windows) { "pip.exe" } else { "pip" });
-                let status = Command::new(pip_path)
-                    .current_dir(&self.project_root)
-                    .args(&["install", "-e", "."])
-                    .status();
-                if !matches!(status, Ok(s) if s.success()) {
-                    eprintln!("Warning: Failed to install local package into venv; MkDocs plugin may not load.");
-                }
+                // All good
             }
             _ => {
                 eprintln!("Error: Failed to install dependencies in virtual environment.");

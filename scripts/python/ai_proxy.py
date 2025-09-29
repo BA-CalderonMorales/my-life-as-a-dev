@@ -14,6 +14,7 @@ Env vars:
 import os
 from typing import List, Optional
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from azure.ai.inference import ChatCompletionsClient
 from azure.ai.inference.models import SystemMessage, UserMessage
@@ -37,20 +38,46 @@ def get_client() -> ChatCompletionsClient:
 
 
 app = FastAPI()
+
+# CORS: support Codespaces domains and localhost by default; configurable via PROXY_CORS_ORIGIN_REGEX
+cors_regex = os.environ.get(
+    "PROXY_CORS_ORIGIN_REGEX",
+    r"^https?://(localhost|127\.0\.0\.1)(:\\d+)?$|^https://.*\\.app\\.github\\.dev$",
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[],  # use regex below
+    allow_origin_regex=cors_regex,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 client = None
+client_error: Optional[str] = None
 
 
 @app.on_event("startup")
 def startup_event():
-    global client
+    global client, client_error
     try:
         client = get_client()
+        client_error = None
     except Exception as e:
-        raise RuntimeError(f"AI proxy failed to initialize: {e}")
+        # Don't crash the server; keep running and return a clear error on /chat
+        client = None
+        client_error = str(e)
+
+
+@app.get("/health")
+def health():
+    return {"ok": client is not None, "error": client_error}
 
 
 @app.post("/chat")
 def chat(req: ChatRequest):
+    # Surface configuration error at request time
+    if client is None:
+        raise HTTPException(status_code=503, detail=f"AI proxy not ready: {client_error or 'missing GITHUB_TOKEN'}")
     if not req.question.strip():
         raise HTTPException(status_code=400, detail="question is required")
 
@@ -76,6 +103,7 @@ def chat(req: ChatRequest):
 
 
 if __name__ == "__main__":
-    host = os.environ.get("HOST", "127.0.0.1")
+    # Bind to all interfaces by default so Codespaces/containers can forward the port
+    host = os.environ.get("HOST", "0.0.0.0")
     port = int(os.environ.get("PORT", "8765"))
     uvicorn.run(app, host=host, port=port)
