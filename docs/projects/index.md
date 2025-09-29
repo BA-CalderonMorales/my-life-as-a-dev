@@ -1,120 +1,231 @@
 # My Projects
 
-A curated collection of my key software engineering projects, each showcasing different aspects of my technical skills and creative approach to problem-solving.
-
-## Docs-as-Code Portfolio
-
-> A comprehensive documentation portfolio built with MkDocs Material, featuring AI integration and versioned documentation.
-
-<div class="grid cards" markdown>
-
-- :material-github: **Repository**: [BA-CalderonMorales/my-life-as-a-dev](https://github.com/BA-CalderonMorales/my-life-as-a-dev)
-- :material-web: **Live Demo**: [Documentation Site](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
-
-</div>
-
-### Key Features
-
-- :material-robot: **AI Integration _(Comming Soon)_**: Built-in LLM plugin for interactive documentation
-- :material-git: **Version Control**: Full Git-based versioning with mike
-- :material-tools: **Developer Tooling**: Custom Rust CLI for documentation management
-- :material-code-json: **Structured Content**: Well-organized documentation with Material for MkDocs
+A curated collection of my key software engineering projects, showcasing different aspects of my technical skills and approach to building resilient systems.
 
 ---
 
-## Immersive Awe Canvas
+=== "Active Projects"
 
-> A creative coding environment for building and exploring interactive 3D scenes in the browser.
+    ## Terminal Jarvis
 
-<div class="grid cards" markdown>
+    > **A unified command center for AI coding tools.**
 
-- :material-github: **Repository**: [BA-CalderonMorales/immersive-awe-canvas](https://github.com/BA-CalderonMorales/immersive-awe-canvas)
-- :material-web: **Live Demo**: [Immersive Awe Canvas](https://immersive-awe-canvas.lovable.app)
+    Manage and run `claude-code`, `gemini-cli`, `qwen-code`, `opencode`, `llxprt`, `codex`, and `crush` from one beautiful terminal interface. My team's love letter to the open source community.
 
-</div>
+    [:material-github: Repository](https://github.com/BA-CalderonMorales/terminal-jarvis){ .md-button .md-button--primary }
+    [:material-npm: NPM](https://www.npmjs.com/package/terminal-jarvis){ .md-button }
+    [:material-language-rust: Crates.io](https://crates.io/crates/terminal-jarvis){ .md-button }
 
-### Key Features
+    **Why Terminal Jarvis?**
 
-- :material-cube: **3D Rendering**: Built with Three.js for smooth WebGL graphics
-- :material-palette: **Interactive Scenes**: Multiple pre-built 3D environments
-- :material-theme-light-dark: **Dynamic Theming**: Day/night cycle and theme customization
-- :material-tablet-dashboard: **Responsive UI**: Works across desktop and mobile devices
+    Developers working with AI CLI tools face:
+
+    - Rate limits across different providers
+    - Context switching between different interfaces
+    - Inconsistent command syntax
+    - No unified workflow
+
+    Terminal Jarvis solves this by providing a single, elegant interface to manage all your AI coding assistants.
+
+    **Key Features:**
+
+    - :material-console-line: Multi-tool support for all major AI CLI tools
+    - :material-palette: Beautiful terminal-based UI with intuitive navigation
+    - :material-package-variant: Multiple distributions (NPM, Crates.io, Homebrew)
+    - :material-star: Open source with community-driven development
+
+    ---
+
+    ## Coder Infrastructure
+
+    Building local development infrastructure for consistent environments.
+
+    ### Coder Starter Scripts
+
+    [:material-github: Repository](https://github.com/BA-CalderonMorales/coder-starter-scripts){ .md-button }
+
+    Run a local Coder server instance with automated setup scripts. Perfect for teams wanting self-hosted development environments.
+
+    - :material-rocket-launch: One-command server startup
+    - :material-cog: Configurable templates
+    - :material-docker: Docker-based deployment
+
+    ### Coder Templates
+
+    [:material-github: Repository](https://github.com/BA-CalderonMorales/coder-templates){ .md-button }
+
+    A collection of templates and utilities for creating consistent development environments using Coder.
+
+    - :material-folder-multiple: Pre-configured templates
+    - :material-account-group: Team collaboration ready
+    - :material-speedometer: Fast environment provisioning
+
+    ---
+
+    ## Terminal Screensaver
+
+    [:material-github: Repository](https://github.com/BA-CalderonMorales/terminal-screensaver){ .md-button }
+
+    A dynamic terminal screen saver crate with plugin architecture that automatically resizes with any screen size.
+
+    - :material-puzzle: Plugin architecture for extensibility
+    - :material-resize: Auto-resize to terminal window
+    - :material-language-rust: High performance Rust implementation
+    - :material-palette-swatch: Customizable themes and effects
+
+    ---
+
+    ## Docs-as-Code Portfolio
+
+    [:material-github: Repository](https://github.com/BA-CalderonMorales/my-life-as-a-dev){ .md-button }
+    [:material-web: Live Site](https://ba-calderonmorales.github.io/my-life-as-a-dev/){ .md-button }
+
+    This very site! A demonstration of docs-as-code principles applied to personal portfolio documentation.
+
+    - :material-git: Full Git-based versioning with mike
+    - :material-tools: Custom Rust CLI for documentation management
+    - :material-code-json: Structured content with Material for MkDocs
+    - :material-github-actions: CI/CD automation via GitHub Actions
+
+=== "Experiments"
+
+    ## Experimental Projects
+
+    > Testing AI workflows and creative coding against mock legacy repositories.
+    >
+    > If these still need work, it's because AI in general still isn't quite there yet. These projects serve as benchmarks for AI-assisted development capabilities.
+
+    ---
+
+    ### Immersive Awe Canvas
+
+    **Interactive 3D experiments and WebGL creative coding.**
+
+    [:material-github: Repository](https://github.com/BA-CalderonMorales/immersive-awe-canvas){ .md-button }
+    [:material-rocket-launch: PROD](https://immersive-awe-canvas.lovable.app){ .md-button }
+    [:material-flask: QA](https://ba-calderonmorales.github.io/immersive-awe-canvas){ .md-button }
+
+    - :material-cube: 3D rendering with Three.js
+    - :material-palette: Interactive scenes and effects
+    - :material-theme-light-dark: Dynamic theming
+    - :material-tablet-dashboard: Responsive design
+
+    ---
+
+    ### Shadow Scroll Blossom
+
+    **Creative coding playground with particle effects and generative art.**
+
+    [:material-github: Repository](https://github.com/BA-CalderonMorales/shadow-scroll-blossom){ .md-button }
+    [:material-rocket-launch: PROD](https://shadow-scroll-blossom.lovable.app/){ .md-button }
+    [:material-flask: QA](https://ba-calderonmorales.github.io/shadow-scroll-blossom){ .md-button }
+
+    - :material-brush: Dynamic particle systems
+    - :material-rodent: Interactive mouse/touch controls
+    - :material-palette-swatch: Multiple themes
+    - :material-cellphone: Mobile optimized
+
+    ---
+
+    ### Rust Terminal Forge
+
+    **Browser-based terminal emulator merging Rust with React.**
+
+    [:material-github: Repository](https://github.com/BA-CalderonMorales/rust-terminal-forge){ .md-button }
+    [:material-alert: PROD (Unstable)](https://rust-terminal-forge.lovable.app/){ .md-button }
+    [:material-flask: QA](https://ba-calderonmorales.github.io/rust-terminal-forge/){ .md-button }
+
+    - :material-console: Full terminal emulation in browser
+    - :material-shield-lock: Sandboxed execution
+    - :material-web: React + TypeScript frontend
+    - :material-language-rust: Rust backend integration
+
+=== "Development"
+
+    ## Development Approach
+
+    ### Current Focus Areas
+
+    - :material-robot: **AI Workflow Optimization** – Integration with GitHub Pages and headless agents
+    - :material-tools: **Developer Tooling** – Building tools that reduce friction for AI-assisted development
+    - :material-pipeline: **CI/CD Excellence** – Robust pipelines and automated workflows
+    - :material-server-network: **Distributed Systems** – Scalable architecture and enterprise-level design
+
+    ---
+
+    ### Technical Toolbox
+
+    **Languages:** Rust, TypeScript/JavaScript, Python, C#, SQL
+
+    **Frameworks:** React, .NET Core, Three.js, FastAPI
+
+    **Infrastructure:** Docker, Kubernetes, GitHub Actions, Coder
+
+    **AI/ML Tools:** Claude Code, GitHub Copilot, Terminal Jarvis
+
+    ---
+
+    ### Engineering Principles
+
+    - **SOLID** – Single responsibility, Open/closed, Liskov substitution, Interface segregation, Dependency inversion
+    - **DRY** – Eliminate knowledge duplication through abstraction
+    - **KISS** – Favor simplicity and clarity over unnecessary complexity
+    - **YAGNI** – Build only what's needed now
+
+    ---
+
+    ### Development Practices
+
+    - :material-git: Git workflows with semantic versioning
+    - :material-test-tube: Test-driven development
+    - :material-docker: Containerized environments
+    - :material-robot: AI-assisted development
+    - :material-shield-check: Automated security scanning
+    - :material-code-braces: Code reviews & pair programming
+
+=== "Philosophy"
+
+    ## Engineering Philosophy
+
+    **Documentation deserves the same care as code.** I version and test it like any other artifact, believing that clear communication is as important as clean code.
+
+    ---
+
+    ### Core Beliefs
+
+    - **Docs-as-Code** – Treat documentation with the same rigor as code—versioned, reviewed, and tested
+    - **Embrace Legacy** – Modernize legacy systems through sustainable refactoring
+    - **Product Focus** – Prioritize user value and reliability in every solution
+    - **Tool Empowerment** – The right tool can unlock incredible potential
+
+    ---
+
+    ### Delivery Focus
+
+    I focus on delivering value through clean, maintainable code and rapid iteration. Each project uses a tailored technology stack chosen for its specific requirements, ensuring the right tool for the job while maintaining high standards of quality and maintainability.
+
+    ---
+
+    ### Open Source Commitment
+
+    I believe in the power of open source to drive innovation and learning. My projects reflect a commitment to:
+
+    - **Clean, maintainable code** that others can learn from
+    - **Comprehensive documentation** that explains the "why" not just the "how"
+    - **Knowledge sharing** within the developer community
+    - **Building tools** that empower other developers
+
+    **Terminal Jarvis** is my team's love letter to the open source community and a testament to my belief that the right tool can unlock incredible potential.
 
 ---
-
-## Shadow Scroll Blossom
-
-> An interactive canvas that creates beautiful particle effects and visualizations in response to user input.
-
-<div class="grid cards" markdown>
-
-- :material-github: **Repository**: [BA-CalderonMorales/shadow-scroll-blossom](https://github.com/BA-CalderonMorales/shadow-scroll-blossom)
-- :material-web: **Live Demo**: [Shadow Scroll Blossom](https://ba-calderonmorales.github.io/shadow-scroll-blossom/)
-
-</div>
-
-### Key Features
-
-- :material-brush: **Generative Art**: Dynamic particle systems and visual effects
-- :material-rodent: **Interactive**: Responds to mouse and touch input
-- :material-palette-swatch: **Theme Support**: Multiple color schemes and themes
-- :material-cellphone: **Mobile Optimized**: Touch-friendly interface
-
----
-
-## Rust Terminal Forge
-
-> A secure, browser-based terminal emulator built with TypeScript/React to use Rust online.
-
-<div class="grid cards" markdown>
-
-- :material-github: **Repository**: [BA-CalderonMorales/rust-terminal-forge](https://github.com/BA-CalderonMorales/rust-terminal-forge)
-- :material-web: **Live Demo**: [Rust Terminal Forge](https://ba-calderonmorales.github.io/rust-terminal-forge/)
-
-</div>
-
-### Key Features
-
-- :material-console: **Terminal Emulation**: Full-featured terminal in the browser
-- :material-shield-lock: **Secure**: Sandboxed execution environment
-- :material-web: **Modern Web**: Built with React and TypeScript
-- :material-language-rust: **Rust**: Allow Rust to be used in terminal for people to play with it online
-
----
-
-## Development Approach
-
-### Technical Toolbox
-
-- **Languages & Frameworks**: JavaScript/TypeScript, React, Rust (WASM), Python, Node.js
-- **AI/ML Tools**: OpenAI Codex, Lovable, GPT4All, Local LLMs
-- **Infrastructure**: GitHub Actions, Docker, GitHub Pages
-- **IDEs & Tools**: GitHub Copilot, Windsurf, VS Code
-
-### Engineering Principles
-
-- **SOLID**: Single responsibility, Open/closed, Liskov substitution, Interface segregation, Dependency inversion
-- **DRY**: Eliminate duplication through abstraction and reusable components
-- **KISS**: Favor simplicity and clarity over unnecessary complexity
-- **YAGNI**: Build only what's needed now, avoid speculative features
-
-### Development Practices
-
-- :material-git: Git workflows with semantic versioning
-- :material-test-tube: Test-driven development
-- :material-docker: Containerized environments
-- :material-robot: AI-assisted development
-- :material-shield-check: Automated security scanning
-- :material-code-braces: Code reviews & pair programming
-
-### Philosophy
-
-I focus on delivering value through clean, maintainable code and rapid iteration. Each project uses a tailored technology stack chosen for its specific requirements, ensuring the right tool for the job while maintaining high standards of quality and maintainability.
 
 ## Getting Involved
 
-Contributions are welcome! Check each project's repository for contribution guidelines. Feel free to open issues or submit pull requests for any improvements or bug fixes.
+All projects are **open for PRs, discussion, and collaboration!**
 
-## Open Source Philosophy
+- Check each project's repository for contribution guidelines
+- Open issues for bug reports or feature requests
+- Join discussions about architecture and design decisions
+- Feel free to fork and experiment
 
-I believe in the power of open source to drive innovation and learning. My projects reflect a commitment to clean, maintainable code and knowledge sharing within the developer community.
+[:material-github: View All Repositories](https://github.com/BA-CalderonMorales){ .md-button .md-button--primary }
