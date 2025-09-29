@@ -23,8 +23,8 @@ This is a documentation consolidation hub built with MkDocs Material. It serves 
    - `startup`: Sets up dev environment and starts MkDocs server
    - `bump-version`: Creates new semantic version tags
    - `deploy`: Deploys all versions to GitHub Pages
-3. **Custom MkDocs Plugin** (`mkdocs_plugins/`): AI-assisted content generation plugin
-4. **AI Proxy** (`scripts/python/ai_proxy.py`): FastAPI service for per-page documentation chat using GitHub Models
+3. **Custom MkDocs Plugin** (`mkdocs_plugins/`): AI-assisted content generation plugin (currently disabled)
+4. **AI Proxy** (`scripts/python/ai_proxy.py`): FastAPI service for per-page documentation chat (NOT ENABLED - see AGENTS.md)
 5. **Python Utilities** (`scripts/python/`): Repository synchronization and page generation scripts
 
 ### Directory Structure
@@ -104,7 +104,11 @@ doc-cli bump-version
 # The CI/CD pipeline automatically deploys on tag push
 ```
 
-### Running the AI Proxy (Development)
+### Running the AI Proxy (Development Only - NOT ENABLED IN PRODUCTION)
+
+**⚠️ Important**: The AI chat feature is currently disabled in production builds. See **AGENTS.md** section "AI/RAG Security and Implementation Plan" for security requirements before enabling.
+
+For local development/testing only:
 
 ```bash
 # Requires GITHUB_TOKEN environment variable
@@ -116,6 +120,8 @@ uv run python scripts/python/ai_proxy.py
 # Server runs on 127.0.0.1:8765 by default
 # Configure with HOST, PORT, AI_MODEL, AI_ENDPOINT env vars
 ```
+
+The frontend UI (`docs/overrides/main.html`) and plugin injection (`mkdocs_plugins/ai_plugin.py`) are currently commented out.
 
 ## Important Constraints
 
