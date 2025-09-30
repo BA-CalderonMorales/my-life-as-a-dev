@@ -51,7 +51,7 @@ theme:
     - navigation.indexes
     - navigation.tabs
     - navigation.tabs.sticky
-    - navigation.prune
+    - navigation.expand
     - content.code.copy
     - content.code.annotate
     - toc.follow
@@ -119,6 +119,7 @@ plugins:
       htmlmin_opts:
           remove_comments: true
 
-# extra_css:
+extra_css:
+  - stylesheets/custom.css
 
 # extra_javascript:

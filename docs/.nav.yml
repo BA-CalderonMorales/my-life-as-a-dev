@@ -14,7 +14,45 @@ nav:
 
   - Home: index.md
 
-  - Projects: projects/index.md
+  - Projects:
+
+    - Overview: projects/index.md
+
+    - Active Projects:
+
+      - Terminal Jarvis:
+        - Overview: projects/active/terminal-jarvis/index.md
+
+      - Coder Starter Scripts:
+        - Overview: projects/active/coder-starter-scripts/index.md
+
+      - Coder Templates:
+        - Overview: projects/active/coder-templates/index.md
+
+      - Terminal Screensaver:
+        - Overview: projects/active/terminal-screensaver/index.md
+
+      - My Life as a Dev:
+        - Overview: projects/active/my-life-as-a-dev/index.md
+        - Quick Start: projects/active/my-life-as-a-dev/quick_start/index.md
+        - Details: projects/active/my-life-as-a-dev/details/index.md
+
+    - Experiments:
+
+      - Immersive Awe Canvas:
+        - Overview: projects/experiments/immersive-awe-canvas/index.md
+        - Quick Start: projects/experiments/immersive-awe-canvas/quick_start/index.md
+        - Details: projects/experiments/immersive-awe-canvas/details/index.md
+
+      - Shadow Scroll Blossom:
+        - Overview: projects/experiments/shadow-scroll-blossom/index.md
+        - Quick Start: projects/experiments/shadow-scroll-blossom/quick_start/index.md
+        - Details: projects/experiments/shadow-scroll-blossom/details/index.md
+
+      - Rust Terminal Forge:
+        - Overview: projects/experiments/rust-terminal-forge/index.md
+        - Quick Start: projects/experiments/rust-terminal-forge/quick_start/index.md
+        - Details: projects/experiments/rust-terminal-forge/details/index.md
 
   - Repositories:
 
