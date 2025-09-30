@@ -6,14 +6,10 @@ hide:
   - toc
 ---
 
-<div align="center" markdown="1">
-
-*Art has many forms.*
-
-<img src="https://raw.githubusercontent.com/BA-CalderonMorales/BA-CalderonMorales/master/assets/orbit.svg" alt="Animated solar orbit" style="width:100%; max-width:100%; height:auto;" />
-
-*I like to help people find their art.*
-
+<div class="hero-container">
+  <p class="hero-text-top">Art has many forms.</p>
+  <img src="https://raw.githubusercontent.com/BA-CalderonMorales/BA-CalderonMorales/master/assets/orbit.svg" alt="Animated solar orbit" class="hero-svg" />
+  <p class="hero-text-bottom">I like to help people find their art.</p>
 </div>
 
 <div align="center" markdown="1">
