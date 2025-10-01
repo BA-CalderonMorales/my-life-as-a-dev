@@ -14,8 +14,6 @@ nav:
 
   - Home: index.md
 
-  - Resume: resume/index.md
-
   - Projects:
 
     - Overview: projects/index.md
@@ -57,3 +55,5 @@ nav:
         - Details: projects/experiments/rust-terminal-forge/details/index.md
 
   - Docs-as-Code: docs-as-code/index.md
+
+  - About Me: resume/index.md
