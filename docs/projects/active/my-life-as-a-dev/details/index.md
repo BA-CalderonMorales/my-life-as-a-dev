@@ -23,9 +23,11 @@ graph TD
 - **Custom Plugins**: Extend functionality with Python-based plugins
 
 ### 2. AI Integration
-- **OpenAI API**: Powers AI-assisted documentation features
-- **Interactive Demos**: Live examples of AI capabilities
-- **Secure Key Management**: Environment-based API key configuration
+- **GitHub Models (Azure AI Inference)**: Powers AI-assisted documentation features
+- **FastAPI Proxy**: Lightweight proxy service for per-page documentation chat
+- **Default Model**: deepseek/DeepSeek-R1
+- **Secure Token Management**: Environment-based GitHub token configuration
+- **Status**: Currently disabled in production (local development only)
 
 ### 3. Versioning System
 - **mike**: Version control for documentation
@@ -43,7 +45,11 @@ graph TD
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `OPENAI_API_KEY` | No | Your OpenAI API key for AI features |
+| `GITHUB_TOKEN` | No | GitHub Personal Access Token for AI features (local dev only) |
+| `AI_MODEL` | No | AI model to use (default: deepseek/DeepSeek-R1) |
+| `AI_ENDPOINT` | No | AI endpoint URL (default: https://models.github.ai/inference) |
+| `HOST` | No | AI proxy host (default: 127.0.0.1) |
+| `PORT` | No | AI proxy port (default: 8765) |
 | `PYTHONPATH` | Yes | Must include project root for plugin discovery |
 
 ### Project Structure
@@ -53,14 +59,17 @@ my-life-as-a-dev/
 ├── mkdocs.yml             # Main configuration
 ├── requirements.txt       # Python dependencies
 ├── mkdocs_plugins/        # Custom plugins
-│   ├── ai_plugin/        # AI integration
-│   └── version_plugin/   # Versioning support
+│   └── ai_plugin.py      # AI integration (currently disabled)
 ├── docs/                  # Documentation source
 │   ├── assets/           # Static files
+│   ├── overrides/        # Theme overrides (AI UI commented out)
 │   ├── repositories/     # Project documentation
 │   └── ...
 └── scripts/              # Build and deployment scripts
-    └── doc-cli.rs        # CLI tool
+    ├── python/
+    │   └── ai_proxy.py   # FastAPI AI proxy (dev only)
+    └── rust/
+        └── src/doc-cli.rs # CLI tool
 ```
 
 ## Deployment
