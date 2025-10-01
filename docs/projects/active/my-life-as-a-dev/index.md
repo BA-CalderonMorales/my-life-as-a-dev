@@ -8,7 +8,7 @@ This project serves as my personal documentation hub, showcasing my work, though
 
 ## Key Features
 
-- **AI-Powered Documentation**: Integrated OpenAI API for AI-assisted content generation
+- **AI-Powered Documentation**: Integrated GitHub Models (Azure AI Inference) for AI-assisted content generation
 - **Versioned Documentation**: Full versioning support with mike
 - **Automated Workflows**: CI/CD pipelines for testing and deployment
 - **Custom Plugins**: Extensible architecture with custom MkDocs plugins
@@ -22,10 +22,10 @@ This project serves as my personal documentation hub, showcasing my work, though
 
 ## Project Status
 
-:material-check-circle: Actively maintained  
+:material-check-circle: Actively maintained
 :material-update: Regular updates and improvements
 
-> **Note**: The AI integration feature requires your own OpenAI API key for full functionality.
+> **Note**: AI features are currently disabled in production for security reasons. For local development, the AI integration uses GitHub Models (Azure AI Inference) with a GitHub Personal Access Token.
 
 ## Getting Started
 

@@ -73,14 +73,29 @@ cargo build --release
 ./doc-cli.sh
 ```
 
-## AI Integration Setup
+## AI Integration Setup (Local Development Only)
 
-1. Create a `.env` file in the root directory:
-   ```
-   OPENAI_API_KEY=your_api_key_here
+> **Important**: AI features are currently disabled in production. This setup is for local development and testing only.
+
+The AI proxy uses GitHub Models (Azure AI Inference) instead of OpenAI.
+
+1. Set up your GitHub Personal Access Token:
+   ```bash
+   export GITHUB_TOKEN=your_github_pat_here
    ```
 
-2. Restart the MkDocs server for changes to take effect.
+2. Start the AI proxy (optional, for testing AI features):
+   ```bash
+   # Requires GITHUB_TOKEN environment variable
+   uv run python scripts/python/ai_proxy.py
+
+   # The proxy will run on 127.0.0.1:8765 by default
+   # Configure with HOST, PORT, AI_MODEL, AI_ENDPOINT env vars if needed
+   ```
+
+3. Default AI model: `deepseek/DeepSeek-R1`
+
+Note: The AI chat UI is currently commented out in production builds. See AGENTS.md for security requirements before enabling in production.
 
 ## Next Steps
 
