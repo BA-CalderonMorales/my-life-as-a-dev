@@ -22,6 +22,18 @@ nav:
 
       - Terminal Jarvis:
         - Overview: projects/active/terminal-jarvis/index.md
+        - Quick Start:
+          - Installation: projects/active/terminal-jarvis/quick_start/installation.md
+          - Usage: projects/active/terminal-jarvis/quick_start/usage.md
+          - Configuration: projects/active/terminal-jarvis/quick_start/configuration.md
+          - AI Tools: projects/active/terminal-jarvis/quick_start/ai-tools.md
+        - Details:
+          - Architecture: projects/active/terminal-jarvis/details/architecture.md
+          - Testing: projects/active/terminal-jarvis/details/testing.md
+          - Maintainers: projects/active/terminal-jarvis/details/maintainers.md
+          - Contributing: projects/active/terminal-jarvis/details/contributions.md
+          - Roadmap: projects/active/terminal-jarvis/details/roadmap.md
+          - Limitations: projects/active/terminal-jarvis/details/limitations.md
 
       - Coder Starter Scripts:
         - Overview: projects/active/coder-starter-scripts/index.md
