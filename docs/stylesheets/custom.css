@@ -1,23 +1,55 @@
-/* Global typography improvements for consistency and legibility */
+/* Global typography for emotional minimalism */
 body {
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 .md-typeset {
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    line-height: 1.7;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    line-height: 1.8;
+    font-weight: 300;
 }
 
-.md-typeset h1,
-.md-typeset h2,
-.md-typeset h3,
+.md-typeset h1 {
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.md-typeset h2 {
+    font-weight: 300;
+    letter-spacing: -0.015em;
+    font-size: 1.75rem;
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+}
+
+.md-typeset h3 {
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    font-size: 1.35rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
 .md-typeset h4,
 .md-typeset h5,
 .md-typeset h6 {
     font-weight: 400;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.005em;
+}
+
+.md-typeset p {
+    font-weight: 300;
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+}
+
+.md-typeset strong {
+    font-weight: 500;
+    letter-spacing: 0.01em;
 }
 
 .md-typeset code {
@@ -27,24 +59,24 @@ body {
 /* Hero container - light mode */
 [data-md-color-scheme="default"] .hero-container {
     width: 100vw;
-    min-height: 70vh;
+    min-height: 75vh;
     position: relative;
     left: 50%;
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
     margin-top: 0;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
     background: linear-gradient(180deg,
-            rgba(250, 250, 252, 0.4) 0%,
-            rgba(245, 247, 250, 0.6) 50%,
-            rgba(240, 242, 245, 0.8) 100%);
+            rgba(252, 252, 253, 0.3) 0%,
+            rgba(248, 249, 250, 0.5) 50%,
+            rgba(245, 246, 247, 0.7) 100%);
     padding: 0;
     box-shadow:
-        inset 0 0 60px rgba(0, 0, 0, 0.02),
-        0 1px 3px rgba(0, 0, 0, 0.03);
-    border-top: 1px solid rgba(0, 0, 0, 0.04);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        inset 0 0 40px rgba(0, 0, 0, 0.015),
+        0 1px 2px rgba(0, 0, 0, 0.02);
+    border-top: 1px solid rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,24 +87,24 @@ body {
 /* Hero container - dark mode */
 [data-md-color-scheme="slate"] .hero-container {
     width: 100vw;
-    min-height: 70vh;
+    min-height: 75vh;
     position: relative;
     left: 50%;
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
     margin-top: 0;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
     background: linear-gradient(180deg,
-            rgba(18, 18, 22, 0.4) 0%,
-            rgba(15, 15, 18, 0.6) 50%,
-            rgba(12, 12, 15, 0.8) 100%);
+            rgba(20, 20, 23, 0.3) 0%,
+            rgba(16, 16, 19, 0.5) 50%,
+            rgba(13, 13, 16, 0.7) 100%);
     padding: 0;
     box-shadow:
-        inset 0 0 60px rgba(255, 255, 255, 0.02),
-        0 1px 3px rgba(0, 0, 0, 0.2);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        inset 0 0 40px rgba(255, 255, 255, 0.015),
+        0 1px 2px rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -89,26 +121,26 @@ body {
     width: 90%;
     max-width: 800px;
     text-align: center;
-    color: rgba(30, 35, 45, 0.7);
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: rgba(30, 35, 45, 0.65);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
     font-style: italic;
-    font-size: 0.95rem;
-    font-weight: 300;
-    letter-spacing: 0.02em;
+    font-size: 1rem;
+    font-weight: 200;
+    letter-spacing: 0.03em;
     margin: 0;
     padding: 1rem;
     z-index: 1;
     text-shadow: none;
     transition: color 0.3s ease, opacity 0.3s ease;
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
 [data-md-color-scheme="default"] .hero-text-top {
-    top: 2rem;
+    top: 2.5rem;
 }
 
 [data-md-color-scheme="default"] .hero-text-bottom {
-    bottom: 2rem;
+    bottom: 2.5rem;
 }
 
 [data-md-color-scheme="default"] .hero-text-top:hover,
@@ -126,26 +158,26 @@ body {
     width: 90%;
     max-width: 800px;
     text-align: center;
-    color: rgba(255, 255, 255, 0.5);
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: rgba(255, 255, 255, 0.45);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
     font-style: italic;
-    font-size: 0.95rem;
-    font-weight: 300;
-    letter-spacing: 0.02em;
+    font-size: 1rem;
+    font-weight: 200;
+    letter-spacing: 0.03em;
     margin: 0;
     padding: 1rem;
     z-index: 1;
     text-shadow: none;
     transition: color 0.3s ease, opacity 0.3s ease;
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
 [data-md-color-scheme="slate"] .hero-text-top {
-    top: 2rem;
+    top: 2.5rem;
 }
 
 [data-md-color-scheme="slate"] .hero-text-bottom {
-    bottom: 2rem;
+    bottom: 2.5rem;
 }
 
 [data-md-color-scheme="slate"] .hero-text-top:hover,
@@ -163,13 +195,13 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: brightness(0.95) saturate(0.8) contrast(1.05) opacity(0.6);
-    transition: filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.75) contrast(1.03) opacity(0.55);
+    transition: filter 0.5s ease;
     z-index: 1;
 }
 
 [data-md-color-scheme="default"] .hero-svg:hover {
-    filter: brightness(1.0) saturate(0.9) contrast(1.05) opacity(0.7);
+    filter: brightness(0.96) saturate(0.85) contrast(1.05) opacity(0.65);
 }
 
 /* Hero SVG - dark mode */
@@ -181,13 +213,13 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: brightness(1.2) saturate(1.0) contrast(1.1) opacity(0.6);
-    transition: filter 0.4s ease;
+    filter: brightness(1.15) saturate(0.95) contrast(1.08) opacity(0.55);
+    transition: filter 0.5s ease;
     z-index: 1;
 }
 
 [data-md-color-scheme="slate"] .hero-svg:hover {
-    filter: brightness(1.3) saturate(1.1) contrast(1.15) opacity(0.7);
+    filter: brightness(1.25) saturate(1.05) contrast(1.12) opacity(0.65);
 }
 
 /* Responsive adjustments */
@@ -282,6 +314,45 @@ body {
 
 .md-typeset .hero-container:first-child {
     margin-top: -2rem !important;
+}
+
+/* Button and content spacing adjustments */
+.md-typeset .md-button {
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    padding: 0.625rem 1.5rem;
+    transition: all 0.2s ease;
+}
+
+.md-typeset .md-button--primary {
+    font-weight: 500;
+}
+
+/* Horizontal rule styling for minimalism */
+.md-typeset hr {
+    border: none;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.06);
+    margin: 3rem 0;
+}
+
+[data-md-color-scheme="slate"] .md-typeset hr {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Content spacing */
+.landing-page .md-content__inner {
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.landing-page .md-typeset > div[align="center"] {
+    margin-bottom: 3rem;
+}
+
+.landing-page .md-typeset h2:first-of-type {
+    margin-top: 1rem;
 }
 
 /* Button spacing on mobile */
