@@ -65,7 +65,7 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
-    
+
     # Light mode
     - scheme: default
       primary: teal
