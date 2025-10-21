@@ -85,7 +85,7 @@ A curated collection of my key software engineering projects, showcasing differe
     - :material-git: Full Git-based versioning with mike
     - :material-tools: Custom Rust CLI for documentation management
     - :material-code-json: Structured content with Material for MkDocs
-    - :material-github-actions: CI/CD automation via GitHub Actions
+    - :material-auto-fix: CI/CD automation via GitHub Actions
 
 === "Experiments"
 
