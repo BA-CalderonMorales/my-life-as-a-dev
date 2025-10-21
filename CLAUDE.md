@@ -49,8 +49,22 @@ my-life-as-a-dev/
 ├── requirements.txt        # Python dependencies
 ├── setup.py               # Plugin installation config
 ├── Makefile              # Common development tasks
-└── doc-cli.sh            # Optional wrapper for Rust CLI
+├── doc-cli.sh            # Optional wrapper for Rust CLI
+└── .claude/              # Claude Code skills and automation
+    └── skills/           # Specialized maintenance skills
 ```
+
+## Specialized Skills
+
+The `.claude/skills/` directory contains specialized workflows for maintaining this MkDocs project:
+
+- **sync-repo-docs**: Sync external repository READMEs to docs/repositories/
+- **new-project-page**: Create new project documentation following the established template
+- **check-project-updates**: Identify which GitHub repos have been updated recently
+- **verify-docs**: Verify documentation quality (NO EMOJIS, proper formatting, etc.)
+- **deploy-docs**: Deploy versioned documentation to GitHub Pages
+
+These skills make routine maintenance tasks simple and ensure consistency with the project's patterns. See `.claude/skills/README.md` for detailed usage.
 
 ## Common Commands
 
