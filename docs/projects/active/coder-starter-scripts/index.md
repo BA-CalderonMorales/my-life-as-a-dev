@@ -1,10 +1,18 @@
 # Coder Starter Scripts
 
-Run a local Coder server instance with automated setup scripts.
+**Platform-specific startup scripts for running local Coder server instances**
+
+Automates binary acquisition and environment setup for development and evaluation purposes. Designed for individual developers who need fast, repeatable Coder environments for testing and experimentation.
+
+!!! info "Project Status"
+    Active development - stable for local development and testing workflows. GitHub Codespaces support is the primary development focus, with improvements regularly backported to platform-specific scripts.
 
 ## Overview
 
-Repository for running a local Coder server instance. Perfect for teams wanting self-hosted development environments.
+Platform-specific startup scripts that automate the entire process of running a local Coder server instance. The scripts handle binary downloads, environment setup, and server launch with zero manual configuration required.
+
+**Intended Use**: Local development, evaluation, and experimentation with Coder
+**Not Intended For**: Production deployments or enterprise installations
 
 ## Quick Links
 
@@ -65,13 +73,84 @@ The start scripts will automatically download and install Coder if it's not foun
 2. Platform-specific package managers (fallback)
 3. Manual download instructions (final fallback)
 
-## GitHub Codespaces Usage
+## Platform Support
 
-We currently lean on `./start.gh.codespaces.sh` to rapidly spin up and tear down an isolated learning/experimentation environment without polluting local machines. This script is optimized for:
+| Platform | Script | Status | Notes |
+|----------|--------|--------|-------|
+| Linux | `start.linux.sh` | Stable | Tested on Ubuntu, supports apt fallback |
+| macOS | `start.mac.sh` | Stable | Supports both Intel and Apple Silicon |
+| Windows | `start.windows.sh` | Stable | Requires Git Bash or WSL |
+| GitHub Codespaces | `start.gh.codespaces.sh` | Active Development | Primary development target |
 
-- Ephemeral environments (open Codespace, explore, discard)
-- Fast bootstrap (auto-download if Coder binary missing)
-- Consistent baseline across contributors
+## Architecture
+
+### Binary Management
+
+Scripts follow a strict policy of never committing the Coder binary to version control:
+
+- Binaries are downloaded on-demand from GitHub releases
+- Codespaces script isolates downloads in `.bin/` directory (gitignored)
+- Legacy platform scripts download to project root (also gitignored)
+- All binaries and archives are excluded via `.gitignore`
+
+### Download Strategy
+
+Each script implements a multi-method fallback approach:
+
+1. **Primary**: Direct download from GitHub releases
+   - Fetches latest version via GitHub API
+   - Automatic architecture detection (amd64/arm64)
+   - Platform-specific archive formats (tar.gz for Linux, zip for macOS/Windows)
+
+2. **Fallback**: Platform package manager
+   - Windows: winget
+   - macOS: Homebrew
+   - Linux: apt
+
+3. **Final Fallback**: Manual installation instructions
+
+### Codespaces-Specific Design
+
+The `start.gh.codespaces.sh` script is purpose-built for ephemeral environments:
+
+- No privileged operations (no sudo/apt)
+- Strict error handling (`set -euo pipefail`)
+- Robust version detection with API rate limit fallback
+- Temporary directory extraction with safe binary discovery
+- Environment-based configuration flags
+
+**Codespaces Options:**
+
+```bash
+# Download and verify only (skip server start)
+SKIP_CODER_SERVER=1 ./start.gh.codespaces.sh
+
+# Suppress non-critical logs
+QUIET=1 ./start.gh.codespaces.sh
+
+# Force redownload latest version
+rm -f .bin/coder && ./start.gh.codespaces.sh
+```
+
+### Windows-Specific Behavior
+
+The Windows script includes PostgreSQL directory management:
+
+- Loads `.env` file if present (for `POSTGRES_DIR` override)
+- Defaults to `$HOME/AppData/Roaming/coderv2/postgres`
+- Removes and recreates directory on each startup for clean state
+
+## Limitations
+
+This project is explicitly scoped for local development and evaluation:
+
+!!! warning "Not for Production"
+    1. **No High Availability**: Single-instance deployments only
+    2. **Ephemeral Data**: Windows script resets PostgreSQL data on each run
+    3. **No Security Hardening**: Uses default configurations and embedded databases
+    4. **Single-User Focus**: Designed for individual developer workflows
+    5. **No Update Management**: Always pulls latest release (no version pinning yet)
+    6. **Limited Network Options**: Binds to localhost only
 
 ## Documentation
 
@@ -80,3 +159,4 @@ For comprehensive documentation, visit the [GitHub repository](https://github.co
 Key documentation files:
 - [Quick Start Guide](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/QUICK_START.md)
 - [Maintainer Guide](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/MAINTAINER.md)
+- [Project Instructions](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/CLAUDE.md)

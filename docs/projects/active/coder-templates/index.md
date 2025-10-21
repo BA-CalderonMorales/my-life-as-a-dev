@@ -1,60 +1,146 @@
 # Coder Templates
 
-A collection of templates and utilities for creating consistent development environments using Coder.
+**Terraform-based workspace templates for consistent, portable development environments**
+
+Production-ready Coder workspace templates designed for Terminal-Jarvis development. Templates use Terraform to provision containerized workspaces with pre-configured toolchains including Node.js 20, Python 3, Rust, and development utilities.
 
 ## Overview
 
-This repository contains templates and utilities for creating consistent development environments using Coder. The templates ensure that every developer gets the same environment with all necessary tools pre-configured.
+Terraform-based workspace templates that provision complete development environments on Coder with pre-installed toolchains, observability dashboards, and persistent storage. Templates target both local Docker deployments and cloud infrastructure, with an emphasis on free-tier and low-cost options.
 
 ## Quick Links
 
 - [:material-github: GitHub Repository](https://github.com/BA-CalderonMorales/coder-templates)
 
-## Key Features
+## Project Status
 
-- Pre-configured templates
-- Team collaboration ready
-- Fast environment provisioning
-- Cloud deployment guides for multiple providers
+**Implemented:**
 
-## Purpose
+- :material-docker: Local Docker template using Docker containers with persistent volumes
+- :material-google-cloud: GCP Compute Engine template using bare VM architecture
+- :material-package-variant: Multi-platform packaging scripts (Linux, macOS, Windows)
+- :material-file-document-multiple: Comprehensive deployment documentation for GCP, AWS, and Azure
+- :material-developer-board: Development container for contributors
+- :material-chart-line: Resource monitoring and observability built into templates
 
-The scripts package development environment templates into portable tar archives (`.tar`). This is a crucial step in the Coder template workflow:
+**Planned:**
 
-1. Define the development environment in a template directory
-2. Run the packaging script to create a `.tar` archive
-3. Upload the generated `.tar` file to Coder as a new template
-4. Coder uses this template to create consistent development environments for all team members
+- Feature flags for optional components (JetBrains Gateway, resource limits)
+- Multi-architecture image builds (AMD64 + ARM64) via GitHub Actions
+- AWS and Azure template implementations (documentation exists, Terraform pending)
+- Automated linting and validation pipeline (tflint, trivy/grype)
+- Secret management patterns (dotfiles, cloud secret managers)
 
-## Current Templates
+## Architecture
 
-### Terminal Jarvis Playground
+### Template Model
 
-A development environment for Terminal-Jarvis with Node.js and Git support.
+Each template consists of three core components:
 
-## Usage
+1. **Dockerfile** - Defines the workspace runtime environment with pre-installed tools
+2. **main.tf** - Terraform configuration declaring Coder resources and infrastructure
+3. **README.md** - Deployment-specific setup and configuration instructions
 
-To package a template environment, use the appropriate script for your operating system:
+Templates are packaged into `.tar` archives and uploaded to Coder for workspace provisioning.
+
+### Persistence Strategy
+
+- **Ephemeral**: Workspace container or VM (recreated on restart)
+- **Persistent**: User data in `/home/coder` via Docker volumes or attached disks
+- **Consequence**: Tools installed outside persistent paths must be baked into Dockerfile
+
+### Observability
+
+Templates include real-time dashboard metrics:
+
+- CPU usage (container/host)
+- RAM usage with percentage utilization
+- Disk usage for home directory
+- Load average scaled by CPU count
+- Swap usage (critical for memory-constrained instances)
+
+## Quick Start
+
+### 1. Package Template
+
+Run the packaging script for your platform:
 
 ```bash
-# For Windows
-./start.windows.sh
+# Interactive mode - presents menu of templates
+./package.linux.sh     # Linux
+./package.mac.sh       # macOS
+./package.windows.sh   # Windows (Git Bash/WSL)
 
-# For macOS
-./start.mac.sh
-
-# For Linux
-./start.linux.sh
+# Direct mode - package specific template
+./package.linux.sh local-docker   # Creates terminal-jarvis-playground-local.tar
+./package.linux.sh gcp            # Creates terminal-jarvis-playground-gcp.tar
+./package.linux.sh all            # Creates both archives
 ```
 
-These scripts will create `.tar` archives containing the development environment.
+### 2. Upload to Coder
 
-## Template Structure
+1. Navigate to Coder dashboard
+2. Go to Templates → Create Template
+3. Upload generated `.tar` file
+4. Configure template variables (see template README)
+5. Create workspace from template
 
-Each template directory contains:
-- `Dockerfile`: Defines the development environment
-- `main.tf`: Terraform configuration for the Coder workspace
-- Additional configuration files as needed
+### 3. Template-Specific Setup
+
+Consult the README in each template directory for deployment-specific requirements:
+
+- `terminal-jarvis-playground/local-docker/README.md` - Docker Desktop setup
+- `terminal-jarvis-playground/gcp/README.md` - GCP credentials and project configuration
+
+## Available Templates
+
+### terminal-jarvis-playground/local-docker
+
+Docker-based workspace for local development and testing.
+
+**Requirements:**
+
+- Docker Desktop or Docker Engine
+- 2+ GiB RAM recommended (JetBrains IDEs require 4+ GiB)
+
+**Features:**
+
+- Persistent `/home/coder` volume
+- code-server for browser-based VS Code
+- JetBrains Gateway support (IntelliJ, PyCharm, WebStorm, etc.)
+- Automatic git configuration from Coder user metadata
+
+**Terraform Variables:**
+
+- `docker_socket` (optional) - Custom Docker socket path
+
+### terminal-jarvis-playground/gcp
+
+Google Compute Engine deployment using ephemeral VMs with persistent disks.
+
+**Requirements:**
+
+- GCP project with Compute Engine API enabled
+- Service account with `compute.instanceAdmin.v1` role
+- Service account JSON key file
+
+**Features:**
+
+- Bare VM architecture (no Docker dependency)
+- Always Free tier eligible (e2-micro, 30 GB disk)
+- Systemd-managed Coder agent with auto-restart
+- Optional Archestra.ai integration
+- Optional Docker installation for container workflows
+
+**Terraform Variables:**
+
+- `project_id` (required) - GCP project ID
+- `zone` (optional) - Compute zone, default: `us-central1-a`
+- `machine_type` (optional) - Instance size, default: `e2-micro`
+- `disk_size` (optional) - Root disk GB, default: `30`
+- `gcp_credentials` (sensitive) - Service account JSON key
+- `enable_archestra` (optional) - Enable Archestra.ai, default: `false`
+- `enable_docker` (optional) - Install Docker, default: `false`
 
 ## Cloud Deployment Models
 
