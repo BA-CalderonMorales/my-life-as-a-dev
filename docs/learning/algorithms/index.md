@@ -43,6 +43,31 @@ Systematically explores all possible solutions by building candidates incrementa
 
 **Common Use Cases**: Permutations, combinations, constraint satisfaction, puzzle solving
 
+### Heap and Priority Queue
+Maintains elements in sorted order for efficient access to minimum or maximum. Essential for problems requiring frequent extreme value access.
+
+**Common Use Cases**: K-th largest/smallest, merge K lists, task scheduling, running median
+
+### Monotonic Stack
+Maintains stack elements in monotonic order to efficiently find next/previous greater or smaller elements.
+
+**Common Use Cases**: Next greater element, histogram problems, temperature problems, range queries
+
+### Graph Traversal (BFS/DFS)
+Systematic graph exploration using breadth-first or depth-first search. Foundation for many graph algorithms.
+
+**Common Use Cases**: Shortest path, connected components, cycle detection, level-order traversal
+
+### Greedy Algorithms
+Makes locally optimal choices at each step to find global optimum. Fast but requires proof of correctness.
+
+**Common Use Cases**: Activity selection, scheduling, interval problems, optimization with specific properties
+
+### Trie (Prefix Tree)
+Tree structure for efficient string prefix operations. Each path represents a word with shared prefixes.
+
+**Common Use Cases**: Autocomplete, spell check, prefix matching, dictionary operations, word games
+
 ## How to Use This Guide
 
 Each pattern section includes:
