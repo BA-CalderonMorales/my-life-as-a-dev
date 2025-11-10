@@ -101,23 +101,23 @@ markdown_extensions:
 
 plugins:
   - awesome-nav
-  # - git-authors:
-  #     show_email_address: true
-  #     href: "mailto:{email}"
-  # - git-revision-date-localized:
-  #     timezone: America/North_Dakota/Center
-  # - mike
-  # - panzoom
-  # - glightbox
-  # - print-site
+  - git-authors:
+      show_email_address: true
+      href: "mailto:{email}"
+  - git-revision-date-localized:
+      timezone: America/North_Dakota/Center
+  - mike
+  - panzoom
+  - glightbox
+  - print-site
   - search
-  # - tags
-  # - minify:
-  #     minify_html: true
-  #     minify_js: true
-  #     minify_css: true
-  #     htmlmin_opts:
-  #         remove_comments: true
+  - tags
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+          remove_comments: true
 
 extra_css:
   - stylesheets/custom.css
