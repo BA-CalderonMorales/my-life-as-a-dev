@@ -66,6 +66,25 @@ nav:
         - Quick Start: projects/experiments/rust-terminal-forge/quick_start/index.md
         - Details: projects/experiments/rust-terminal-forge/details/index.md
 
+  - Learning:
+
+    - Overview: learning/index.md
+
+    - Algorithms:
+
+      - Overview: learning/algorithms/index.md
+      - Sliding Window: learning/algorithms/sliding_window/index.md
+      - Dynamic Programming: learning/algorithms/dynamic_programming/index.md
+      - Binary Search on Answer: learning/algorithms/binary_search_on_answer/index.md
+      - Two Pointers: learning/algorithms/two_pointers/index.md
+      - Fast and Slow Pointers: learning/algorithms/fast_slow_pointers/index.md
+      - Backtracking: learning/algorithms/backtracking/index.md
+      - Heap and Priority Queue: learning/algorithms/heap_priority_queue/index.md
+      - Monotonic Stack: learning/algorithms/monotonic_stack/index.md
+      - Graph Traversal (BFS/DFS): learning/algorithms/graph_traversal/index.md
+      - Greedy Algorithms: learning/algorithms/greedy/index.md
+      - Trie (Prefix Tree): learning/algorithms/trie/index.md
+
   - Docs-as-Code: docs-as-code/index.md
 
   - About Me: resume/index.md
