@@ -584,8 +584,376 @@ class Trie:
 - Not restoring state in backtracking problems
 - Using trie when hash set would suffice
 
-## External Resources
+## Efficient String Storage and Memory Optimization
 
-For additional learning and deeper insights into trie data structures:
+Tries excel at storing large collections of strings with common prefixes. Understanding memory optimization is crucial for production systems.
 
-- [How to Efficiently Store and Represent Strings Using a Trie Data Structure](https://lnkd.in/edNtV2yK) - In-depth guide on trie implementation, memory optimization techniques, and advanced string storage strategies. Essential reading for understanding when and how to use tries effectively in production systems.
+### Memory Analysis
+
+**Naive Approach**: Store each word separately
+```python
+# 1000 words averaging 10 chars each = ~10KB
+words_list = ["apple", "application", "apply", ...]  # 1000 words
+# Memory: 1000 strings * 10 bytes/string = 10,000 bytes
+```
+
+**Trie Approach**: Share common prefixes
+```python
+# Words: "app", "apple", "application", "apply", "apricot"
+# Naive: 5 * 10 = 50 bytes (average)
+# Trie: Only stores unique characters/paths
+#   - "app" prefix shared by 4 words
+#   - Saves: ~20-30 bytes
+```
+
+### Memory Optimization Techniques
+
+#### 1. Compressed Trie (Patricia Trie)
+
+Compress chains of single-child nodes into single edges.
+
+```python
+class CompressedTrieNode:
+    """
+    Patricia Trie node - stores edge labels instead of single chars.
+    
+    Memory savings: Significant for long unique suffixes
+    """
+    def __init__(self):
+        # Key: next character, Value: (edge_label, child_node)
+        self.children = {}
+        self.is_end = False
+
+def insert_compressed(root, word):
+    """
+    Insert into compressed trie.
+    
+    Instead of one node per character, stores string labels on edges.
+    """
+    node = root
+    i = 0
+    
+    while i < len(word):
+        char = word[i]
+        
+        if char not in node.children:
+            # No matching edge - create new one with remaining word
+            node.children[char] = (word[i:], CompressedTrieNode())
+            node.children[char][1].is_end = True
+            return
+        
+        edge_label, child = node.children[char]
+        
+        # Find longest common prefix
+        j = 0
+        while j < len(edge_label) and i + j < len(word) and edge_label[j] == word[i + j]:
+            j += 1
+        
+        if j == len(edge_label):
+            # Entire edge matches - continue with child
+            node = child
+            i += j
+        elif j < len(edge_label):
+            # Partial match - split edge
+            new_node = CompressedTrieNode()
+            
+            # Update existing edge
+            old_label, old_child = node.children[char]
+            node.children[char] = (old_label[:j], new_node)
+            
+            # Add suffix of old edge
+            suffix_char = old_label[j]
+            new_node.children[suffix_char] = (old_label[j:], old_child)
+            
+            # Add remaining of new word
+            if i + j < len(word):
+                new_char = word[i + j]
+                remaining_node = CompressedTrieNode()
+                remaining_node.is_end = True
+                new_node.children[new_char] = (word[i + j:], remaining_node)
+            else:
+                new_node.is_end = True
+            return
+
+# Example: DNS domain storage
+domains = [
+    "example.com",
+    "example.org",
+    "example.net",
+    "test.example.com"
+]
+
+# Regular trie: ~100+ nodes
+# Compressed trie: ~20 nodes (80% reduction)
+```
+
+#### 2. Alphabet Reduction
+
+For specialized datasets, use custom alphabets to reduce memory.
+
+```python
+class CompactTrie:
+    """
+    Trie optimized for lowercase letters only.
+    
+    Uses array instead of dict for children (faster, less memory per node).
+    """
+    
+    def __init__(self):
+        self.children = [None] * 26  # Fixed size array
+        self.is_end = False
+    
+    def _char_to_index(self, char):
+        """Convert 'a'-'z' to 0-25."""
+        return ord(char) - ord('a')
+    
+    def insert(self, word):
+        """Insert word (lowercase only)."""
+        node = self
+        for char in word:
+            idx = self._char_to_index(char)
+            if node.children[idx] is None:
+                node.children[idx] = CompactTrie()
+            node = node.children[idx]
+        node.is_end = True
+    
+    def search(self, word):
+        """Search for word."""
+        node = self
+        for char in word:
+            idx = self._char_to_index(char)
+            if node.children[idx] is None:
+                return False
+            node = node.children[idx]
+        return node.is_end
+
+# Memory per node: 
+# Dict-based: ~200-300 bytes (hash table overhead)
+# Array-based: ~220 bytes (26 * 8 bytes + overhead)
+# But: faster access, better cache locality
+```
+
+#### 3. Lazy Deletion
+
+Mark nodes as deleted instead of physically removing them.
+
+```python
+class LazyDeleteTrie:
+    """
+    Trie with lazy deletion for better performance.
+    
+    Physical deletion requires traversing up to remove empty nodes.
+    Lazy deletion just marks as not-a-word.
+    """
+    
+    def __init__(self):
+        self.children = {}
+        self.is_end = False
+        self.is_deleted = False  # Lazy delete flag
+    
+    def delete(self, word):
+        """
+        Mark word as deleted without restructuring tree.
+        
+        Time: O(m) - just mark flag
+        vs O(m) + potential cleanup overhead for physical deletion
+        """
+        node = self
+        for char in word:
+            if char not in node.children:
+                return False
+            node = node.children[char]
+        
+        if node.is_end:
+            node.is_deleted = True
+            return True
+        return False
+    
+    def search(self, word):
+        """Search considers deleted flag."""
+        node = self
+        for char in word:
+            if char not in node.children:
+                return False
+            node = node.children[char]
+        return node.is_end and not node.is_deleted
+
+# Use case: Autocomplete with frequently changing dictionary
+# Deletes are common, rebuilds expensive
+```
+
+### Production Considerations
+
+#### When to Use Trie
+
+✅ **Good fit**:
+- Large dictionary with many common prefixes
+- Need prefix operations (autocomplete, prefix count)
+- Memory is less critical than speed
+- Words added incrementally
+
+❌ **Poor fit**:
+- Small word list (< 1000 words) - hash set is simpler
+- No common prefixes (e.g., UUIDs, random strings)
+- Extremely memory-constrained
+- Only exact matches needed (no prefix ops)
+
+#### Memory vs Performance Trade-offs
+
+```python
+import sys
+
+def measure_trie_memory():
+    """Compare memory usage of trie vs alternatives."""
+    
+    words = ["app", "apple", "apply", "application"]
+    
+    # Approach 1: List of strings
+    list_size = sys.getsizeof(words) + sum(sys.getsizeof(w) for w in words)
+    print(f"List: {list_size} bytes")
+    
+    # Approach 2: Set of strings
+    word_set = set(words)
+    set_size = sys.getsizeof(word_set) + sum(sys.getsizeof(w) for w in words)
+    print(f"Set: {set_size} bytes")
+    
+    # Approach 3: Trie (estimate)
+    # Each node: ~200 bytes (dict + metadata)
+    # Shared prefix "app": 3 nodes
+    # Branches: 1 node each
+    # Total: ~7 nodes * 200 = ~1400 bytes
+    print(f"Trie (estimated): ~1400 bytes")
+    
+    # Verdict: Trie uses more memory but enables prefix operations
+    # Choose based on needs, not just memory
+
+# Real-world example: Autocomplete server
+# - 100,000 product names
+# - Average 20 chars each
+# - 30% prefix overlap
+# 
+# List/Set: 100,000 * 20 = 2MB
+# Trie: ~1.4MB due to prefix sharing
+# Plus: O(m) prefix search vs O(n*m) for list
+```
+
+### Advanced Optimization: Succinct Trie
+
+For read-only datasets, compress trie into bit vectors.
+
+```python
+class SuccinctTrie:
+    """
+    Space-efficient read-only trie using bit vectors.
+    
+    Memory: ~3-4 bits per node vs ~200+ bytes per node
+    Trade-off: Build time increases, read-only
+    
+    Used in: Spell checkers, DNA sequence analysis, search engines
+    """
+    
+    def __init__(self, words):
+        """
+        Build succinct representation from word list.
+        
+        Steps:
+        1. Build regular trie
+        2. Serialize to bit vectors
+        3. Discard original tree
+        """
+        # This is a simplified concept - production implementations
+        # use LOUDS (Level-Order Unary Degree Sequence)
+        # and rank/select data structures
+        
+        self.structure = []  # Bit vector for tree structure
+        self.labels = []     # Character labels
+        
+        # Build would happen here
+        # See: "Succinct Data Structures" literature
+    
+    # Space savings: 50-100x reduction
+    # Use when: Large static dictionary (mobile apps, embedded systems)
+```
+
+### Real-World Example: URL Router
+
+```python
+class URLRouter:
+    """
+    Efficient URL routing using trie structure.
+    
+    Handles: /api/users/:id/posts/:post_id
+    """
+    
+    def __init__(self):
+        self.root = self._Node()
+    
+    class _Node:
+        def __init__(self):
+            self.children = {}
+            self.handler = None
+            self.param_name = None  # For :id style params
+    
+    def add_route(self, path, handler):
+        """Add route with parameter support."""
+        parts = path.strip('/').split('/')
+        node = self.root
+        
+        for part in parts:
+            if part.startswith(':'):
+                # Parameter segment
+                key = ':'  # All params use same key
+                if key not in node.children:
+                    node.children[key] = self._Node()
+                    node.children[key].param_name = part[1:]
+                node = node.children[key]
+            else:
+                # Static segment
+                if part not in node.children:
+                    node.children[part] = self._Node()
+                node = node.children[part]
+        
+        node.handler = handler
+    
+    def route(self, path):
+        """
+        Match path to handler.
+        
+        Returns: (handler, params_dict) or (None, {})
+        """
+        parts = path.strip('/').split('/')
+        node = self.root
+        params = {}
+        
+        for part in parts:
+            if part in node.children:
+                # Exact match
+                node = node.children[part]
+            elif ':' in node.children:
+                # Parameter match
+                node = node.children[':']
+                params[node.param_name] = part
+            else:
+                return None, {}
+        
+        return node.handler, params
+
+# Example
+router = URLRouter()
+router.add_route('/api/users/:user_id/posts/:post_id', handle_post)
+router.add_route('/api/users/:user_id', handle_user)
+
+handler, params = router.route('/api/users/123/posts/456')
+# handler = handle_post
+# params = {'user_id': '123', 'post_id': '456'}
+```
+
+## Further Learning
+
+The optimizations and techniques above cover production-grade string storage implementations. For alternative perspectives:
+
+- **Advanced Trie Variants**: External resources may discuss additional variants like Ternary Search Trees or Radix Trees
+- **Theoretical Analysis**: Academic sources provide formal proofs of space/time complexity
+- **Implementation Details**: Language-specific optimizations vary (C++ vs Python vs Java)
+
+The key is understanding the trade-offs between memory, speed, and implementation complexity for your specific use case.
