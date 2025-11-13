@@ -508,8 +508,12 @@ def depth_first_search(node, visited=None):
 - Forgetting about space used by hash collisions
 - Not considering worst-case space usage
 
-## External Resources
+## Further Learning
 
-For deeper understanding of space complexity:
+The analysis techniques and examples above provide comprehensive coverage of space complexity fundamentals. For additional perspectives:
 
-- [How to Analyze the Space Complexity of an Algorithm](https://lnkd.in/eEB-e2P3) - Comprehensive guide covering space complexity fundamentals, time-space trade-offs, and recursion analysis. Essential for understanding memory usage and optimization strategies in algorithm design.
+- **Formal Analysis**: Academic resources may provide mathematical proofs and formal definitions of auxiliary space
+- **Language-Specific Memory Models**: Different languages have different memory management characteristics (garbage collection, stack vs heap allocation)
+- **Advanced Topics**: Cache-aware algorithms and memory hierarchy considerations in modern processors
+
+The key is developing intuition for recognizing space usage patterns and understanding trade-offs between time and space in real-world scenarios.
