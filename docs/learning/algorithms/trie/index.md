@@ -583,3 +583,9 @@ class Trie:
 - Wrong recursion termination in wildcard search
 - Not restoring state in backtracking problems
 - Using trie when hash set would suffice
+
+## External Resources
+
+For additional learning and deeper insights into trie data structures:
+
+- [How to Efficiently Store and Represent Strings Using a Trie Data Structure](https://lnkd.in/edNtV2yK) - In-depth guide on trie implementation, memory optimization techniques, and advanced string storage strategies. Essential reading for understanding when and how to use tries effectively in production systems.

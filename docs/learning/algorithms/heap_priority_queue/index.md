@@ -511,3 +511,9 @@ class MedianTemplate:
 - Incorrect size balancing in two heap problems
 - Not handling edge cases (empty heaps, single element)
 - Wrong complexity analysis (remember heapify is O(n), not O(n log n))
+
+## External Resources
+
+For additional learning and deeper insights into heap data structures:
+
+- [Three Must-Know Applications of Heap Data Structures](https://lnkd.in/enfeNM-N) - Comprehensive guide covering the three essential applications: finding largest elements, graph algorithms, and Huffman encoding. Excellent for understanding real-world use cases beyond basic heap operations.
