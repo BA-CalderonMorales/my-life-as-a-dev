@@ -405,3 +405,9 @@ def fast_slow_pattern(head):
 - Forgetting to handle empty list or single node
 - Wrong movement ratio (e.g., moving slow by 2, fast by 3)
 - Not handling case when no cycle exists
+
+## External Resources
+
+For additional learning on linked list algorithms and fast/slow pointer techniques:
+
+- [From Traversal to Reversal: Essential Linked List Algorithms and Techniques](https://lnkd.in/eYruabNt) - Comprehensive guide covering linked list fundamentals, common interview problems, and advanced manipulation techniques. Perfect for mastering linked list operations and pointer management.

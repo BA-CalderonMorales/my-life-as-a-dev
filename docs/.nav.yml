@@ -85,6 +85,19 @@ nav:
       - Greedy Algorithms: learning/algorithms/greedy/index.md
       - Trie (Prefix Tree): learning/algorithms/trie/index.md
 
+    - Data Structures:
+
+      - Arrays and Multidimensional Arrays: learning/algorithms/arrays/index.md
+      - Hash Tables and Sets: learning/algorithms/hash_tables/index.md
+
+    - Additional Topics:
+
+      - Space Complexity Analysis: learning/algorithms/space_complexity/index.md
+
+    - Interview Preparation:
+
+      - Technical Interview Framework: learning/interview_preparation/index.md
+
   - Docs-as-Code: docs-as-code/index.md
 
   - About Me: resume/index.md

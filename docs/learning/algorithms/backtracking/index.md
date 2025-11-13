@@ -511,3 +511,9 @@ def backtrack_template(problem_input):
 - Not pruning invalid paths early
 - Inefficient state representation
 - Off-by-one errors in loop bounds
+
+## External Resources
+
+For additional learning and mastering backtracking algorithms:
+
+- [How to Master Backtracking Algorithms: A Step by Step Guide](https://lnkd.in/edwbW5uv) - Comprehensive step-by-step guide covering backtracking fundamentals, problem-solving patterns, and techniques to solve any backtracking problem systematically. Includes detailed walkthroughs and practice strategies.

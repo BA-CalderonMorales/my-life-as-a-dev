@@ -357,3 +357,9 @@ Result: length=5, first 5 elements are unique
 - Not handling edge cases properly
 - Forgetting to update result before moving pointers
 - Wrong condition for pointer movement
+
+## External Resources
+
+For additional learning and mastering the two-pointer technique:
+
+- [How to Use the Two-Pointer Method to Efficiently Solve Array and String Problems](https://lnkd.in/eaxNapz4) - Complete guide with code templates, common patterns, and detailed examples. Learn when and how to apply two-pointer technique to optimize your solutions from O(n²) to O(n) time complexity.
