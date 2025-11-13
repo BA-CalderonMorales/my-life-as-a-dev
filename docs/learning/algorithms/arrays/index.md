@@ -352,10 +352,475 @@ def spiral_order(matrix):
 - Memory issues with large multidimensional arrays
 - Forgetting to handle matrix dimensions properly
 
-## External Resources
+## Advanced Range Query Techniques
 
-For comprehensive learning on array data structures:
+When processing arrays, you often need to answer questions about ranges: "What's the sum from index i to j?" or "What's the minimum value in this range?" Naive approaches are O(n) per query. Advanced techniques reduce this dramatically.
 
-- [All You Need to Know About the Array Data Structure](https://lnkd.in/ekJMPDjy) - Complete guide covering one-dimensional arrays, multidimensional arrays, and dynamic arrays. Essential resource for understanding array fundamentals, memory management, and optimization techniques.
+### Technique 1: Prefix Sum Arrays
 
-- [How to Quickly Calculate Range Queries on Arrays Using Prefix Sum and Sparse Tables](https://lnkd.in/emgb2dA6) - Advanced techniques for efficient range query operations. Learn how to optimize sum, min, and max queries from O(n) to O(1) or O(log n) using preprocessing techniques.
+**Problem**: Answer multiple range sum queries efficiently.
+
+**Naive Approach**: O(n) per query - iterate and sum each time
+**Optimized**: O(1) per query after O(n) preprocessing
+
+```python
+class RangeSumQuery:
+    """
+    Preprocess array for O(1) range sum queries.
+    
+    Build Time: O(n)
+    Query Time: O(1)
+    Space: O(n)
+    """
+    
+    def __init__(self, nums):
+        """Build prefix sum array."""
+        n = len(nums)
+        self.prefix = [0] * (n + 1)
+        
+        # prefix[i] = sum of nums[0..i-1]
+        for i in range(n):
+            self.prefix[i + 1] = self.prefix[i] + nums[i]
+    
+    def range_sum(self, left, right):
+        """
+        Sum of elements from left to right (inclusive).
+        
+        Math: sum[left..right] = prefix[right+1] - prefix[left]
+        """
+        return self.prefix[right + 1] - self.prefix[left]
+
+# Example: Stock price changes
+price_changes = [2, -1, 3, -2, 1]
+rsq = RangeSumQuery(price_changes)
+
+print(rsq.range_sum(1, 3))  # -1 + 3 + -2 = 0
+print(rsq.range_sum(0, 4))  # Total change = 3
+```
+
+**Applications**:
+- Subarray sum problems
+- Image processing (summed-area tables)
+- Database query optimization
+- Cumulative statistics
+
+### Technique 2: Sparse Table (Range Minimum/Maximum Query)
+
+**Problem**: Answer range min/max queries where array doesn't change.
+
+**Approach**: Precompute answers for all ranges of size 2^k
+
+```python
+import math
+
+class SparseTable:
+    """
+    Range minimum query using sparse table.
+    
+    Build Time: O(n log n)
+    Query Time: O(1)
+    Space: O(n log n)
+    
+    Perfect for static arrays with many queries.
+    """
+    
+    def __init__(self, arr):
+        n = len(arr)
+        if n == 0:
+            self.table = []
+            self.log_table = []
+            return
+        
+        # Max power of 2 we need
+        max_log = int(math.log2(n)) + 1
+        
+        # table[i][j] = min in range [i, i + 2^j - 1]
+        self.table = [[0] * max_log for _ in range(n)]
+        
+        # Base case: ranges of length 1
+        for i in range(n):
+            self.table[i][0] = arr[i]
+        
+        # Fill table for ranges of length 2^j
+        for j in range(1, max_log):
+            i = 0
+            while i + (1 << j) <= n:
+                # Range [i, i + 2^j - 1] = 
+                # min of [i, i + 2^(j-1) - 1] and [i + 2^(j-1), i + 2^j - 1]
+                left = self.table[i][j - 1]
+                right = self.table[i + (1 << (j - 1))][j - 1]
+                self.table[i][j] = min(left, right)
+                i += 1
+        
+        # Precompute log values for O(1) query
+        self.log_table = [0] * (n + 1)
+        for i in range(2, n + 1):
+            self.log_table[i] = self.log_table[i // 2] + 1
+    
+    def range_min(self, left, right):
+        """
+        Minimum in range [left, right].
+        
+        Key insight: Any range can be covered by two
+        (possibly overlapping) power-of-2 ranges.
+        """
+        if not self.table:
+            return None
+        
+        # Find largest power of 2 that fits in range
+        length = right - left + 1
+        j = self.log_table[length]
+        
+        # Cover range with two (possibly overlapping) blocks
+        left_min = self.table[left][j]
+        right_min = self.table[right - (1 << j) + 1][j]
+        
+        return min(left_min, right_min)
+
+# Example: Stock prices - find minimum in any date range
+prices = [100, 80, 120, 70, 110, 90]
+st = SparseTable(prices)
+
+print(f"Min price days 1-4: ${st.range_min(1, 4)}")  # 70
+print(f"Min price days 0-2: ${st.range_min(0, 2)}")  # 80
+print(f"Min price all days: ${st.range_min(0, 5)}")  # 70
+```
+
+**When to Use Sparse Table**:
+- Array is static (no updates between queries)
+- Need O(1) query time
+- Many queries on same array
+- Idempotent operations (min, max, GCD) - not sum!
+
+### Technique 3: Difference Array (Range Updates)
+
+**Problem**: Apply updates to ranges efficiently.
+
+```python
+class RangeUpdateArray:
+    """
+    Efficiently apply multiple range updates.
+    
+    Build: O(n)
+    Update: O(1) per update
+    Finalize: O(n) to get final array
+    
+    Perfect when you have many updates before needing final values.
+    """
+    
+    def __init__(self, size):
+        # Difference array: diff[i] = arr[i] - arr[i-1]
+        self.diff = [0] * (size + 1)
+        self.size = size
+    
+    def range_add(self, left, right, val):
+        """Add val to all elements in range [left, right]."""
+        self.diff[left] += val
+        self.diff[right + 1] -= val
+    
+    def get_array(self):
+        """Reconstruct final array from difference array."""
+        result = [0] * self.size
+        current = 0
+        
+        for i in range(self.size):
+            current += self.diff[i]
+            result[i] = current
+        
+        return result
+
+# Example: Event scheduling with overlapping events
+schedule = RangeUpdateArray(10)  # 10 time slots
+
+# Event 1: slots 0-3
+schedule.range_add(0, 3, 1)
+# Event 2: slots 2-5
+schedule.range_add(2, 5, 1)
+# Event 3: slots 4-7
+schedule.range_add(4, 7, 1)
+
+load = schedule.get_array()
+print("Concurrent events per slot:", load)
+# [1, 1, 2, 2, 3, 3, 2, 2, 0, 0]
+print(f"Max concurrent events: {max(load)}")  # 3
+```
+
+**Applications**:
+- Calendar applications (booking conflicts)
+- Network bandwidth allocation
+- Task scheduling
+- Image filters (box blur)
+
+## Five Data Structures for Image Processing
+
+Image processing relies heavily on efficient array operations. Understanding these structures is crucial for computer vision and graphics.
+
+### 1. 2D Arrays (Pixel Matrices)
+
+**Core Structure**: Images are 2D arrays where each element represents a pixel.
+
+```python
+# Grayscale image: 2D array of intensity values (0-255)
+grayscale = [
+    [100, 120, 130],
+    [110, 125, 135],
+    [115, 130, 140]
+]
+
+# RGB image: 3D array (height, width, channels)
+rgb_image = [
+    [[255, 0, 0], [0, 255, 0]],    # Row 1: Red, Green
+    [[0, 0, 255], [255, 255, 0]]   # Row 2: Blue, Yellow
+]
+
+def get_pixel(image, row, col):
+    """Access pixel with bounds checking."""
+    if 0 <= row < len(image) and 0 <= col < len(image[0]):
+        return image[row][col]
+    return None  # Out of bounds
+```
+
+### 2. Summed-Area Tables (Integral Images)
+
+**Purpose**: Calculate sum of any rectangular region in O(1).
+
+```python
+def build_summed_area_table(image):
+    """
+    Build integral image for fast region queries.
+    
+    Time: O(rows * cols)
+    Query: O(1)
+    """
+    rows, cols = len(image), len(image[0])
+    sat = [[0] * (cols + 1) for _ in range(rows + 1)]
+    
+    for i in range(rows):
+        for j in range(cols):
+            sat[i + 1][j + 1] = (
+                image[i][j] +
+                sat[i][j + 1] +      # Left
+                sat[i + 1][j] -      # Top
+                sat[i][j]            # Overlap correction
+            )
+    
+    return sat
+
+def region_sum(sat, r1, c1, r2, c2):
+    """
+    Sum of rectangle from (r1,c1) to (r2,c2).
+    
+    Uses inclusion-exclusion principle.
+    """
+    return (
+        sat[r2 + 1][c2 + 1] -
+        sat[r1][c2 + 1] -
+        sat[r2 + 1][c1] +
+        sat[r1][c1]
+    )
+
+# Example: Fast box blur
+image = [
+    [10, 20, 30],
+    [40, 50, 60],
+    [70, 80, 90]
+]
+
+sat = build_summed_area_table(image)
+# Average of 2x2 region (0,0) to (1,1)
+total = region_sum(sat, 0, 0, 1, 1)
+avg = total // 4
+print(f"Average: {avg}")  # (10+20+40+50)/4 = 30
+```
+
+**Applications**:
+- Fast box blur filters
+- Haar feature calculation (face detection)
+- Template matching
+- Adaptive thresholding
+
+### 3. Convolution Kernels (Small 2D Arrays)
+
+**Purpose**: Apply filters by sliding kernel over image.
+
+```python
+def apply_kernel(image, kernel):
+    """
+    Apply convolution kernel to image.
+    
+    Time: O(rows * cols * k_rows * k_cols)
+    """
+    rows, cols = len(image), len(image[0])
+    k_rows, k_cols = len(kernel), len(kernel[0])
+    
+    # Output size (valid convolution, no padding)
+    out_rows = rows - k_rows + 1
+    out_cols = cols - k_cols + 1
+    
+    result = [[0] * out_cols for _ in range(out_rows)]
+    
+    for i in range(out_rows):
+        for j in range(out_cols):
+            # Apply kernel
+            total = 0
+            for ki in range(k_rows):
+                for kj in range(k_cols):
+                    total += image[i + ki][j + kj] * kernel[ki][kj]
+            result[i][j] = total
+    
+    return result
+
+# Common kernels
+edge_detect = [
+    [-1, -1, -1],
+    [-1,  8, -1],
+    [-1, -1, -1]
+]
+
+sharpen = [
+    [ 0, -1,  0],
+    [-1,  5, -1],
+    [ 0, -1,  0]
+]
+
+gaussian_blur = [
+    [1, 2, 1],
+    [2, 4, 2],
+    [1, 2, 1]
+]  # Divide by 16 after applying
+```
+
+### 4. Histograms (1D Arrays for Intensity Distribution)
+
+**Purpose**: Analyze pixel intensity distribution.
+
+```python
+def compute_histogram(image):
+    """
+    Build histogram of pixel intensities.
+    
+    Time: O(rows * cols)
+    Space: O(256) for 8-bit images
+    """
+    histogram = [0] * 256
+    
+    for row in image:
+        for pixel in row:
+            histogram[pixel] += 1
+    
+    return histogram
+
+def histogram_equalization(image):
+    """
+    Enhance contrast using histogram equalization.
+    
+    Redistributes intensities to use full range.
+    """
+    hist = compute_histogram(image)
+    
+    # Compute cumulative distribution
+    cdf = [0] * 256
+    cdf[0] = hist[0]
+    for i in range(1, 256):
+        cdf[i] = cdf[i - 1] + hist[i]
+    
+    # Normalize CDF
+    total_pixels = sum(hist)
+    cdf_normalized = [int((cdf[i] / total_pixels) * 255) for i in range(256)]
+    
+    # Apply mapping to image
+    rows, cols = len(image), len(image[0])
+    result = [[cdf_normalized[image[i][j]] for j in range(cols)] for i in range(rows)]
+    
+    return result
+```
+
+**Applications**:
+- Contrast enhancement
+- Thresholding (segmentation)
+- Color correction
+- Image comparison
+
+### 5. Quadtrees (Hierarchical 2D Arrays)
+
+**Purpose**: Efficiently represent sparse images or regions.
+
+```python
+class QuadtreeNode:
+    """Node in quadtree representation of image."""
+    
+    def __init__(self, x, y, size, value=None):
+        self.x = x  # Top-left corner
+        self.y = y
+        self.size = size  # Width/height (square)
+        self.value = value  # None if internal node
+        self.children = []  # [NW, NE, SW, SE]
+    
+    def is_leaf(self):
+        return len(self.children) == 0
+
+def build_quadtree(image, x, y, size, threshold=10):
+    """
+    Build quadtree from image region.
+    
+    Recursively subdivide if region variance > threshold.
+    """
+    # Extract region
+    region = []
+    for i in range(y, min(y + size, len(image))):
+        for j in range(x, min(x + size, len(image[0]))):
+            region.append(image[i][j])
+    
+    if not region:
+        return None
+    
+    # Check if region is homogeneous
+    avg = sum(region) / len(region)
+    variance = sum((p - avg) ** 2 for p in region) / len(region)
+    
+    if variance <= threshold or size == 1:
+        # Leaf node: represent entire region with average
+        return QuadtreeNode(x, y, size, int(avg))
+    
+    # Internal node: subdivide into 4 quadrants
+    node = QuadtreeNode(x, y, size)
+    half = size // 2
+    
+    # Recursively build children
+    node.children = [
+        build_quadtree(image, x, y, half, threshold),              # NW
+        build_quadtree(image, x + half, y, half, threshold),       # NE
+        build_quadtree(image, x, y + half, half, threshold),       # SW
+        build_quadtree(image, x + half, y + half, half, threshold) # SE
+    ]
+    
+    return node
+
+def count_nodes(node):
+    """Count total nodes in quadtree."""
+    if node is None:
+        return 0
+    if node.is_leaf():
+        return 1
+    return 1 + sum(count_nodes(child) for child in node.children)
+
+# Example: Compress image with large uniform regions
+# Full resolution: 256x256 = 65,536 pixels
+# Quadtree: ~1,000 nodes for typical image (98.5% compression!)
+```
+
+**Applications**:
+- Image compression
+- Collision detection in games
+- Spatial indexing
+- Level-of-detail rendering
+
+## Further Learning
+
+The techniques and structures above provide production-ready implementations for real-world scenarios. For additional perspectives:
+
+- **Comprehensive Array Fundamentals**: External resources may offer alternative explanations of 1D/2D/3D arrays and dynamic array implementation details
+- **Advanced Range Query Optimizations**: Some resources cover additional data structures like Segment Trees and Fenwick Trees for updateable range queries
+- **Image Processing Deep Dives**: Computer vision textbooks provide mathematical foundations for filters and transformations
+
+The key is understanding *why* each structure is chosen for specific scenarios - that's more valuable than memorizing implementations.
