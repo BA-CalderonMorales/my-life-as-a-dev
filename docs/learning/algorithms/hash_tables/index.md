@@ -432,8 +432,390 @@ print(longest_consecutive(nums))  # 4 (sequence: 1, 2, 3, 4)
 - Assuming ordering in regular dicts (Python < 3.7)
 - Not considering hash function quality for custom objects
 
-## External Resources
+## Interview Problem Patterns with Hash Tables
 
-For deeper understanding of hash tables and sets:
+Hash tables transform many O(n²) brute force solutions into O(n) optimal solutions. Here are the essential patterns.
 
-- [How to Effectively Use Sets and Hash Tables to Solve Coding Interview Problems](https://lnkd.in/e6j4gp2G) - Comprehensive guide on leveraging hash-based data structures to optimize solutions. Learn common patterns, time-space trade-offs, and when to choose hash tables over other data structures.
+### Pattern 1: Frequency/Count Tracking
+
+**When to use**: Need to count occurrences or track presence.
+
+```python
+def find_anagrams(s, p):
+    """
+    Find all anagram starting indices of p in s.
+    
+    Example: s = "cbaebabacd", p = "abc"
+    Output: [0, 6] - "cba" and "bac" are anagrams
+    
+    Time: O(n) - One pass with sliding window
+    Space: O(1) - At most 26 letters
+    """
+    from collections import Counter
+    
+    if len(p) > len(s):
+        return []
+    
+    # Target frequency map
+    p_count = Counter(p)
+    window_count = Counter()
+    
+    result = []
+    
+    # Sliding window
+    for i in range(len(s)):
+        # Add new character to window
+        window_count[s[i]] += 1
+        
+        # Remove character that left window
+        if i >= len(p):
+            if window_count[s[i - len(p)]] == 1:
+                del window_count[s[i - len(p)]]
+            else:
+                window_count[s[i - len(p)]] -= 1
+        
+        # Check if window is anagram
+        if window_count == p_count:
+            result.append(i - len(p) + 1)
+    
+    return result
+```
+
+**Key insight**: Hash table makes comparison O(1) instead of O(k) sorting.
+
+### Pattern 2: Complement Finding
+
+**When to use**: Need to find pairs that satisfy a condition.
+
+```python
+def three_sum(nums):
+    """
+    Find all unique triplets that sum to zero.
+    
+    Example: [-1, 0, 1, 2, -1, -4]
+    Output: [[-1, -1, 2], [-1, 0, 1]]
+    
+    Time: O(n²) - O(n²) worst vs O(n³) brute force
+    Space: O(n) - Hash table for seen values
+    """
+    nums.sort()
+    result = []
+    
+    for i in range(len(nums) - 2):
+        # Skip duplicates
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+        
+        # Two sum on remaining array
+        seen = set()
+        target = -nums[i]
+        
+        for j in range(i + 1, len(nums)):
+            complement = target - nums[j]
+            
+            if complement in seen:
+                triplet = [nums[i], complement, nums[j]]
+                result.append(triplet)
+                
+                # Skip duplicates
+                while j + 1 < len(nums) and nums[j] == nums[j+1]:
+                    j += 1
+            
+            seen.add(nums[j])
+    
+    return result
+```
+
+**Alternative approaches**:
+- Brute force: O(n³) - try all triplets
+- Hash table: O(n²) - fix one, two-sum on rest
+- Two pointers: O(n²) - same complexity but O(1) space
+
+### Pattern 3: Grouping/Categorization
+
+**When to use**: Need to group elements by computed property.
+
+```python
+def group_shifted_strings(strings):
+    """
+    Group strings that are shifts of each other.
+    
+    Example: ["abc", "bcd", "xyz", "az", "ba"]
+    Output: [["abc","bcd","xyz"], ["az","ba"]]
+    
+    "abc" -> "bcd": shift each char by 1
+    "abc" -> "xyz": shift each char by 23
+    
+    Time: O(n * k) where k is max string length
+    Space: O(n * k)
+    """
+    from collections import defaultdict
+    
+    def get_pattern(s):
+        """
+        Compute shift pattern (differences between adjacent chars).
+        
+        "abc": (1, 1) - b-a=1, c-b=1
+        "bcd": (1, 1) - same pattern!
+        "az": (25,) - z-a=25 (wraps around)
+        "ba": (25,) - same pattern!
+        """
+        if not s:
+            return ()
+        
+        pattern = []
+        for i in range(1, len(s)):
+            diff = (ord(s[i]) - ord(s[i-1])) % 26
+            pattern.append(diff)
+        
+        return tuple(pattern)
+    
+    groups = defaultdict(list)
+    
+    for string in strings:
+        pattern = get_pattern(string)
+        groups[pattern].append(string)
+    
+    return list(groups.values())
+```
+
+**Key insight**: Hash on computed property, not original value.
+
+### Pattern 4: Sliding Window with Constraints
+
+**When to use**: Need to maintain a window that satisfies condition.
+
+```python
+def longest_substring_k_distinct(s, k):
+    """
+    Longest substring with at most k distinct characters.
+    
+    Example: s = "eceba", k = 2
+    Output: 3 ("ece" or "eba")
+    
+    Time: O(n) - Each char visited at most twice
+    Space: O(k) - At most k+1 entries in map
+    """
+    if k == 0:
+        return 0
+    
+    char_count = {}
+    left = 0
+    max_length = 0
+    
+    for right in range(len(s)):
+        # Expand window: add right character
+        char_count[s[right]] = char_count.get(s[right], 0) + 1
+        
+        # Shrink window: too many distinct characters
+        while len(char_count) > k:
+            char_count[s[left]] -= 1
+            if char_count[s[left]] == 0:
+                del char_count[s[left]]
+            left += 1
+        
+        # Update maximum
+        max_length = max(max_length, right - left + 1)
+    
+    return max_length
+```
+
+**Hash table advantage**: O(1) distinct count vs O(k) with array.
+
+### Pattern 5: LRU Cache Implementation
+
+**When to use**: Need to track recently used items with fast access and eviction.
+
+```python
+class LRUCache:
+    """
+    Least Recently Used cache with O(1) operations.
+    
+    Combines hash table + doubly linked list:
+    - Hash table: O(1) key lookup
+    - Linked list: O(1) move to front / eviction
+    """
+    
+    class Node:
+        def __init__(self, key=0, value=0):
+            self.key = key
+            self.value = value
+            self.prev = None
+            self.next = None
+    
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.cache = {}  # key -> node
+        
+        # Dummy head and tail for easier insertion/deletion
+        self.head = self.Node()
+        self.tail = self.Node()
+        self.head.next = self.tail
+        self.tail.prev = self.head
+    
+    def _add_to_front(self, node):
+        """Add node right after head."""
+        node.next = self.head.next
+        node.prev = self.head
+        self.head.next.prev = node
+        self.head.next = node
+    
+    def _remove_node(self, node):
+        """Remove node from linked list."""
+        node.prev.next = node.next
+        node.next.prev = node.prev
+    
+    def get(self, key):
+        """
+        Get value by key. Mark as recently used.
+        
+        Time: O(1)
+        """
+        if key not in self.cache:
+            return -1
+        
+        node = self.cache[key]
+        
+        # Move to front (most recently used)
+        self._remove_node(node)
+        self._add_to_front(node)
+        
+        return node.value
+    
+    def put(self, key, value):
+        """
+        Add or update key-value pair.
+        
+        Time: O(1)
+        """
+        if key in self.cache:
+            # Update existing
+            node = self.cache[key]
+            node.value = value
+            
+            # Move to front
+            self._remove_node(node)
+            self._add_to_front(node)
+        else:
+            # Add new
+            node = self.Node(key, value)
+            self.cache[key] = node
+            self._add_to_front(node)
+            
+            # Evict if over capacity
+            if len(self.cache) > self.capacity:
+                # Remove least recently used (node before tail)
+                lru = self.tail.prev
+                self._remove_node(lru)
+                del self.cache[lru.key]
+
+# Example usage
+cache = LRUCache(2)
+cache.put(1, 1)
+cache.put(2, 2)
+print(cache.get(1))    # 1
+cache.put(3, 3)        # Evicts key 2
+print(cache.get(2))    # -1 (not found)
+```
+
+**Why this works**:
+- Hash table: O(1) lookup of nodes
+- Doubly linked list: O(1) move to front and eviction
+- Best of both worlds: Fast access + efficient eviction
+
+### Pattern 6: Prefix Sum with Hash Table
+
+**When to use**: Need to find subarrays with specific sum.
+
+```python
+def subarray_sum_equals_k(nums, k):
+    """
+    Count subarrays with sum equal to k.
+    
+    Example: nums = [1, 2, 3], k = 3
+    Output: 2 - subarrays [1,2] and [3]
+    
+    Time: O(n) - One pass
+    Space: O(n) - Prefix sum counts
+    """
+    # Hash table: prefix_sum -> count
+    prefix_counts = {0: 1}  # Empty subarray has sum 0
+    
+    current_sum = 0
+    count = 0
+    
+    for num in nums:
+        current_sum += num
+        
+        # Check if (current_sum - k) exists
+        # If yes, found subarray(s) with sum k
+        if current_sum - k in prefix_counts:
+            count += prefix_counts[current_sum - k]
+        
+        # Record current prefix sum
+        prefix_counts[current_sum] = prefix_counts.get(current_sum, 0) + 1
+    
+    return count
+
+# How it works:
+# If prefix_sum[i] - prefix_sum[j] = k
+# Then sum(nums[j+1:i+1]) = k
+# So we look for: prefix_sum[j] = prefix_sum[i] - k
+```
+
+**Key insight**: Convert subarray problem to prefix sum lookup.
+
+### Time-Space Trade-offs
+
+Understanding when the extra space is worth it:
+
+```python
+def compare_approaches(nums, target):
+    """Compare space vs time trade-offs."""
+    
+    # Approach 1: No extra space
+    def two_sum_O1_space(nums, target):
+        """
+        Time: O(n²)
+        Space: O(1)
+        
+        Good when: Memory very limited, small array
+        """
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                if nums[i] + nums[j] == target:
+                    return [i, j]
+        return []
+    
+    # Approach 2: Hash table
+    def two_sum_On_space(nums, target):
+        """
+        Time: O(n)
+        Space: O(n)
+        
+        Good when: Array large, many queries
+        """
+        seen = {}
+        for i, num in enumerate(nums):
+            if target - num in seen:
+                return [seen[target - num], i]
+            seen[num] = i
+        return []
+    
+    # For 1 million elements:
+    # O(n²): ~1 trillion operations (~hours)
+    # O(n) with hash: ~1 million operations (< 1 second)
+    # Extra memory: ~8MB for hash table
+    # 
+    # Trade-off is almost always worth it!
+```
+
+## Further Learning
+
+The patterns above cover the most important hash table techniques for coding interviews and real-world applications. For additional perspectives:
+
+- **Advanced Hash Table Internals**: Some resources discuss collision resolution strategies (chaining vs open addressing) and hash function design
+- **Language-Specific Optimizations**: Different languages have different hash table implementations with varying performance characteristics
+- **Theoretical Analysis**: Academic sources cover formal analysis of hash table operations and probabilistic guarantees
+
+The key is recognizing when O(1) lookup can eliminate nested loops and understanding the space trade-off is usually worthwhile.
