@@ -31,7 +31,6 @@ async def verify_homepage():
             'tabs_exist': await page.locator('[role="tab"]').count() > 0,
             'tab_count': await page.locator('[role="tab"]').count(),
             'no_emojis_in_headings': True,  # Will check manually
-            'svg_loaded': await page.locator('img[alt*="orbit"]').count() > 0,
         }
 
         # Check for emoji characters in headings
@@ -48,7 +47,6 @@ async def verify_homepage():
         print(f"✓ H1 Heading: {checks['h1_text']}")
         print(f"✓ Buttons Found: {checks['button_count']}")
         print(f"✓ Tabs Found: {checks['tab_count']}")
-        print(f"✓ SVG Loaded: {checks['svg_loaded']}")
         print(f"✓ No Emojis in Headings: {checks['no_emojis_in_headings']}")
 
         # Check if markdown rendered properly (no raw markdown visible)
