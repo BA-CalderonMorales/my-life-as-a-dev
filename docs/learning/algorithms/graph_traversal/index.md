@@ -19,10 +19,10 @@ Use this pattern when:
 ### BFS (Breadth-First Search)
 
 **Pattern**: Explore level by level using a queue
-**Properties**:
-- Visits nodes in order of distance from source
-- Finds shortest path in unweighted graphs
-- Uses O(V) space for queue
+- **Properties**
+    - Visits nodes in order of distance from source
+    - Finds shortest path in unweighted graphs
+    - Uses O(V) space for queue
 
 **Template**:
 ```python
@@ -45,11 +45,11 @@ def bfs(start):
 ### DFS (Depth-First Search)
 
 **Pattern**: Explore as deep as possible before backtracking
-**Properties**:
-- Visits nodes by following paths to their end
-- Can be recursive or iterative (stack)
-- Uses O(V) space for recursion stack
-- Better for cycle detection, topological sort
+- **Properties**
+    - Visits nodes by following paths to their end
+    - Can be recursive or iterative (stack)
+    - Uses O(V) space for recursion stack
+    - Better for cycle detection, topological sort
 
 **Template**:
 ```python

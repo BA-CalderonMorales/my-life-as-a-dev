@@ -16,19 +16,19 @@ Use this pattern when:
 
 ### Common Variations
 
-**Opposite Ends**:
-- Start pointers at beginning and end
-- Move toward each other based on conditions
-- Useful for: pair sums, palindromes, container problems
+- **Opposite Ends**
+    - Start pointers at beginning and end
+    - Move toward each other based on conditions
+    - Useful for: pair sums, palindromes, container problems
 
-**Same Direction**:
-- Both pointers move forward
-- Fast pointer explores, slow pointer maintains position
-- Useful for: removing duplicates, partitioning
+- **Same Direction**
+    - Both pointers move forward
+    - Fast pointer explores, slow pointer maintains position
+    - Useful for: removing duplicates, partitioning
 
-**Different Speeds**:
-- Pointers move at different rates
-- See Fast and Slow Pointers pattern
+- **Different Speeds**
+    - Pointers move at different rates
+    - See Fast and Slow Pointers pattern
 
 ## Problem 1: Two Sum II - Input Array Is Sorted
 
