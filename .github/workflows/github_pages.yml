@@ -58,6 +58,14 @@ jobs:
             mkdocs.yml
             setup.py
             requirements.txt
+
+      - name: Fetch gh-pages branch
+        run: |
+          if git ls-remote --exit-code origin gh-pages; then
+            git fetch origin gh-pages:gh-pages
+          else
+            echo "gh-pages branch not found on remote; continuing without it"
+          fi
             
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -97,20 +105,26 @@ jobs:
           
           # Set PYTHONPATH to include the local plugins
           export PYTHONPATH=$PYTHONPATH:$(pwd)
-          
-          # Check if alias 'latest' already exists for this version
-          if mike list | grep -q "$LATEST_TAG.*latest"; then
-            echo "Alias 'latest' already exists for version $LATEST_TAG, skipping deploy"
+
+          if git show-ref --quiet refs/heads/gh-pages; then
+            # Check if alias 'latest' already exists for this version
+            if mike list | grep -q "$LATEST_TAG.*latest"; then
+              echo "Alias 'latest' already exists for version $LATEST_TAG, skipping deploy"
+            else
+              # Deploy the latest version with Mike, updating the alias if it exists
+              mike deploy --push --update-aliases $LATEST_TAG latest
+            fi
+
+            # Set default version AFTER deploy if needed
+            if ! mike list | grep -q "default.*latest"; then
+              mike set-default --push latest
+            fi
           else
-            # Deploy the latest version with Mike, updating the alias if it exists
+            echo "No gh-pages branch available; initializing branch with current build"
             mike deploy --push --update-aliases $LATEST_TAG latest
-          fi
-          
-          # Set default version AFTER deploy if needed
-          if ! mike list | grep -q "default.*latest"; then
             mike set-default --push latest
           fi
-          
+
           # List versions to verify
           mike list
 
@@ -125,8 +139,14 @@ jobs:
       - name: Ensure versions.json is in the right place
         run: |
           # Make sure versions.json exists in the site root for GitHub Pages
-          mike list --json > site/versions.json
-          
+          mkdir -p site
+          if git show-ref --quiet refs/heads/gh-pages; then
+            mike list --json > site/versions.json
+          else
+            echo "gh-pages branch not available; using checked-in versions.json as fallback"
+            cp versions.json site/versions.json
+          fi
+
           # Verify versions.json was created correctly
           echo "Contents of versions.json:"
           cat site/versions.json
