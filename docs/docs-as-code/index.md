@@ -33,9 +33,9 @@ This site leverages several powerful technologies:
 We've extended the standard MkDocs capabilities with:
 
 - :material-console: **Rust CLI (`doc-cli`)**: Custom command-line tool for documentation management
-  - `startup`: Sets up dev environment and starts MkDocs server
-  - `bump-version`: Creates new semantic version tags
-  - `deploy`: Deploys all versions to GitHub Pages
+    - `startup`: Sets up dev environment and starts MkDocs server
+    - `bump-version`: Creates new semantic version tags
+    - `deploy`: Deploys all versions to GitHub Pages
 
 - :material-git: **Version Management**: Multiple documentation versions via mike
 - :material-file-code: **Custom Plugins**: Extensible plugin system for future enhancements
@@ -74,8 +74,8 @@ graph TD
 Helper scripts in `scripts/python` keep repository pages up to date:
 
 - **`generate_repo_pages.py`**: Fetches README files and generates documentation pages
-  - `--base-dir`: Control where pages are written
-  - `--force-refresh`: Bypass cache when fetching files
+    - `--base-dir`: Control where pages are written
+    - `--force-refresh`: Bypass cache when fetching files
 
 - **`sync_repo_docs.py`**: Synchronizes repository documentation
 - **`utils.py`**: Shared utilities for cached HTTP requests
