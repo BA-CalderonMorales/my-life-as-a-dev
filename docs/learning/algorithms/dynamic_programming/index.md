@@ -23,17 +23,17 @@ Use DP when you encounter:
 
 ### Top-Down vs Bottom-Up
 
-**Top-Down (Memoization)**:
-- Start with original problem
-- Recursively solve subproblems
-- Cache results to avoid recomputation
-- More intuitive, easier to write
+- **Top-Down (Memoization)**
+    - Start with original problem
+    - Recursively solve subproblems
+    - Cache results to avoid recomputation
+    - More intuitive, easier to write
 
-**Bottom-Up (Tabulation)**:
-- Start with base cases
-- Build up to final solution
-- Iterative approach
-- Usually more efficient (no recursion overhead)
+- **Bottom-Up (Tabulation)**
+    - Start with base cases
+    - Build up to final solution
+    - Iterative approach
+    - Usually more efficient (no recursion overhead)
 
 ## Problem 1: Climbing Stairs
 

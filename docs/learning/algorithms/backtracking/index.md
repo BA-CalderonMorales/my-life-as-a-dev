@@ -520,16 +520,16 @@ Backtracking can seem daunting, but following a systematic approach makes any pr
 
 #### Step 1: Identify the Problem Type
 
-**Ask yourself**:
-- Do I need all possible solutions? (Yes → Backtracking likely needed)
-- Are there constraints that eliminate many possibilities? (Yes → Pruning opportunity)
-- Can I build solutions incrementally? (Yes → Good fit)
+- **Ask yourself**
+    - Do I need all possible solutions? (Yes → Backtracking likely needed)
+    - Are there constraints that eliminate many possibilities? (Yes → Pruning opportunity)
+    - Can I build solutions incrementally? (Yes → Good fit)
 
-**Common indicators**:
-- "Find all..."
-- "Generate all..."
-- "Count number of ways..."
-- Constraint satisfaction (Sudoku, scheduling)
+- **Common indicators**
+    - "Find all..."
+    - "Generate all..."
+    - "Count number of ways..."
+    - Constraint satisfaction (Sudoku, scheduling)
 
 #### Step 2: Define Your State
 
@@ -674,21 +674,21 @@ def combination_sum(candidates, target):
 
 After initial implementation:
 
-**Time Complexity**:
-- Worst case: O(b^d) where b = branching factor, d = depth
-- With pruning: Often much better in practice
-- Example: N-Queens is O(n!) worst case, but pruning makes it tractable
+- **Time Complexity**
+    - Worst case: O(b^d) where b = branching factor, d = depth
+    - With pruning: Often much better in practice
+    - Example: N-Queens is O(n!) worst case, but pruning makes it tractable
 
-**Space Complexity**:
-- Call stack: O(d) for recursion depth
-- State storage: Depends on problem
-- Result storage: O(number of solutions)
+- **Space Complexity**
+    - Call stack: O(d) for recursion depth
+    - State storage: Depends on problem
+    - Result storage: O(number of solutions)
 
-**Optimization checklist**:
-- [ ] Sorted input for better pruning?
-- [ ] Can skip duplicate choices?
-- [ ] State representation minimal?
-- [ ] Early termination possible?
+- **Optimization checklist**
+    - [ ] Sorted input for better pruning?
+    - [ ] Can skip duplicate choices?
+    - [ ] State representation minimal?
+    - [ ] Early termination possible?
 
 ### Advanced Patterns
 

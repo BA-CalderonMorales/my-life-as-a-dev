@@ -398,11 +398,11 @@ print(rsq.range_sum(1, 3))  # -1 + 3 + -2 = 0
 print(rsq.range_sum(0, 4))  # Total change = 3
 ```
 
-**Applications**:
-- Subarray sum problems
-- Image processing (summed-area tables)
-- Database query optimization
-- Cumulative statistics
+- **Applications**
+    - Subarray sum problems
+    - Image processing (summed-area tables)
+    - Database query optimization
+    - Cumulative statistics
 
 ### Technique 2: Sparse Table (Range Minimum/Maximum Query)
 
@@ -486,11 +486,11 @@ print(f"Min price days 0-2: ${st.range_min(0, 2)}")  # 80
 print(f"Min price all days: ${st.range_min(0, 5)}")  # 70
 ```
 
-**When to Use Sparse Table**:
-- Array is static (no updates between queries)
-- Need O(1) query time
-- Many queries on same array
-- Idempotent operations (min, max, GCD) - not sum!
+- **When to Use Sparse Table**
+    - Array is static (no updates between queries)
+    - Need O(1) query time
+    - Many queries on same array
+    - Idempotent operations (min, max, GCD) - not sum!
 
 ### Technique 3: Difference Array (Range Updates)
 
@@ -545,11 +545,11 @@ print("Concurrent events per slot:", load)
 print(f"Max concurrent events: {max(load)}")  # 3
 ```
 
-**Applications**:
-- Calendar applications (booking conflicts)
-- Network bandwidth allocation
-- Task scheduling
-- Image filters (box blur)
+- **Applications**
+    - Calendar applications (booking conflicts)
+    - Network bandwidth allocation
+    - Task scheduling
+    - Image filters (box blur)
 
 ## Five Data Structures for Image Processing
 
@@ -633,11 +633,11 @@ avg = total // 4
 print(f"Average: {avg}")  # (10+20+40+50)/4 = 30
 ```
 
-**Applications**:
-- Fast box blur filters
-- Haar feature calculation (face detection)
-- Template matching
-- Adaptive thresholding
+- **Applications**
+    - Fast box blur filters
+    - Haar feature calculation (face detection)
+    - Template matching
+    - Adaptive thresholding
 
 ### 3. Convolution Kernels (Small 2D Arrays)
 
@@ -735,11 +735,11 @@ def histogram_equalization(image):
     return result
 ```
 
-**Applications**:
-- Contrast enhancement
-- Thresholding (segmentation)
-- Color correction
-- Image comparison
+- **Applications**
+    - Contrast enhancement
+    - Thresholding (segmentation)
+    - Color correction
+    - Image comparison
 
 ### 5. Quadtrees (Hierarchical 2D Arrays)
 
@@ -809,11 +809,11 @@ def count_nodes(node):
 # Quadtree: ~1,000 nodes for typical image (98.5% compression!)
 ```
 
-**Applications**:
-- Image compression
-- Collision detection in games
-- Spatial indexing
-- Level-of-detail rendering
+- **Applications**
+    - Image compression
+    - Collision detection in games
+    - Spatial indexing
+    - Level-of-detail rendering
 
 ## Further Learning
 
