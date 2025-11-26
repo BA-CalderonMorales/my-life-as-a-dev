@@ -32,6 +32,21 @@ The Algorithms section provides comprehensive guides on common algorithmic patte
 **Graph Algorithms:**
 - **[Graph Traversal (BFS/DFS)](algorithms/graph_traversal/index.md)** - Explore graphs systematically
 
+## Data Structures
+
+Understanding fundamental data structures is essential for implementing efficient algorithms:
+
+- **[Arrays and Multidimensional Arrays](algorithms/arrays/index.md)** - Master array fundamentals, operations, and common patterns
+- **[Hash Tables and Sets](algorithms/hash_tables/index.md)** - Fast lookups and membership testing for optimization
+
+## Additional Topics
+
+### Algorithm Analysis
+- **[Space Complexity Analysis](algorithms/space_complexity/index.md)** - Understanding memory usage and time-space trade-offs
+
+### Interview Preparation
+- **[Technical Interview Preparation](interview_preparation/index.md)** - Systematic framework and strategies for acing technical interviews
+
 ## Getting Started
 
-Choose an algorithm pattern that interests you or start with Sliding Window for a fundamental technique that appears frequently in coding challenges.
+Choose an algorithm pattern that interests you or start with Sliding Window for a fundamental technique that appears frequently in coding challenges. If you're preparing for interviews, check out the [Technical Interview Preparation](interview_preparation/index.md) guide for a comprehensive framework.
