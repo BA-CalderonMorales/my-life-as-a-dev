@@ -98,14 +98,14 @@ Scripts follow a strict policy of never committing the Coder binary to version c
 Each script implements a multi-method fallback approach:
 
 1. **Primary**: Direct download from GitHub releases
-   - Fetches latest version via GitHub API
-   - Automatic architecture detection (amd64/arm64)
-   - Platform-specific archive formats (tar.gz for Linux, zip for macOS/Windows)
+    - Fetches latest version via GitHub API
+    - Automatic architecture detection (amd64/arm64)
+    - Platform-specific archive formats (tar.gz for Linux, zip for macOS/Windows)
 
 2. **Fallback**: Platform package manager
-   - Windows: winget
-   - macOS: Homebrew
-   - Linux: apt
+    - Windows: winget
+    - macOS: Homebrew
+    - Linux: apt
 
 3. **Final Fallback**: Manual installation instructions
 
