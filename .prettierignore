@@ -1,0 +1,4 @@
+# Ignore generated or external content during formatting
+site/
+doc-cli/
+scripts/rust/target/

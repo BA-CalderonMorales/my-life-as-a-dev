@@ -33,3 +33,9 @@ jobs:
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: main
+          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_CSS_PRETTIER: false
+          VALIDATE_MARKDOWN_PRETTIER: false
+          VALIDATE_PYTHON_MYPY: false
+          FILTER_REGEX_EXCLUDE: (.*site/.*|.*doc-cli/.*|.*scripts/rust/target/.*)

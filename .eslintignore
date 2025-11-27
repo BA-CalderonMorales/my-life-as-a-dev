@@ -1,0 +1,4 @@
+# Skip generated or external artifacts when running lint checks
+site/
+doc-cli/
+scripts/rust/target/
