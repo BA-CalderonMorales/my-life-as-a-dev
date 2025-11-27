@@ -526,10 +526,10 @@ def three_sum(nums):
     return result
 ```
 
-**Alternative approaches**:
-- Brute force: O(n³) - try all triplets
-- Hash table: O(n²) - fix one, two-sum on rest
-- Two pointers: O(n²) - same complexity but O(1) space
+- **Alternative approaches**
+    - Brute force: O(n³) - try all triplets
+    - Hash table: O(n²) - fix one, two-sum on rest
+    - Two pointers: O(n²) - same complexity but O(1) space
 
 ### Pattern 3: Grouping/Categorization
 
@@ -718,10 +718,10 @@ cache.put(3, 3)        # Evicts key 2
 print(cache.get(2))    # -1 (not found)
 ```
 
-**Why this works**:
-- Hash table: O(1) lookup of nodes
-- Doubly linked list: O(1) move to front and eviction
-- Best of both worlds: Fast access + efficient eviction
+- **Why this works**
+    - Hash table: O(1) lookup of nodes
+    - Doubly linked list: O(1) move to front and eviction
+    - Best of both worlds: Fast access + efficient eviction
 
 ### Pattern 6: Prefix Sum with Hash Table
 

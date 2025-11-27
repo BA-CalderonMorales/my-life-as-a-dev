@@ -31,15 +31,15 @@ A greedy algorithm must satisfy:
 
 ### Greedy vs Dynamic Programming
 
-**Use Greedy when**:
-- Local optimum always leads to global
-- No overlapping subproblems to store
-- Typically O(n log n) due to sorting
+- **Use Greedy when**
+    - Local optimum always leads to global
+    - No overlapping subproblems to store
+    - Typically O(n log n) due to sorting
 
-**Use DP when**:
-- Need to consider all possibilities
-- Overlapping subproblems exist
-- Greedy doesn't guarantee optimality
+- **Use DP when**
+    - Need to consider all possibilities
+    - Overlapping subproblems exist
+    - Greedy doesn't guarantee optimality
 
 ## Problem 1: Jump Game
 
