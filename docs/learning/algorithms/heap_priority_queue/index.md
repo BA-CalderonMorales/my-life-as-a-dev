@@ -20,11 +20,11 @@ Use this pattern when:
 **Min Heap**: Parent ≤ Children (smallest at root)
 **Max Heap**: Parent ≥ Children (largest at root)
 
-**Key Operations**:
-- `push(x)`: Insert element - O(log n)
-- `pop()`: Remove min/max - O(log n)
-- `peek()`: View min/max - O(1)
-- `heapify()`: Build heap - O(n)
+- **Key Operations**
+    - `push(x)`: Insert element - O(log n)
+    - `pop()`: Remove min/max - O(log n)
+    - `peek()`: View min/max - O(1)
+    - `heapify()`: Build heap - O(n)
 
 ### Common Patterns
 
@@ -520,16 +520,16 @@ Beyond basic interview problems, heaps power critical algorithms in production s
 
 Heaps excel at maintaining the k largest or smallest elements from a stream or large dataset.
 
-**Real-World Use Cases**:
-- Top trending topics in social media
-- Top-performing employees or products
-- Monitoring system metrics (top CPU consumers)
-- Recommendation systems (top N items)
+- **Real-World Use Cases**
+    - Top trending topics in social media
+    - Top-performing employees or products
+    - Monitoring system metrics (top CPU consumers)
+    - Recommendation systems (top N items)
 
-**Why Heaps Win**:
-- O(log k) insertion vs O(k) for sorted list
-- O(1) access to kth element vs O(k) for unsorted array
-- Memory efficient: only store k elements, not entire dataset
+- **Why Heaps Win**
+    - O(log k) insertion vs O(k) for sorted list
+    - O(1) access to kth element vs O(k) for unsorted array
+    - Memory efficient: only store k elements, not entire dataset
 
 **Implementation Pattern**:
 
@@ -567,11 +567,11 @@ print(top_k_frequent(posts, 2))  # [1, 4] - top 2 posts
 
 Heaps are fundamental to efficient graph algorithms, particularly for finding shortest paths.
 
-**Real-World Use Cases**:
-- GPS navigation and route planning
-- Network routing protocols
-- Game AI pathfinding
-- Resource allocation in distributed systems
+- **Real-World Use Cases**
+    - GPS navigation and route planning
+    - Network routing protocols
+    - Game AI pathfinding
+    - Resource allocation in distributed systems
 
 **Dijkstra's Algorithm with Heap**:
 
@@ -634,20 +634,20 @@ distances = dijkstra(roads, 'A')
 print(f"Shortest path A to E: {distances['E']}")  # 11
 ```
 
-**Why Heap Matters**:
-- Without heap: Must scan all unvisited nodes to find minimum distance - O(V²)
-- With heap: Extract minimum in O(log V) - O((V + E) log V)
-- For sparse graphs (E << V²), heap version is dramatically faster
+- **Why Heap Matters**
+    - Without heap: Must scan all unvisited nodes to find minimum distance - O(V²)
+    - With heap: Extract minimum in O(log V) - O((V + E) log V)
+    - For sparse graphs (E << V²), heap version is dramatically faster
 
 ### Application 3: Huffman Encoding (Data Compression)
 
 Huffman encoding builds optimal prefix-free codes for data compression using a heap-based greedy algorithm.
 
-**Real-World Use Cases**:
-- File compression (ZIP, GZIP)
-- Image formats (JPEG uses variant)
-- Network data transmission
-- Database compression
+- **Real-World Use Cases**
+    - File compression (ZIP, GZIP)
+    - Image formats (JPEG uses variant)
+    - Network data transmission
+    - Database compression
 
 **How It Works**:
 1. Count character frequencies
@@ -753,16 +753,16 @@ decoded = decode_text(encoded, tree)
 assert decoded == text, "Encoding/decoding failed!"
 ```
 
-**Compression Analysis**:
-- Fixed-length encoding: Each character = 8 bits (ASCII)
-- Huffman encoding: Frequent characters get shorter codes
-- Typical compression: 20-90% depending on text redundancy
+- **Compression Analysis**
+    - Fixed-length encoding: Each character = 8 bits (ASCII)
+    - Huffman encoding: Frequent characters get shorter codes
+    - Typical compression: 20-90% depending on text redundancy
 
-**Why Heap Is Essential**:
-- Greedy algorithm requires repeatedly finding minimum frequency nodes
-- Heap makes this O(log n) per merge
-- Without heap: O(n) scan each time → O(n²) total
-- With heap: O(n log n) total
+- **Why Heap Is Essential**
+    - Greedy algorithm requires repeatedly finding minimum frequency nodes
+    - Heap makes this O(log n) per merge
+    - Without heap: O(n) scan each time → O(n²) total
+    - With heap: O(n log n) total
 
 ## Further Learning
 

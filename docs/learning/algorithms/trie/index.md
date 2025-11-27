@@ -23,10 +23,10 @@ Each node represents a character:
 - **Children**: Map from character to child node
 - **End Flag**: Marks complete words
 
-**Key Properties**:
-- Common prefixes share paths
-- Space efficient for large word sets with common prefixes
-- Fast prefix operations: O(m) where m is word length
+- **Key Properties**
+    - Common prefixes share paths
+    - Space efficient for large word sets with common prefixes
+    - Fast prefix operations: O(m) where m is word length
 
 ### Basic Operations
 
