@@ -1,52 +1,26 @@
 # Learning Resources
 
-Welcome to the learning resources section. This area contains structured educational content to help developers master fundamental concepts and techniques.
+A lightweight map of the study guides that live in this repository. Everything is written so you can move from concept to practice without wading through fluff.
 
 ## Algorithms
 
-The Algorithms section provides comprehensive guides on common algorithmic patterns used in coding interviews and real-world problem solving. Each algorithm pattern includes:
+Each algorithm pattern includes a short explanation, when to reach for it, and three real-world examples.
 
-- Clear explanation of the approach
-- When and how to apply the pattern
-- Three real LeetCode examples with detailed solutions
-- Step-by-step walkthroughs designed for easy understanding
+- **Core patterns:** [Sliding Window](algorithms/sliding_window/index.md), [Dynamic Programming](algorithms/dynamic_programming/index.md), [Two Pointers](algorithms/two_pointers/index.md), [Fast and Slow Pointers](algorithms/fast_slow_pointers/index.md), [Backtracking](algorithms/backtracking/index.md)
+- **Search and optimization:** [Binary Search on Answer](algorithms/binary_search_on_answer/index.md), [Greedy Algorithms](algorithms/greedy/index.md)
+- **Data structures:** [Arrays](algorithms/arrays/index.md), [Hash Tables and Sets](algorithms/hash_tables/index.md), [Heap and Priority Queue](algorithms/heap_priority_queue/index.md), [Monotonic Stack](algorithms/monotonic_stack/index.md), [Trie](algorithms/trie/index.md)
+- **Graph algorithms:** [Graph Traversal (BFS/DFS)](algorithms/graph_traversal/index.md)
 
-### Available Algorithm Patterns
+## Data structures and analysis
 
-- **Core Patterns:**
-    - **[Sliding Window](algorithms/sliding_window/index.md)** - Optimize problems involving contiguous subarrays or substrings
-    - **[Dynamic Programming](algorithms/dynamic_programming/index.md)** - Break down complex problems into simpler subproblems
-    - **[Two Pointers](algorithms/two_pointers/index.md)** - Efficiently process arrays or lists with multiple pointers
-    - **[Fast and Slow Pointers](algorithms/fast_slow_pointers/index.md)** - Detect cycles and find middle elements
-    - **[Backtracking](algorithms/backtracking/index.md)** - Explore all possible solutions through systematic search
+- [Space Complexity Analysis](algorithms/space_complexity/index.md) for understanding memory trade-offs.
 
-- **Search and Optimization:**
-    - **[Binary Search on Answer](algorithms/binary_search_on_answer/index.md)** - Find optimal solutions using binary search
-    - **[Greedy Algorithms](algorithms/greedy/index.md)** - Make locally optimal choices for global optimum
+## Interview preparation
 
-- **Data Structures:**
-    - **[Heap and Priority Queue](algorithms/heap_priority_queue/index.md)** - Maintain sorted order for efficient min/max access
-    - **[Monotonic Stack](algorithms/monotonic_stack/index.md)** - Find next greater/smaller elements efficiently
-    - **[Trie (Prefix Tree)](algorithms/trie/index.md)** - Efficient string prefix operations
+- [Technical Interview Preparation](interview_preparation/index.md) — a concise framework for planning, solving, and communicating under pressure.
 
-- **Graph Algorithms:**
-    - **[Graph Traversal (BFS/DFS)](algorithms/graph_traversal/index.md)** - Explore graphs systematically
+## How to use these notes
 
-## Data Structures
-
-Understanding fundamental data structures is essential for implementing efficient algorithms:
-
-- **[Arrays and Multidimensional Arrays](algorithms/arrays/index.md)** - Master array fundamentals, operations, and common patterns
-- **[Hash Tables and Sets](algorithms/hash_tables/index.md)** - Fast lookups and membership testing for optimization
-
-## Additional Topics
-
-### Algorithm Analysis
-- **[Space Complexity Analysis](algorithms/space_complexity/index.md)** - Understanding memory usage and time-space trade-offs
-
-### Interview Preparation
-- **[Technical Interview Preparation](interview_preparation/index.md)** - Systematic framework and strategies for acing technical interviews
-
-## Getting Started
-
-Choose an algorithm pattern that interests you or start with Sliding Window for a fundamental technique that appears frequently in coding challenges. If you're preparing for interviews, check out the [Technical Interview Preparation](interview_preparation/index.md) guide for a comprehensive framework.
+- Start with Sliding Window to warm up, then branch into dynamic programming or graph traversal based on your goals.
+- Keep a notebook nearby and rewrite solutions in your own words; it cements the intuition.
+- Treat the examples as templates to refine, not scripts to memorize.

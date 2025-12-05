@@ -1,50 +1,53 @@
-/* Global typography for emotional minimalism */
+/* Typographic baseline */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 .md-typeset {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-    line-height: 1.8;
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.75;
     font-weight: 300;
 }
 
-.md-typeset h1 {
-    font-weight: 200;
-    letter-spacing: -0.02em;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+.md-typeset code,
+code,
+pre {
+    font-family: 'Roboto Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+    font-feature-settings: "calt" 1;
+    font-variant-ligatures: contextual;
 }
 
-.md-typeset h2 {
-    font-weight: 300;
-    letter-spacing: -0.015em;
-    font-size: 1.75rem;
-    margin-top: 3rem;
-    margin-bottom: 1.25rem;
-}
-
-.md-typeset h3 {
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    font-size: 1.35rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-}
-
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
 .md-typeset h4,
 .md-typeset h5,
 .md-typeset h6 {
     font-weight: 400;
-    letter-spacing: -0.005em;
+    letter-spacing: -0.015em;
+}
+
+.md-typeset h1 {
+    font-size: 2.3rem;
+    margin-bottom: 0.8rem;
+}
+
+.md-typeset h2 {
+    font-size: 1.6rem;
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+}
+
+.md-typeset h3 {
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
 }
 
 .md-typeset p {
-    font-weight: 300;
-    line-height: 1.85;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .md-typeset strong {
@@ -52,268 +55,161 @@ body {
     letter-spacing: 0.01em;
 }
 
-.md-typeset code {
-    font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+/* Navigation tabs inspired by clean automotive dashboards */
+.md-tabs {
+    background: linear-gradient(90deg, rgba(20, 27, 33, 0.12), rgba(20, 27, 33, 0));
+    padding: 0.35rem 0.75rem;
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* Hero container - light mode */
-[data-md-color-scheme="default"] .hero-container {
-    width: 100vw;
-    min-height: 75vh;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-top: 0;
-    margin-bottom: 4rem;
-    background: linear-gradient(180deg,
-            rgba(252, 252, 253, 0.3) 0%,
-            rgba(248, 249, 250, 0.5) 50%,
-            rgba(245, 246, 247, 0.7) 100%);
-    padding: 0;
+.md-tabs__item {
+    margin: 0 0.25rem;
+}
+
+.md-tabs__link {
+    border-radius: 999px;
+    padding: 0.55rem 1.1rem;
+    background: linear-gradient(145deg, rgba(24, 38, 46, 0.35), rgba(10, 16, 20, 0.65));
+    color: var(--md-default-fg-color);
     box-shadow:
-        inset 0 0 40px rgba(0, 0, 0, 0.015),
-        0 1px 2px rgba(0, 0, 0, 0.02);
-    border-top: 1px solid rgba(0, 0, 0, 0.03);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 6px 16px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
 }
 
-/* Hero container - dark mode */
-[data-md-color-scheme="slate"] .hero-container {
-    width: 100vw;
-    min-height: 75vh;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-top: 0;
-    margin-bottom: 4rem;
-    background: linear-gradient(180deg,
-            rgba(20, 20, 23, 0.3) 0%,
-            rgba(16, 16, 19, 0.5) 50%,
-            rgba(13, 13, 16, 0.7) 100%);
-    padding: 0;
+.md-tabs__link:hover {
+    transform: translateY(-1px);
     box-shadow:
-        inset 0 0 40px rgba(255, 255, 255, 0.015),
-        0 1px 2px rgba(0, 0, 0, 0.3);
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 10px 22px rgba(0, 0, 0, 0.28);
+    background: linear-gradient(145deg, rgba(36, 56, 66, 0.6), rgba(12, 18, 24, 0.8));
 }
 
-/* Hero text - light mode */
-[data-md-color-scheme="default"] .hero-text-top,
-[data-md-color-scheme="default"] .hero-text-bottom {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 800px;
-    text-align: center;
-    color: rgba(30, 35, 45, 0.65);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-    font-style: italic;
-    font-size: 1rem;
-    font-weight: 200;
-    letter-spacing: 0.03em;
-    margin: 0;
-    padding: 1rem;
-    z-index: 1;
-    text-shadow: none;
-    transition: color 0.3s ease, opacity 0.3s ease;
-    opacity: 0.9;
+.md-tabs__link[aria-current],
+.md-tabs__link.md-tabs__link--active {
+    background: linear-gradient(145deg, rgba(0, 150, 136, 0.9), rgba(0, 105, 92, 0.9));
+    color: #ffffff;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        0 12px 28px rgba(0, 150, 136, 0.35);
+    border-color: rgba(0, 150, 136, 0.5);
 }
 
-[data-md-color-scheme="default"] .hero-text-top {
-    top: 2.5rem;
-}
-
-[data-md-color-scheme="default"] .hero-text-bottom {
-    bottom: 2.5rem;
-}
-
-[data-md-color-scheme="default"] .hero-text-top:hover,
-[data-md-color-scheme="default"] .hero-text-bottom:hover {
-    color: rgba(30, 35, 45, 0.95);
-    opacity: 1;
-}
-
-/* Hero text - dark mode */
-[data-md-color-scheme="slate"] .hero-text-top,
-[data-md-color-scheme="slate"] .hero-text-bottom {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 800px;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.45);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-    font-style: italic;
-    font-size: 1rem;
-    font-weight: 200;
-    letter-spacing: 0.03em;
-    margin: 0;
-    padding: 1rem;
-    z-index: 1;
-    text-shadow: none;
-    transition: color 0.3s ease, opacity 0.3s ease;
-    opacity: 0.9;
-}
-
-[data-md-color-scheme="slate"] .hero-text-top {
-    top: 2.5rem;
-}
-
-[data-md-color-scheme="slate"] .hero-text-bottom {
-    bottom: 2.5rem;
-}
-
-[data-md-color-scheme="slate"] .hero-text-top:hover,
-[data-md-color-scheme="slate"] .hero-text-bottom:hover {
-    color: rgba(255, 255, 255, 0.8);
-    opacity: 1;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 76.1875em) {
-
-    [data-md-color-scheme="default"] .hero-container,
-    [data-md-color-scheme="slate"] .hero-container {
-        min-height: 60vh;
-    }
+.md-tabs__link[aria-current]::after,
+.md-tabs__link.md-tabs__link--active::after {
+    content: "";
+    display: block;
+    margin-top: 0.35rem;
+    height: 3px;
+    width: 28px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.35));
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.28);
 }
 
 @media screen and (max-width: 60em) {
-
-    [data-md-color-scheme="default"] .hero-container,
-    [data-md-color-scheme="slate"] .hero-container {
-        min-height: 50vh;
+    .md-tabs {
+        padding: 0.25rem 0.5rem;
     }
 
-    [data-md-color-scheme="default"] .hero-text-top,
-    [data-md-color-scheme="default"] .hero-text-bottom,
-    [data-md-color-scheme="slate"] .hero-text-top,
-    [data-md-color-scheme="slate"] .hero-text-bottom {
-        font-size: 0.9rem;
-    }
-
-    [data-md-color-scheme="default"] .hero-text-top,
-    [data-md-color-scheme="slate"] .hero-text-top {
-        top: 1.5rem;
-    }
-
-    [data-md-color-scheme="default"] .hero-text-bottom,
-    [data-md-color-scheme="slate"] .hero-text-bottom {
-        bottom: 1.5rem;
+    .md-tabs__link {
+        font-size: 0.7rem;
+        padding: 0.5rem 0.9rem;
     }
 }
 
-@media screen and (max-width: 44.9375em) {
-
-    [data-md-color-scheme="default"] .hero-container,
-    [data-md-color-scheme="slate"] .hero-container {
-        min-height: 40vh;
-    }
-
-    [data-md-color-scheme="default"] .hero-text-top,
-    [data-md-color-scheme="default"] .hero-text-bottom,
-    [data-md-color-scheme="slate"] .hero-text-top,
-    [data-md-color-scheme="slate"] .hero-text-bottom {
-        font-size: 0.85rem;
-        letter-spacing: 0.02em;
-    }
-
-    [data-md-color-scheme="default"] .hero-text-top,
-    [data-md-color-scheme="slate"] .hero-text-top {
-        top: 1rem;
-    }
-
-    [data-md-color-scheme="default"] .hero-text-bottom,
-    [data-md-color-scheme="slate"] .hero-text-bottom {
-        bottom: 1rem;
-    }
+/* Surface cards and grids for the refreshed landing pages */
+.surface-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0 2rem;
 }
 
-/* Layout adjustments */
-.md-container {
-    padding-top: 0 !important;
+.surface-card {
+    padding: 1.1rem 1.25rem;
+    border-radius: 16px;
+    background: var(--md-default-bg-color);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
-.md-main {
-    padding-top: 0 !important;
+[data-md-color-scheme="slate"] .surface-card {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.04);
 }
 
-.md-main__inner {
-    padding-top: 0 !important;
+.surface-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.35rem;
+    font-size: 1.1rem;
 }
 
-.md-content {
-    padding-top: 0 !important;
+.surface-card p {
+    margin: 0;
 }
 
-.md-content__inner {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
+.pill-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
 }
 
-.md-typeset .hero-container:first-child {
-    margin-top: -2rem !important;
+.pill-links a {
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    font-size: 0.9rem;
 }
 
-/* Button and content spacing adjustments */
-.md-typeset .md-button {
+[data-md-color-scheme="slate"] .pill-links a {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.page-intro {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    align-items: center;
+    margin: 1rem 0 2rem;
+}
+
+.page-intro__summary {
+    padding: 1.25rem;
+    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(0, 150, 136, 0.12), rgba(0, 150, 136, 0.04));
+    border: 1px solid rgba(0, 150, 136, 0.15);
+    box-shadow: 0 10px 24px rgba(0, 150, 136, 0.12);
+}
+
+[data-md-color-scheme="slate"] .page-intro__summary {
+    background: linear-gradient(145deg, rgba(0, 150, 136, 0.25), rgba(0, 150, 136, 0.05));
+    border-color: rgba(0, 150, 136, 0.25);
+}
+
+.page-intro__meta {
+    display: grid;
+    gap: 0.6rem;
+}
+
+.page-intro__meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     font-weight: 400;
-    letter-spacing: 0.02em;
-    padding: 0.625rem 1.5rem;
-    transition: all 0.2s ease;
 }
 
-.md-typeset .md-button--primary {
-    font-weight: 500;
-}
-
-/* Horizontal rule styling for minimalism */
-.md-typeset hr {
-    border: none;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.06);
-    margin: 3rem 0;
-}
-
-[data-md-color-scheme="slate"] .md-typeset hr {
-    background: rgba(255, 255, 255, 0.08);
-}
-
-/* Content spacing */
-.landing-page .md-content__inner {
-    max-width: 50rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.landing-page .md-typeset > div[align="center"] {
-    margin-bottom: 3rem;
-}
-
-.landing-page .md-typeset h2:first-of-type {
-    margin-top: 1rem;
-}
-
-/* Button spacing on mobile */
-@media screen and (max-width: 44.9375em) {
-    .md-typeset .md-button {
-        margin-bottom: 0.25rem;
-    }
+blockquote {
+    border-left: 3px solid rgba(0, 150, 136, 0.65);
+    padding-left: 1rem;
+    font-style: italic;
+    color: var(--md-default-fg-color--light);
 }
