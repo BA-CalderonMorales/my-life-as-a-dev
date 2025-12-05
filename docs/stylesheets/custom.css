@@ -1,20 +1,79 @@
-/* Typographic baseline */
+/*
+ * Custom theme layer for MkDocs Material using the repository design tokens.
+ * All styling references CSS custom properties defined on :root to keep the
+ * system consistent and accessible across components.
+ */
+
+:root {
+    /* Typography */
+    --font-sans: system-ui, -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+    --fs-xs: 0.75rem;
+    --fs-sm: 0.875rem;
+    --fs-base: 1rem;
+    --fs-lg: 1.25rem;
+    --fs-xl: 1.75rem;
+    --fs-2xl: 2.25rem;
+    --fs-3xl: 3rem;
+    --fw-normal: 400;
+    --fw-medium: 500;
+    --fw-bold: 700;
+    --lh-body: 1.5;
+    --lh-heading: 1.2;
+
+    /* Spacing / Layout */
+    --sp-0: 0;
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-5: 20px;
+    --sp-6: 24px;
+    --sp-8: 32px;
+    --sp-12: 48px;
+    --sp-16: 64px;
+
+    /* Color Palette (light theme) */
+    --color-brand-primary: #0066FF;
+    --color-brand-secondary: #00D9FF;
+    --color-accent: #FF3366;
+    --color-bg-primary: #FFFFFF;
+    --color-bg-secondary: #F8F9FA;
+    --color-bg-tertiary: #E9ECEF;
+    --color-border-light: #DEE2E6;
+    --color-border-medium: #CED4DA;
+    --color-border-dark: #ADB5BD;
+    --color-text-primary: #212529;
+    --color-text-secondary: #495057;
+    --color-text-tertiary: #6C757D;
+    --color-text-inverse: #FFFFFF;
+    --color-success: #28A745;
+    --color-warning: #FFC107;
+    --color-error: #DC3545;
+    --color-info: #17A2B8;
+}
+
+/* Typography baseline */
 body {
-    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-family: var(--font-sans);
+    color: var(--color-text-primary);
+    background: var(--color-bg-primary);
+    line-height: var(--lh-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 .md-typeset {
-    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.75;
-    font-weight: 300;
+    font-family: var(--font-sans);
+    line-height: var(--lh-body);
+    font-weight: var(--fw-normal);
+    color: var(--color-text-primary);
 }
 
 .md-typeset code,
 code,
 pre {
-    font-family: 'Roboto Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+    font-family: var(--font-mono);
     font-feature-settings: "calt" 1;
     font-variant-ligatures: contextual;
 }
@@ -25,191 +84,327 @@ pre {
 .md-typeset h4,
 .md-typeset h5,
 .md-typeset h6 {
-    font-weight: 400;
-    letter-spacing: -0.015em;
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-heading);
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
 }
 
 .md-typeset h1 {
-    font-size: 2.3rem;
-    margin-bottom: 0.8rem;
+    font-size: var(--fs-2xl);
+    margin-bottom: var(--sp-4);
 }
 
 .md-typeset h2 {
-    font-size: 1.6rem;
-    margin-top: 2rem;
-    margin-bottom: 0.6rem;
+    font-size: var(--fs-xl);
+    margin-top: var(--sp-12);
+    margin-bottom: var(--sp-3);
 }
 
 .md-typeset h3 {
-    font-size: 1.25rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.4rem;
+    font-size: var(--fs-lg);
+    margin-top: var(--sp-6);
+    margin-bottom: var(--sp-2);
 }
 
 .md-typeset p {
-    margin-bottom: 1rem;
+    margin-bottom: var(--sp-4);
+    color: var(--color-text-secondary);
 }
 
 .md-typeset strong {
-    font-weight: 500;
-    letter-spacing: 0.01em;
+    font-weight: var(--fw-bold);
 }
 
-/* Navigation tabs inspired by clean automotive dashboards */
+/* Tabs inspired by clean, card-like controls */
 .md-tabs {
-    background: linear-gradient(90deg, rgba(20, 27, 33, 0.12), rgba(20, 27, 33, 0));
-    padding: 0.35rem 0.75rem;
-    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+    background: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--color-border-medium) 20%, transparent),
+        transparent
+    );
+    padding: var(--sp-2) var(--sp-4);
+    box-shadow: inset 0 -1px 0 var(--color-border-light);
 }
 
 .md-tabs__item {
-    margin: 0 0.25rem;
+    margin: 0 var(--sp-1);
 }
 
 .md-tabs__link {
     border-radius: 999px;
-    padding: 0.55rem 1.1rem;
-    background: linear-gradient(145deg, rgba(24, 38, 46, 0.35), rgba(10, 16, 20, 0.65));
-    color: var(--md-default-fg-color);
+    padding: calc(var(--sp-3) - 2px) var(--sp-5);
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--color-bg-secondary) 85%, transparent),
+        color-mix(in srgb, var(--color-bg-tertiary) 75%, transparent)
+    );
+    color: var(--color-text-primary);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 6px 16px rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.04);
+        inset 0 1px 0 var(--color-border-light),
+        0 var(--sp-2) var(--sp-5) color-mix(in srgb, var(--color-border-dark) 35%, transparent);
+    border: 1px solid var(--color-border-light);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    font-size: 0.75rem;
+    font-size: var(--fs-xs);
     transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
 }
 
 .md-tabs__link:hover {
     transform: translateY(-1px);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 10px 22px rgba(0, 0, 0, 0.28);
-    background: linear-gradient(145deg, rgba(36, 56, 66, 0.6), rgba(12, 18, 24, 0.8));
+        inset 0 1px 0 var(--color-border-medium),
+        0 var(--sp-3) var(--sp-6) color-mix(in srgb, var(--color-border-dark) 45%, transparent);
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--color-bg-secondary) 70%, var(--color-brand-secondary) 10%),
+        color-mix(in srgb, var(--color-bg-tertiary) 80%, transparent)
+    );
 }
 
 .md-tabs__link[aria-current],
 .md-tabs__link.md-tabs__link--active {
-    background: linear-gradient(145deg, rgba(0, 150, 136, 0.9), rgba(0, 105, 92, 0.9));
-    color: #ffffff;
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--color-brand-primary) 90%, var(--color-brand-secondary) 20%),
+        color-mix(in srgb, var(--color-brand-primary) 75%, transparent)
+    );
+    color: var(--color-text-inverse);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.16),
-        0 12px 28px rgba(0, 150, 136, 0.35);
-    border-color: rgba(0, 150, 136, 0.5);
+        inset 0 1px 0 color-mix(in srgb, var(--color-text-inverse) 16%, transparent),
+        0 var(--sp-3) var(--sp-6) color-mix(in srgb, var(--color-brand-primary) 35%, transparent);
+    border-color: color-mix(in srgb, var(--color-brand-primary) 65%, var(--color-brand-secondary) 35%);
 }
 
 .md-tabs__link[aria-current]::after,
 .md-tabs__link.md-tabs__link--active::after {
     content: "";
     display: block;
-    margin-top: 0.35rem;
+    margin-top: var(--sp-2);
     height: 3px;
     width: 28px;
     border-radius: 999px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.35));
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.28);
+    background: linear-gradient(90deg, var(--color-text-inverse), color-mix(in srgb, var(--color-text-inverse) 40%, transparent));
+    box-shadow: 0 0 var(--sp-3) color-mix(in srgb, var(--color-text-inverse) 28%, transparent);
 }
 
 @media screen and (max-width: 60em) {
     .md-tabs {
-        padding: 0.25rem 0.5rem;
+        padding: var(--sp-2) var(--sp-3);
     }
 
     .md-tabs__link {
-        font-size: 0.7rem;
-        padding: 0.5rem 0.9rem;
+        font-size: var(--fs-xs);
+        padding: var(--sp-3) var(--sp-4);
     }
 }
 
-/* Surface cards and grids for the refreshed landing pages */
+/* Surface cards and grids for the landing pages */
 .surface-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem;
-    margin: 1rem 0 2rem;
+    gap: var(--sp-4);
+    margin: var(--sp-4) 0 var(--sp-8);
 }
 
 .surface-card {
-    padding: 1.1rem 1.25rem;
-    border-radius: 16px;
-    background: var(--md-default-bg-color);
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    padding: var(--sp-5) var(--sp-6);
+    border-radius: var(--sp-4);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-light);
     box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.06),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        0 var(--sp-3) var(--sp-8) color-mix(in srgb, var(--color-border-dark) 18%, transparent),
+        inset 0 1px 0 color-mix(in srgb, var(--color-text-inverse) 10%, transparent);
+    transition: transform 140ms ease, box-shadow 140ms ease;
 }
 
 [data-md-color-scheme="slate"] .surface-card {
-    background: rgba(255, 255, 255, 0.02);
-    border-color: rgba(255, 255, 255, 0.04);
+    background: color-mix(in srgb, var(--color-bg-primary) 5%, transparent);
+    border-color: color-mix(in srgb, var(--color-border-light) 35%, transparent);
+}
+
+.surface-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 var(--sp-4) var(--sp-12) color-mix(in srgb, var(--color-border-dark) 26%, transparent),
+        inset 0 1px 0 color-mix(in srgb, var(--color-text-inverse) 12%, transparent);
 }
 
 .surface-card h3 {
-    margin-top: 0;
-    margin-bottom: 0.35rem;
-    font-size: 1.1rem;
+    margin-top: var(--sp-0);
+    margin-bottom: var(--sp-2);
+    font-size: var(--fs-lg);
 }
 
 .surface-card p {
-    margin: 0;
+    margin: var(--sp-0);
 }
 
 .pill-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
+    gap: var(--sp-2);
+    margin-top: var(--sp-3);
 }
 
 .pill-links a {
     border-radius: 999px;
-    padding: 0.4rem 0.9rem;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: calc(var(--sp-3) - 2px) var(--sp-4);
+    border: 1px solid var(--color-border-light);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: var(--fs-sm);
+    color: var(--color-text-primary);
+    background: var(--color-bg-primary);
+    transition: color 140ms ease, border-color 140ms ease, background 140ms ease;
 }
 
 [data-md-color-scheme="slate"] .pill-links a {
-    border-color: rgba(255, 255, 255, 0.12);
+    border-color: color-mix(in srgb, var(--color-border-light) 45%, transparent);
+}
+
+.pill-links a:hover {
+    color: var(--color-brand-primary);
+    border-color: var(--color-brand-primary);
+    background: color-mix(in srgb, var(--color-brand-secondary) 12%, var(--color-bg-primary));
 }
 
 .page-intro {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    gap: var(--sp-6);
     align-items: center;
-    margin: 1rem 0 2rem;
+    margin: var(--sp-4) 0 var(--sp-8);
 }
 
 .page-intro__summary {
-    padding: 1.25rem;
-    border-radius: 16px;
-    background: linear-gradient(145deg, rgba(0, 150, 136, 0.12), rgba(0, 150, 136, 0.04));
-    border: 1px solid rgba(0, 150, 136, 0.15);
-    box-shadow: 0 10px 24px rgba(0, 150, 136, 0.12);
+    padding: var(--sp-6);
+    border-radius: var(--sp-4);
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--color-brand-primary) 12%, transparent),
+        color-mix(in srgb, var(--color-brand-primary) 5%, transparent)
+    );
+    border: 1px solid color-mix(in srgb, var(--color-brand-primary) 15%, var(--color-border-light));
+    box-shadow: 0 var(--sp-4) var(--sp-10) color-mix(in srgb, var(--color-brand-primary) 18%, transparent);
 }
 
 [data-md-color-scheme="slate"] .page-intro__summary {
-    background: linear-gradient(145deg, rgba(0, 150, 136, 0.25), rgba(0, 150, 136, 0.05));
-    border-color: rgba(0, 150, 136, 0.25);
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--color-brand-primary) 25%, transparent),
+        color-mix(in srgb, var(--color-brand-primary) 8%, transparent)
+    );
+    border-color: color-mix(in srgb, var(--color-brand-primary) 30%, var(--color-border-light));
 }
 
 .page-intro__meta {
     display: grid;
-    gap: 0.6rem;
+    gap: var(--sp-3);
+    padding: var(--sp-5);
+    border-radius: var(--sp-4);
+    border: 1px dashed var(--color-border-medium);
+    background: var(--color-bg-secondary);
+}
+
+[data-md-color-scheme="slate"] .page-intro__meta {
+    border-color: color-mix(in srgb, var(--color-border-medium) 50%, transparent);
+    background: color-mix(in srgb, var(--color-bg-primary) 8%, transparent);
+}
+
+.page-intro__meta strong {
+    display: block;
+    font-size: var(--fs-sm);
+    color: var(--color-text-primary);
+    margin-bottom: var(--sp-1);
 }
 
 .page-intro__meta span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-weight: 400;
+    color: var(--color-text-secondary);
+    font-size: var(--fs-sm);
 }
 
-blockquote {
-    border-left: 3px solid rgba(0, 150, 136, 0.65);
-    padding-left: 1rem;
-    font-style: italic;
-    color: var(--md-default-fg-color--light);
+/* Utility spacing helpers for docs content */
+.stack-sm > * + * {
+    margin-top: var(--sp-3);
+}
+
+.stack-md > * + * {
+    margin-top: var(--sp-4);
+}
+
+.stack-lg > * + * {
+    margin-top: var(--sp-6);
+}
+
+/* Buttons styled via tokens */
+.md-button,
+.md-typeset .md-button {
+    border-radius: 999px;
+    padding: var(--sp-3) var(--sp-5);
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-sm);
+    line-height: 1;
+    border: 1px solid var(--color-brand-primary);
+    color: var(--color-brand-primary);
+    background: color-mix(in srgb, var(--color-brand-secondary) 12%, var(--color-bg-primary));
+    transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.md-button:hover,
+.md-typeset .md-button:hover {
+    color: var(--color-text-inverse);
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--color-brand-primary) 90%, var(--color-brand-secondary) 10%),
+        color-mix(in srgb, var(--color-brand-primary) 70%, transparent)
+    );
+    border-color: var(--color-brand-primary);
+}
+
+.md-button.md-button--primary,
+.md-typeset .md-button.md-button--primary {
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--color-brand-primary) 90%, var(--color-brand-secondary) 10%),
+        color-mix(in srgb, var(--color-brand-primary) 75%, transparent)
+    );
+    color: var(--color-text-inverse);
+    border-color: color-mix(in srgb, var(--color-brand-primary) 80%, var(--color-brand-secondary) 20%);
+}
+
+.md-button.md-button--primary:hover,
+.md-typeset .md-button.md-button--primary:hover {
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--color-brand-primary) 95%, var(--color-brand-secondary) 15%),
+        color-mix(in srgb, var(--color-brand-primary) 80%, transparent)
+    );
+    border-color: var(--color-brand-primary);
+}
+
+/* Code blocks */
+.md-typeset pre > code {
+    font-size: var(--fs-sm);
+    line-height: var(--lh-body);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--sp-2);
+    padding: var(--sp-4);
+    border: 1px solid var(--color-border-medium);
+}
+
+[data-md-color-scheme="slate"] .md-typeset pre > code {
+    background: color-mix(in srgb, var(--color-bg-primary) 12%, transparent);
+    border-color: color-mix(in srgb, var(--color-border-medium) 55%, transparent);
+}
+
+/* Focus states for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.md-tabs__link:focus-visible {
+    outline: 2px solid var(--color-brand-secondary);
+    outline-offset: 2px;
+    border-radius: 6px;
 }
