@@ -194,9 +194,7 @@ Key principles:
 2. **Deploy Job**:
    - Deploys to GitHub Pages when build succeeds on main branch
 
-3. **Super-Linter** (`.github/workflows/super-linter.yml`):
-   - Runs on all pull requests
-   - Validates code quality and standards
+The Super-Linter workflow has been removed to keep CI focused on actionable checks. Use targeted linting locally when iterating on new language features.
 
 ### Version Management
 
