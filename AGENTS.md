@@ -64,6 +64,8 @@ All dependencies must be installed using `make setup` in CI jobs. The pipeline n
 - Use plain text section headers instead of emoji prefixes
 - Use Material Design icons via `:material-icon-name:` syntax if visual indicators are needed
 - Keep documentation clean, professional, and emoji-free
+- Treat visible Markdown syntax on rendered pages as an anti-pattern. Readers should see styled output (e.g., `<strong>` text),
+  not raw markers like `**bold**`. Maintain e2e coverage that fails if served HTML exposes raw Markdown tokens.
 
 ### Python Guidelines
 

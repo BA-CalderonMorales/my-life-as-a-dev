@@ -1,13 +1,28 @@
-const { pageSources } = require('../config/pages');
-const { assertPathExists } = require('../shared/files');
+const { pageOutputs, pageSources } = require('../config/pages');
+const {
+  assertFile,
+  assertHtmlContains,
+  assertNoExposedMarkdown,
+  readFileContents,
+} = require('../shared/files');
 
 function run() {
-  const resolved = assertPathExists('Home page source', pageSources.home.source);
-  return `Home page source located at ${resolved}`;
+  const checks = [];
+  checks.push(assertFile('Home page source', pageSources.home.source));
+  const htmlCheck = readFileContents('Home page output', pageOutputs.home.output);
+  checks.push(htmlCheck);
+  checks.push(
+    assertHtmlContains('Home hero renders with emphasis', htmlCheck.contents, '<strong>I build developer tooling'),
+  );
+  checks.push(assertNoExposedMarkdown('Home page hides Markdown syntax', htmlCheck.contents));
+  return checks;
 }
 
 if (require.main === module) {
-  console.log(run());
+  const summary = run()
+    .map((item) => `${item.label}: ${item.status}`)
+    .join('\n');
+  console.log(summary);
 }
 
 module.exports = { run };

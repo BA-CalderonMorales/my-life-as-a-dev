@@ -72,7 +72,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          cache: pip
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v3
 
       - name: Setup Node.js for e2e checks
         if: github.event_name == 'pull_request'
@@ -82,16 +84,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-          # Install local plugin in development mode
-          pip install -e .
-
-      - name: Run e2e structure checks
-        if: github.event_name == 'pull_request'
-        run: |
-          node e2e/index.spec.js
+          uv pip install --system -r requirements.txt
+          uv pip install --system -e .
 
       - name: Configure Git for Mike
         run: |
@@ -112,48 +106,52 @@ jobs:
       - name: Build and deploy with Mike
         if: github.event_name != 'pull_request'
         run: |
-          # Explicitly verify plugin module is available
-          python -c "import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')"
-          
+          uv run python -c "import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')"
+
           # Set PYTHONPATH to include the local plugins
           export PYTHONPATH=$PYTHONPATH:$(pwd)
 
           if git show-ref --quiet refs/heads/gh-pages; then
             # Check if alias 'latest' already exists for this version
-            if mike list | grep -q "$LATEST_TAG.*latest"; then
+            if uv run mike list | grep -q "$LATEST_TAG.*latest"; then
               echo "Alias 'latest' already exists for version $LATEST_TAG, skipping deploy"
             else
               # Deploy the latest version with Mike, updating the alias if it exists
-              mike deploy --push --update-aliases $LATEST_TAG latest
+              uv run mike deploy --push --update-aliases $LATEST_TAG latest
             fi
 
             # Set default version AFTER deploy if needed
-            if ! mike list | grep -q "default.*latest"; then
-              mike set-default --push latest
+            if ! uv run mike list | grep -q "default.*latest"; then
+              uv run mike set-default --push latest
             fi
           else
             echo "No gh-pages branch available; initializing branch with current build"
-            mike deploy --push --update-aliases $LATEST_TAG latest
-            mike set-default --push latest
+            uv run mike deploy --push --update-aliases $LATEST_TAG latest
+            uv run mike set-default --push latest
           fi
 
           # List versions to verify
-          mike list
+          uv run mike list
 
       - name: Build site with MkDocs
         run: |
           # Set PYTHONPATH to include the local plugins
           export PYTHONPATH=$PYTHONPATH:$(pwd)
-          
+
           # Build the site with MkDocs
-          mkdocs build
+          uv run mkdocs build
+
+      - name: Run e2e rendering checks
+        if: github.event_name == 'pull_request'
+        run: |
+          node e2e/index.spec.js
 
       - name: Ensure versions.json is in the right place
         run: |
           # Make sure versions.json exists in the site root for GitHub Pages
           mkdir -p site
           if git show-ref --quiet refs/heads/gh-pages; then
-            mike list --json > site/versions.json
+            uv run mike list --json > site/versions.json
           else
             echo "gh-pages branch not available; using checked-in versions.json as fallback"
             cp versions.json site/versions.json
@@ -184,6 +182,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v3
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
@@ -200,6 +201,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v3
+
       - name: Deploy Preview to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

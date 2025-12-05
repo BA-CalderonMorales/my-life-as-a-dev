@@ -1,13 +1,20 @@
-const { pageSources } = require('../config/pages');
-const { assertPathExists } = require('../shared/files');
+const { pageOutputs, pageSources } = require('../config/pages');
+const { assertFile, assertNoExposedMarkdown, readFileContents } = require('../shared/files');
 
 function run() {
-  const resolved = assertPathExists('Docs as Code source', pageSources.docsAsCode.source);
-  return `Docs as Code source located at ${resolved}`;
+  const checks = [];
+  checks.push(assertFile('Docs as Code page source', pageSources.docsAsCode.source));
+  const htmlCheck = readFileContents('Docs as Code page output', pageOutputs.docsAsCode.output);
+  checks.push(htmlCheck);
+  checks.push(assertNoExposedMarkdown('Docs as Code page hides Markdown syntax', htmlCheck.contents));
+  return checks;
 }
 
 if (require.main === module) {
-  console.log(run());
+  const summary = run()
+    .map((item) => `${item.label}: ${item.status}`)
+    .join('\n');
+  console.log(summary);
 }
 
 module.exports = { run };

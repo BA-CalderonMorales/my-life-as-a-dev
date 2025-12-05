@@ -1,27 +1,14 @@
-const fs = require('fs');
 const path = require('path');
-const { pageSources, docsRoot } = require('./config/pages');
-const { summarizeChecks } = require('./shared/files');
-
-function assertDirectory(label, targetPath) {
-  if (!fs.existsSync(targetPath)) {
-    throw new Error(`${label} is missing at ${targetPath}`);
-  }
-  if (!fs.statSync(targetPath).isDirectory()) {
-    throw new Error(`${label} is not a directory at ${targetPath}`);
-  }
-  return { label, status: 'ok' };
-}
-
-function assertFile(label, targetPath) {
-  if (!fs.existsSync(targetPath)) {
-    throw new Error(`${label} is missing at ${targetPath}`);
-  }
-  if (!fs.statSync(targetPath).isFile()) {
-    throw new Error(`${label} is not a file at ${targetPath}`);
-  }
-  return { label, status: 'ok' };
-}
+const { pageSources, docsRoot, siteRoot } = require('./config/pages');
+const { assertDirectory, assertFile, summarizeChecks } = require('./shared/files');
+const pageSpecs = [
+  require('./pages/home.spec'),
+  require('./pages/docsAsCode.spec'),
+  require('./pages/learning.spec'),
+  require('./pages/projects.spec'),
+  require('./pages/resume.spec'),
+  require('./pages/error.spec'),
+];
 
 function run() {
   const checks = [];
@@ -41,8 +28,12 @@ function run() {
   });
   const mappingFile = path.join(configPath, 'pages.js');
   checks.push(assertFile('Page mapping config', mappingFile));
-  const docsRootCheck = assertDirectory('Docs root', docsRoot);
-  checks.push(docsRootCheck);
+  checks.push(assertDirectory('Docs root', docsRoot));
+  checks.push(assertDirectory('Site root (mkdocs build output)', siteRoot));
+  pageSpecs.forEach((spec) => {
+    const specChecks = spec.run();
+    checks.push(...specChecks);
+  });
   return summarizeChecks(checks);
 }
 

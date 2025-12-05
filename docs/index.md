@@ -10,16 +10,17 @@ hide:
 Product-minded engineer focused on calm execution, reliable CI/CD, and documentation that feels crafted rather than patched together.
 
 <div class="page-intro">
-  <div class="page-intro__summary" markdown="1">
-  **I build developer tooling, distributed systems, and docs-as-code pipelines that remove friction.**
-
-  I grew up in the United States Marine Corps and carried that discipline into engineering. Today I partner with teams that want less ceremony, faster delivery, and documentation that people actually trust.
+  <div class="page-intro__summary">
+    <p><strong>I build developer tooling, distributed systems, and docs-as-code pipelines that remove friction.</strong></p>
+    <p>I grew up in the United States Marine Corps and carried that discipline into engineering. Today I partner with teams that want less ceremony, faster delivery, and documentation that people actually trust.</p>
   </div>
-  <div class="page-intro__meta" markdown="1">
-  - Based in Omaha, NE
-  - Bilingual (English/Spanish)
-  - Currently finishing a B.S. in Computer Science while shipping production systems
-  - Open to collaboration, consulting, and thoughtful conversations about developer experience
+  <div class="page-intro__meta">
+    <ul>
+      <li>Based in Omaha, NE</li>
+      <li>Bilingual (English/Spanish)</li>
+      <li>Currently finishing a B.S. in Computer Science while shipping production systems</li>
+      <li>Open to collaboration, consulting, and thoughtful conversations about developer experience</li>
+    </ul>
   </div>
 </div>
 

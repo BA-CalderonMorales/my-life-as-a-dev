@@ -1,13 +1,20 @@
-const { pageSources } = require('../config/pages');
-const { assertPathExists } = require('../shared/files');
+const { pageOutputs, pageSources } = require('../config/pages');
+const { assertFile, assertNoExposedMarkdown, readFileContents } = require('../shared/files');
 
 function run() {
-  const resolved = assertPathExists('Learning page source', pageSources.learning.source);
-  return `Learning page source located at ${resolved}`;
+  const checks = [];
+  checks.push(assertFile('Learning page source', pageSources.learning.source));
+  const htmlCheck = readFileContents('Learning page output', pageOutputs.learning.output);
+  checks.push(htmlCheck);
+  checks.push(assertNoExposedMarkdown('Learning page hides Markdown syntax', htmlCheck.contents));
+  return checks;
 }
 
 if (require.main === module) {
-  console.log(run());
+  const summary = run()
+    .map((item) => `${item.label}: ${item.status}`)
+    .join('\n');
+  console.log(summary);
 }
 
 module.exports = { run };
