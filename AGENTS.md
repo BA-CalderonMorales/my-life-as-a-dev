@@ -50,9 +50,7 @@ After merging into `develop`, automatically open a PR that merges `develop` into
 
 ## Continuous Integration
 
-All dependencies must be installed using `make setup` in CI jobs. The Super-Linter runs on every pull request via `.github/workflows/super-linter.yml`.
-
-Ensure we find ways to mitigate any current Super-Linter failures as we continue to make incremental changes. Failures should not cause us to break existing functionality or alter the current documentation appearance. Take a balanced approach when addressing linter issues.
+All dependencies must be installed using `make setup` in CI jobs. The pipeline now focuses on the GitHub Pages build workflow; the previous Super-Linter job has been retired to keep checks clear and actionable. Keep linting scoped to targeted tooling when it adds value and avoid noisy, low-signal gates.
 
 ## Code Style and Standards
 
