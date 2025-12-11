@@ -28,10 +28,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-          pip install mike
+          # Install uv helper and use it for fast installs
+          curl -LsSf https://astral.sh/uv/install.sh | sh || true
+          export PATH="$HOME/.local/bin:$PATH"
+
+          uv pip install -r requirements.txt
+          uv pip install mike && uv pip install -U mike
           # Install local plugin in development mode
-          pip install -e .
+          uv pip install -e .
           # Install jq for versions.json manipulation
           sudo apt-get install jq -y
 

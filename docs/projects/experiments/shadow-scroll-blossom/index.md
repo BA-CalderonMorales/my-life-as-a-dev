@@ -16,7 +16,7 @@ Shadow Scroll Blossom is an interactive canvas that creates colorful particle tr
 
 ## Quick Links
 
-- :material-github: [GitHub Repository](https://github.com/BA-CalderonMorales/shadow-scroll-blossom)
+- :fontawesome-brands-github: [GitHub Repository](https://github.com/BA-CalderonMorales/shadow-scroll-blossom)
 - :material-web: [Live Demo](https://ba-calderonmorales.github.io/shadow-scroll-blossom/)
 - :material-bug: [Issue Tracker](https://github.com/BA-CalderonMorales/shadow-scroll-blossom/issues)
 

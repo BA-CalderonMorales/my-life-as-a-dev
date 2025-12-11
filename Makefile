@@ -8,9 +8,9 @@ help:
 	@echo "  make cli     - Build and run documentation CLI tools"
 
 setup:
-	pip install --upgrade pip
-	pip install -r requirements.txt
-	pip install -e .
+	uv run python -m pip install --upgrade pip
+	uv pip install -r requirements.txt
+	uv pip install -e .
 
 serve:
 	PYTHONPATH=$(PWD) mkdocs serve

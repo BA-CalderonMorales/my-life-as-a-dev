@@ -32,9 +32,9 @@ source venv/bin/activate
 ### 3. Install Dependencies
 
 ```bash
-pip install --upgrade pip
-pip install -r requirements.txt
-pip install -e .  # Install in development mode
+uv run python -m pip install --upgrade pip
+uv pip install -r requirements.txt
+uv pip install -e .  # Install in development mode
 ```
 
 ### 4. Start the Development Server

@@ -151,15 +151,12 @@ Simple examples showing core functionality.
 
 ## Next Steps
 
-Links to detailed documentation.
-```
-
 ### details/index.md
 
 ```markdown
 # Details
 
-Deep dive into [Project Name] architecture and implementation.
+    :fontawesome-brands-github:{ .lg .middle } **GitHub Repository**
 
 ## Architecture
 
@@ -167,7 +164,6 @@ System design, component interactions, data flow.
 
 ## Testing
 
-Testing approach, running tests, coverage.
 
 ## Contributing
 

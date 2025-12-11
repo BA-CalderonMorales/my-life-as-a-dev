@@ -16,7 +16,7 @@ Immersive Awe Canvas is a web-based application that allows users to explore and
 
 ## Quick Links
 
-- :material-github: [GitHub Repository](https://github.com/BA-CalderonMorales/immersive-awe-canvas)
+- :fontawesome-brands-github: [GitHub Repository](https://github.com/BA-CalderonMorales/immersive-awe-canvas)
 - :material-web: [Live Demo](https://immersive-awe-canvas.lovable.app)
 - :material-bug: [Issue Tracker](https://github.com/BA-CalderonMorales/immersive-awe-canvas/issues)
 

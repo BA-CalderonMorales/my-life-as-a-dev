@@ -16,10 +16,8 @@ Platform-specific startup scripts that automate the entire process of running a 
 
 ## Quick Links
 
-- [:material-github: GitHub Repository](https://github.com/BA-CalderonMorales/coder-starter-scripts)
-- [:material-file-document: Official Coder Docs](https://github.com/coder/coder)
 
-## Key Features
+[:fontawesome-brands-github: Repo](https://github.com/BA-CalderonMorales/coder-starter-scripts){ .md-button }
 
 - One-command server startup
 - Configurable templates

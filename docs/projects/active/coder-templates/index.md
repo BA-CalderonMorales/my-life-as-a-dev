@@ -10,7 +10,7 @@ Terraform-based workspace templates that provision complete development environm
 
 ## Quick Links
 
-- [:material-github: GitHub Repository](https://github.com/BA-CalderonMorales/coder-templates)
+- [:fontawesome-brands-github: GitHub Repository](https://github.com/BA-CalderonMorales/coder-templates)
 
 ## Project Status
 

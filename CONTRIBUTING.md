@@ -35,7 +35,7 @@ By participating in this project, you are expected to uphold our [Code of Conduc
 ## Development Setup
 
 1. Clone the repository
-2. Install dependencies with `pip install -r requirements.txt`
+2. Install dependencies with `uv pip install -r requirements.txt` (preferred)
 3. Run the development server with `mkdocs serve`
 
 ## Style Guide

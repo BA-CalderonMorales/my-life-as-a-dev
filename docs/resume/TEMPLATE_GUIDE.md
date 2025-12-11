@@ -128,7 +128,7 @@ Technical skills are organized into collapsible tabs:
 ### 5. Visual Hierarchy with Icons
 
 ```markdown
-[:material-github: Repository](url)
+[:fontawesome-brands-github: Repository](url)
 [:material-npm: NPM](url)
 [:material-language-rust: Crates.io](url)
 ```
