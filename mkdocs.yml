@@ -13,10 +13,10 @@ theme:
   logo: assets/images/me-today.png
   favicon: assets/images/favicon/favicon.ico
   
-  # Typography
+  # Typography - Inter for modern, clean look (similar to Claude docs)
   font:
-    text: Roboto
-    code: Roboto Mono
+    text: Inter
+    code: JetBrains Mono
     
   # Icons
   icon:

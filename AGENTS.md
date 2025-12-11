@@ -35,7 +35,7 @@ This repository is an MkDocs Material-based documentation hub. Key tools: `mkdoc
 - DO NOT expose tokens in client-side code. Implement auth, logging, rate-limiting, and filtering before enabling.
 
 ## Project Notes
-- Custom plugins: `mkdocs_plugins/` (install with `pip install -e .`).
+- Custom plugins: `mkdocs_plugins/` (install with `uv pip install -e .`).
 - Versions via `mike` and git tags; `doc-cli` simplifies common tasks.
 
 ## Testing

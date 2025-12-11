@@ -8,7 +8,6 @@ on:
     paths-ignore:
       - '.devcontainer/**'
       - 'AGENTS.md'
-      - 'CLAUDE.md'
       - '.github/copilot-instructions.md'
       - '.cursorrules'
       - '.cursor/rules/**'
@@ -24,7 +23,6 @@ on:
     paths-ignore:
       - '.devcontainer/**'
       - 'AGENTS.md'
-      - 'CLAUDE.md'
       - '.github/copilot-instructions.md'
       - '.cursorrules'
       - '.cursor/rules/**'
@@ -96,11 +94,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          # Install uv helper and use it for fast installs
+          curl -LsSf https://astral.sh/uv/install.sh | sh || true
+          export PATH="$HOME/.local/bin:$PATH"
+
+          uv run python -m pip install --upgrade pip
+          uv pip install -r requirements.txt
 
           # Install local plugin in development mode
-          pip install -e .
+          uv pip install -e .
 
       - name: Run e2e structure checks
         if: github.event_name == 'pull_request'

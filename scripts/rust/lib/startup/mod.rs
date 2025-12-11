@@ -226,9 +226,10 @@ impl Startup {
         println!("\n=== Local Development Setup ===");
         println!("To set up the development environment locally, please ensure you have:");
         println!("1. Python 3.8+ installed");
-        println!("2. pip (Python package manager)");
+            println!("2. uv (recommended) or pip (Python package manager)");
         println!("\nInstall dependencies manually with:");
-        println!("  pip install -r requirements.txt");
+            println!("Install dependencies manually with (recommended):");
+            println!("  uv pip install -r requirements.txt");
         println!("\nStart the development server with:");
         println!("  mkdocs serve");
         println!("\n🤔 Are you trying to run this locally? Remember to use:");

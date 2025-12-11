@@ -2,103 +2,137 @@
 title: Brandon A. Calderon Morales
 description: Product-minded engineer building calm, precise systems for people who ship.
 hide:
+  - navigation
   - toc
 ---
 
-# Brandon A. Calderon Morales
+<style>
+.md-content__button { display: none; }
+</style>
 
-Product-minded engineer focused on calm execution, reliable CI/CD, and documentation that feels crafted rather than patched together.
+<section class="tx-hero" markdown>
+<div class="tx-hero__content" markdown>
 
-<div class="page-intro">
-  <div class="page-intro__summary" markdown="1">
-  **I build developer tooling, distributed systems, and docs-as-code pipelines that remove friction.**
+# Build systems that ship
 
-  I grew up in the United States Marine Corps and carried that discipline into engineering. Today I partner with teams that want less ceremony, faster delivery, and documentation that people actually trust.
-  </div>
-  <div class="page-intro__meta" markdown="1">
-  - Based in Omaha, NE
-  - Bilingual (English/Spanish)
-  - Currently finishing a B.S. in Computer Science while shipping production systems
-  - Open to collaboration, consulting, and thoughtful conversations about developer experience
-  </div>
+Product-minded engineer focused on **developer tooling**, **distributed systems**, and **docs-as-code** pipelines that remove friction.
+
+[Get Started](projects/index.md){ .md-button .md-button--primary }
+[View Resume](resume/index.md){ .md-button }
+
+</div>
+<div class="tx-hero__image">
+<img src="assets/images/me-today.png" alt="Brandon Calderon Morales" draggable="false">
+</div>
+</section>
+
+<section class="tx-container" markdown>
+<div class="tx-columns" markdown>
+
+<div markdown>
+
+## What I Do
+
+I partner with teams that want **less ceremony**, **faster delivery**, and **documentation** that people actually trust.
+
+- :material-cog-outline: **Infrastructure as Code** - Predictable environments from day one
+- :material-file-document-outline: **Docs-as-Code** - Versioned, linted, automated
+- :material-robot-outline: **AI Tooling** - Orchestrate multiple LLM assistants
+- :material-shield-check-outline: **CI/CD Pipelines** - Built for reliability
+
 </div>
 
-## Signal over noise
+<div markdown>
 
-I keep this site lean so you can find the essentials quickly. Every page is versioned, linted, and written with the same intent I bring to code reviews: clarity first, bravado never.
+## Background
 
-### Flagship builds
+Marine Corps veteran turned engineer. I believe good tooling should feel like a well-maintained vehicle: **responsive**, **quiet**, and **reliable**.
 
-<div class="surface-grid">
-  <div class="surface-card" markdown="1">
-  <h3>Terminal Jarvis</h3>
-  A single CLI that wrangles Claude Code, Gemini CLI, GPT, and more. Published on NPM and Crates.io so teams can standardize how they work with AI assistants.
+Currently finishing a B.S. in Computer Science while shipping production systems. Based in Omaha, NE. Bilingual (English/Spanish).
 
-  [:material-github: Repo](https://github.com/BA-CalderonMorales/terminal-jarvis){ .md-button .md-button--primary }
-  [:material-npm: NPM](https://www.npmjs.com/package/terminal-jarvis){ .md-button }
-  [:material-language-rust: Crates.io](https://crates.io/crates/terminal-jarvis){ .md-button }
-  </div>
+[:material-linkedin: Connect on LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe/){ .md-button }
 
-  <div class="surface-card" markdown="1">
-  <h3>Coder Infrastructure</h3>
-  Templates and automation that make self-hosted Coder environments predictable. Cuts onboarding from days to minutes and keeps every engineer on the same stack.
-
-  [:material-github: Starter Scripts](https://github.com/BA-CalderonMorales/coder-starter-scripts){ .md-button }
-  [:material-github: Templates](https://github.com/BA-CalderonMorales/coder-templates){ .md-button }
-  </div>
-
-  <div class="surface-card" markdown="1">
-  <h3>Docs-as-Code Portfolio</h3>
-  This site itself. A working example of versioned docs, automated releases, and handcrafted copy that reads like a conversation, not a brochure.
-
-  [:material-github: Source](https://github.com/BA-CalderonMorales/my-life-as-a-dev){ .md-button }
-  [:material-web: Live Site](https://ba-calderonmorales.github.io/my-life-as-a-dev/){ .md-button }
-  </div>
 </div>
 
-### What it is like to work with me
+</div>
+</section>
 
-- I default to documentation as a product, not an afterthought.
-- I prefer predictable pipelines over clever ones.
-- I bring product thinking to infrastructure work so teams know the "why" behind every toggle.
-- I design interfaces—CLI or UI—that feel intuitive on the first run.
+<section class="md-typeset" markdown>
 
-### Currently experimenting
+## Featured Projects
 
-<div class="surface-grid">
-  <div class="surface-card" markdown="1">
-  <h3>Immersive Awe Canvas</h3>
-  Creative coding and WebGL experiments that explore how far interaction can be pushed in the browser.
+<div class="grid cards" markdown>
 
-  [:material-github: Repo](https://github.com/BA-CalderonMorales/immersive-awe-canvas){ .md-button }
-  [:material-rocket-launch: Prod](https://immersive-awe-canvas.lovable.app){ .md-button }
-  </div>
+-   :material-robot:{ .lg .middle } **Terminal Jarvis**
 
-  <div class="surface-card" markdown="1">
-  <h3>Shadow Scroll Blossom</h3>
-  Particle-driven visuals tuned for responsiveness and touch.
+    ---
 
-  [:material-github: Repo](https://github.com/BA-CalderonMorales/shadow-scroll-blossom){ .md-button }
-  [:material-rocket-launch: Prod](https://shadow-scroll-blossom.lovable.app/){ .md-button }
-  </div>
+    A single CLI that orchestrates Claude Code, Gemini CLI, GPT, and more. Published on NPM and Crates.io.
 
-  <div class="surface-card" markdown="1">
-  <h3>Rust Terminal Forge</h3>
-  A browser-based terminal experiment that blends React, TypeScript, and Rust services.
+    [:octicons-arrow-right-24: View Project](projects/active/terminal-jarvis/index.md)
 
-  [:material-github: Repo](https://github.com/BA-CalderonMorales/rust-terminal-forge){ .md-button }
-  [:material-alert: Prod (Unstable)](https://rust-terminal-forge.lovable.app/){ .md-button }
-  </div>
+-   :material-server:{ .lg .middle } **Coder Infrastructure**
+
+    ---
+
+    Templates and automation for self-hosted Coder environments. Cuts onboarding from days to minutes.
+
+    [:octicons-arrow-right-24: Starter Scripts](https://github.com/BA-CalderonMorales/coder-starter-scripts)
+
+-   :material-book-open-variant:{ .lg .middle } **Docs-as-Code Portfolio**
+
+    ---
+
+    This site itself. Versioned docs, automated releases, and handcrafted copy.
+
+    [:octicons-arrow-right-24: View Source](https://github.com/BA-CalderonMorales/my-life-as-a-dev)
+
+-   :material-palette:{ .lg .middle } **Creative Experiments**
+
+    ---
+
+    WebGL visualizations, particle systems, and browser-based terminal experiments.
+
+    [:octicons-arrow-right-24: Explore](projects/index.md#experiments)
+
 </div>
 
-### About me (the relaxed version)
+</section>
 
-I am a Marine Corps veteran turned engineer who believes good tooling should feel like a well-maintained vehicle: responsive, quiet, and reliable. Outside of work I am a husband, parent, and curious tinkerer. Inside work I am the person who will rewrite a checklist until the next person can follow it half asleep.
+<section class="md-typeset" markdown>
 
-I am currently finishing my B.S. in Computer Science and apply what I learn directly to production systems. If you like disciplined builds, thoughtful documentation, and genuine collaboration, we will get along.
+## Working with Me
 
-### Let us talk
+<div class="grid" markdown>
 
-- [:material-email: Email](mailto:b.dev.c.m@gmail.com)
-- [:material-linkedin: LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe/)
-- [:material-file-account: View the relaxed resume](resume/index.md)
+> :material-file-document-check: **Documentation as a product**
+>
+> I treat docs with the same care as code. Every page is versioned, linted, and written for the next person.
+
+> :material-pipe: **Predictable over clever**
+>
+> I prefer pipelines that are boring and reliable over ones that are clever and fragile.
+
+> :material-lightbulb-on: **Product thinking for infrastructure**
+>
+> Teams should know the "why" behind every toggle. I design with intent.
+
+> :material-gesture-tap: **Intuitive interfaces**
+>
+> Whether CLI or UI, it should feel right on the first run.
+
+</div>
+
+</section>
+
+<section class="md-typeset" markdown>
+
+## Let's Talk
+
+Open to collaboration, consulting, and thoughtful conversations about developer experience.
+
+[:material-email: b.dev.c.m@gmail.com](mailto:b.dev.c.m@gmail.com){ .md-button .md-button--primary }
+[:fontawesome-brands-github: GitHub](https://github.com/BA-CalderonMorales){ .md-button }
+[:material-linkedin: LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe/){ .md-button }
+
+</section>

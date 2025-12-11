@@ -1,10 +1,67 @@
-# End-to-end test layout
+# End-to-end Tests
 
-The `e2e` directory organizes quick checks for each documentation domain so that each page can be validated independently or as a group.
+Python-based e2e tests using Playwright for browser automation.
 
-- `config/` holds shared configuration such as the `pages.js` map and optional runtime settings.
-- `shared/` contains utilities used across specs, such as file existence checks and formatting helpers.
-- `pages/` includes a spec per documentation domain. Each spec uses the shared utilities to assert that its source markdown entry point exists.
-- `index.spec.js` validates the folder structure itself and confirms that every documented page has a matching spec and source file.
+## Structure
 
-Run any spec directly with Node, for example `node e2e/pages/home.spec.js`, or run `node e2e/index.spec.js` to confirm the layout and mappings before executing page-specific checks.
+```
+e2e/
+  conftest.py          # Pytest fixtures (browser, page, config)
+  test_structure.py    # Validates e2e folder structure
+  config/
+    __init__.py        # Page source mappings and paths
+  shared/
+    __init__.py        # Shared utilities package
+    utils.py           # Helper functions (emoji check, raw markdown check)
+  pages/
+    __init__.py
+    test_home.py       # Home page tests
+    test_projects.py   # Projects page tests
+    test_resume.py     # Resume page tests
+    test_learning.py   # Learning page tests
+    test_docs_as_code.py  # Docs as Code page tests
+    test_error.py      # 404 page tests
+```
+
+## Running Tests
+
+### Prerequisites
+
+```bash
+# Install dependencies with uv
+uv pip install pytest playwright
+
+# Install browser binaries
+playwright install chromium
+```
+
+### Run all tests
+
+```bash
+# From project root
+pytest e2e/ -v
+```
+
+### Run specific page tests
+
+```bash
+pytest e2e/pages/test_home.py -v
+```
+
+### Run with visible browser
+
+```bash
+pytest e2e/ -v --headed
+```
+
+## Configuration
+
+Tests use these environment variables:
+
+- `DOCS_BASE_URL`: Base URL for the site (defaults to `file://{site_root}`)
+
+## Adding New Page Tests
+
+1. Add page config to `e2e/config/__init__.py`
+2. Create `e2e/pages/test_{page_name}.py`
+3. Use fixtures from `conftest.py`

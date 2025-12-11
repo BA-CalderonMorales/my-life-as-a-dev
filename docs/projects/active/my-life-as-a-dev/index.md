@@ -16,7 +16,7 @@ This project serves as my personal documentation hub, showcasing my work, though
 
 ## Quick Links
 
-- :material-github: [GitHub Repository](https://github.com/BA-CalderonMorales/my-life-as-a-dev)
+- :fontawesome-brands-github: [GitHub Repository](https://github.com/BA-CalderonMorales/my-life-as-a-dev)
 - :material-web: [Live Demo](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
 - :material-api: AI Demo *(coming soon)*
 

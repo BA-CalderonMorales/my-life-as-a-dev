@@ -16,7 +16,7 @@ Rust Terminal Forge is a web-based terminal emulator built with React, TypeScrip
 
 ## Quick Links
 
-- :material-github: [GitHub Repository](https://github.com/BA-CalderonMorales/rust-terminal-forge)
+- :fontawesome-brands-github: [GitHub Repository](https://github.com/BA-CalderonMorales/rust-terminal-forge)
 - :material-web: [Live Demo](https://ba-calderonmorales.github.io/rust-terminal-forge/)
 - :material-bug: [Issue Tracker](https://github.com/BA-CalderonMorales/rust-terminal-forge/issues)
 

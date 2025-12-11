@@ -8,7 +8,7 @@ Terminal Screensaver is a high-performance Rust application that provides beauti
 
 ## Quick Links
 
-- [:material-github: GitHub Repository](https://github.com/BA-CalderonMorales/terminal-screensaver)
+- [:fontawesome-brands-github: GitHub Repository](https://github.com/BA-CalderonMorales/terminal-screensaver)
 
 ## Key Features
 

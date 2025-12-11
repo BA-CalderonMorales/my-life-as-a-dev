@@ -34,7 +34,7 @@ This repository is configured for Codespaces so you can be productive immediatel
    ```
 
 ### Local development
-Prerequisites: Python 3.10+ and `pip`.
+Prerequisites: Python 3.10+ and `uv` (recommended for faster dependency management).
 
 1. Clone the repository:
    ```bash
@@ -46,23 +46,23 @@ Prerequisites: Python 3.10+ and `pip`.
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
-3. Install dependencies and the local plugins:
+3. Install dependencies and the local plugins (use `uv` for speed):
    ```bash
-   pip install --upgrade pip
-   pip install -r requirements.txt
-   pip install -e .
+   uv run python -m pip install --upgrade pip
+   uv pip install -r requirements.txt
+   uv pip install -e .
    ```
-4. Serve the documentation locally:
+4. Serve the documentation locally (use `uv` to run commands in the venv):
    ```bash
    export PYTHONPATH=$PYTHONPATH:$(pwd)
-   mkdocs serve
+   uv run mkdocs serve
    ```
    The site is available at http://127.0.0.1:8000/.
 
 To build the static site instead of serving it:
 ```bash
 export PYTHONPATH=$PYTHONPATH:$(pwd)
-mkdocs build --verbose
+uv run mkdocs build --verbose
 ```
 
 **WSL note:** if the `doc-cli` tool has issues in WSL, run `mkdocs serve` directly with the commands above.

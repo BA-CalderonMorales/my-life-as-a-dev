@@ -86,7 +86,7 @@ See the complete [AI Tools Guide](quick_start/ai-tools.md) for detailed informat
 
 <div class="grid cards" markdown>
 
--   :material-github:{ .lg .middle } **GitHub Repository**
+ -   :fontawesome-brands-github:{ .lg .middle } **GitHub Repository**
 
     ---
 
