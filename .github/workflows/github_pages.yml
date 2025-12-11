@@ -86,28 +86,25 @@ jobs:
           python-version: '3.10'
           cache: pip
 
-      - name: Setup Node.js for e2e checks
-        if: github.event_name == 'pull_request'
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
       - name: Install dependencies
         run: |
           # Install uv helper and use it for fast installs
           curl -LsSf https://astral.sh/uv/install.sh | sh || true
           export PATH="$HOME/.local/bin:$PATH"
 
-          uv run python -m pip install --upgrade pip
-          uv pip install -r requirements.txt
+          python -m pip install --upgrade pip
+          uv pip install --system -r requirements.txt
 
           # Install local plugin in development mode
-          uv pip install -e .
+          uv pip install --system -e .
 
       - name: Run e2e structure checks
         if: github.event_name == 'pull_request'
         run: |
-          node e2e/index.spec.js
+          export PATH="$HOME/.local/bin:$PATH"
+          uv pip install --system pytest pytest-playwright
+          playwright install chromium
+          python -m pytest e2e/test_structure.py -v
 
       - name: Configure Git for Mike
         run: |
