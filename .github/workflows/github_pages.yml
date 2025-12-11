@@ -12,6 +12,13 @@ on:
       - '.github/copilot-instructions.md'
       - '.cursorrules'
       - '.cursor/rules/**'
+      - 'versions.json'
+      - 'Makefile'
+      - 'doc-cli'
+      - 'doc-cli/**'
+      - 'doc-cli.sh'
+      - 'CONTRIBUTING.md'
+      - 'CODE_OF_CONDUCT.md'
 
   pull_request:
     paths-ignore:
@@ -21,6 +28,13 @@ on:
       - '.github/copilot-instructions.md'
       - '.cursorrules'
       - '.cursor/rules/**'
+      - 'versions.json'
+      - 'Makefile'
+      - 'doc-cli'
+      - 'doc-cli/**'
+      - 'doc-cli.sh'
+      - 'CONTRIBUTING.md'
+      - 'CODE_OF_CONDUCT.md'
 
   workflow_dispatch:
 
