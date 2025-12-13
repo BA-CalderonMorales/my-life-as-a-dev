@@ -846,3 +846,9 @@ The framework and patterns above provide a systematic approach to solve any back
 - **Advanced Topics**: Constraint satisfaction problems (CSP) and intelligent backtracking with conflict-directed backjumping
 
 Remember: Understanding the *process* (choose, explore, unchoose) is more important than memorizing solutions.
+
+## Practice on LeetCode
+
+- [46. Permutations](https://leetcode.com/problems/permutations/)
+- [78. Subsets](https://leetcode.com/problems/subsets/)
+- [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)

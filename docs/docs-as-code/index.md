@@ -2,6 +2,14 @@
 
 This site treats documentation like any other product release: versioned, automated, and written with intent. Everything you see is built with MkDocs Material, backed by mike for versioning, and shipped through GitHub Actions.
 
+| Section | Focus | Link |
+| --- | --- | --- |
+| Guiding Principles | Navigation, safety, maintainability rules | [Open principles](principles/index.md) |
+| Workflow | Preview, version, and deploy steps | [Open workflow](workflow/index.md) |
+| Stack & Tooling | MkDocs, mike, Actions, doc-cli overview | [Open stack](stack/index.md) |
+| Quality & Style | Writing conventions and consistency | [Open quality guide](quality/index.md) |
+| AI & Security Posture | Preconditions before enabling AI features | [Open AI stance](ai_security/index.md) |
+
 ## Principles that guide the site
 
 - **Docs live with code.** Every page is in Git, peer reviewed, and versioned alongside the tooling that renders it.

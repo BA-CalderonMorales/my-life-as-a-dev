@@ -349,3 +349,9 @@ Result: "BANC"
 - Longest substring with k distinct characters
 - Finding anagrams in strings
 - Container with most water (two pointers variant)
+
+## Practice on LeetCode
+
+- [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+- [1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
+- [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)
