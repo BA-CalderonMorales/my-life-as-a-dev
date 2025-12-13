@@ -113,6 +113,8 @@ nav:
       - Overview: learning/index.md
       - Algorithms:
           - Overview: learning/algorithms/index.md
+          - Arrays: learning/algorithms/arrays/index.md
+          - Hash Tables: learning/algorithms/hash_tables/index.md
           - Sliding Window: learning/algorithms/sliding_window/index.md
           - Dynamic Programming: learning/algorithms/dynamic_programming/index.md
           - Two Pointers: learning/algorithms/two_pointers/index.md
@@ -139,15 +141,42 @@ nav:
   - Projects:
       - Overview: projects/index.md
       - Active:
-          - Terminal Jarvis: projects/active/terminal-jarvis/index.md
+          - Terminal Jarvis:
+              - Overview: projects/active/terminal-jarvis/index.md
+              - Quick Start:
+                  - Installation: projects/active/terminal-jarvis/quick_start/installation.md
+                  - Configuration: projects/active/terminal-jarvis/quick_start/configuration.md
+                  - Usage: projects/active/terminal-jarvis/quick_start/usage.md
+                  - AI Tools: projects/active/terminal-jarvis/quick_start/ai-tools.md
+              - Details:
+                  - Architecture: projects/active/terminal-jarvis/details/architecture.md
+                  - Testing: projects/active/terminal-jarvis/details/testing.md
+                  - Contributions: projects/active/terminal-jarvis/details/contributions.md
+                  - Roadmap: projects/active/terminal-jarvis/details/roadmap.md
+                  - Limitations: projects/active/terminal-jarvis/details/limitations.md
+                  - Maintainers: projects/active/terminal-jarvis/details/maintainers.md
           - Coder Infrastructure (Starter Scripts): projects/active/coder-starter-scripts/index.md
           - Coder Templates: projects/active/coder-templates/index.md
-          - Docs-as-Code Portfolio: projects/active/my-life-as-a-dev/index.md
+          - Docs-as-Code Portfolio:
+              - Overview: projects/active/my-life-as-a-dev/index.md
+              - Quick Start: projects/active/my-life-as-a-dev/quick_start/index.md
+              - Details: projects/active/my-life-as-a-dev/details/index.md
           - Terminal Screensaver: projects/active/terminal-screensaver/index.md
       - Experiments:
-          - Immersive Awe Canvas: projects/experiments/immersive-awe-canvas/index.md
-          - Shadow Scroll Blossom: projects/experiments/shadow-scroll-blossom/index.md
-          - Rust Terminal Forge: projects/experiments/rust-terminal-forge/index.md
-  - Resume: resume/index.md
+          - Immersive Awe Canvas:
+              - Overview: projects/experiments/immersive-awe-canvas/index.md
+              - Quick Start: projects/experiments/immersive-awe-canvas/quick_start/index.md
+              - Details: projects/experiments/immersive-awe-canvas/details/index.md
+          - Shadow Scroll Blossom:
+              - Overview: projects/experiments/shadow-scroll-blossom/index.md
+              - Quick Start: projects/experiments/shadow-scroll-blossom/quick_start/index.md
+              - Details: projects/experiments/shadow-scroll-blossom/details/index.md
+          - Rust Terminal Forge:
+              - Overview: projects/experiments/rust-terminal-forge/index.md
+              - Quick Start: projects/experiments/rust-terminal-forge/quick_start/index.md
+              - Details: projects/experiments/rust-terminal-forge/details/index.md
+  - Resume:
+      - Overview: resume/index.md
+      - Template Guide: resume/TEMPLATE_GUIDE.md
 
 # extra_javascript:
