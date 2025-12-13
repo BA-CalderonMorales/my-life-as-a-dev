@@ -507,3 +507,9 @@ def interval_template(intervals):
 - Using greedy when DP is needed
 - Incorrect greedy choice definition
 - Not handling empty input
+
+## Practice on LeetCode
+
+- [55. Jump Game](https://leetcode.com/problems/jump-game/)
+- [45. Jump Game II](https://leetcode.com/problems/jump-game-ii/)
+- [406. Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/)

@@ -431,3 +431,9 @@ def binary_search_answer(problem_params):
 - Not considering integer division behavior
 - Infinite loops from incorrect boundary updates
 - Wrong initial search space boundaries
+
+## Practice on LeetCode
+
+- [875. Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)
+- [1011. Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)
+- [410. Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum/)

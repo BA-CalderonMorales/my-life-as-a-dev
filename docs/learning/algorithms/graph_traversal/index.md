@@ -562,3 +562,9 @@ def dfs_iterative_template(start, graph):
 - Modifying graph during traversal incorrectly
 - Not considering all possible directions in grid problems
 - Stack overflow with deep recursion (use iterative DFS)
+
+## Practice on LeetCode
+
+- [200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
+- [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
+- [994. Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)

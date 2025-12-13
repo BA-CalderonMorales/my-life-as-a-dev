@@ -12,13 +12,13 @@ A lightweight map of the study guides that live in this repository. Everything i
 
     [Open the overview](algorithms/index.md)
 
--   :material-database-outline:{ .lg .middle } **Data Structures & Analysis**
+-   :material-database-outline:{ .lg .middle } **Data Structures**
 
     ---
 
-    Focused notes on space trade-offs and how to reason about memory.
+    Focused notes on arrays, hash tables, heaps, and tries with practice links.
 
-    [Study space complexity](algorithms/space_complexity/index.md)
+    [Browse structures](data_structures/index.md)
 
 -   :material-briefcase-clock-outline:{ .lg .middle } **Interview Preparation**
 
@@ -27,6 +27,14 @@ A lightweight map of the study guides that live in this repository. Everything i
     Frameworks for planning, solving, and communicating under pressure.
 
     [Use the interview playbook](interview_preparation/index.md)
+
+-   :material-bookmark-box-multiple-outline:{ .lg .middle } **Additional Topics**
+
+    ---
+
+    Quick hops to staple engineering articles and free resources.
+
+    [Open the reading list](additional_topics/index.md)
 
 </div>
 

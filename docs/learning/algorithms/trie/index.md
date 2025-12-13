@@ -957,3 +957,9 @@ The optimizations and techniques above cover production-grade string storage imp
 - **Implementation Details**: Language-specific optimizations vary (C++ vs Python vs Java)
 
 The key is understanding the trade-offs between memory, speed, and implementation complexity for your specific use case.
+
+## Practice on LeetCode
+
+- [208. Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
+- [211. Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
+- [212. Word Search II](https://leetcode.com/problems/word-search-ii/)

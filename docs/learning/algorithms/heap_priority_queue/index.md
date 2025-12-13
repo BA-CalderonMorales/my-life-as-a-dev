@@ -770,3 +770,9 @@ The applications above provide comprehensive coverage of heap usage in real syst
 
 - **Advanced Heap Applications**: The external resource "Three Must-Know Applications of Heap Data Structures" offers alternative explanations and additional edge cases for these same topics.
 - **Practice**: Implement these algorithms from scratch, then optimize. Understanding *why* heaps are chosen (vs alternatives) is more valuable than memorizing code.
+
+## Practice on LeetCode
+
+- [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
+- [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+- [1046. Last Stone Weight](https://leetcode.com/problems/last-stone-weight/)

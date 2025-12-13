@@ -517,3 +517,9 @@ def prev_smaller_template(arr):
 - Processing in wrong direction for the problem
 - Forgetting to add current element after popping
 - Not initializing result array with correct default values
+
+## Practice on LeetCode
+
+- [739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)
+- [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
+- [496. Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/)
