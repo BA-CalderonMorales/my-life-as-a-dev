@@ -34,7 +34,7 @@ Preparing for technical interviews requires not just algorithmic knowledge, but 
 
     Quick reps, timed mocks, and review loops for consistency.
 
-    [Use with LeetCode lists](../index.md#practice-ready-algorithm-patterns)
+    [Use with LeetCode lists](../index.md#algorithm-patterns-at-a-glance)
 
 </div>
 

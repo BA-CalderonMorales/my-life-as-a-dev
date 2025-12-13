@@ -596,7 +596,14 @@ impl Startup {
             command.arg("--draft").arg(version);
         }
 
-        println!("\nMkDocs server starting at http://127.0.0.1:8000/");
+        // Make reload behavior consistent across doc changes (including theme overrides).
+        // Allow override for containers/dev environments.
+        let dev_addr = env::var("MKDOCS_DEV_ADDR").unwrap_or_else(|_| "127.0.0.1:8000".to_string());
+        command.arg("--dev-addr").arg(&dev_addr);
+        command.arg("--dirty");
+        command.arg("--watch-theme");
+
+        println!("\nMkDocs server starting at http://{}/", dev_addr);
         println!("Press Ctrl+C to stop the server\n");
 
         // Execute the command

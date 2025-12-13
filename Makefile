@@ -1,5 +1,7 @@
 .PHONY: help setup serve build cli
 
+MKDOCS_DEV_ADDR ?= 127.0.0.1:8000
+
 help:
 	@echo "Common commands:"
 	@echo "  make setup   - Install Python dependencies and setup project"
@@ -13,7 +15,7 @@ setup:
 	uv pip install -e .
 
 serve:
-	PYTHONPATH=$(PWD) mkdocs serve
+	PYTHONPATH=$(PWD) mkdocs serve --dev-addr $(MKDOCS_DEV_ADDR) --dirty --watch-theme
 
 build:
 	PYTHONPATH=$(PWD) mkdocs build
