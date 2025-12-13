@@ -2,20 +2,20 @@
 
 Mastering algorithmic patterns is essential for solving coding challenges efficiently. This section covers the most common patterns you'll encounter in technical interviews and real-world development.
 
-| Pattern | What it solves | Notes | Practice |
+| Pattern | What it solves | Notes | LeetCode |
 | --- | --- | --- | --- |
-| [Sliding Window](sliding_window/index.md) | Contiguous ranges in arrays/strings | Fixed & variable windows | [LeetCode 3](https://leetcode.com/problems/longest-substring-without-repeating-characters/) |
-| [Dynamic Programming](dynamic_programming/index.md) | Overlapping subproblems | Bottom-up vs memoization | [LeetCode 322](https://leetcode.com/problems/coin-change/) |
-| [Two Pointers](two_pointers/index.md) | Pairing/scanning | Opposite or same direction | [LeetCode 167](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) |
-| [Fast & Slow Pointers](fast_slow_pointers/index.md) | Cycle/midpoint detection | Linked list focus | [LeetCode 141](https://leetcode.com/problems/linked-list-cycle/) |
-| [Backtracking](backtracking/index.md) | Generate all valid combos | Choose → explore → unchoose | [LeetCode 46](https://leetcode.com/problems/permutations/) |
-| [Binary Search on Answer](binary_search_on_answer/index.md) | Optimize value within bounds | Feasibility predicate | [LeetCode 875](https://leetcode.com/problems/koko-eating-bananas/) |
-| [Greedy](greedy/index.md) | Locally optimal steps | Proof of correctness required | [LeetCode 45](https://leetcode.com/problems/jump-game-ii/) |
-| [Heap / Priority Queue](heap_priority_queue/index.md) | Surface extremes quickly | Scheduling, top-k | [LeetCode 215](https://leetcode.com/problems/kth-largest-element-in-an-array/) |
-| [Monotonic Stack](monotonic_stack/index.md) | Next greater/smaller queries | Maintain ordered stack | [LeetCode 739](https://leetcode.com/problems/daily-temperatures/) |
-| [Graph Traversal](graph_traversal/index.md) | BFS/DFS for graphs & grids | Shortest paths, components | [LeetCode 200](https://leetcode.com/problems/number-of-islands/) |
-| [Trie](trie/index.md) | Prefix-based lookup | Autocomplete & dictionaries | [LeetCode 208](https://leetcode.com/problems/implement-trie-prefix-tree/) |
-| [Space Complexity](space_complexity/index.md) | Memory trade-offs | Auxiliary vs input space | [LeetCode 73](https://leetcode.com/problems/set-matrix-zeroes/) |
+| [Sliding Window](sliding_window/index.md) | Contiguous ranges in arrays/strings | Fixed & variable windows | [3](https://leetcode.com/problems/longest-substring-without-repeating-characters/) |
+| [Dynamic Programming](dynamic_programming/index.md) | Overlapping subproblems | Bottom-up vs memoization | [322](https://leetcode.com/problems/coin-change/) |
+| [Two Pointers](two_pointers/index.md) | Pairing/scanning | Opposite or same direction | [15](https://leetcode.com/problems/3sum/) |
+| [Fast & Slow Pointers](fast_slow_pointers/index.md) | Cycle/midpoint detection | Linked list focus | [141](https://leetcode.com/problems/linked-list-cycle/) |
+| [Backtracking](backtracking/index.md) | Generate all valid combos | Choose → explore → unchoose | [78](https://leetcode.com/problems/subsets/) |
+| [Binary Search on Answer](binary_search_on_answer/index.md) | Optimize value within bounds | Feasibility predicate | [875](https://leetcode.com/problems/koko-eating-bananas/) |
+| [Greedy](greedy/index.md) | Locally optimal steps | Proof of correctness required | [45](https://leetcode.com/problems/jump-game-ii/) |
+| [Heap / Priority Queue](heap_priority_queue/index.md) | Surface extremes quickly | Scheduling, top-k | [347](https://leetcode.com/problems/top-k-frequent-elements/) |
+| [Monotonic Stack](monotonic_stack/index.md) | Next greater/smaller queries | Maintain ordered stack | [739](https://leetcode.com/problems/daily-temperatures/) |
+| [Graph Traversal](graph_traversal/index.md) | BFS/DFS for graphs & grids | Shortest paths, components | [200](https://leetcode.com/problems/number-of-islands/) |
+| [Trie](trie/index.md) | Prefix-based lookup | Autocomplete & dictionaries | [208](https://leetcode.com/problems/implement-trie-prefix-tree/) |
+| [Space Complexity](space_complexity/index.md) | Memory trade-offs | Auxiliary vs input space | [73](https://leetcode.com/problems/set-matrix-zeroes/) |
 
 ## What Are Algorithm Patterns?
 

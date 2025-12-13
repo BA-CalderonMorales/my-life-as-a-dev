@@ -2,6 +2,8 @@
 
 A curated set of builds that show how I approach tooling, automation, and creative experiments.
 
+## Active projects
+
 <div class="grid cards" markdown>
 
 -   :material-robot-industrial-outline:{ .lg .middle } **Terminal Jarvis**
@@ -10,7 +12,10 @@ A curated set of builds that show how I approach tooling, automation, and creati
 
     Unified CLI for orchestrating multiple AI coding assistants.
 
-    [Jump to the guide](active/terminal-jarvis/index.md)
+    [:octicons-arrow-right-24: Guide](active/terminal-jarvis/index.md){ .md-button .md-button--primary }
+    [:fontawesome-brands-github: Repo](https://github.com/BA-CalderonMorales/terminal-jarvis){ .md-button }
+    [:material-npm: NPM](https://www.npmjs.com/package/terminal-jarvis){ .md-button }
+    [:material-language-rust: Crates.io](https://crates.io/crates/terminal-jarvis){ .md-button }
 
 -   :material-server-network:{ .lg .middle } **Coder Infrastructure**
 
@@ -18,7 +23,9 @@ A curated set of builds that show how I approach tooling, automation, and creati
 
     Templates and scripts that make self-hosted Coder predictable.
 
-    [Open the playbook](active/coder-starter-scripts/index.md)
+    [:octicons-arrow-right-24: Playbook](active/coder-starter-scripts/index.md){ .md-button .md-button--primary }
+    [:fontawesome-brands-github: Starter Scripts](https://github.com/BA-CalderonMorales/coder-starter-scripts){ .md-button }
+    [:fontawesome-brands-github: Templates](https://github.com/BA-CalderonMorales/coder-templates){ .md-button }
 
 -   :material-book-open-variant:{ .lg .middle } **Docs-as-Code Portfolio**
 
@@ -26,7 +33,9 @@ A curated set of builds that show how I approach tooling, automation, and creati
 
     The system behind this site: mike, MkDocs, and repeatable releases.
 
-    [See how it works](active/my-life-as-a-dev/index.md)
+    [:octicons-arrow-right-24: Overview](active/my-life-as-a-dev/index.md){ .md-button .md-button--primary }
+    [:fontawesome-brands-github: Repo](https://github.com/BA-CalderonMorales/my-life-as-a-dev){ .md-button }
+    [:material-web: Live Site](https://ba-calderonmorales.github.io/my-life-as-a-dev/){ .md-button }
 
 -   :material-monitor-dashboard:{ .lg .middle } **Terminal Screensaver**
 
@@ -34,79 +43,46 @@ A curated set of builds that show how I approach tooling, automation, and creati
 
     A Rust crate for dynamic, plugin-friendly terminal visuals.
 
-    [View the project](active/terminal-screensaver/index.md)
-
--   :material-flask:{ .lg .middle } **Creative Experiments**
-
-    ---
-
-    WebGL, particle systems, and browser-based terminals.
-
-    [Explore the experiments](#experiments)
+    [:octicons-arrow-right-24: Overview](active/terminal-screensaver/index.md){ .md-button .md-button--primary }
+    [:fontawesome-brands-github: Repo](https://github.com/BA-CalderonMorales/terminal-screensaver){ .md-button }
 
 </div>
 
-## Flagship work
-
-### Terminal Jarvis
-
-A unified CLI for Claude Code, Gemini CLI, GPT, and more. It gives teams one consistent interface instead of juggling syntax and rate limits across providers.
-
-- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/terminal-jarvis){ .md-button .md-button--primary }
-- [:material-npm: NPM](https://www.npmjs.com/package/terminal-jarvis){ .md-button }
-- [:material-language-rust: Crates.io](https://crates.io/crates/terminal-jarvis){ .md-button }
-
-### Coder Infrastructure
-
-Automation and templates that make self-hosted Coder environments predictable.
-
-- [:fontawesome-brands-github: Starter Scripts](https://github.com/BA-CalderonMorales/coder-starter-scripts){ .md-button }
-- [:fontawesome-brands-github: Templates](https://github.com/BA-CalderonMorales/coder-templates){ .md-button }
-
-### Docs-as-Code Portfolio
-
-This site in production: versioned with mike, automated through GitHub Actions, and written as carefully as any application code.
-
-- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/my-life-as-a-dev){ .md-button }
-- [:material-web: Live Site](https://ba-calderonmorales.github.io/my-life-as-a-dev/){ .md-button }
-
-### Terminal Screensaver
-
-A Rust crate for a dynamic terminal screen saver with plugin architecture and auto-resize behavior.
-
-- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/terminal-screensaver){ .md-button }
-
 ## Experiments
 
-Short, creative builds that stretch interaction design and AI-assisted workflows.
+<div class="grid cards" markdown>
 
-### Immersive Awe Canvas
+-   :material-flask:{ .lg .middle } **Immersive Awe Canvas**
 
-Interactive 3D experiments with WebGL and responsive theming.
+    ---
 
-- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/immersive-awe-canvas){ .md-button }
-- [:material-rocket-launch: Prod](https://immersive-awe-canvas.lovable.app){ .md-button }
-- [:material-flask: QA](https://ba-calderonmorales.github.io/immersive-awe-canvas){ .md-button }
+    Interactive 3D experiments with WebGL and responsive theming.
 
-### Shadow Scroll Blossom
+    [:octicons-arrow-right-24: Overview](experiments/immersive-awe-canvas/index.md){ .md-button .md-button--primary }
+    [:fontawesome-brands-github: Repo](https://github.com/BA-CalderonMorales/immersive-awe-canvas){ .md-button }
+    [:material-rocket-launch: Prod](https://immersive-awe-canvas.lovable.app){ .md-button }
+    [:material-flask: QA](https://ba-calderonmorales.github.io/immersive-awe-canvas){ .md-button }
 
-Particle effects and generative art tuned for mobile and desktop.
+-   :material-flask:{ .lg .middle } **Shadow Scroll Blossom**
 
-- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/shadow-scroll-blossom){ .md-button }
-- [:material-rocket-launch: Prod](https://shadow-scroll-blossom.lovable.app/){ .md-button }
-- [:material-flask: QA](https://ba-calderonmorales.github.io/shadow-scroll-blossom){ .md-button }
+    ---
 
-### Rust Terminal Forge
+    Particle effects and generative art tuned for mobile and desktop.
 
-A browser-based terminal emulator that pairs React and TypeScript with a Rust backend.
+    [:octicons-arrow-right-24: Overview](experiments/shadow-scroll-blossom/index.md){ .md-button .md-button--primary }
+    [:fontawesome-brands-github: Repo](https://github.com/BA-CalderonMorales/shadow-scroll-blossom){ .md-button }
+    [:material-rocket-launch: Prod](https://shadow-scroll-blossom.lovable.app/){ .md-button }
+    [:material-flask: QA](https://ba-calderonmorales.github.io/shadow-scroll-blossom){ .md-button }
 
-- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/rust-terminal-forge){ .md-button }
-- [:material-alert: Prod (Unstable)](https://rust-terminal-forge.lovable.app/){ .md-button }
-- [:material-flask: QA](https://ba-calderonmorales.github.io/rust-terminal-forge/){ .md-button }
+-   :material-flask:{ .lg .middle } **Rust Terminal Forge**
 
-## Development focus areas
+    ---
 
-- **AI workflow optimization:** Practical integrations that keep assistants aligned with documentation and CI/CD.
-- **Developer tooling:** CLIs and templates that make good practices the default.
-- **CI/CD excellence:** Predictable, debuggable pipelines with clear logs.
-- **Distributed systems:** Systems that scale without sacrificing readability.
+    Browser-based terminal emulator pairing React/TypeScript with Rust.
+
+    [:octicons-arrow-right-24: Overview](experiments/rust-terminal-forge/index.md){ .md-button .md-button--primary }
+    [:fontawesome-brands-github: Repo](https://github.com/BA-CalderonMorales/rust-terminal-forge){ .md-button }
+    [:material-rocket-launch: Prod (Unstable)](https://rust-terminal-forge.lovable.app/){ .md-button }
+    [:material-flask: QA](https://ba-calderonmorales.github.io/rust-terminal-forge/){ .md-button }
+
+</div>
