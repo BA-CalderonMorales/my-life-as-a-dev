@@ -85,7 +85,6 @@ markdown_extensions:
           - overrides/.icons
 
 plugins:
-  - awesome-nav
   - git-authors:
       enabled: !ENV [ENABLE_GIT_AUTHORS, false]
       show_email_address: true
@@ -107,5 +106,37 @@ plugins:
 
 extra_css:
   - stylesheets/custom.css
+
+nav:
+  - Home: index.md
+  - Learning:
+      - Overview: learning/index.md
+      - Algorithms:
+          - Overview: learning/algorithms/index.md
+          - Sliding Window: learning/algorithms/sliding_window/index.md
+          - Dynamic Programming: learning/algorithms/dynamic_programming/index.md
+          - Two Pointers: learning/algorithms/two_pointers/index.md
+          - Fast & Slow Pointers: learning/algorithms/fast_slow_pointers/index.md
+          - Backtracking: learning/algorithms/backtracking/index.md
+          - Binary Search on Answer: learning/algorithms/binary_search_on_answer/index.md
+          - Greedy: learning/algorithms/greedy/index.md
+          - Heap / Priority Queue: learning/algorithms/heap_priority_queue/index.md
+          - Monotonic Stack: learning/algorithms/monotonic_stack/index.md
+          - Graph Traversal: learning/algorithms/graph_traversal/index.md
+          - Trie: learning/algorithms/trie/index.md
+          - Space Complexity: learning/algorithms/space_complexity/index.md
+      - Data Structures:
+          - Overview: learning/data_structures/index.md
+      - Interview Preparation: learning/interview_preparation/index.md
+      - Additional Topics: learning/additional_topics/index.md
+  - Docs-as-Code:
+      - Overview: docs-as-code/index.md
+      - Guiding Principles: docs-as-code/principles/index.md
+      - Workflow: docs-as-code/workflow/index.md
+      - Stack & Tooling: docs-as-code/stack/index.md
+      - Quality & Style: docs-as-code/quality/index.md
+      - AI & Security Posture: docs-as-code/ai_security/index.md
+  - Projects: projects/index.md
+  - Resume: resume/index.md
 
 # extra_javascript:

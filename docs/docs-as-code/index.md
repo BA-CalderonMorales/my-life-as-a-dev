@@ -2,49 +2,13 @@
 
 This site treats documentation like any other product release: versioned, automated, and written with intent. Everything you see is built with MkDocs Material, backed by mike for versioning, and shipped through GitHub Actions.
 
-<div class="grid cards" markdown>
-
--   :material-compass-outline:{ .lg .middle } **Guiding Principles**
-
-    ---
-
-    Opinionated rules for navigation, safety, and maintainability.
-
-    [Open principles](principles/index.md)
-
--   :material-laptop:{ .lg .middle } **Local Workflow**
-
-    ---
-
-    Preview, version, and deploy with repeatable commands.
-
-    [Open workflow](workflow/index.md)
-
--   :material-cube-outline:{ .lg .middle } **Stack & Tooling**
-
-    ---
-
-    MkDocs Material, mike, GitHub Actions, and doc-cli at a glance.
-
-    [Open stack](stack/index.md)
-
--   :material-shield-check-outline:{ .lg .middle } **Quality & Style**
-
-    ---
-
-    Writing conventions and design cues that keep pages consistent.
-
-    [Open quality guide](quality/index.md)
-
--   :material-robot-off-outline:{ .lg .middle } **AI & Security Posture**
-
-    ---
-
-    What must be true before enabling AI features publicly.
-
-    [Open AI stance](ai_security/index.md)
-
-</div>
+| Section | Focus | Link |
+| --- | --- | --- |
+| Guiding Principles | Navigation, safety, maintainability rules | [Open principles](principles/index.md) |
+| Workflow | Preview, version, and deploy steps | [Open workflow](workflow/index.md) |
+| Stack & Tooling | MkDocs, mike, Actions, doc-cli overview | [Open stack](stack/index.md) |
+| Quality & Style | Writing conventions and consistency | [Open quality guide](quality/index.md) |
+| AI & Security Posture | Preconditions before enabling AI features | [Open AI stance](ai_security/index.md) |
 
 ## Principles that guide the site
 
