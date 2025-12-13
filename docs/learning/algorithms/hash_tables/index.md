@@ -819,3 +819,9 @@ The patterns above cover the most important hash table techniques for coding int
 - **Theoretical Analysis**: Academic sources cover formal analysis of hash table operations and probabilistic guarantees
 
 The key is recognizing when O(1) lookup can eliminate nested loops and understanding the space trade-off is usually worthwhile.
+
+## Practice on LeetCode
+
+- [1. Two Sum](https://leetcode.com/problems/two-sum/)
+- [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/)
+- [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)

@@ -8,41 +8,41 @@ This site treats documentation like any other product release: versioned, automa
 
     ---
 
-    The rules that keep structure, navigation, and safety consistent.
+    Opinionated rules for navigation, safety, and maintainability.
 
-    [Review the principles](#principles-that-guide-the-site)
+    [Open principles](principles/index.md)
 
 -   :material-laptop:{ .lg .middle } **Local Workflow**
 
     ---
 
-    Commands for previewing, versioning, and deploying the site.
+    Preview, version, and deploy with repeatable commands.
 
-    [Follow the workflow](#how-the-workflow-fits-together)
+    [Open workflow](workflow/index.md)
 
 -   :material-cube-outline:{ .lg .middle } **Stack & Tooling**
 
     ---
 
-    MkDocs Material, mike, GitHub Actions, and the Rust doc-cli that ties them together.
+    MkDocs Material, mike, GitHub Actions, and doc-cli at a glance.
 
-    [See the stack](#technology-stack)
+    [Open stack](stack/index.md)
 
 -   :material-shield-check-outline:{ .lg .middle } **Quality & Style**
 
     ---
 
-    Writing conventions and design cues that keep the docs readable.
+    Writing conventions and design cues that keep pages consistent.
 
-    [Apply the rules](#quality-and-style)
+    [Open quality guide](quality/index.md)
 
 -   :material-robot-off-outline:{ .lg .middle } **AI & Security Posture**
 
     ---
 
-    What must be true before enabling any AI features publicly.
+    What must be true before enabling AI features publicly.
 
-    [Read the stance](#ai-and-security-stance)
+    [Open AI stance](ai_security/index.md)
 
 </div>
 

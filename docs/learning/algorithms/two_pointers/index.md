@@ -724,3 +724,9 @@ The templates and patterns above provide systematic approaches to recognize and 
 - **Practice Strategy**: Build pattern recognition through solving 20-30 problems
 
 The key is recognizing the problem structure (opposite direction vs same direction vs sliding window) and applying the appropriate template.
+
+## Practice on LeetCode
+
+- [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+- [125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
+- [15. 3Sum](https://leetcode.com/problems/3sum/)

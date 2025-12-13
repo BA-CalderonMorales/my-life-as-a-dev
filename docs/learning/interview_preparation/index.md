@@ -2,6 +2,42 @@
 
 Preparing for technical interviews requires not just algorithmic knowledge, but also strategy, communication skills, and a systematic approach. This guide covers essential frameworks and techniques to help you succeed in your next technical interview.
 
+<div class="grid cards" markdown>
+
+-   :material-clipboard-text-outline:{ .lg .middle } **7-Step Framework**
+
+    ---
+
+    From understanding the prompt to optimizing and discussing trade-offs.
+
+    [Review the steps](#a-systematic-framework-for-technical-interviews)
+
+-   :material-account-voice:{ .lg .middle } **Communication**
+
+    ---
+
+    Clarifying questions, narrating intent, and discussing edge cases crisply.
+
+    [See communication cues](#step-1-understand-the-problem)
+
+-   :material-brain:{ .lg .middle } **Pattern Drills**
+
+    ---
+
+    Map problems to sliding window, DP, graphs, and more.
+
+    [Pair with algorithm patterns](../algorithms/index.md)
+
+-   :material-timer-outline:{ .lg .middle } **Practice Plan**
+
+    ---
+
+    Quick reps, timed mocks, and review loops for consistency.
+
+    [Use with LeetCode lists](../index.md#practice-ready-algorithm-patterns)
+
+</div>
+
 ## The Interview Process
 
 Technical interviews typically include several rounds:

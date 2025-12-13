@@ -881,3 +881,9 @@ The techniques above cover essential linked list manipulations for interviews an
 - **Advanced Topics**: Skip lists, XOR linked lists, and memory-efficient variants
 
 The key is understanding pointer manipulation and being able to trace through operations step-by-step on paper before coding.
+
+## Practice on LeetCode
+
+- [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
+- [142. Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/)
+- [876. Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/)

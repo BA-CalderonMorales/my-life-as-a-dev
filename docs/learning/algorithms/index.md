@@ -2,6 +2,106 @@
 
 Mastering algorithmic patterns is essential for solving coding challenges efficiently. This section covers the most common patterns you'll encounter in technical interviews and real-world development.
 
+<div class="grid cards" markdown>
+
+-   :material-view-carousel:{ .lg .middle } **Sliding Window**
+
+    ---
+
+    Optimize contiguous ranges with fixed and variable windows.
+
+    [Jump in](sliding_window/index.md) · [LeetCode 3](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+
+-   :material-sitemap-outline:{ .lg .middle } **Dynamic Programming**
+
+    ---
+
+    Break problems into overlapping subproblems and cache results.
+
+    [Jump in](dynamic_programming/index.md) · [LeetCode 322](https://leetcode.com/problems/coin-change/)
+
+-   :material-ray-start-arrow:{ .lg .middle } **Two Pointers**
+
+    ---
+
+    Traverse from both ends or with offset speeds to simplify scans.
+
+    [Jump in](two_pointers/index.md) · [LeetCode 167](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+
+-   :material-all-inclusive:{ .lg .middle } **Fast & Slow Pointers**
+
+    ---
+
+    Detect cycles and midpoints with staggered movement.
+
+    [Jump in](fast_slow_pointers/index.md) · [LeetCode 141](https://leetcode.com/problems/linked-list-cycle/)
+
+-   :material-backup-restore:{ .lg .middle } **Backtracking**
+
+    ---
+
+    Reversible search through permutations, combinations, and constraints.
+
+    [Jump in](backtracking/index.md) · [LeetCode 46](https://leetcode.com/problems/permutations/)
+
+-   :material-target-variant:{ .lg .middle } **Binary Search on Answer**
+
+    ---
+
+    Probe candidate solutions to converge on optimal values.
+
+    [Jump in](binary_search_on_answer/index.md) · [LeetCode 875](https://leetcode.com/problems/koko-eating-bananas/)
+
+-   :material-run-fast:{ .lg .middle } **Greedy**
+
+    ---
+
+    Local optimal steps with provable global wins.
+
+    [Jump in](greedy/index.md) · [LeetCode 45](https://leetcode.com/problems/jump-game-ii/)
+
+-   :material-trophy-variant-outline:{ .lg .middle } **Heaps / Priority Queues**
+
+    ---
+
+    Reach extremes quickly for scheduling and top-k queries.
+
+    [Jump in](heap_priority_queue/index.md) · [LeetCode 215](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+
+-   :material-format-line-weight:{ .lg .middle } **Monotonic Stack**
+
+    ---
+
+    Next greater/smaller element queries with ordered stacks.
+
+    [Jump in](monotonic_stack/index.md) · [LeetCode 739](https://leetcode.com/problems/daily-temperatures/)
+
+-   :material-graphql:{ .lg .middle } **Graph Traversal**
+
+    ---
+
+    Systematic BFS/DFS for grids and graphs.
+
+    [Jump in](graph_traversal/index.md) · [LeetCode 200](https://leetcode.com/problems/number-of-islands/)
+
+-   :material-format-letter-matches:{ .lg .middle } **Trie**
+
+    ---
+
+    Prefix-based lookups and autocomplete.
+
+    [Jump in](trie/index.md) · [LeetCode 208](https://leetcode.com/problems/implement-trie-prefix-tree/)
+
+-   :material-memory:{ .lg .middle } **Space Complexity**
+
+    ---
+
+    Evaluate memory trade-offs and auxiliary space.
+
+    [Jump in](space_complexity/index.md) · [LeetCode 73](https://leetcode.com/problems/set-matrix-zeroes/)
+
+</div>
+
 ## What Are Algorithm Patterns?
 
 Algorithm patterns are reusable approaches to solving specific types of problems. Instead of memorizing individual solutions, learning these patterns helps you:
