@@ -132,8 +132,22 @@ nav:
           - Space Complexity: learning/algorithms/space_complexity/index.md
       - Data Structures:
           - Overview: learning/data_structures/index.md
+          - Probabilistic: learning/data_structures/probabilistic/index.md
+          - Spatial: learning/data_structures/spatial/index.md
+          - Advanced Trees: learning/data_structures/advanced_trees/index.md
       - Interview Preparation: learning/interview_preparation/index.md
-      - Additional Topics: learning/additional_topics/index.md
+      - Additional Topics:
+          - Overview: learning/additional_topics/index.md
+          - System Design:
+              - Overview: learning/additional_topics/system_design/index.md
+              - Scalability: learning/additional_topics/system_design/scalability.md
+              - API Design: learning/additional_topics/system_design/api_design.md
+          - Distributed Systems:
+              - Overview: learning/additional_topics/distributed_systems/index.md
+              - Consensus: learning/additional_topics/distributed_systems/consensus.md
+              - Patterns: learning/additional_topics/distributed_systems/patterns.md
+          - Networking: learning/additional_topics/networking/index.md
+          - Security: learning/additional_topics/security/index.md
   
   - Docs-as-Code:
       - Overview: docs-as-code/index.md

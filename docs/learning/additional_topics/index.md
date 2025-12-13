@@ -9,6 +9,10 @@ Free, high-signal resources to revisit often.
 
 | Resource | Type | Why it matters |
 | --- | --- | --- |
+| [System Design](system_design/index.md) | Domain | Scalability, API Design, Reliability |
+| [Distributed Systems](distributed_systems/index.md) | Domain | Consensus, Patterns, Fallacies |
+| [Networking](networking/index.md) | Domain | OSI Model, TCP/UDP, DNS, HTTP/3 |
+| [Security](security/index.md) | Domain | OWASP Top 10, AuthN/AuthZ, Crypto |
 | [The Joel Test](https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/) | Article | Pragmatic scorecard for engineering teams |
 | [Continuous Integration](https://martinfowler.com/articles/continuousIntegration.html) | Article | Foundational CI practices and pitfalls |
 | [The Forest and the Desert](https://apenwarr.ca/log/20201227) | Article | System design trade-offs and simplicity |
