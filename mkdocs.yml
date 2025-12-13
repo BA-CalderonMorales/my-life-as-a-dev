@@ -136,7 +136,18 @@ nav:
       - Stack & Tooling: docs-as-code/stack/index.md
       - Quality & Style: docs-as-code/quality/index.md
       - AI & Security Posture: docs-as-code/ai_security/index.md
-  - Projects: projects/index.md
+  - Projects:
+      - Overview: projects/index.md
+      - Active:
+          - Terminal Jarvis: projects/active/terminal-jarvis/index.md
+          - Coder Infrastructure (Starter Scripts): projects/active/coder-starter-scripts/index.md
+          - Coder Templates: projects/active/coder-templates/index.md
+          - Docs-as-Code Portfolio: projects/active/my-life-as-a-dev/index.md
+          - Terminal Screensaver: projects/active/terminal-screensaver/index.md
+      - Experiments:
+          - Immersive Awe Canvas: projects/experiments/immersive-awe-canvas/index.md
+          - Shadow Scroll Blossom: projects/experiments/shadow-scroll-blossom/index.md
+          - Rust Terminal Forge: projects/experiments/rust-terminal-forge/index.md
   - Resume: resume/index.md
 
 # extra_javascript:
