@@ -2,6 +2,50 @@
 
 A curated set of builds that show how I approach tooling, automation, and creative experiments.
 
+<div class="grid cards" markdown>
+
+-   :material-robot-industrial-outline:{ .lg .middle } **Terminal Jarvis**
+
+    ---
+
+    Unified CLI for orchestrating multiple AI coding assistants.
+
+    [Jump to the guide](active/terminal-jarvis/index.md)
+
+-   :material-server-network:{ .lg .middle } **Coder Infrastructure**
+
+    ---
+
+    Templates and scripts that make self-hosted Coder predictable.
+
+    [Open the playbook](active/coder-starter-scripts/index.md)
+
+-   :material-book-open-variant:{ .lg .middle } **Docs-as-Code Portfolio**
+
+    ---
+
+    The system behind this site: mike, MkDocs, and repeatable releases.
+
+    [See how it works](active/my-life-as-a-dev/index.md)
+
+-   :material-monitor-dashboard:{ .lg .middle } **Terminal Screensaver**
+
+    ---
+
+    A Rust crate for dynamic, plugin-friendly terminal visuals.
+
+    [View the project](active/terminal-screensaver/index.md)
+
+-   :material-flask:{ .lg .middle } **Creative Experiments**
+
+    ---
+
+    WebGL, particle systems, and browser-based terminals.
+
+    [Explore the experiments](#experiments)
+
+</div>
+
 ## Flagship work
 
 ### Terminal Jarvis
