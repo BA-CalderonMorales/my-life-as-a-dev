@@ -2,6 +2,50 @@
 
 This site treats documentation like any other product release: versioned, automated, and written with intent. Everything you see is built with MkDocs Material, backed by mike for versioning, and shipped through GitHub Actions.
 
+<div class="grid cards" markdown>
+
+-   :material-compass-outline:{ .lg .middle } **Guiding Principles**
+
+    ---
+
+    The rules that keep structure, navigation, and safety consistent.
+
+    [Review the principles](#principles-that-guide-the-site)
+
+-   :material-laptop:{ .lg .middle } **Local Workflow**
+
+    ---
+
+    Commands for previewing, versioning, and deploying the site.
+
+    [Follow the workflow](#how-the-workflow-fits-together)
+
+-   :material-cube-outline:{ .lg .middle } **Stack & Tooling**
+
+    ---
+
+    MkDocs Material, mike, GitHub Actions, and the Rust doc-cli that ties them together.
+
+    [See the stack](#technology-stack)
+
+-   :material-shield-check-outline:{ .lg .middle } **Quality & Style**
+
+    ---
+
+    Writing conventions and design cues that keep the docs readable.
+
+    [Apply the rules](#quality-and-style)
+
+-   :material-robot-off-outline:{ .lg .middle } **AI & Security Posture**
+
+    ---
+
+    What must be true before enabling any AI features publicly.
+
+    [Read the stance](#ai-and-security-stance)
+
+</div>
+
 ## Principles that guide the site
 
 - **Docs live with code.** Every page is in Git, peer reviewed, and versioned alongside the tooling that renders it.
