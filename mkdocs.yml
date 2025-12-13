@@ -87,6 +87,7 @@ markdown_extensions:
 plugins:
   - awesome-nav
   - git-authors:
+      enabled: !ENV [ENABLE_GIT_AUTHORS, false]
       show_email_address: true
       href: "mailto:{email}"
   - git-revision-date-localized:
@@ -94,7 +95,6 @@ plugins:
   - mike
   - panzoom
   - glightbox
-  - print-site
   - search
   - tags
   - minify:
@@ -103,6 +103,7 @@ plugins:
       minify_css: true
       htmlmin_opts:
           remove_comments: true
+  - print-site
 
 extra_css:
   - stylesheets/custom.css
