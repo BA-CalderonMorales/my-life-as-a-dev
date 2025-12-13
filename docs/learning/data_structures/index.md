@@ -73,6 +73,22 @@ Catalogue of core structures with quick practice links.
 
 ---
 
+## Specialized Structures
+
+**Probabilistic**
+:   Bloom Filters, HyperLogLog, Count-Min Sketch.
+    [Notes](probabilistic/index.md)
+
+**Spatial**
+:   Quadtrees, K-D Trees, R-Trees, Geohashing.
+    [Notes](spatial/index.md)
+
+**Advanced Trees**
+:   Segment Trees, Fenwick Trees, B-Trees, Red-Black Trees.
+    [Notes](advanced_trees/index.md)
+
+---
+
 ## Complexity Reference
 
 | Structure | Access | Search | Insert | Delete | Space |
