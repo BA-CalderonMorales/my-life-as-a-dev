@@ -517,3 +517,9 @@ The analysis techniques and examples above provide comprehensive coverage of spa
 - **Advanced Topics**: Cache-aware algorithms and memory hierarchy considerations in modern processors
 
 The key is developing intuition for recognizing space usage patterns and understanding trade-offs between time and space in real-world scenarios.
+
+## Practice on LeetCode
+
+- [73. Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/)
+- [287. Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/)
+- [448. Find All Numbers Disappeared in an Array](https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/)

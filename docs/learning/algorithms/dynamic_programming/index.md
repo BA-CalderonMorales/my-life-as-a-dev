@@ -393,3 +393,9 @@ Result: 3 (using 5 + 5 + 1)
 - Not initializing dp array correctly
 - Missing edge cases (empty input, single element)
 - Overcomplicating the state definition
+
+## Practice on LeetCode
+
+- [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
+- [322. Coin Change](https://leetcode.com/problems/coin-change/)
+- [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)

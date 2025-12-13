@@ -79,6 +79,12 @@ Arrays that can grow or shrink in size automatically.
 # Python lists are dynamic arrays
 dynamic = []
 
+## Practice on LeetCode
+
+- [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
+- [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
+- [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/)
+
 # Append (amortized O(1))
 dynamic.append(1)
 dynamic.append(2)
