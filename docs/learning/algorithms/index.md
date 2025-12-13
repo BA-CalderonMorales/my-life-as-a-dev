@@ -1,95 +1,68 @@
 # Algorithm Patterns
 
-Mastering algorithmic patterns is essential for solving coding challenges efficiently. This section covers the most common patterns you'll encounter in technical interviews and real-world development.
+Mastering algorithmic patterns is essential for solving coding challenges efficiently. Instead of memorizing individual solutions, learning these patterns helps you recognize problem types, apply the right technique, and build problem-solving intuition.
 
-| Pattern | What it solves | Notes | LeetCode |
-| --- | --- | --- | --- |
-| [Sliding Window](sliding_window/index.md) | Contiguous ranges in arrays/strings | Fixed & variable windows | [3](https://leetcode.com/problems/longest-substring-without-repeating-characters/) |
-| [Dynamic Programming](dynamic_programming/index.md) | Overlapping subproblems | Bottom-up vs memoization | [322](https://leetcode.com/problems/coin-change/) |
-| [Two Pointers](two_pointers/index.md) | Pairing/scanning | Opposite or same direction | [15](https://leetcode.com/problems/3sum/) |
-| [Fast & Slow Pointers](fast_slow_pointers/index.md) | Cycle/midpoint detection | Linked list focus | [141](https://leetcode.com/problems/linked-list-cycle/) |
-| [Backtracking](backtracking/index.md) | Generate all valid combos | Choose → explore → unchoose | [78](https://leetcode.com/problems/subsets/) |
-| [Binary Search on Answer](binary_search_on_answer/index.md) | Optimize value within bounds | Feasibility predicate | [875](https://leetcode.com/problems/koko-eating-bananas/) |
-| [Greedy](greedy/index.md) | Locally optimal steps | Proof of correctness required | [45](https://leetcode.com/problems/jump-game-ii/) |
-| [Heap / Priority Queue](heap_priority_queue/index.md) | Surface extremes quickly | Scheduling, top-k | [347](https://leetcode.com/problems/top-k-frequent-elements/) |
-| [Monotonic Stack](monotonic_stack/index.md) | Next greater/smaller queries | Maintain ordered stack | [739](https://leetcode.com/problems/daily-temperatures/) |
-| [Graph Traversal](graph_traversal/index.md) | BFS/DFS for graphs & grids | Shortest paths, components | [200](https://leetcode.com/problems/number-of-islands/) |
-| [Trie](trie/index.md) | Prefix-based lookup | Autocomplete & dictionaries | [208](https://leetcode.com/problems/implement-trie-prefix-tree/) |
-| [Space Complexity](space_complexity/index.md) | Memory trade-offs | Auxiliary vs input space | [73](https://leetcode.com/problems/set-matrix-zeroes/) |
+---
 
-## What Are Algorithm Patterns?
+## Pattern reference
 
-Algorithm patterns are reusable approaches to solving specific types of problems. Instead of memorizing individual solutions, learning these patterns helps you:
+**Sliding Window**
+:   Optimizes problems involving contiguous sequences.
+    [Notes](sliding_window/index.md) · [LC 3](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
-- Recognize problem types quickly
-- Apply the right technique systematically
-- Adapt solutions to similar problems
-- Build problem-solving intuition
+**Dynamic Programming**
+:   Breaks complex problems into overlapping subproblems.
+    [Notes](dynamic_programming/index.md) · [LC 322](https://leetcode.com/problems/coin-change/)
 
-## Core Patterns
+**Two Pointers**
+:   Uses multiple pointers to traverse data structures.
+    [Notes](two_pointers/index.md) · [LC 15](https://leetcode.com/problems/3sum/)
 
-### Sliding Window
-Optimizes problems involving contiguous sequences (subarrays, substrings). Perfect for finding optimal windows or tracking elements within a range.
+**Fast & Slow Pointers**
+:   Detects cycles or finds specific positions with different speeds.
+    [Notes](fast_slow_pointers/index.md) · [LC 141](https://leetcode.com/problems/linked-list-cycle/)
 
-**Common Use Cases**: Maximum/minimum subarray sum, longest substring problems, fixed-size window aggregations
+**Backtracking**
+:   Explores all possible solutions by building candidates incrementally.
+    [Notes](backtracking/index.md) · [LC 78](https://leetcode.com/problems/subsets/)
 
-### Dynamic Programming
-Breaks complex problems into overlapping subproblems, storing results to avoid redundant calculations.
+**Binary Search on Answer**
+:   Uses binary search to efficiently find optimal values.
+    [Notes](binary_search_on_answer/index.md) · [LC 875](https://leetcode.com/problems/koko-eating-bananas/)
 
-**Common Use Cases**: Optimization problems, counting paths, sequence alignment, knapsack variations
+**Greedy**
+:   Makes locally optimal choices at each step.
+    [Notes](greedy/index.md) · [LC 45](https://leetcode.com/problems/jump-game-ii/)
 
-### Binary Search on Answer
-Uses binary search to efficiently find optimal values by testing candidate solutions.
+**Heap / Priority Queue**
+:   Maintains elements in sorted order for efficient extreme access.
+    [Notes](heap_priority_queue/index.md) · [LC 347](https://leetcode.com/problems/top-k-frequent-elements/)
 
-**Common Use Cases**: Finding minimum/maximum values meeting constraints, capacity problems, resource allocation
+**Monotonic Stack**
+:   Maintains stack elements in monotonic order.
+    [Notes](monotonic_stack/index.md) · [LC 739](https://leetcode.com/problems/daily-temperatures/)
 
-### Two Pointers
-Uses multiple pointers to traverse data structures, often from different positions or directions.
+**Graph Traversal (BFS/DFS)**
+:   Systematic graph exploration.
+    [Notes](graph_traversal/index.md) · [LC 200](https://leetcode.com/problems/number-of-islands/)
 
-**Common Use Cases**: Pair finding, array partitioning, merging sorted arrays, palindrome checking
+**Trie (Prefix Tree)**
+:   Tree structure for efficient string prefix operations.
+    [Notes](trie/index.md) · [LC 208](https://leetcode.com/problems/implement-trie-prefix-tree/)
 
-### Fast and Slow Pointers
-Uses pointers moving at different speeds to detect cycles or find specific positions.
+**Space Complexity**
+:   Measuring and improving memory usage.
+    [Notes](space_complexity/index.md) · [LC 73](https://leetcode.com/problems/set-matrix-zeroes/)
 
-**Common Use Cases**: Cycle detection, finding middle elements, linked list problems
+---
 
-### Backtracking
-Systematically explores all possible solutions by building candidates incrementally and abandoning them when they fail to meet constraints.
-
-**Common Use Cases**: Permutations, combinations, constraint satisfaction, puzzle solving
-
-### Heap and Priority Queue
-Maintains elements in sorted order for efficient access to minimum or maximum. Essential for problems requiring frequent extreme value access.
-
-**Common Use Cases**: K-th largest/smallest, merge K lists, task scheduling, running median
-
-### Monotonic Stack
-Maintains stack elements in monotonic order to efficiently find next/previous greater or smaller elements.
-
-**Common Use Cases**: Next greater element, histogram problems, temperature problems, range queries
-
-### Graph Traversal (BFS/DFS)
-Systematic graph exploration using breadth-first or depth-first search. Foundation for many graph algorithms.
-
-**Common Use Cases**: Shortest path, connected components, cycle detection, level-order traversal
-
-### Greedy Algorithms
-Makes locally optimal choices at each step to find global optimum. Fast but requires proof of correctness.
-
-**Common Use Cases**: Activity selection, scheduling, interval problems, optimization with specific properties
-
-### Trie (Prefix Tree)
-Tree structure for efficient string prefix operations. Each path represents a word with shared prefixes.
-
-**Common Use Cases**: Autocomplete, spell check, prefix matching, dictionary operations, word games
-
-## How to Use This Guide
+## How to use this guide
 
 Each pattern section includes:
 
-1. **Conceptual Overview** - Understanding when and why to use the pattern
-2. **Step-by-Step Approach** - How to apply the pattern systematically
-3. **Three LeetCode Examples** - Real problems with complete solutions
-4. **Implementation Details** - Code walkthroughs with explanations
+1. **Conceptual overview** — when and why to use the pattern
+2. **Step-by-step approach** — how to apply it systematically
+3. **LeetCode examples** — real problems with solutions
+4. **Implementation details** — code walkthroughs
 
 Start with a pattern that interests you, work through the examples, and practice applying the approach to similar problems.

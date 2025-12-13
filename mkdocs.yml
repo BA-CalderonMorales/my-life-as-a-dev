@@ -61,6 +61,7 @@ theme:
 
 markdown_extensions:
   - extra
+  - def_list
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.superfences:
@@ -102,13 +103,15 @@ plugins:
       minify_css: true
       htmlmin_opts:
           remove_comments: true
-  - print-site
+  - print-site:
+      enabled: !ENV [ENABLE_PRINT_SITE, false]
 
 extra_css:
   - stylesheets/custom.css
 
 nav:
   - Home: index.md
+
   - Learning:
       - Overview: learning/index.md
       - Algorithms:
@@ -131,6 +134,7 @@ nav:
           - Overview: learning/data_structures/index.md
       - Interview Preparation: learning/interview_preparation/index.md
       - Additional Topics: learning/additional_topics/index.md
+  
   - Docs-as-Code:
       - Overview: docs-as-code/index.md
       - Guiding Principles: docs-as-code/principles/index.md
@@ -138,9 +142,11 @@ nav:
       - Stack & Tooling: docs-as-code/stack/index.md
       - Quality & Style: docs-as-code/quality/index.md
       - AI & Security Posture: docs-as-code/ai_security/index.md
+  
   - Projects:
       - Overview: projects/index.md
       - Active:
+          - Overview: projects/active/index.md
           - Terminal Jarvis:
               - Overview: projects/active/terminal-jarvis/index.md
               - Quick Start:
@@ -163,6 +169,7 @@ nav:
               - Details: projects/active/my-life-as-a-dev/details/index.md
           - Terminal Screensaver: projects/active/terminal-screensaver/index.md
       - Experiments:
+          - Overview: projects/experiments/index.md
           - Immersive Awe Canvas:
               - Overview: projects/experiments/immersive-awe-canvas/index.md
               - Quick Start: projects/experiments/immersive-awe-canvas/quick_start/index.md
@@ -175,8 +182,7 @@ nav:
               - Overview: projects/experiments/rust-terminal-forge/index.md
               - Quick Start: projects/experiments/rust-terminal-forge/quick_start/index.md
               - Details: projects/experiments/rust-terminal-forge/details/index.md
-  - Resume:
-      - Overview: resume/index.md
-      - Template Guide: resume/TEMPLATE_GUIDE.md
+
+  - About Me: resume/index.md
 
 # extra_javascript:
