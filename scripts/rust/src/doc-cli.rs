@@ -122,7 +122,8 @@ impl DocCli {
         println!("  3. deploy        - Deploy all versions to GitHub Pages");
         println!("  h. help          - Show command help information");
         println!();
-        println!("💡 For local development, use: ./doc-cli.exe startup --local");
+        println!("💡 For local development: ./doc-cli startup --local");
+        println!("💡 If hot reload misbehaves: ./doc-cli startup --local --clean");
         println!();
         print!("Enter your choice (1-3 or h) or command name: ");
         io::stdout().flush()?;
@@ -183,8 +184,9 @@ impl DocCli {
         println!("  startup              Start the documentation development environment");
         println!("                       Sets up MkDocs with mike for versioned documentation");
         println!("    Options:");
-        println!("      --local           Run in local mode");
-        println!("      --codespaces      Run in GitHub Codespaces environment");
+        println!("      --local           Run in local mode (required outside Codespaces)");
+        println!("      --clean           Use full rebuilds instead of dirty mode");
+        println!("                        (slower but reliable when hot reload misbehaves)");
         println!(
             "      --draft-version VERSION   View a specific version not yet deployed to gh-pages"
         );

@@ -43,13 +43,24 @@ Shows menu:
 Setup dependencies and start dev server:
 
 ```bash
+# In Codespaces (auto-detected)
 doc-cli startup
+
+# Local development
+doc-cli startup --local
+
+# With full rebuilds (when hot reload misbehaves)
+doc-cli startup --local --clean
 ```
 
 Does:
 - Installs Python dependencies
 - Registers local plugins
-- Starts MkDocs serve
+- Starts MkDocs serve with hot reload
+
+Options:
+- `--local` - Required for local development (outside Codespaces)
+- `--clean` - Use full rebuilds instead of dirty mode (slower but reliable)
 
 ### bump-version
 

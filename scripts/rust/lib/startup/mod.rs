@@ -14,6 +14,7 @@ pub fn main() -> std::io::Result<()> {
     // Parse command line arguments
     let args: Vec<String> = env::args().collect();
     let mut draft_version = None;
+    let clean_mode = args.iter().any(|arg| arg == "--clean");
 
     // Check for --draft-version argument
     for i in 1..args.len() {
@@ -23,7 +24,7 @@ pub fn main() -> std::io::Result<()> {
         }
     }
 
-    let startup = Startup::new(draft_version);
+    let startup = Startup::new(draft_version, clean_mode);
     match startup.run() {
         Ok(_) => {
             println!("Documentation server stopped.");
@@ -42,11 +43,17 @@ pub struct Startup {
     project_root: PathBuf,
     script_path: PathBuf,
     draft_version: Option<String>,
+    /// When true, disables --dirty flag for full rebuilds (like make serve-clean)
+    clean_mode: bool,
 }
 
 impl Startup {
     /// Create a new Startup instance
-    pub fn new(draft_version: Option<String>) -> Self {
+    /// 
+    /// # Arguments
+    /// * `draft_version` - Optional draft version for mike
+    /// * `clean_mode` - When true, disables --dirty flag for reliable full rebuilds
+    pub fn new(draft_version: Option<String>, clean_mode: bool) -> Self {
         // Get the current directory
         let current_dir = env::current_dir().expect("Failed to get current directory");
 
@@ -83,6 +90,7 @@ impl Startup {
             project_root,
             script_path,
             draft_version,
+            clean_mode,
         }
     }
 
@@ -226,14 +234,15 @@ impl Startup {
         println!("\n=== Local Development Setup ===");
         println!("To set up the development environment locally, please ensure you have:");
         println!("1. Python 3.8+ installed");
-            println!("2. uv (recommended) or pip (Python package manager)");
+        println!("2. uv (recommended) or pip (Python package manager)");
         println!("\nInstall dependencies manually with:");
-            println!("Install dependencies manually with (recommended):");
-            println!("  uv pip install -r requirements.txt");
+        println!("  uv pip install -r requirements.txt");
         println!("\nStart the development server with:");
         println!("  mkdocs serve");
         println!("\n🤔 Are you trying to run this locally? Remember to use:");
-        println!("  ./doc-cli.exe startup --local");
+        println!("  ./doc-cli startup --local");
+        println!("\nOptions:");
+        println!("  --clean    Use full rebuilds (slower but reliable when hot reload misbehaves)");
         println!();
     }
 
@@ -600,10 +609,19 @@ impl Startup {
         // Allow override for containers/dev environments.
         let dev_addr = env::var("MKDOCS_DEV_ADDR").unwrap_or_else(|_| "127.0.0.1:8000".to_string());
         command.arg("--dev-addr").arg(&dev_addr);
-        command.arg("--dirty");
+        
+        // Use --dirty for fast rebuilds unless --clean mode is requested
+        // Clean mode is useful when hot reload seems to serve stale content
+        if !self.clean_mode {
+            command.arg("--dirty");
+        }
         command.arg("--watch-theme");
 
-        println!("\nMkDocs server starting at http://{}/", dev_addr);
+        if self.clean_mode {
+            println!("\nMkDocs server starting in CLEAN mode (full rebuilds) at http://{}/", dev_addr);
+        } else {
+            println!("\nMkDocs server starting at http://{}/", dev_addr);
+        }
         println!("Press Ctrl+C to stop the server\n");
 
         // Execute the command
