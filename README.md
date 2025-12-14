@@ -15,8 +15,6 @@
   Powered by MkDocs Material + Zensical with versioned releases via mike.
 </p>
 
----
-
 ## Quick Links
 
 | Resource | Description |
@@ -125,9 +123,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-<p align="center">
-  <a href="https://ba-calderonmorales.github.io/my-life-as-a-dev/">View the Live Site</a>
-</p>
