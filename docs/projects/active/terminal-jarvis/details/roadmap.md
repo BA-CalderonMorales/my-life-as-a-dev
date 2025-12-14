@@ -180,6 +180,7 @@ Join our [Discord community](https://discord.gg/WteQm6MTZW) to discuss roadmap i
 
 Terminal Jarvis will reach v1.0 when it achieves:
 
+
 - [ ] 20+ supported AI tools
 - [ ] 10,000+ active users
 - [ ] Enterprise-ready features
@@ -191,6 +192,7 @@ Terminal Jarvis will reach v1.0 when it achieves:
 ## Timeline Disclaimer
 
 Roadmap timelines are estimates and subject to change based on:
+
 
 - Community feedback and priorities
 - Technical challenges and opportunities

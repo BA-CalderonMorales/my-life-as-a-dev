@@ -12,6 +12,9 @@ mkdocs-print-site-plugin>=2.7.3
 
 mike>=2.1.3
 
+# Zensical - Modern static site generator from Material for MkDocs team
+zensical>=0.0.11
+
 # AI Plugin Dependencies
 openai>=1.3.0
 python-dotenv>=1.0.0

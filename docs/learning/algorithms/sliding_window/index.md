@@ -6,6 +6,7 @@ The sliding window pattern is a powerful technique for solving problems involvin
 
 Use this pattern when you need to:
 
+
 - Find optimal contiguous subarrays or substrings
 - Track elements within a fixed or variable window size
 - Aggregate data over ranges efficiently

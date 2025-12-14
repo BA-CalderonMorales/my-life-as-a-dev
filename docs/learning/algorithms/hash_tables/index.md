@@ -527,6 +527,7 @@ def three_sum(nums):
 ```
 
 - **Alternative approaches**
+
     - Brute force: O(n³) - try all triplets
     - Hash table: O(n²) - fix one, two-sum on rest
     - Two pointers: O(n²) - same complexity but O(1) space
@@ -719,6 +720,7 @@ print(cache.get(2))    # -1 (not found)
 ```
 
 - **Why this works**
+
     - Hash table: O(1) lookup of nodes
     - Doubly linked list: O(1) move to front and eviction
     - Best of both worlds: Fast access + efficient eviction
@@ -813,6 +815,7 @@ def compare_approaches(nums, target):
 ## Further Learning
 
 The patterns above cover the most important hash table techniques for coding interviews and real-world applications. For additional perspectives:
+
 
 - **Advanced Hash Table Internals**: Some resources discuss collision resolution strategies (chaining vs open addressing) and hash function design
 - **Language-Specific Optimizations**: Different languages have different hash table implementations with varying performance characteristics

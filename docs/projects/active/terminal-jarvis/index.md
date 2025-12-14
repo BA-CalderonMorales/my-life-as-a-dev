@@ -18,6 +18,7 @@ Developers working with multiple AI CLI tools face fragmentation: rate limits ac
 
 **The Problem**:
 
+
 - Juggling 5-10 different AI tool CLIs
 - Remembering syntax for each tool
 - Managing authentication across providers
@@ -27,6 +28,7 @@ Developers working with multiple AI CLI tools face fragmentation: rate limits ac
 **The Solution**:
 
 Terminal Jarvis provides:
+
 
 - **Unified Interface**: One command for all tools
 - **Smart Authentication**: Handles API keys and browser auth gracefully
@@ -289,6 +291,7 @@ terminal-jarvis update-all
 ## Project Philosophy
 
 Terminal Jarvis is our team's love letter to the open source community. Built by developers, for developers, it embodies:
+
 
 - **Developer Experience First**: Every decision prioritizes joy and productivity
 - **Community-Driven**: Discord-first development with transparent roadmap

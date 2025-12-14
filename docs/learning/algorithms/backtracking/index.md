@@ -6,6 +6,7 @@ Backtracking is a systematic way to explore all possible solutions by building c
 
 Use backtracking when:
 
+
 - Need to find all possible solutions (permutations, combinations, subsets)
 - Constraint satisfaction problems (N-Queens, Sudoku)
 - Decision problems with multiple choices at each step
@@ -521,11 +522,13 @@ Backtracking can seem daunting, but following a systematic approach makes any pr
 #### Step 1: Identify the Problem Type
 
 - **Ask yourself**
+
     - Do I need all possible solutions? (Yes → Backtracking likely needed)
     - Are there constraints that eliminate many possibilities? (Yes → Pruning opportunity)
     - Can I build solutions incrementally? (Yes → Good fit)
 
 - **Common indicators**
+
     - "Find all..."
     - "Generate all..."
     - "Count number of ways..."
@@ -674,17 +677,21 @@ def combination_sum(candidates, target):
 
 After initial implementation:
 
+
 - **Time Complexity**
+
     - Worst case: O(b^d) where b = branching factor, d = depth
     - With pruning: Often much better in practice
     - Example: N-Queens is O(n!) worst case, but pruning makes it tractable
 
 - **Space Complexity**
+
     - Call stack: O(d) for recursion depth
     - State storage: Depends on problem
     - Result storage: O(number of solutions)
 
 - **Optimization checklist**
+
     - [ ] Sorted input for better pruning?
     - [ ] Can skip duplicate choices?
     - [ ] State representation minimal?
@@ -840,6 +847,7 @@ When encountering new backtracking problem:
 ## Further Learning
 
 The framework and patterns above provide a systematic approach to solve any backtracking problem. For additional perspectives:
+
 
 - **Alternative Explanations**: External resources may present different mental models or problem-solving strategies
 - **More Practice Problems**: The best way to master backtracking is solving many problems

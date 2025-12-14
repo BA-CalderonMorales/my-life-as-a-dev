@@ -6,6 +6,7 @@ Dynamic Programming (DP) is a method for solving complex problems by breaking th
 
 Use DP when you encounter:
 
+
 - Overlapping subproblems (same subproblem solved multiple times)
 - Optimal substructure (optimal solution built from optimal subsolutions)
 - Counting or optimization problems
@@ -24,12 +25,14 @@ Use DP when you encounter:
 ### Top-Down vs Bottom-Up
 
 - **Top-Down (Memoization)**
+
     - Start with original problem
     - Recursively solve subproblems
     - Cache results to avoid recomputation
     - More intuitive, easier to write
 
 - **Bottom-Up (Tabulation)**
+
     - Start with base cases
     - Build up to final solution
     - Iterative approach
@@ -54,6 +57,7 @@ Explanation: Three ways: (1+1+1), (1+2), (2+1)
 ### Approach
 
 This problem has optimal substructure:
+
 - To reach step n, we must come from step n-1 or n-2
 - Ways to reach step n = ways to reach n-1 + ways to reach n-2
 - This is the Fibonacci sequence!
@@ -247,6 +251,7 @@ Explanation: 11 = 5 + 5 + 1 (3 coins)
 ### Approach
 
 For each amount, try using each coin and take the minimum:
+
 - If we use coin c for amount a, we need 1 + minimum coins for (a - c)
 - Try all coins and take the best result
 

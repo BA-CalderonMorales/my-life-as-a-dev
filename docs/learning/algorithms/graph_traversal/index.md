@@ -6,6 +6,7 @@ Graph traversal algorithms systematically visit all vertices and edges in a grap
 
 Use this pattern when:
 
+
 - Exploring all nodes in a graph or tree
 - Finding shortest path (unweighted graphs - BFS)
 - Detecting cycles in a graph
@@ -20,6 +21,7 @@ Use this pattern when:
 
 **Pattern**: Explore level by level using a queue
 - **Properties**
+
     - Visits nodes in order of distance from source
     - Finds shortest path in unweighted graphs
     - Uses O(V) space for queue
@@ -46,6 +48,7 @@ def bfs(start):
 
 **Pattern**: Explore as deep as possible before backtracking
 - **Properties**
+
     - Visits nodes by following paths to their end
     - Can be recursive or iterative (stack)
     - Uses O(V) space for recursion stack
@@ -243,6 +246,7 @@ Explanation: Circular dependency
 ### Approach
 
 Detect cycles using DFS:
+
 - Build adjacency list from prerequisites
 - Use DFS with three states: unvisited, visiting, visited
 - If we revisit a node in "visiting" state, cycle detected
@@ -361,6 +365,7 @@ Path: (0,0) → (0,1) → (0,2) → (1,2) → (2,2)
 ### Approach
 
 Use BFS for shortest path:
+
 - BFS guarantees shortest path in unweighted graphs
 - Start from (0,0), track distance level by level
 - Mark cells as visited to avoid reprocessing

@@ -262,6 +262,7 @@ cargo uninstall terminal-jarvis
 
 After installation, check out:
 
+
 - [Usage Guide](usage.md) - Learn how to use Terminal Jarvis effectively
 - [Configuration Guide](configuration.md) - Customize Terminal Jarvis behavior
 - [AI Tools Guide](ai-tools.md) - Explore all supported AI coding tools

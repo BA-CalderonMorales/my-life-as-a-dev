@@ -62,6 +62,7 @@ Why?
 
 What to discuss:
 
+
 - Feature proposal and rationale
 - Implementation approach
 - Testing strategy
@@ -84,12 +85,14 @@ git checkout -b bugfix/issue-description
 
 **Rust Code**:
 
+
 - Must pass `cargo clippy --all-targets --all-features -- -D warnings`
 - Must be formatted with `cargo fmt --all`
 - Use `anyhow::Result` for error handling
 - Add doc comments for public functions
 
 **TypeScript Code**:
+
 
 - Use Biome for linting and formatting, NOT ESLint
 - Run `npm run lint` and `npm run format` before committing
@@ -133,6 +136,7 @@ cd npm/terminal-jarvis && npm run build
 ### Recommended: GitHub Codespaces
 
 Click "Code" → "Codespaces" → "Create codespace" for instant setup with:
+
 
 - Rust 1.87 pre-installed
 - Node.js 20 ready
@@ -226,6 +230,7 @@ terminal-jarvis install newtool
 
 Contributors do NOT have access to:
 
+
 - NPM registry publishing
 - Crates.io publishing
 - Homebrew formula updates
@@ -305,6 +310,7 @@ Link: [Discord thread URL]
 ## Recognition
 
 Contributors are recognized in:
+
 
 - GitHub contributor graphs
 - Release notes for significant contributions
