@@ -2,6 +2,7 @@
 title: Brandon A. Calderon Morales
 description: Product-minded engineer building calm, precise systems for people who ship.
 hide:
+
   - navigation
   - toc
 ---

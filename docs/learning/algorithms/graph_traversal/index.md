@@ -20,6 +20,7 @@ Use this pattern when:
 ### BFS (Breadth-First Search)
 
 **Pattern**: Explore level by level using a queue
+
 - **Properties**
 
     - Visits nodes in order of distance from source
@@ -47,6 +48,7 @@ def bfs(start):
 ### DFS (Depth-First Search)
 
 **Pattern**: Explore as deep as possible before backtracking
+
 - **Properties**
 
     - Visits nodes by following paths to their end

@@ -9,11 +9,13 @@ A hash table (also called hash map or dictionary) is a data structure that maps 
 ### Key Concepts
 
 **Hash Function**: Converts keys into array indices
+
 - Should be deterministic (same key always produces same hash)
 - Should distribute keys uniformly across the table
 - Should be fast to compute
 
 **Collision Handling**: When two keys hash to the same index
+
 - Chaining: Store multiple items at same index using linked lists
 - Open Addressing: Find another empty slot (linear probing, quadratic probing)
 
@@ -380,12 +382,14 @@ print(longest_consecutive(nums))  # 4 (sequence: 1, 2, 3, 4)
 ## When to Use Hash Tables vs Sets
 
 **Use Hash Table (Dict) when:**
+
 - Need to map keys to values
 - Need to store associated data with keys
 - Implementing caching or memoization
 - Grouping or categorizing data
 
 **Use Set when:**
+
 - Only need to track existence (no associated values)
 - Need set operations (union, intersection, difference)
 - Removing duplicates

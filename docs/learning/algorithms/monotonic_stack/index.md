@@ -19,10 +19,12 @@ Use this pattern when:
 ### Monotonic Stack Types
 
 **Monotonically Increasing Stack**: Elements increase from bottom to top
+
 - Pop smaller elements when adding larger
 - Helps find next smaller element
 
 **Monotonically Decreasing Stack**: Elements decrease from bottom to top
+
 - Pop larger elements when adding smaller
 - Helps find next greater element
 

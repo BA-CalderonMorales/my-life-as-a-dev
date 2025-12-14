@@ -41,4 +41,5 @@ A kind of self-balancing binary search tree.
     2. Root is black.
     3. No two red nodes are adjacent.
     4. Every path from a node to its descendant NULL nodes has the same number of black nodes.
+
 - **Use Case**: `std::map` in C++, `TreeMap` in Java. General purpose in-memory ordered map.
