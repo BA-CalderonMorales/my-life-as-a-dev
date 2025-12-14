@@ -19,10 +19,10 @@ pkill -f zensical
 pkill -f mkdocs
 
 # Start Zensical (recommended)
-make zen-serve
+make serve
 
 # Or using doc-cli
-./doc-cli.sh zen-serve
+./doc-cli.sh serve
 ```
 
 Zensical rebuilds in ~0.4s vs ~8s for MkDocs, making hot reload feel instant.
@@ -36,7 +36,7 @@ ps aux | grep -E "zensical|mkdocs"
 # Kill and restart
 pkill -f zensical
 pkill -f mkdocs
-make zen-serve
+make serve
 ```
 
 ## Common Issues and Fixes
@@ -57,7 +57,7 @@ lsof -ti:8001 | xargs kill -9  # Zensical port
 lsof -ti:8000 | xargs kill -9  # MkDocs port
 
 # Restart
-make zen-serve
+make serve
 ```
 
 ### 2. Zensical Hot Reload Issues
@@ -69,7 +69,7 @@ make zen-serve
 ```bash
 # Clean build
 zensical build --clean
-make zen-serve
+make serve
 ```
 
 ### 3. Browser Caching
@@ -151,7 +151,7 @@ rm -rf .cache/
 zensical build --clean
 
 # Restart
-make zen-serve
+make serve
 ```
 
 ## Checklist

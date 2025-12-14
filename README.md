@@ -6,13 +6,13 @@
 
 <p align="center">
   <a href="https://ba-calderonmorales.github.io/my-life-as-a-dev/">
-    <img src="docs/assets/images/screenshots/homepage.png" alt="Site Preview" width="800" />
+    <img src="docs/assets/images/homepage-screenshot.png" alt="Site Preview" width="800" />
   </a>
 </p>
 
 <p align="center">
   <strong>A living documentation hub for projects, learning notes, and technical references.</strong><br>
-  Powered by MkDocs Material + Zensical with versioned releases via mike.
+  Powered by Zensical with versioned releases via mike.
 </p>
 
 ## Quick Links
@@ -21,12 +21,13 @@
 |----------|-------------|
 | [Live Documentation](https://ba-calderonmorales.github.io/my-life-as-a-dev/) | Browse the latest published docs |
 | [Learning Section](https://ba-calderonmorales.github.io/my-life-as-a-dev/learning/) | Algorithms, data structures, and interview prep |
-| [Projects](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/) | Active projects and experiments |
+| [Active Projects](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/active/) | Terminal Jarvis, Coder Infrastructure, and more |
+| [Experiments](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/experiments/) | Immersive Awe Canvas, Shadow Scroll Blossom, Rust Terminal Forge |
 
 ## Features
 
 - **Versioned Documentation** - Every release is preserved with mike
-- **Dual Build System** - MkDocs Material (stable) + Zensical (modern, 20x faster)
+- **Blazing Fast Builds** - Zensical delivers ~0.4s builds (20x faster than MkDocs)
 - **Rust-powered CLI** - doc-cli for setup, serving, version bumps, and deploys
 - **GitHub Pages Pipeline** - Automatic builds and deploys on every push
 - **Dark/Light Mode** - Toggle between themes with one click
@@ -41,8 +42,8 @@
    ./doc-cli.sh
    ```
 3. Select from the interactive menu:
-   - startup - Start MkDocs dev server (port 8000)
-   - zen-serve - Start Zensical dev server (port 8001, faster)
+   - serve - Start Zensical dev server (port 8001)
+   - build - Build site with Zensical
 
 ### Local Development
 
@@ -60,9 +61,8 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 # Install dependencies
 make setup
 
-# Start dev server (choose one)
-make serve      # MkDocs on port 8000
-make zen-serve  # Zensical on port 8001 (faster)
+# Start dev server
+make serve  # Zensical on port 8001
 ```
 
 ## Documentation CLI
@@ -72,12 +72,12 @@ The Rust-powered doc-cli provides a unified interface for all documentation task
 ```
 doc-cli [COMMAND]
 
-MkDocs Commands:
-  startup              Start MkDocs development environment
+Primary Commands (Zensical):
+  serve                Start development server (port 8001)
+  build                Build site with Zensical
 
-Zensical Commands:
-  zen-serve            Start Zensical dev server (port 8001)
-  zen-build            Build site with Zensical
+Legacy Commands (MkDocs):
+  mkdocs-serve         Start MkDocs development environment
 
 Version & Deploy:
   bump-version         Create a new documentation version
@@ -91,10 +91,8 @@ Run ./doc-cli.sh with no arguments for an interactive menu.
 
 | Build System | Time | Notes |
 |--------------|------|-------|
-| MkDocs Material | ~8s | Full-featured, production-ready |
-| Zensical | ~0.4s | Modern, 20x faster builds |
-
-Both systems produce identical site structure and can be used interchangeably.
+| Zensical | ~0.4s | Primary, modern builds |
+| MkDocs Material | ~8s | Legacy, versioning with mike |
 
 ## Repository Layout
 

@@ -1,49 +1,40 @@
-.PHONY: help setup serve serve-clean build cli zen-serve zen-build
+.PHONY: help setup serve build cli mkdocs-serve mkdocs-build
 
-MKDOCS_DEV_ADDR ?= 127.0.0.1:8000
-ZENSICAL_DEV_ADDR ?= 0.0.0.0:8001
+DEV_ADDR ?= 0.0.0.0:8001
 
 help:
-	@echo "Common commands:"
-	@echo "  make setup       - Install Python dependencies and setup project"
-	@echo "  make serve       - Run MkDocs development server (fast, dirty mode)"
-	@echo "  make serve-clean - Run MkDocs server with full rebuilds (slower but reliable)"
-	@echo "  make build       - Build MkDocs documentation"
-	@echo "  make cli         - Build and run documentation CLI tools"
+	@echo "Commands:"
+	@echo "  make setup        - Install Python dependencies and setup project"
+	@echo "  make serve        - Start Zensical development server (port 8001)"
+	@echo "  make build        - Build site with Zensical"
+	@echo "  make cli          - Run documentation CLI tools"
 	@echo ""
-	@echo "Zensical commands (modern static site generator):"
-	@echo "  make zen-serve   - Run Zensical development server"
-	@echo "  make zen-build   - Build site with Zensical"
+	@echo "Legacy MkDocs commands:"
+	@echo "  make mkdocs-serve - Run MkDocs development server (port 8000)"
+	@echo "  make mkdocs-build - Build with MkDocs"
 
 setup:
 	uv run python -m pip install --upgrade pip
 	uv pip install -r requirements.txt
 	uv pip install -e .
 
-# Fast development server with dirty rebuilds
-# Use this for quick iteration, but switch to serve-clean if hot reload misbehaves
+# Primary development server (Zensical)
 serve:
-	PYTHONPATH=$(PWD) mkdocs serve --dev-addr $(MKDOCS_DEV_ADDR) --dirty --watch-theme
+	zensical serve -a $(DEV_ADDR)
 
-# Clean development server without dirty mode
-# Use when hot reload seems to be serving stale content
-serve-clean:
-	PYTHONPATH=$(PWD) mkdocs serve --dev-addr $(MKDOCS_DEV_ADDR) --watch-theme
-
+# Primary build command (Zensical)
 build:
-	PYTHONPATH=$(PWD) mkdocs build
+	zensical build
 
 cli:
 	./doc-cli.sh
 
 # ============================================================================
-# Zensical Commands - Modern static site generator from Material for MkDocs team
+# Legacy MkDocs Commands (for versioning with mike or custom plugins)
 # ============================================================================
 
-# Zensical development server
-zen-serve:
-	zensical serve -a $(ZENSICAL_DEV_ADDR)
+mkdocs-serve:
+	PYTHONPATH=$(PWD) mkdocs serve --dev-addr 127.0.0.1:8000 --dirty --watch-theme
 
-# Zensical production build
-zen-build:
-	zensical build
+mkdocs-build:
+	PYTHONPATH=$(PWD) mkdocs build

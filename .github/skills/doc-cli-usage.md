@@ -29,21 +29,20 @@ Run without arguments for interactive menu:
 ```
 
 Shows menu:
-1. startup - Start MkDocs dev server (legacy)
-2. zen-serve - Start Zensical dev server (recommended)
-3. zen-build - Build with Zensical
-4. bump-version - Create new version
-5. deploy - Publish to GitHub Pages
+1. serve - Start Zensical dev server (primary)
+2. build - Build with Zensical
+3. bump-version - Create new version
+4. deploy - Publish to GitHub Pages
 h. help - Show commands
 
 ## Commands
 
-### zen-serve (Recommended)
+### serve (Primary)
 
 Start Zensical development server:
 
 ```bash
-./doc-cli.sh zen-serve
+./doc-cli.sh serve
 ```
 
 Features:
@@ -51,29 +50,29 @@ Features:
 - Hot reload on file changes
 - Runs on port 8001
 
-### zen-build
+### build
 
 Build site with Zensical:
 
 ```bash
-./doc-cli.sh zen-build
+./doc-cli.sh build
 ```
 
 Output goes to `site/` directory.
 
-### startup (Legacy)
+### mkdocs-serve (Legacy)
 
 Start MkDocs development server:
 
 ```bash
 # In Codespaces (auto-detected)
-./doc-cli.sh startup
+./doc-cli.sh mkdocs-serve
 
 # Local development
-./doc-cli.sh startup --local
+./doc-cli.sh mkdocs-serve --local
 
 # With full rebuilds (when hot reload misbehaves)
-./doc-cli.sh startup --local --clean
+./doc-cli.sh mkdocs-serve --local --clean
 ```
 
 Options:
@@ -150,7 +149,7 @@ pkill -f zensical
 pkill -f mkdocs
 
 # Then restart
-./doc-cli.sh zen-serve
+./doc-cli.sh serve
 ```
 
 ### WSL Issues
@@ -159,19 +158,19 @@ If doc-cli misbehaves on WSL, use make commands directly:
 
 ```bash
 make setup
-make zen-serve
+make serve
 ```
 
 ## When to Use What
 
 | Task | Command |
 |------|---------|
-| Daily development | `./doc-cli.sh zen-serve` or `make zen-serve` |
-| Build only | `./doc-cli.sh zen-build` or `make zen-build` |
+| Daily development | `./doc-cli.sh serve` or `make serve` |
+| Build only | `./doc-cli.sh build` or `make build` |
 | First time setup | `make setup` |
 | New version | `./doc-cli.sh bump-version` |
 | Deploy | `./doc-cli.sh deploy` |
-| MkDocs (legacy) | `./doc-cli.sh startup --local` |
+| MkDocs (legacy) | `./doc-cli.sh mkdocs-serve --local` |
 
 ## Checklist
 
