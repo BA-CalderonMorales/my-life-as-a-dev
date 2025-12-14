@@ -60,6 +60,8 @@ Opens at http://127.0.0.1:8000 with:
 - Fast rebuilds (dirty mode)
 - Theme watching
 
+If hot reload stops working, use `make serve-clean` or see [Hot Reload Troubleshooting](hot-reload-troubleshooting.md).
+
 ## Environment Variables
 
 ```bash

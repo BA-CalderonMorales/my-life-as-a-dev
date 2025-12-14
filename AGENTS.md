@@ -35,6 +35,7 @@ doc-cli       # Interactive CLI
 | Skill | When to Use |
 |-------|-------------|
 | [Build and Test](.github/skills/build-and-test.md) | Building, serving, and validating docs |
+| [Hot Reload Troubleshooting](.github/skills/hot-reload-troubleshooting.md) | Fixing dev server hot reload issues |
 | [Doc-CLI Usage](.github/skills/doc-cli-usage.md) | Using the Rust CLI tool |
 | [Testing](.github/skills/testing.md) | Running Python and Rust tests |
 | [Code Standards](.github/skills/code-standards.md) | Python and Rust code style |
