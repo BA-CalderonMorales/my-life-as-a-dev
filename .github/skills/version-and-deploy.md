@@ -104,10 +104,10 @@ Before deploying, preview locally:
 
 ```bash
 # Build and serve with Zensical
-make zen-serve
+make serve
 
 # Or
-./doc-cli.sh zen-serve
+./doc-cli.sh serve
 ```
 
 ## Troubleshooting
@@ -132,6 +132,6 @@ Common issues:
 ## Checklist
 
 - [ ] All changes committed and pushed
-- [ ] Build succeeds locally (`make zen-build`)
+- [ ] Build succeeds locally (`make build`)
 - [ ] GitHub Actions completed successfully
 - [ ] Live site verified: https://ba-calderonmorales.github.io/my-life-as-a-dev/

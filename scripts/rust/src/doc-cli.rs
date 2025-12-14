@@ -110,24 +110,23 @@ impl DocCli {
     // Print header with tool name
     fn print_header(&self) {
         println!("\n{}", "=".repeat(60));
-        println!("📚 MkDocs Documentation CLI Tool");
+        println!("Zensical Documentation CLI Tool");
         println!("{}", "=".repeat(60));
     }
 
     // Print the main menu
     fn print_menu(&self) -> std::io::Result<()> {
         println!("\nAvailable commands:");
-        println!("  1. startup       - Start MkDocs development environment");
-        println!("  2. zen-serve     - Start Zensical development server (modern)");
-        println!("  3. zen-build     - Build site with Zensical");
-        println!("  4. bump-version  - Bump the documentation version");
-        println!("  5. deploy        - Deploy all versions to GitHub Pages");
+        println!("  1. serve         - Start Zensical development server");
+        println!("  2. build         - Build site with Zensical");
+        println!("  3. bump-version  - Bump the documentation version");
+        println!("  4. deploy        - Deploy all versions to GitHub Pages");
         println!("  h. help          - Show command help information");
         println!();
-        println!("💡 For local development: ./doc-cli startup --local");
-        println!("💡 Zensical (modern): ./doc-cli zen-serve");
+        println!("Tip: For local development: ./doc-cli serve");
+        println!("Tip: Legacy MkDocs: ./doc-cli mkdocs-serve");
         println!();
-        print!("Enter your choice (1-5 or h) or command name: ");
+        print!("Enter your choice (1-4 or h) or command name: ");
         io::stdout().flush()?;
         Ok(())
     }
@@ -141,11 +140,10 @@ impl DocCli {
         let choice = choice.trim();
 
         match choice {
-            "1" | "startup" => self.handle_command("startup"),
-            "2" | "zen-serve" => self.handle_command("zen-serve"),
-            "3" | "zen-build" => self.handle_command("zen-build"),
-            "4" | "bump-version" => self.handle_command("bump-version"),
-            "5" | "deploy" => self.handle_command("deploy"),
+            "1" | "serve" => self.handle_command("serve"),
+            "2" | "build" => self.handle_command("build"),
+            "3" | "bump-version" => self.handle_command("bump-version"),
+            "4" | "deploy" => self.handle_command("deploy"),
             "h" | "help" => {
                 Self::show_help()?;
                 Ok(())
@@ -161,9 +159,9 @@ impl DocCli {
     // Handle a specific command
     fn handle_command(&self, command: &str) -> std::io::Result<()> {
         match command {
-            "startup" => self.run_startup(),
-            "zen-serve" | "zen_serve" => self.run_zensical_serve(),
-            "zen-build" | "zen_build" => self.run_zensical_build(),
+            "serve" => self.run_zensical_serve(),
+            "build" => self.run_zensical_build(),
+            "mkdocs-serve" | "mkdocs_serve" | "startup" => self.run_startup(),
             "bump-version" | "bump_version" => self.run_bump_version(),
             "deploy" | "deploy-all-versions" | "deploy_all_versions" => {
                 self.run_deploy_all_versions()
@@ -174,7 +172,7 @@ impl DocCli {
             }
             _ => {
                 eprintln!("Unknown command: {}", command);
-                eprintln!("Available commands: startup, zen-serve, zen-build, bump-version, deploy, help");
+                eprintln!("Available commands: serve, build, mkdocs-serve, bump-version, deploy, help");
                 eprintln!("Use 'doc-cli help' to see more details about available commands.");
                 std::process::exit(1);
             }
@@ -183,11 +181,16 @@ impl DocCli {
 
     // Show help information
     fn show_help() -> std::io::Result<()> {
-        println!("\n📋 Documentation CLI Tool Help");
-        println!("==============================\n");
+        println!("\nDocumentation CLI Tool Help");
+        println!("===========================\n");
         println!("Usage: doc-cli [COMMAND] [OPTIONS]");
-        println!("\nMkDocs Commands (legacy):");
-        println!("  startup              Start MkDocs development environment");
+        println!("\nPrimary Commands (Zensical):");
+        println!("  serve                Start Zensical development server (port 8001)");
+        println!("                       Modern static site generator, 20x faster builds");
+        println!("  build                Build site with Zensical");
+        println!();
+        println!("Legacy Commands (MkDocs):");
+        println!("  mkdocs-serve         Start MkDocs development environment");
         println!("                       Sets up MkDocs with mike for versioned documentation");
         println!("    Options:");
         println!("      --local           Run in local mode (required outside Codespaces)");
@@ -196,11 +199,6 @@ impl DocCli {
         println!(
             "      --draft-version VERSION   View a specific version not yet deployed to gh-pages"
         );
-        println!();
-        println!("Zensical Commands (modern):");
-        println!("  zen-serve            Start Zensical development server (port 8001)");
-        println!("                       Modern static site generator, 20x faster builds");
-        println!("  zen-build            Build site with Zensical");
         println!();
         println!("Version & Deploy:");
         println!("  bump-version         Bump the documentation version");

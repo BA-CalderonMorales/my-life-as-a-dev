@@ -7,8 +7,8 @@ description: Exploring Zensical, the modern static site generator from the creat
 
 [Zensical](https://zensical.org/) is a modern static site generator built by the creators of Material for MkDocs. It represents the next evolution of documentation tooling, offering a fresh approach while maintaining the design principles that made Material for MkDocs successful.
 
-!!! success "Migration Status: Active"
-    This site now supports **dual-mode operation** with both MkDocs Material and Zensical. You can run `make zen-serve` to preview the Zensical version alongside the traditional `make serve` for MkDocs.
+!!! success "Migration Status: Complete"
+    This site now uses **Zensical as the primary build system**. Run `make serve` to start the development server. MkDocs is available as a legacy fallback via `make mkdocs-serve`.
 
 ## Why Zensical?
 
@@ -31,15 +31,15 @@ The Material for MkDocs team has been developing Zensical to address some limita
 ### Quick Start
 
 ```bash
-# Run with Zensical (new)
-make zen-serve    # Development server on port 8001
+# Run with Zensical (primary)
+make serve        # Development server on port 8001
 
-# Run with MkDocs (legacy)
-make serve        # Development server on port 8000
+# Build
+make build        # Zensical production build
 
-# Build with either
-make zen-build    # Zensical production build
-make build        # MkDocs production build
+# Legacy MkDocs (if needed)
+make mkdocs-serve # Development server on port 8000
+make mkdocs-build # MkDocs production build
 ```
 
 ### Configuration Files
@@ -170,8 +170,9 @@ The migration was straightforward:
 
 1. Created `zensical.toml` with equivalent settings from `mkdocs.yml`
 2. Converted YAML navigation to TOML array-of-tables format
-3. Updated `Makefile` with `zen-serve` and `zen-build` targets
-4. Tested build and serve commands
+3. Updated `Makefile` with `serve` and `build` as primary Zensical commands
+4. Updated GitHub Actions workflow to use Zensical for production builds
+5. Updated doc-cli with simplified command names
 
 ## Resources
 
@@ -181,8 +182,8 @@ The migration was straightforward:
 
 - [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
 
-## Next Steps
+## Completed
 
-- Evaluate full cutover to Zensical as primary build system
-- Test GitHub Pages deployment with Zensical
-- Explore Zensical-specific features not available in MkDocs
+- [x] Full cutover to Zensical as primary build system
+- [x] GitHub Pages deployment with Zensical
+- [x] Simplified CLI commands (serve/build)

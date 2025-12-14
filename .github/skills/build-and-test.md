@@ -12,24 +12,24 @@ Build, test, and serve the documentation site using Zensical (recommended) or Mk
 ## Quick Commands
 
 ```bash
-# Build and serve with Zensical (recommended, 20x faster)
-make zen-serve
+# Build and serve with Zensical (primary, 20x faster)
+make serve
 
 # Or using doc-cli
-./doc-cli.sh zen-serve
+./doc-cli.sh serve
 
 # Build only (no serve)
-make zen-build
+make build
 ```
 
 ### Legacy MkDocs Commands
 
 ```bash
 # Serve with MkDocs (legacy, slower)
-make serve
+make mkdocs-serve
 
 # Build with MkDocs
-make build
+make mkdocs-build
 ```
 
 ## Build Systems Comparison
@@ -55,11 +55,11 @@ This installs:
 ### 2. Build
 
 ```bash
-# Zensical (recommended)
-make zen-build
+# Zensical (primary)
+make build
 
 # MkDocs (legacy)
-make build
+make mkdocs-build
 ```
 
 Output goes to `site/` directory. Build will:
@@ -70,11 +70,11 @@ Output goes to `site/` directory. Build will:
 ### 3. Serve Locally
 
 ```bash
-# Zensical on port 8001 (recommended)
-make zen-serve
+# Zensical on port 8001 (primary)
+make serve
 
 # MkDocs on port 8000 (legacy)
-make serve
+make mkdocs-serve
 ```
 
 Zensical features:
@@ -93,18 +93,15 @@ The doc-cli provides an interactive menu:
 ```
 
 Available commands:
-- `zen-serve` - Start Zensical dev server (port 8001)
-- `zen-build` - Build with Zensical
-- `startup` - Start MkDocs dev server (legacy)
+- `serve` - Start Zensical dev server (port 8001)
+- `build` - Build with Zensical
+- `mkdocs-serve` - Start MkDocs dev server (legacy)
 
 ## Environment Variables
 
 ```bash
 # Custom Zensical server address
-ZENSICAL_DEV_ADDR=0.0.0.0:8080 make zen-serve
-
-# Custom MkDocs server address
-MKDOCS_DEV_ADDR=0.0.0.0:8080 make serve
+DEV_ADDR=0.0.0.0:8080 make serve
 ```
 
 ## Troubleshooting
@@ -121,7 +118,7 @@ pkill -f zensical
 pkill -f mkdocs
 
 # Then restart
-make zen-serve
+make serve
 ```
 
 ### Import Errors (MkDocs only)
@@ -135,8 +132,8 @@ make build
 ## Checklist
 
 - [ ] Run `make setup` if dependencies changed
-- [ ] Run `make zen-build` to validate
+- [ ] Run `make build` to validate
 - [ ] Check for ERROR messages
-- [ ] Run `make zen-serve` to preview
+- [ ] Run `make serve` to preview
 - [ ] Verify navigation works
 - [ ] Check responsive layout
