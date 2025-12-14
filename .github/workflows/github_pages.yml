@@ -1,4 +1,4 @@
-name: Deploy MkDocs to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
 
@@ -37,7 +37,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # Needed for mike to commit to gh-pages branch
+  contents: write
   pages: write
   id-token: write
 
@@ -48,42 +48,21 @@ concurrency:
 
 jobs:
 
-  # Job # 1: Build MkDocs site with versioning
   build:
-
     runs-on: ubuntu-latest
-    env:
-      # Set the OpenAI API key from GitHub Secrets
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Fetch complete history for proper versioning
           fetch-depth: 0
-
-          # Sparse checkout for faster builds
-          # See: https://x.com/squidfunk/status/1705279829770150291
           sparse-checkout: |
             docs
-            mkdocs_plugins
-            scripts/python
-            mkdocs.yml
             zensical.toml
-            setup.py
             requirements.txt
             versions.json
             e2e
 
-      - name: Fetch gh-pages branch
-        run: |
-          if git ls-remote --exit-code origin gh-pages; then
-            git fetch origin gh-pages:gh-pages
-          else
-            echo "gh-pages branch not found on remote; continuing without it"
-          fi
-            
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -92,106 +71,38 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Install uv helper and use it for fast installs
-          curl -LsSf https://astral.sh/uv/install.sh | sh || true
-          export PATH="$HOME/.local/bin:$PATH"
-
           python -m pip install --upgrade pip
-          uv pip install --system -r requirements.txt
-
-          # Install local plugin in development mode
-          uv pip install --system -e .
+          pip install zensical
 
       - name: Run e2e structure checks
         if: github.event_name == 'pull_request'
         run: |
-          export PATH="$HOME/.local/bin:$PATH"
-          uv pip install --system pytest pytest-playwright
+          pip install pytest pytest-playwright
           playwright install chromium
           python -m pytest e2e/test_structure.py -v
-
-      - name: Configure Git for Mike
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-
-      - name: Get latest version tag
-        id: get-latest-tag
-        run: |
-          # Get the latest tag or use "0.1.0" if no tags exist
-          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.1.0")
-          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
-          echo "Latest tag: $LATEST_TAG"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Build and deploy with Mike
-        if: github.event_name != 'pull_request'
+      - name: Build site with Zensical
         run: |
-          # Explicitly verify plugin module is available
-          python -c "import sys; import mkdocs_plugins; print(f'Plugin module found at: {mkdocs_plugins.__file__}')"
+          echo "Building site with Zensical..."
+          zensical build
+          echo "Build complete!"
           
-          # Set PYTHONPATH to include the local plugins
-          export PYTHONPATH=$PYTHONPATH:$(pwd)
-
-          if git show-ref --quiet refs/heads/gh-pages; then
-            # Check if alias 'latest' already exists for this version
-            if mike list | grep -q "$LATEST_TAG.*latest"; then
-              echo "Alias 'latest' already exists for version $LATEST_TAG, skipping deploy"
-            else
-              # Deploy the latest version with Mike, updating the alias if it exists
-              mike deploy --push --update-aliases $LATEST_TAG latest
-            fi
-
-            # Set default version AFTER deploy if needed
-            if ! mike list | grep -q "default.*latest"; then
-              mike set-default --push latest
-            fi
-          else
-            echo "No gh-pages branch available; initializing branch with current build"
-            mike deploy --push --update-aliases $LATEST_TAG latest
-            mike set-default --push latest
-          fi
-
-          # List versions to verify
-          mike list
-
-      - name: Build site with MkDocs
-        run: |
-          # Set PYTHONPATH to include the local plugins
-          export PYTHONPATH=$PYTHONPATH:$(pwd)
-          
-          # Build the site with MkDocs
-          mkdocs build
-
-      - name: Ensure versions.json is in the right place
-        run: |
-          # Make sure versions.json exists in the site root for GitHub Pages
-          mkdir -p site
-          if git show-ref --quiet refs/heads/gh-pages; then
-            mike list --json > site/versions.json
-          else
-            echo "gh-pages branch not available; using checked-in versions.json as fallback"
-            cp versions.json site/versions.json
-          fi
-
-          # Verify versions.json was created correctly
-          echo "Contents of versions.json:"
-          cat site/versions.json
-          
-          # Create a .nojekyll file to prevent GitHub Pages from ignoring files
+          # Create .nojekyll to prevent GitHub Pages from ignoring files
           touch site/.nojekyll
+          
+          # Show build output
+          ls -la site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./site
 
-  # Job # 2: Deploy to GitHub Pages
   deploy:
     if: github.event_name != 'pull_request'
-
     needs: build
 
     environment:
@@ -207,7 +118,6 @@ jobs:
 
   deploy-preview:
     if: github.event_name == 'pull_request'
-
     needs: build
 
     environment:
