@@ -6,6 +6,7 @@ The sliding window pattern is a powerful technique for solving problems involvin
 
 Use this pattern when you need to:
 
+
 - Find optimal contiguous subarrays or substrings
 - Track elements within a fixed or variable window size
 - Aggregate data over ranges efficiently
@@ -24,10 +25,12 @@ The sliding window technique involves:
 ### Two Main Types
 
 **Fixed-Size Window**: Window size remains constant throughout
+
 - Move both pointers together
 - Simple implementation
 
 **Variable-Size Window**: Window expands and contracts based on conditions
+
 - Expand right pointer to grow window
 - Contract left pointer to shrink window
 - More complex but handles dynamic constraints

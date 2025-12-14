@@ -21,6 +21,7 @@ Terminal Jarvis uses a **three-channel distribution strategy**:
 
 **What local-ci.sh does**:
 
+
 - Code formatting (`cargo fmt`)
 - Linting (`cargo clippy`)
 - Test suite (33 comprehensive tests)
@@ -37,6 +38,7 @@ Terminal Jarvis uses a **three-channel distribution strategy**:
 ```
 
 **What local-cd.sh does**:
+
 
 - CHANGELOG.md verification
 - Version management (bump or manual)
@@ -62,6 +64,7 @@ npm dist-tag add terminal-jarvis@X.X.X stable  # If production-ready
 ### 4. Crates.io Publishing (Automated)
 
 The `local-cd.sh` script automatically publishes to crates.io after:
+
 
 - Validating cargo login status
 - Running full test suite
@@ -160,6 +163,7 @@ brew install terminal-jarvis
 ## Pre-Release Checklist
 
 Before running `local-cd.sh`:
+
 
 - [ ] **Update CHANGELOG.md** with all changes
 - [ ] **Run local-ci.sh** and ensure all tests pass
@@ -314,6 +318,7 @@ npx terminal-jarvis --help
 ## Contact and Support
 
 For maintainer-specific questions:
+
 
 - **Email**: brandon.ceemoe@gmail.com
 - **GitHub Issues**: Technical discussions

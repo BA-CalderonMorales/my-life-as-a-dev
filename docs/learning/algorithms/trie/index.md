@@ -6,6 +6,7 @@ A Trie is a tree-based data structure for storing strings where each path from r
 
 Use this pattern when:
 
+
 - Implementing autocomplete or search suggestions
 - Spell checking or word validation
 - Prefix matching or searching
@@ -19,11 +20,13 @@ Use this pattern when:
 ### Trie Structure
 
 Each node represents a character:
+
 - **Root**: Empty, represents start
 - **Children**: Map from character to child node
 - **End Flag**: Marks complete words
 
 - **Key Properties**
+
     - Common prefixes share paths
     - Space efficient for large word sets with common prefixes
     - Fast prefix operations: O(m) where m is word length
@@ -57,10 +60,12 @@ trie.search("app")     -> true
 ### Approach
 
 Create node class with:
+
 - Dictionary of children (char -> node)
 - Boolean flag for word end
 
 Operations:
+
 - Insert: Follow/create path, mark end
 - Search: Follow path, check end flag
 - StartsWith: Follow path only
@@ -359,6 +364,7 @@ wd.search("b..")  -> true
 ### Approach
 
 Extend basic trie with wildcard search:
+
 - Insert same as basic trie
 - Search: when '.' encountered, try all children
 - Use DFS/recursion to handle wildcards
@@ -787,12 +793,14 @@ class LazyDeleteTrie:
 #### When to Use Trie
 
 ✅ **Good fit**:
+
 - Large dictionary with many common prefixes
 - Need prefix operations (autocomplete, prefix count)
 - Memory is less critical than speed
 - Words added incrementally
 
 ❌ **Poor fit**:
+
 - Small word list (< 1000 words) - hash set is simpler
 - No common prefixes (e.g., UUIDs, random strings)
 - Extremely memory-constrained
@@ -951,6 +959,7 @@ handler, params = router.route('/api/users/123/posts/456')
 ## Further Learning
 
 The optimizations and techniques above cover production-grade string storage implementations. For alternative perspectives:
+
 
 - **Advanced Trie Variants**: External resources may discuss additional variants like Ternary Search Trees or Radix Trees
 - **Theoretical Analysis**: Academic sources provide formal proofs of space/time complexity

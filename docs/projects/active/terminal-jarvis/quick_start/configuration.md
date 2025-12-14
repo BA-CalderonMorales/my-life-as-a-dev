@@ -274,6 +274,7 @@ terminal-jarvis info <tool>
 
 This displays:
 
+
 - Installation status
 - Configuration key
 - CLI command
@@ -284,6 +285,7 @@ This displays:
 ## Configuration Consistency
 
 Terminal Jarvis uses a modular configuration system with these benefits:
+
 
 - **Automatic discovery**: New tools added to `config/tools/` are automatically available
 - **Clear separation**: Per-tool install/auth/feature metadata

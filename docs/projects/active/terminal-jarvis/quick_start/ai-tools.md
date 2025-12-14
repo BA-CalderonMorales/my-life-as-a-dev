@@ -9,6 +9,7 @@ Terminal Jarvis supports a comprehensive suite of AI coding tools with seamless 
 
 Terminal Jarvis currently supports **10 AI coding tools**:
 
+
 - claude
 - gemini
 - qwen
@@ -36,6 +37,7 @@ Terminal Jarvis currently supports **10 AI coding tools**:
 
 **Key Features**:
 
+
 - Advanced reasoning capabilities
 - Code analysis and refactoring
 - Architectural design assistance
@@ -53,6 +55,7 @@ Terminal Jarvis currently supports **10 AI coding tools**:
 **Installation**: `npm install -g @google/gemini-cli`
 
 **Key Features**:
+
 
 - Multi-modal AI capabilities
 - Code generation
@@ -72,6 +75,7 @@ Terminal Jarvis currently supports **10 AI coding tools**:
 
 **Key Features**:
 
+
 - Code completion
 - Multi-language support
 - Intelligent suggestions
@@ -89,6 +93,7 @@ Terminal Jarvis currently supports **10 AI coding tools**:
 **Installation**: `npm install -g opencode-ai@latest`
 
 **Key Features**:
+
 
 - Terminal-native interface
 - Code generation
@@ -111,6 +116,7 @@ Terminal Jarvis currently supports **10 AI coding tools**:
 
 **Key Features**:
 
+
 - Multi-provider support
 - Flexible AI backends
 - Extensible architecture
@@ -129,6 +135,7 @@ Terminal Jarvis currently supports **10 AI coding tools**:
 
 **Key Features**:
 
+
 - Local AI processing
 - Code completion
 - OpenAI integration
@@ -146,6 +153,7 @@ Terminal Jarvis currently supports **10 AI coding tools**:
 **Installation**: `npm install -g @charmland/crush`
 
 **Key Features**:
+
 
 - LSP protocol support
 - Multi-model AI
@@ -168,6 +176,7 @@ Terminal Jarvis currently supports **10 AI coding tools**:
 
 **Key Features**:
 
+
 - Terminal-native workflows
 - Code analysis
 - Refactoring assistance
@@ -185,6 +194,7 @@ Terminal Jarvis currently supports **10 AI coding tools**:
 **Installation**: `npm install -g @sourcegraph/amp`
 
 **Key Features**:
+
 
 - Code search integration
 - Sourcegraph connectivity
@@ -206,6 +216,7 @@ Terminal Jarvis currently supports **10 AI coding tools**:
     Aider uses `uv` (Python package installer), not NPM.
 
 **Key Features**:
+
 
 - AI pair programming
 - Git integration
@@ -281,6 +292,7 @@ Terminal Jarvis uses a modular configuration system. Each tool has its own TOML 
 
 **Benefits**:
 
+
 - Automatic discovery of new tools added to `config/tools/`
 - Clear separation of per-tool install/auth/feature metadata
 - Reduced drift between docs and implementation
@@ -345,6 +357,7 @@ terminal-jarvis update claude
 
 All tools are installed from official sources:
 
+
 - NPM packages from official publishers
 - GitHub releases (for Goose)
 - Python packages via `uv` (for Aider)
@@ -362,6 +375,7 @@ npm info <package-name>
 ## Adding New Tools
 
 Want to see a tool added to Terminal Jarvis? Check out:
+
 
 - [Contributing Guide](../details/contributions.md)
 - [Architecture Guide](../details/architecture.md)

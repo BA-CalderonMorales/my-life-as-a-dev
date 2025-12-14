@@ -11,6 +11,7 @@ terminal-jarvis
 
 Get the complete interface with:
 
+
 - Beautiful ASCII art welcome screen
 - Real-time tool status dashboard
 - Quick tool selection and launching
@@ -103,6 +104,7 @@ terminal-jarvis info claude
 ### Authentication Flows
 
 Terminal Jarvis handles authentication intelligently:
+
 
 - **Browser-based auth**: Automatically detected and handled
 - **API key auth**: Prompted when needed with clear instructions

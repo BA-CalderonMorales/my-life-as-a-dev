@@ -24,6 +24,7 @@ System design is the process of defining the architecture, components, modules, 
 ### CAP Theorem
 In a distributed data store, you can only guarantee two of the three:
 
+
 - **Consistency**: Every read receives the most recent write or an error.
 - **Availability**: Every request receives a (non-error) response, without the guarantee that it contains the most recent write.
 - **Partition Tolerance**: The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes.
@@ -40,11 +41,13 @@ In a distributed data store, you can only guarantee two of the three:
 ## Back-of-the-Envelope Math
 Powers of two for quick estimation:
 
+
 - $2^{10} \approx 10^3$ (1 KB)
 - $2^{20} \approx 10^6$ (1 MB)
 - $2^{30} \approx 10^9$ (1 GB)
 
 Latencies (approximate):
+
 
 - L1 Cache: 0.5 ns
 - Mutex lock/unlock: 100 ns
