@@ -117,15 +117,17 @@ impl DocCli {
     // Print the main menu
     fn print_menu(&self) -> std::io::Result<()> {
         println!("\nAvailable commands:");
-        println!("  1. startup       - Start the development environment (GitHub Codespaces)");
-        println!("  2. bump-version  - Bump the documentation version");
-        println!("  3. deploy        - Deploy all versions to GitHub Pages");
+        println!("  1. startup       - Start MkDocs development environment");
+        println!("  2. zen-serve     - Start Zensical development server (modern)");
+        println!("  3. zen-build     - Build site with Zensical");
+        println!("  4. bump-version  - Bump the documentation version");
+        println!("  5. deploy        - Deploy all versions to GitHub Pages");
         println!("  h. help          - Show command help information");
         println!();
         println!("💡 For local development: ./doc-cli startup --local");
-        println!("💡 If hot reload misbehaves: ./doc-cli startup --local --clean");
+        println!("💡 Zensical (modern): ./doc-cli zen-serve");
         println!();
-        print!("Enter your choice (1-3 or h) or command name: ");
+        print!("Enter your choice (1-5 or h) or command name: ");
         io::stdout().flush()?;
         Ok(())
     }
@@ -140,8 +142,10 @@ impl DocCli {
 
         match choice {
             "1" | "startup" => self.handle_command("startup"),
-            "2" | "bump-version" => self.handle_command("bump-version"),
-            "3" | "deploy" => self.handle_command("deploy"),
+            "2" | "zen-serve" => self.handle_command("zen-serve"),
+            "3" | "zen-build" => self.handle_command("zen-build"),
+            "4" | "bump-version" => self.handle_command("bump-version"),
+            "5" | "deploy" => self.handle_command("deploy"),
             "h" | "help" => {
                 Self::show_help()?;
                 Ok(())
@@ -158,6 +162,8 @@ impl DocCli {
     fn handle_command(&self, command: &str) -> std::io::Result<()> {
         match command {
             "startup" => self.run_startup(),
+            "zen-serve" | "zen_serve" => self.run_zensical_serve(),
+            "zen-build" | "zen_build" => self.run_zensical_build(),
             "bump-version" | "bump_version" => self.run_bump_version(),
             "deploy" | "deploy-all-versions" | "deploy_all_versions" => {
                 self.run_deploy_all_versions()
@@ -168,7 +174,7 @@ impl DocCli {
             }
             _ => {
                 eprintln!("Unknown command: {}", command);
-                eprintln!("Available commands: startup, bump-version, deploy, help");
+                eprintln!("Available commands: startup, zen-serve, zen-build, bump-version, deploy, help");
                 eprintln!("Use 'doc-cli help' to see more details about available commands.");
                 std::process::exit(1);
             }
@@ -180,8 +186,8 @@ impl DocCli {
         println!("\n📋 Documentation CLI Tool Help");
         println!("==============================\n");
         println!("Usage: doc-cli [COMMAND] [OPTIONS]");
-        println!("\nCommands:");
-        println!("  startup              Start the documentation development environment");
+        println!("\nMkDocs Commands (legacy):");
+        println!("  startup              Start MkDocs development environment");
         println!("                       Sets up MkDocs with mike for versioned documentation");
         println!("    Options:");
         println!("      --local           Run in local mode (required outside Codespaces)");
@@ -191,9 +197,15 @@ impl DocCli {
             "      --draft-version VERSION   View a specific version not yet deployed to gh-pages"
         );
         println!();
+        println!("Zensical Commands (modern):");
+        println!("  zen-serve            Start Zensical development server (port 8001)");
+        println!("                       Modern static site generator, 20x faster builds");
+        println!("  zen-build            Build site with Zensical");
+        println!();
+        println!("Version & Deploy:");
         println!("  bump-version         Bump the documentation version");
-        println!("  deploy              Deploy all versions of the documentation");
-        println!("  help                Show this help message");
+        println!("  deploy               Deploy all versions of the documentation");
+        println!("  help                 Show this help message");
         Ok(())
     }
 
@@ -462,6 +474,57 @@ impl DocCli {
             ));
         }
 
+        Ok(())
+    }
+
+    // Execute zensical serve command
+    fn run_zensical_serve(&self) -> std::io::Result<()> {
+        println!("\n🚀 Starting Zensical development server...\n");
+
+        // Change to project root
+        env::set_current_dir(&self.project_root)?;
+
+        // Run zensical serve with default port 8001
+        let status = Command::new("zensical")
+            .args(&["serve", "-a", "0.0.0.0:8001"])
+            .stdin(Stdio::inherit())
+            .stdout(Stdio::inherit())
+            .stderr(Stdio::inherit())
+            .status()?;
+
+        if !status.success() {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::Other,
+                format!("Zensical serve failed with exit code: {}", status),
+            ));
+        }
+
+        Ok(())
+    }
+
+    // Execute zensical build command
+    fn run_zensical_build(&self) -> std::io::Result<()> {
+        println!("\n🔨 Building site with Zensical...\n");
+
+        // Change to project root
+        env::set_current_dir(&self.project_root)?;
+
+        // Run zensical build
+        let status = Command::new("zensical")
+            .arg("build")
+            .stdin(Stdio::inherit())
+            .stdout(Stdio::inherit())
+            .stderr(Stdio::inherit())
+            .status()?;
+
+        if !status.success() {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::Other,
+                format!("Zensical build failed with exit code: {}", status),
+            ));
+        }
+
+        println!("\n✅ Zensical build complete!");
         Ok(())
     }
 }

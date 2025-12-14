@@ -63,13 +63,17 @@ jobs:
           # Fetch complete history for proper versioning
           fetch-depth: 0
 
-          # help with speed up of docs builds: https://x.com/squidfunk/status/1705279829770150291
+          # Sparse checkout for faster builds
+          # See: https://x.com/squidfunk/status/1705279829770150291
           sparse-checkout: |
             docs
             mkdocs_plugins
+            scripts/python
             mkdocs.yml
+            zensical.toml
             setup.py
             requirements.txt
+            versions.json
             e2e
 
       - name: Fetch gh-pages branch

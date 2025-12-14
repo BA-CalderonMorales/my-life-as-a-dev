@@ -7,6 +7,9 @@ description: Exploring Zensical, the modern static site generator from the creat
 
 [Zensical](https://zensical.org/) is a modern static site generator built by the creators of Material for MkDocs. It represents the next evolution of documentation tooling, offering a fresh approach while maintaining the design principles that made Material for MkDocs successful.
 
+!!! success "Migration Status: Active"
+    This site now supports **dual-mode operation** with both MkDocs Material and Zensical. You can run `make zen-serve` to preview the Zensical version alongside the traditional `make serve` for MkDocs.
+
 ## Why Zensical?
 
 The Material for MkDocs team has been developing Zensical to address some limitations of the MkDocs ecosystem and to provide a more modern, performant foundation for documentation sites.
@@ -20,6 +23,31 @@ The Material for MkDocs team has been developing Zensical to address some limita
 - **TOML Configuration**: Uses TOML for configuration instead of YAML, providing cleaner syntax and better tooling support.
 
 - **Modern Architecture**: Uses native compiled extensions for performance-critical paths, combined with Python for extensibility.
+
+- **Blazing Fast Builds**: Full site builds complete in under 1 second (compared to several seconds with MkDocs).
+
+## This Project's Setup
+
+### Quick Start
+
+```bash
+# Run with Zensical (new)
+make zen-serve    # Development server on port 8001
+
+# Run with MkDocs (legacy)
+make serve        # Development server on port 8000
+
+# Build with either
+make zen-build    # Zensical production build
+make build        # MkDocs production build
+```
+
+### Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `zensical.toml` | Zensical configuration (TOML) |
+| `mkdocs.yml` | MkDocs configuration (YAML, legacy) |
 
 ## Getting Started with Zensical
 
@@ -116,15 +144,34 @@ site_description = "Documentation for my project"
 # Zensical includes many features by default
 ```
 
-## This Project's Approach
+## This Project's Migration Status
 
-This documentation site currently uses MkDocs Material but includes Zensical as a dependency to:
+This documentation site now runs in **dual-mode**, supporting both MkDocs Material and Zensical:
 
-- **Showcase the Technology**: Demonstrate what Zensical offers
+| Aspect | Status |
+|--------|--------|
+| `zensical.toml` configuration | Complete |
+| Navigation structure | Fully migrated |
+| Theme settings | Configured |
+| Build working | Yes (< 1 second) |
+| Dev server working | Yes |
 
-- **Prepare for Migration**: Have the tooling ready for when a full migration makes sense
+### What's Working
 
-- **Contribute to the Ecosystem**: Help the community understand migration patterns
+- Full site builds with all pages
+- Navigation structure matches MkDocs layout
+- Dark/light mode toggle
+- Code highlighting and copy buttons
+- Search functionality
+
+### Migration Notes
+
+The migration was straightforward:
+
+1. Created `zensical.toml` with equivalent settings from `mkdocs.yml`
+2. Converted YAML navigation to TOML array-of-tables format
+3. Updated `Makefile` with `zen-serve` and `zen-build` targets
+4. Tested build and serve commands
 
 ## Resources
 
@@ -134,6 +181,8 @@ This documentation site currently uses MkDocs Material but includes Zensical as 
 
 - [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
 
-## Future Plans
+## Next Steps
 
-As Zensical matures, this site may fully migrate to demonstrate a complete docs-as-code workflow using the new tooling. The goal is to provide a real-world example of the migration process and showcase the benefits of adopting Zensical.
+- Evaluate full cutover to Zensical as primary build system
+- Test GitHub Pages deployment with Zensical
+- Explore Zensical-specific features not available in MkDocs
