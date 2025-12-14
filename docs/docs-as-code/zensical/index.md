@@ -19,7 +19,7 @@ The Material for MkDocs team has been developing Zensical to address some limita
 
 - **TOML Configuration**: Uses TOML for configuration instead of YAML, providing cleaner syntax and better tooling support.
 
-- **Modern Architecture**: Built with Rust components for performance-critical paths, combined with Python for extensibility.
+- **Modern Architecture**: Uses native compiled extensions for performance-critical paths, combined with Python for extensibility.
 
 ## Getting Started with Zensical
 
