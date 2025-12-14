@@ -53,6 +53,7 @@ Templates are packaged into `.tar` archives and uploaded to Coder for workspace 
 
 Templates include real-time dashboard metrics:
 
+
 - CPU usage (container/host)
 - RAM usage with percentage utilization
 - Disk usage for home directory
@@ -88,6 +89,7 @@ Run the packaging script for your platform:
 ### 3. Template-Specific Setup
 
 Consult the README in each template directory for deployment-specific requirements:
+
 
 - `terminal-jarvis-playground/local-docker/README.md` - Docker Desktop setup
 - `terminal-jarvis-playground/gcp/README.md` - GCP credentials and project configuration
@@ -146,6 +148,7 @@ Google Compute Engine deployment using ephemeral VMs with persistent disks.
 
 Guides for running templates on common cloud free tiers and low-cost infrastructure:
 
+
 - [Docker Desktop (Local Baseline)](https://github.com/BA-CalderonMorales/coder-templates/blob/develop/docs/deployment_models/DockerDesktop.md)
 - [GCP Deployment (Always Free)](https://github.com/BA-CalderonMorales/coder-templates/blob/develop/docs/deployment_models/GCP.md)
 - [AWS Deployment (Free Tier)](https://github.com/BA-CalderonMorales/coder-templates/blob/develop/docs/deployment_models/AWS.md)
@@ -153,6 +156,7 @@ Guides for running templates on common cloud free tiers and low-cost infrastruct
 - [Limitations & Constraints](https://github.com/BA-CalderonMorales/coder-templates/blob/develop/docs/deployment_models/limitations.md)
 
 Each guide covers:
+
 - Recommended instance sizes and limits
 - Optional swap and resource tuning
 - Cost optimization strategies

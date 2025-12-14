@@ -6,6 +6,7 @@ The Fast and Slow Pointers pattern, also known as the Floyd's Cycle Detection al
 
 Use this pattern when:
 
+
 - Detecting cycles in linked lists or sequences
 - Finding the middle of a linked list
 - Determining if a structure is a palindrome
@@ -24,6 +25,7 @@ Use this pattern when:
 ### Why It Works for Cycle Detection
 
 In a cycle:
+
 - Fast pointer enters cycle first
 - Eventually both pointers are in cycle
 - Fast pointer gains on slow pointer by 1 position per iteration
@@ -47,6 +49,7 @@ Output: true
 ### Approach
 
 Use two pointers:
+
 - Slow moves one step per iteration
 - Fast moves two steps per iteration
 - If they meet, there's a cycle
@@ -154,6 +157,7 @@ Output: [3,4,5] (node with value 3)
 ### Approach
 
 Use two pointers:
+
 - When fast pointer reaches end, slow pointer is at middle
 - Fast moves 2x speed, so slow is at halfway point when fast finishes
 
@@ -328,6 +332,7 @@ Phase 2: Find start
 Result: Node with value 2 (cycle start)
 
 Why it works:
+
 - Let's say distance from head to cycle start is 'a'
 - Distance from cycle start to meeting point is 'b'
 - Cycle length is 'c'
@@ -875,6 +880,7 @@ def flatten(head):
 ## Further Learning
 
 The techniques above cover essential linked list manipulations for interviews and real-world applications. For additional perspectives:
+
 
 - **Theoretical Analysis**: Academic resources may provide formal proofs of algorithm correctness
 - **Language-Specific Optimizations**: Different memory management strategies in C++, Java, Python

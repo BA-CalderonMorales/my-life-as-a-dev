@@ -6,6 +6,7 @@ Space complexity measures the amount of memory an algorithm uses relative to its
 
 Space complexity describes how much additional memory an algorithm needs as the input grows. It includes:
 
+
 - **Auxiliary Space**: Extra space used by the algorithm (temporary variables, data structures)
 - **Input Space**: Space needed to store the input (sometimes excluded from analysis)
 
@@ -14,6 +15,7 @@ When we talk about space complexity, we typically refer to auxiliary space.
 ## Big O Notation for Space
 
 Just like time complexity, we use Big O notation to describe space complexity:
+
 
 - **O(1)**: Constant space - uses fixed amount of memory
 - **O(log n)**: Logarithmic space - grows logarithmically with input
@@ -511,6 +513,7 @@ def depth_first_search(node, visited=None):
 ## Further Learning
 
 The analysis techniques and examples above provide comprehensive coverage of space complexity fundamentals. For additional perspectives:
+
 
 - **Formal Analysis**: Academic resources may provide mathematical proofs and formal definitions of auxiliary space
 - **Language-Specific Memory Models**: Different languages have different memory management characteristics (garbage collection, stack vs heap allocation)

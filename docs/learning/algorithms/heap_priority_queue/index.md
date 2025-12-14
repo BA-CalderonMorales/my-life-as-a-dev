@@ -6,6 +6,7 @@ A heap is a tree-based data structure that maintains elements in a specific orde
 
 Use this pattern when:
 
+
 - Need to repeatedly access minimum or maximum element
 - Finding k largest or smallest elements
 - Maintaining a running median or percentile
@@ -21,6 +22,7 @@ Use this pattern when:
 **Max Heap**: Parent ≥ Children (largest at root)
 
 - **Key Operations**
+
     - `push(x)`: Insert element - O(log n)
     - `pop()`: Remove min/max - O(log n)
     - `peek()`: View min/max - O(1)
@@ -52,6 +54,7 @@ Explanation: The array sorted is [1, 2, 3, 4, 5, 6], so 2nd largest is 5
 ### Approach
 
 Use a min heap of size k:
+
 - Maintain k largest elements in heap
 - Smallest of these k elements is at root (kth largest overall)
 - When heap exceeds size k, remove smallest element
@@ -312,14 +315,17 @@ mf.findMedian() -> 2
 ### Approach
 
 Use two heaps to maintain balance:
+
 - **Max heap** (left): Stores smaller half of numbers
 - **Min heap** (right): Stores larger half of numbers
 
 Median is either:
+
 - Middle of max heap (if odd count)
 - Average of both heap tops (if even count)
 
 Maintain heaps such that:
+
 - Sizes differ by at most 1
 - All elements in max heap ≤ all elements in min heap
 
@@ -521,12 +527,14 @@ Beyond basic interview problems, heaps power critical algorithms in production s
 Heaps excel at maintaining the k largest or smallest elements from a stream or large dataset.
 
 - **Real-World Use Cases**
+
     - Top trending topics in social media
     - Top-performing employees or products
     - Monitoring system metrics (top CPU consumers)
     - Recommendation systems (top N items)
 
 - **Why Heaps Win**
+
     - O(log k) insertion vs O(k) for sorted list
     - O(1) access to kth element vs O(k) for unsorted array
     - Memory efficient: only store k elements, not entire dataset
@@ -568,6 +576,7 @@ print(top_k_frequent(posts, 2))  # [1, 4] - top 2 posts
 Heaps are fundamental to efficient graph algorithms, particularly for finding shortest paths.
 
 - **Real-World Use Cases**
+
     - GPS navigation and route planning
     - Network routing protocols
     - Game AI pathfinding
@@ -635,6 +644,7 @@ print(f"Shortest path A to E: {distances['E']}")  # 11
 ```
 
 - **Why Heap Matters**
+
     - Without heap: Must scan all unvisited nodes to find minimum distance - O(V²)
     - With heap: Extract minimum in O(log V) - O((V + E) log V)
     - For sparse graphs (E << V²), heap version is dramatically faster
@@ -644,6 +654,7 @@ print(f"Shortest path A to E: {distances['E']}")  # 11
 Huffman encoding builds optimal prefix-free codes for data compression using a heap-based greedy algorithm.
 
 - **Real-World Use Cases**
+
     - File compression (ZIP, GZIP)
     - Image formats (JPEG uses variant)
     - Network data transmission
@@ -754,11 +765,13 @@ assert decoded == text, "Encoding/decoding failed!"
 ```
 
 - **Compression Analysis**
+
     - Fixed-length encoding: Each character = 8 bits (ASCII)
     - Huffman encoding: Frequent characters get shorter codes
     - Typical compression: 20-90% depending on text redundancy
 
 - **Why Heap Is Essential**
+
     - Greedy algorithm requires repeatedly finding minimum frequency nodes
     - Heap makes this O(log n) per merge
     - Without heap: O(n) scan each time → O(n²) total
@@ -767,6 +780,7 @@ assert decoded == text, "Encoding/decoding failed!"
 ## Further Learning
 
 The applications above provide comprehensive coverage of heap usage in real systems. For additional perspectives and examples:
+
 
 - **Advanced Heap Applications**: The external resource "Three Must-Know Applications of Heap Data Structures" offers alternative explanations and additional edge cases for these same topics.
 - **Practice**: Implement these algorithms from scratch, then optimize. Understanding *why* heaps are chosen (vs alternatives) is more valuable than memorizing code.

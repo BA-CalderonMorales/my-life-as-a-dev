@@ -10,6 +10,7 @@ Some AI tools use browser-based authentication flows that can be challenging in 
 
 **Affected Tools**:
 
+
 - Claude (`/auth` command)
 - Gemini (`/config` command)  
 - Qwen (dashboard authentication)
@@ -23,6 +24,7 @@ Terminal Jarvis detects when tools are performing authentication and displays:
 ```
 
 **Why This Happens**:
+
 
 - Tools may exit after authentication setup
 - Browser windows opened for login
@@ -61,6 +63,7 @@ npm install -g terminal-jarvis
 **Current Status**: Terminal Jarvis works on Windows via WSL (Windows Subsystem for Linux)
 
 **Limitations**:
+
 
 - Native Windows PowerShell support is limited
 - Some tools may not work natively on Windows
@@ -185,6 +188,7 @@ terminal-jarvis install aider
 
 **Current**: Terminal Jarvis requires internet for:
 
+
 - Tool installation
 - Tool updates
 - API key validation (for some tools)
@@ -211,6 +215,7 @@ export HTTPS_PROXY=http://proxy.example.com:8080
 ### NPM vs Cargo vs Homebrew
 
 **Behavioral Differences**:
+
 
 - **NPM**: Includes TypeScript wrapper, NPX support
 - **Cargo**: Pure Rust binary, fastest startup
@@ -239,6 +244,7 @@ export HTTPS_PROXY=http://proxy.example.com:8080
 **Limitation**: No encrypted credential storage yet
 
 **Best Practice**:
+
 
 - Use `.env` files (add to `.gitignore`)
 - Set session-specific variables

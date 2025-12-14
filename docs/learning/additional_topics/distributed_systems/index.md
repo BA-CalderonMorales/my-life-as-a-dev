@@ -38,6 +38,7 @@ In a distributed system, "now" is a fuzzy concept.
 ## Consistency Models
 From strongest to weakest:
 
+
 - **Strict Consistency**: Instant global replication. Impossible in practice (speed of light).
 - **Linearizability (Strong)**: Operations appear instantaneous. Once a write completes, all future reads see it.
 - **Sequential Consistency**: Operations from the same process are in order; global order is consistent across processes.

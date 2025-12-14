@@ -156,6 +156,7 @@ nav:
       - Stack & Tooling: docs-as-code/stack/index.md
       - Quality & Style: docs-as-code/quality/index.md
       - AI & Security Posture: docs-as-code/ai_security/index.md
+      - Zensical: docs-as-code/zensical/index.md
   
   - Projects:
       - Overview: projects/index.md

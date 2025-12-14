@@ -77,6 +77,7 @@ command = "./scripts/hello.sh"
 For comprehensive documentation, visit the [GitHub repository](https://github.com/BA-CalderonMorales/terminal-screensaver).
 
 Key documentation files:
+
 - [Architecture](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/architecture.md)
 - [Features Guide](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/features.md)
 - [Configuration Guide](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/configuration.md)

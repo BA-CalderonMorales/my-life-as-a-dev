@@ -6,6 +6,7 @@ The Two Pointers pattern uses two references to traverse a data structure, often
 
 Use this pattern when:
 
+
 - Processing sorted arrays or lists
 - Finding pairs or triplets with specific properties
 - Partitioning arrays based on conditions
@@ -17,16 +18,19 @@ Use this pattern when:
 ### Common Variations
 
 - **Opposite Ends**
+
     - Start pointers at beginning and end
     - Move toward each other based on conditions
     - Useful for: pair sums, palindromes, container problems
 
 - **Same Direction**
+
     - Both pointers move forward
     - Fast pointer explores, slow pointer maintains position
     - Useful for: removing duplicates, partitioning
 
 - **Different Speeds**
+
     - Pointers move at different rates
     - See Fast and Slow Pointers pattern
 
@@ -49,6 +53,7 @@ Explanation: 2 + 7 = 9
 ### Approach
 
 Since array is sorted:
+
 - Start with pointers at both ends
 - If sum too small, move left pointer right
 - If sum too large, move right pointer left
@@ -129,6 +134,7 @@ Explanation: Container formed by heights at index 1 and 8 (8 and 7)
 Water capacity = min(height[left], height[right]) * (right - left)
 
 Strategy:
+
 - Start with widest container (pointers at ends)
 - Move pointer with shorter height inward
 - Track maximum area seen
@@ -219,6 +225,7 @@ Explanation: First 5 elements are [0, 1, 2, 3, 4]
 ### Approach
 
 Use two pointers:
+
 - Slow pointer: tracks position for next unique element
 - Fast pointer: explores array to find unique elements
 - When fast pointer finds new unique element, place it at slow pointer position
@@ -718,6 +725,7 @@ def three_pointers_example(arr1, arr2, arr3):
 ## Further Learning
 
 The templates and patterns above provide systematic approaches to recognize and solve two-pointer problems efficiently. For additional perspectives:
+
 
 - **String-Specific Optimizations**: Some resources focus on string manipulation with two pointers
 - **Advanced Variations**: Problems combining two pointers with other techniques (binary search, hash tables)
