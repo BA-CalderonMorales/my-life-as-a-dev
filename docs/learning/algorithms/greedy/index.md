@@ -67,6 +67,7 @@ Explanation: You will always arrive at index 3, which has 0 jump length
 ### Approach
 
 Greedy approach: Track maximum reachable index
+
 - Start from position 0
 - At each position, update farthest reachable index
 - If current position exceeds farthest, can't proceed

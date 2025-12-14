@@ -255,9 +255,11 @@ Output: Node with value 2 (cycle starts here)
 Two-phase algorithm:
 
 **Phase 1**: Detect cycle (same as Problem 1)
+
 - If no cycle, return None
 
 **Phase 2**: Find cycle start
+
 - Reset one pointer to head
 - Move both pointers one step at a time
 - Where they meet is the cycle start
