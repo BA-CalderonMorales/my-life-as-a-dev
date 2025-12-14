@@ -197,6 +197,7 @@ npm/terminal-jarvis/
 
 The authentication manager detects various environments:
 
+
 - **CI/CD Systems**: GitHub Actions, GitLab CI, CircleCI, Travis CI
 - **Cloud Environments**: Codespaces, Gitpod, Cloud9
 - **SSH Sessions**: Remote terminal sessions
@@ -361,6 +362,7 @@ Terminal Jarvis has 33 comprehensive tests covering:
 
 The `api/` domain is prepared for:
 
+
 - RESTful API endpoints
 - Tool management via HTTP
 - Remote tool execution
@@ -369,6 +371,7 @@ The `api/` domain is prepared for:
 ### Plugin System
 
 Future support for:
+
 
 - Custom tool definitions
 - User-contributed integrations

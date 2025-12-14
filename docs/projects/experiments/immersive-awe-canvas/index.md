@@ -29,10 +29,12 @@ Immersive Awe Canvas is a web-based application that allows users to explore and
 
 This project follows a consistent framework architecture with `agents/` directory structure:
 
+
 - **agents/RULES.md**: Repository workflow rules and development guidelines
 - **agents/MEMORY.md**: Comprehensive development guidelines for all LLMs/agents
 
 This framework provides:
+
 
 - **Consistent Structure**: Standardized approach across all repositories
 - **Easy Adoption**: Framework can be easily adopted by other developers

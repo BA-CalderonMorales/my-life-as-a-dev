@@ -16,6 +16,7 @@ Quick validation of core functionality:
 
 **What it tests**:
 
+
 - CLI help commands
 - Tool listing
 - Configuration loading
@@ -33,6 +34,7 @@ Comprehensive test suite (33 tests):
 ```
 
 **What it tests**:
+
 
 - All 10 AI tools are available
 - Installation commands work
@@ -52,6 +54,7 @@ Full CI pipeline validation:
 ```
 
 **What it does**:
+
 
 - Code formatting (`cargo fmt`)
 - Linting (`cargo clippy`)
@@ -146,6 +149,7 @@ Terminal Jarvis includes comprehensive Homebrew Formula testing:
 
 **What it tests**:
 
+
 - Formula syntax validation
 - Cross-platform archive creation (macOS/Linux)
 - SHA256 checksum verification
@@ -160,6 +164,7 @@ Terminal Jarvis includes comprehensive Homebrew Formula testing:
 ```
 
 **Supported platforms**:
+
 
 - macOS ARM64 (Apple Silicon)
 - macOS x86_64 (Intel)
@@ -222,6 +227,7 @@ This ensures that new features are protected against future regressions.
 
 **Quality Gates**:
 
+
 - All tests must pass before merging
 - Code coverage should not decrease
 - Performance regressions are caught
@@ -230,6 +236,7 @@ This ensures that new features are protected against future regressions.
 ## Continuous Integration
 
 Terminal Jarvis uses GitHub Actions for CI:
+
 
 - Run on every pull request
 - Run on push to main branch

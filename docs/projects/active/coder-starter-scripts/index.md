@@ -86,6 +86,7 @@ The start scripts will automatically download and install Coder if it's not foun
 
 Scripts follow a strict policy of never committing the Coder binary to version control:
 
+
 - Binaries are downloaded on-demand from GitHub releases
 - Codespaces script isolates downloads in `.bin/` directory (gitignored)
 - Legacy platform scripts download to project root (also gitignored)
@@ -111,6 +112,7 @@ Each script implements a multi-method fallback approach:
 
 The `start.gh.codespaces.sh` script is purpose-built for ephemeral environments:
 
+
 - No privileged operations (no sudo/apt)
 - Strict error handling (`set -euo pipefail`)
 - Robust version detection with API rate limit fallback
@@ -134,6 +136,7 @@ rm -f .bin/coder && ./start.gh.codespaces.sh
 
 The Windows script includes PostgreSQL directory management:
 
+
 - Loads `.env` file if present (for `POSTGRES_DIR` override)
 - Defaults to `$HOME/AppData/Roaming/coderv2/postgres`
 - Removes and recreates directory on each startup for clean state
@@ -155,6 +158,7 @@ This project is explicitly scoped for local development and evaluation:
 For comprehensive documentation, visit the [GitHub repository](https://github.com/BA-CalderonMorales/coder-starter-scripts).
 
 Key documentation files:
+
 - [Quick Start Guide](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/QUICK_START.md)
 - [Maintainer Guide](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/MAINTAINER.md)
 - [Project Instructions](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/CLAUDE.md)

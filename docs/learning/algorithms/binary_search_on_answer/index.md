@@ -6,6 +6,7 @@ Binary Search on Answer is a technique where you use binary search not to find a
 
 Use this pattern when:
 
+
 - You need to find minimum or maximum value satisfying constraints
 - Brute force would check every possible value (too slow)
 - You can verify if a candidate answer works in reasonable time
@@ -44,6 +45,7 @@ Explanation: Ship with capacity 15 can ship all packages in 5 days
 ### Approach
 
 Key observations:
+
 - Minimum capacity: maximum single package weight (must fit largest)
 - Maximum capacity: sum of all weights (ship everything in 1 day)
 - For any capacity, we can check if it allows shipping in D days
@@ -179,6 +181,7 @@ Explanation: Speed 4 allows eating all bananas in 8 hours
 ### Approach
 
 Key observations:
+
 - Minimum speed: 1 banana/hour
 - Maximum speed: max(piles) - eat any pile in 1 hour
 - For any speed k, we can calculate hours needed
@@ -296,6 +299,7 @@ Explanation: At time 3, trips: bus1=3, bus2=1, bus3=1, total=5
 ### Approach
 
 Key observations:
+
 - Minimum time: 1 (theoretical minimum)
 - Maximum time: min(time) * totalTrips (slowest scenario)
 - For any time t, we can calculate total trips possible

@@ -6,6 +6,7 @@ A monotonic stack is a stack that maintains elements in a monotonically increasi
 
 Use this pattern when:
 
+
 - Finding next greater or smaller element
 - Finding previous greater or smaller element
 - Calculating spans or ranges based on comparisons
@@ -18,10 +19,12 @@ Use this pattern when:
 ### Monotonic Stack Types
 
 **Monotonically Increasing Stack**: Elements increase from bottom to top
+
 - Pop smaller elements when adding larger
 - Helps find next smaller element
 
 **Monotonically Decreasing Stack**: Elements decrease from bottom to top
+
 - Pop larger elements when adding smaller
 - Helps find next greater element
 
@@ -56,6 +59,7 @@ Explanation: Day 0: next warmer is day 1 (1 day later)
 ### Approach
 
 Use monotonically decreasing stack:
+
 - Stack stores indices of temperatures
 - When we find warmer temperature, pop all cooler days
 - Distance between indices gives days to wait
@@ -177,6 +181,7 @@ Explanation: Rectangle of height 5 and width 2 (positions 2-3)
 ### Approach
 
 Use monotonically increasing stack:
+
 - Stack stores indices of bars
 - When shorter bar found, calculate rectangles for taller bars
 - Width extends from current position back to previous bar in stack

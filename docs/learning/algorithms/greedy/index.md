@@ -6,6 +6,7 @@ Greedy algorithms make locally optimal choices at each step with the hope of fin
 
 Use this pattern when:
 
+
 - Problem has optimal substructure
 - Greedy choice property holds (local optimum leads to global optimum)
 - Activity selection or scheduling problems
@@ -32,11 +33,13 @@ A greedy algorithm must satisfy:
 ### Greedy vs Dynamic Programming
 
 - **Use Greedy when**
+
     - Local optimum always leads to global
     - No overlapping subproblems to store
     - Typically O(n log n) due to sorting
 
 - **Use DP when**
+
     - Need to consider all possibilities
     - Overlapping subproblems exist
     - Greedy doesn't guarantee optimality
@@ -64,6 +67,7 @@ Explanation: You will always arrive at index 3, which has 0 jump length
 ### Approach
 
 Greedy approach: Track maximum reachable index
+
 - Start from position 0
 - At each position, update farthest reachable index
 - If current position exceeds farthest, can't proceed

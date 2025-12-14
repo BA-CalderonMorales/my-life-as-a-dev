@@ -405,6 +405,7 @@ print(rsq.range_sum(0, 4))  # Total change = 3
 ```
 
 - **Applications**
+
     - Subarray sum problems
     - Image processing (summed-area tables)
     - Database query optimization
@@ -493,6 +494,7 @@ print(f"Min price all days: ${st.range_min(0, 5)}")  # 70
 ```
 
 - **When to Use Sparse Table**
+
     - Array is static (no updates between queries)
     - Need O(1) query time
     - Many queries on same array
@@ -552,6 +554,7 @@ print(f"Max concurrent events: {max(load)}")  # 3
 ```
 
 - **Applications**
+
     - Calendar applications (booking conflicts)
     - Network bandwidth allocation
     - Task scheduling
@@ -640,6 +643,7 @@ print(f"Average: {avg}")  # (10+20+40+50)/4 = 30
 ```
 
 - **Applications**
+
     - Fast box blur filters
     - Haar feature calculation (face detection)
     - Template matching
@@ -742,6 +746,7 @@ def histogram_equalization(image):
 ```
 
 - **Applications**
+
     - Contrast enhancement
     - Thresholding (segmentation)
     - Color correction
@@ -816,6 +821,7 @@ def count_nodes(node):
 ```
 
 - **Applications**
+
     - Image compression
     - Collision detection in games
     - Spatial indexing
@@ -824,6 +830,7 @@ def count_nodes(node):
 ## Further Learning
 
 The techniques and structures above provide production-ready implementations for real-world scenarios. For additional perspectives:
+
 
 - **Comprehensive Array Fundamentals**: External resources may offer alternative explanations of 1D/2D/3D arrays and dynamic array implementation details
 - **Advanced Range Query Optimizations**: Some resources cover additional data structures like Segment Trees and Fenwick Trees for updateable range queries
