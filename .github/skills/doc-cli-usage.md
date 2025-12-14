@@ -5,6 +5,7 @@ Use the Rust-based documentation CLI for common tasks.
 ## When to Use
 
 - Starting development environment
+- Building documentation
 - Deploying documentation
 - Bumping versions
 - Any routine documentation task
@@ -12,13 +13,10 @@ Use the Rust-based documentation CLI for common tasks.
 ## Running Doc-CLI
 
 ```bash
-# From project root
-doc-cli
-
-# Or using wrapper script
+# Recommended: wrapper script (builds if needed)
 ./doc-cli.sh
 
-# Or direct binary
+# Or direct binary (if already built)
 ./scripts/rust/target/release/doc-cli
 ```
 
@@ -27,36 +25,56 @@ doc-cli
 Run without arguments for interactive menu:
 
 ```bash
-doc-cli
+./doc-cli.sh
 ```
 
 Shows menu:
-1. Startup - Setup and serve
-2. Bump Version - Create new version
-3. Deploy - Publish to GitHub Pages
-4. Help - Show commands
+1. startup - Start MkDocs dev server (legacy)
+2. zen-serve - Start Zensical dev server (recommended)
+3. zen-build - Build with Zensical
+4. bump-version - Create new version
+5. deploy - Publish to GitHub Pages
+h. help - Show commands
 
 ## Commands
 
-### startup
+### zen-serve (Recommended)
 
-Setup dependencies and start dev server:
+Start Zensical development server:
+
+```bash
+./doc-cli.sh zen-serve
+```
+
+Features:
+- 20x faster builds than MkDocs
+- Hot reload on file changes
+- Runs on port 8001
+
+### zen-build
+
+Build site with Zensical:
+
+```bash
+./doc-cli.sh zen-build
+```
+
+Output goes to `site/` directory.
+
+### startup (Legacy)
+
+Start MkDocs development server:
 
 ```bash
 # In Codespaces (auto-detected)
-doc-cli startup
+./doc-cli.sh startup
 
 # Local development
-doc-cli startup --local
+./doc-cli.sh startup --local
 
 # With full rebuilds (when hot reload misbehaves)
-doc-cli startup --local --clean
+./doc-cli.sh startup --local --clean
 ```
-
-Does:
-- Installs Python dependencies
-- Registers local plugins
-- Starts MkDocs serve with hot reload
 
 Options:
 - `--local` - Required for local development (outside Codespaces)
@@ -67,7 +85,7 @@ Options:
 Create new documentation version:
 
 ```bash
-doc-cli bump-version
+./doc-cli.sh bump-version
 ```
 
 Prompts for:
@@ -79,10 +97,10 @@ Prompts for:
 Deploy to GitHub Pages:
 
 ```bash
-doc-cli deploy
+./doc-cli.sh deploy
 
 # Force redeploy
-doc-cli deploy --force
+./doc-cli.sh deploy --force
 ```
 
 ### help
@@ -90,12 +108,12 @@ doc-cli deploy --force
 Show available commands:
 
 ```bash
-doc-cli help
+./doc-cli.sh help
 ```
 
 ## Building Doc-CLI
 
-If binary doesn't exist:
+The wrapper script builds automatically, but if needed:
 
 ```bash
 cd scripts/rust
@@ -109,11 +127,11 @@ Binary location: `scripts/rust/target/release/doc-cli`
 ### Command Not Found
 
 ```bash
-# Use full path
-./scripts/rust/target/release/doc-cli
+# Use wrapper script
+./doc-cli.sh
 
-# Or add to PATH
-export PATH=$PATH:$(pwd)/scripts/rust/target/release
+# Or full path to binary
+./scripts/rust/target/release/doc-cli
 ```
 
 ### Build Errors
@@ -124,27 +142,39 @@ cargo clean
 cargo build --release
 ```
 
+### Port Already in Use
+
+```bash
+# Kill existing servers
+pkill -f zensical
+pkill -f mkdocs
+
+# Then restart
+./doc-cli.sh zen-serve
+```
+
 ### WSL Issues
 
 If doc-cli misbehaves on WSL, use make commands directly:
 
 ```bash
 make setup
-make serve
+make zen-serve
 ```
 
 ## When to Use What
 
-| Task | Use |
-|------|-----|
-| First time setup | `doc-cli startup` |
-| Daily development | `make serve` |
-| Building docs | `make build` |
-| New version | `doc-cli bump-version` |
-| Deploy | `doc-cli deploy` |
+| Task | Command |
+|------|---------|
+| Daily development | `./doc-cli.sh zen-serve` or `make zen-serve` |
+| Build only | `./doc-cli.sh zen-build` or `make zen-build` |
+| First time setup | `make setup` |
+| New version | `./doc-cli.sh bump-version` |
+| Deploy | `./doc-cli.sh deploy` |
+| MkDocs (legacy) | `./doc-cli.sh startup --local` |
 
 ## Checklist
 
-- [ ] Binary exists at expected path
+- [ ] Wrapper script exists: `./doc-cli.sh`
 - [ ] Running from project root
 - [ ] Virtual environment active (for Python operations)

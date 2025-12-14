@@ -1,6 +1,6 @@
 # Skill: Build and Test Documentation
 
-Build, test, and serve the MkDocs documentation site.
+Build, test, and serve the documentation site using Zensical (recommended) or MkDocs.
 
 ## When to Use
 
@@ -12,18 +12,32 @@ Build, test, and serve the MkDocs documentation site.
 ## Quick Commands
 
 ```bash
-# Full setup (first time or after dependency changes)
-make setup
+# Build and serve with Zensical (recommended, 20x faster)
+make zen-serve
 
-# Build site (validates all pages)
-make build
+# Or using doc-cli
+./doc-cli.sh zen-serve
 
-# Serve locally with hot reload
+# Build only (no serve)
+make zen-build
+```
+
+### Legacy MkDocs Commands
+
+```bash
+# Serve with MkDocs (legacy, slower)
 make serve
 
-# Build with strict mode (catches all warnings as errors)
-PYTHONPATH=$(pwd) mkdocs build --strict
+# Build with MkDocs
+make build
 ```
+
+## Build Systems Comparison
+
+| System | Build Time | Use Case |
+|--------|------------|----------|
+| Zensical | ~0.4s | Primary development, production |
+| MkDocs | ~8s | Legacy support, versioning with mike |
 
 ## Build Process
 
@@ -35,44 +49,62 @@ make setup
 
 This installs:
 - Python dependencies from `requirements.txt`
+- Zensical and MkDocs
 - Local plugins from `mkdocs_plugins/` (editable install)
 
 ### 2. Build
 
 ```bash
+# Zensical (recommended)
+make zen-build
+
+# MkDocs (legacy)
 make build
 ```
 
 Output goes to `site/` directory. Build will:
 - Compile all markdown to HTML
-- Process plugins (git dates, search, etc.)
+- Process navigation structure
 - Validate internal links
-- Report missing nav entries
 
 ### 3. Serve Locally
 
 ```bash
+# Zensical on port 8001 (recommended)
+make zen-serve
+
+# MkDocs on port 8000 (legacy)
 make serve
 ```
 
-Opens at http://127.0.0.1:8000 with:
+Zensical features:
+- Blazing fast rebuilds (~0.4s)
 - Hot reload on file changes
-- Fast rebuilds (dirty mode)
-- Theme watching
+- Modern architecture
 
-If hot reload stops working, use `make serve-clean` or see [Hot Reload Troubleshooting](hot-reload-troubleshooting.md).
+If MkDocs hot reload stops working, use `make serve-clean` or see [Hot Reload Troubleshooting](hot-reload-troubleshooting.md).
+
+## Using Doc-CLI
+
+The doc-cli provides an interactive menu:
+
+```bash
+./doc-cli.sh
+```
+
+Available commands:
+- `zen-serve` - Start Zensical dev server (port 8001)
+- `zen-build` - Build with Zensical
+- `startup` - Start MkDocs dev server (legacy)
 
 ## Environment Variables
 
 ```bash
-# Custom server address
+# Custom Zensical server address
+ZENSICAL_DEV_ADDR=0.0.0.0:8080 make zen-serve
+
+# Custom MkDocs server address
 MKDOCS_DEV_ADDR=0.0.0.0:8080 make serve
-
-# Enable git authors plugin (slow, disabled by default)
-ENABLE_GIT_AUTHORS=true make build
-
-# Enable print site plugin
-ENABLE_PRINT_SITE=true make build
 ```
 
 ## Troubleshooting
@@ -81,11 +113,18 @@ ENABLE_PRINT_SITE=true make build
 
 Expected for problem sub-pages. These are linked from parent pages, not nav.
 
-### "No git logs" Warning
+### Port Already in Use
 
-Normal for new files not yet committed.
+```bash
+# Kill existing server
+pkill -f zensical
+pkill -f mkdocs
 
-### Import Errors
+# Then restart
+make zen-serve
+```
+
+### Import Errors (MkDocs only)
 
 ```bash
 # Ensure PYTHONPATH is set
@@ -93,26 +132,11 @@ export PYTHONPATH=$PYTHONPATH:$(pwd)
 make build
 ```
 
-### Plugin Errors
-
-```bash
-# Reinstall local plugins
-uv pip install -e .
-```
-
-## Strict Mode
-
-For CI-like validation:
-
-```bash
-PYTHONPATH=$(pwd) mkdocs build --strict 2>&1 | grep -E "ERROR|WARNING"
-```
-
 ## Checklist
 
 - [ ] Run `make setup` if dependencies changed
-- [ ] Run `make build` to validate
+- [ ] Run `make zen-build` to validate
 - [ ] Check for ERROR messages
-- [ ] Run `make serve` to preview
+- [ ] Run `make zen-serve` to preview
 - [ ] Verify navigation works
 - [ ] Check responsive layout
