@@ -118,17 +118,60 @@ nav:
           - Overview: learning/algorithms/index.md
           - Arrays: learning/algorithms/arrays/index.md
           - Hash Tables: learning/algorithms/hash_tables/index.md
-          - Sliding Window: learning/algorithms/sliding_window/index.md
-          - Dynamic Programming: learning/algorithms/dynamic_programming/index.md
-          - Two Pointers: learning/algorithms/two_pointers/index.md
-          - Fast & Slow Pointers: learning/algorithms/fast_slow_pointers/index.md
-          - Backtracking: learning/algorithms/backtracking/index.md
-          - Binary Search on Answer: learning/algorithms/binary_search_on_answer/index.md
-          - Greedy: learning/algorithms/greedy/index.md
-          - Heap / Priority Queue: learning/algorithms/heap_priority_queue/index.md
-          - Monotonic Stack: learning/algorithms/monotonic_stack/index.md
-          - Graph Traversal: learning/algorithms/graph_traversal/index.md
-          - Trie: learning/algorithms/trie/index.md
+          - Sliding Window:
+              - Overview: learning/algorithms/sliding_window/index.md
+              - Problems:
+                  - Max Sum Subarray K: learning/algorithms/sliding_window/problems/max_sum_subarray_k.md
+                  - Longest Substring No Repeat: learning/algorithms/sliding_window/problems/longest_substring_no_repeat.md
+          - Dynamic Programming:
+              - Overview: learning/algorithms/dynamic_programming/index.md
+              - Problems:
+                  - Climbing Stairs: learning/algorithms/dynamic_programming/problems/climbing_stairs.md
+                  - House Robber: learning/algorithms/dynamic_programming/problems/house_robber.md
+                  - Coin Change: learning/algorithms/dynamic_programming/problems/coin_change.md
+          - Two Pointers:
+              - Overview: learning/algorithms/two_pointers/index.md
+              - Problems:
+                  - Two Sum Sorted: learning/algorithms/two_pointers/problems/two_sum_sorted.md
+                  - Container With Most Water: learning/algorithms/two_pointers/problems/container_with_most_water.md
+          - Fast & Slow Pointers:
+              - Overview: learning/algorithms/fast_slow_pointers/index.md
+              - Problems:
+                  - Linked List Cycle: learning/algorithms/fast_slow_pointers/problems/linked_list_cycle.md
+                  - Middle of Linked List: learning/algorithms/fast_slow_pointers/problems/middle_of_linked_list.md
+                  - Linked List Cycle II: learning/algorithms/fast_slow_pointers/problems/linked_list_cycle_ii.md
+          - Backtracking:
+              - Overview: learning/algorithms/backtracking/index.md
+              - Problems:
+                  - Subsets: learning/algorithms/backtracking/problems/subsets.md
+                  - Permutations: learning/algorithms/backtracking/problems/permutations.md
+                  - N-Queens: learning/algorithms/backtracking/problems/n_queens.md
+          - Binary Search on Answer:
+              - Overview: learning/algorithms/binary_search_on_answer/index.md
+              - Problems:
+                  - Capacity To Ship Packages: learning/algorithms/binary_search_on_answer/problems/capacity_to_ship_packages.md
+                  - Koko Eating Bananas: learning/algorithms/binary_search_on_answer/problems/koko_eating_bananas.md
+                  - Minimum Time Complete Trips: learning/algorithms/binary_search_on_answer/problems/minimum_time_complete_trips.md
+          - Greedy:
+              - Overview: learning/algorithms/greedy/index.md
+              - Problems:
+                  - Jump Game: learning/algorithms/greedy/problems/jump_game.md
+          - Heap / Priority Queue:
+              - Overview: learning/algorithms/heap_priority_queue/index.md
+              - Problems:
+                  - Kth Largest Element: learning/algorithms/heap_priority_queue/problems/kth_largest_element.md
+          - Monotonic Stack:
+              - Overview: learning/algorithms/monotonic_stack/index.md
+              - Problems:
+                  - Daily Temperatures: learning/algorithms/monotonic_stack/problems/daily_temperatures.md
+          - Graph Traversal:
+              - Overview: learning/algorithms/graph_traversal/index.md
+              - Problems:
+                  - Number of Islands: learning/algorithms/graph_traversal/problems/number_of_islands.md
+          - Trie:
+              - Overview: learning/algorithms/trie/index.md
+              - Problems:
+                  - Implement Trie: learning/algorithms/trie/problems/implement_trie.md
           - Space Complexity: learning/algorithms/space_complexity/index.md
       - Data Structures:
           - Overview: learning/data_structures/index.md
