@@ -1,4 +1,5 @@
 use std::env;
+use std::fs;
 use std::io::{self, Write};
 use std::path::PathBuf;
 use std::process::{Command, Stdio};
@@ -71,9 +72,6 @@ impl DocCli {
             }
         };
 
-        println!("Debug - script_path: {:?}", script_path);
-        println!("Debug - project_root: {:?}", project_root);
-
         // Process command line arguments
         let mut filtered_args = Vec::new();
 
@@ -121,12 +119,15 @@ impl DocCli {
         println!("  2. build         - Build site with Zensical");
         println!("  3. bump-version  - Bump the documentation version");
         println!("  4. deploy        - Deploy all versions to GitHub Pages");
+        println!("  5. info          - Show project structure and config info");
+        println!("  6. validate      - Validate site configuration");
+        println!("  7. nav-check     - Check for pages not in navigation");
         println!("  h. help          - Show command help information");
         println!();
         println!("Tip: For local development: ./doc-cli serve");
-        println!("Tip: Legacy MkDocs: ./doc-cli mkdocs-serve");
+        println!("Tip: Agent commands: info, validate, nav-check");
         println!();
-        print!("Enter your choice (1-4 or h) or command name: ");
+        print!("Enter your choice (1-7 or h) or command name: ");
         io::stdout().flush()?;
         Ok(())
     }
@@ -144,6 +145,9 @@ impl DocCli {
             "2" | "build" => self.handle_command("build"),
             "3" | "bump-version" => self.handle_command("bump-version"),
             "4" | "deploy" => self.handle_command("deploy"),
+            "5" | "info" => self.handle_command("info"),
+            "6" | "validate" => self.handle_command("validate"),
+            "7" | "nav-check" => self.handle_command("nav-check"),
             "h" | "help" => {
                 Self::show_help()?;
                 Ok(())
@@ -166,13 +170,16 @@ impl DocCli {
             "deploy" | "deploy-all-versions" | "deploy_all_versions" => {
                 self.run_deploy_all_versions()
             }
+            "info" => self.run_info(),
+            "validate" => self.run_validate(),
+            "nav-check" | "nav_check" => self.run_nav_check(),
             "help" | "--help" | "-h" => {
                 Self::show_help()?;
                 Ok(())
             }
             _ => {
                 eprintln!("Unknown command: {}", command);
-                eprintln!("Available commands: serve, build, mkdocs-serve, bump-version, deploy, help");
+                eprintln!("Available commands: serve, build, info, validate, nav-check, bump-version, deploy, help");
                 eprintln!("Use 'doc-cli help' to see more details about available commands.");
                 std::process::exit(1);
             }
@@ -189,6 +196,14 @@ impl DocCli {
         println!("                       Modern static site generator, 20x faster builds");
         println!("  build                Build site with Zensical");
         println!();
+        println!("Agent & Validation Commands:");
+        println!("  info                 Show project structure and configuration info");
+        println!("                       Useful for understanding the project layout");
+        println!("  validate             Validate site configuration (zensical.toml)");
+        println!("                       Checks for syntax errors and missing files");
+        println!("  nav-check            Check for markdown files not in navigation");
+        println!("                       Reports pages that may be orphaned");
+        println!();
         println!("Legacy Commands (MkDocs):");
         println!("  mkdocs-serve         Start MkDocs development environment");
         println!("                       Sets up MkDocs with mike for versioned documentation");
@@ -204,6 +219,10 @@ impl DocCli {
         println!("  bump-version         Bump the documentation version");
         println!("  deploy               Deploy all versions of the documentation");
         println!("  help                 Show this help message");
+        println!();
+        println!("Configuration:");
+        println!("  Primary config: zensical.toml (recommended for new development)");
+        println!("  Legacy config:  mkdocs.yml (for MkDocs compatibility)");
         Ok(())
     }
 
@@ -524,5 +543,291 @@ impl DocCli {
 
         println!("\n✅ Zensical build complete!");
         Ok(())
+    }
+
+    // Show project info - useful for agents to understand the project structure
+    fn run_info(&self) -> std::io::Result<()> {
+        println!("\n📁 Project Information");
+        println!("{}", "=".repeat(60));
+        
+        println!("\n📍 Paths:");
+        println!("  Project root:    {}", self.project_root.display());
+        println!("  Docs directory:  {}/docs", self.project_root.display());
+        println!("  Overrides:       {}/docs/overrides", self.project_root.display());
+        println!("  Stylesheets:     {}/docs/stylesheets", self.project_root.display());
+        
+        println!("\n📄 Configuration Files:");
+        let zensical_path = self.project_root.join("zensical.toml");
+        let mkdocs_path = self.project_root.join("mkdocs.yml");
+        
+        if zensical_path.exists() {
+            println!("  ✅ zensical.toml  (primary - Zensical config)");
+        } else {
+            println!("  ❌ zensical.toml  (missing)");
+        }
+        
+        if mkdocs_path.exists() {
+            println!("  ✅ mkdocs.yml     (legacy - MkDocs config)");
+        } else {
+            println!("  ❌ mkdocs.yml     (missing)");
+        }
+        
+        println!("\n📂 Key Directories:");
+        let key_dirs = [
+            ("docs", "Documentation source files"),
+            ("docs/overrides", "Theme overrides and partials"),
+            ("docs/overrides/partials", "Custom partial templates"),
+            ("docs/stylesheets", "Custom CSS styles"),
+            ("docs/assets", "Static assets (images, etc.)"),
+            ("scripts/rust", "Rust CLI tools source"),
+        ];
+        
+        for (dir, desc) in key_dirs.iter() {
+            let path = self.project_root.join(dir);
+            if path.exists() {
+                println!("  ✅ {}  - {}", dir, desc);
+            } else {
+                println!("  ❌ {}  - {} (missing)", dir, desc);
+            }
+        }
+        
+        // Count markdown files
+        let docs_path = self.project_root.join("docs");
+        if docs_path.exists() {
+            let md_count = Self::count_files_with_extension(&docs_path, "md");
+            println!("\n📊 Statistics:");
+            println!("  Markdown files:  {}", md_count);
+        }
+        
+        println!("\n💡 Tips for Agents:");
+        println!("  - Use 'validate' to check configuration syntax");
+        println!("  - Use 'nav-check' to find orphaned pages");
+        println!("  - Use 'build' to verify all pages compile correctly");
+        println!("  - Primary config is zensical.toml (preferred over mkdocs.yml)");
+        
+        Ok(())
+    }
+    
+    // Count files with a specific extension recursively
+    fn count_files_with_extension(dir: &PathBuf, ext: &str) -> usize {
+        let mut count = 0;
+        if let Ok(entries) = fs::read_dir(dir) {
+            for entry in entries.flatten() {
+                let path = entry.path();
+                if path.is_dir() {
+                    count += Self::count_files_with_extension(&path, ext);
+                } else if path.extension().map_or(false, |e| e == ext) {
+                    count += 1;
+                }
+            }
+        }
+        count
+    }
+    
+    // Validate site configuration
+    fn run_validate(&self) -> std::io::Result<()> {
+        println!("\n🔍 Validating Site Configuration");
+        println!("{}", "=".repeat(60));
+        
+        let mut errors = Vec::new();
+        let mut warnings = Vec::new();
+        
+        // Check zensical.toml exists and is readable
+        let zensical_path = self.project_root.join("zensical.toml");
+        if zensical_path.exists() {
+            println!("\n📄 Checking zensical.toml...");
+            match fs::read_to_string(&zensical_path) {
+                Ok(content) => {
+                    // Basic TOML syntax check - look for common issues
+                    if content.contains("[project]") {
+                        println!("  ✅ [project] section found");
+                    } else {
+                        errors.push("Missing [project] section in zensical.toml".to_string());
+                    }
+                    
+                    if content.contains("site_name") {
+                        println!("  ✅ site_name defined");
+                    } else {
+                        errors.push("Missing site_name in zensical.toml".to_string());
+                    }
+                    
+                    if content.contains("nav = [") {
+                        println!("  ✅ Navigation structure defined");
+                    } else {
+                        warnings.push("No navigation structure in zensical.toml".to_string());
+                    }
+                }
+                Err(e) => {
+                    errors.push(format!("Failed to read zensical.toml: {}", e));
+                }
+            }
+        } else {
+            errors.push("zensical.toml not found".to_string());
+        }
+        
+        // Check docs directory
+        let docs_path = self.project_root.join("docs");
+        if docs_path.exists() {
+            println!("\n📁 Checking docs directory...");
+            
+            let index_path = docs_path.join("index.md");
+            if index_path.exists() {
+                println!("  ✅ docs/index.md exists");
+            } else {
+                errors.push("Missing docs/index.md (home page)".to_string());
+            }
+            
+            let overrides_path = docs_path.join("overrides");
+            if overrides_path.exists() {
+                println!("  ✅ docs/overrides directory exists");
+            } else {
+                warnings.push("Missing docs/overrides directory".to_string());
+            }
+        } else {
+            errors.push("docs directory not found".to_string());
+        }
+        
+        // Check custom CSS
+        let css_path = self.project_root.join("docs/stylesheets/custom.css");
+        if css_path.exists() {
+            println!("\n🎨 Checking stylesheets...");
+            println!("  ✅ custom.css exists");
+        }
+        
+        // Summary
+        println!("\n{}", "=".repeat(60));
+        if errors.is_empty() && warnings.is_empty() {
+            println!("✅ Validation passed! No issues found.");
+        } else {
+            if !errors.is_empty() {
+                println!("❌ Errors ({}):", errors.len());
+                for err in &errors {
+                    println!("   - {}", err);
+                }
+            }
+            if !warnings.is_empty() {
+                println!("⚠️  Warnings ({}):", warnings.len());
+                for warn in &warnings {
+                    println!("   - {}", warn);
+                }
+            }
+        }
+        
+        if !errors.is_empty() {
+            std::process::exit(1);
+        }
+        
+        Ok(())
+    }
+    
+    // Check for pages not in navigation
+    fn run_nav_check(&self) -> std::io::Result<()> {
+        println!("\n🔍 Checking Navigation Coverage");
+        println!("{}", "=".repeat(60));
+        
+        let docs_path = self.project_root.join("docs");
+        if !docs_path.exists() {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::NotFound,
+                "docs directory not found",
+            ));
+        }
+        
+        // Collect all markdown files
+        let all_md_files = Self::collect_md_files(&docs_path, &docs_path);
+        println!("\n📄 Found {} markdown files in docs/", all_md_files.len());
+        
+        // Read navigation from zensical.toml
+        let zensical_path = self.project_root.join("zensical.toml");
+        let nav_files: Vec<String> = if zensical_path.exists() {
+            let content = fs::read_to_string(&zensical_path)?;
+            Self::extract_nav_files(&content)
+        } else {
+            Vec::new()
+        };
+        
+        println!("📋 Found {} files referenced in navigation", nav_files.len());
+        
+        // Find files not in navigation
+        let mut orphaned: Vec<String> = Vec::new();
+        let excluded_patterns = ["404.md", "print_page.md"];
+        
+        for file in &all_md_files {
+            // Normalize path separators for comparison
+            let file_normalized = file.replace('\\', "/");
+            
+            let is_in_nav = nav_files.iter().any(|nav_file| {
+                let nav_normalized = nav_file.replace('\\', "/");
+                // Check exact match or if file matches the nav path
+                file_normalized == nav_normalized || 
+                file_normalized.ends_with(&nav_normalized) ||
+                nav_normalized.ends_with(&file_normalized)
+            });
+            
+            let is_excluded = excluded_patterns.iter().any(|pat| file.ends_with(pat));
+            
+            if !is_in_nav && !is_excluded {
+                orphaned.push(file.clone());
+            }
+        }
+        
+        println!("\n{}", "=".repeat(60));
+        if orphaned.is_empty() {
+            println!("✅ All markdown files are included in navigation!");
+        } else {
+            println!("⚠️  Found {} files not in navigation:", orphaned.len());
+            for file in &orphaned {
+                println!("   - {}", file);
+            }
+            println!("\n💡 To fix: Add these files to the nav section in zensical.toml");
+        }
+        
+        Ok(())
+    }
+    
+    // Collect all markdown files recursively
+    fn collect_md_files(dir: &PathBuf, base: &PathBuf) -> Vec<String> {
+        let mut files = Vec::new();
+        if let Ok(entries) = fs::read_dir(dir) {
+            for entry in entries.flatten() {
+                let path = entry.path();
+                if path.is_dir() {
+                    // Skip overrides and assets directories
+                    let dir_name = path.file_name().unwrap_or_default().to_string_lossy();
+                    if dir_name != "overrides" && dir_name != "assets" && dir_name != ".icons" {
+                        files.extend(Self::collect_md_files(&path, base));
+                    }
+                } else if path.extension().map_or(false, |e| e == "md") {
+                    if let Ok(rel_path) = path.strip_prefix(base) {
+                        files.push(rel_path.to_string_lossy().to_string());
+                    }
+                }
+            }
+        }
+        files
+    }
+    
+    // Extract file paths from navigation in TOML content
+    fn extract_nav_files(content: &str) -> Vec<String> {
+        let mut files = Vec::new();
+        // Simple regex-like extraction - look for .md files in quotes
+        for line in content.lines() {
+            let line = line.trim();
+            // Look for patterns like: "path/to/file.md"
+            if line.contains(".md") {
+                // Extract the path between quotes
+                if let Some(start) = line.find('"') {
+                    if let Some(end) = line.rfind('"') {
+                        if end > start {
+                            let path = &line[start + 1..end];
+                            if path.ends_with(".md") {
+                                files.push(path.to_string());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        files
     }
 }
