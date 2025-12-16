@@ -9,6 +9,13 @@
 {{ super() }}{% if page.url == '' %} landing-page{% endif %}
 {% endblock %}
 
+{% block content %}
+{{ super() }}
+{% if page and page.url != '' %}
+{% include "partials/share.html" %}
+{% endif %}
+{% endblock %}
+
 {#
 AI CHAT FEATURE DISABLED
 
