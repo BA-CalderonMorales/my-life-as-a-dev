@@ -8,6 +8,9 @@ Use the Rust-based documentation CLI for common tasks.
 - Building documentation
 - Deploying documentation
 - Bumping versions
+- Validating site configuration (agents)
+- Checking navigation coverage (agents)
+- Understanding project structure (agents)
 - Any routine documentation task
 
 ## Running Doc-CLI
@@ -33,6 +36,9 @@ Shows menu:
 2. build - Build with Zensical
 3. bump-version - Create new version
 4. deploy - Publish to GitHub Pages
+5. info - Show project structure (useful for agents)
+6. validate - Validate configuration
+7. nav-check - Check navigation coverage
 h. help - Show commands
 
 ## Commands
@@ -102,12 +108,75 @@ Deploy to GitHub Pages:
 ./doc-cli.sh deploy --force
 ```
 
+### info (Agent Command)
+
+Show project structure and configuration info:
+
+```bash
+./doc-cli.sh info
+```
+
+Displays:
+- Project paths (root, docs, overrides, stylesheets)
+- Configuration file status (zensical.toml, mkdocs.yml)
+- Key directory status
+- Markdown file count
+- Tips for agents
+
+### validate (Agent Command)
+
+Validate site configuration:
+
+```bash
+./doc-cli.sh validate
+```
+
+Checks:
+- zensical.toml syntax and required fields
+- docs directory structure
+- Required files (index.md, overrides, stylesheets)
+
+Returns exit code 1 on errors.
+
+### nav-check (Agent Command)
+
+Check for markdown files not in navigation:
+
+```bash
+./doc-cli.sh nav-check
+```
+
+Reports:
+- Total markdown files found
+- Files referenced in navigation
+- Orphaned files not in nav
+
+Useful for ensuring all pages are accessible.
+
 ### help
 
 Show available commands:
 
 ```bash
 ./doc-cli.sh help
+```
+
+## Agent Workflow
+
+When working on this repository, agents should:
+
+1. Run `info` first to understand project structure
+2. Run `validate` to check configuration
+3. Run `nav-check` after adding new pages
+4. Run `build` to verify changes compile
+
+```bash
+# Typical agent workflow
+./doc-cli.sh info
+./doc-cli.sh validate
+# ... make changes ...
+./doc-cli.sh nav-check
+./doc-cli.sh build
 ```
 
 ## Building Doc-CLI
@@ -171,6 +240,20 @@ make serve
 | New version | `./doc-cli.sh bump-version` |
 | Deploy | `./doc-cli.sh deploy` |
 | MkDocs (legacy) | `./doc-cli.sh mkdocs-serve --local` |
+| Understand project (agents) | `./doc-cli.sh info` |
+| Validate config (agents) | `./doc-cli.sh validate` |
+| Check nav coverage (agents) | `./doc-cli.sh nav-check` |
+
+## Configuration
+
+This project uses two configuration files:
+
+| File | Purpose | When to Use |
+|------|---------|-------------|
+| `zensical.toml` | Primary config for Zensical | New development, agents |
+| `mkdocs.yml` | Legacy config for MkDocs | MkDocs compatibility |
+
+Prefer `zensical.toml` for new development to reduce cognitive overload.
 
 ## Checklist
 
