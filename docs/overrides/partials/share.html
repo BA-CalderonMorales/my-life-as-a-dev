@@ -1,4 +1,4 @@
-<!-- Share buttons component - inspired by Hashicorp Node style -->
+<!-- Share buttons component - inspired by HashiCorp Developer style -->
 <!-- No counters/numbers since there's no database backend -->
 <div class="share-actions" role="region" aria-label="Share this page">
   <span class="share-actions__label">Share</span>
@@ -64,7 +64,8 @@
             copyBtn.classList.remove('share-action--copied');
           }, 2000);
         } catch (err) {
-          // Fallback for older browsers
+          // Fallback for older browsers that don't support clipboard API
+          // Note: execCommand('copy') is deprecated but provides broad compatibility
           const textArea = document.createElement('textarea');
           textArea.value = pageUrl;
           textArea.style.position = 'fixed';
