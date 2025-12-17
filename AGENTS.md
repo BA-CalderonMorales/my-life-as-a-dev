@@ -24,6 +24,7 @@ doc-cli       # Interactive CLI
 | [Add Documentation Page](.github/skills/add-documentation-page.md) | Adding any new page to the site |
 | [Add Algorithm Problem](.github/skills/add-algorithm-problem.md) | Adding practice problems to algorithm topics |
 | [Add Algorithm Pattern](.github/skills/add-algorithm-pattern.md) | Creating new algorithm pattern sections |
+| [Add Algorithm Infographic](.github/skills/add-algorithm-infographic.md) | Adding interactive visualizations for algorithms |
 | [Add Project Documentation](.github/skills/add-project-documentation.md) | Documenting new projects |
 | [Update Navigation](.github/skills/update-navigation.md) | Modifying mkdocs.yml nav structure |
 | [Verify Navigation](.github/skills/verify-navigation.md) | Check for missing nav entries before committing |

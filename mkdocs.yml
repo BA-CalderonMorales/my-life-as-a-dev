@@ -127,6 +127,7 @@ nav:
           - Hash Tables: learning/algorithms/hash_tables/index.md
           - Sliding Window:
               - Overview: learning/algorithms/sliding_window/index.md
+              - Infographics: learning/algorithms/sliding_window/infographics/index.md
               - Problems:
                   - Max Sum Subarray K: learning/algorithms/sliding_window/problems/max_sum_subarray_k.md
                   - Longest Substring No Repeat: learning/algorithms/sliding_window/problems/longest_substring_no_repeat.md
@@ -138,11 +139,13 @@ nav:
                   - Coin Change: learning/algorithms/dynamic_programming/problems/coin_change.md
           - Two Pointers:
               - Overview: learning/algorithms/two_pointers/index.md
+              - Infographics: learning/algorithms/two_pointers/infographics/index.md
               - Problems:
                   - Two Sum Sorted: learning/algorithms/two_pointers/problems/two_sum_sorted.md
                   - Container With Most Water: learning/algorithms/two_pointers/problems/container_with_most_water.md
           - Fast & Slow Pointers:
               - Overview: learning/algorithms/fast_slow_pointers/index.md
+              - Infographics: learning/algorithms/fast_slow_pointers/infographics/index.md
               - Problems:
                   - Linked List Cycle: learning/algorithms/fast_slow_pointers/problems/linked_list_cycle.md
                   - Middle of Linked List: learning/algorithms/fast_slow_pointers/problems/middle_of_linked_list.md

@@ -2,6 +2,10 @@
 
 The Two Pointers pattern uses two references to traverse a data structure, often from different positions or directions. This technique can reduce time complexity from O(n²) to O(n) for many problems.
 
+## Visual Learning
+
+Want to see this pattern in action? Check out our [interactive infographics](infographics/index.md) that visualize how two pointers work together to solve problems efficiently.
+
 ## When to Use Two Pointers
 
 Use this pattern when:

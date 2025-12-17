@@ -2,6 +2,10 @@
 
 The sliding window pattern is a powerful technique for solving problems involving contiguous sequences within arrays or strings. It optimizes brute force approaches from O(n^2) to O(n) by maintaining a "window" that slides through the data.
 
+## Visual Learning
+
+Want to see this pattern in action? Check out our [interactive infographics](infographics/index.md) that visualize how the sliding window moves and calculates efficiently.
+
 ## When to Use Sliding Window
 
 Use this pattern when you need to:
