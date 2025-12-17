@@ -12,13 +12,13 @@ An interactive visualization showing how Floyd's Cycle Detection algorithm works
   <h4 style="margin-top: 0;">Interactive Demo: Cycle Detection</h4>
   <p style="margin-bottom: 15px;">This visualization shows the tortoise and hare algorithm in action. Watch how the fast pointer (hare) eventually meets the slow pointer (tortoise) when there's a cycle.</p>
   <iframe 
-    src="https://raw.githubusercontent.com/BA-CalderonMorales/my-life-as-a-dev/assets/algorithms/infographics/fast_slow_pointers/cycle_detection.html"
+    src="cycle_detection.html"
     style="width: 100%; height: 700px; border: none; border-radius: 8px;"
     title="Cycle Detection Infographic"
     loading="lazy"
   ></iframe>
   <p style="margin-top: 10px; font-size: 0.9em; color: #718096;">
-    <a href="https://raw.githubusercontent.com/BA-CalderonMorales/my-life-as-a-dev/assets/algorithms/infographics/fast_slow_pointers/cycle_detection.html" target="_blank" style="color: #4299e1; text-decoration: none;">Open in new tab</a>
+    <a href="cycle_detection.html" target="_blank" style="color: #4299e1; text-decoration: none;">Open in new tab</a>
   </p>
 </div>
 

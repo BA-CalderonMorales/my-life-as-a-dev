@@ -12,13 +12,13 @@ An interactive visualization showing how the two pointers technique finds two nu
   <h4 style="margin-top: 0;">Interactive Demo: Two Sum in Sorted Array</h4>
   <p style="margin-bottom: 15px;">Watch how pointers start at opposite ends and move toward each other based on comparing the current sum to the target.</p>
   <iframe 
-    src="https://raw.githubusercontent.com/BA-CalderonMorales/my-life-as-a-dev/assets/algorithms/infographics/two_pointers/two_sum_sorted.html"
+    src="two_sum_sorted.html"
     style="width: 100%; height: 700px; border: none; border-radius: 8px;"
     title="Two Sum Sorted Array Infographic"
     loading="lazy"
   ></iframe>
   <p style="margin-top: 10px; font-size: 0.9em; color: #718096;">
-    <a href="https://raw.githubusercontent.com/BA-CalderonMorales/my-life-as-a-dev/assets/algorithms/infographics/two_pointers/two_sum_sorted.html" target="_blank" style="color: #4299e1; text-decoration: none;">Open in new tab</a>
+    <a href="two_sum_sorted.html" target="_blank" style="color: #4299e1; text-decoration: none;">Open in new tab</a>
   </p>
 </div>
 

@@ -12,23 +12,18 @@ Add a new interactive infographic to visualize an algorithm pattern.
 
 - Familiarity with HTML, CSS, and JavaScript
 - Understanding of the algorithm pattern being visualized
-- Access to the assets branch
 
 ## Steps
 
 ### 1. Create the Infographic HTML
 
-Switch to the assets branch and create the infographic file:
-
-```bash
-git checkout assets
-```
-
-Create the HTML file in the appropriate directory:
+Create the HTML file directly in the algorithm's infographics directory:
 
 ```
-algorithms/infographics/{pattern_name}/{infographic_name}.html
+docs/learning/algorithms/{pattern_name}/infographics/{infographic_name}.html
 ```
+
+**Note**: For now, infographics are stored alongside the documentation. See `docs/assets/algorithms/infographics/README.md` for future migration plans to keep the build slim.
 
 **Guidelines for Creating Infographics:**
 
@@ -69,21 +64,7 @@ Open the HTML file in a browser and verify:
 - [ ] Text is readable and explanatory
 - [ ] Responsive on different screen sizes
 
-### 3. Commit to Assets Branch
-
-```bash
-git add algorithms/infographics/{pattern_name}/
-git commit -m "feat: add {infographic_name} infographic for {pattern_name}"
-git push origin assets
-```
-
-### 4. Create Infographic Index Page
-
-Switch back to your working branch:
-
-```bash
-git checkout main  # or your feature branch
-```
+### 3. Create Infographic Index Page
 
 If it doesn't exist, create the infographics directory:
 
@@ -108,13 +89,13 @@ Brief description of what this infographic demonstrates.
   <h4 style="margin-top: 0;">Interactive Demo: Title</h4>
   <p style="margin-bottom: 15px;">Description of what to watch for.</p>
   <iframe 
-    src="https://raw.githubusercontent.com/BA-CalderonMorales/my-life-as-a-dev/assets/algorithms/infographics/{pattern_name}/{infographic_name}.html"
+    src="{infographic_name}.html"
     style="width: 100%; height: 700px; border: none; border-radius: 8px;"
     title="Infographic Title"
     loading="lazy"
   ></iframe>
   <p style="margin-top: 10px; font-size: 0.9em; color: #718096;">
-    <a href="https://raw.githubusercontent.com/BA-CalderonMorales/my-life-as-a-dev/assets/algorithms/infographics/{pattern_name}/{infographic_name}.html" target="_blank" style="color: #4299e1; text-decoration: none;">Open in new tab</a>
+    <a href="{infographic_name}.html" target="_blank" style="color: #4299e1; text-decoration: none;">Open in new tab</a>
   </p>
 </div>
 
@@ -135,7 +116,7 @@ Brief description of what this infographic demonstrates.
 - [Problem 1](../problems/problem_1.md)
 ```
 
-### 5. Link from Algorithm Pattern Index
+### 4. Link from Algorithm Pattern Index
 
 Update `docs/learning/algorithms/{pattern_name}/index.md` to add a link near the top:
 
@@ -145,7 +126,7 @@ Update `docs/learning/algorithms/{pattern_name}/index.md` to add a link near the
 Want to see this pattern in action? Check out our [interactive infographics](infographics/index.md) that visualize how {pattern} works step-by-step.
 ```
 
-### 6. Update Navigation in mkdocs.yml
+### 5. Update Navigation in mkdocs.yml
 
 Add the infographics entry to the pattern's navigation section:
 
@@ -157,7 +138,7 @@ Add the infographics entry to the pattern's navigation section:
                   - Problem 1: learning/algorithms/pattern_name/problems/problem_1.md
 ```
 
-### 7. Build and Test
+### 6. Build and Test
 
 ```bash
 make build
@@ -175,36 +156,37 @@ Navigate to the infographics page and verify:
 - [ ] Infographic is interactive
 - [ ] Link to open in new tab works
 
-### 8. Commit Changes
+### 7. Commit Changes
 
 ```bash
-git add docs/learning/algorithms/{pattern_name}/
+git add docs/learning/algorithms/{pattern_name}/infographics/
 git add mkdocs.yml
-git commit -m "docs: add infographics section for {pattern_name}"
+git commit -m "feat: add {infographic_name} infographic for {pattern_name}"
 ```
+
+**Note**: Infographics are currently stored in the docs directory. In the future, they may be migrated to a separate assets branch or external hosting to keep the build slim. See `docs/assets/algorithms/infographics/README.md` for details.
 
 ## Checklist
 
-- [ ] Created HTML infographic file in assets branch
+- [ ] Created HTML infographic file in algorithm's infographics directory
 - [ ] Infographic follows design guidelines (colors, controls, speed)
-- [ ] Tested infographic locally in browser
-- [ ] Committed and pushed to assets branch
-- [ ] Created/updated infographics index page in docs
+- [ ] Tested infographic locally by opening HTML file in browser
+- [ ] Created/updated infographics index page with iframe embed
 - [ ] Added visual learning link to pattern index page
 - [ ] Updated mkdocs.yml navigation
 - [ ] Built site successfully without warnings
-- [ ] Tested infographic in live site preview
-- [ ] Committed documentation changes
+- [ ] Tested infographic in live site preview (make serve)
+- [ ] Committed all changes
 
 ## Common Issues
 
 ### Iframe Not Loading
 
 If the iframe doesn't display:
-- Verify the assets branch exists on the remote repository
-- Check that the file path in the iframe src is correct
-- Ensure the raw.githubusercontent.com URL is accessible
-- Try opening the direct link in a new tab to verify it loads
+- Verify the HTML file exists in the same directory as index.md
+- Check that the file path in the iframe src is correct (use relative path)
+- Try opening the HTML file directly in browser to test it works
+- Check browser console for any security or loading errors
 
 ### Animation Too Fast/Slow
 
@@ -227,3 +209,12 @@ Use the existing infographics as templates:
 - Make controls easily accessible
 - Test on both desktop and mobile screen sizes
 - Consider accessibility (color contrast, readable fonts)
+- Keep file sizes reasonable (under 20KB if possible)
+- Use self-contained HTML (inline CSS/JS, no external dependencies)
+
+## Future Migration Note
+
+Currently, infographics are stored in the docs directory for simplicity. In the future, they may be migrated to:
+- A separate assets branch to keep main branch slim
+- External hosting (GitHub Pages, CDN) for better performance
+- See `docs/assets/algorithms/infographics/README.md` for migration plans

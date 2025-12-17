@@ -12,13 +12,13 @@ An interactive visualization showing how the sliding window technique finds the 
   <h4 style="margin-top: 0;">Interactive Demo: Maximum Sum Subarray</h4>
   <p style="margin-bottom: 15px;">Watch how the window slides across the array, efficiently calculating sums by removing the leftmost element and adding the new rightmost element.</p>
   <iframe 
-    src="https://raw.githubusercontent.com/BA-CalderonMorales/my-life-as-a-dev/assets/algorithms/infographics/sliding_window/max_subarray.html"
+    src="max_subarray.html"
     style="width: 100%; height: 700px; border: none; border-radius: 8px;"
     title="Maximum Sum Subarray Infographic"
     loading="lazy"
   ></iframe>
   <p style="margin-top: 10px; font-size: 0.9em; color: #718096;">
-    <a href="https://raw.githubusercontent.com/BA-CalderonMorales/my-life-as-a-dev/assets/algorithms/infographics/sliding_window/max_subarray.html" target="_blank" style="color: #4299e1; text-decoration: none;">Open in new tab</a>
+    <a href="max_subarray.html" target="_blank" style="color: #4299e1; text-decoration: none;">Open in new tab</a>
   </p>
 </div>
 

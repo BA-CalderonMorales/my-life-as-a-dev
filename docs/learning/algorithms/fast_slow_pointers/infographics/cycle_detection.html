@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast & Slow Pointers - Cycle Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2em;
+            text-align: center;
+        }
+        
+        .subtitle {
+            color: #718096;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        #visualization {
+            width: 100%;
+            height: 400px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            background: #f7fafc;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .btn-start {
+            background: #48bb78;
+            color: white;
+        }
+        
+        .btn-start:hover {
+            background: #38a169;
+        }
+        
+        .btn-pause {
+            background: #ed8936;
+            color: white;
+        }
+        
+        .btn-pause:hover {
+            background: #dd6b20;
+        }
+        
+        .btn-reset {
+            background: #4299e1;
+            color: white;
+        }
+        
+        .btn-reset:hover {
+            background: #3182ce;
+        }
+        
+        .btn-toggle-cycle {
+            background: #9f7aea;
+            color: white;
+        }
+        
+        .btn-toggle-cycle:hover {
+            background: #805ad5;
+        }
+        
+        .status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        .status-running {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+        
+        .status-cycle {
+            background: #fc8181;
+            color: #742a2a;
+        }
+        
+        .status-no-cycle {
+            background: #9ae6b4;
+            color: #22543d;
+        }
+        
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .speed-control label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .speed-control input {
+            width: 200px;
+        }
+        
+        .explanation {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 8px;
+            line-height: 1.6;
+            color: #2d3748;
+        }
+        
+        .explanation h3 {
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+        
+        .legend-text {
+            font-weight: 600;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fast & Slow Pointers: Cycle Detection</h1>
+        <p class="subtitle">Watch how the tortoise and hare algorithm detects cycles in linked lists</p>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-circle" style="background: #4299e1;"></div>
+                <span class="legend-text">Slow Pointer (Tortoise)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-circle" style="background: #ed8936;"></div>
+                <span class="legend-text">Fast Pointer (Hare)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-circle" style="background: #48bb78;"></div>
+                <span class="legend-text">Node</span>
+            </div>
+        </div>
+        
+        <div id="status" class="status status-running">Ready to start</div>
+        
+        <svg id="visualization"></svg>
+        
+        <div class="speed-control">
+            <label for="speed">Animation Speed:</label>
+            <input type="range" id="speed" min="500" max="3000" value="1500" step="100">
+            <span id="speed-value">1500ms</span>
+        </div>
+        
+        <div class="controls">
+            <button class="btn-start" onclick="startAnimation()">Start</button>
+            <button class="btn-pause" onclick="pauseAnimation()">Pause</button>
+            <button class="btn-reset" onclick="resetAnimation()">Reset</button>
+            <button class="btn-toggle-cycle" onclick="toggleCycle()">Toggle Cycle</button>
+        </div>
+        
+        <div class="explanation">
+            <h3>How it Works:</h3>
+            <p>
+                The Fast & Slow Pointers (Floyd's Cycle Detection) uses two pointers moving at different speeds.
+                The slow pointer moves one step at a time, while the fast pointer moves two steps.
+                If there's a cycle, the fast pointer will eventually catch up to the slow pointer.
+                If there's no cycle, the fast pointer will reach the end of the list.
+            </p>
+            <br>
+            <p>
+                <strong>Time Complexity:</strong> O(n) - we visit each node at most once<br>
+                <strong>Space Complexity:</strong> O(1) - only two pointers needed
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        const svg = document.getElementById('visualization');
+        const status = document.getElementById('status');
+        const speedInput = document.getElementById('speed');
+        const speedValue = document.getElementById('speed-value');
+        
+        let hasCycle = true;
+        let animating = false;
+        let animationTimeout = null;
+        let slowPointer = 0;
+        let fastPointer = 0;
+        let nodes = [];
+        let step = 0;
+        let animationSpeed = 1500;
+        
+        // Update speed display
+        speedInput.addEventListener('input', (e) => {
+            animationSpeed = parseInt(e.target.value);
+            speedValue.textContent = animationSpeed + 'ms';
+        });
+        
+        function createNodes() {
+            nodes = [
+                { x: 100, y: 200, value: 1 },
+                { x: 200, y: 200, value: 2 },
+                { x: 300, y: 200, value: 3 },
+                { x: 400, y: 200, value: 4 },
+                { x: 500, y: 150, value: 5 },
+                { x: 500, y: 250, value: 6 },
+                { x: 400, y: 250, value: 7 }
+            ];
+        }
+        
+        function drawVisualization() {
+            // Clear SVG
+            svg.innerHTML = '';
+            
+            const svgWidth = svg.clientWidth;
+            const svgHeight = svg.clientHeight;
+            svg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
+            
+            // Draw connections
+            const svgNS = 'http://www.w3.org/2000/svg';
+            
+            for (let i = 0; i < nodes.length - 1; i++) {
+                const line = document.createElementNS(svgNS, 'line');
+                line.setAttribute('x1', nodes[i].x);
+                line.setAttribute('y1', nodes[i].y);
+                line.setAttribute('x2', nodes[i + 1].x);
+                line.setAttribute('y2', nodes[i + 1].y);
+                line.setAttribute('stroke', '#cbd5e0');
+                line.setAttribute('stroke-width', '3');
+                line.setAttribute('marker-end', 'url(#arrowhead)');
+                svg.appendChild(line);
+            }
+            
+            // Draw cycle connection if enabled
+            if (hasCycle) {
+                const line = document.createElementNS(svgNS, 'line');
+                line.setAttribute('x1', nodes[nodes.length - 1].x);
+                line.setAttribute('y1', nodes[nodes.length - 1].y);
+                line.setAttribute('x2', nodes[3].x);
+                line.setAttribute('y2', nodes[3].y);
+                line.setAttribute('stroke', '#f56565');
+                line.setAttribute('stroke-width', '3');
+                line.setAttribute('stroke-dasharray', '5,5');
+                line.setAttribute('marker-end', 'url(#arrowhead-red)');
+                svg.appendChild(line);
+            }
+            
+            // Define arrow markers
+            const defs = document.createElementNS(svgNS, 'defs');
+            const marker = document.createElementNS(svgNS, 'marker');
+            marker.setAttribute('id', 'arrowhead');
+            marker.setAttribute('markerWidth', '10');
+            marker.setAttribute('markerHeight', '10');
+            marker.setAttribute('refX', '9');
+            marker.setAttribute('refY', '3');
+            marker.setAttribute('orient', 'auto');
+            const polygon = document.createElementNS(svgNS, 'polygon');
+            polygon.setAttribute('points', '0 0, 10 3, 0 6');
+            polygon.setAttribute('fill', '#cbd5e0');
+            marker.appendChild(polygon);
+            defs.appendChild(marker);
+            
+            const markerRed = document.createElementNS(svgNS, 'marker');
+            markerRed.setAttribute('id', 'arrowhead-red');
+            markerRed.setAttribute('markerWidth', '10');
+            markerRed.setAttribute('markerHeight', '10');
+            markerRed.setAttribute('refX', '9');
+            markerRed.setAttribute('refY', '3');
+            markerRed.setAttribute('orient', 'auto');
+            const polygonRed = document.createElementNS(svgNS, 'polygon');
+            polygonRed.setAttribute('points', '0 0, 10 3, 0 6');
+            polygonRed.setAttribute('fill', '#f56565');
+            markerRed.appendChild(polygonRed);
+            defs.appendChild(markerRed);
+            
+            svg.appendChild(defs);
+            
+            // Draw nodes
+            nodes.forEach((node, i) => {
+                const circle = document.createElementNS(svgNS, 'circle');
+                circle.setAttribute('cx', node.x);
+                circle.setAttribute('cy', node.y);
+                circle.setAttribute('r', '25');
+                circle.setAttribute('fill', '#48bb78');
+                circle.setAttribute('stroke', '#2f855a');
+                circle.setAttribute('stroke-width', '2');
+                svg.appendChild(circle);
+                
+                const text = document.createElementNS(svgNS, 'text');
+                text.setAttribute('x', node.x);
+                text.setAttribute('y', node.y);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('dominant-baseline', 'middle');
+                text.setAttribute('fill', 'white');
+                text.setAttribute('font-size', '16');
+                text.setAttribute('font-weight', 'bold');
+                text.textContent = node.value;
+                svg.appendChild(text);
+            });
+            
+            // Draw pointers
+            drawPointer(slowPointer, '#4299e1', 'S', -40);
+            drawPointer(fastPointer, '#ed8936', 'F', 40);
+        }
+        
+        function drawPointer(index, color, label, offset) {
+            if (index < 0 || index >= nodes.length) return;
+            
+            const svgNS = 'http://www.w3.org/2000/svg';
+            const node = nodes[index];
+            
+            const circle = document.createElementNS(svgNS, 'circle');
+            circle.setAttribute('cx', node.x);
+            circle.setAttribute('cy', node.y + offset);
+            circle.setAttribute('r', '15');
+            circle.setAttribute('fill', color);
+            circle.setAttribute('stroke', 'white');
+            circle.setAttribute('stroke-width', '2');
+            circle.classList.add('pointer-animation');
+            svg.appendChild(circle);
+            
+            const text = document.createElementNS(svgNS, 'text');
+            text.setAttribute('x', node.x);
+            text.setAttribute('y', node.y + offset);
+            text.setAttribute('text-anchor', 'middle');
+            text.setAttribute('dominant-baseline', 'middle');
+            text.setAttribute('fill', 'white');
+            text.setAttribute('font-size', '12');
+            text.setAttribute('font-weight', 'bold');
+            text.textContent = label;
+            svg.appendChild(text);
+        }
+        
+        function startAnimation() {
+            if (animating) return;
+            animating = true;
+            status.textContent = 'Running...';
+            status.className = 'status status-running';
+            animate();
+        }
+        
+        function pauseAnimation() {
+            animating = false;
+            if (animationTimeout) {
+                clearTimeout(animationTimeout);
+                animationTimeout = null;
+            }
+            status.textContent = 'Paused';
+            status.className = 'status status-running';
+        }
+        
+        function resetAnimation() {
+            pauseAnimation();
+            slowPointer = 0;
+            fastPointer = 0;
+            step = 0;
+            status.textContent = 'Ready to start';
+            status.className = 'status status-running';
+            drawVisualization();
+        }
+        
+        function toggleCycle() {
+            hasCycle = !hasCycle;
+            resetAnimation();
+        }
+        
+        function animate() {
+            if (!animating) return;
+            
+            step++;
+            
+            // Move slow pointer by 1
+            if (hasCycle) {
+                slowPointer = (slowPointer + 1) % nodes.length;
+                if (slowPointer === nodes.length - 1) {
+                    slowPointer = 3; // Cycle back to node 4
+                }
+            } else {
+                slowPointer++;
+            }
+            
+            // Move fast pointer by 2
+            if (hasCycle) {
+                for (let i = 0; i < 2; i++) {
+                    fastPointer = (fastPointer + 1) % nodes.length;
+                    if (fastPointer === nodes.length - 1) {
+                        fastPointer = 3; // Cycle back to node 4
+                    }
+                }
+            } else {
+                fastPointer += 2;
+            }
+            
+            // Check for cycle detection
+            if (hasCycle && slowPointer === fastPointer) {
+                status.textContent = 'Cycle Detected! Pointers met at node ' + nodes[slowPointer].value;
+                status.className = 'status status-cycle';
+                animating = false;
+            }
+            
+            // Check if fast pointer reached the end (no cycle)
+            if (!hasCycle && fastPointer >= nodes.length) {
+                status.textContent = 'No Cycle Detected! Fast pointer reached the end';
+                status.className = 'status status-no-cycle';
+                animating = false;
+            }
+            
+            drawVisualization();
+            
+            if (animating) {
+                animationTimeout = setTimeout(animate, animationSpeed);
+            }
+        }
+        
+        // Initialize
+        createNodes();
+        drawVisualization();
+    </script>
+</body>
+</html>
