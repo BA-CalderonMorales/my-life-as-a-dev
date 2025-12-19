@@ -292,6 +292,7 @@ link = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
 # Markdown Extensions
 # ----------------------------------------------------------------------------
 [project.markdown_extensions]
+# Standard markdown extensions
 extra = {}
 def_list = {}
 md_in_html = {}
@@ -299,11 +300,12 @@ meta = {}
 attr_list = {}
 admonition = {}
 
+# PyMdown Extensions for enhanced code and content features
 [project.markdown_extensions.pymdownx]
 highlight = { anchor_linenums = true }
 inlinehilite = {}
 snippets = {}
-extra = {}
+extra = {}  # Note: pymdownx.extra is different from markdown.extra above
 details = {}
 
 [project.markdown_extensions.pymdownx.superfences]

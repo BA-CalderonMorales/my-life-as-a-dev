@@ -97,6 +97,7 @@ jobs:
           touch site/.nojekyll
           
           # Verify Three.js assets are included
+          # Note: This path is defined in docs/overrides/main.html
           echo "Verifying Three.js assets in build..."
           if [ -d "site/assets/js/threejs-background" ]; then
             echo "✓ Three.js assets found in build"
