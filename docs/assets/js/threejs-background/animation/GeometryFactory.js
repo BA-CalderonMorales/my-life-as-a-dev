@@ -4,9 +4,14 @@
  */
 import * as THREE from 'three';
 
+let sharedToonGradient = null;
+
 export class GeometryFactory {
     constructor() {
-        this.toonGradient = this.createToonGradient();
+        if (!sharedToonGradient) {
+            sharedToonGradient = this.createToonGradient();
+        }
+        this.toonGradient = sharedToonGradient;
     }
     
     /**
