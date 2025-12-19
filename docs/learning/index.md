@@ -22,6 +22,10 @@ A lightweight map of the study guides in this repository. Everything is written 
 :   Quick hops to staple engineering articles and free resources.
     [Open the reading list](additional_topics/index.md)
 
+**Cloud AI Platforms**
+:   Hands-on guides for cloud AI services including Google Vertex AI.
+    [Explore cloud AI](cloud_ai/index.md)
+
 ---
 
 ## Algorithm patterns at a glance
