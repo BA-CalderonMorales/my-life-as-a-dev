@@ -287,3 +287,89 @@ toggle.name = "Switch to dark mode"
 [[project.extra.social]]
 icon = "fontawesome/brands/github"
 link = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
+
+# ----------------------------------------------------------------------------
+# Markdown Extensions
+# ----------------------------------------------------------------------------
+[project.markdown_extensions]
+extra = {}
+def_list = {}
+md_in_html = {}
+meta = {}
+attr_list = {}
+admonition = {}
+
+[project.markdown_extensions.pymdownx]
+highlight = { anchor_linenums = true }
+inlinehilite = {}
+snippets = {}
+extra = {}
+details = {}
+
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+    { name = "mermaid", class = "mermaid" }
+]
+
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+
+[project.markdown_extensions.pymdownx.emoji]
+emoji_index = "material.extensions.emoji.twemoji"
+emoji_generator = "material.extensions.emoji.to_svg"
+
+# ----------------------------------------------------------------------------
+# Plugins Configuration
+# ----------------------------------------------------------------------------
+[project.plugins]
+
+# Navigation plugin
+[project.plugins.awesome-nav]
+
+# Git authors plugin
+[project.plugins.git-authors]
+enabled = false  # Controlled by ENABLE_GIT_AUTHORS env var in CI
+show_email_address = true
+href = "mailto:{email}"
+
+# Git revision date plugin
+[project.plugins.git-revision-date-localized]
+timezone = "America/North_Dakota/Center"
+
+# Mike versioning plugin
+[project.plugins.mike]
+
+# Image zoom plugin
+[project.plugins.panzoom]
+
+# Lightbox plugin
+[project.plugins.glightbox]
+
+# Search plugin
+[project.plugins.search]
+
+# Tags plugin
+[project.plugins.tags]
+
+# Minify plugin
+[project.plugins.minify]
+minify_html = true
+minify_js = true
+minify_css = true
+
+[project.plugins.minify.htmlmin_opts]
+remove_comments = true
+
+# Print site plugin
+[project.plugins.print-site]
+enabled = false  # Controlled by ENABLE_PRINT_SITE env var in CI
+
+# ----------------------------------------------------------------------------
+# Watch Paths (for development hot reload)
+# ----------------------------------------------------------------------------
+[project.watch]
+paths = [
+    "mkdocs_plugins",
+    "docs/overrides",
+    "scripts/python"
+]
