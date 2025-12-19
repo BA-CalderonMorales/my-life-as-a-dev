@@ -142,11 +142,10 @@ export class LightingManager {
      */
     updateWithScroll(scrollProgress) {
         this.lights.spots.forEach((spot, index) => {
+            if (spot.userData.baseIntensity === undefined) return;
             const offset = index * 0.5;
             const wave = Math.sin(scrollProgress * Math.PI * 2 + offset) * 0.2;
-            spot.intensity = spot.userData.baseIntensity 
-                ? spot.userData.baseIntensity + wave 
-                : spot.intensity;
+            spot.intensity = spot.userData.baseIntensity + wave;
         });
     }
     

@@ -11,12 +11,15 @@ export class GeometryFactory {
     
     /**
      * Create a gradient texture for toon shading effect
+     * Uses 5 steps for smoother cel-shading appearance
      */
     createToonGradient() {
-        const colors = new Uint8Array(3);
+        const colors = new Uint8Array(5);
         colors[0] = 0;
-        colors[1] = 128;
-        colors[2] = 255;
+        colors[1] = 64;
+        colors[2] = 128;
+        colors[3] = 192;
+        colors[4] = 255;
         
         const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
         gradientMap.needsUpdate = true;

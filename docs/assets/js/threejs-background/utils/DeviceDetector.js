@@ -26,11 +26,12 @@ export class DeviceDetector {
     isTablet() {
         if (this.cache.isTablet !== undefined) return this.cache.isTablet;
         
-        const userAgent = navigator.userAgent.toLowerCase();
-        const isTabletUA = /ipad|android(?!.*mobile)|tablet/i.test(userAgent);
         const isTabletSize = window.innerWidth >= 768 && window.innerWidth <= 1024;
+        const hasCoarsePointer = window.matchMedia?.('(pointer: coarse)').matches || false;
+        const userAgent = navigator.userAgent.toLowerCase();
+        const isIPad = /ipad/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
         
-        this.cache.isTablet = isTabletUA || (this.isMobile() && isTabletSize);
+        this.cache.isTablet = isIPad || (isTabletSize && hasCoarsePointer);
         return this.cache.isTablet;
     }
     
