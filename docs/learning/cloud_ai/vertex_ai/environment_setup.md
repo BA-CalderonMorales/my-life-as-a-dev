@@ -21,13 +21,15 @@ Download Anaconda for your OS: [https://www.anaconda.com/download/success](https
 2. Click **Next** then **Install for myself**
 3. Choose your install location
 4. Add these shortcuts:
-    - Add Miniconda to PATH
-    - Register Miniconda3 as default Python 3.12
+    - Add Anaconda to PATH
+    - Register Anaconda3 as default Python 3.12
 5. Clear package cache upon completion
 
-!!! info "Size Comparison"
-    - Miniconda: ~100 MB
-    - Full Anaconda: ~1 GB
+!!! info "Anaconda vs Miniconda"
+    - **Anaconda** (~1 GB): Full distribution with many pre-installed packages
+    - **Miniconda** (~100 MB): Minimal installer, packages installed as needed
+    
+    Either works for this guide. Miniconda is lighter if you prefer minimal installs.
 
 ---
 
