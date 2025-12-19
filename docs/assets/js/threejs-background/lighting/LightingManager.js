@@ -51,10 +51,8 @@ export class LightingManager {
         spotlight.distance = distance;
         spotlight.castShadow = castShadow;
         
-        if (spotlight.target) {
-            spotlight.target.position.set(target.x, target.y, target.z);
-            this.scene.add(spotlight.target);
-        }
+        spotlight.target.position.set(target.x, target.y, target.z);
+        this.scene.add(spotlight.target);
         
         this.scene.add(spotlight);
         this.lights.spots.push(spotlight);
