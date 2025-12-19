@@ -3,6 +3,20 @@
 {% block extrahead %}
 <meta name="site_url" content="{{ config.site_url }}">
 <link rel="icon" href="{{ config.theme.logo | url }}" />
+<!-- Import map for Three.js ES modules -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<!-- Three.js Background Animation -->
+<script type="module" src="{{ 'assets/js/threejs-background/main.js' | url }}"></script>
 {% endblock %}
 
 {% block classes %}
