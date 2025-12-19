@@ -50,7 +50,15 @@ Click **Get Code** to retrieve sample usage code for your prompt.
 
 ## Setup for Code Export
 
-Before using exported code, install the required package:
+When you export code from Vertex AI Studio, it may use a different package than the SDK we installed earlier.
+
+!!! note "Package Difference"
+    - **SDK approach** (this guide): Uses `google-cloud-aiplatform` with service account authentication
+    - **Studio export**: Uses `google-genai` with application default credentials
+    
+    Both work with Vertex AI. Use the SDK approach for production; Studio exports are great for quick testing.
+
+To use exported code from Studio, install the required package:
 
 ```bash
 pip install --upgrade google-genai

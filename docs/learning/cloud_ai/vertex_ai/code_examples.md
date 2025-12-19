@@ -9,6 +9,9 @@ This page provides sample code snippets for common Vertex AI use cases.
 
 [Back to Vertex AI Quickstart](index.md)
 
+!!! note "Prerequisites"
+    These examples assume you have completed the [Connect to Vertex AI](connect_to_vertex_ai.md) setup and have initialized the SDK with `vertexai.init()`.
+
 ---
 
 ## Basic Query
@@ -18,6 +21,7 @@ Simple text generation with a generative model:
 ```python
 from vertexai.generative_models import GenerativeModel
 
+# Assumes vertexai.init() has been called (see Connect to Vertex AI)
 model = GenerativeModel("gemini-1.5-flash")
 res = model.generate_content("What is the capital of India?")
 print(res.text)
@@ -107,13 +111,17 @@ Maintain conversation context across multiple exchanges:
 
 ```python
 chat = model.start_chat()
-chat.history
 
+# Send first message
 res = chat.send_message("What is 2 + 2? Give me the wrong answer.")
 print(res.text)
 
+# Send follow-up - the model remembers context
 res = chat.send_message("Remember earlier answer and what is 2 + 2?")
 print(res.text)
+
+# View conversation history
+print(chat.history)
 ```
 
 **Response:**
