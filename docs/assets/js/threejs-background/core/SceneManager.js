@@ -74,7 +74,8 @@ export class SceneManager {
             powerPreference: this.options.powerPreference
         });
         
-        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        const pixelRatio = this.options.pixelRatio || Math.min(window.devicePixelRatio, 2);
+        this.renderer.setPixelRatio(pixelRatio);
         this.updateRendererSize();
         
         this.renderer.domElement.style.position = 'absolute';
@@ -117,8 +118,8 @@ export class SceneManager {
         if (!this.isInitialized || this.isDestroyed) return;
         
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        this.scrollProgress = docHeight > 0 ? scrollTop / docHeight : 0;
+        const docHeight = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+        this.scrollProgress = Math.min(scrollTop / docHeight, 1);
         
         this.onScrollCallbacks.forEach(cb => cb(this.scrollProgress, scrollTop));
     }

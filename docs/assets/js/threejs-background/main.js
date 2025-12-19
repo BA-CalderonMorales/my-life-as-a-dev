@@ -63,8 +63,13 @@ class ThreeJSBackgroundApp {
             container.id = this.containerId;
             container.className = 'threejs-bg-container';
             
-            const contentWrapper = document.querySelector('.md-content') || document.body;
-            contentWrapper.insertBefore(container, contentWrapper.firstChild);
+            const contentWrapper = document.querySelector('.md-content') || document.querySelector('main');
+            if (!contentWrapper) {
+                console.warn('[ThreeJSBackground] Could not find content wrapper (.md-content or main)');
+                document.body.insertBefore(container, document.body.firstChild);
+            } else {
+                contentWrapper.insertBefore(container, contentWrapper.firstChild);
+            }
         }
         
         return container;

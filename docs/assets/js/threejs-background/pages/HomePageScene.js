@@ -6,6 +6,7 @@ import { SceneManager } from '../core/SceneManager.js';
 import { LightingManager } from '../lighting/LightingManager.js';
 import { GeometryFactory } from '../animation/GeometryFactory.js';
 import { AnimationController } from '../animation/AnimationController.js';
+import { DeviceDetector } from '../utils/DeviceDetector.js';
 
 export class HomePageScene {
     constructor(containerId = 'threejs-bg-container') {
@@ -14,11 +15,16 @@ export class HomePageScene {
         this.lightingManager = null;
         this.geometryFactory = null;
         this.animationController = null;
+        this.deviceDetector = new DeviceDetector();
         this.objects = [];
     }
     
     async init() {
-        this.sceneManager = new SceneManager(this.containerId);
+        const qualitySettings = this.deviceDetector.getQualitySettings();
+        this.sceneManager = new SceneManager(this.containerId, {
+            antialias: qualitySettings.antialias,
+            pixelRatio: this.deviceDetector.getOptimalPixelRatio()
+        });
         const success = await this.sceneManager.init();
         
         if (!success) {
