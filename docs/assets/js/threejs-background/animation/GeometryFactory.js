@@ -188,8 +188,12 @@ export class GeometryFactory {
     }
     
     dispose() {
-        if (this.toonGradient) {
-            this.toonGradient.dispose();
+    }
+    
+    static disposeSharedResources() {
+        if (sharedToonGradient) {
+            sharedToonGradient.dispose();
+            sharedToonGradient = null;
         }
     }
 }

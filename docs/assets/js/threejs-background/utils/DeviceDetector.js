@@ -13,7 +13,7 @@ export class DeviceDetector {
     isMobile() {
         if (this.cache.isMobile !== undefined) return this.cache.isMobile;
         
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const userAgent = navigator.userAgent || navigator.vendor;
         const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
         
         this.cache.isMobile = mobileRegex.test(userAgent.toLowerCase());

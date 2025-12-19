@@ -18,7 +18,7 @@ export class SceneManager {
         this.options = {
             antialias: true,
             alpha: true,
-            powerPreference: options.powerPreference || 'default',
+            powerPreference: options.powerPreference || 'low-power',
             ...options
         };
         
