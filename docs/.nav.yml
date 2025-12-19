@@ -98,6 +98,19 @@ nav:
 
       - Technical Interview Framework: learning/interview_preparation/index.md
 
+    - Cloud AI Platforms:
+
+      - Overview: learning/cloud_ai/index.md
+      - Vertex AI:
+        - Overview: learning/cloud_ai/vertex_ai/index.md
+        - Environment Setup: learning/cloud_ai/vertex_ai/environment_setup.md
+        - Workspace Setup: learning/cloud_ai/vertex_ai/workspace_setup.md
+        - Google Cloud Setup: learning/cloud_ai/vertex_ai/google_cloud_setup.md
+        - Connect to Vertex AI: learning/cloud_ai/vertex_ai/connect_to_vertex_ai.md
+        - Explore Models: learning/cloud_ai/vertex_ai/explore_models.md
+        - Code Examples: learning/cloud_ai/vertex_ai/code_examples.md
+        - Vertex AI Studio: learning/cloud_ai/vertex_ai/vertex_ai_studio.md
+
   - Docs-as-Code: docs-as-code/index.md
 
   - About Me: resume/index.md
