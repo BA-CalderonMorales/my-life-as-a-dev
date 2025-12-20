@@ -11,20 +11,7 @@ use std::time::Duration;
 /// Main entry point for application startup
 #[allow(dead_code)]
 pub fn main() -> std::io::Result<()> {
-    // Parse command line arguments
-    let args: Vec<String> = env::args().collect();
-    let mut draft_version = None;
-    let clean_mode = args.iter().any(|arg| arg == "--clean");
-
-    // Check for --draft-version argument
-    for i in 1..args.len() {
-        if args[i] == "--draft-version" && i + 1 < args.len() {
-            draft_version = Some(args[i + 1].clone());
-            break;
-        }
-    }
-
-    let startup = Startup::new(draft_version, clean_mode);
+    let startup = Startup::new();
     match startup.run() {
         Ok(_) => {
             println!("Documentation server stopped.");
@@ -42,18 +29,11 @@ pub fn main() -> std::io::Result<()> {
 pub struct Startup {
     project_root: PathBuf,
     script_path: PathBuf,
-    draft_version: Option<String>,
-    /// When true, disables --dirty flag for full rebuilds (like make serve-clean)
-    clean_mode: bool,
 }
 
 impl Startup {
     /// Create a new Startup instance
-    /// 
-    /// # Arguments
-    /// * `draft_version` - Optional draft version for mike
-    /// * `clean_mode` - When true, disables --dirty flag for reliable full rebuilds
-    pub fn new(draft_version: Option<String>, clean_mode: bool) -> Self {
+    pub fn new() -> Self {
         // Get the current directory
         let current_dir = env::current_dir().expect("Failed to get current directory");
 
@@ -89,8 +69,6 @@ impl Startup {
         Self {
             project_root,
             script_path,
-            draft_version,
-            clean_mode,
         }
     }
 
@@ -537,91 +515,52 @@ impl Startup {
         }
     }
 
-    // Start the MkDocs development server
+    // Start the Zensical development server
     fn start_documentation_server(&self) -> std::io::Result<std::process::ExitStatus> {
-        println!("\nStarting MkDocs development server...");
+        println!("\nStarting Zensical development server...");
 
-        // Change to project root directory where mkdocs.yml should be located
+        // Change to project root directory where zensical.toml should be located
         env::set_current_dir(&self.project_root).map_err(|e| {
             eprintln!("Failed to change to project directory: {}", e);
             e
         })?;
 
-        // Check if mkdocs.yml exists
-        if !Path::new("mkdocs.yml").exists() && !Path::new("mkdocs.yaml").exists() {
-            let err = format!("mkdocs.yml not found in {}", self.project_root.display());
+        // Check if zensical.toml exists
+        if !Path::new("zensical.toml").exists() {
+            let err = format!("zensical.toml not found in {}", self.project_root.display());
             eprintln!("Error: {}", err);
             eprintln!(
-                "Please ensure you're in the correct directory with your MkDocs documentation."
+                "Please ensure you're in the correct directory with your Zensical documentation."
             );
             return Err(std::io::Error::new(std::io::ErrorKind::NotFound, err));
         }
 
-        // Ensure local plugins are importable
-        let existing_pp = env::var("PYTHONPATH").unwrap_or_default();
-        let new_pp = if existing_pp.is_empty() {
-            self.project_root.to_string_lossy().to_string()
-        } else {
-            format!("{}:{}", self.project_root.to_string_lossy(), existing_pp)
-        };
-
-        // Try different ways to run MkDocs
-        // Prefer running from project venv if present
-        let venv_mkdocs = if cfg!(windows) {
+        // Get zensical binary path - prefer venv installation
+        let venv_zensical = if cfg!(windows) {
             self.project_root
                 .join(".venv")
                 .join("Scripts")
-                .join("mkdocs.exe")
+                .join("zensical.exe")
         } else {
-            self.project_root.join(".venv").join("bin").join("mkdocs")
+            self.project_root.join(".venv").join("bin").join("zensical")
         };
 
-        let mut command = if venv_mkdocs.exists() {
-            let mut cmd = Command::new(venv_mkdocs);
-            cmd.arg("serve");
-            cmd.env("PYTHONPATH", &new_pp);
-            cmd
-        } else if Self::command_exists("mkdocs") {
-            let mut cmd = Command::new("mkdocs");
-            cmd.arg("serve");
-            cmd.env("PYTHONPATH", &new_pp);
-            cmd
-        } else if Self::command_exists("uv") {
-            // Fallback to uv run which can provision an env if needed
-            let mut cmd = Command::new("uv");
-            cmd.args(&["run", "mkdocs", "serve"]);
-            cmd.env("PYTHONPATH", &new_pp);
-            cmd
+        let zensical_cmd = if venv_zensical.exists() {
+            venv_zensical.to_string_lossy().to_string()
+        } else if Self::command_exists("zensical") {
+            "zensical".to_string()
         } else {
-            // Last resort: python -m mkdocs
-            let mut cmd = Command::new(if cfg!(windows) { "python" } else { "python3" });
-            cmd.args(&["-m", "mkdocs", "serve"]);
-            cmd.env("PYTHONPATH", &new_pp);
-            cmd
+            // Fallback to uv run
+            return self.start_zensical_with_uv();
         };
 
-        // Add --draft flag if draft version is specified
-        if let Some(version) = &self.draft_version {
-            command.arg("--draft").arg(version);
-        }
-
-        // Make reload behavior consistent across doc changes (including theme overrides).
-        // Allow override for containers/dev environments.
-        let dev_addr = env::var("MKDOCS_DEV_ADDR").unwrap_or_else(|_| "127.0.0.1:8000".to_string());
-        command.arg("--dev-addr").arg(&dev_addr);
+        // Build the command
+        let dev_addr = env::var("ZENSICAL_DEV_ADDR").unwrap_or_else(|_| "0.0.0.0:8001".to_string());
         
-        // Use --dirty for fast rebuilds unless --clean mode is requested
-        // Clean mode is useful when hot reload seems to serve stale content
-        if !self.clean_mode {
-            command.arg("--dirty");
-        }
-        command.arg("--watch-theme");
+        let mut command = Command::new(&zensical_cmd);
+        command.args(&["serve", "-a", &dev_addr]);
 
-        if self.clean_mode {
-            println!("\nMkDocs server starting in CLEAN mode (full rebuilds) at http://{}/", dev_addr);
-        } else {
-            println!("\nMkDocs server starting at http://{}/", dev_addr);
-        }
+        println!("\nZensical server starting at http://{}/", dev_addr);
         println!("Press Ctrl+C to stop the server\n");
 
         // Execute the command
@@ -631,70 +570,45 @@ impl Startup {
             .stderr(Stdio::inherit())
             .status();
 
-        // Execute the command and handle errors
         match status {
             Ok(status) if status.success() => Ok(status),
             Ok(status) => {
-                eprintln!("Error: MkDocs server failed with exit code: {}", status);
+                eprintln!("Error: Zensical server failed with exit code: {}", status);
                 Err(std::io::Error::new(
                     std::io::ErrorKind::Other,
-                    format!("MkDocs server failed with exit code: {}", status),
+                    format!("Zensical server failed with exit code: {}", status),
                 ))
             }
             Err(e) => {
-                // Try alternative methods if the first one fails
-                if cfg!(windows) {
-                    // Try with python3 first, then python
-                    let python_cmds = ["python3", "python"];
-                    let mut last_error = e;
-
-                    for cmd in &python_cmds {
-                        let mut alt_cmd = Command::new(cmd);
-                        alt_cmd.args(&["-m", "mkdocs", "serve"]);
-
-                        if let Some(version) = &self.draft_version {
-                            alt_cmd.args(&["--draft", version]);
-                        }
-
-                        println!("Trying with {}...", cmd);
-                        match alt_cmd
-                            .stdin(Stdio::inherit())
-                            .stdout(Stdio::inherit())
-                            .stderr(Stdio::inherit())
-                            .status()
-                        {
-                            Ok(status) if status.success() => return Ok(status),
-                            Ok(status) => {
-                                last_error = std::io::Error::new(
-                                    std::io::ErrorKind::Other,
-                                    format!("MkDocs server failed with exit code: {}", status),
-                                );
-                            }
-                            Err(e) => last_error = e,
-                        }
-                    }
-
-                    // If we get here, all attempts failed
-                    eprintln!("Failed to start MkDocs server: {}", last_error);
-                    Err(last_error)
-                } else {
-                    // On Unix-like systems, just report the error
-                    eprintln!("Failed to start MkDocs server. Make sure MkDocs is installed and in your PATH.");
-                    eprintln!("You can install it with: pip install mkdocs");
-                    Err(std::io::Error::new(
-                        std::io::ErrorKind::NotFound,
-                        "MkDocs command not found. Install with: pip install mkdocs",
-                    ))
-                }
+                eprintln!("Failed to start Zensical server: {}", e);
+                eprintln!("Trying with uv run...");
+                self.start_zensical_with_uv()
             }
         }
+    }
+    
+    // Fallback: start zensical using uv run
+    fn start_zensical_with_uv(&self) -> std::io::Result<std::process::ExitStatus> {
+        let dev_addr = env::var("ZENSICAL_DEV_ADDR").unwrap_or_else(|_| "0.0.0.0:8001".to_string());
+        
+        let mut command = Command::new("uv");
+        command.args(&["run", "zensical", "serve", "-a", &dev_addr]);
+
+        println!("\nZensical server starting via uv at http://{}/", dev_addr);
+        println!("Press Ctrl+C to stop the server\n");
+
+        command
+            .stdin(Stdio::inherit())
+            .stdout(Stdio::inherit())
+            .stderr(Stdio::inherit())
+            .status()
     }
 
     // Show completion message
     fn show_completion_message(&self) {
-        println!("\n✅ Setup completed successfully!");
+        println!("\nSetup completed successfully!");
         println!("\nYour documentation is now available at:");
-        println!("🌐 http://localhost:8000");
+        println!("http://localhost:8001");
         println!("\nProject root: {}", self.project_root.display());
         println!("Script path: {}", self.script_path.display());
         println!("\nPress Ctrl+C to stop the server when you're done.");
