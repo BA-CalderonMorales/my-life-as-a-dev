@@ -1,19 +1,18 @@
 /**
  * Three.js Background - Main Entry Point
  * 
- * Architecture: MVVM + DDD + Vertical Slice
- * - core/: Scene management (ViewModel layer)
- * - lighting/: Lighting domain
- * - animation/: Animation domain (geometry, controllers)
- * - pages/: Vertical slice implementations per page type
- * - utils/: Cross-cutting utilities
+ * Bruno Simon inspired ambient particle background
+ * Creates a full-screen, immersive particle field that flows gently
+ * and complements the page content without being distracting.
  * 
- * Inspired by Bruno Simon and creative Three.js portfolios
+ * - Subtle, full-viewport coverage
+ * - Theme-aware (dark/light mode)
+ * - Mouse-responsive camera
+ * - Performance-optimized with shader-based animations
  */
 
 import { DeviceDetector } from './utils/DeviceDetector.js';
-import { HomePageScene } from './pages/HomePageScene.js';
-import { SubtlePageScene } from './pages/SubtlePageScene.js';
+import { AmbientParticleScene } from './pages/AmbientParticleScene.js';
 
 class ThreeJSBackgroundApp {
     constructor() {
@@ -22,47 +21,43 @@ class ThreeJSBackgroundApp {
         this.containerId = 'threejs-bg-container';
         this.isInitialized = false;
     }
-    
+
     /**
      * Initialize the Three.js background
      */
     async init() {
         if (this.isInitialized) return;
-        
+
         if (!this.deviceDetector.shouldEnableThreeJS()) {
             console.info('[ThreeJSBackground] Disabled: WebGL not supported or reduced motion preferred');
             return;
         }
-        
+
         this.createContainer();
-        
-        const isHomePage = this.detectHomePage();
-        
-        if (isHomePage) {
-            this.currentScene = new HomePageScene(this.containerId);
-        } else {
-            this.currentScene = new SubtlePageScene(this.containerId);
-        }
-        
+
+        // Use ambient particle scene for all pages
+        // It provides a subtle, full-screen background that complements content
+        this.currentScene = new AmbientParticleScene(this.containerId);
+
         const success = await this.currentScene.init();
-        
+
         if (success) {
             this.isInitialized = true;
-            console.info(`[ThreeJSBackground] Initialized (${isHomePage ? 'home' : 'subtle'} mode)`);
+            console.info('[ThreeJSBackground] Initialized (ambient particles mode)');
         }
     }
-    
+
     /**
      * Create the container element for the Three.js canvas
      */
     createContainer() {
         let container = document.getElementById(this.containerId);
-        
+
         if (!container) {
             container = document.createElement('div');
             container.id = this.containerId;
             container.className = 'threejs-bg-container';
-            
+
             const contentWrapper = document.querySelector('.md-content') || document.querySelector('main');
             if (!contentWrapper) {
                 console.warn('[ThreeJSBackground] Could not find content wrapper (.md-content or main)');
@@ -71,28 +66,10 @@ class ThreeJSBackgroundApp {
                 contentWrapper.insertBefore(container, contentWrapper.firstChild);
             }
         }
-        
+
         return container;
     }
-    
-    /**
-     * Detect if current page is the home page
-     */
-    detectHomePage() {
-        const path = window.location.pathname;
-        
-        const isRoot = path === '/' || path === '/index.html';
-        
-        const hasLandingClass = document.body.classList.contains('landing-page');
-        
-        const isVersionedRoot = /^\/[^/]+\/?$/.test(path) || /\/latest\/?$/.test(path);
-        
-        const hasMikeVersion = document.querySelector('.md-version') !== null;
-        const isDocRoot = hasMikeVersion && (isRoot || isVersionedRoot);
-        
-        return isRoot || hasLandingClass || isDocRoot;
-    }
-    
+
     /**
      * Destroy the current scene and clean up
      */
@@ -101,15 +78,15 @@ class ThreeJSBackgroundApp {
             this.currentScene.destroy();
             this.currentScene = null;
         }
-        
+
         const container = document.getElementById(this.containerId);
         if (container && container.parentNode) {
             container.parentNode.removeChild(container);
         }
-        
+
         this.isInitialized = false;
     }
-    
+
     /**
      * Reinitialize for page navigation (MkDocs Material instant loading)
      */
@@ -129,7 +106,7 @@ function initBackground() {
         app.reinit();
         return;
     }
-    
+
     app = new ThreeJSBackgroundApp();
     app.init();
 }

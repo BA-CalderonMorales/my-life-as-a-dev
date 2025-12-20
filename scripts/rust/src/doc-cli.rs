@@ -494,15 +494,30 @@ impl DocCli {
         Ok(())
     }
 
+    // Get the path to zensical binary (checks venv first, then system PATH)
+    fn get_zensical_path(&self) -> String {
+        // Check for zensical in the project's virtual environment
+        let venv_zensical = self.project_root.join(".venv").join("bin").join("zensical");
+        if venv_zensical.exists() {
+            return venv_zensical.to_string_lossy().to_string();
+        }
+        
+        // Fallback to system PATH
+        "zensical".to_string()
+    }
+
     // Execute zensical serve command
     fn run_zensical_serve(&self) -> std::io::Result<()> {
-        println!("\n🚀 Starting Zensical development server...\n");
+        println!("\nStarting Zensical development server...\n");
 
         // Change to project root
         env::set_current_dir(&self.project_root)?;
 
+        // Get zensical path (prefers venv)
+        let zensical_cmd = self.get_zensical_path();
+        
         // Run zensical serve with default port 8001
-        let status = Command::new("zensical")
+        let status = Command::new(&zensical_cmd)
             .args(&["serve", "-a", "0.0.0.0:8001"])
             .stdin(Stdio::inherit())
             .stdout(Stdio::inherit())
@@ -521,13 +536,16 @@ impl DocCli {
 
     // Execute zensical build command
     fn run_zensical_build(&self) -> std::io::Result<()> {
-        println!("\n🔨 Building site with Zensical...\n");
+        println!("\nBuilding site with Zensical...\n");
 
         // Change to project root
         env::set_current_dir(&self.project_root)?;
 
+        // Get zensical path (prefers venv)
+        let zensical_cmd = self.get_zensical_path();
+        
         // Run zensical build
-        let status = Command::new("zensical")
+        let status = Command::new(&zensical_cmd)
             .arg("build")
             .stdin(Stdio::inherit())
             .stdout(Stdio::inherit())
@@ -541,7 +559,7 @@ impl DocCli {
             ));
         }
 
-        println!("\n✅ Zensical build complete!");
+        println!("\nZensical build complete!");
         Ok(())
     }
 

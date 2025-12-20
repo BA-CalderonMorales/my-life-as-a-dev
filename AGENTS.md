@@ -4,15 +4,37 @@ Guidelines for AI assistants working on this repository. Detailed skills are in 
 
 ## Overview
 
-This is an MkDocs Material documentation hub. Key tools: `mkdocs`, `mike`, `doc-cli` (Rust), and local `mkdocs_plugins`.
+This is an MkDocs Material documentation hub using Zensical as the primary static site generator. Key tools: `zensical`, `mkdocs`, `mike`, `doc-cli` (Rust), and local `mkdocs_plugins`.
+
+## Critical Rules
+
+### ALWAYS use `uv` for Python package management
+
+**This is mandatory.** Never use `pip` directly. Always use `uv`:
+
+```bash
+# Installing packages
+uv pip install <package>
+uv pip install -r requirements.txt
+
+# Listing packages
+uv pip list
+
+# Running Python commands through uv
+uv run python <script.py>
+uv run mkdocs serve
+uv run zensical serve
+```
+
+The project uses a virtual environment at `.venv/`. All Python tools (zensical, mkdocs, etc.) are installed there.
 
 ## Quick Commands
 
 ```bash
-make setup    # Install dependencies
-make serve    # Start dev server
-make build    # Build site
-doc-cli       # Interactive CLI
+make setup    # Install dependencies (uses uv)
+make serve    # Start Zensical dev server
+make build    # Build site with Zensical
+doc-cli       # Interactive CLI (uses .venv automatically)
 ```
 
 ## Skills Index
@@ -55,12 +77,14 @@ doc-cli       # Interactive CLI
 
 ## Core Rules
 
-1. **No emojis** in commits, docs, or comments
-2. **Conventional Commits**: `feat:`, `fix:`, `docs:`, `chore:`
-3. **Always verify**: Run `make build` before committing
-4. **Update nav**: ALL new pages must be added to `mkdocs.yml` - including problem sub-pages
-5. **Check build output**: Look for "not included in nav" warnings - fix them before committing
-6. **Test changes**: Use `make serve` to preview
+1. **ALWAYS use `uv`** for Python package management - never use `pip` directly
+2. **No emojis** in commits, docs, or comments
+3. **Conventional Commits**: `feat:`, `fix:`, `docs:`, `chore:`
+4. **Always verify**: Run `make build` before committing
+5. **Update nav**: ALL new pages must be added to `.nav.yml` - including problem sub-pages
+6. **Check build output**: Look for "not included in nav" warnings - fix them before committing
+7. **Test changes**: Use `make serve` to preview
+8. **Use zensical.toml** as the primary configuration (not mkdocs.yml)
 
 ## Working with AI Assistants
 

@@ -407,50 +407,41 @@ section.md-typeset h2 {
 }
 
 /* ============================================
-   Three.js Background Container
+   Three.js Background Container - Ambient Particles
+   Bruno Simon-inspired full-screen particle field
    ============================================ */
 .threejs-bg-container {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     z-index: -1;
     pointer-events: none;
     overflow: hidden;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
 }
 
-/* Home page: more prominent background */
-.landing-page .threejs-bg-container {
-    opacity: 0.85;
-}
-
-/* Inner pages: subtle background */
-.md-content .threejs-bg-container {
-    position: absolute;
-    z-index: 0;
-    opacity: 0.5;
+.threejs-bg-container canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 /* Ensure content stays above Three.js background */
-.md-content__inner {
+.md-content__inner,
+.md-typeset,
+.md-header,
+.md-footer,
+.md-sidebar {
     position: relative;
     z-index: 1;
 }
 
-/* Prevent background from affecting text readability */
-.md-typeset {
-    position: relative;
-    z-index: 1;
-}
-
-/* Dark mode adjustments */
+/* Dark mode: slightly more visible particles */
 [data-md-color-scheme="slate"] .threejs-bg-container {
     opacity: 0.7;
-}
-
-[data-md-color-scheme="slate"] .landing-page .threejs-bg-container {
-    opacity: 0.9;
 }
 
 /* Reduced motion preference */
