@@ -36,6 +36,13 @@ build_rust_tools() {
 
   (cd "${RUST_DIR}" && cargo build --release)
   echo -e "\n${GREEN}All tools built successfully!${NC}\n"
+  
+  # Copy the built binary to the repo root for convenience (overwrite any existing file/symlink)
+  if [ -x "${DOC_CLI_BIN}" ]; then
+    rm -f "${SCRIPT_DIR}/doc-cli"
+    cp "${DOC_CLI_BIN}" "${SCRIPT_DIR}/doc-cli"
+    chmod +x "${SCRIPT_DIR}/doc-cli"
+  fi
 }
 
 run_doc_cli() {
