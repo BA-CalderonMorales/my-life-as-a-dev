@@ -134,6 +134,19 @@ nav = [
             { "Networking" = "learning/additional_topics/networking/index.md" },
             { "Security" = "learning/additional_topics/security/index.md" },
         ] },
+        { "Cloud AI Platforms" = [
+            { "Overview" = "learning/cloud_ai/index.md" },
+            { "Vertex AI" = [
+                { "Overview" = "learning/cloud_ai/vertex_ai/index.md" },
+                { "Environment Setup" = "learning/cloud_ai/vertex_ai/environment_setup.md" },
+                { "Workspace Setup" = "learning/cloud_ai/vertex_ai/workspace_setup.md" },
+                { "Google Cloud Setup" = "learning/cloud_ai/vertex_ai/google_cloud_setup.md" },
+                { "Connect to Vertex AI" = "learning/cloud_ai/vertex_ai/connect_to_vertex_ai.md" },
+                { "Explore Models" = "learning/cloud_ai/vertex_ai/explore_models.md" },
+                { "Code Examples" = "learning/cloud_ai/vertex_ai/code_examples.md" },
+                { "Vertex AI Studio" = "learning/cloud_ai/vertex_ai/vertex_ai_studio.md" },
+            ] },
+        ] },
     ] },
 
     # Docs-as-Code section
@@ -305,13 +318,11 @@ admonition = {}
 highlight = { anchor_linenums = true }
 inlinehilite = {}
 snippets = {}
-extra = {}  # Note: pymdownx.extra is different from markdown.extra above
+extra = {}                             # Note: pymdownx.extra is different from markdown.extra above
 details = {}
 
 [project.markdown_extensions.pymdownx.superfences]
-custom_fences = [
-    { name = "mermaid", class = "mermaid" }
-]
+custom_fences = [{ name = "mermaid", class = "mermaid" }]
 
 [project.markdown_extensions.pymdownx.tabbed]
 alternate_style = true
@@ -330,7 +341,7 @@ emoji_generator = "material.extensions.emoji.to_svg"
 
 # Git authors plugin
 [project.plugins.git-authors]
-enabled = false  # Controlled by ENABLE_GIT_AUTHORS env var in CI
+enabled = false           # Controlled by ENABLE_GIT_AUTHORS env var in CI
 show_email_address = true
 href = "mailto:{email}"
 
@@ -364,14 +375,10 @@ remove_comments = true
 
 # Print site plugin
 [project.plugins.print-site]
-enabled = false  # Controlled by ENABLE_PRINT_SITE env var in CI
+enabled = false # Controlled by ENABLE_PRINT_SITE env var in CI
 
 # ----------------------------------------------------------------------------
 # Watch Paths (for development hot reload)
 # ----------------------------------------------------------------------------
 [project.watch]
-paths = [
-    "mkdocs_plugins",
-    "docs/overrides",
-    "scripts/python"
-]
+paths = ["mkdocs_plugins", "docs/overrides", "scripts/python"]
