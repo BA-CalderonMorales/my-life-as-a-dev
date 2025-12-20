@@ -1,18 +1,18 @@
 /**
  * Three.js Background - Main Entry Point
  * 
- * Bruno Simon inspired ambient particle background
- * Creates a full-screen, immersive particle field that flows gently
- * and complements the page content without being distracting.
+ * Bruno Simon-inspired immersive background experience
+ * Combines multiple visual effects for maximum impact:
+ * - Animated gradient background with noise
+ * - Flowing wave geometry
+ * - Interactive particles with constellation connections
+ * - Mouse-responsive camera and effects
  * 
- * - Subtle, full-viewport coverage
- * - Theme-aware (dark/light mode)
- * - Mouse-responsive camera
- * - Performance-optimized with shader-based animations
+ * Architecture: Follows MVVM, DDD, Vertical Slice patterns
  */
 
 import { DeviceDetector } from './utils/DeviceDetector.js';
-import { AmbientParticleScene } from './pages/AmbientParticleScene.js';
+import { ImmersiveScene } from './pages/ImmersiveScene.js';
 
 class ThreeJSBackgroundApp {
     constructor() {
@@ -20,6 +20,7 @@ class ThreeJSBackgroundApp {
         this.deviceDetector = new DeviceDetector();
         this.containerId = 'threejs-bg-container';
         this.isInitialized = false;
+        this.hasLoggedWelcome = false;
     }
 
     /**
@@ -29,21 +30,23 @@ class ThreeJSBackgroundApp {
         if (this.isInitialized) return;
 
         if (!this.deviceDetector.shouldEnableThreeJS()) {
-            console.info('[ThreeJSBackground] Disabled: WebGL not supported or reduced motion preferred');
             return;
         }
 
         this.createContainer();
 
-        // Use ambient particle scene for all pages
-        // It provides a subtle, full-screen background that complements content
-        this.currentScene = new AmbientParticleScene(this.containerId);
+        // Use immersive scene with all effects for wow factor
+        this.currentScene = new ImmersiveScene(this.containerId);
 
         const success = await this.currentScene.init();
 
         if (success) {
             this.isInitialized = true;
-            console.info('[ThreeJSBackground] Initialized (ambient particles mode)');
+            // Only log welcome message once per session
+            if (!this.hasLoggedWelcome) {
+                console.log('Welcome to Brandon\'s Portfolio - Crafted with passion');
+                this.hasLoggedWelcome = true;
+            }
         }
     }
 
@@ -58,13 +61,9 @@ class ThreeJSBackgroundApp {
             container.id = this.containerId;
             container.className = 'threejs-bg-container';
 
-            const contentWrapper = document.querySelector('.md-content') || document.querySelector('main');
-            if (!contentWrapper) {
-                console.warn('[ThreeJSBackground] Could not find content wrapper (.md-content or main)');
-                document.body.insertBefore(container, document.body.firstChild);
-            } else {
-                contentWrapper.insertBefore(container, contentWrapper.firstChild);
-            }
+            // Insert at document.body level to avoid affecting MkDocs layout
+            // The CSS position:fixed ensures it stays behind all content
+            document.body.insertBefore(container, document.body.firstChild);
         }
 
         return container;

@@ -18,7 +18,7 @@ export class SubtlePageScene {
         this.deviceDetector = new DeviceDetector();
         this.objects = [];
     }
-    
+
     async init() {
         const qualitySettings = this.deviceDetector.getQualitySettings();
         this.sceneManager = new SceneManager(this.containerId, {
@@ -26,30 +26,29 @@ export class SubtlePageScene {
             pixelRatio: this.deviceDetector.getOptimalPixelRatio()
         });
         const success = await this.sceneManager.init();
-        
+
         if (!success) {
-            console.warn('[SubtlePageScene] Scene initialization failed');
             return false;
         }
-        
+
         this.geometryFactory = new GeometryFactory();
         this.lightingManager = new LightingManager(this.sceneManager.scene);
         this.animationController = new AnimationController();
-        
+
         this.setupLighting();
         this.createObjects();
         this.setupUpdateLoop();
-        
+
         this.sceneManager.startRenderLoop();
-        
+
         return true;
     }
-    
+
     setupLighting() {
         this.lightingManager.setupSubtleLighting();
         this.lightingManager.storeBaseIntensities();
     }
-    
+
     createObjects() {
         const sphere1 = this.geometryFactory.createSphere({
             radius: 1.5,
@@ -58,7 +57,7 @@ export class SubtlePageScene {
             position: { x: 0, y: 0, z: -8 }
         });
         this.addObject(sphere1, { scrollInfluence: 0.4 });
-        
+
         const icosa1 = this.geometryFactory.createIcosahedron({
             radius: 1,
             color: 0x4DB6AC,
@@ -66,7 +65,7 @@ export class SubtlePageScene {
             position: { x: -3, y: 2, z: -10 }
         });
         this.addObject(icosa1, { scrollInfluence: 0.3 });
-        
+
         const octa1 = this.geometryFactory.createOctahedron({
             radius: 0.8,
             color: 0xFF8A65,
@@ -74,7 +73,7 @@ export class SubtlePageScene {
             position: { x: 3, y: -1, z: -12 }
         });
         this.addObject(octa1, { scrollInfluence: 0.5 });
-        
+
         const ring1 = this.geometryFactory.createWireframeRing({
             innerRadius: 4,
             outerRadius: 5,
@@ -84,25 +83,25 @@ export class SubtlePageScene {
         });
         this.addObject(ring1, { enableFloat: false, scrollInfluence: 0.2 });
     }
-    
+
     addObject(object, animOptions = {}) {
         this.sceneManager.addToScene(object);
         this.animationController.registerObject(object, animOptions);
         this.objects.push(object);
     }
-    
+
     setupUpdateLoop() {
         this.sceneManager.onUpdate((time, scrollProgress) => {
             this.animationController.update(time, scrollProgress);
         });
     }
-    
+
     destroy() {
         this.animationController?.clear();
         this.lightingManager?.dispose();
         this.geometryFactory?.dispose();
         this.sceneManager?.destroy();
-        
+
         this.objects = [];
     }
 }

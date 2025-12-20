@@ -39,7 +39,6 @@ export class AmbientParticleScene {
         try {
             this.container = document.getElementById(this.containerId);
             if (!this.container) {
-                console.warn('[AmbientParticleScene] Container not found');
                 return false;
             }
 
@@ -51,8 +50,7 @@ export class AmbientParticleScene {
             this.startRenderLoop();
 
             return true;
-        } catch (error) {
-            console.error('[AmbientParticleScene] Init failed:', error);
+        } catch {
             return false;
         }
     }
@@ -215,12 +213,14 @@ export class AmbientParticleScene {
         window.addEventListener('resize', this.handleResize, { passive: true });
         window.addEventListener('mousemove', this.handleMouseMove, { passive: true });
 
-        // Watch for theme changes
-        this.themeObserver = new MutationObserver(this.handleThemeChange);
-        this.themeObserver.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['data-md-color-scheme']
-        });
+        // Watch for theme changes - only if document element exists
+        if (document.documentElement) {
+            this.themeObserver = new MutationObserver(this.handleThemeChange);
+            this.themeObserver.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-md-color-scheme']
+            });
+        }
     }
 
     detachEventListeners() {
