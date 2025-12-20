@@ -59,9 +59,12 @@ jobs:
           sparse-checkout: |
             docs
             zensical.toml
+            mkdocs.yml
+            mkdocs_plugins
             requirements.txt
             versions.json
             e2e
+            scripts/python
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -72,7 +75,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install zensical
+          pip install -r requirements.txt
 
       - name: Run e2e structure checks
         if: github.event_name == 'pull_request'
@@ -93,7 +96,20 @@ jobs:
           # Create .nojekyll to prevent GitHub Pages from ignoring files
           touch site/.nojekyll
           
+          # Verify Three.js assets are included
+          # Note: This path is defined in docs/overrides/main.html
+          echo "Verifying Three.js assets in build..."
+          if [ -d "site/assets/js/threejs-background" ]; then
+            echo "✓ Three.js assets found in build"
+            ls -la site/assets/js/threejs-background/
+          else
+            echo "✗ WARNING: Three.js assets NOT found in build!"
+            echo "Build directory structure:"
+            find site/assets -type f -name "*.js" | head -20
+          fi
+          
           # Show build output
+          echo "Build output structure:"
           ls -la site/
 
       - name: Upload artifact
