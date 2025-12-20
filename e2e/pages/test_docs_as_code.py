@@ -5,7 +5,7 @@ Docs as Code page e2e tests.
 import pytest
 from playwright.sync_api import Page, expect
 
-from e2e.shared import has_emoji
+from ..shared import has_emoji
 
 
 class TestDocsAsCodePage:

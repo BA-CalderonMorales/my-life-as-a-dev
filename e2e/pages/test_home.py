@@ -6,7 +6,7 @@ Verifies the homepage renders correctly with proper styling and content.
 import pytest
 from playwright.sync_api import Page, expect
 
-from e2e.shared import has_emoji, has_raw_markdown
+from ..shared import has_emoji, has_raw_markdown
 
 
 class TestHomePage:
