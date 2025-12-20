@@ -3,6 +3,10 @@
 {% block extrahead %}
 <meta name="site_url" content="{{ config.site_url }}">
 <link rel="icon" href="{{ config.theme.logo | url }}" />
+
+<!-- Patch browser APIs to prevent third-party console errors -->
+<!-- Must load synchronously BEFORE any other scripts -->
+<script src="{{ 'assets/js/console-patch.js' | url }}"></script>
 <!-- Import map for Three.js ES modules -->
 <script type="importmap">
 {

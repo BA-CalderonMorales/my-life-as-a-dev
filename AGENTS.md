@@ -85,6 +85,7 @@ doc-cli       # Interactive CLI (uses .venv automatically)
 6. **Check build output**: Look for "not included in nav" warnings - fix them before committing
 7. **Test changes**: Use `make serve` to preview
 8. **Use zensical.toml** as the primary configuration (not mkdocs.yml)
+9. **No output truncation**: Show full command output - only truncate if explicitly asked
 
 ## Working with AI Assistants
 

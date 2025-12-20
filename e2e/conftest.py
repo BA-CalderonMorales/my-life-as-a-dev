@@ -5,6 +5,9 @@ Uses Playwright for browser automation with uv as the package manager.
 
 import os
 import pytest
+import threading
+import socket
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from playwright.sync_api import sync_playwright, Browser, Page
 
@@ -14,8 +17,38 @@ PROJECT_ROOT = Path(__file__).parent.parent
 DOCS_ROOT = PROJECT_ROOT / "docs"
 SITE_ROOT = PROJECT_ROOT / "site"
 
-# Runtime config
-BASE_URL = os.environ.get("DOCS_BASE_URL", f"file://{SITE_ROOT}")
+
+def find_free_port():
+    """Find a free port to use for the HTTP server."""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(('', 0))
+        return s.getsockname()[1]
+
+
+class QuietHTTPRequestHandler(SimpleHTTPRequestHandler):
+    """HTTP request handler that doesn't log requests."""
+    def log_message(self, format, *args):
+        pass  # Suppress logging
+
+
+@pytest.fixture(scope="session")
+def http_server():
+    """Start a simple HTTP server for the built site."""
+    port = find_free_port()
+    
+    # Create handler that serves from site directory
+    handler = lambda *args, **kwargs: QuietHTTPRequestHandler(
+        *args, directory=str(SITE_ROOT), **kwargs
+    )
+    
+    server = HTTPServer(('localhost', port), handler)
+    thread = threading.Thread(target=server.serve_forever)
+    thread.daemon = True
+    thread.start()
+    
+    yield f"http://localhost:{port}"
+    
+    server.shutdown()
 
 
 @pytest.fixture(scope="session")
@@ -36,10 +69,11 @@ def page(browser: Browser):
     context.close()
 
 
+# Runtime config - prefer HTTP server, fall back to env var or file://
 @pytest.fixture(scope="session")
-def base_url():
-    """Provide the base URL for site navigation."""
-    return BASE_URL
+def base_url(http_server):
+    """Provide the base URL for site navigation (uses HTTP server)."""
+    return os.environ.get("DOCS_BASE_URL", http_server)
 
 
 # Page source mappings (mirrors config/pages.js)
