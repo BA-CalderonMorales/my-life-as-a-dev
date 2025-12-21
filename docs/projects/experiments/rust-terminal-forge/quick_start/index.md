@@ -78,8 +78,8 @@ $ npm run build
 2. Deploy to GitHub Pages:
    ```console
    $ git add dist -f
-$ git commit -m "Deploy to GitHub Pages"
-$ git subtree push --prefix dist origin gh-pages
+   $ git commit -m "Deploy to GitHub Pages"
+   $ git subtree push --prefix dist origin gh-pages
    ```
 
 ## Next Steps

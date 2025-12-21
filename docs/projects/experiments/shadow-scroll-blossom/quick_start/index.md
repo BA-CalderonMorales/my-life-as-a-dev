@@ -71,8 +71,8 @@ The project is automatically deployed to GitHub Pages on every push to the `main
 2. Deploy to GitHub Pages:
    ```console
    $ git add dist -f
-$ git commit -m "Deploy to GitHub Pages"
-$ git subtree push --prefix dist origin gh-pages
+   $ git commit -m "Deploy to GitHub Pages"
+   $ git subtree push --prefix dist origin gh-pages
    ```
 
 ## Next Steps
