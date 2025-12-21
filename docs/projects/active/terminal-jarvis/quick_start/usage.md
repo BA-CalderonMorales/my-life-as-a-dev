@@ -4,9 +4,8 @@ Learn how to use Terminal Jarvis effectively to manage and run AI coding tools.
 
 ## Interactive Mode (Recommended)
 
-```bash
-# Launch the full T.JARVIS experience
-terminal-jarvis
+```console
+$ terminal-jarvis
 ```
 
 Get the complete interface with:
@@ -22,83 +21,59 @@ Get the complete interface with:
 
 ### Tool Management
 
-```bash
-# Install and manage tools
-terminal-jarvis install claude
-terminal-jarvis update               # Update all tools
-terminal-jarvis list                # Show tool status
-terminal-jarvis info claude         # Tool details
+```console
+$ terminal-jarvis install claude
+$ terminal-jarvis update               # Update all tools
+$ terminal-jarvis list                # Show tool status
+$ terminal-jarvis info claude         # Tool details
 ```
 
 ### Running Tools
 
-```bash
-# Run tools directly
-terminal-jarvis run claude --prompt "Refactor this function"
-terminal-jarvis run gemini --file src/main.rs
-terminal-jarvis run qwen --analyze
-terminal-jarvis run opencode --generate
-terminal-jarvis run llxprt --help
+```console
+$ terminal-jarvis run claude --prompt "Refactor this function"
+$ terminal-jarvis run gemini --file src/main.rs
+$ terminal-jarvis run qwen --analyze
+$ terminal-jarvis run opencode --generate
+$ terminal-jarvis run llxprt --help
 ```
 
 ### Quick Tool Launch
 
-```bash
-# Launch tools by name (enters interactive session)
-terminal-jarvis claude
-terminal-jarvis gemini
-terminal-jarvis qwen
+```console
+$ terminal-jarvis claude
+$ terminal-jarvis gemini
+$ terminal-jarvis qwen
 ```
 
 ## Tool Installation Workflow
 
 ### Installing Individual Tools
 
-```bash
-# Install specific tool
-terminal-jarvis install claude
-
-# Terminal Jarvis will:
-# 1. Check system prerequisites (NPM, curl, uv)
-# 2. Download and install the tool
-# 3. Verify installation
-# 4. Provide next steps
+```console
+$ terminal-jarvis install claude
 ```
 
 ### Installing Multiple Tools
 
-```bash
-# Use interactive mode for batch installation
-terminal-jarvis
-
-# Then select "Install Tools" from the menu
-# Choose multiple tools to install at once
+```console
+$ terminal-jarvis
 ```
 
 ### Updating Tools
 
-```bash
-# Update all installed tools
-terminal-jarvis update
+```console
+$ terminal-jarvis update
 
-# Update specific tool
-terminal-jarvis update claude
+$ terminal-jarvis update claude
 ```
 
 ## Working with AI Tools
 
 ### Tool Information
 
-```bash
-# Get detailed information about a tool
-terminal-jarvis info claude
-
-# Shows:
-# - Installation status
-# - Version information
-# - Authentication requirements
-# - Available commands
-# - Configuration options
+```console
+$ terminal-jarvis info claude
 ```
 
 ### Authentication Flows
@@ -113,107 +88,66 @@ Terminal Jarvis handles authentication intelligently:
 
 ### Session Management
 
-```bash
-# Start a coding session with Claude
-terminal-jarvis claude
-
-# Terminal Jarvis tracks:
-# - Session state
-# - Authentication status
-# - Tool availability
-# - Context preservation
+```console
+$ terminal-jarvis claude
 ```
 
 ## Advanced Features
 
 ### Configuration Management
 
-```bash
-# View current configuration
-terminal-jarvis config
+```console
+$ terminal-jarvis config
 
-# Edit configuration
-terminal-jarvis config edit
+$ terminal-jarvis config edit
 
-# Reset to defaults
-terminal-jarvis config reset
+$ terminal-jarvis config reset
 ```
 
 ### Theme Selection
 
-```bash
-# Terminal Jarvis supports multiple themes:
-# - T.JARVIS Theme (default, professional blue)
-# - Classic Theme (traditional grayscale)
-# - Matrix Theme (green-on-black)
-
-# Theme can be changed in interactive mode
-terminal-jarvis
-# Select "Settings" → "Change Theme"
+```console
+$ terminal-jarvis
 ```
 
 ### Tool Status Dashboard
 
-```bash
-# Check all tool statuses
-terminal-jarvis list
-
-# Shows for each tool:
-# ✓ Installed and ready
-# ✗ Not installed
-# ⚠ Needs authentication
-# ℹ Additional configuration required
+```console
+$ terminal-jarvis list
 ```
 
 ## Common Workflows
 
 ### First-Time Setup
 
-```bash
-# 1. Install Terminal Jarvis
-npm install -g terminal-jarvis
+```console
+$ npm install -g terminal-jarvis
 
-# 2. Launch interactive mode
-terminal-jarvis
-
-# 3. Install your preferred AI tools
-# Select "Install Tools" from menu
-
-# 4. Set up authentication
-# Follow prompts for API keys
+$ terminal-jarvis
 ```
 
 ### Daily Usage
 
-```bash
-# Quick access to tools
-terminal-jarvis claude    # Launch Claude
-terminal-jarvis gemini    # Launch Gemini
-terminal-jarvis qwen      # Launch Qwen
+```console
+$ terminal-jarvis claude    # Launch Claude
+$ terminal-jarvis gemini    # Launch Gemini
+$ terminal-jarvis qwen      # Launch Qwen
 
-# Check what's available
-terminal-jarvis list
+$ terminal-jarvis list
 
-# Update tools regularly
-terminal-jarvis update
+$ terminal-jarvis update
 ```
 
 ### Multi-Tool Workflows
 
-```bash
-# Use different tools for different tasks:
+```console
+$ terminal-jarvis claude --refactor
 
-# Complex refactoring
-terminal-jarvis claude --refactor
+$ terminal-jarvis gemini --generate
 
-# Quick code generation
-terminal-jarvis gemini --generate
+$ terminal-jarvis qwen --analyze
 
-# Code analysis
-terminal-jarvis qwen --analyze
-
-# Terminal-native workflows
-terminal-jarvis opencode
+$ terminal-jarvis opencode
 ```
 
 ## Tips and Best Practices
@@ -226,19 +160,13 @@ terminal-jarvis opencode
 
 ### Troubleshooting
 
-```bash
-# Tool not found after installation?
-# Restart your terminal or:
-source ~/.bashrc  # or ~/.zshrc
+```console
+$ source ~/.bashrc  # or ~/.zshrc
 
-# Authentication issues?
-terminal-jarvis info <tool>
-# Check the "Authentication" section for setup instructions
+$ terminal-jarvis info <tool>
 
-# Installation failed?
-# Check prerequisites:
-npm --version    # Node.js installed?
-cargo --version  # Rust installed (macOS)?
+$ npm --version    # Node.js installed?
+$ cargo --version  # Rust installed (macOS)?
 ```
 
 ### Keyboard Shortcuts (Interactive Mode)
@@ -252,38 +180,35 @@ cargo --version  # Rust installed (macOS)?
 
 ### Claude
 
-```bash
-terminal-jarvis claude
-# or
-terminal-jarvis run claude --prompt "Your request"
+```console
+$ terminal-jarvis claude
+$ terminal-jarvis run claude --prompt "Your request"
 ```
 
 **Best for**: Complex reasoning, code refactoring, architectural decisions
 
 ### Gemini
 
-```bash
-terminal-jarvis gemini
-# or  
-terminal-jarvis run gemini --query "Your question"
+```console
+$ terminal-jarvis gemini
+$ terminal-jarvis run gemini --query "Your question"
 ```
 
 **Best for**: Multi-modal tasks, code generation, natural language processing
 
 ### Qwen
 
-```bash
-terminal-jarvis qwen
-# or
-terminal-jarvis run qwen --analyze
+```console
+$ terminal-jarvis qwen
+$ terminal-jarvis run qwen --analyze
 ```
 
 **Best for**: Code completion, multi-language support, intelligent suggestions
 
 ### OpenCode
 
-```bash
-terminal-jarvis opencode
+```console
+$ terminal-jarvis opencode
 ```
 
 **Best for**: Terminal-native workflows, interactive code generation
@@ -294,17 +219,14 @@ For complete information on all 10 supported tools, see the [AI Tools Guide](ai-
 
 ## Getting Help
 
-```bash
-# General help
-terminal-jarvis --help
+```console
+$ terminal-jarvis --help
 
-# Command-specific help
-terminal-jarvis install --help
-terminal-jarvis run --help
-terminal-jarvis update --help
+$ terminal-jarvis install --help
+$ terminal-jarvis run --help
+$ terminal-jarvis update --help
 
-# Tool information
-terminal-jarvis info <tool-name>
+$ terminal-jarvis info <tool-name>
 ```
 
 ## Next Steps

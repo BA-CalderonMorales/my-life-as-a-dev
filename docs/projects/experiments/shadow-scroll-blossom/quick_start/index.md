@@ -12,45 +12,41 @@ Get up and running with Shadow Scroll Blossom in minutes.
 
 ### 1. Clone the Repository
 
-```bash
-git clone https://github.com/BA-CalderonMorales/shadow-scroll-blossom.git
-cd shadow-scroll-blossom
+```console
+$ git clone https://github.com/BA-CalderonMorales/shadow-scroll-blossom.git
+$ cd shadow-scroll-blossom
 ```
 
 ### 2. Install Dependencies
 
-```bash
-npm install
-# or
-yarn install
+```console
+$ npm install
+$ yarn install
 ```
 
 ### 3. Start the Development Server
 
-```bash
-npm run dev
-# or
-yarn dev
+```console
+$ npm run dev
+$ yarn dev
 ```
 
 Open [http://localhost:8080](http://localhost:8080) in your browser.
 
 ### 4. Build for Production
 
-```bash
-npm run build
-# or
-yarn build
+```console
+$ npm run build
+$ yarn build
 ```
 
 The production build will be in the `dist/` directory.
 
 ### 5. Preview Production Build
 
-```bash
-npm run preview
-# or
-yarn preview
+```console
+$ npm run preview
+$ yarn preview
 ```
 
 ## Project Scripts
@@ -68,15 +64,15 @@ The project is automatically deployed to GitHub Pages on every push to the `main
 ### Manual Deployment
 
 1. Build the project:
-   ```bash
-   npm run build
+   ```console
+   $ npm run build
    ```
 
 2. Deploy to GitHub Pages:
-   ```bash
-   git add dist -f
-   git commit -m "Deploy to GitHub Pages"
-   git subtree push --prefix dist origin gh-pages
+   ```console
+   $ git add dist -f
+$ git commit -m "Deploy to GitHub Pages"
+$ git subtree push --prefix dist origin gh-pages
    ```
 
 ## Next Steps

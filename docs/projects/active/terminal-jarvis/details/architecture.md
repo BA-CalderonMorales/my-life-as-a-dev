@@ -303,10 +303,10 @@ auth_instructions = "Visit setup URL to get API key"
 
 3. **Test the integration**:
 
-```bash
-terminal-jarvis list        # Should show new tool
-terminal-jarvis info newtool
-terminal-jarvis install newtool
+```console
+$ terminal-jarvis list        # Should show new tool
+$ terminal-jarvis info newtool
+$ terminal-jarvis install newtool
 ```
 
 This modular approach ensures new tools integrate cleanly with detection, info display, and execution while keeping changes isolated.

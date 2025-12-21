@@ -5,9 +5,8 @@
 Terminal Jarvis manages and orchestrates 10+ AI coding assistants from one beautiful terminal interface. Switch seamlessly between Claude, Gemini, Qwen, and more—all with intelligent authentication handling and a delightful developer experience.
 
 !!! tip "Quick Start"
-    ```bash
-    # Try it instantly (no installation required)
-    npx terminal-jarvis
+    ```console
+    $ npx terminal-jarvis
     ```
 
 ## Overview
@@ -128,38 +127,26 @@ Choose your preferred installation method:
 
 === "NPM (Recommended)"
 
-    ```bash
-    # Try it instantly with npx (no installation required)
-    npx terminal-jarvis
-
-    # Install globally
-    npm install -g terminal-jarvis
-
-    # Run
-    terminal-jarvis
+    ```console
+    $ npx terminal-jarvis
+    
+    $ npm install -g terminal-jarvis
+    $ terminal-jarvis
     ```
 
 === "Cargo (Rust)"
 
-    ```bash
-    # Install via Cargo
-    cargo install terminal-jarvis
-
-    # Run
-    terminal-jarvis
+    ```console
+    $ cargo install terminal-jarvis
+    $ terminal-jarvis
     ```
 
 === "Homebrew (macOS/Linux)"
 
-    ```bash
-    # Add the tap
-    brew tap ba-calderonmorales/terminal-jarvis
-
-    # Install
-    brew install terminal-jarvis
-
-    # Run
-    terminal-jarvis
+    ```console
+    $ brew tap ba-calderonmorales/terminal-jarvis
+    $ brew install terminal-jarvis
+    $ terminal-jarvis
     ```
 
 **For detailed platform-specific instructions and troubleshooting**, see [Installation Guide](quick_start/installation.md).
@@ -175,18 +162,14 @@ Choose your preferred installation method:
 
 ### Basic Usage Examples
 
-```bash
-# Interactive mode (recommended)
-terminal-jarvis
+```console
+$ terminal-jarvis
 
-# Run a specific tool directly
-terminal-jarvis run claude
+$ terminal-jarvis run claude
 
-# Check installed tools
-terminal-jarvis list
+$ terminal-jarvis list
 
-# Update all tools
-terminal-jarvis update-all
+$ terminal-jarvis update-all
 ```
 
 **For comprehensive usage information**, see [Usage Guide](quick_start/usage.md).

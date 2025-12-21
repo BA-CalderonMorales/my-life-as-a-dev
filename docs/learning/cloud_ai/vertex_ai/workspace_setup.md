@@ -15,10 +15,9 @@ This page covers creating your project folder and setting up Jupyter Lab for int
 
 Create a folder for your Vertex AI work:
 
-```bash
-# Create folder on Desktop
-mkdir ~/Desktop/gcp_vertexai
-cd ~/Desktop/gcp_vertexai
+```console
+$ mkdir ~/Desktop/gcp_vertexai
+$ cd ~/Desktop/gcp_vertexai
 ```
 
 ---
@@ -27,8 +26,8 @@ cd ~/Desktop/gcp_vertexai
 
 If you prefer working in Jupyter notebooks:
 
-```bash
-conda install jupyterlab
+```console
+$ conda install jupyterlab
 ```
 
 ---
@@ -37,8 +36,8 @@ conda install jupyterlab
 
 Launch Jupyter Lab from your project folder:
 
-```bash
-jupyter lab
+```console
+$ jupyter lab
 ```
 
 This opens Jupyter Lab in your browser.

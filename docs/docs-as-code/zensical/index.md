@@ -30,16 +30,13 @@ The Material for MkDocs team has been developing Zensical to address some limita
 
 ### Quick Start
 
-```bash
-# Run with Zensical (primary)
-make serve        # Development server on port 8001
+```console
+$ make serve        # Development server on port 8001
 
-# Build
-make build        # Zensical production build
+$ make build        # Zensical production build
 
-# Legacy MkDocs (if needed)
-make mkdocs-serve # Development server on port 8000
-make mkdocs-build # MkDocs production build
+$ make mkdocs-serve # Development server on port 8000
+$ make mkdocs-build # MkDocs production build
 ```
 
 ### Configuration Files
@@ -53,25 +50,23 @@ make mkdocs-build # MkDocs production build
 
 ### Installation
 
-```bash
-pip install zensical
+```console
+$ pip install zensical
 ```
 
 ### Creating a New Project
 
-```bash
-zensical new my-docs
-cd my-docs
+```console
+$ zensical new my-docs
+$ cd my-docs
 ```
 
 ### Building and Serving
 
-```bash
-# Serve locally for development
-zensical serve
+```console
+$ zensical serve
 
-# Build for production
-zensical build
+$ zensical build
 ```
 
 ## Configuration Example

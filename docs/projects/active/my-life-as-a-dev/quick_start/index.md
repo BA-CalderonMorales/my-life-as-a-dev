@@ -12,47 +12,41 @@ Get up and running with the Docs-as-Code Portfolio in minutes.
 
 ### 1. Clone the Repository
 
-```bash
-git clone https://github.com/BA-CalderonMorales/my-life-as-a-dev.git
-cd my-life-as-a-dev
+```console
+$ git clone https://github.com/BA-CalderonMorales/my-life-as-a-dev.git
+$ cd my-life-as-a-dev
 ```
 
 ### 2. Set Up Virtual Environment (Recommended)
 
-```bash
-# On Windows
-python -m venv venv
-.\venv\Scripts\activate
+```console
+$ python -m venv venv
+$ .\venv\Scripts\activate
 
-# On macOS/Linux
-python3 -m venv venv
-source venv/bin/activate
+$ python3 -m venv venv
+$ source venv/bin/activate
 ```
 
 ### 3. Install Dependencies
 
-```bash
-uv run python -m pip install --upgrade pip
-uv pip install -r requirements.txt
-uv pip install -e .  # Install in development mode
+```console
+$ uv run python -m pip install --upgrade pip
+$ uv pip install -r requirements.txt
+$ uv pip install -e .  # Install in development mode
 ```
 
 ### 4. Start the Development Server
 
-```bash
-# Set PYTHONPATH and start the server
-export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs serve
-
-# On Windows PowerShell:
-# $env:PYTHONPATH="$env:PYTHONPATH;$(pwd)"; mkdocs serve
+```console
+$ export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs serve
 ```
 
 The site will be available at http://127.0.0.1:8000/
 
 ## Building for Production
 
-```bash
-export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
+```console
+$ export PYTHONPATH=$PYTHONPATH:$(pwd) && mkdocs build --verbose
 ```
 
 The static site will be generated in the `site` directory.
@@ -61,16 +55,13 @@ The static site will be generated in the `site` directory.
 
 The project includes a Rust-based CLI tool for common tasks:
 
-```bash
-# Build the CLI tools
-cd scripts
-cargo build --release
+```console
+$ cd scripts
+$ cargo build --release
 
-# Run the interactive menu
-./target/release/doc-cli
+$ ./target/release/doc-cli
 
-# Or run directly
-./doc-cli.sh
+$ ./doc-cli.sh
 ```
 
 ## AI Integration Setup (Local Development Only)
@@ -80,17 +71,13 @@ cargo build --release
 The AI proxy uses GitHub Models (Azure AI Inference) instead of OpenAI.
 
 1. Set up your GitHub Personal Access Token:
-   ```bash
-   export GITHUB_TOKEN=your_github_pat_here
+   ```console
+   $ export GITHUB_TOKEN=your_github_pat_here
    ```
 
 2. Start the AI proxy (optional, for testing AI features):
-   ```bash
-   # Requires GITHUB_TOKEN environment variable
-   uv run python scripts/python/ai_proxy.py
-
-   # The proxy will run on 127.0.0.1:8765 by default
-   # Configure with HOST, PORT, AI_MODEL, AI_ENDPOINT env vars if needed
+   ```console
+   $ uv run python scripts/python/ai_proxy.py
    ```
 
 3. Default AI model: `deepseek/DeepSeek-R1`

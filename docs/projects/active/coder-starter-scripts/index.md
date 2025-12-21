@@ -39,18 +39,14 @@ Platform-specific startup scripts that automate the entire process of running a 
 2. Navigate to project directory
 3. Run the appropriate start script for your platform:
 
-```bash
-# Windows
-./start.windows.sh
+```console
+$ ./start.windows.sh
 
-# macOS
-./start.mac.sh
+$ ./start.mac.sh
 
-# Linux
-./start.linux.sh
+$ ./start.linux.sh
 
-# GitHub Codespaces (inside a Codespace terminal)
-./start.gh.codespaces.sh
+$ ./start.gh.codespaces.sh
 ```
 
 4. Open browser to `http://127.0.0.1:3000`
@@ -121,15 +117,12 @@ The `start.gh.codespaces.sh` script is purpose-built for ephemeral environments:
 
 **Codespaces Options:**
 
-```bash
-# Download and verify only (skip server start)
-SKIP_CODER_SERVER=1 ./start.gh.codespaces.sh
+```console
+$ SKIP_CODER_SERVER=1 ./start.gh.codespaces.sh
 
-# Suppress non-critical logs
-QUIET=1 ./start.gh.codespaces.sh
+$ QUIET=1 ./start.gh.codespaces.sh
 
-# Force redownload latest version
-rm -f .bin/coder && ./start.gh.codespaces.sh
+$ rm -f .bin/coder && ./start.gh.codespaces.sh
 ```
 
 ### Windows-Specific Behavior

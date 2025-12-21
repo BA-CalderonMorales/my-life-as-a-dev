@@ -48,10 +48,10 @@ Terminal Jarvis detects when tools are performing authentication and displays:
 
 **Solution**: Install Rust before Terminal Jarvis:
 
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source ~/.cargo/env
-npm install -g terminal-jarvis
+```console
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+$ source ~/.cargo/env
+$ npm install -g terminal-jarvis
 ```
 
 **Why**: macOS system security and binary compilation requirements
@@ -71,10 +71,9 @@ npm install -g terminal-jarvis
 
 **Recommended Setup**:
 
-```bash
-# In WSL2
-npm install -g terminal-jarvis
-terminal-jarvis
+```console
+$ npm install -g terminal-jarvis
+$ terminal-jarvis
 ```
 
 **Future Plans**: Improved native Windows support in roadmap
@@ -106,9 +105,8 @@ See [Installation Guide](../quick_start/installation.md#package-information) for
 
 **Solution**:
 
-```bash
-source ~/.bashrc  # or ~/.zshrc
-# or simply restart your terminal
+```console
+$ source ~/.bashrc  # or ~/.zshrc
 ```
 
 **Why**: OpenCode modifies PATH, which requires shell reload
@@ -119,9 +117,9 @@ source ~/.bashrc  # or ~/.zshrc
 
 **Solution**: Set `GEMINI_API_KEY` environment variable:
 
-```bash
-export GEMINI_API_KEY="your-key-here"
-terminal-jarvis gemini
+```console
+$ export GEMINI_API_KEY="your-key-here"
+$ terminal-jarvis gemini
 ```
 
 ### Qwen
@@ -138,12 +136,10 @@ terminal-jarvis gemini
 
 **Solution**: Install prerequisites:
 
-```bash
-# Install uv
-curl -LsSf https://astral.sh/uv/install.sh | sh
+```console
+$ curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Install aider via Terminal Jarvis
-terminal-jarvis install aider
+$ terminal-jarvis install aider
 ```
 
 ## Configuration Limitations
@@ -203,9 +199,9 @@ terminal-jarvis install aider
 
 **Configuration**:
 
-```bash
-export HTTP_PROXY=http://proxy.example.com:8080
-export HTTPS_PROXY=http://proxy.example.com:8080
+```console
+$ export HTTP_PROXY=http://proxy.example.com:8080
+$ export HTTPS_PROXY=http://proxy.example.com:8080
 ```
 
 **Limitation**: Some tools may not respect proxy settings

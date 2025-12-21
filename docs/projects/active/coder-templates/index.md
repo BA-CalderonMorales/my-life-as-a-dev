@@ -66,16 +66,14 @@ Templates include real-time dashboard metrics:
 
 Run the packaging script for your platform:
 
-```bash
-# Interactive mode - presents menu of templates
-./package.linux.sh     # Linux
-./package.mac.sh       # macOS
-./package.windows.sh   # Windows (Git Bash/WSL)
+```console
+$ ./package.linux.sh     # Linux
+$ ./package.mac.sh       # macOS
+$ ./package.windows.sh   # Windows (Git Bash/WSL)
 
-# Direct mode - package specific template
-./package.linux.sh local-docker   # Creates terminal-jarvis-playground-local.tar
-./package.linux.sh gcp            # Creates terminal-jarvis-playground-gcp.tar
-./package.linux.sh all            # Creates both archives
+$ ./package.linux.sh local-docker   # Creates terminal-jarvis-playground-local.tar
+$ ./package.linux.sh gcp            # Creates terminal-jarvis-playground-gcp.tar
+$ ./package.linux.sh all            # Creates both archives
 ```
 
 ### 2. Upload to Coder

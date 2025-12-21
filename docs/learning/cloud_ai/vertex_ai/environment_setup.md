@@ -37,12 +37,11 @@ Download Anaconda for your OS: [https://www.anaconda.com/download/success](https
 
 Open your terminal and run these commands:
 
-```bash
-# Activate base and create a clean env
-conda activate base
-conda env list
-conda create --name vertexai_env python=3.9  # accept prompts
-conda activate vertexai_env
+```console
+$ conda activate base
+$ conda env list
+$ conda create --name vertexai_env python=3.9  # accept prompts
+$ conda activate vertexai_env
 ```
 
 ---
@@ -51,8 +50,8 @@ conda activate vertexai_env
 
 With your environment activated, install the SDK:
 
-```bash
-pip install google-cloud-aiplatform
+```console
+$ pip install google-cloud-aiplatform
 ```
 
 ---

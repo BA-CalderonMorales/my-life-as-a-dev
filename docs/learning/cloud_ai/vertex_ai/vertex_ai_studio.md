@@ -60,14 +60,14 @@ When you export code from Vertex AI Studio, it may use a different package than 
 
 To use exported code from Studio, install the required package:
 
-```bash
-pip install --upgrade google-genai
+```console
+$ pip install --upgrade google-genai
 ```
 
 Authenticate with your Google Cloud account:
 
-```bash
-gcloud auth application-default login
+```console
+$ gcloud auth application-default login
 ```
 
 ---

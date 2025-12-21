@@ -14,51 +14,44 @@ Get up and running with Rust Terminal Forge in minutes.
 
 ### 1. Clone the Repository
 
-```bash
-git clone https://github.com/BA-CalderonMorales/rust-terminal-forge.git
-cd rust-terminal-forge
+```console
+$ git clone https://github.com/BA-CalderonMorales/rust-terminal-forge.git
+$ cd rust-terminal-forge
 ```
 
 ### 2. Install Dependencies
 
-```bash
-# Install frontend dependencies
-npm install
+```console
+$ npm install
 
-# Build the Rust WebAssembly package
-wasm-pack build
+$ wasm-pack build
 ```
 
 ### 3. Start the Development Server
 
-```bash
-npm run dev
-# or
-yarn dev
+```console
+$ npm run dev
+$ yarn dev
 ```
 
 Open [http://localhost:8080](http://localhost:8080) in your browser.
 
 ### 4. Build for Production
 
-```bash
-# Build the Rust WebAssembly package for production
-wasm-pack build --release
+```console
+$ wasm-pack build --release
 
-# Build the frontend
-npm run build
-# or
-yarn build
+$ npm run build
+$ yarn build
 ```
 
 The production build will be in the `dist/` directory.
 
 ### 5. Preview Production Build
 
-```bash
-npm run preview
-# or
-yarn preview
+```console
+$ npm run preview
+$ yarn preview
 ```
 
 ## Project Scripts
@@ -77,16 +70,16 @@ The project is automatically deployed to GitHub Pages on every push to the `main
 ### Manual Deployment
 
 1. Build the project:
-   ```bash
-   wasm-pack build --release
-   npm run build
+   ```console
+   $ wasm-pack build --release
+$ npm run build
    ```
 
 2. Deploy to GitHub Pages:
-   ```bash
-   git add dist -f
-   git commit -m "Deploy to GitHub Pages"
-   git subtree push --prefix dist origin gh-pages
+   ```console
+   $ git add dist -f
+$ git commit -m "Deploy to GitHub Pages"
+$ git subtree push --prefix dist origin gh-pages
    ```
 
 ## Next Steps

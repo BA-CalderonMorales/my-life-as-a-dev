@@ -25,14 +25,12 @@ Terminal Screensaver is a high-performance Rust application that provides beauti
 
 ### From Source
 
-```bash
-# Clone and build
-git clone https://github.com/BA-CalderonMorales/terminal-screensaver.git
-cd terminal-screensaver
-cargo build --release
+```console
+$ git clone https://github.com/BA-CalderonMorales/terminal-screensaver.git
+$ cd terminal-screensaver
+$ cargo build --release
 
-# Run with demo configuration
-./target/release/terminal-screensaver -c demo-config.toml
+$ ./target/release/terminal-screensaver -c demo-config.toml
 ```
 
 ### As a Library

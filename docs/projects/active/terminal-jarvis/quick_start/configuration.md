@@ -169,32 +169,25 @@ Terminal Jarvis respects these environment variables:
 
 ### Authentication
 
-```bash
-# Claude
-export ANTHROPIC_API_KEY="your-key-here"
+```console
+$ export ANTHROPIC_API_KEY="your-key-here"
 
-# Gemini
-export GEMINI_API_KEY="your-key-here"
+$ export GEMINI_API_KEY="your-key-here"
 
-# Qwen
-export DASHSCOPE_API_KEY="your-key-here"
+$ export DASHSCOPE_API_KEY="your-key-here"
 
-# Codex
-export OPENAI_API_KEY="your-key-here"
+$ export OPENAI_API_KEY="your-key-here"
 
-# Aider
-export OPENAI_API_KEY="your-key-here"
+$ export OPENAI_API_KEY="your-key-here"
 ```
 
 ### Tool Behavior
 
-```bash
-# Prevent browser opening in headless/CI environments
-export CODEX_NO_BROWSER=1
-export GEMINI_NO_BROWSER=1
+```console
+$ export CODEX_NO_BROWSER=1
+$ export GEMINI_NO_BROWSER=1
 
-# Custom configuration directory
-export TERMINAL_JARVIS_CONFIG_DIR="$HOME/.config/terminal-jarvis"
+$ export TERMINAL_JARVIS_CONFIG_DIR="$HOME/.config/terminal-jarvis"
 ```
 
 ## Customization
@@ -203,8 +196,8 @@ export TERMINAL_JARVIS_CONFIG_DIR="$HOME/.config/terminal-jarvis"
 
 1. Create a new TOML file in `config/tools/`:
 
-```bash
-touch config/tools/my-tool.toml
+```console
+$ touch config/tools/my-tool.toml
 ```
 
 2. Define the tool structure:
@@ -250,26 +243,22 @@ error = "#FF0000"
 
 ## Configuration Commands
 
-```bash
-# View current configuration
-terminal-jarvis config
+```console
+$ terminal-jarvis config
 
-# Edit configuration file
-terminal-jarvis config edit
+$ terminal-jarvis config edit
 
-# Reset to defaults
-terminal-jarvis config reset
+$ terminal-jarvis config reset
 
-# Validate configuration
-terminal-jarvis config validate
+$ terminal-jarvis config validate
 ```
 
 ## Tool Information
 
 To see the exact configuration for any tool:
 
-```bash
-terminal-jarvis info <tool>
+```console
+$ terminal-jarvis info <tool>
 ```
 
 This displays:
@@ -296,33 +285,27 @@ Terminal Jarvis uses a modular configuration system with these benefits:
 
 ### Configuration Not Loading
 
-```bash
-# Check configuration file location
-terminal-jarvis config --path
+```console
+$ terminal-jarvis config --path
 
-# Validate configuration syntax
-terminal-jarvis config validate
+$ terminal-jarvis config validate
 ```
 
 ### Tool Not Appearing
 
-```bash
-# Verify tool configuration exists
-ls ~/.config/terminal-jarvis/config/tools/
+```console
+$ ls ~/.config/terminal-jarvis/config/tools/
 
-# Check tool is properly defined
-terminal-jarvis info <tool-name>
+$ terminal-jarvis info <tool-name>
 ```
 
 ### Authentication Issues
 
-```bash
-# Check environment variables
-echo $ANTHROPIC_API_KEY
-echo $GEMINI_API_KEY
+```console
+$ echo $ANTHROPIC_API_KEY
+$ echo $GEMINI_API_KEY
 
-# View authentication requirements
-terminal-jarvis info <tool-name>
+$ terminal-jarvis info <tool-name>
 ```
 
 ## Best Practices

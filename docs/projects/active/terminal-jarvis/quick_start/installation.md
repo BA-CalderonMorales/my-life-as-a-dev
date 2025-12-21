@@ -8,9 +8,8 @@ This document provides comprehensive installation instructions for Terminal Jarv
 
 ### GitHub Codespaces (Cloud Development)
 
-```bash
-# Click "Code" → "Codespaces" → "Create codespace" on the repository
-# Or use the direct link: https://github.com/codespaces/new?template_repository=BA-CalderonMorales/terminal-jarvis
+```console
+
 ```
 
 **Advantages:**
@@ -23,11 +22,8 @@ This document provides comprehensive installation instructions for Terminal Jarv
 
 ### VS Code Dev Containers (Local Docker)
 
-```bash
-# Prerequisites: Docker Desktop + VS Code + Remote-Containers extension
-# 1. Clone the repository
-# 2. Open in VS Code
-# 3. Click "Reopen in Container" when prompted
+```console
+
 ```
 
 **Advantages:**
@@ -42,41 +38,32 @@ Terminal Jarvis is available through **three official distribution channels**:
 
 ### 1. NPM Installation (Recommended for Most Users)
 
-```bash
-# Try it instantly with npx (no installation required)
-npx terminal-jarvis
+```console
+$ npx terminal-jarvis
 
-# Install latest version globally
-npm install -g terminal-jarvis
+$ npm install -g terminal-jarvis
 
-# Install stable version (recommended for production)
-npm install -g terminal-jarvis@stable
+$ npm install -g terminal-jarvis@stable
 
-# Install beta version (for testing new features)
-npm install -g terminal-jarvis@beta
+$ npm install -g terminal-jarvis@beta
 ```
 
 ### 2. Rust Crate Installation (For Rust Developers)
 
-```bash
-# Install directly via Cargo
-cargo install terminal-jarvis
+```console
+$ cargo install terminal-jarvis
 
-# Verify installation
-terminal-jarvis --help
+$ terminal-jarvis --help
 ```
 
 ### 3. Homebrew Installation (macOS/Linux Package Manager)
 
-```bash
-# Add the Terminal Jarvis tap
-brew tap ba-calderonmorales/terminal-jarvis
+```console
+$ brew tap ba-calderonmorales/terminal-jarvis
 
-# Install Terminal Jarvis
-brew install terminal-jarvis
+$ brew install terminal-jarvis
 
-# Verify installation
-terminal-jarvis --version
+$ terminal-jarvis --version
 ```
 
 ### Distribution Channel Comparison
@@ -100,41 +87,30 @@ terminal-jarvis --version
 !!! warning "Important"
     macOS users must install Rust before using Terminal Jarvis.
 
-```bash
-# 1. Install Rust via rustup
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```console
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# 2. Reload your shell environment
-source ~/.cargo/env
+$ source ~/.cargo/env
 
-# 3. Install Terminal Jarvis
-npm install -g terminal-jarvis
+$ npm install -g terminal-jarvis
 
-# 4. Verify installation
-terminal-jarvis --help
+$ terminal-jarvis --help
 ```
 
 ### Linux
 
-```bash
-# Most Linux distributions work out-of-the-box
-npm install -g terminal-jarvis
+```console
+$ npm install -g terminal-jarvis
 
-# If you encounter issues, install Node.js first:
-# Ubuntu/Debian:
-sudo apt update && sudo apt install nodejs npm
+$ sudo apt update && sudo apt install nodejs npm
 
-# CentOS/RHEL/Fedora:
-sudo dnf install nodejs npm
+$ sudo dnf install nodejs npm
 ```
 
 ### Windows
 
-```bash
-# Install via NPM (works with PowerShell, Command Prompt, and WSL)
-npm install -g terminal-jarvis
-
-# For WSL users, follow Linux instructions
+```console
+$ npm install -g terminal-jarvis
 ```
 
 ## Building from Source
@@ -147,19 +123,15 @@ npm install -g terminal-jarvis
 
 ### Steps
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/BA-CalderonMorales/terminal-jarvis.git
-cd terminal-jarvis
+```console
+$ git clone https://github.com/BA-CalderonMorales/terminal-jarvis.git
+$ cd terminal-jarvis
 
-# 2. Build the Rust application
-cargo build --release
+$ cargo build --release
 
-# 3. Install globally (optional)
-cargo install --path .
+$ cargo install --path .
 
-# 4. Test the installation
-terminal-jarvis --help
+$ terminal-jarvis --help
 ```
 
 ## Requirements and Dependencies
@@ -181,66 +153,56 @@ terminal-jarvis --help
 
 #### "command not found" after NPM install
 
-```bash
-# Check if NPM global bin is in your PATH
-npm config get prefix
+```console
+$ npm config get prefix
 
-# Add to your shell profile (~/.bashrc, ~/.zshrc, etc.)
-export PATH="$(npm config get prefix)/bin:$PATH"
+$ export PATH="$(npm config get prefix)/bin:$PATH"
 
-# Reload your shell
-source ~/.bashrc  # or ~/.zshrc
+$ source ~/.bashrc  # or ~/.zshrc
 ```
 
 #### Permission errors on macOS/Linux
 
-```bash
-# Option 1: Use npx instead
-npx terminal-jarvis
+```console
+$ npx terminal-jarvis
 
-# Option 2: Configure NPM to use a different directory
-mkdir ~/.npm-global
-npm config set prefix '~/.npm-global'
-echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
+$ mkdir ~/.npm-global
+$ npm config set prefix '~/.npm-global'
+$ echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+$ source ~/.bashrc
 ```
 
 #### Rust-related errors on macOS
 
-```bash
-# Ensure Rust is properly installed
-rustc --version
+```console
+$ rustc --version
 
-# If not found, reinstall Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source ~/.cargo/env
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+$ source ~/.cargo/env
 ```
 
 ### Verification Steps
 
-```bash
-# Check version
-terminal-jarvis --version
+```console
+$ terminal-jarvis --version
 
-# Test basic functionality
-terminal-jarvis --help
+$ terminal-jarvis --help
 
-# Launch interactive mode
-terminal-jarvis
+$ terminal-jarvis
 ```
 
 ## Uninstallation
 
 ### NPM Installation
 
-```bash
-npm uninstall -g terminal-jarvis
+```console
+$ npm uninstall -g terminal-jarvis
 ```
 
 ### Source Installation
 
-```bash
-cargo uninstall terminal-jarvis
+```console
+$ cargo uninstall terminal-jarvis
 ```
 
 ## Package Information

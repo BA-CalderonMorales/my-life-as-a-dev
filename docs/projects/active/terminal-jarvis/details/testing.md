@@ -10,8 +10,8 @@ Terminal Jarvis uses multiple testing scripts for different scenarios:
 
 Quick validation of core functionality:
 
-```bash
-./scripts/smoke-test.sh
+```console
+$ ./scripts/smoke-test.sh
 ```
 
 **What it tests**:
@@ -29,8 +29,8 @@ Quick validation of core functionality:
 
 Comprehensive test suite (33 tests):
 
-```bash
-./scripts/test-core-functionality.sh
+```console
+$ ./scripts/test-core-functionality.sh
 ```
 
 **What it tests**:
@@ -49,8 +49,8 @@ Comprehensive test suite (33 tests):
 
 Full CI pipeline validation:
 
-```bash
-./scripts/cicd/local-ci.sh
+```console
+$ ./scripts/cicd/local-ci.sh
 ```
 
 **What it does**:
@@ -77,19 +77,15 @@ When fixing bugs, Terminal Jarvis follows TDD:
 
 Example workflow:
 
-```bash
-# 1. Add test to test-core-functionality.sh
-run_test "Test 34: Reproduce bug XYZ" \
-    "terminal-jarvis command-that-fails"
+```console
+$ run_test "Test 34: Reproduce bug XYZ" \
+$ "terminal-jarvis command-that-fails"
 
-# 2. Fix the bug in source code
 
-# 3. Verify fix
-./scripts/test-core-functionality.sh
+$ ./scripts/test-core-functionality.sh
 
-# 4. Commit with test
-git add scripts/test-core-functionality.sh src/
-git commit -m "fix: resolve issue XYZ with regression test"
+$ git add scripts/test-core-functionality.sh src/
+$ git commit -m "fix: resolve issue XYZ with regression test"
 ```
 
 ## Core Functionality Guarantees
@@ -142,9 +138,8 @@ Terminal Jarvis includes comprehensive Homebrew Formula testing:
 
 ### Local Tap Testing
 
-```bash
-# Test Homebrew Formula locally
-./scripts/test-homebrew-formula.sh
+```console
+$ ./scripts/test-homebrew-formula.sh
 ```
 
 **What it tests**:
@@ -158,9 +153,8 @@ Terminal Jarvis includes comprehensive Homebrew Formula testing:
 
 ### Multi-Platform Build System
 
-```bash
-# Build for multiple platforms
-./scripts/utils/build-multiplatform.sh
+```console
+$ ./scripts/utils/build-multiplatform.sh
 ```
 
 **Supported platforms**:
@@ -175,23 +169,20 @@ Terminal Jarvis includes comprehensive Homebrew Formula testing:
 
 ### Pre-commit Testing
 
-```bash
-# Quick validation before commits
-./scripts/smoke-test.sh
+```console
+$ ./scripts/smoke-test.sh
 ```
 
 ### Pre-release Testing
 
-```bash
-# Comprehensive validation before releases
-./scripts/test-core-functionality.sh
+```console
+$ ./scripts/test-core-functionality.sh
 ```
 
 ### Full Release Pipeline
 
-```bash
-# Complete CI/CD with testing
-./scripts/cicd/local-cicd.sh
+```console
+$ ./scripts/cicd/local-cicd.sh
 ```
 
 ## Regression Prevention Strategy
@@ -206,10 +197,9 @@ Terminal Jarvis includes comprehensive Homebrew Formula testing:
 
 When adding new functionality, extend `scripts/test-core-functionality.sh`:
 
-```bash
-# Add new test
-run_test "Test N: New feature description" \
-    "command_to_test_new_feature"
+```console
+$ run_test "Test N: New feature description" \
+$ "command_to_test_new_feature"
 ```
 
 This ensures that new features are protected against future regressions.
@@ -248,15 +238,12 @@ Terminal Jarvis uses GitHub Actions for CI:
 
 ### Benchmarks
 
-```bash
-# Measure tool detection performance
-time terminal-jarvis list
+```console
+$ time terminal-jarvis list
 
-# Measure installation time
-time terminal-jarvis install claude
+$ time terminal-jarvis install claude
 
-# Measure update performance
-time terminal-jarvis update
+$ time terminal-jarvis update
 ```
 
 ### Optimization Targets

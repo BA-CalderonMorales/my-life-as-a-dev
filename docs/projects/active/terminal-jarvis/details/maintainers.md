@@ -14,9 +14,8 @@ Terminal Jarvis uses a **three-channel distribution strategy**:
 
 ### 1. Development and Testing
 
-```bash
-# Run validation without deployment
-./scripts/cicd/local-ci.sh
+```console
+$ ./scripts/cicd/local-ci.sh
 ```
 
 **What local-ci.sh does**:
@@ -32,9 +31,8 @@ Terminal Jarvis uses a **three-channel distribution strategy**:
 
 ### 2. Git Deployment and Crates.io Publishing
 
-```bash
-# Deploy with full automation
-./scripts/cicd/local-cd.sh
+```console
+$ ./scripts/cicd/local-cd.sh
 ```
 
 **What local-cd.sh does**:
@@ -50,15 +48,14 @@ Terminal Jarvis uses a **three-channel distribution strategy**:
 
 ### 3. Manual NPM Publishing
 
-```bash
-cd npm/terminal-jarvis
-npm run sync-readme  # Sync README from root
-npm run build        # Build TypeScript
-npm publish          # Publish to NPM
+```console
+$ cd npm/terminal-jarvis
+$ npm run sync-readme  # Sync README from root
+$ npm run build        # Build TypeScript
+$ npm publish          # Publish to NPM
 
-# Tag the release
-npm dist-tag add terminal-jarvis@X.X.X latest
-npm dist-tag add terminal-jarvis@X.X.X stable  # If production-ready
+$ npm dist-tag add terminal-jarvis@X.X.X latest
+$ npm dist-tag add terminal-jarvis@X.X.X stable  # If production-ready
 ```
 
 ### 4. Crates.io Publishing (Automated)
@@ -133,31 +130,27 @@ Users can install through multiple channels:
 
 #### NPM Installation
 
-```bash
-# Latest version (default)
-npm install -g terminal-jarvis
+```console
+$ npm install -g terminal-jarvis
 
-# Beta releases (newest features)
-npm install -g terminal-jarvis@beta
+$ npm install -g terminal-jarvis@beta
 
-# Stable releases (production-ready)
-npm install -g terminal-jarvis@stable
+$ npm install -g terminal-jarvis@stable
 
-# Specific version
-npm install -g terminal-jarvis@0.0.X
+$ npm install -g terminal-jarvis@0.0.X
 ```
 
 #### Cargo Installation
 
-```bash
-cargo install terminal-jarvis
+```console
+$ cargo install terminal-jarvis
 ```
 
 #### Homebrew Installation
 
-```bash
-brew tap ba-calderonmorales/terminal-jarvis
-brew install terminal-jarvis
+```console
+$ brew tap ba-calderonmorales/terminal-jarvis
+$ brew install terminal-jarvis
 ```
 
 ## Pre-Release Checklist
@@ -185,45 +178,36 @@ If `local-cd.sh` detects version mismatches:
 
 ### NPM Publishing Fails
 
-```bash
-# Check NPM login status
-npm whoami
+```console
+$ npm whoami
 
-# Re-login if needed
-npm login
+$ npm login
 
-# Verify package.json is valid
-cd npm/terminal-jarvis
-npm run build
-npm pack --dry-run
+$ cd npm/terminal-jarvis
+$ npm run build
+$ npm pack --dry-run
 ```
 
 ### Crates.io Publishing Fails
 
-```bash
-# Check cargo login
-cargo login --list
+```console
+$ cargo login --list
 
-# Re-login if needed
-cargo login
+$ cargo login
 
-# Test publish without actually publishing
-cargo publish --dry-run
+$ cargo publish --dry-run
 ```
 
 ### Homebrew Formula Issues
 
 The `local-cd.sh` script automatically handles Homebrew Formula updates, but if issues occur:
 
-```bash
-# Manually test Formula locally
-./scripts/test-homebrew-formula.sh
+```console
+$ ./scripts/test-homebrew-formula.sh
 
-# Check archive generation
-ls -lh terminal-jarvis-*.tar.gz
+$ ls -lh terminal-jarvis-*.tar.gz
 
-# Verify SHA256 checksums
-shasum -a 256 terminal-jarvis-*.tar.gz
+$ shasum -a 256 terminal-jarvis-*.tar.gz
 ```
 
 ## Script Safety Features
@@ -241,16 +225,13 @@ shasum -a 256 terminal-jarvis-*.tar.gz
 
 If a release goes wrong:
 
-```bash
-# Revert the git tag
-git tag -d v0.0.X
-git push origin :refs/tags/v0.0.X
+```console
+$ git tag -d v0.0.X
+$ git push origin :refs/tags/v0.0.X
 
-# Unpublish from NPM (within 72 hours)
-npm unpublish terminal-jarvis@X.X.X
+$ npm unpublish terminal-jarvis@X.X.X
 
-# Yank from crates.io (doesn't delete, just marks as yanked)
-cargo yank --vers X.X.X terminal-jarvis
+$ cargo yank --vers X.X.X terminal-jarvis
 ```
 
 ## Emergency Procedures
@@ -294,25 +275,21 @@ If a critical issue is discovered after release:
 
 ### Check Package Health
 
-```bash
-# NPM package info
-npm view terminal-jarvis
+```console
+$ npm view terminal-jarvis
 
-# Distribution tags
-npm dist-tag ls terminal-jarvis
+$ npm dist-tag ls terminal-jarvis
 
-# Download stats
-npm view terminal-jarvis --json
+$ npm view terminal-jarvis --json
 ```
 
 ### Local Testing
 
-```bash
-# Test package locally
-cd npm/terminal-jarvis
-npm pack
-cd /tmp && npm install /path/to/terminal-jarvis-X.X.X.tgz
-npx terminal-jarvis --help
+```console
+$ cd npm/terminal-jarvis
+$ npm pack
+$ cd /tmp && npm install /path/to/terminal-jarvis-X.X.X.tgz
+$ npx terminal-jarvis --help
 ```
 
 ## Contact and Support

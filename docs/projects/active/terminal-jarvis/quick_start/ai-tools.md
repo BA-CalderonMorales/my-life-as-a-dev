@@ -247,43 +247,37 @@ Terminal Jarvis currently supports **10 AI coding tools**:
 
 ### Tool Management
 
-```bash
-# Install specific tools
-terminal-jarvis install claude
-terminal-jarvis install crush
-terminal-jarvis install goose
-terminal-jarvis install amp
-terminal-jarvis install aider
+```console
+$ terminal-jarvis install claude
+$ terminal-jarvis install crush
+$ terminal-jarvis install goose
+$ terminal-jarvis install amp
+$ terminal-jarvis install aider
 
-# Update all installed tools
-terminal-jarvis update
+$ terminal-jarvis update
 
-# Check tool status
-terminal-jarvis list
-terminal-jarvis info claude
+$ terminal-jarvis list
+$ terminal-jarvis info claude
 ```
 
 ## Installation Verification
 
 After installing any tool, verify it works correctly:
 
-```bash
-# Test basic functionality
-claude --version
-gemini --version
-qwen --version
-opencode --version
-llxprt --version
-codex --version
-crush --version
-goose --version
-amp --version
-aider --version
+```console
+$ claude --version
+$ gemini --version
+$ qwen --version
+$ opencode --version
+$ llxprt --version
+$ codex --version
+$ crush --version
+$ goose --version
+$ amp --version
+$ aider --version
 
-# Or test help commands if version fails
-claude --help
-gemini --help
-# ... etc
+$ claude --help
+$ gemini --help
 ```
 
 ## Terminal Jarvis Configuration Consistency
@@ -299,8 +293,8 @@ Terminal Jarvis uses a modular configuration system. Each tool has its own TOML 
 
 **To see exact configuration**:
 
-```bash
-terminal-jarvis info <tool>
+```console
+$ terminal-jarvis info <tool>
 ```
 
 ## Common Installation Issues
@@ -309,18 +303,17 @@ terminal-jarvis info <tool>
 
 **Solution**: Restart terminal or run:
 
-```bash
-source ~/.bashrc  # or ~/.zshrc
+```console
+$ source ~/.bashrc  # or ~/.zshrc
 ```
 
 ### Permission Errors During Installation
 
 **Solution**: Use Node Version Manager (nvm) instead of system Node.js:
 
-```bash
-# Install nvm first, then:
-nvm install node
-npm install -g [package-name]
+```console
+$ nvm install node
+$ npm install -g [package-name]
 ```
 
 ### Wrong Package Installed
@@ -345,12 +338,10 @@ Terminal Jarvis v0.0.44+ handles authentication gracefully. You'll see `[INFO] [
 
 ### Tool Updates
 
-```bash
-# Update all tools at once
-terminal-jarvis update
+```console
+$ terminal-jarvis update
 
-# Update specific tool
-terminal-jarvis update claude
+$ terminal-jarvis update claude
 ```
 
 ### Verifying Tool Integrity
@@ -364,12 +355,10 @@ All tools are installed from official sources:
 
 Always verify:
 
-```bash
-# Check installed version
-terminal-jarvis info <tool>
+```console
+$ terminal-jarvis info <tool>
 
-# Verify package source
-npm info <package-name>
+$ npm info <package-name>
 ```
 
 ## Adding New Tools

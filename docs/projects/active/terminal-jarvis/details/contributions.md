@@ -70,15 +70,12 @@ What to discuss:
 
 ### 2. Fork and Branch
 
-```bash
-# Fork the repository on GitHub, then:
-git clone https://github.com/YOUR_USERNAME/terminal-jarvis.git
-cd terminal-jarvis
+```console
+$ git clone https://github.com/YOUR_USERNAME/terminal-jarvis.git
+$ cd terminal-jarvis
 
-# Create a feature branch
-git checkout -b feature/your-feature-name
-# or
-git checkout -b bugfix/issue-description
+$ git checkout -b feature/your-feature-name
+$ git checkout -b bugfix/issue-description
 ```
 
 ### 3. Follow Development Standards
@@ -110,18 +107,14 @@ test: add tests for tool detection
 
 ### 4. Test Your Changes
 
-```bash
-# Run all tests
-cargo test
+```console
+$ cargo test
 
-# Check code formatting
-cargo fmt --all
+$ cargo fmt --all
 
-# Run linting
-cargo clippy --all-targets --all-features -- -D warnings
+$ cargo clippy --all-targets --all-features -- -D warnings
 
-# Test NPM package (if applicable)
-cd npm/terminal-jarvis && npm run build
+$ cd npm/terminal-jarvis && npm run build
 ```
 
 ### 5. Create Pull Request
@@ -145,17 +138,13 @@ Click "Code" → "Codespaces" → "Create codespace" for instant setup with:
 
 ### Local Setup
 
-```bash
-# Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```console
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# Install Node.js 20+
-# (use nvm or your preferred method)
 
-# Clone and build
-git clone https://github.com/BA-CalderonMorales/terminal-jarvis.git
-cd terminal-jarvis
-cargo build
+$ git clone https://github.com/BA-CalderonMorales/terminal-jarvis.git
+$ cd terminal-jarvis
+$ cargo build
 ```
 
 ## Code Quality Rules
@@ -214,10 +203,10 @@ auth_instructions = "Get your API key from..."
 
 2. **Test the integration**:
 
-```bash
-terminal-jarvis list
-terminal-jarvis info newtool
-terminal-jarvis install newtool
+```console
+$ terminal-jarvis list
+$ terminal-jarvis info newtool
+$ terminal-jarvis install newtool
 ```
 
 3. **Add tests** to `test-core-functionality.sh`
