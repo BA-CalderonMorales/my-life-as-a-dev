@@ -79,7 +79,7 @@ Example workflow:
 
 ```console
 $ run_test "Test 34: Reproduce bug XYZ" \
-$ "terminal-jarvis command-that-fails"
+  "terminal-jarvis command-that-fails"
 
 
 $ ./scripts/test-core-functionality.sh
@@ -199,7 +199,7 @@ When adding new functionality, extend `scripts/test-core-functionality.sh`:
 
 ```console
 $ run_test "Test N: New feature description" \
-$ "command_to_test_new_feature"
+  "command_to_test_new_feature"
 ```
 
 This ensures that new features are protected against future regressions.

@@ -8,9 +8,10 @@ This document provides comprehensive installation instructions for Terminal Jarv
 
 ### GitHub Codespaces (Cloud Development)
 
-```console
+**To use GitHub Codespaces:**
 
-```
+1. Click "Code" → "Codespaces" → "Create codespace" on the repository
+2. Or use the direct link: [Create Codespace](https://github.com/codespaces/new?template_repository=BA-CalderonMorales/terminal-jarvis)
 
 **Advantages:**
 
@@ -22,9 +23,13 @@ This document provides comprehensive installation instructions for Terminal Jarv
 
 ### VS Code Dev Containers (Local Docker)
 
-```console
+**Prerequisites:** Docker Desktop + VS Code + Remote-Containers extension
 
-```
+**Steps:**
+
+1. Clone the repository
+2. Open in VS Code
+3. Click "Reopen in Container" when prompted
 
 **Advantages:**
 
