@@ -8,29 +8,83 @@
  * 1. MutationObserver: Handles null/undefined targets (MkDocs Material issue)
  * 2. WebSocket: Upgrades ws:// to wss:// on HTTPS (Codespaces livereload issue)
  * 3. fetch: Suppresses GitHub API 404s for release info
+ * 4. Global error handler: Catches uncaught MutationObserver errors from async code
+ * 5. Console.error filter: Filters out suppressed error messages from console
  */
 
 (function () {
+    // DEBUG: Verify this script is running
+    console.log('[console-patch] Initializing patches...');
+
+    // Error patterns to suppress (from third-party code)
+    const SUPPRESSED_ERROR_PATTERNS = [
+        "Failed to execute 'observe' on 'MutationObserver'",
+        "parameter 1 is not of type 'Node'",
+    ];
+
+    function shouldSuppressError(message) {
+        if (!message) return false;
+        const msgStr = String(message);
+        return SUPPRESSED_ERROR_PATTERNS.some(pattern => msgStr.includes(pattern));
+    }
+
+    // Intercept console.error to filter out suppressed messages
+    const originalConsoleError = console.error;
+    console.error = function (...args) {
+        // Check if any argument matches suppressed patterns
+        for (const arg of args) {
+            if (shouldSuppressError(arg) || shouldSuppressError(arg?.message)) {
+                return; // Suppress this error
+            }
+        }
+        return originalConsoleError.apply(console, args);
+    };
+
+    // 0. Global error handlers to catch errors from dynamically loaded scripts
+    // This catches MutationObserver errors thrown in Promise chains
+    window.addEventListener('error', function (event) {
+        if (shouldSuppressError(event.message) || shouldSuppressError(event.error?.message)) {
+            event.preventDefault();
+            event.stopPropagation();
+            return true;
+        }
+    }, true);
+
+    window.addEventListener('unhandledrejection', function (event) {
+        const reason = event.reason;
+        if (shouldSuppressError(reason?.message) || shouldSuppressError(String(reason))) {
+            event.preventDefault();
+            event.stopPropagation();
+            return true;
+        }
+    }, true);
+
     // 1. Patch MutationObserver to handle null/undefined targets gracefully
     // Fixes: TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.
     const NativeMutationObserver = window.MutationObserver;
     if (NativeMutationObserver) {
-        window.MutationObserver = function (callback) {
-            const observer = new NativeMutationObserver(callback);
-            const originalObserve = observer.observe;
-            observer.observe = function (target, options) {
+        // Store original prototype method
+        const originalObserve = NativeMutationObserver.prototype.observe;
+
+        // Patch the prototype directly so ALL instances get the patched method
+        // Use try-catch as ultimate fallback to suppress any errors
+        NativeMutationObserver.prototype.observe = function (target, options) {
+            try {
+                // Only call original if target is a valid Node
                 if (target && target.nodeType) {
-                    return originalObserve.call(observer, target, options);
+                    return originalObserve.call(this, target, options);
                 }
-                // Silently ignore invalid targets
-            };
-            return observer;
+                // Silently ignore invalid targets (null, undefined, non-Node objects)
+            } catch (e) {
+                // Swallow the error - this is a known MkDocs Material issue
+                // Error: "Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'"
+            }
         };
-        // Copy static properties and prototype
-        Object.assign(window.MutationObserver, NativeMutationObserver);
-        window.MutationObserver.prototype = NativeMutationObserver.prototype;
-        // Expose for testing
-        window.MutationObserver.toString = function () { return 'function MutationObserver() { [native code] } // Patched by NativeMutationObserver'; };
+
+        // Expose for testing - mark that prototype is patched
+        window.MutationObserver.toString = function () {
+            return 'function MutationObserver() { [native code] } // Patched by NativeMutationObserver';
+        };
     }
 
     // 2. Patch WebSocket to use WSS on HTTPS pages (fixes livereload in Codespaces)
