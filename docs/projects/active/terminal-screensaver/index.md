@@ -1,93 +1,69 @@
 # Terminal Screensaver
 
-A dynamic terminal screen saver crate with plugin architecture that automatically resizes with any screen size.
+> A Rust crate and binary that turns any terminal into a configurable, scriptable visual canvas.
 
-## Overview
+---
 
-Terminal Screensaver is a high-performance Rust application that provides beautiful, customizable screensavers for your terminal. With its plugin architecture and script integration capabilities, it's both a screensaver and a productivity tool.
+## Signal
+
+!!! info "Project Signal"
+
+	- **Status**: Actively developed (taking a brief detour - 12/21/2025, but will come back to this.)
+	- **Focus**: Dynamic, plugin-ready terminal visuals
+	- **Stack**: Rust, Crossterm, TOML configs
+	- **Ideal For**: Developers who want ambient motion or keyboard-triggered scripts inside the terminal
 
 ## Quick Links
 
-- [:fontawesome-brands-github: GitHub Repository](https://github.com/BA-CalderonMorales/terminal-screensaver)
-
-## Key Features
-
-- **Dynamic Sizing**: Automatically adapts to any terminal size
-- **Script Integration**: Execute any script or command with custom keyboard shortcuts
-- **Plugin Architecture**: Extensible event handling for custom actions
-- **TOML Configuration**: Easy customization without code changes
-- **Cross-platform**: Works on Windows, Linux, and macOS
-- **Library & Binary**: Use as a library or standalone application
-- **Interactive Help Display**: Built-in help panel with keyboard shortcuts
-- **Customizable Themes**: Multiple theme options
-
-## Installation
-
-### From Source
-
-```bash
-git clone https://github.com/BA-CalderonMorales/terminal-screensaver.git
-cd terminal-screensaver
-cargo build --release
-```
-
-Run with the demo configuration:
-
-```bash
-./target/release/terminal-screensaver -c demo-config.toml
-```
-
-### As a Library
-
-Add to your `Cargo.toml`:
-
-```toml
-[dependencies]
-terminal-screensaver = "0.1.0"
-```
-
-## Configuration
-
-Basic configuration example:
-
-```toml
-text = "My Terminal Screensaver"
-style = "default"
-
-[[actions]]
-key = "h"
-description = "Say Hello"
-command = "./scripts/hello.sh"
-```
-
-## Controls
-
-| Key | Action |
-|-----|--------|
-| `ESC` | Exit screensaver |
-| `ENTER` | Show action menu |
-| `a-z, 0-9, symbols` | Execute configured actions |
-
-## Project Status
-
-- Status: Actively developed
-- License: MIT
-- Language: Rust
-
-## Documentation
-
-For comprehensive documentation, visit the [GitHub repository](https://github.com/BA-CalderonMorales/terminal-screensaver).
-
-Key documentation files:
-
-- [Architecture](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/architecture.md)
-- [Features Guide](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/features.md)
+- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/terminal-screensaver)
+- [Architecture Notes](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/architecture.md)
 - [Configuration Guide](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/configuration.md)
-- [Controls & Keyboard Shortcuts](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/controls.md)
-- [Quick Start Guide](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/quick-start.md)
-- [Testing Guide](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/testing.md)
-- [CI/CD](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/cicd.md)
 
-## Contributing
+## Onboarding Checklist
 
-All contributions are welcome! Check the repository for contribution guidelines.
+1. Clone the repo and build the binary: `cargo build --release`.
+2. Copy `demo-config.toml` (or create your own) and point the binary to it: `./target/release/terminal-screensaver -c demo-config.toml`.
+3. Customize actions or themes by editing the TOML (`[[actions]]`, keyboard mappings, colors) and reloading the app.
+
+## Highlights
+
+- Auto-resizing renderer adapts to any terminal size and keeps animations buttery smooth.
+- Plugin/action system triggers shell scripts or commands via single-key shortcuts.
+- Works as both a binary and a reusable crate, so you can embed it in your own Rust apps.
+- Built-in help overlay documents every configured shortcut while the screensaver runs.
+
+## Core Scenarios
+
+- **Ambient dashboards**: Display branded visuals or subtle motion during pair-programming sessions.
+- **Productivity launchpad**: Bind keys to scripts that open projects, run tests, or kick off builds.
+- **Crate embedding**: Pull the library into other Rust tools to reuse the animation + input engine.
+
+## Documentation Map
+
+<div class="grid cards" markdown>
+
+-   :material-play-circle:{ .lg .middle } **Quick Start**
+
+	---
+
+	Installation, demo config, and launch instructions.
+
+	[Open Guide](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/quick-start.md)
+
+-   :material-palette:{ .lg .middle } **Configuration**
+
+	---
+
+	TOML schema, actions, theming, and keyboard mappings.
+
+	[View Docs](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/configuration.md)
+
+-   :material-architecture:{ .lg .middle } **Architecture**
+
+	---
+
+	Event loop, plugin hooks, and rendering pipeline.
+
+	[Read Notes](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/architecture.md)
+
+</div>

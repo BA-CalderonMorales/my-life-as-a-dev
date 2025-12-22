@@ -1,34 +1,69 @@
 # Rust Terminal Forge
 
-A secure, browser-based terminal emulator that combines the power of Rust with a modern React interface, enabling seamless terminal access directly in your browser.
+> Browser-based terminal emulator that marries a React front end with a Rust-powered execution core.
 
-## Overview
+---
 
-Rust Terminal Forge is a web-based terminal emulator built with React, TypeScript, and Rust. It provides a secure way to interact with terminal sessions directly in the browser, featuring a responsive UI and robust functionality.
+## Signal
 
-## Key Features
+!!! info "Project Signal"
 
-- **Web-Based Terminal**: Full terminal emulation in the browser
-- **Rust Backend**: High-performance and secure terminal processing
-- **Modern UI**: Built with React and TypeScript
-- **Responsive Design**: Works on desktop and tablet devices
-- **Secure**: Sandboxed environment for safe terminal access
+	- **Status**: Experimental, actively prototyping
+	- **Focus**: Secure, sandboxed terminals in the browser
+	- **Stack**: React, TypeScript, Vite, Rust backend exposed via WebAssembly/websocket bridge
+	- **Ideal For**: Builders exploring hybrid Rust + frontend architectures
 
 ## Quick Links
 
-- :fontawesome-brands-github: [GitHub Repository](https://github.com/BA-CalderonMorales/rust-terminal-forge)
-- :material-web: [Live Demo](https://ba-calderonmorales.github.io/rust-terminal-forge/)
-- :material-bug: [Issue Tracker](https://github.com/BA-CalderonMorales/rust-terminal-forge/issues)
+- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/rust-terminal-forge)
+- [Production Demo](https://rust-terminal-forge.lovable.app/)
+- [QA Build](https://ba-calderonmorales.github.io/rust-terminal-forge/)
+- [Issue Tracker](https://github.com/BA-CalderonMorales/rust-terminal-forge/issues)
 
-## Project Status
+## Onboarding Checklist
 
-:material-update: Actively developed  
-:material-alert: Experimental features in progress
+1. Install dependencies for the React client (`pnpm install`) and start it with `pnpm dev`.
+2. Build/run the Rust backend (see `server/` instructions) to expose websocket connections for the terminal stream.
+3. Configure `.env` values for allowed commands and API keys, then open the browser UI to connect to the local server.
 
-## Getting Started
+## Highlights
 
-Visit the [Quick Start](quick_start/index.md) guide for setup instructions and development workflows.
+- Full terminal emulation rendered via React with caret, cursor, and theme support.
+- Rust backend enforces command safelists while streaming output efficiently to the browser.
+- Responsive layout keeps touch bars and keyboard shortcuts usable on tablets.
 
-## Documentation
+## Core Scenarios
 
-Explore the [Details](details/index.md) section for in-depth information about the project's architecture, features, and contribution guidelines.
+- **Remote labs**: Offer sandboxed terminals for demos or onboarding labs without exposing SSH.
+- **Hybrid stack experiments**: Prototype Rust + TypeScript interop patterns for other projects.
+- **Security research**: Test enforcement of allowed commands, rate limits, and session isolation.
+
+## Documentation Map
+
+<div class="grid cards" markdown>
+
+-   :material-play-circle:{ .lg .middle } **Quick Start**
+
+	---
+
+	Dev environment, scripts, and dual frontend/backend boot sequence.
+
+	[Open Guide](quick_start/index.md)
+
+-   :material-terminal:{ .lg .middle } **Terminal Details**
+
+	---
+
+	Architecture notes covering websocket streaming and security controls.
+
+	[Explore Details](details/index.md)
+
+-   :material-bug:{ .lg .middle } **Known Issues**
+
+	---
+
+	Track experimental limitations and open bugs.
+
+	[View Issues](https://github.com/BA-CalderonMorales/rust-terminal-forge/issues)
+
+</div>
