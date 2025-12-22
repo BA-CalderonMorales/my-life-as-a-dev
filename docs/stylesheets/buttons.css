@@ -15,6 +15,17 @@
     transition: all 0.2s ease;
 }
 
+.md-typeset .md-button,
+.md-content__inner .md-button,
+.tx-hero__content .md-button {
+    margin: 0.35rem 0.65rem 0.35rem 0;
+}
+
+.md-typeset .md-button:last-child,
+.tx-hero__content .md-button:last-child {
+    margin-right: 0;
+}
+
 .md-button--primary {
     background: var(--md-primary-fg-color);
     color: #fff;

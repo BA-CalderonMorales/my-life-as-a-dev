@@ -3,6 +3,18 @@
    Fixed background layer styling
    ============================================ */
 
+:root {
+    --nav-surface: rgba(255, 255, 255, 0.9);
+    --nav-surface-strong: rgba(255, 255, 255, 0.96);
+    --nav-border: rgba(15, 23, 42, 0.08);
+}
+
+[data-md-color-scheme="slate"] {
+    --nav-surface: rgba(11, 14, 28, 0.78);
+    --nav-surface-strong: rgba(6, 8, 20, 0.9);
+    --nav-border: rgba(255, 255, 255, 0.1);
+}
+
 .threejs-bg-container {
     position: fixed;
     top: 0;
@@ -40,24 +52,84 @@
 
 /* Main content area - solid background for legibility */
 .md-content__inner {
-    background: var(--md-default-bg-color);
-    border-radius: 0.5rem;
+    background: var(--nav-surface);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 0.75rem;
+    border: 1px solid var(--nav-border);
     padding: 1.5rem;
     margin: 0.5rem;
 }
 
-/* Left sidebar - solid background */
-.md-sidebar--primary .md-sidebar__inner {
-    background: var(--md-default-bg-color);
-    border-radius: 0 0.5rem 0.5rem 0;
-    padding: 0.5rem;
+/* Left + right sidebars adopt subtle glass styling */
+.md-sidebar--primary,
+.md-sidebar--secondary {
+    padding: 0;
+    margin: 0.5rem 0;
+    border: none;
 }
 
-/* Right sidebar (TOC) - solid background */
+.md-sidebar--primary .md-sidebar__scrollwrap,
+.md-sidebar--secondary .md-sidebar__scrollwrap {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+}
+
+.md-sidebar--primary .md-sidebar__inner,
 .md-sidebar--secondary .md-sidebar__inner {
-    background: var(--md-default-bg-color);
-    border-radius: 0.5rem 0 0 0.5rem;
-    padding: 0.5rem;
+    background: var(--nav-surface);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 0.5rem;
+    border: 1px solid var(--nav-border);
+    padding: 0.5rem 0.75rem 0.75rem;
+    margin: 0;
+}
+
+.md-sidebar--primary .md-nav,
+.md-sidebar--primary .md-nav__title,
+.md-sidebar--primary .md-nav__list,
+.md-sidebar--primary .md-nav__item {
+    background: transparent;
+    box-shadow: none;
+}
+
+.md-sidebar--primary .md-nav__link {
+    border-radius: 0.4rem;
+    padding-block: 0.35rem;
+}
+
+.md-sidebar--primary .md-nav__link:hover,
+.md-sidebar--primary .md-nav__link.md-nav__link--active {
+    background: var(--nav-surface-strong);
+}
+
+@media screen and (max-width: 76.25rem) {
+
+    .md-sidebar--primary,
+    .md-sidebar--secondary {
+        margin: 0;
+    }
+
+    .md-sidebar--primary,
+    .md-sidebar--primary .md-sidebar__scrollwrap,
+    .md-drawer,
+    .md-drawer__content,
+    .md-nav--primary {
+        background: var(--nav-surface);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: none;
+    }
+
+    .md-sidebar--primary .md-sidebar__inner,
+    .md-sidebar--secondary .md-sidebar__inner {
+        border-radius: 0;
+        border: none;
+        margin: 0;
+    }
 }
 
 /* Header - solid background for navigation */

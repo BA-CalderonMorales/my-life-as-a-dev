@@ -13,14 +13,19 @@ hide:
 
 <section class="tx-hero" markdown>
 <div class="tx-hero__content" markdown>
+<div class="tx-hero__intro" markdown>
 
 # Build systems that ship
+
+</div>
+<div class="tx-hero__details" markdown>
 
 Product-minded engineer focused on **developer tooling**, **distributed systems**, and **docs-as-code** pipelines that remove friction.
 
 [Get Started](projects/index.md){ .md-button .md-button--primary }
 [View Resume](resume/index.md){ .md-button }
 
+</div>
 </div>
 <div class="tx-hero__image">
 <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" draggable="false">

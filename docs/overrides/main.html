@@ -43,7 +43,8 @@
 {% endblock %}
 
 {% block classes %}
-{{ super() }}{% if page.url == '' %} landing-page{% endif %}
+{% set is_home = page and (page.url == '' or page.url == 'index/' or (page.file and page.file.src_uri == 'index.md')) %}
+{{ super() }}{% if is_home %} landing-page{% endif %}
 {% endblock %}
 
 {% block content %}
