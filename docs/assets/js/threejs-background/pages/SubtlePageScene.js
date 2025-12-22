@@ -52,7 +52,7 @@ export class SubtlePageScene {
     createObjects() {
         const sphere1 = this.geometryFactory.createSphere({
             radius: 1.5,
-            color: 0x26A69A,
+            color: 0xC08752,
             opacity: 0.25,
             position: { x: 0, y: 0, z: -8 }
         });
@@ -60,7 +60,7 @@ export class SubtlePageScene {
 
         const icosa1 = this.geometryFactory.createIcosahedron({
             radius: 1,
-            color: 0x4DB6AC,
+            color: 0xA96A3A,
             opacity: 0.2,
             position: { x: -3, y: 2, z: -10 }
         });
@@ -68,7 +68,7 @@ export class SubtlePageScene {
 
         const octa1 = this.geometryFactory.createOctahedron({
             radius: 0.8,
-            color: 0xFF8A65,
+            color: 0xF0B089,
             opacity: 0.15,
             position: { x: 3, y: -1, z: -12 }
         });
@@ -77,7 +77,7 @@ export class SubtlePageScene {
         const ring1 = this.geometryFactory.createWireframeRing({
             innerRadius: 4,
             outerRadius: 5,
-            color: 0x26A69A,
+            color: 0xC08752,
             opacity: 0.06,
             position: { x: 0, y: 0, z: -15 }
         });

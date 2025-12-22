@@ -52,7 +52,7 @@ export class HomePageScene {
     createObjects() {
         const sphere1 = this.geometryFactory.createSphere({
             radius: 2,
-            color: 0x26A69A,
+            color: 0xC08752,
             opacity: 0.5,
             position: { x: -8, y: 3, z: -5 }
         });
@@ -60,7 +60,7 @@ export class HomePageScene {
 
         const sphere2 = this.geometryFactory.createSphere({
             radius: 1.2,
-            color: 0x4DB6AC,
+            color: 0xA96A3A,
             opacity: 0.4,
             position: { x: 10, y: -2, z: -8 }
         });
@@ -68,7 +68,7 @@ export class HomePageScene {
 
         const icosa1 = this.geometryFactory.createIcosahedron({
             radius: 1.8,
-            color: 0xFF8A65,
+            color: 0xF0B089,
             opacity: 0.45,
             position: { x: 6, y: 5, z: -3 }
         });
@@ -76,7 +76,7 @@ export class HomePageScene {
 
         const icosa2 = this.geometryFactory.createIcosahedron({
             radius: 1,
-            color: 0xFF7043,
+            color: 0xD9895B,
             opacity: 0.35,
             position: { x: -12, y: -4, z: -10 }
         });
@@ -85,7 +85,7 @@ export class HomePageScene {
         const torus1 = this.geometryFactory.createTorus({
             radius: 2.5,
             tube: 0.4,
-            color: 0x00796B,
+            color: 0x7A4A2F,
             opacity: 0.35,
             position: { x: 0, y: 8, z: -12 }
         });
@@ -94,7 +94,7 @@ export class HomePageScene {
         const torus2 = this.geometryFactory.createTorus({
             radius: 1.5,
             tube: 0.25,
-            color: 0x26A69A,
+            color: 0xC08752,
             opacity: 0.3,
             position: { x: -5, y: -6, z: -7 }
         });
@@ -102,7 +102,7 @@ export class HomePageScene {
 
         const octa1 = this.geometryFactory.createOctahedron({
             radius: 1.5,
-            color: 0x4DB6AC,
+            color: 0xA96A3A,
             opacity: 0.4,
             position: { x: 12, y: 2, z: -6 }
         });
@@ -110,7 +110,7 @@ export class HomePageScene {
 
         const octa2 = this.geometryFactory.createOctahedron({
             radius: 0.8,
-            color: 0xFF8A65,
+            color: 0xF0B089,
             opacity: 0.35,
             position: { x: -3, y: 6, z: -4 }
         });
@@ -119,7 +119,7 @@ export class HomePageScene {
         const ring1 = this.geometryFactory.createWireframeRing({
             innerRadius: 8,
             outerRadius: 10,
-            color: 0x26A69A,
+            color: 0xC08752,
             opacity: 0.1,
             position: { x: 0, y: 0, z: -20 }
         });
@@ -128,7 +128,7 @@ export class HomePageScene {
         const ring2 = this.geometryFactory.createWireframeRing({
             innerRadius: 12,
             outerRadius: 15,
-            color: 0x4DB6AC,
+            color: 0xA96A3A,
             opacity: 0.08,
             position: { x: 5, y: -3, z: -25 }
         });

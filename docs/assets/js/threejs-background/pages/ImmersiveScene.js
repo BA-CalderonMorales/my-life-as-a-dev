@@ -42,28 +42,28 @@ export class ImmersiveScene {
         this.interactiveParticles = null;
         this.auroraVeil = null;
 
-        // Theme colors - refined palette matching profile (teal/warm coral)
-        // More vibrant for visual impact while content stays legible
+        // Theme colors - warm amber/brown palette that mirrors the new site theme
+        // Deliberately softer so the background supports legibility at night
         this.themes = {
             dark: {
-                gradientTop: 0x1a1a3e,      // Rich deep purple-blue
-                gradientBottom: 0x0a0a18,   // Deep space black
-                accent: 0x00ffcc,           // Bright teal glow
-                particlePrimary: 0x00ffcc,  // Vibrant teal particles
-                particleSecondary: 0xff6b6b, // Coral accent
-                waveColor: 0x00d4aa,
-                waveOpacity: 0.18,          // More visible waves
-                auroraColor: 0x3ee7d8,
+                gradientTop: 0x261108,      // Burnt umber glow
+                gradientBottom: 0x080302,   // Deep espresso base
+                accent: 0xf1c184,           // Soft amber highlight
+                particlePrimary: 0xc08752,  // Caramel core particles
+                particleSecondary: 0xf6d1a5, // Honey accent
+                waveColor: 0xa96a3a,
+                waveOpacity: 0.22,          // Slightly richer in dark mode
+                auroraColor: 0xf7d8b6,
             },
             light: {
-                gradientTop: 0xf8fbff,      // Crisp white-blue
-                gradientBottom: 0xe8f4f8,   // Soft teal tint
-                accent: 0x00a896,           // Teal accent
-                particlePrimary: 0x009688,  // Rich teal
-                particleSecondary: 0xff7e67, // Warm coral
-                waveColor: 0x00a896,
-                waveOpacity: 0.12,          // Subtle in light mode
-                auroraColor: 0x00a3a3,
+                gradientTop: 0xfff8f0,      // Diffused parchment white
+                gradientBottom: 0xf2e2d1,   // Warm sand base
+                accent: 0xc08752,           // Caramel accent
+                particlePrimary: 0xa16237,  // Toasted bronze
+                particleSecondary: 0xf3c19a, // Peach glow
+                waveColor: 0xdca675,
+                waveOpacity: 0.14,          // Soft in light mode
+                auroraColor: 0xf7d0a4,
             }
         };
 

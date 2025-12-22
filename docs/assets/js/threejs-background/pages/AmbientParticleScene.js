@@ -29,9 +29,9 @@ export class AmbientParticleScene {
             flowSpeed: 0.15,
             waveAmplitude: 0.3,
             mouseInfluence: 0.02,
-            colorPrimary: 0x26A69A,  // Teal
-            colorSecondary: 0xFF8A65, // Coral accent
-            colorBackground: 0x1a1a2e  // Dark blue-gray
+            colorPrimary: 0xC08752,  // Caramel
+            colorSecondary: 0xF0B089, // Soft copper accent
+            colorBackground: 0x120804  // Deep espresso backdrop
         };
     }
 

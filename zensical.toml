@@ -34,6 +34,7 @@ extra_css = [
     "stylesheets/share.css",
     "stylesheets/background.css",
     "stylesheets/landing.css",
+    "stylesheets/canvas.css",
 ]
 
 # Navigation structure - explicitly defined to match current mkdocs.yml
@@ -224,6 +225,10 @@ nav = [
         ] },
     ] },
 
+    { "Canvas" = [
+        { "Overview" = "canvas/index.md" },
+    ] },
+
     # About Me
     { "About Me" = "resume/index.md" },
 ]
@@ -287,7 +292,7 @@ features = [
 
 # Font configuration
 [project.theme.font]
-text = "Inter"
+text = "Space Grotesk"
 code = "JetBrains Mono"
 
 # Icon configuration

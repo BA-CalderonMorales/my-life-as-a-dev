@@ -3,10 +3,23 @@
    Fonts, headings, and text enhancements
    ============================================ */
 
+/* Font stack aligned with Anthropic-style docs */
+:root {
+    --mlad-text-font: "Space Grotesk", "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    font-family: var(--mlad-text-font);
+    font-feature-settings: "liga" 1, "ss01" 1;
+    font-variation-settings: "wght" 450;
+}
+
 /* Body text defaults */
 .md-typeset {
-    font-size: 0.9rem;
+    font-family: var(--mlad-text-font);
+    font-size: 0.95rem;
     line-height: 1.7;
+    letter-spacing: -0.01em;
 }
 
 /* Headings */
