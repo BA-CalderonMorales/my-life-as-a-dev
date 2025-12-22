@@ -15,9 +15,9 @@ export class GradientBackground {
         this.material = null;
 
         this.config = {
-            colorTop: options.colorTop || new THREE.Color(0x1a1a2e),
-            colorBottom: options.colorBottom || new THREE.Color(0x0f0f1a),
-            colorAccent: options.colorAccent || new THREE.Color(0x26A69A),
+            colorTop: options.colorTop || new THREE.Color(0x261108),
+            colorBottom: options.colorBottom || new THREE.Color(0x080302),
+            colorAccent: options.colorAccent || new THREE.Color(0xC08752),
             animationSpeed: options.animationSpeed || 0.3,
             waveIntensity: options.waveIntensity || 0.15,
         };

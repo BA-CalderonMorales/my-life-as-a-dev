@@ -44,12 +44,14 @@
 
 {% block classes %}
 {% set is_home = page and (page.url == '' or page.url == 'index/' or (page.file and page.file.src_uri == 'index.md')) %}
-{{ super() }}{% if is_home %} landing-page{% endif %}
+{% set is_canvas = page and page.file and page.file.src_uri == 'canvas/index.md' %}
+{{ super() }}{% if is_home %} landing-page{% endif %}{% if is_canvas %} canvas-page{% endif %}
 {% endblock %}
 
 {% block content %}
 {{ super() }}
-{% if page and page.url != '' %}
+{% set is_canvas_page = page and page.file and page.file.src_uri == 'canvas/index.md' %}
+{% if page and page.url != '' and not is_canvas_page %}
 {% include "partials/share.html" %}
 {% endif %}
 {% endblock %}

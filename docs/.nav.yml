@@ -70,6 +70,10 @@ nav:
         - Quick Start: projects/experiments/rust-terminal-forge/quick_start/index.md
         - Details: projects/experiments/rust-terminal-forge/details/index.md
 
+  - Canvas:
+
+    - Overview: canvas/index.md
+
   - Learning:
 
     - Overview: learning/index.md

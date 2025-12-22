@@ -22,8 +22,8 @@ export class InteractiveParticles {
             connectionDistance: options.connectionDistance || 15,
             mouseRadius: options.mouseRadius || 30,
             mouseStrength: options.mouseStrength || 0.3,
-            colorPrimary: options.colorPrimary || 0x26A69A,
-            colorSecondary: options.colorSecondary || 0xFF8A65,
+            colorPrimary: options.colorPrimary || 0xC08752,
+            colorSecondary: options.colorSecondary || 0xF1C184,
             spread: options.spread || { x: 120, y: 80, z: 50 },
         };
 

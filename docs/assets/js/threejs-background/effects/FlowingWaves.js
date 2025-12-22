@@ -16,7 +16,7 @@ export class FlowingWaves {
 
         this.config = {
             waveCount: options.waveCount || 3,
-            color: options.color || 0x26A69A,
+            color: options.color || 0xC08752,
             opacity: options.opacity || 0.4,
             amplitude: options.amplitude || 2.0,
             frequency: options.frequency || 0.5,

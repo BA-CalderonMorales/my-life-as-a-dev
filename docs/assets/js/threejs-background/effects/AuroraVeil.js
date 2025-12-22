@@ -15,7 +15,7 @@ export class AuroraVeil {
 
         this.config = {
             veilCount: options.veilCount || 2,
-            color: options.color || 0x26A69A,
+            color: options.color || 0xF1C184,
             opacity: options.opacity ?? 0.2,
             speed: options.speed || 0.15,
             noiseScale: options.noiseScale || 0.12,
