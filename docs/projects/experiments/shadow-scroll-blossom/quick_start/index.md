@@ -21,7 +21,10 @@ cd shadow-scroll-blossom
 
 ```bash
 npm install
-# or
+```
+
+Or using Yarn:
+```bash
 yarn install
 ```
 
@@ -29,7 +32,10 @@ yarn install
 
 ```bash
 npm run dev
-# or
+```
+
+Or using Yarn:
+```bash
 yarn dev
 ```
 
@@ -39,7 +45,10 @@ Open [http://localhost:8080](http://localhost:8080) in your browser.
 
 ```bash
 npm run build
-# or
+```
+
+Or using Yarn:
+```bash
 yarn build
 ```
 
@@ -49,7 +58,10 @@ The production build will be in the `dist/` directory.
 
 ```bash
 npm run preview
-# or
+```
+
+Or using Yarn:
+```bash
 yarn preview
 ```
 

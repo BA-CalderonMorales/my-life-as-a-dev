@@ -19,12 +19,14 @@ cd my-life-as-a-dev
 
 ### 2. Set Up Virtual Environment (Recommended)
 
+**On Windows:**
 ```bash
-# On Windows
 python -m venv venv
 .\venv\Scripts\activate
+```
 
-# On macOS/Linux
+**On macOS/Linux:**
+```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
@@ -62,14 +64,9 @@ The static site will be generated in the `site` directory.
 The project includes a Rust-based CLI tool for common tasks:
 
 ```bash
-# Build the CLI tools
 cd scripts
 cargo build --release
-
-# Run the interactive menu
 ./target/release/doc-cli
-
-# Or run directly
 ./doc-cli.sh
 ```
 
@@ -86,12 +83,8 @@ The AI proxy uses GitHub Models (Azure AI Inference) instead of OpenAI.
 
 2. Start the AI proxy (optional, for testing AI features):
    ```bash
-   # Requires GITHUB_TOKEN environment variable
-   uv run python scripts/python/ai_proxy.py
-
-   # The proxy will run on 127.0.0.1:8765 by default
-   # Configure with HOST, PORT, AI_MODEL, AI_ENDPOINT env vars if needed
-   ```
+uv run python scripts/python/ai_proxy.py
+```
 
 3. Default AI model: `deepseek/DeepSeek-R1`
 

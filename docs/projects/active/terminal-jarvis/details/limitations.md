@@ -139,10 +139,7 @@ terminal-jarvis gemini
 **Solution**: Install prerequisites:
 
 ```bash
-# Install uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Install aider via Terminal Jarvis
 terminal-jarvis install aider
 ```
 

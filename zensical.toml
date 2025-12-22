@@ -15,13 +15,26 @@ site_url = "https://ba-calderonmorales.github.io/my-life-as-a-dev/"
 repo_url = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
 repo_name = "BA-CalderonMorales/my-life-as-a-dev"
 
+# Edit button configuration - enables "Edit this page" links
+edit_uri = "edit/main/docs/"
+
 # Copyright notice
 copyright = """
 Copyright &copy; 2024-2025 Brandon Calderon-Morales
 """
 
-# Additional CSS
-extra_css = ["stylesheets/custom.css"]
+# Additional CSS (load order matters for cascade)
+extra_css = [
+    "stylesheets/theme.css",
+    "stylesheets/typography.css",
+    "stylesheets/layout.css",
+    "stylesheets/cards.css",
+    "stylesheets/buttons.css",
+    "stylesheets/code.css",
+    "stylesheets/share.css",
+    "stylesheets/background.css",
+    "stylesheets/landing.css",
+]
 
 # Navigation structure - explicitly defined to match current mkdocs.yml
 nav = [
@@ -244,6 +257,8 @@ features = [
     "content.code.select",
 
     # Content features
+    "content.action.edit",
+    "content.action.view",
     "content.footnote.tooltips",
     "content.tabs.link",
     "content.tooltips",

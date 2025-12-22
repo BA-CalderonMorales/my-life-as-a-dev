@@ -40,25 +40,26 @@ export class ImmersiveScene {
         this.flowingWaves = null;
         this.interactiveParticles = null;
 
-        // Theme colors
+        // Theme colors - refined palette matching profile (teal/warm coral)
+        // More vibrant for visual impact while content stays legible
         this.themes = {
             dark: {
-                gradientTop: 0x1a1a2e,
-                gradientBottom: 0x0f0f1a,
-                accent: 0x26A69A,
-                particlePrimary: 0x26A69A,
-                particleSecondary: 0xFF8A65,
-                waveColor: 0x26A69A,
-                waveOpacity: 0.25,
+                gradientTop: 0x1a1a3e,      // Rich deep purple-blue
+                gradientBottom: 0x0a0a18,   // Deep space black
+                accent: 0x00ffcc,           // Bright teal glow
+                particlePrimary: 0x00ffcc,  // Vibrant teal particles
+                particleSecondary: 0xff6b6b, // Coral accent
+                waveColor: 0x00d4aa,
+                waveOpacity: 0.18,          // More visible waves
             },
             light: {
-                gradientTop: 0xf5f5f5,
-                gradientBottom: 0xe8e8e8,
-                accent: 0x009688,
-                particlePrimary: 0x009688,
-                particleSecondary: 0xFF7043,
-                waveColor: 0x009688,
-                waveOpacity: 0.15,
+                gradientTop: 0xf8fbff,      // Crisp white-blue
+                gradientBottom: 0xe8f4f8,   // Soft teal tint
+                accent: 0x00a896,           // Teal accent
+                particlePrimary: 0x009688,  // Rich teal
+                particleSecondary: 0xff7e67, // Warm coral
+                waveColor: 0x00a896,
+                waveOpacity: 0.12,          // Subtle in light mode
             }
         };
 
@@ -156,62 +157,62 @@ export class ImmersiveScene {
 
     /**
      * Get responsive settings based on device type and screen size
+     * Optimized for subtle, non-distracting backgrounds
      */
     getResponsiveSettings() {
         const width = window.innerWidth;
         const height = window.innerHeight;
         const aspectRatio = width / height;
 
-        // Base settings adjusted by device type
+        // Base settings adjusted by device type - more subtle overall
         if (this.deviceType === 'mobile' || width < 768) {
             return {
-                particleCount: 60,
-                particleSize: 3,
-                connectionDistance: 12,
-                mouseRadius: 25,
-                particleSpread: { x: 60, y: 40, z: 30 },
-                waveCount: 2,
-                waveWidth: 100,
-                waveHeight: 20,
-                waveAmplitude: 1.5,
-                waveIntensity: 0.1,
-                cameraMovement: 3,
+                particleCount: 40,          // Fewer particles
+                particleSize: 2.5,
+                connectionDistance: 10,
+                mouseRadius: 20,
+                particleSpread: { x: 50, y: 35, z: 25 },
+                waveCount: 1,               // Single wave
+                waveWidth: 80,
+                waveHeight: 15,
+                waveAmplitude: 1.0,
+                waveIntensity: 0.06,
+                cameraMovement: 2,
             };
         }
 
         if (this.deviceType === 'tablet' || width < 1024) {
             return {
-                particleCount: 100,
-                particleSize: 3.5,
+                particleCount: 120,
+                particleSize: 3,
                 connectionDistance: 15,
                 mouseRadius: 30,
-                particleSpread: { x: 100, y: 70, z: 45 },
+                particleSpread: { x: 90, y: 60, z: 40 },
                 waveCount: 2,
-                waveWidth: 150,
-                waveHeight: 25,
-                waveAmplitude: 2.0,
+                waveWidth: 140,
+                waveHeight: 24,
+                waveAmplitude: 1.8,
                 waveIntensity: 0.12,
-                cameraMovement: 5,
+                cameraMovement: 4,
             };
         }
 
-        // Desktop - full experience
-        // Adjust spread based on aspect ratio for ultrawide monitors
+        // Desktop - impactful yet refined experience
         const spreadX = Math.min(140, 100 + (aspectRatio * 20));
-        const waveWidth = Math.min(250, 180 + (aspectRatio * 20));
+        const waveWidth = Math.min(220, 160 + (aspectRatio * 20));
 
         return {
-            particleCount: 180,
-            particleSize: 4,
-            connectionDistance: 18,
-            mouseRadius: 35,
-            particleSpread: { x: spreadX, y: 90, z: 60 },
-            waveCount: 3,
+            particleCount: 200,             // More particles for wow factor
+            particleSize: 3.5,              // Slightly larger
+            connectionDistance: 18,         // More connections
+            mouseRadius: 35,                // Larger interaction area
+            particleSpread: { x: spreadX, y: 80, z: 50 },
+            waveCount: 3,                   // More waves for depth
             waveWidth: waveWidth,
-            waveHeight: 30,
-            waveAmplitude: 2.5,
+            waveHeight: 28,
+            waveAmplitude: 2.2,             // More dramatic waves
             waveIntensity: 0.15,
-            cameraMovement: 8,
+            cameraMovement: 6,
         };
     }
 

@@ -1,0 +1,64 @@
+/* ============================================
+   Layout - Containers and Grid System
+   Page structure, columns, and spacing
+   ============================================ */
+
+/* Hero section layout */
+.tx-hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 4rem 0;
+}
+
+.tx-hero__content {
+    flex: 1 1 500px;
+    max-width: 600px;
+    padding: 0 2rem;
+}
+
+.tx-hero__image {
+    flex: 1 1 350px;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.tx-hero__image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Main content container */
+.tx-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Two column layout */
+.tx-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 76.25rem) {
+    .tx-hero__content {
+        padding: 0 1rem;
+    }
+}
+
+@media screen and (max-width: 60rem) {
+    .tx-hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 0;
+    }
+
+    .tx-hero__content {
+        max-width: 100%;
+    }
+}

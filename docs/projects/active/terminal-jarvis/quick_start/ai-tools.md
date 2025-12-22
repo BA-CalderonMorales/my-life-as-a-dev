@@ -248,17 +248,12 @@ Terminal Jarvis currently supports **10 AI coding tools**:
 ### Tool Management
 
 ```bash
-# Install specific tools
 terminal-jarvis install claude
 terminal-jarvis install crush
 terminal-jarvis install goose
 terminal-jarvis install amp
 terminal-jarvis install aider
-
-# Update all installed tools
 terminal-jarvis update
-
-# Check tool status
 terminal-jarvis list
 terminal-jarvis info claude
 ```
@@ -317,8 +312,9 @@ source ~/.bashrc  # or ~/.zshrc
 
 **Solution**: Use Node Version Manager (nvm) instead of system Node.js:
 
+Install nvm first, then:
+
 ```bash
-# Install nvm first, then:
 nvm install node
 npm install -g [package-name]
 ```

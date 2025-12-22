@@ -1,0 +1,56 @@
+/* ============================================
+   Landing - Home Page Specific Styles
+   Hero section and landing page enhancements
+   ============================================ */
+
+/* Landing page - full Three.js visibility */
+.landing-page .threejs-bg-container {
+    opacity: 0.8;
+}
+
+[data-md-color-scheme="slate"] .landing-page .threejs-bg-container {
+    opacity: 0.85;
+}
+
+/* Landing page content needs transparent background to show Three.js in margins */
+.landing-page .md-content__inner {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+/* Hero section card - floating card effect */
+.landing-page .tx-hero {
+    background: var(--md-default-bg-color);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 1rem auto;
+    max-width: 1200px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+[data-md-color-scheme="slate"] .landing-page .tx-hero {
+    background: rgba(15, 15, 35, 0.95);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Content sections as floating cards */
+.landing-page .tx-container,
+.landing-page section.md-typeset,
+.landing-page .md-typeset>*:not(.tx-hero) {
+    background: var(--md-default-bg-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin: 1rem auto;
+    max-width: 1200px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+[data-md-color-scheme="slate"] .landing-page .tx-container,
+[data-md-color-scheme="slate"] .landing-page section.md-typeset,
+[data-md-color-scheme="slate"] .landing-page .md-typeset>*:not(.tx-hero) {
+    background: rgba(15, 15, 35, 0.95);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
