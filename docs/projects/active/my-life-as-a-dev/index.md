@@ -1,36 +1,70 @@
 # Docs-as-Code Portfolio
 
-A comprehensive documentation portfolio built with MkDocs Material, featuring AI integration and versioned documentation.
+> The MkDocs Material + Zensical system that powers this entire site, complete with AI-aware plugins and versioned releases.
 
-## Overview
+---
 
-This project serves as my personal documentation hub, showcasing my work, thoughts, and learning journey as a developer. It's built using MkDocs Material with custom plugins for AI integration and documentation versioning.
+## Signal
 
-## Key Features
+!!! info "Project Signal"
 
-- **AI-Powered Documentation**: Integrated GitHub Models (Azure AI Inference) for AI-assisted content generation
-- **Versioned Documentation**: Full versioning support with mike
-- **Automated Workflows**: CI/CD pipelines for testing and deployment
-- **Custom Plugins**: Extensible architecture with custom MkDocs plugins
-- **Responsive Design**: Optimized for all device sizes
+	- **Status**: Actively maintained with weekly content drops
+	- **Focus**: Central knowledge base, MkDocs experiments, AI-assisted docs
+	- **Stack**: MkDocs Material, mike, Zensical, custom plugins, uv-managed Python
+	- **Ideal For**: Developers building narrative docs sites with repeatable releases
 
 ## Quick Links
 
-- :fontawesome-brands-github: [GitHub Repository](https://github.com/BA-CalderonMorales/my-life-as-a-dev)
-- :material-web: [Live Demo](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
-- :material-api: AI Demo *(coming soon)*
+- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/my-life-as-a-dev)
+- [Live Site](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
+- [Quick Start](quick_start/index.md)
+- [Details Hub](details/index.md)
 
-## Project Status
+## Onboarding Checklist
 
-:material-check-circle: Actively maintained
-:material-update: Regular updates and improvements
+1. Clone the repository and run `make setup` (uses `uv` to install everything inside `.venv/`).
+2. Start local docs with `make serve` or `uv run zensical serve` to preview changes.
+3. Before pushing, run `make build` to validate MkDocs + Zensical output and catch nav drift.
 
-> **Note**: AI features are currently disabled in production for security reasons. For local development, the AI integration uses GitHub Models (Azure AI Inference) with a GitHub Personal Access Token.
+## Highlights
 
-## Getting Started
+- AI-aware documentation flow that can tap GitHub Models locally while remaining disabled in production.
+- mike-backed versioning so each release of the site is reproducible and deployable via `mike deploy`.
+- Custom MkDocs plugins (see `mkdocs_plugins/`) extend navigation, link validation, and AI prompts.
+- Opinionated `AGENTS.md` + `.github/skills/` directory that codifies how contributors and AI agents collaborate.
 
-Visit the [Quick Start](quick_start/index.md) guide for setup instructions and development workflows.
+## Core Scenarios
 
-## Documentation
+- **Personal knowledge hub**: Publish essays, project docs, and learning tracks with a unified layout.
+- **Docs-as-code template**: Reuse the structure for other MkDocs Material deployments with CI-ready Make targets.
+- **AI experimentation**: Toggle local AI helpers on/off through environment variables without touching prod builds.
 
-Explore the [Details](details/index.md) section for in-depth information about the project's architecture, features, and contribution guidelines.
+## Documentation Map
+
+<div class="grid cards" markdown>
+
+-   :material-rocket-launch:{ .lg .middle } **Quick Start**
+
+	---
+
+	Environment setup, serving docs locally, and build verification steps.
+
+	[Open Guide](quick_start/index.md)
+
+-   :material-file-tree:{ .lg .middle } **Details**
+
+	---
+
+	Architecture, plugin internals, deployment flow, and contribution standards.
+
+	[Explore Details](details/index.md)
+
+-   :material-shield-check:{ .lg .middle } **Workflow Skills**
+
+	---
+
+	Hands-on guides for versioning, releases, and day-to-day workflow.
+
+	[Review Playbooks](../../docs-as-code/workflow/index.md)
+
+</div>

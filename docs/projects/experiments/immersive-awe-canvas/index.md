@@ -1,50 +1,69 @@
 # Immersive Awe Canvas
 
-A creative coding playground for crafting beautiful, interactive 3D worlds right in your browser.
+> Interactive WebGL worlds with time-of-day controls, responsive theming, and agent-friendly repo automation.
 
-## Overview
+---
 
-Immersive Awe Canvas is a web-based application that allows users to explore and customize a series of pre-defined 3D scenes. It's built to be a simple, fun, and visually engaging experience where you can switch between different "worlds," change the time of day, and tweak scene parameters in real-time.
+## Signal
 
-## Key Features
+!!! info "Project Signal"
 
-- **World Hopping**: Navigate through unique 3D worlds
-- **Dynamic Environments**: Day/night cycle with theme toggling
-- **Interactive Controls**: Mouse and keyboard navigation
-- **Live Editor**: Real-time parameter adjustments
-- **Responsive Design**: Works across all device sizes
+	- **Status**: Experiment, shipping visual updates bi-weekly -> monthly basis.
+	- **Focus**: 3D scene exploration + live parameter editing
+	- **Stack**: React, Three.js, Zustand state, deployment via Lovable + GitHub Pages
+	- **Ideal For**: Frontend devs exploring creative coding patterns
 
 ## Quick Links
 
-- :fontawesome-brands-github: [GitHub Repository](https://github.com/BA-CalderonMorales/immersive-awe-canvas)
-- :material-web: [Live Demo](https://immersive-awe-canvas.lovable.app)
-- :material-bug: [Issue Tracker](https://github.com/BA-CalderonMorales/immersive-awe-canvas/issues)
+- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/immersive-awe-canvas)
+- [Production Demo](https://immersive-awe-canvas.lovable.app)
+- [QA Build](https://ba-calderonmorales.github.io/immersive-awe-canvas)
+- [Issue Tracker](https://github.com/BA-CalderonMorales/immersive-awe-canvas/issues)
 
-## Project Status
+## Onboarding Checklist
 
-:material-update: Actively developed  
-:material-lightbulb: Adding new features regularly
+1. Clone the repo and install dependencies (`pnpm install` per the project README).
+2. Start the dev server with `pnpm dev` to load the canvas playground and inspector panel.
+3. Explore `agents/` for RULES + MEMORY to understand how automated contributors should behave.
 
-## Architectural Framework
+## Highlights
 
-This project follows a consistent framework architecture with `agents/` directory structure:
+- Toggle between curated scenes, adjust time-of-day gradients, and see lighting changes instantly.
+- Live inspector exposes camera, fog, and particle settings backed by Zustand state snapshots.
+- Framework-driven `agents/` directory keeps repo automation consistent with Docs-as-Code standards.
 
+## Core Scenarios
 
-- **agents/RULES.md**: Repository workflow rules and development guidelines
-- **agents/MEMORY.md**: Comprehensive development guidelines for all LLMs/agents
+- **Creative prototyping**: Quickly concept ambient hero sections or marketing visuals inside a browser.
+- **Design handoff**: Share Lovable-hosted builds so designers can tweak parameters before exporting captures.
+- **Agent workflows**: Use consistent RULES/MEMORY files to script GitHub Copilot-style agents inside the repo.
 
-This framework provides:
+## Documentation Map
 
+<div class="grid cards" markdown>
 
-- **Consistent Structure**: Standardized approach across all repositories
-- **Easy Adoption**: Framework can be easily adopted by other developers
-- **Clear Guidelines**: Well-defined development and contribution workflows
-- **Agent-Friendly**: Optimized for AI-assisted development workflows
+-   :material-play-circle:{ .lg .middle } **Quick Start**
 
-## Getting Started
+	---
 
-Visit the [Quick Start](quick_start/index.md) guide for setup instructions and development workflows.
+	Local dev requirements, scripts, and scene controls.
 
-## Documentation
+	[Open Guide](quick_start/index.md)
 
-Explore the [Details](details/index.md) section for in-depth information about the project's architecture, features, and contribution guidelines.
+-   :material-cube:{ .lg .middle } **Scene Details**
+
+	---
+
+	Architecture, component breakdown, and customization hooks.
+
+	[Explore Details](details/index.md)
+
+-   :material-shield-check:{ .lg .middle } **Agent Rules**
+
+	---
+
+	Repository guardrails for AI collaborators.
+
+	[View RULES](https://github.com/BA-CalderonMorales/immersive-awe-canvas/blob/main/agents/RULES.md)
+
+</div>

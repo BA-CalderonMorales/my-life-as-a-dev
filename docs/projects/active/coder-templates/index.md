@@ -1,166 +1,70 @@
 # Coder Templates
 
-**Terraform-based workspace templates for consistent, portable development environments**
+> Terraform-based workspace templates that make Terminal Jarvis-ready environments portable across laptops, Docker hosts, and cloud VMs.
 
-Production-ready Coder workspace templates designed for Terminal-Jarvis development. Templates use Terraform to provision containerized workspaces with pre-configured toolchains including Node.js 20, Python 3, Rust, and development utilities.
+---
 
-## Overview
+## Signal
 
-Terraform-based workspace templates that provision complete development environments on Coder with pre-installed toolchains, observability dashboards, and persistent storage. Templates target both local Docker deployments and cloud infrastructure, with an emphasis on free-tier and low-cost options.
+!!! info "Project Signal"
+
+	- **Status**: Maintained, with new providers rolling out
+	- **Focus**: Reproducible Coder templates packaged as `.tar` uploads
+	- **Stack**: Terraform, Docker, Bash packaging scripts
+	- **Ideal For**: Platform teams standardizing dev workspaces or demo labs
 
 ## Quick Links
 
-- [:fontawesome-brands-github: GitHub Repository](https://github.com/BA-CalderonMorales/coder-templates)
+- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/coder-templates)
+- [Packaging Scripts](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/scripts)
+- [Deployment Models](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/docs/deployment_models)
+- [Template Docs](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/templates)
 
-## Project Status
+## Onboarding Checklist
 
-**Implemented:**
+1. Clone the repository and pick a template folder (`terminal-jarvis-playground/local-docker`, `gcp`, etc.).
+2. Run the packaging script for your platform (`./package.linux.sh`, `./package.mac.sh`, or `./package.windows.sh`).
+3. Upload the generated `.tar` inside the Coder dashboard and follow the template README variables section.
 
-- :material-docker: Local Docker template using Docker containers with persistent volumes
-- :material-google-cloud: GCP Compute Engine template using bare VM architecture
-- :material-package-variant: Multi-platform packaging scripts (Linux, macOS, Windows)
-- :material-file-document-multiple: Comprehensive deployment documentation for GCP, AWS, and Azure
-- :material-developer-board: Development container for contributors
-- :material-chart-line: Resource monitoring and observability built into templates
+## Highlights
 
-**Planned:**
+- Single-source template model: Dockerfile + Terraform + README for every deployment target.
+- Packaging workflow runs on macOS, Linux, and Windows/Git Bash with direct or interactive modes.
+- Built-in observability dashboard surfaces CPU, RAM, disk, load, and swap metrics per workspace.
+- Cloud model guides cover Docker Desktop, GCP, AWS, and Azure free-tier friendly setups.
 
-- Feature flags for optional components (JetBrains Gateway, resource limits)
-- Multi-architecture image builds (AMD64 + ARM64) via GitHub Actions
-- AWS and Azure template implementations (documentation exists, Terraform pending)
-- Automated linting and validation pipeline (tflint, trivy/grype)
-- Secret management patterns (dotfiles, cloud secret managers)
+## Core Scenarios
 
-## Architecture
+- **Local Docker**: Spin up a reproducible environment for Terminal Jarvis with persistent `home` volumes.
+- **Cloud Starter Kits**: Launch low-cost GCP instances with optional Docker/Archestra toggles.
+- **Contributor Mode**: Use the development container and packaging scripts to add new targets or providers.
 
-### Template Model
+## Documentation Map
 
-Each template consists of three core components:
+<div class="grid cards" markdown>
 
-1. **Dockerfile** - Defines the workspace runtime environment with pre-installed tools
-2. **main.tf** - Terraform configuration declaring Coder resources and infrastructure
-3. **README.md** - Deployment-specific setup and configuration instructions
+-   :material-download:{ .lg .middle } **Packaging Workflow**
 
-Templates are packaged into `.tar` archives and uploaded to Coder for workspace provisioning.
+	---
 
-### Persistence Strategy
+	Explains interactive vs direct modes plus artifact naming conventions.
 
-- **Ephemeral**: Workspace container or VM (recreated on restart)
-- **Persistent**: User data in `/home/coder` via Docker volumes or attached disks
-- **Consequence**: Tools installed outside persistent paths must be baked into Dockerfile
+	[View Scripts](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/scripts)
 
-### Observability
+-   :material-cloud:{ .lg .middle } **Deployment Models**
 
-Templates include real-time dashboard metrics:
+	---
 
+	Cloud-specific guidance for Docker Desktop, GCP, AWS, Azure, and known limits.
 
-- CPU usage (container/host)
-- RAM usage with percentage utilization
-- Disk usage for home directory
-- Load average scaled by CPU count
-- Swap usage (critical for memory-constrained instances)
+	[Read Guides](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/docs/deployment_models)
 
-## Quick Start
+-   :material-docker:{ .lg .middle } **Template Catalog**
 
-### 1. Package Template
+	---
 
-Run the packaging script for your platform:
+	Dive into each template directory for Terraform variables and README instructions.
 
-```bash
-# Interactive mode - presents menu of templates
-./package.linux.sh     # Linux
-./package.mac.sh       # macOS
-./package.windows.sh   # Windows (Git Bash/WSL)
+	[Explore Templates](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/templates)
 
-# Direct mode - package specific template
-./package.linux.sh local-docker   # Creates terminal-jarvis-playground-local.tar
-./package.linux.sh gcp            # Creates terminal-jarvis-playground-gcp.tar
-./package.linux.sh all            # Creates both archives
-```
-
-### 2. Upload to Coder
-
-1. Navigate to Coder dashboard
-2. Go to Templates → Create Template
-3. Upload generated `.tar` file
-4. Configure template variables (see template README)
-5. Create workspace from template
-
-### 3. Template-Specific Setup
-
-Consult the README in each template directory for deployment-specific requirements:
-
-
-- `terminal-jarvis-playground/local-docker/README.md` - Docker Desktop setup
-- `terminal-jarvis-playground/gcp/README.md` - GCP credentials and project configuration
-
-## Available Templates
-
-### terminal-jarvis-playground/local-docker
-
-Docker-based workspace for local development and testing.
-
-**Requirements:**
-
-- Docker Desktop or Docker Engine
-- 2+ GiB RAM recommended (JetBrains IDEs require 4+ GiB)
-
-**Features:**
-
-- Persistent `/home/coder` volume
-- code-server for browser-based VS Code
-- JetBrains Gateway support (IntelliJ, PyCharm, WebStorm, etc.)
-- Automatic git configuration from Coder user metadata
-
-**Terraform Variables:**
-
-- `docker_socket` (optional) - Custom Docker socket path
-
-### terminal-jarvis-playground/gcp
-
-Google Compute Engine deployment using ephemeral VMs with persistent disks.
-
-**Requirements:**
-
-- GCP project with Compute Engine API enabled
-- Service account with `compute.instanceAdmin.v1` role
-- Service account JSON key file
-
-**Features:**
-
-- Bare VM architecture (no Docker dependency)
-- Always Free tier eligible (e2-micro, 30 GB disk)
-- Systemd-managed Coder agent with auto-restart
-- Optional Archestra.ai integration
-- Optional Docker installation for container workflows
-
-**Terraform Variables:**
-
-- `project_id` (required) - GCP project ID
-- `zone` (optional) - Compute zone, default: `us-central1-a`
-- `machine_type` (optional) - Instance size, default: `e2-micro`
-- `disk_size` (optional) - Root disk GB, default: `30`
-- `gcp_credentials` (sensitive) - Service account JSON key
-- `enable_archestra` (optional) - Enable Archestra.ai, default: `false`
-- `enable_docker` (optional) - Install Docker, default: `false`
-
-## Cloud Deployment Models
-
-Guides for running templates on common cloud free tiers and low-cost infrastructure:
-
-
-- [Docker Desktop (Local Baseline)](https://github.com/BA-CalderonMorales/coder-templates/blob/develop/docs/deployment_models/DockerDesktop.md)
-- [GCP Deployment (Always Free)](https://github.com/BA-CalderonMorales/coder-templates/blob/develop/docs/deployment_models/GCP.md)
-- [AWS Deployment (Free Tier)](https://github.com/BA-CalderonMorales/coder-templates/blob/develop/docs/deployment_models/AWS.md)
-- [Azure Deployment (Free/Low-Cost)](https://github.com/BA-CalderonMorales/coder-templates/blob/develop/docs/deployment_models/Azure.md)
-- [Limitations & Constraints](https://github.com/BA-CalderonMorales/coder-templates/blob/develop/docs/deployment_models/limitations.md)
-
-Each guide covers:
-
-- Recommended instance sizes and limits
-- Optional swap and resource tuning
-- Cost optimization strategies
-
-## Documentation
-
-For comprehensive documentation, visit the [GitHub repository](https://github.com/BA-CalderonMorales/coder-templates) and explore the `docs/` directory.
+</div>

@@ -1,164 +1,70 @@
 # Coder Starter Scripts
 
-**Platform-specific startup scripts for running local Coder server instances**
+> Platform-specific bootstrap scripts for running personal Coder servers in under two minutes.
 
-Automates binary acquisition and environment setup for development and evaluation purposes. Designed for individual developers who need fast, repeatable Coder environments for testing and experimentation.
+---
 
-!!! info "Project Status"
-    Active development - stable for local development and testing workflows. GitHub Codespaces support is the primary development focus, with improvements regularly backported to platform-specific scripts.
+## Signal
 
-## Overview
+!!! info "Project Signal"
 
-Platform-specific startup scripts that automate the entire process of running a local Coder server instance. The scripts handle binary downloads, environment setup, and server launch with zero manual configuration required.
-
-**Intended Use**: Local development, evaluation, and experimentation with Coder
-**Not Intended For**: Production deployments or enterprise installations
+    - **Status**: Active development (local + Codespaces)
+    - **Focus**: One-command Coder server bootstrap
+    - **Stack**: Bash, curl, GitHub API, Docker
+    - **Ideal For**: Developers evaluating Coder or spinning up disposable lab instances
 
 ## Quick Links
 
-
-[:fontawesome-brands-github: Repo](https://github.com/BA-CalderonMorales/coder-starter-scripts){ .md-button }
-
-- One-command server startup
-- Configurable templates
-- Docker-based deployment
-- Platform-specific start scripts for Windows, macOS, and Linux
-- GitHub Codespaces bootstrap script
-- Automatic Coder installation if not found
-
-## Prerequisites
-
-- Git Bash (Windows), Terminal (macOS/Linux)
-- Internet connection (for automatic Coder download)
-
-## Quick Start
-
-### Start Server
-
-1. Open your terminal (Git Bash on Windows)
-2. Navigate to project directory
-3. Run the appropriate start script for your platform:
-
-```bash
-# Windows
-./start.windows.sh
-
-# macOS
-./start.mac.sh
-
-# Linux
-./start.linux.sh
-
-# GitHub Codespaces (inside a Codespace terminal)
-./start.gh.codespaces.sh
-```
-
-4. Open browser to `http://127.0.0.1:3000`
-
-### Stop Server
-
-Press `Ctrl+C` in terminal
-
-## Configuration
-
-Configure with `.env` file (see `.env.example` in repository)
-
-## Automatic Coder Installation
-
-The start scripts will automatically download and install Coder if it's not found in the project directory:
-
-1. Direct download from GitHub releases (primary method)
-2. Platform-specific package managers (fallback)
-3. Manual download instructions (final fallback)
-
-## Platform Support
-
-| Platform | Script | Status | Notes |
-|----------|--------|--------|-------|
-| Linux | `start.linux.sh` | Stable | Tested on Ubuntu, supports apt fallback |
-| macOS | `start.mac.sh` | Stable | Supports both Intel and Apple Silicon |
-| Windows | `start.windows.sh` | Stable | Requires Git Bash or WSL |
-| GitHub Codespaces | `start.gh.codespaces.sh` | Active Development | Primary development target |
-
-## Architecture
-
-### Binary Management
-
-Scripts follow a strict policy of never committing the Coder binary to version control:
-
-
-- Binaries are downloaded on-demand from GitHub releases
-- Codespaces script isolates downloads in `.bin/` directory (gitignored)
-- Legacy platform scripts download to project root (also gitignored)
-- All binaries and archives are excluded via `.gitignore`
-
-### Download Strategy
-
-Each script implements a multi-method fallback approach:
-
-1. **Primary**: Direct download from GitHub releases
-    - Fetches latest version via GitHub API
-    - Automatic architecture detection (amd64/arm64)
-    - Platform-specific archive formats (tar.gz for Linux, zip for macOS/Windows)
-
-2. **Fallback**: Platform package manager
-    - Windows: winget
-    - macOS: Homebrew
-    - Linux: apt
-
-3. **Final Fallback**: Manual installation instructions
-
-### Codespaces-Specific Design
-
-The `start.gh.codespaces.sh` script is purpose-built for ephemeral environments:
-
-
-- No privileged operations (no sudo/apt)
-- Strict error handling (`set -euo pipefail`)
-- Robust version detection with API rate limit fallback
-- Temporary directory extraction with safe binary discovery
-- Environment-based configuration flags
-
-**Codespaces Options:**
-
-```bash
-# Download and verify only (skip server start)
-SKIP_CODER_SERVER=1 ./start.gh.codespaces.sh
-
-# Suppress non-critical logs
-QUIET=1 ./start.gh.codespaces.sh
-
-# Force redownload latest version
-rm -f .bin/coder && ./start.gh.codespaces.sh
-```
-
-### Windows-Specific Behavior
-
-The Windows script includes PostgreSQL directory management:
-
-
-- Loads `.env` file if present (for `POSTGRES_DIR` override)
-- Defaults to `$HOME/AppData/Roaming/coderv2/postgres`
-- Removes and recreates directory on each startup for clean state
-
-## Limitations
-
-This project is explicitly scoped for local development and evaluation:
-
-!!! warning "Not for Production"
-    1. **No High Availability**: Single-instance deployments only
-    2. **Ephemeral Data**: Windows script resets PostgreSQL data on each run
-    3. **No Security Hardening**: Uses default configurations and embedded databases
-    4. **Single-User Focus**: Designed for individual developer workflows
-    5. **No Update Management**: Always pulls latest release (no version pinning yet)
-    6. **Limited Network Options**: Binds to localhost only
-
-## Documentation
-
-For comprehensive documentation, visit the [GitHub repository](https://github.com/BA-CalderonMorales/coder-starter-scripts).
-
-Key documentation files:
-
+- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/coder-starter-scripts)
+- [Starter Scripts](https://github.com/BA-CalderonMorales/coder-starter-scripts/tree/develop/scripts)
 - [Quick Start Guide](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/QUICK_START.md)
-- [Maintainer Guide](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/MAINTAINER.md)
-- [Project Instructions](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/CLAUDE.md)
+- [Maintainer Handbook](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/MAINTAINER.md)
+
+## Onboarding Checklist
+
+1. Clone the repository and copy `.env.example` to `.env` if you need overrides.
+2. Run the platform script that matches your environment (`start.linux.sh`, `start.mac.sh`, `start.windows.sh`, or `start.gh.codespaces.sh`).
+3. Open `http://127.0.0.1:3000` to finish the Coder setup wizard and create your first workspace.
+
+## Highlights
+
+- On-demand Coder binary download with architecture detection and retry-safe fallbacks.
+- GitHub Codespaces flow that avoids privileged commands and stores binaries inside `.bin/`.
+- Built-in PostgreSQL data reset for Windows plus `.env`-driven configuration flags.
+- Local-only networking to keep evaluation instances secure by default.
+
+## Core Scenarios
+
+- **Local discovery**: Test new Coder releases on Windows, macOS, or Linux without manual installs.
+- **Codespaces pairing**: Provision a Coder server inside a Codespace to dogfood remote-first workflows.
+- **Team enablement**: Hand teammates a single script that handles downloads, validation, and startup logging.
+
+## Documentation Map
+
+<div class="grid cards" markdown>
+
+-   :material-play-circle:{ .lg .middle } **Quick Start**
+
+    ---
+
+    Step-by-step walkthrough for installing, launching, and stopping local servers.
+
+    [Open Guide](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/QUICK_START.md)
+
+-   :material-map:{ .lg .middle } **Maintainer Guide**
+
+    ---
+
+    Release workflow, testing matrix, and coding standards for contributors.
+
+    [Read the Guide](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/MAINTAINER.md)
+
+-   :material-robot:{ .lg .middle } **Agent Playbook**
+
+    ---
+
+    AI/LLM collaboration rules that keep scripted contributions consistent.
+
+    [Explore Rules](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/CLAUDE.md)
+
+</div>

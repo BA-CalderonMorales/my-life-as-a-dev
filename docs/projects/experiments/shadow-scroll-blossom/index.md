@@ -1,34 +1,69 @@
 # Shadow Scroll Blossom
 
-A creative coding playground for generating beautiful particle effects that react to user input, featuring customizable themes and interactive elements.
+> Particle trails that react to scrolling, mouse movement, and touch gestures with customizable palettes.
 
-## Overview
+---
 
-Shadow Scroll Blossom is an interactive canvas that creates colorful particle trails in response to mouse or touch input. It serves as both a creative coding project and a template for building similar interactive experiences.
+## Signal
 
-## Key Features
+!!! info "Project Signal"
 
-- **Interactive Particle System**: Dynamic particle effects that respond to user input
-- **Multiple Themes**: Switch between various color schemes and visual styles
-- **Responsive Design**: Works on desktop and mobile devices
-- **Customizable Parameters**: Tweak particle behavior in real-time
-- **Dark Mode**: Built-in dark/light theme support
+	- **Status**: Experiment, tuned for mobile + desktop
+	- **Focus**: Responsive particle art with theme switching
+	- **Stack**: React, Canvas API, Framer Motion, Tailwind
+	- **Ideal For**: Designers and devs prototyping interactive hero sections
 
 ## Quick Links
 
-- :fontawesome-brands-github: [GitHub Repository](https://github.com/BA-CalderonMorales/shadow-scroll-blossom)
-- :material-web: [Live Demo](https://ba-calderonmorales.github.io/shadow-scroll-blossom/)
-- :material-bug: [Issue Tracker](https://github.com/BA-CalderonMorales/shadow-scroll-blossom/issues)
+- [:fontawesome-brands-github: Repository](https://github.com/BA-CalderonMorales/shadow-scroll-blossom)
+- [Production Demo](https://shadow-scroll-blossom.lovable.app/)
+- [QA Build](https://ba-calderonmorales.github.io/shadow-scroll-blossom/)
+- [Issue Tracker](https://github.com/BA-CalderonMorales/shadow-scroll-blossom/issues)
 
-## Project Status
+## Onboarding Checklist
 
-:material-update: Actively maintained  
-:material-lightbulb: New features in development
+1. Install dependencies (`pnpm install`) and start the dev server with `pnpm dev`.
+2. Open the controls drawer to tweak particle size, velocity, and palette presets in real time.
+3. Export presets or copy JSON snippets to reuse effects in other marketing experiences.
 
-## Getting Started
+## Highlights
 
-Visit the [Quick Start](quick_start/index.md) guide for setup instructions and development workflows.
+- Pointer + scroll reactive particle system keeps animations buttery even on phones.
+- Theme presets (Neon Bloom, Midnight Bloom, Solar Drift, etc.) map to CSS variables for easy reuse.
+- Built-in telemetry overlay displays fps, particle counts, and CPU cost for tuning.
 
-## Documentation
+## Core Scenarios
 
-Explore the [Details](details/index.md) section for in-depth information about the project's architecture, features, and contribution guidelines.
+- **Marketing hero experiments**: Prototype interactive landings without writing shader code.
+- **Experience libraries**: Copy/paste presets into other projects or design systems.
+- **Gesture research**: Validate scroll and touch interactions before shipping to production sites.
+
+## Documentation Map
+
+<div class="grid cards" markdown>
+
+-   :material-play-circle:{ .lg .middle } **Quick Start**
+
+	---
+
+	Scripts, environment variables, and dev server instructions.
+
+	[Open Guide](quick_start/index.md)
+
+-   :material-palette:{ .lg .middle } **Visual System**
+
+	---
+
+	Particle parameters, presets, and customization hooks.
+
+	[Explore Details](details/index.md)
+
+-   :material-file-code:{ .lg .middle } **Export Recipes**
+
+	---
+
+	How to embed effects in other sites or components.
+
+	[Read Details](details/index.md#export-recipes)
+
+</div>
