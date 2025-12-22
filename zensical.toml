@@ -35,14 +35,15 @@ extra_css = [
     "stylesheets/background.css",
     "stylesheets/landing.css",
     "stylesheets/canvas.css",
+    "stylesheets/nav-icons.css",
 ]
 
 # Navigation structure - explicitly defined to match current mkdocs.yml
 nav = [
-    { "🏠 Home" = "index.md" },
+    { "Home" = "index.md" },
 
     # Learning section
-    { "📚 Learning" = [
+    { "Learning" = [
         { "Overview" = "learning/index.md" },
         { "Algorithms" = [
             { "Overview" = "learning/algorithms/index.md" },
@@ -164,7 +165,7 @@ nav = [
     ] },
 
     # Docs-as-Code section
-    { "📄 Docs-as-Code" = [
+    { "Docs-as-Code" = [
         { "Overview" = "docs-as-code/index.md" },
         { "Guiding Principles" = "docs-as-code/principles/index.md" },
         { "Workflow" = "docs-as-code/workflow/index.md" },
@@ -175,7 +176,7 @@ nav = [
     ] },
 
     # Projects section
-    { "📁 Projects" = [
+    { "Projects" = [
         { "Overview" = "projects/index.md" },
         { "Active" = [
             { "Overview" = "projects/active/index.md" },
@@ -225,12 +226,12 @@ nav = [
         ] },
     ] },
 
-    { "🎨 Canvas" = [
+    { "Canvas" = [
         { "Overview" = "canvas/index.md" },
     ] },
 
     # About Me
-    { "👤 About Me" = "resume/index.md" },
+    { "About Me" = "resume/index.md" },
 ]
 
 # ----------------------------------------------------------------------------
