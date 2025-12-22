@@ -15,6 +15,7 @@ import { DeviceDetector } from '../utils/DeviceDetector.js';
 import { GradientBackground } from '../effects/GradientBackground.js';
 import { FlowingWaves } from '../effects/FlowingWaves.js';
 import { InteractiveParticles } from '../effects/InteractiveParticles.js';
+import { AuroraVeil } from '../effects/AuroraVeil.js';
 
 export class ImmersiveScene {
     constructor(containerId = 'threejs-bg-container') {
@@ -39,6 +40,7 @@ export class ImmersiveScene {
         this.gradientBackground = null;
         this.flowingWaves = null;
         this.interactiveParticles = null;
+        this.auroraVeil = null;
 
         // Theme colors - refined palette matching profile (teal/warm coral)
         // More vibrant for visual impact while content stays legible
@@ -51,6 +53,7 @@ export class ImmersiveScene {
                 particleSecondary: 0xff6b6b, // Coral accent
                 waveColor: 0x00d4aa,
                 waveOpacity: 0.18,          // More visible waves
+                auroraColor: 0x3ee7d8,
             },
             light: {
                 gradientTop: 0xf8fbff,      // Crisp white-blue
@@ -60,6 +63,7 @@ export class ImmersiveScene {
                 particleSecondary: 0xff7e67, // Warm coral
                 waveColor: 0x00a896,
                 waveOpacity: 0.12,          // Subtle in light mode
+                auroraColor: 0x00a3a3,
             }
         };
 
@@ -130,6 +134,20 @@ export class ImmersiveScene {
         });
         // Note: gradient is rendered separately as screen-space quad
 
+        // 1.5 Aurora Veils (between gradient and waves)
+        if (responsive.enableAurora) {
+            this.auroraVeil = new AuroraVeil({
+                veilCount: responsive.auroraCount,
+                color: theme.auroraColor,
+                opacity: responsive.auroraOpacity,
+                height: responsive.auroraHeight,
+                width: responsive.auroraWidth,
+                speed: responsive.auroraSpeed,
+                parallaxStrength: responsive.auroraParallax,
+            });
+            this.scene.add(this.auroraVeil.create());
+        }
+
         // 2. Flowing Waves (mid-layer)
         this.flowingWaves = new FlowingWaves({
             waveCount: responsive.waveCount,
@@ -178,6 +196,13 @@ export class ImmersiveScene {
                 waveAmplitude: 1.0,
                 waveIntensity: 0.06,
                 cameraMovement: 2,
+                enableAurora: false,
+                auroraCount: 0,
+                auroraOpacity: 0,
+                auroraWidth: 60,
+                auroraHeight: 100,
+                auroraSpeed: 0.12,
+                auroraParallax: 1.0,
             };
         }
 
@@ -194,6 +219,13 @@ export class ImmersiveScene {
                 waveAmplitude: 1.8,
                 waveIntensity: 0.12,
                 cameraMovement: 4,
+                enableAurora: true,
+                auroraCount: 1,
+                auroraOpacity: 0.1,
+                auroraWidth: 100,
+                auroraHeight: 120,
+                auroraSpeed: 0.16,
+                auroraParallax: 1.6,
             };
         }
 
@@ -213,6 +245,13 @@ export class ImmersiveScene {
             waveAmplitude: 2.2,             // More dramatic waves
             waveIntensity: 0.15,
             cameraMovement: 6,
+            enableAurora: true,
+            auroraCount: 2,
+            auroraOpacity: 0.18,
+            auroraWidth: waveWidth * 0.55,
+            auroraHeight: 150,
+            auroraSpeed: 0.2,
+            auroraParallax: 2.6,
         };
     }
 
@@ -224,6 +263,7 @@ export class ImmersiveScene {
 
     applyTheme() {
         const theme = this.themes[this.currentTheme];
+        const responsive = this.getResponsiveSettings();
 
         if (this.gradientBackground) {
             this.gradientBackground.setColors(
@@ -231,6 +271,11 @@ export class ImmersiveScene {
                 theme.gradientBottom,
                 theme.accent
             );
+        }
+
+        if (this.auroraVeil) {
+            this.auroraVeil.setColor(theme.auroraColor);
+            this.auroraVeil.setOpacity(responsive.auroraOpacity);
         }
 
         if (this.flowingWaves) {
@@ -323,6 +368,10 @@ export class ImmersiveScene {
                 this.gradientBackground.update(elapsedTime);
             }
 
+            if (this.auroraVeil) {
+                this.auroraVeil.update(elapsedTime, this.mouse);
+            }
+
             if (this.flowingWaves) {
                 this.flowingWaves.update(elapsedTime);
             }
@@ -366,6 +415,13 @@ export class ImmersiveScene {
         // Dispose effects
         if (this.gradientBackground) {
             this.gradientBackground.dispose();
+        }
+
+        if (this.auroraVeil) {
+            if (this.auroraVeil.group) {
+                this.scene?.remove(this.auroraVeil.group);
+            }
+            this.auroraVeil.dispose();
         }
 
         if (this.flowingWaves) {

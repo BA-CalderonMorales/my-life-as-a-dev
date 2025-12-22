@@ -9,3 +9,4 @@
 export { GradientBackground } from './GradientBackground.js';
 export { FlowingWaves } from './FlowingWaves.js';
 export { InteractiveParticles } from './InteractiveParticles.js';
+export { AuroraVeil } from './AuroraVeil.js';
