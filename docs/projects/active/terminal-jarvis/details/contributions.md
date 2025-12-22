@@ -145,14 +145,17 @@ Click "Code" → "Codespaces" → "Create codespace" for instant setup with:
 
 ### Local Setup
 
+Install Rust:
+
 ```bash
-# Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
 
-# Install Node.js 20+
-# (use nvm or your preferred method)
+Install Node.js 20+ using nvm or your preferred method.
 
-# Clone and build
+Clone and build:
+
+```bash
 git clone https://github.com/BA-CalderonMorales/terminal-jarvis.git
 cd terminal-jarvis
 cargo build

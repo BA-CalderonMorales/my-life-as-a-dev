@@ -22,10 +22,7 @@ cd rust-terminal-forge
 ### 2. Install Dependencies
 
 ```bash
-# Install frontend dependencies
 npm install
-
-# Build the Rust WebAssembly package
 wasm-pack build
 ```
 
@@ -33,7 +30,10 @@ wasm-pack build
 
 ```bash
 npm run dev
-# or
+```
+
+Or using Yarn:
+```bash
 yarn dev
 ```
 
@@ -42,13 +42,8 @@ Open [http://localhost:8080](http://localhost:8080) in your browser.
 ### 4. Build for Production
 
 ```bash
-# Build the Rust WebAssembly package for production
 wasm-pack build --release
-
-# Build the frontend
 npm run build
-# or
-yarn build
 ```
 
 The production build will be in the `dist/` directory.
@@ -57,7 +52,10 @@ The production build will be in the `dist/` directory.
 
 ```bash
 npm run preview
-# or
+```
+
+Or using Yarn:
+```bash
 yarn preview
 ```
 

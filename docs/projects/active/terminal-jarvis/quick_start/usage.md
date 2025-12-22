@@ -23,17 +23,15 @@ Get the complete interface with:
 ### Tool Management
 
 ```bash
-# Install and manage tools
 terminal-jarvis install claude
-terminal-jarvis update               # Update all tools
-terminal-jarvis list                # Show tool status
-terminal-jarvis info claude         # Tool details
+terminal-jarvis update
+terminal-jarvis list
+terminal-jarvis info claude
 ```
 
 ### Running Tools
 
 ```bash
-# Run tools directly
 terminal-jarvis run claude --prompt "Refactor this function"
 terminal-jarvis run gemini --file src/main.rs
 terminal-jarvis run qwen --analyze
@@ -43,8 +41,9 @@ terminal-jarvis run llxprt --help
 
 ### Quick Tool Launch
 
+Launch tools by name to enter an interactive session:
+
 ```bash
-# Launch tools by name (enters interactive session)
 terminal-jarvis claude
 terminal-jarvis gemini
 terminal-jarvis qwen
@@ -55,15 +54,10 @@ terminal-jarvis qwen
 ### Installing Individual Tools
 
 ```bash
-# Install specific tool
 terminal-jarvis install claude
-
-# Terminal Jarvis will:
-# 1. Check system prerequisites (NPM, curl, uv)
-# 2. Download and install the tool
-# 3. Verify installation
-# 4. Provide next steps
 ```
+
+Terminal Jarvis will check system prerequisites, download and install the tool, verify installation, and provide next steps.
 
 ### Installing Multiple Tools
 

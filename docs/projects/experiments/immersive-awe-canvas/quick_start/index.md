@@ -31,11 +31,13 @@ npm install
 
 ### 3. Start the Development Server
 
+Using Bun:
 ```bash
-# Using Bun
 bun run dev
+```
 
-# Or using npm
+Using npm:
+```bash
 npm run dev
 ```
 
@@ -43,11 +45,13 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ### 4. Build for Production
 
+Using Bun:
 ```bash
-# Using Bun
 bun run build
+```
 
-# Or using npm
+Using npm:
+```bash
 npm run build
 ```
 
@@ -55,11 +59,13 @@ The production build will be in the `dist/` directory.
 
 ### 5. Preview Production Build
 
+Using Bun:
 ```bash
-# Using Bun
 bun run preview
+```
 
-# Or using npm
+Using npm:
+```bash
 npm run preview
 ```
 

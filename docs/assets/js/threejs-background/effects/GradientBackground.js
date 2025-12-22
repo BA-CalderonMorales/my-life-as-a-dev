@@ -84,12 +84,13 @@ export class GradientBackground {
                 }
                 
                 void main() {
-                    // Base gradient
+                    // Smooth base gradient with slight curve for depth
                     float gradientMix = vUv.y;
+                    gradientMix = smoothstep(0.0, 1.0, gradientMix);
                     
-                    // Add animated noise for subtle movement
-                    float noise1 = snoise(vUv * 3.0 + uTime * 0.1) * uWaveIntensity;
-                    float noise2 = snoise(vUv * 5.0 - uTime * 0.15) * uWaveIntensity * 0.5;
+                    // Very subtle animated noise for organic feel
+                    float noise1 = snoise(vUv * 2.0 + uTime * 0.05) * uWaveIntensity * 0.6;
+                    float noise2 = snoise(vUv * 4.0 - uTime * 0.08) * uWaveIntensity * 0.3;
                     
                     gradientMix += noise1 + noise2;
                     gradientMix = clamp(gradientMix, 0.0, 1.0);
@@ -97,9 +98,9 @@ export class GradientBackground {
                     // Mix base colors
                     vec3 color = mix(uColorBottom, uColorTop, gradientMix);
                     
-                    // Add accent color glow in specific areas
-                    float accentNoise = snoise(vUv * 2.0 + vec2(uTime * 0.05, 0.0));
-                    float accentMask = smoothstep(0.3, 0.7, accentNoise) * 0.15;
+                    // Subtle accent color glow - very soft
+                    float accentNoise = snoise(vUv * 1.5 + vec2(uTime * 0.03, 0.0));
+                    float accentMask = smoothstep(0.4, 0.8, accentNoise) * 0.08;
                     color = mix(color, uColorAccent, accentMask);
                     
                     gl_FragColor = vec4(color, 1.0);
