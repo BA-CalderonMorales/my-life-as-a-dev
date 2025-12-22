@@ -4,6 +4,7 @@ description: A relaxed walkthrough of the work, wins, and lessons that shape how
 hide:
 
   - toc
+  - navigation
 ---
 
 # Brandon A. Calderon Morales
