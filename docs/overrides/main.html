@@ -1,11 +1,30 @@
 {% extends "base.html" %}
 
+{% block libs %}
+{{ super() }}
+<!-- CRITICAL: Patch MutationObserver BEFORE any other scripts load -->
+<script>
+  (function () {
+    var NativeMutationObserver = window.MutationObserver;
+    if (NativeMutationObserver) {
+      var originalObserve = NativeMutationObserver.prototype.observe;
+      NativeMutationObserver.prototype.observe = function (target, options) {
+        try {
+          if (target && target.nodeType) {
+            return originalObserve.call(this, target, options);
+          }
+        } catch (e) { }
+      };
+    }
+  })();
+</script>
+{% endblock %}
+
 {% block extrahead %}
 <meta name="site_url" content="{{ config.site_url }}">
 <link rel="icon" href="{{ config.theme.logo | url }}" />
 
-<!-- Patch browser APIs to prevent third-party console errors -->
-<!-- Must load synchronously BEFORE any other scripts -->
+<!-- Additional patches and polyfills loaded from external file -->
 <script src="{{ 'assets/js/console-patch.js' | url }}"></script>
 <!-- Import map for Three.js ES modules -->
 <script type="importmap">
