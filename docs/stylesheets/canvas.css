@@ -4,41 +4,23 @@
 
 .canvas-page .md-main {
     background: transparent;
-    padding-top: 0;
-    min-height: 100vh;
 }
 
-.canvas-page .md-main__inner {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-}
-
-.canvas-page .md-content {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
+.canvas-page .md-main__inner,
 .canvas-page .md-content__inner {
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
     min-height: 100vh;
+    background: transparent;
+    box-shadow: none;
 }
 
 .canvas-placeholder {
     text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
     color: var(--md-default-fg-color);
-    width: min(720px, 92vw);
-    margin: clamp(2rem, 6vh, 4rem) auto clamp(2rem, 5vh, 3rem) clamp(1.5rem, 5vw, 4rem);
+    max-width: 720px;
+    margin: clamp(2rem, 6vh, 4rem) auto;
+    padding: 0 clamp(1.25rem, 6vw, 2.5rem);
 }
+
 
 .canvas-placeholder p {
     font-size: 1rem;
