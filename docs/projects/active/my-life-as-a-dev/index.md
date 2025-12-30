@@ -28,9 +28,8 @@
 
 ## Highlights
 
-- AI-aware documentation flow that can tap GitHub Models locally while remaining disabled in production.
+- AI-powered chat widget integrated via Cloud Run + Gemini API for interactive site navigation.
 - mike-backed versioning so each release of the site is reproducible and deployable via `mike deploy`.
-- Custom MkDocs plugins (see `mkdocs_plugins/`) extend navigation, link validation, and AI prompts.
 - Opinionated `AGENTS.md` + `.github/skills/` directory that codifies how contributors and AI agents collaborate.
 
 ## Core Scenarios

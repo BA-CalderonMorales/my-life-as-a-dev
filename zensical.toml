@@ -401,4 +401,4 @@ enabled = false # Controlled by ENABLE_PRINT_SITE env var in CI
 # Watch Paths (for development hot reload)
 # ----------------------------------------------------------------------------
 [project.watch]
-paths = ["mkdocs_plugins", "docs/overrides", "scripts/python"]
+paths = ["docs/overrides", "scripts/python"]
