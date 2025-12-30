@@ -122,6 +122,57 @@ const ChatUI = {
         this.close();
       }
     });
+
+    // Prevent touch scroll bleed-through on mobile
+    this.setupMobileTouchHandling();
+  },
+
+  /**
+   * Setup touch event handling for mobile to prevent scroll bleed-through
+   */
+  setupMobileTouchHandling: function () {
+    const modal = document.getElementById('ai-chat-modal');
+    const messagesArea = document.getElementById('ai-chat-messages');
+
+    if (!modal || !messagesArea) return;
+
+    // Prevent touchmove on modal overlay from scrolling body
+    modal.addEventListener('touchmove', (e) => {
+      // Only prevent if the touch is on the overlay itself, not on scrollable content
+      if (e.target === modal) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    // Handle scroll boundaries in messages area to prevent scroll chaining
+    messagesArea.addEventListener('touchstart', (e) => {
+      // Store starting scroll position and touch position
+      this._touchStartY = e.touches[0].clientY;
+      this._scrollStartTop = messagesArea.scrollTop;
+      this._scrollHeight = messagesArea.scrollHeight;
+      this._clientHeight = messagesArea.clientHeight;
+    }, { passive: true });
+
+    messagesArea.addEventListener('touchmove', (e) => {
+      if (!this._touchStartY) return;
+
+      const touchY = e.touches[0].clientY;
+      const deltaY = this._touchStartY - touchY;
+      const scrollTop = messagesArea.scrollTop;
+      const maxScroll = this._scrollHeight - this._clientHeight;
+
+      // Prevent scroll if at top and trying to scroll up
+      if (scrollTop <= 0 && deltaY < 0) {
+        e.preventDefault();
+        return;
+      }
+
+      // Prevent scroll if at bottom and trying to scroll down
+      if (scrollTop >= maxScroll && deltaY > 0) {
+        e.preventDefault();
+        return;
+      }
+    }, { passive: false });
   },
 
   /**
@@ -131,7 +182,13 @@ const ChatUI = {
     const modal = document.getElementById('ai-chat-modal');
     if (modal) {
       modal.classList.add('active');
+
+      // Lock body scroll - store current position for iOS
+      this._scrollY = window.scrollY;
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${this._scrollY}px`;
+      document.body.style.width = '100%';
 
       // Focus input
       const input = document.getElementById('ai-chat-input');
@@ -148,7 +205,17 @@ const ChatUI = {
     const modal = document.getElementById('ai-chat-modal');
     if (modal) {
       modal.classList.remove('active');
+
+      // Restore body scroll - return to original position
       document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+
+      // Restore scroll position
+      if (this._scrollY !== undefined) {
+        window.scrollTo(0, this._scrollY);
+      }
     }
   },
 
