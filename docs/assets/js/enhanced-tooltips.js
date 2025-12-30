@@ -259,9 +259,37 @@
     }
 
     /**
+     * Check if the device is mobile or tablet
+     * Uses multiple detection methods for reliability
+     */
+    function isMobileOrTablet() {
+        // Check for touch-primary device (most reliable for mobile/tablet)
+        if (window.matchMedia('(pointer: coarse)').matches) {
+            return true;
+        }
+
+        // Check for common mobile/tablet screen widths (up to 1024px for tablets)
+        if (window.matchMedia('(max-width: 1024px)').matches) {
+            return true;
+        }
+
+        // Check for touch capability combined with no fine pointer
+        if ('ontouchstart' in window && !window.matchMedia('(pointer: fine)').matches) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Initialize tooltips when DOM is ready
      */
     function init() {
+        // Completely disable tooltips on mobile and tablet devices
+        if (isMobileOrTablet()) {
+            return;
+        }
+
         // Initial application
         applyAllTooltips();
 
