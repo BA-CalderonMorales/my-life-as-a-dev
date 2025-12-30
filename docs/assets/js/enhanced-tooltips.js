@@ -161,7 +161,8 @@
             if (event.pointerType === 'mouse' || touchActive) return;
             hideTooltip();
         });
-        element.addEventListener('touchstart', function () {
+        element.addEventListener('pointerdown', function (event) {
+            if (event.pointerType === 'mouse') return;
             touchActive = true;
             if (hideTimeout) {
                 clearTimeout(hideTimeout);
@@ -172,6 +173,10 @@
                 showHandler.call(this);
             }
             hideTimeout = setTimeout(endTouchInteraction, TOUCH_HIDE_DELAY);
+        });
+        element.addEventListener('pointerup', function (event) {
+            if (event.pointerType === 'mouse') return;
+            endTouchInteraction();
         });
         element.addEventListener('touchend', endTouchInteraction);
         element.addEventListener('touchcancel', endTouchInteraction);
