@@ -42,10 +42,14 @@
 <script type="module" src="{{ 'assets/js/threejs-background/main.js' | url }}"></script>
 
 <!-- AI Chat Widget Styles -->
-<link rel="stylesheet" href="{{ 'stylesheets/chat-widget.css' | url }}">
-<!-- AI Chat Widget Scripts - Parser must load before main widget -->
+<link rel="stylesheet" href="{{ 'assets/css/chat-widget.css' | url }}">
+<!-- AI Chat Widget Scripts - Load in dependency order -->
+<script src="{{ 'assets/js/chat-widget/config.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/logger.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/message-parser.js' | url }}"></script>
-<script src="{{ 'assets/js/chat-widget.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/ui.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/api.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/index.js' | url }}"></script>
 {% endblock %}
 
 {% block classes %}

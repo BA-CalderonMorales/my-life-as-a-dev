@@ -25,16 +25,16 @@ Copyright &copy; 2024-2025 Brandon Calderon-Morales
 
 # Additional CSS (load order matters for cascade)
 extra_css = [
-    "stylesheets/theme.css",
-    "stylesheets/typography.css",
-    "stylesheets/layout.css",
-    "stylesheets/cards.css",
-    "stylesheets/buttons.css",
-    "stylesheets/code.css",
-    "stylesheets/share.css",
-    "stylesheets/background.css",
-    "stylesheets/landing.css",
-    "stylesheets/canvas.css",
+    "assets/css/theme.css",
+    "assets/css/typography.css",
+    "assets/css/layout.css",
+    "assets/css/cards.css",
+    "assets/css/buttons.css",
+    "assets/css/code.css",
+    "assets/css/share.css",
+    "assets/css/background.css",
+    "assets/css/landing.css",
+    "assets/css/canvas.css",
 ]
 
 # Navigation structure - explicitly defined to match current mkdocs.yml

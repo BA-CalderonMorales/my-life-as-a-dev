@@ -61,7 +61,7 @@ A secure, Claude Docs-style AI chat widget integrated into the documentation sit
 - `~/agent-chat-proxy/main.py` - Cloud Run Flask service with Gemini integration
 - `~/agent-chat-proxy/Dockerfile` - Container configuration for Cloud Run
 - `~/agent-chat-proxy/requirements.txt` - Python dependencies
-- `docs/stylesheets/chat-widget.css` - Widget styling (Claude Docs-style)
+- `docs/assets/css/chat-widget.css` - Widget styling (Claude Docs-style)
 - `docs/assets/js/chat-widget.js` - Widget functionality with security
 - `AI_CHAT_SECURITY.md` - Security implementation documentation
 
@@ -245,7 +245,7 @@ curl -X POST https://agent-chat-proxy-882389009262.us-central1.run.app/ \
 - [ ] Rotate API key (annually or on compromise)
 
 ### When to Update
-- **Widget styling**: Edit `docs/stylesheets/chat-widget.css`
+- **Widget styling**: Edit `docs/assets/css/chat-widget.css`
 - **Widget behavior**: Edit `docs/assets/js/chat-widget.js`
 - **AI instructions**: Edit `~/agent-chat-proxy/main.py` (AGENT_INSTRUCTIONS)
 - **Security patterns**: Edit `~/agent-chat-proxy/main.py` (suspicious_patterns)

@@ -72,7 +72,7 @@ console.log('[AI Chat] Sending message...');
 console.log('[AI Chat] Response received:', data);
 ```
 
-**[docs/stylesheets/chat-widget.css](../../stylesheets/chat-widget.css)** (NEW)
+**[docs/assets/css/chat-widget.css](../../assets/css/chat-widget.css)** (NEW)
 - Claude Docs-inspired design
 - Responsive breakpoints (@media queries)
 - Dark mode support (@prefers-color-scheme: dark)

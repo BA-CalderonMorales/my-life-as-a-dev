@@ -1,13 +1,21 @@
 /**
- * Chat Widget Module Index
+ * Chat Widget - Main Entry Point
  * 
- * This module provides a modular architecture for the AI chat widget.
- * Components are separated for maintainability and testability.
+ * This module initializes and orchestrates the AI chat widget.
+ * It ties together all component modules:
+ * - config.js: Configuration and settings
+ * - logger.js: Development-only logging
+ * - message-parser.js: Markdown and link parsing
+ * - ui.js: DOM injection and UI management
+ * - api.js: Backend communication
  * 
- * Components:
- * - MessageParser: Handles markdown parsing and link rendering
- * - (Future) ResponseValidator: Pydantic-compatible response validation
- * - (Future) SessionManager: Handle session state
+ * Load Order (in HTML):
+ * 1. config.js
+ * 2. logger.js
+ * 3. message-parser.js
+ * 4. ui.js
+ * 5. api.js
+ * 6. index.js (this file)
  * 
  * Expected API Response Format (Pydantic model):
  * 
@@ -15,29 +23,109 @@
  *     answer: str
  *     session_id: Optional[str] = None
  *     sources: Optional[List[str]] = None
- *     
- * class ChatRequest(BaseModel):
- *     question: str
- *     context: Optional[str] = None
- *     page_url: Optional[str] = None
- *     session_id: Optional[str] = None
  */
 
-// Re-export components for easy access
-// In browser context, these are attached to window object
-// In Node.js context (for testing), these are module.exports
-
 (function () {
-    // Check if we're in a browser or Node.js environment
-    const isBrowser = typeof window !== 'undefined';
+    'use strict';
 
-    if (isBrowser) {
-        // Browser: Components are loaded via script tags and attached to window
-        window.ChatWidget = window.ChatWidget || {};
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 
-        // Reference the MessageParser if it's already loaded
-        if (window.MessageParser) {
-            window.ChatWidget.MessageParser = window.MessageParser;
+    /**
+     * Initialize the chat widget
+     */
+    function init() {
+        const config = window.ChatConfig;
+        const logger = window.ChatLogger;
+        const ui = window.ChatUI;
+
+        // Check if we should inject on this page
+        if (!config || !config.shouldInject()) {
+            return;
+        }
+
+        // Verify all modules are loaded
+        if (!ui) {
+            console.warn('[AI Chat] UI module not loaded');
+            return;
+        }
+
+        // Create MessageParser instance
+        const parser = window.MessageParser ? new window.MessageParser() : null;
+        if (!parser && logger) {
+            logger.warn('MessageParser not loaded, using fallback parsing');
+        }
+
+        // Inject UI
+        ui.inject();
+
+        // Expose public API
+        window.ChatWidget = {
+            // Components
+            config: config,
+            logger: logger,
+            parser: parser,
+            ui: ui,
+            api: window.ChatAPI,
+
+            // Public methods
+            open: function () {
+                ui.open();
+            },
+
+            close: function () {
+                ui.close();
+            },
+
+            sendMessage: async function () {
+                const message = ui.getAndClearInput();
+
+                if (!message) return;
+
+                // Validate message length
+                if (message.length > config.MAX_MESSAGE_LENGTH) {
+                    ui.addMessage(
+                        `Please keep your question under ${config.MAX_MESSAGE_LENGTH} characters.`,
+                        'bot',
+                        parser
+                    );
+                    return;
+                }
+
+                // Add user message to UI
+                ui.addMessage(message, 'user');
+
+                // Show loading indicator
+                const loadingDiv = ui.addLoadingMessage();
+
+                try {
+                    // Send to API
+                    const data = await window.ChatAPI.sendMessage(message);
+
+                    // Remove loading, show response
+                    if (loadingDiv) loadingDiv.remove();
+                    ui.addMessage(data.answer, 'bot', parser);
+
+                } catch (error) {
+                    if (logger) {
+                        logger.error('Full error:', error);
+                    }
+
+                    // Remove loading, show error
+                    if (loadingDiv) loadingDiv.remove();
+                    const errorMessage = window.ChatAPI.getErrorMessage(error);
+                    ui.addMessage(errorMessage, 'bot', parser);
+                }
+            }
+        };
+
+        if (logger) {
+            logger.log('Chat widget initialized');
         }
     }
 })();
+

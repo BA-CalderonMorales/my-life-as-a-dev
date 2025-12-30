@@ -15,7 +15,6 @@ FORBIDDEN_ERRORS = [
 # We track 404s separately - only fail on 404s for site resources, not browser internals
 SITE_404_INDICATORS = [
     "assets/",
-    "stylesheets/",
     ".js",
     ".css",
     ".html",
