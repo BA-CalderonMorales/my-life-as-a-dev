@@ -18,9 +18,13 @@
 (function () {
     'use strict';
 
+    const TOUCH_HIDE_DELAY = 2000;
     // Tooltip element (singleton)
     let tooltipEl = null;
     let hideTimeout = null;
+    let touchActive = false;
+    let currentTooltipTarget = null;
+    let isTooltipVisible = false;
 
     /**
      * Create the tooltip element if it doesn't exist
@@ -61,8 +65,11 @@
         if (!text) return;
 
         clearTimeout(hideTimeout);
+        hideTimeout = null;
         const tooltip = ensureTooltipElement();
         tooltip.textContent = text;
+        currentTooltipTarget = element;
+        isTooltipVisible = true;
 
         // Position the tooltip
         const rect = element.getBoundingClientRect();
@@ -101,12 +108,19 @@
      */
     function hideTooltip() {
         if (!tooltipEl) return;
+        if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+        }
+        isTooltipVisible = false;
         tooltipEl.style.opacity = '0';
         tooltipEl.style.transform = 'translateX(-50%) translateY(4px)';
         hideTimeout = setTimeout(function () {
             if (tooltipEl) {
                 tooltipEl.style.display = 'none';
+                currentTooltipTarget = null;
             }
+            hideTimeout = null;
         }, 150);
     }
 
@@ -133,19 +147,34 @@
             showTooltip(this, tooltipText);
         };
 
+        const endTouchInteraction = function () {
+            touchActive = false;
+            if (!isTooltipVisible) return;
+            hideTooltip();
+        };
+
         element.addEventListener('mouseenter', showHandler);
         element.addEventListener('mouseleave', hideTooltip);
         element.addEventListener('focus', showHandler);
         element.addEventListener('blur', hideTooltip);
-        element.addEventListener('pointerleave', hideTooltip);
+        element.addEventListener('pointerleave', function (event) {
+            if (event.pointerType === 'mouse' || touchActive) return;
+            hideTooltip();
+        });
         element.addEventListener('touchstart', function () {
-            const tooltipText = this.getAttribute('data-custom-tooltip');
-            showTooltip(this, tooltipText);
-            clearTimeout(hideTimeout);
-            hideTimeout = setTimeout(hideTooltip, 2000);
-        }, { passive: true });
-        element.addEventListener('touchend', hideTooltip);
-        element.addEventListener('touchcancel', hideTooltip);
+            touchActive = true;
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+                hideTimeout = null;
+            }
+            const isCurrentTargetTooltipVisible = isTooltipVisible && currentTooltipTarget === this;
+            if (!isCurrentTargetTooltipVisible) {
+                showHandler.call(this);
+            }
+            hideTimeout = setTimeout(endTouchInteraction, TOUCH_HIDE_DELAY);
+        });
+        element.addEventListener('touchend', endTouchInteraction);
+        element.addEventListener('touchcancel', endTouchInteraction);
     }
 
     /**
