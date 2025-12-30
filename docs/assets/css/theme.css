@@ -64,14 +64,14 @@
     background: var(--md-accent-fg-color--transparent);
 }
 
-/* Anchor colors */
-.md-typeset a,
-.md-typeset a:visited {
+/* Anchor colors - exclude buttons */
+.md-typeset a:not(.md-button),
+.md-typeset a:not(.md-button):visited {
     color: var(--md-link-color);
     transition: color 0.2s ease;
 }
 
-.md-typeset a:hover,
-.md-typeset a:focus-visible {
+.md-typeset a:not(.md-button):hover,
+.md-typeset a:not(.md-button):focus-visible {
     color: var(--md-link-color-hover);
 }

@@ -706,10 +706,10 @@ impl DocCli {
         }
         
         // Check custom CSS
-        let css_path = self.project_root.join("docs/stylesheets/custom.css");
+        let css_path = self.project_root.join("docs/assets/css/theme.css");
         if css_path.exists() {
             println!("\n🎨 Checking stylesheets...");
-            println!("  ✅ custom.css exists");
+            println!("  ✅ CSS files exist in docs/assets/css/");
         }
         
         // Summary

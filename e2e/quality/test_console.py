@@ -100,6 +100,8 @@ LIBRARY_MESSAGES = [
     "Livereload",
     "runtime.lastError",           # Browser extension messages
     "message channel closed",      # Browser extension async errors
+    "[console-patch]",              # Our console patch initialization
+    "[AI Chat]",                    # Chat widget initialization (dev mode)
 ]
 
 
