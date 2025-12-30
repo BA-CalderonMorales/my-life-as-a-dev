@@ -1,4 +1,9 @@
 // AI Chat Widget - Inject HTML into DOM on page load
+// This widget uses the MessageParser module for formatting responses
+
+// Initialize the message parser
+let messageParser = null;
+
 (function () {
   // Wait for DOM
   if (document.readyState === 'loading') {
@@ -11,6 +16,13 @@
     // Don't inject on canvas page
     if (window.location.pathname.includes('/canvas/')) {
       return;
+    }
+
+    // Initialize message parser
+    if (window.MessageParser) {
+      messageParser = new window.MessageParser();
+    } else {
+      console.warn('[AI Chat] MessageParser not loaded, using fallback parsing');
     }
 
     // Create widget HTML
@@ -81,6 +93,23 @@ let sessionId = null;
 let lastRequestTime = 0;
 const MIN_REQUEST_INTERVAL = 1000; // 1 second between requests
 
+// Debug logging - only enabled in development
+const isDevMode = window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1' ||
+  window.location.hostname.includes('.app.github.dev');
+
+function debugLog(...args) {
+  if (isDevMode) {
+    console.log('[AI Chat]', ...args);
+  }
+}
+
+function debugError(...args) {
+  if (isDevMode) {
+    console.error('[AI Chat]', ...args);
+  }
+}
+
 function openChat() {
   document.getElementById('ai-chat-modal').classList.add('active');
   document.getElementById('ai-chat-input').focus();
@@ -140,8 +169,8 @@ async function sendMessage() {
   const loadingDiv = addLoadingMessage();
 
   try {
-    console.log('[AI Chat] Sending request to:', CLOUD_FUNCTION_URL);
-    console.log('[AI Chat] From origin:', window.location.origin);
+    debugLog('Sending request to:', CLOUD_FUNCTION_URL);
+    debugLog('From origin:', window.location.origin);
 
     const response = await fetch(CLOUD_FUNCTION_URL, {
       method: 'POST',
@@ -154,33 +183,45 @@ async function sendMessage() {
       })
     });
 
-    console.log('[AI Chat] Response status:', response.status);
-    console.log('[AI Chat] Response headers:', Object.fromEntries(response.headers.entries()));
+    debugLog('Response status:', response.status);
+    debugLog('Response headers:', Object.fromEntries(response.headers.entries()));
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('[AI Chat] Error response:', errorText);
+      debugError('Error response:', errorText);
       throw new Error(`HTTP ${response.status}: ${errorText}`);
     }
 
     const data = await response.json();
-    console.log('[AI Chat] Response data:', data);
+    debugLog('Response data:', data);
 
-    // Validate response structure
-    if (!data || typeof data.answer !== 'string') {
-      throw new Error('Invalid response format');
+    // Validate response structure using MessageParser validator
+    let validatedData;
+    if (messageParser) {
+      const validation = messageParser.validateResponse(data);
+      if (!validation.valid) {
+        debugError('Response validation failed:', validation.errors);
+        throw new Error('Invalid response format: ' + validation.errors.join(', '));
+      }
+      validatedData = validation.data;
+    } else {
+      // Fallback validation
+      if (!data || typeof data.answer !== 'string') {
+        throw new Error('Invalid response format');
+      }
+      validatedData = data;
     }
 
-    sessionId = data.session_id;
+    sessionId = validatedData.session_id;
 
     // Remove loading, add response
     loadingDiv.remove();
-    addMessage(data.answer, 'bot');
+    addMessage(validatedData.answer, 'bot');
 
   } catch (error) {
-    console.error('[AI Chat] Full error:', error);
-    console.error('[AI Chat] Error name:', error.name);
-    console.error('[AI Chat] Error message:', error.message);
+    debugError('Full error:', error);
+    debugError('Error name:', error.name);
+    debugError('Error message:', error.message);
     loadingDiv.remove();
 
     // More specific error messages
@@ -202,9 +243,14 @@ function addMessage(text, sender) {
   const contentDiv = document.createElement('div');
   contentDiv.className = 'ai-message-content';
 
-  // For bot messages, parse and render links
+  // For bot messages, parse and render formatted content
   if (sender === 'bot') {
-    contentDiv.innerHTML = parseMessageContent(text);
+    if (messageParser) {
+      contentDiv.innerHTML = messageParser.parse(text);
+    } else {
+      // Fallback: basic text with escaped HTML
+      contentDiv.textContent = text;
+    }
   } else {
     contentDiv.textContent = text;
   }
@@ -213,106 +259,6 @@ function addMessage(text, sender) {
   messagesDiv.appendChild(messageDiv);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
   return messageDiv;
-}
-
-// Parse message content to make links clickable and format text
-function parseMessageContent(text) {
-  // Escape HTML to prevent XSS
-  const escapeHtml = (str) => {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  };
-
-  // First escape the text
-  let escaped = escapeHtml(text);
-
-  // URL regex pattern
-  const urlPattern = /(https?:\/\/[^\s<>"']+)/g;
-
-  // Replace URLs with clickable links
-  escaped = escaped.replace(urlPattern, (url) => {
-    // Clean up trailing punctuation that might be captured
-    let cleanUrl = url;
-    let trailing = '';
-    const punctuation = ['.', ',', '!', '?', ')', ']', ';', ':'];
-    while (punctuation.includes(cleanUrl.slice(-1))) {
-      trailing = cleanUrl.slice(-1) + trailing;
-      cleanUrl = cleanUrl.slice(0, -1);
-    }
-
-    // Get display text (domain + path preview)
-    let displayText = cleanUrl;
-    try {
-      const urlObj = new URL(cleanUrl);
-      displayText = urlObj.hostname.replace('www.', '');
-      if (urlObj.pathname && urlObj.pathname !== '/') {
-        const path = urlObj.pathname.length > 20
-          ? urlObj.pathname.substring(0, 20) + '...'
-          : urlObj.pathname;
-        displayText += path;
-      }
-    } catch (e) {
-      // If URL parsing fails, use a truncated version
-      displayText = cleanUrl.length > 40 ? cleanUrl.substring(0, 40) + '...' : cleanUrl;
-    }
-
-    return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${displayText}</a>${trailing}`;
-  });
-
-  // Replace email addresses with mailto links
-  const emailPattern = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
-  escaped = escaped.replace(emailPattern, '<a href="mailto:$1" class="ai-chat-link">$1</a>');
-
-  // Convert bullet points to proper HTML lists
-  escaped = formatBulletPoints(escaped);
-
-  return escaped;
-}
-
-// Format bullet points into proper HTML lists
-function formatBulletPoints(text) {
-  // Split by newlines or look for bullet patterns
-  const lines = text.split(/\n|(?=\s*\*\s)/);
-
-  let result = [];
-  let inList = false;
-  let listItems = [];
-
-  for (let line of lines) {
-    // Check if line starts with * or - (bullet point)
-    const bulletMatch = line.match(/^\s*[\*\-]\s+(.+)/);
-
-    if (bulletMatch) {
-      if (!inList) {
-        inList = true;
-        listItems = [];
-      }
-      listItems.push(bulletMatch[1].trim());
-    } else {
-      // If we were in a list, close it
-      if (inList && listItems.length > 0) {
-        result.push('<ul class="ai-chat-list">' +
-          listItems.map(item => `<li>${item}</li>`).join('') +
-          '</ul>');
-        listItems = [];
-        inList = false;
-      }
-      // Add non-list content
-      if (line.trim()) {
-        result.push(line);
-      }
-    }
-  }
-
-  // Close any remaining list
-  if (inList && listItems.length > 0) {
-    result.push('<ul class="ai-chat-list">' +
-      listItems.map(item => `<li>${item}</li>`).join('') +
-      '</ul>');
-  }
-
-  return result.join(' ');
 }
 
 // Add animated loading message

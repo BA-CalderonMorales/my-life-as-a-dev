@@ -43,7 +43,8 @@
 
 <!-- AI Chat Widget Styles -->
 <link rel="stylesheet" href="{{ 'stylesheets/chat-widget.css' | url }}">
-<!-- AI Chat Widget Script -->
+<!-- AI Chat Widget Scripts - Parser must load before main widget -->
+<script src="{{ 'assets/js/chat-widget/message-parser.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget.js' | url }}"></script>
 {% endblock %}
 
