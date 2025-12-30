@@ -1,10 +1,62 @@
 {% extends "base.html" %}
 
 {% block libs %}
-{{ super() }}
-<!-- CRITICAL: Patch MutationObserver BEFORE any other scripts load -->
+<!-- CRITICAL: Patch console and MutationObserver BEFORE MkDocs Material scripts load -->
 <script>
   (function () {
+    // Patterns to suppress from console (errors)
+    var SUPPRESSED_ERROR_PATTERNS = [
+      "Failed to execute 'observe' on 'MutationObserver'",
+      "parameter 1 is not of type 'Node'"
+    ];
+    // Patterns to suppress from console.warn/log (violations)
+    var SUPPRESSED_WARN_PATTERNS = [
+      '[Violation]',
+      'Forced reflow while executing JavaScript',
+      'Added non-passive event listener'
+    ];
+    function shouldSuppressError(msg) {
+      if (!msg) return false;
+      var s = String(msg);
+      for (var i = 0; i < SUPPRESSED_ERROR_PATTERNS.length; i++) {
+        if (s.indexOf(SUPPRESSED_ERROR_PATTERNS[i]) !== -1) return true;
+      }
+      return false;
+    }
+    function shouldSuppressWarn(msg) {
+      if (!msg) return false;
+      var s = String(msg);
+      for (var i = 0; i < SUPPRESSED_WARN_PATTERNS.length; i++) {
+        if (s.indexOf(SUPPRESSED_WARN_PATTERNS[i]) !== -1) return true;
+      }
+      return false;
+    }
+    // Patch console.error
+    var origError = console.error;
+    console.error = function () {
+      for (var i = 0; i < arguments.length; i++) {
+        var arg = arguments[i];
+        if (shouldSuppressError(arg) || (arg && shouldSuppressError(arg.message))) return;
+      }
+      return origError.apply(console, arguments);
+    };
+    // Patch console.warn to suppress [Violation] messages
+    var origWarn = console.warn;
+    console.warn = function () {
+      for (var i = 0; i < arguments.length; i++) {
+        if (shouldSuppressWarn(arguments[i])) return;
+      }
+      return origWarn.apply(console, arguments);
+    };
+    // Patch console.log to suppress [Violation] messages (Chrome logs some there)
+    var origLog = console.log;
+    console.log = function () {
+      for (var i = 0; i < arguments.length; i++) {
+        if (shouldSuppressWarn(arguments[i])) return;
+      }
+      return origLog.apply(console, arguments);
+    };
+    // Patch MutationObserver.observe to handle null targets
     var NativeMutationObserver = window.MutationObserver;
     if (NativeMutationObserver) {
       var originalObserve = NativeMutationObserver.prototype.observe;
@@ -16,8 +68,17 @@
         } catch (e) { }
       };
     }
+    // Global error handler to catch async errors
+    window.addEventListener('error', function (e) {
+      if (shouldSuppressError(e.message) || (e.error && shouldSuppressError(e.error.message))) {
+        e.preventDefault();
+        e.stopPropagation();
+        return true;
+      }
+    }, true);
   })();
 </script>
+{{ super() }}
 {% endblock %}
 
 {% block extrahead %}
