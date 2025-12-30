@@ -5,14 +5,17 @@
  * Uses a custom tooltip implementation to avoid double-tooltip issues
  * with native browser tooltips.
  * 
+ * IMPORTANT: Tooltips only appear when text is truncated (ellipsis visible).
+ * This prevents unnecessary tooltips on fully-visible text.
+ * 
  * Covered elements:
  * - Sidebar navigation links (shows full text when truncated)
- * - Header navigation tabs
- * - Action buttons (edit, view source, etc.)
- * - Social links
+ * - Header navigation tabs (when truncated)
+ * - Action buttons (edit, view source, etc.) - icons only
+ * - Social links - icons only
  * - Theme toggle
  * - Search button
- * - TOC links
+ * - TOC links (when truncated)
  */
 
 (function () {
@@ -21,6 +24,21 @@
     // Tooltip element (singleton)
     let tooltipEl = null;
     let hideTimeout = null;
+
+    /**
+     * Check if an element's text is truncated (has ellipsis)
+     * Returns true if the element's content overflows and is clipped
+     */
+    function isTextTruncated(element) {
+        if (!element) return false;
+
+        // Check for .md-ellipsis child first (MkDocs Material pattern)
+        const ellipsisSpan = element.querySelector('.md-ellipsis');
+        const targetElement = ellipsisSpan || element;
+
+        // Text is truncated if scrollWidth > clientWidth
+        return targetElement.scrollWidth > targetElement.clientWidth;
+    }
 
     /**
      * Create the tooltip element if it doesn't exist
@@ -112,8 +130,11 @@
 
     /**
      * Add tooltip behavior to an element
+     * @param {HTMLElement} element - The element to add tooltip to
+     * @param {string} text - The tooltip text
+     * @param {boolean} checkTruncation - If true, only show tooltip when text is truncated
      */
-    function addTooltip(element, text) {
+    function addTooltip(element, text, checkTruncation) {
         if (!element || !text) return;
 
         // Skip if already has tooltip set up
@@ -122,6 +143,11 @@
         // Mark as having tooltip
         element.setAttribute('data-custom-tooltip', text);
 
+        // Store whether this tooltip requires truncation check
+        if (checkTruncation) {
+            element.setAttribute('data-tooltip-truncation-check', 'true');
+        }
+
         // Remove native title to prevent double tooltips
         if (element.hasAttribute('title')) {
             element.removeAttribute('title');
@@ -129,12 +155,24 @@
 
         // Add event listeners
         element.addEventListener('mouseenter', function () {
+            // If truncation check is required, only show if text is actually truncated
+            if (this.hasAttribute('data-tooltip-truncation-check')) {
+                if (!isTextTruncated(this)) {
+                    return; // Text fits, no tooltip needed
+                }
+            }
             const tooltipText = this.getAttribute('data-custom-tooltip');
             showTooltip(this, tooltipText);
         });
 
         element.addEventListener('mouseleave', hideTooltip);
         element.addEventListener('focus', function () {
+            // If truncation check is required, only show if text is actually truncated
+            if (this.hasAttribute('data-tooltip-truncation-check')) {
+                if (!isTextTruncated(this)) {
+                    return; // Text fits, no tooltip needed
+                }
+            }
             const tooltipText = this.getAttribute('data-custom-tooltip');
             showTooltip(this, tooltipText);
         });
@@ -142,9 +180,27 @@
     }
 
     /**
+     * Remove native title attributes from navigation elements
+     * to prevent browser's default tooltips from showing
+     */
+    function removeNativeTitles() {
+        // Remove titles from all nav links
+        const navLinks = document.querySelectorAll('.md-nav__link, .md-tabs__link');
+        navLinks.forEach(function (link) {
+            if (link.hasAttribute('title')) {
+                link.removeAttribute('title');
+            }
+        });
+    }
+
+    /**
      * Add tooltips to sidebar navigation links
+     * Only shows tooltip when text is truncated (ellipsis visible)
      */
     function addNavTooltips() {
+        // First, remove all native titles to prevent double tooltips
+        removeNativeTitles();
+
         const navLinks = document.querySelectorAll('.md-sidebar--primary .md-nav__link');
 
         navLinks.forEach(function (link) {
@@ -152,26 +208,30 @@
             const text = ellipsisSpan ? ellipsisSpan.textContent.trim() : link.textContent.trim();
 
             if (text) {
-                addTooltip(link, text);
+                // Pass true to enable truncation checking
+                addTooltip(link, text, true);
             }
         });
     }
 
     /**
      * Add tooltips to header tabs
+     * Only shows tooltip when text is truncated
      */
     function addTabTooltips() {
         const tabs = document.querySelectorAll('.md-tabs__link');
         tabs.forEach(function (tab) {
             const text = tab.textContent.trim();
             if (text) {
-                addTooltip(tab, text);
+                // Pass true to enable truncation checking
+                addTooltip(tab, text, true);
             }
         });
     }
 
     /**
      * Add tooltips to action buttons (edit, view source, etc.)
+     * Icons always get tooltips since they have no visible text
      */
     function addActionButtonTooltips() {
         // Edit and view source buttons
@@ -179,25 +239,29 @@
         actionButtons.forEach(function (btn) {
             const text = btn.getAttribute('title') || btn.getAttribute('aria-label') || btn.textContent.trim();
             if (text) {
-                addTooltip(btn, text);
+                // Icons always need tooltips - no truncation check
+                addTooltip(btn, text, false);
             }
         });
 
         // Copy code buttons
         const copyButtons = document.querySelectorAll('.md-clipboard');
         copyButtons.forEach(function (btn) {
-            addTooltip(btn, 'Copy to clipboard');
+            // Icons always need tooltips - no truncation check
+            addTooltip(btn, 'Copy to clipboard', false);
         });
     }
 
     /**
      * Add tooltips to header icons and buttons
+     * Icons always get tooltips since they have no visible text
      */
     function addHeaderTooltips() {
         // Search button
         const searchBtn = document.querySelector('.md-search__icon');
         if (searchBtn && !searchBtn.hasAttribute('data-custom-tooltip')) {
-            addTooltip(searchBtn, 'Search');
+            // Icons always need tooltips - no truncation check
+            addTooltip(searchBtn, 'Search', false);
         }
 
         // Theme toggle buttons/labels
@@ -208,32 +272,37 @@
             if (forInput) {
                 const scheme = forInput.getAttribute('data-md-color-scheme');
                 const text = scheme === 'slate' ? 'Switch to dark mode' : 'Switch to light mode';
-                addTooltip(label, text);
+                // Icons always need tooltips - no truncation check
+                addTooltip(label, text, false);
             }
         });
 
         // Repository link
         const repoLink = document.querySelector('.md-source');
         if (repoLink && !repoLink.hasAttribute('data-custom-tooltip')) {
-            addTooltip(repoLink, 'View source repository');
+            // Icons always need tooltips - no truncation check
+            addTooltip(repoLink, 'View source repository', false);
         }
     }
 
     /**
      * Add tooltips to social links
+     * Icons always get tooltips (no text visible)
      */
     function addSocialTooltips() {
         const socialLinks = document.querySelectorAll('.md-social__link');
         socialLinks.forEach(function (link) {
             const text = link.getAttribute('title') || link.getAttribute('aria-label');
             if (text) {
-                addTooltip(link, text);
+                // Icons always need tooltips - no truncation check
+                addTooltip(link, text, false);
             }
         });
     }
 
     /**
      * Add tooltips to TOC (table of contents) links
+     * Only shows tooltip when text is truncated
      */
     function addTocTooltips() {
         const tocLinks = document.querySelectorAll('.md-nav--secondary .md-nav__link');
@@ -241,7 +310,8 @@
             const ellipsisSpan = link.querySelector('.md-ellipsis');
             const text = ellipsisSpan ? ellipsisSpan.textContent.trim() : link.textContent.trim();
             if (text) {
-                addTooltip(link, text);
+                // Pass true to enable truncation checking
+                addTooltip(link, text, true);
             }
         });
     }
