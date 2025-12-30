@@ -20,12 +20,14 @@
 | Resource | Description |
 |----------|-------------|
 | [Live Documentation](https://ba-calderonmorales.github.io/my-life-as-a-dev/) | Browse the latest published docs |
+| [Docs as Code](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/) | Architecture, security, and implementation guides |
 | [Learning Section](https://ba-calderonmorales.github.io/my-life-as-a-dev/learning/) | Algorithms, data structures, and interview prep |
 | [Active Projects](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/active/) | Terminal Jarvis, Coder Infrastructure, and more |
 | [Experiments](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/experiments/) | Immersive Awe Canvas, Shadow Scroll Blossom, Rust Terminal Forge |
 
 ## Features
 
+- **AI-Powered Chat Widget** - Claude Docs-inspired assistant using Gemini API via Cloud Run (see [implementation guide](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/ai_security/chat-implementation/))
 - **Versioned Documentation** - Every release is preserved with mike
 - **Blazing Fast Builds** - Zensical delivers ~0.4s builds (20x faster than MkDocs)
 - **Rust-powered CLI** - doc-cli for setup, serving, version bumps, and deploys
@@ -106,6 +108,31 @@ my-life-as-a-dev/
 ├── e2e/                   # End-to-end tests
 └── site/                  # Built static site (gitignored)
 ```
+
+## AI Integration
+
+The site features a Claude Docs-inspired chat widget that provides instant answers about the content, built with security-first principles.
+
+**Architecture:**
+- **Frontend:** JavaScript DOM injection with rate limiting and XSS prevention
+- **Backend:** Google Cloud Run + Flask proxy for API key security
+- **AI Model:** Google Gemini 2.0 Flash for conversational responses
+- **Security:** Defense-in-depth with CORS validation, prompt injection detection, and Secret Manager
+
+**Key Features:**
+- Responsive design (mobile/tablet/desktop)
+- Dark mode support
+- Client-side rate limiting (1 req/second)
+- Prompt injection safeguards (10+ patterns)
+- Zero cost (within Google Cloud free tiers)
+
+For detailed implementation, architecture diagrams, and security testing procedures, see:
+- [Implementation Guide](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/ai_security/chat-implementation/)
+- [Security Documentation](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/ai_security/chat-security/)
+
+**Built with assistance from:**
+- Claude Sonnet 4.5 (architecture and implementation)
+- Claude Opus 4.5 (security review and testing)
 
 ## Contributing
 
