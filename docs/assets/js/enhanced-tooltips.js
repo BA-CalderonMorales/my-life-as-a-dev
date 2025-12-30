@@ -128,17 +128,24 @@
         }
 
         // Add event listeners
-        element.addEventListener('mouseenter', function () {
+        const showHandler = function () {
             const tooltipText = this.getAttribute('data-custom-tooltip');
             showTooltip(this, tooltipText);
-        });
+        };
 
+        element.addEventListener('mouseenter', showHandler);
         element.addEventListener('mouseleave', hideTooltip);
-        element.addEventListener('focus', function () {
+        element.addEventListener('focus', showHandler);
+        element.addEventListener('blur', hideTooltip);
+        element.addEventListener('pointerleave', hideTooltip);
+        element.addEventListener('touchstart', function () {
             const tooltipText = this.getAttribute('data-custom-tooltip');
             showTooltip(this, tooltipText);
-        });
-        element.addEventListener('blur', hideTooltip);
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(hideTooltip, 2000);
+        }, { passive: true });
+        element.addEventListener('touchend', hideTooltip);
+        element.addEventListener('touchcancel', hideTooltip);
     }
 
     /**
