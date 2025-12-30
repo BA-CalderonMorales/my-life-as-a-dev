@@ -1,20 +1,20 @@
 // AI Chat Widget - Inject HTML into DOM on page load
 (function () {
-    // Wait for DOM
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', injectWidget);
-    } else {
-        injectWidget();
+  // Wait for DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectWidget);
+  } else {
+    injectWidget();
+  }
+
+  function injectWidget() {
+    // Don't inject on canvas page
+    if (window.location.pathname.includes('/canvas/')) {
+      return;
     }
 
-    function injectWidget() {
-        // Don't inject on canvas page
-        if (window.location.pathname.includes('/canvas/')) {
-            return;
-        }
-
-        // Create widget HTML
-        const widgetHTML = `
+    // Create widget HTML
+    const widgetHTML = `
 <button id="ai-chat-trigger" class="ai-chat-trigger" onclick="openChat()" aria-label="Open AI Assistant">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -24,7 +24,20 @@
 <div id="ai-chat-modal" class="ai-chat-modal" onclick="closeOnOverlay(event)">
   <div class="ai-chat-container">
     <div class="ai-chat-header">
-      <h3>Ask Brandon's AI</h3>
+      <div class="ai-chat-header-info">
+        <div class="ai-chat-avatar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+          </svg>
+        </div>
+        <div class="ai-chat-header-text">
+          <h3>Ask Brandon's AI</h3>
+          <span class="ai-chat-status">Online</span>
+        </div>
+      </div>
       <button onclick="closeChat()" class="ai-chat-close" aria-label="Close chat">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -36,7 +49,7 @@
     <div id="ai-chat-messages" class="ai-chat-messages">
       <div class="ai-message ai-message-bot">
         <div class="ai-message-content">
-          👋 Hi! I can help you learn about Brandon or navigate this site. What would you like to know?
+          Hello! I'm here to help you learn about Brandon's work and navigate this site. Feel free to ask me anything.
         </div>
       </div>
     </div>
@@ -55,9 +68,9 @@
 </div>
         `;
 
-        // Append to body
-        document.body.insertAdjacentHTML('beforeend', widgetHTML);
-    }
+    // Append to body
+    document.body.insertAdjacentHTML('beforeend', widgetHTML);
+  }
 })();
 
 // Cloud Run endpoint
@@ -69,129 +82,258 @@ let lastRequestTime = 0;
 const MIN_REQUEST_INTERVAL = 1000; // 1 second between requests
 
 function openChat() {
-    document.getElementById('ai-chat-modal').classList.add('active');
-    document.getElementById('ai-chat-input').focus();
-    document.body.style.overflow = 'hidden'; // Prevent background scroll
+  document.getElementById('ai-chat-modal').classList.add('active');
+  document.getElementById('ai-chat-input').focus();
+  document.body.style.overflow = 'hidden'; // Prevent background scroll
 }
 
 function closeChat() {
-    document.getElementById('ai-chat-modal').classList.remove('active');
-    document.body.style.overflow = ''; // Restore scroll
+  document.getElementById('ai-chat-modal').classList.remove('active');
+  document.body.style.overflow = ''; // Restore scroll
 }
 
 function closeOnOverlay(event) {
-    if (event.target.id === 'ai-chat-modal') {
-        closeChat();
-    }
+  if (event.target.id === 'ai-chat-modal') {
+    closeChat();
+  }
 }
 
 // Close on Escape key
 document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-        closeChat();
-    }
+  if (event.key === 'Escape') {
+    closeChat();
+  }
 });
 
 function handleKeyPress(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault();
-        sendMessage();
-    }
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    sendMessage();
+  }
 }
 
 async function sendMessage() {
-    const input = document.getElementById('ai-chat-input');
-    const message = input.value.trim();
+  const input = document.getElementById('ai-chat-input');
+  const message = input.value.trim();
 
-    if (!message) return;
+  if (!message) return;
 
-    // Input validation: max length
-    if (message.length > 500) {
-        addMessage('Please keep your question under 500 characters.', 'bot');
-        return;
+  // Input validation: max length
+  if (message.length > 500) {
+    addMessage('Please keep your question under 500 characters.', 'bot');
+    return;
+  }
+
+  // Rate limiting: prevent rapid requests
+  const now = Date.now();
+  if (now - lastRequestTime < MIN_REQUEST_INTERVAL) {
+    addMessage('Please wait a moment before sending another message.', 'bot');
+    return;
+  }
+  lastRequestTime = now;
+
+  // Add user message
+  addMessage(message, 'user');
+  input.value = '';
+
+  // Show loading indicator with animation
+  const loadingDiv = addLoadingMessage();
+
+  try {
+    console.log('[AI Chat] Sending request to:', CLOUD_FUNCTION_URL);
+    console.log('[AI Chat] From origin:', window.location.origin);
+
+    const response = await fetch(CLOUD_FUNCTION_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        question: message,
+        context: document.body.innerText.substring(0, 2000),
+        page_url: window.location.href,
+        session_id: sessionId
+      })
+    });
+
+    console.log('[AI Chat] Response status:', response.status);
+    console.log('[AI Chat] Response headers:', Object.fromEntries(response.headers.entries()));
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('[AI Chat] Error response:', errorText);
+      throw new Error(`HTTP ${response.status}: ${errorText}`);
     }
 
-    // Rate limiting: prevent rapid requests
-    const now = Date.now();
-    if (now - lastRequestTime < MIN_REQUEST_INTERVAL) {
-        addMessage('Please wait a moment before sending another message.', 'bot');
-        return;
+    const data = await response.json();
+    console.log('[AI Chat] Response data:', data);
+
+    // Validate response structure
+    if (!data || typeof data.answer !== 'string') {
+      throw new Error('Invalid response format');
     }
-    lastRequestTime = now;
 
-    // Add user message
-    addMessage(message, 'user');
-    input.value = '';
+    sessionId = data.session_id;
 
-    // Show loading indicator
-    const loadingDiv = addMessage('Thinking...', 'loading');
+    // Remove loading, add response
+    loadingDiv.remove();
+    addMessage(data.answer, 'bot');
 
-    try {
-        console.log('[AI Chat] Sending request to:', CLOUD_FUNCTION_URL);
-        console.log('[AI Chat] From origin:', window.location.origin);
+  } catch (error) {
+    console.error('[AI Chat] Full error:', error);
+    console.error('[AI Chat] Error name:', error.name);
+    console.error('[AI Chat] Error message:', error.message);
+    loadingDiv.remove();
 
-        const response = await fetch(CLOUD_FUNCTION_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                question: message,
-                context: document.body.innerText.substring(0, 2000),
-                page_url: window.location.href,
-                session_id: sessionId
-            })
-        });
-
-        console.log('[AI Chat] Response status:', response.status);
-        console.log('[AI Chat] Response headers:', Object.fromEntries(response.headers.entries()));
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('[AI Chat] Error response:', errorText);
-            throw new Error(`HTTP ${response.status}: ${errorText}`);
-        }
-
-        const data = await response.json();
-        console.log('[AI Chat] Response data:', data);
-
-        // Validate response structure
-        if (!data || typeof data.answer !== 'string') {
-            throw new Error('Invalid response format');
-        }
-
-        sessionId = data.session_id;
-
-        // Remove loading, add response
-        loadingDiv.remove();
-        addMessage(data.answer, 'bot');
-
-    } catch (error) {
-        console.error('[AI Chat] Full error:', error);
-        console.error('[AI Chat] Error name:', error.name);
-        console.error('[AI Chat] Error message:', error.message);
-        loadingDiv.remove();
-
-        // More specific error messages
-        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-            addMessage('Network error. Please check your connection and try again.', 'bot');
-        } else if (error.message.includes('CORS')) {
-            addMessage('Connection blocked. Please try again from the production site.', 'bot');
-        } else {
-            addMessage('Sorry, I encountered an error. Please try again.', 'bot');
-        }
+    // More specific error messages
+    if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+      addMessage('Network error. Please check your connection and try again.', 'bot');
+    } else if (error.message.includes('CORS')) {
+      addMessage('Connection blocked. Please try again from the production site.', 'bot');
+    } else {
+      addMessage('Sorry, I encountered an error. Please try again.', 'bot');
     }
+  }
 }
 
 function addMessage(text, sender) {
-    const messagesDiv = document.getElementById('ai-chat-messages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `ai-message ai-message-${sender}`;
+  const messagesDiv = document.getElementById('ai-chat-messages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `ai-message ai-message-${sender}`;
 
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'ai-message-content';
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'ai-message-content';
+
+  // For bot messages, parse and render links
+  if (sender === 'bot') {
+    contentDiv.innerHTML = parseMessageContent(text);
+  } else {
     contentDiv.textContent = text;
+  }
 
-    messageDiv.appendChild(contentDiv);
-    messagesDiv.appendChild(messageDiv);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    return messageDiv;
+  messageDiv.appendChild(contentDiv);
+  messagesDiv.appendChild(messageDiv);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  return messageDiv;
+}
+
+// Parse message content to make links clickable and format text
+function parseMessageContent(text) {
+  // Escape HTML to prevent XSS
+  const escapeHtml = (str) => {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  };
+
+  // First escape the text
+  let escaped = escapeHtml(text);
+
+  // URL regex pattern
+  const urlPattern = /(https?:\/\/[^\s<>"']+)/g;
+
+  // Replace URLs with clickable links
+  escaped = escaped.replace(urlPattern, (url) => {
+    // Clean up trailing punctuation that might be captured
+    let cleanUrl = url;
+    let trailing = '';
+    const punctuation = ['.', ',', '!', '?', ')', ']', ';', ':'];
+    while (punctuation.includes(cleanUrl.slice(-1))) {
+      trailing = cleanUrl.slice(-1) + trailing;
+      cleanUrl = cleanUrl.slice(0, -1);
+    }
+
+    // Get display text (domain + path preview)
+    let displayText = cleanUrl;
+    try {
+      const urlObj = new URL(cleanUrl);
+      displayText = urlObj.hostname.replace('www.', '');
+      if (urlObj.pathname && urlObj.pathname !== '/') {
+        const path = urlObj.pathname.length > 20
+          ? urlObj.pathname.substring(0, 20) + '...'
+          : urlObj.pathname;
+        displayText += path;
+      }
+    } catch (e) {
+      // If URL parsing fails, use a truncated version
+      displayText = cleanUrl.length > 40 ? cleanUrl.substring(0, 40) + '...' : cleanUrl;
+    }
+
+    return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${displayText}</a>${trailing}`;
+  });
+
+  // Replace email addresses with mailto links
+  const emailPattern = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+  escaped = escaped.replace(emailPattern, '<a href="mailto:$1" class="ai-chat-link">$1</a>');
+
+  // Convert bullet points to proper HTML lists
+  escaped = formatBulletPoints(escaped);
+
+  return escaped;
+}
+
+// Format bullet points into proper HTML lists
+function formatBulletPoints(text) {
+  // Split by newlines or look for bullet patterns
+  const lines = text.split(/\n|(?=\s*\*\s)/);
+
+  let result = [];
+  let inList = false;
+  let listItems = [];
+
+  for (let line of lines) {
+    // Check if line starts with * or - (bullet point)
+    const bulletMatch = line.match(/^\s*[\*\-]\s+(.+)/);
+
+    if (bulletMatch) {
+      if (!inList) {
+        inList = true;
+        listItems = [];
+      }
+      listItems.push(bulletMatch[1].trim());
+    } else {
+      // If we were in a list, close it
+      if (inList && listItems.length > 0) {
+        result.push('<ul class="ai-chat-list">' +
+          listItems.map(item => `<li>${item}</li>`).join('') +
+          '</ul>');
+        listItems = [];
+        inList = false;
+      }
+      // Add non-list content
+      if (line.trim()) {
+        result.push(line);
+      }
+    }
+  }
+
+  // Close any remaining list
+  if (inList && listItems.length > 0) {
+    result.push('<ul class="ai-chat-list">' +
+      listItems.map(item => `<li>${item}</li>`).join('') +
+      '</ul>');
+  }
+
+  return result.join(' ');
+}
+
+// Add animated loading message
+function addLoadingMessage() {
+  const messagesDiv = document.getElementById('ai-chat-messages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'ai-message ai-message-loading';
+
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'ai-message-content ai-loading-content';
+  contentDiv.innerHTML = `
+        <span class="ai-loading-text">Thinking</span>
+        <span class="ai-loading-dots">
+            <span class="ai-dot"></span>
+            <span class="ai-dot"></span>
+            <span class="ai-dot"></span>
+        </span>
+    `;
+
+  messageDiv.appendChild(contentDiv);
+  messagesDiv.appendChild(messageDiv);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  return messageDiv;
 }
