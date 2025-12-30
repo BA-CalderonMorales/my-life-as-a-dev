@@ -10,32 +10,25 @@
  */
 
 const ChatUI = {
-    /**
-     * Widget HTML template
-     */
-    template: `
-<button id="ai-chat-trigger" class="ai-chat-trigger" aria-label="Open AI Assistant">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  /**
+   * Widget HTML template - Search modal inspired design
+   */
+  template: `
+<button id="ai-chat-trigger" class="ai-chat-trigger" aria-label="Ask AI Assistant">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
   </svg>
+  <span class="ai-chat-trigger-text">Ask AI</span>
 </button>
 
 <div id="ai-chat-modal" class="ai-chat-modal">
   <div class="ai-chat-container">
     <div class="ai-chat-header">
       <div class="ai-chat-header-info">
-        <div class="ai-chat-avatar">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-            <line x1="9" y1="9" x2="9.01" y2="9"></line>
-            <line x1="15" y1="9" x2="15.01" y2="9"></line>
-          </svg>
-        </div>
-        <div class="ai-chat-header-text">
-          <h3>Ask Brandon's AI</h3>
-          <span class="ai-chat-status">Online</span>
-        </div>
+        <svg class="ai-chat-header-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span class="ai-chat-header-title">Ask about Brandon's work</span>
       </div>
       <button class="ai-chat-close" aria-label="Close chat">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -45,165 +38,165 @@ const ChatUI = {
       </button>
     </div>
 
-    <div id="ai-chat-messages" class="ai-chat-messages">
-      <div class="ai-message ai-message-bot">
-        <div class="ai-message-content">
-          Hello! I'm here to help you learn about Brandon's work and navigate this site. Feel free to ask me anything.
-        </div>
-      </div>
-    </div>
-
     <div class="ai-chat-input-area">
       <input type="text" id="ai-chat-input" placeholder="Ask a question..." autocomplete="off">
       <button class="ai-chat-send-btn" aria-label="Send message">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="22" y1="2" x2="11" y2="13"></line>
           <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
         </svg>
       </button>
     </div>
+
+    <div id="ai-chat-messages" class="ai-chat-messages">
+      <div class="ai-message ai-message-bot">
+        <div class="ai-message-content">
+          Hello! I can help you learn about Brandon's projects, skills, and experience. What would you like to know?
+        </div>
+      </div>
+    </div>
   </div>
 </div>
     `,
 
-    /**
-     * Inject the widget into the page
-     */
-    inject: function () {
-        document.body.insertAdjacentHTML('beforeend', this.template);
-        this.bindEvents();
-    },
+  /**
+   * Inject the widget into the page
+   */
+  inject: function () {
+    document.body.insertAdjacentHTML('beforeend', this.template);
+    this.bindEvents();
+  },
 
-    /**
-     * Bind event listeners to widget elements
-     */
-    bindEvents: function () {
-        // Trigger button
-        const trigger = document.getElementById('ai-chat-trigger');
-        if (trigger) {
-            trigger.addEventListener('click', () => this.open());
+  /**
+   * Bind event listeners to widget elements
+   */
+  bindEvents: function () {
+    // Trigger button
+    const trigger = document.getElementById('ai-chat-trigger');
+    if (trigger) {
+      trigger.addEventListener('click', () => this.open());
+    }
+
+    // Close button
+    const closeBtn = document.querySelector('.ai-chat-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => this.close());
+    }
+
+    // Modal overlay click
+    const modal = document.getElementById('ai-chat-modal');
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target.id === 'ai-chat-modal') {
+          this.close();
         }
+      });
+    }
 
-        // Close button
-        const closeBtn = document.querySelector('.ai-chat-close');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => this.close());
+    // Input enter key
+    const input = document.getElementById('ai-chat-input');
+    if (input) {
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          if (window.ChatWidget && window.ChatWidget.sendMessage) {
+            window.ChatWidget.sendMessage();
+          }
         }
+      });
+    }
 
-        // Modal overlay click
-        const modal = document.getElementById('ai-chat-modal');
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target.id === 'ai-chat-modal') {
-                    this.close();
-                }
-            });
+    // Send button
+    const sendBtn = document.querySelector('.ai-chat-send-btn');
+    if (sendBtn) {
+      sendBtn.addEventListener('click', () => {
+        if (window.ChatWidget && window.ChatWidget.sendMessage) {
+          window.ChatWidget.sendMessage();
         }
+      });
+    }
 
-        // Input enter key
-        const input = document.getElementById('ai-chat-input');
-        if (input) {
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    if (window.ChatWidget && window.ChatWidget.sendMessage) {
-                        window.ChatWidget.sendMessage();
-                    }
-                }
-            });
-        }
+    // Escape key to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        this.close();
+      }
+    });
+  },
 
-        // Send button
-        const sendBtn = document.querySelector('.ai-chat-send-btn');
-        if (sendBtn) {
-            sendBtn.addEventListener('click', () => {
-                if (window.ChatWidget && window.ChatWidget.sendMessage) {
-                    window.ChatWidget.sendMessage();
-                }
-            });
-        }
+  /**
+   * Open the chat modal
+   */
+  open: function () {
+    const modal = document.getElementById('ai-chat-modal');
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
 
-        // Escape key to close
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                this.close();
-            }
-        });
-    },
+      // Focus input
+      const input = document.getElementById('ai-chat-input');
+      if (input) {
+        input.focus();
+      }
+    }
+  },
 
-    /**
-     * Open the chat modal
-     */
-    open: function () {
-        const modal = document.getElementById('ai-chat-modal');
-        if (modal) {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+  /**
+   * Close the chat modal
+   */
+  close: function () {
+    const modal = document.getElementById('ai-chat-modal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  },
 
-            // Focus input
-            const input = document.getElementById('ai-chat-input');
-            if (input) {
-                input.focus();
-            }
-        }
-    },
+  /**
+   * Add a message to the chat window
+   * @param {string} text - Message text
+   * @param {string} sender - 'user' or 'bot'
+   * @param {MessageParser} parser - Optional parser for formatting bot messages
+   * @returns {HTMLElement} - The created message element
+   */
+  addMessage: function (text, sender, parser = null) {
+    const messagesDiv = document.getElementById('ai-chat-messages');
+    if (!messagesDiv) return null;
 
-    /**
-     * Close the chat modal
-     */
-    close: function () {
-        const modal = document.getElementById('ai-chat-modal');
-        if (modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    },
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `ai-message ai-message-${sender}`;
 
-    /**
-     * Add a message to the chat window
-     * @param {string} text - Message text
-     * @param {string} sender - 'user' or 'bot'
-     * @param {MessageParser} parser - Optional parser for formatting bot messages
-     * @returns {HTMLElement} - The created message element
-     */
-    addMessage: function (text, sender, parser = null) {
-        const messagesDiv = document.getElementById('ai-chat-messages');
-        if (!messagesDiv) return null;
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'ai-message-content';
 
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `ai-message ai-message-${sender}`;
+    // For bot messages, use parser if available
+    if (sender === 'bot' && parser) {
+      contentDiv.innerHTML = parser.parse(text);
+    } else {
+      contentDiv.textContent = text;
+    }
 
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'ai-message-content';
+    messageDiv.appendChild(contentDiv);
+    messagesDiv.appendChild(messageDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-        // For bot messages, use parser if available
-        if (sender === 'bot' && parser) {
-            contentDiv.innerHTML = parser.parse(text);
-        } else {
-            contentDiv.textContent = text;
-        }
+    return messageDiv;
+  },
 
-        messageDiv.appendChild(contentDiv);
-        messagesDiv.appendChild(messageDiv);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  /**
+   * Add animated loading indicator
+   * @returns {HTMLElement} - The loading message element
+   */
+  addLoadingMessage: function () {
+    const messagesDiv = document.getElementById('ai-chat-messages');
+    if (!messagesDiv) return null;
 
-        return messageDiv;
-    },
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'ai-message ai-message-loading';
 
-    /**
-     * Add animated loading indicator
-     * @returns {HTMLElement} - The loading message element
-     */
-    addLoadingMessage: function () {
-        const messagesDiv = document.getElementById('ai-chat-messages');
-        if (!messagesDiv) return null;
-
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'ai-message ai-message-loading';
-
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'ai-message-content ai-loading-content';
-        contentDiv.innerHTML = `
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'ai-message-content ai-loading-content';
+    contentDiv.innerHTML = `
             <span class="ai-loading-text">Thinking</span>
             <span class="ai-loading-dots">
                 <span class="ai-dot"></span>
@@ -212,30 +205,30 @@ const ChatUI = {
             </span>
         `;
 
-        messageDiv.appendChild(contentDiv);
-        messagesDiv.appendChild(messageDiv);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    messageDiv.appendChild(contentDiv);
+    messagesDiv.appendChild(messageDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-        return messageDiv;
-    },
+    return messageDiv;
+  },
 
-    /**
-     * Get current input value and clear it
-     * @returns {string} - The input value
-     */
-    getAndClearInput: function () {
-        const input = document.getElementById('ai-chat-input');
-        if (!input) return '';
+  /**
+   * Get current input value and clear it
+   * @returns {string} - The input value
+   */
+  getAndClearInput: function () {
+    const input = document.getElementById('ai-chat-input');
+    if (!input) return '';
 
-        const value = input.value.trim();
-        input.value = '';
-        return value;
-    }
+    const value = input.value.trim();
+    input.value = '';
+    return value;
+  }
 };
 
 // Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = ChatUI;
+  module.exports = ChatUI;
 } else {
-    window.ChatUI = ChatUI;
+  window.ChatUI = ChatUI;
 }
