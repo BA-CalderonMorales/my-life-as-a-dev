@@ -28,3 +28,6 @@ azure-ai-inference
 fastapi
 uvicorn
 pydantic>=2
+
+# Google Agent Chat Backend
+google-generativeai

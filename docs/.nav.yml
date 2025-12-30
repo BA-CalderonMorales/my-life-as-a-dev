@@ -183,7 +183,10 @@ nav:
     - Workflow: docs-as-code/workflow/index.md
     - Stack & Tooling: docs-as-code/stack/index.md
     - Quality & Style: docs-as-code/quality/index.md
-    - AI & Security Posture: docs-as-code/ai_security/index.md
+    - AI & Security Posture:
+      - Overview: docs-as-code/ai_security/index.md
+      - Chat Widget Security: docs-as-code/ai_security/chat_widget.md
+      - Implementation Guide: docs-as-code/ai_security/implementation.md
     - Zensical: docs-as-code/zensical/index.md
 
   - About Me: resume/index.md

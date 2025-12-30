@@ -40,6 +40,11 @@
 {{ super() }}
 <!-- Three.js Background Animation -->
 <script type="module" src="{{ 'assets/js/threejs-background/main.js' | url }}"></script>
+
+<!-- AI Chat Widget Styles -->
+<link rel="stylesheet" href="{{ 'stylesheets/chat-widget.css' | url }}">
+<!-- AI Chat Widget Script -->
+<script src="{{ 'assets/js/chat-widget.js' | url }}"></script>
 {% endblock %}
 
 {% block classes %}
@@ -55,16 +60,3 @@
 {% include "partials/share.html" %}
 {% endif %}
 {% endblock %}
-
-{#
-AI CHAT FEATURE DISABLED
-
-The AI chat feature code has been completely removed per AGENTS.md security requirements.
-DO NOT re-enable without implementing:
-- Secure proxy deployment (not localhost/Codespaces)
-- Proper authentication and rate limiting
-- Comprehensive logging and monitoring
-- Security audit and incident response procedures
-
-See AGENTS.md section "AI/RAG Security and Implementation Plan" for full requirements.
-#}
