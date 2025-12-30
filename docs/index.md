@@ -28,7 +28,10 @@ Product-minded engineer focused on **developer tooling**, **distributed systems*
 </div>
 </div>
 <div class="tx-hero__image">
+<picture>
+<source srcset="assets/images/me-today-cropped.gif" type="image/gif">
 <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" draggable="false">
+</picture>
 </div>
 </section>
 
