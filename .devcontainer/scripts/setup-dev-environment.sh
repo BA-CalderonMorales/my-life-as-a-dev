@@ -9,7 +9,25 @@ VENV_DIR="$ROOT_DIR/.venv"
 # Ensure basic packages
 if command -v sudo >/dev/null 2>&1; then SUDO="sudo"; else SUDO=""; fi
 $SUDO apt-get update -y
-$SUDO apt-get install -y --no-install-recommends curl ca-certificates git build-essential pkg-config
+$SUDO apt-get install -y --no-install-recommends curl ca-certificates git build-essential pkg-config apt-transport-https gnupg lsb-release
+
+# Install Google Cloud SDK (gcloud CLI)
+if ! command -v gcloud >/dev/null 2>&1; then
+  log "Installing Google Cloud SDK..."
+  # Add Cloud SDK distribution URI as package source
+  echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | $SUDO tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+  
+  # Import Google Cloud public key
+  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | $SUDO apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+  
+  # Update and install
+  $SUDO apt-get update -y
+  $SUDO apt-get install -y google-cloud-cli
+  
+  log "gcloud CLI installed. Run 'gcloud init' to configure."
+else
+  log "gcloud CLI already installed"
+fi
 
 # Install uv (https://github.com/astral-sh/uv)
 if ! command -v uv >/dev/null 2>&1; then
@@ -75,6 +93,7 @@ pip --version 2>/dev/null
 rustc --version 2>/dev/null
 cargo --version 2>/dev/null
 uv --version 2>/dev/null
+gcloud --version 2>/dev/null
 set -e
 
 echo
@@ -85,14 +104,18 @@ echo "- Python: $(python --version 2>/dev/null || echo 'N/A')"
 echo "- Cargo: $(cargo --version 2>/dev/null || echo 'N/A')"
 echo "- Rustc: $(rustc --version 2>/dev/null || echo 'N/A')"
 echo "- uv: $(uv --version 2>/dev/null || echo 'N/A')"
+echo "- gcloud: $(gcloud --version 2>/dev/null | head -1 || echo 'N/A')"
 echo "--------------------------------------------------"
 echo "Next steps:"
-echo "1) MkDocs dev server (optional):"
+echo "1) Configure gcloud (if needed):"
+echo "   gcloud init                   # Setup project & auth"
+echo "   gcloud config set project my-life-as-a-dev"
+echo "2) MkDocs dev server (optional):"
 echo "   uv run mkdocs serve -a 0.0.0.0:8000"
-echo "2) Doc CLI help:"
+echo "3) Doc CLI help:"
 echo "   doc-cli --help    # or ./doc-cli"
-echo "3) Build Rust tools (optional):"
+echo "4) Build Rust tools (optional):"
 echo "   cd scripts/rust && cargo build"
-echo "4) Install/update Python deps:"
+echo "5) Install/update Python deps:"
 echo "   uv pip install -r requirements.txt"
 echo "=================================================="
