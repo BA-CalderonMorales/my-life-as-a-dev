@@ -92,18 +92,65 @@
 .md-sidebar--primary .md-nav__title,
 .md-sidebar--primary .md-nav__list,
 .md-sidebar--primary .md-nav__item {
-    background: transparent;
+    background: transparent !important;
     box-shadow: none;
 }
 
+/* Navigation link styling with consistent hover */
 .md-sidebar--primary .md-nav__link {
     border-radius: 0.4rem;
     padding-block: 0.35rem;
+    background: transparent !important;
+    transition: background 0.15s ease;
 }
 
+/* Text ellipsis - target the span that Material provides, not the whole link */
+.md-sidebar--primary .md-nav__link .md-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    max-width: 100%;
+}
+
+/* Container links (with dropdown arrows) need flex layout preserved */
+.md-sidebar--primary .md-nav__container {
+    background: transparent !important;
+}
+
+/* Consistent hover background for all nav links and labels */
 .md-sidebar--primary .md-nav__link:hover,
+.md-sidebar--primary .md-nav__link:focus,
+.md-sidebar--primary label.md-nav__link:hover {
+    background: var(--md-accent-fg-color--transparent) !important;
+}
+
+/* Active link styling */
 .md-sidebar--primary .md-nav__link.md-nav__link--active {
-    background: var(--nav-surface-strong);
+    background: var(--md-accent-fg-color--transparent) !important;
+}
+
+/* Reset nested/active item backgrounds to transparent by default */
+.md-sidebar--primary .md-nav__item--nested,
+.md-sidebar--primary .md-nav__item--active,
+.md-sidebar--primary .md-nav__item--section {
+    background: transparent !important;
+}
+
+/* Links inside nested/active items - transparent by default */
+.md-sidebar--primary .md-nav__item--nested>.md-nav__link,
+.md-sidebar--primary .md-nav__item--active>.md-nav__link,
+.md-sidebar--primary .md-nav__item--nested>.md-nav__container,
+.md-sidebar--primary .md-nav__item--section>.md-nav__container {
+    background: transparent !important;
+}
+
+/* Hover on nested/active items */
+.md-sidebar--primary .md-nav__item--nested>.md-nav__link:hover,
+.md-sidebar--primary .md-nav__item--active>.md-nav__link:hover,
+.md-sidebar--primary .md-nav__item--nested>.md-nav__container:hover,
+.md-sidebar--primary .md-nav__item--section>.md-nav__container:hover {
+    background: var(--md-accent-fg-color--transparent) !important;
 }
 
 @media screen and (max-width: 76.25rem) {
