@@ -33,6 +33,7 @@ A Claude Docs-inspired chat widget providing instant answers about the site and 
 :   Defense-in-depth security model, testing procedures, and incident response.
 
 **Key Technologies**
+
 - **Backend**: Flask on Cloud Run with Secret Manager for API keys
 - **AI Model**: Google Gemini 2.0 Flash (conversational responses)
 - **Frontend**: JavaScript DOM injection with rate limiting and XSS prevention
@@ -70,6 +71,7 @@ These implementations are designed for personal projects with moderate traffic:
 5. **Limited context window** - 1500-2000 characters to control costs
 
 For production enterprise use, consider:
+
 - Cloud Armor WAF rules
 - API Gateway with OAuth
 - Advanced threat detection
