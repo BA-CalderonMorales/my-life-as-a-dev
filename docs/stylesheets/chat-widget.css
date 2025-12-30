@@ -258,36 +258,6 @@
         height: 10px;
         margin-left: 3px;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%234285f4' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
-
-        /* List styles in messages */
-        .ai-chat-list {
-            margin: 8px 0 4px 0;
-            padding-left: 0;
-            list-style: none;
-        }
-
-        .ai-chat-list li {
-            position: relative;
-            padding-left: 16px;
-            margin-bottom: 6px;
-            line-height: 1.5;
-        }
-
-        .ai-chat-list li:last-child {
-            margin-bottom: 0;
-        }
-
-        .ai-chat-list li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 8px;
-            width: 5px;
-            height: 5px;
-            background: var(--md-primary-fg-color, #4285f4);
-            border-radius: 50%;
-        }
-
         background-repeat: no-repeat;
         background-position: center;
         vertical-align: middle;
@@ -296,6 +266,53 @@
 
     .ai-chat-link[href^="mailto:"]::after {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%234285f4' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'%3E%3C/path%3E%3Cpolyline points='22,6 12,13 2,6'%3E%3C/polyline%3E%3C/svg%3E");
+    }
+
+    /* List styles in messages */
+    .ai-chat-list {
+        margin: 8px 0 4px 0;
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .ai-chat-list li {
+        position: relative;
+        padding-left: 16px;
+        margin-bottom: 6px;
+        line-height: 1.5;
+    }
+
+    .ai-chat-list li:last-child {
+        margin-bottom: 0;
+    }
+
+    .ai-chat-list li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 5px;
+        height: 5px;
+        background: var(--md-primary-fg-color, #4285f4);
+        border-radius: 50%;
+    }
+
+    /* Paragraph styles in messages */
+    .ai-message-content p {
+        margin: 0 0 8px 0;
+    }
+
+    .ai-message-content p:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Bold and italic text */
+    .ai-message-content strong {
+        font-weight: 600;
+    }
+
+    .ai-message-content em {
+        font-style: italic;
     }
 
     /* Input Area */
