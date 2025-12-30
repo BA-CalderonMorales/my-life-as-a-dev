@@ -101,7 +101,6 @@ my-life-as-a-dev/
 ├── docs/                  # Documentation content and assets
 ├── mkdocs.yml             # MkDocs configuration
 ├── zensical.toml          # Zensical configuration
-├── mkdocs_plugins/        # Custom MkDocs plugins
 ├── scripts/rust/          # Rust CLI source (doc-cli)
 ├── scripts/python/        # Python helper scripts
 ├── e2e/                   # End-to-end tests

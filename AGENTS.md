@@ -4,7 +4,7 @@ Guidelines for AI assistants working on this repository. Detailed skills are in 
 
 ## Overview
 
-This is an MkDocs Material documentation hub using Zensical as the primary static site generator. Key tools: `zensical`, `mkdocs`, `mike`, `doc-cli` (Rust), and local `mkdocs_plugins`.
+This is an MkDocs Material documentation hub using Zensical as the primary static site generator. Key tools: `zensical`, `mkdocs`, `mike`, `doc-cli` (Rust).
 
 ## Critical Rules
 
