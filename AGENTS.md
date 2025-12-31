@@ -75,6 +75,12 @@ doc-cli       # Interactive CLI (uses .venv automatically)
 |-------|-------------|
 | [AI Security](.github/skills/ai-security.md) | Working with AI features (disabled in prod) |
 
+### Cloud Services
+
+| Skill | When to Use |
+|-------|-------------|
+| [Update Agent Flows](.github/skills/update-agent-flows.md) | Adding/modifying ADK agents for chat widget |
+
 ## Core Rules
 
 1. **ALWAYS use `uv`** for Python package management - never use `pip` directly
