@@ -30,12 +30,35 @@ const ChatUI = {
         </svg>
         <span class="ai-chat-header-title">Ask about Brandon's work</span>
       </div>
-      <button class="ai-chat-close" aria-label="Close chat">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
+      <div class="ai-chat-header-actions">
+        <button class="ai-chat-action-btn" id="ai-chat-clear" aria-label="Clear chat" title="Clear chat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+        </button>
+        <button class="ai-chat-action-btn" id="ai-chat-copy" aria-label="Copy chat" title="Copy chat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </button>
+        <button class="ai-chat-action-btn" id="ai-chat-share" aria-label="Share chat" title="Share chat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+        </button>
+        <button class="ai-chat-close" aria-label="Close chat">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <div class="ai-chat-input-area">
@@ -81,6 +104,24 @@ const ChatUI = {
     const closeBtn = document.querySelector('.ai-chat-close');
     if (closeBtn) {
       closeBtn.addEventListener('click', () => this.close());
+    }
+
+    // Clear button
+    const clearBtn = document.getElementById('ai-chat-clear');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => this.clearChat());
+    }
+
+    // Copy button
+    const copyBtn = document.getElementById('ai-chat-copy');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => this.copyChat());
+    }
+
+    // Share button
+    const shareBtn = document.getElementById('ai-chat-share');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', () => this.shareChat());
     }
 
     // Modal overlay click
@@ -290,6 +331,126 @@ const ChatUI = {
     const value = input.value.trim();
     input.value = '';
     return value;
+  },
+
+  /**
+   * Clear the chat history
+   */
+  clearChat: function () {
+    const messagesDiv = document.getElementById('ai-chat-messages');
+    if (!messagesDiv) return;
+
+    // Reset to initial welcome message
+    messagesDiv.innerHTML = `
+      <div class="ai-message ai-message-bot">
+        <div class="ai-message-content">
+          Hello! I can help you learn about Brandon's projects, skills, and experience. What would you like to know?
+        </div>
+      </div>
+    `;
+
+    // Show brief feedback
+    this.showToast('Chat cleared');
+  },
+
+  /**
+   * Copy chat history to clipboard
+   */
+  copyChat: function () {
+    const messagesDiv = document.getElementById('ai-chat-messages');
+    if (!messagesDiv) return;
+
+    const messages = messagesDiv.querySelectorAll('.ai-message');
+    let chatText = '';
+
+    messages.forEach((msg) => {
+      const isUser = msg.classList.contains('ai-message-user');
+      const content = msg.querySelector('.ai-message-content');
+      if (content && !msg.classList.contains('ai-message-loading')) {
+        const prefix = isUser ? 'You: ' : 'AI: ';
+        chatText += prefix + content.textContent.trim() + '\n\n';
+      }
+    });
+
+    if (chatText) {
+      navigator.clipboard.writeText(chatText.trim()).then(() => {
+        this.showToast('Copied to clipboard');
+      }).catch(() => {
+        this.showToast('Failed to copy');
+      });
+    }
+  },
+
+  /**
+   * Share chat via Web Share API or copy link
+   */
+  shareChat: function () {
+    const messagesDiv = document.getElementById('ai-chat-messages');
+    if (!messagesDiv) return;
+
+    const messages = messagesDiv.querySelectorAll('.ai-message');
+    let chatText = 'Chat with Brandon\'s AI Assistant\n\n';
+
+    messages.forEach((msg) => {
+      const isUser = msg.classList.contains('ai-message-user');
+      const content = msg.querySelector('.ai-message-content');
+      if (content && !msg.classList.contains('ai-message-loading')) {
+        const prefix = isUser ? 'You: ' : 'AI: ';
+        chatText += prefix + content.textContent.trim() + '\n\n';
+      }
+    });
+
+    chatText += '---\nFrom: ' + window.location.href;
+
+    // Use Web Share API if available
+    if (navigator.share) {
+      navigator.share({
+        title: 'Chat with Brandon\'s AI Assistant',
+        text: chatText,
+        url: window.location.href
+      }).catch(() => {
+        // User cancelled or error - fall back to copy
+        this.fallbackShare(chatText);
+      });
+    } else {
+      this.fallbackShare(chatText);
+    }
+  },
+
+  /**
+   * Fallback share method - copy to clipboard
+   */
+  fallbackShare: function (text) {
+    navigator.clipboard.writeText(text).then(() => {
+      this.showToast('Chat copied for sharing');
+    }).catch(() => {
+      this.showToast('Failed to share');
+    });
+  },
+
+  /**
+   * Show a brief toast notification
+   */
+  showToast: function (message) {
+    // Remove existing toast
+    const existing = document.querySelector('.ai-chat-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'ai-chat-toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    // Trigger animation
+    requestAnimationFrame(() => {
+      toast.classList.add('ai-chat-toast-visible');
+    });
+
+    // Remove after delay
+    setTimeout(() => {
+      toast.classList.remove('ai-chat-toast-visible');
+      setTimeout(() => toast.remove(), 200);
+    }, 2000);
   }
 };
 
