@@ -10,8 +10,8 @@
     transform: translateX(-50%);
     height: 40px;
     border-radius: 20px;
-    background: var(--md-default-fg-color--lightest);
-    color: var(--md-default-fg-color--light);
+    background: var(--md-primary-fg-color);
+    color: #ffffff;
     border: none;
     box-shadow: var(--md-shadow-z2);
     cursor: pointer;
@@ -28,8 +28,8 @@
 }
 
 .ai-chat-trigger:hover {
-    background: var(--md-default-fg-color--lighter);
-    color: var(--md-default-fg-color);
+    background: var(--md-primary-fg-color--dark);
+    color: #ffffff;
     box-shadow: var(--md-shadow-z3);
 }
 
