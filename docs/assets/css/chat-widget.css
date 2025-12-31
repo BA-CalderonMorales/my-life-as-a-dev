@@ -113,6 +113,38 @@
     letter-spacing: -0.01em;
 }
 
+/* Header Actions Container */
+.ai-chat-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Action Buttons (Clear, Copy, Share) */
+.ai-chat-action-btn {
+    background: none;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    color: var(--md-default-fg-color--light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+    opacity: 0.7;
+}
+
+.ai-chat-action-btn:hover {
+    background: var(--md-default-fg-color--lightest);
+    color: var(--md-default-fg-color);
+    opacity: 1;
+}
+
+.ai-chat-action-btn:active {
+    transform: scale(0.95);
+}
+
 .ai-chat-close {
     background: none;
     border: none;
@@ -465,4 +497,28 @@
 
 [data-md-color-scheme="slate"] .ai-message-bot .ai-message-content {
     background: rgba(255, 255, 255, 0.05);
+}
+
+/* Toast Notification */
+.ai-chat-toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--md-default-fg-color);
+    color: var(--md-default-bg-color);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    box-shadow: var(--md-shadow-z2);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1001;
+    pointer-events: none;
+}
+
+.ai-chat-toast-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
