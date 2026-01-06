@@ -136,3 +136,197 @@
         border-radius: 1rem;
     }
 }
+
+/* ============================================
+   Navigation Sidebar Enhancements
+   Visual grouping and section dividers
+   ============================================ */
+
+/* ===========================================
+   TOP-LEVEL SECTIONS (Home, Learning, Docs-as-Code, Projects, Resume)
+   These need clear horizontal separators between them
+   =========================================== */
+
+/* Primary nav container at level 0 */
+.md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--md-primary-fg-color);
+    margin-bottom: 0;
+}
+
+.md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item:last-child {
+    border-bottom: none;
+}
+
+/* Top-level section titles - make them stand out */
+.md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item>.md-nav__link,
+.md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--md-primary-fg-color);
+}
+
+/* ===========================================
+   LEVEL 1 - Major subsections within a domain
+   (e.g., Algorithms, Data Structures under Learning)
+   =========================================== */
+
+.md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item {
+    padding-left: 0.5rem;
+    border-left: 3px solid transparent;
+    margin-bottom: 0.25rem;
+}
+
+.md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item:hover {
+    border-left-color: var(--md-accent-fg-color);
+}
+
+.md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item>.md-nav__link,
+.md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--md-default-fg-color);
+}
+
+/* ===========================================
+   LEVEL 2+ - Deeper nested items (patterns, problems)
+   Remove the stacking left borders - use indentation only
+   =========================================== */
+
+/* Remove left border for deeper levels - it stacks and looks bad */
+.md-nav[data-md-level="2"]>.md-nav__list,
+.md-nav[data-md-level="3"]>.md-nav__list,
+.md-nav[data-md-level="4"]>.md-nav__list {
+    border-left: none;
+    margin-left: 0.75rem;
+    padding-left: 0.5rem;
+}
+
+/* Smaller font and lighter color for deeper nesting */
+.md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item>.md-nav__link,
+.md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
+    font-size: 0.8rem;
+    color: var(--md-default-fg-color--light);
+}
+
+.md-nav[data-md-level="3"]>.md-nav__list>.md-nav__item>.md-nav__link,
+.md-nav[data-md-level="3"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link,
+.md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item>.md-nav__link,
+.md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
+    font-size: 0.75rem;
+    color: var(--md-default-fg-color--lighter);
+}
+
+/* ===========================================
+   NAV LINK TEXT OVERFLOW - Horizontal scroll for long names
+   =========================================== */
+
+/* Allow horizontal scrolling for deeply nested items */
+.md-nav__link {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-overflow: clip;
+    max-width: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: var(--md-default-fg-color--lighter) transparent;
+}
+
+/* Webkit scrollbar styling for nav links */
+.md-nav__link::-webkit-scrollbar {
+    height: 3px;
+}
+
+.md-nav__link::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.md-nav__link::-webkit-scrollbar-thumb {
+    background: var(--md-default-fg-color--lighter);
+    border-radius: 3px;
+}
+
+.md-nav__link::-webkit-scrollbar-thumb:hover {
+    background: var(--md-default-fg-color--light);
+}
+
+/* ===========================================
+   NESTED ITEM INDICATORS
+   Make expandable sections visually distinct
+   =========================================== */
+
+.md-nav__item--nested>.md-nav__container>.md-nav__link,
+.md-nav__item--nested>.md-nav__link {
+    font-weight: 600 !important;
+}
+
+/* Expand/collapse icon styling */
+.md-nav__icon {
+    color: var(--md-default-fg-color--lighter);
+}
+
+.md-nav__item--nested:hover>.md-nav__container .md-nav__icon,
+.md-nav__item--nested:hover>label .md-nav__icon {
+    color: var(--md-accent-fg-color);
+}
+
+/* ===========================================
+   ACTIVE AND HOVER STATES
+   =========================================== */
+
+/* Hover state for all nav links */
+.md-nav__link:hover {
+    color: var(--md-accent-fg-color) !important;
+}
+
+/* Currently active page */
+.md-nav__item--active>.md-nav__link {
+    color: var(--md-accent-fg-color) !important;
+    font-weight: 700 !important;
+}
+
+/* Active parent sections */
+.md-nav__item--active>.md-nav__container>.md-nav__link {
+    color: var(--md-accent-fg-color) !important;
+}
+
+/* ===========================================
+   REMOVE DEFAULT BACKGROUNDS
+   Override MkDocs Material default backgrounds
+   These selectors must match or exceed Material's specificity
+   =========================================== */
+
+/* Override Material's active link background */
+.md-nav--primary .md-nav__item .md-nav__link--active,
+.md-nav--primary .md-nav__link--active {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Override Material's hover/focus backgrounds */
+.md-nav--primary .md-nav__link[for]:focus,
+.md-nav--primary .md-nav__link[for]:hover,
+.md-nav--primary .md-nav__link[href]:focus,
+.md-nav--primary .md-nav__link[href]:hover,
+.md-nav--primary .md-nav__link[for]:focus:not(.md-nav__link--active),
+.md-nav--primary .md-nav__link[for]:hover:not(.md-nav__link--active),
+.md-nav--primary .md-nav__link[href]:focus:not(.md-nav__link--active),
+.md-nav--primary .md-nav__link[href]:hover:not(.md-nav__link--active) {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Remove all nav backgrounds comprehensively */
+.md-nav__item,
+.md-nav__link,
+.md-nav__item--active,
+.md-nav__item--nested,
+.md-nav__container,
+.md-nav--primary .md-nav__link,
+.md-nav--secondary .md-nav__link {
+    background: transparent !important;
+    background-color: transparent !important;
+}

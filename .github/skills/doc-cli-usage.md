@@ -34,11 +34,12 @@ Run without arguments for interactive menu:
 Shows menu:
 1. serve - Start Zensical dev server (primary)
 2. build - Build with Zensical
-3. bump-version - Create new version
-4. deploy - Publish to GitHub Pages
-5. info - Show project structure (useful for agents)
-6. validate - Validate configuration
-7. nav-check - Check navigation coverage
+3. kill - Stop running servers
+4. bump-version - Create new version
+5. deploy - Publish to GitHub Pages
+6. info - Show project structure (useful for agents)
+7. validate - Validate configuration
+8. nav-check - Check navigation coverage
 h. help - Show commands
 
 ## Commands
@@ -65,6 +66,20 @@ Build site with Zensical:
 ```
 
 Output goes to `site/` directory.
+
+### kill
+
+Stop running Zensical/MkDocs processes:
+
+```bash
+./doc-cli.sh kill
+```
+
+Kills processes by name and frees ports 8000/8001. Useful before restarting:
+
+```bash
+./doc-cli.sh kill && ./doc-cli.sh serve
+```
 
 ### mkdocs-serve (Legacy)
 
@@ -213,9 +228,8 @@ cargo build --release
 ### Port Already in Use
 
 ```bash
-# Kill existing servers
-pkill -f zensical
-pkill -f mkdocs
+# Use kill command
+./doc-cli.sh kill
 
 # Then restart
 ./doc-cli.sh serve
@@ -236,6 +250,8 @@ make serve
 |------|---------|
 | Daily development | `./doc-cli.sh serve` or `make serve` |
 | Build only | `./doc-cli.sh build` or `make build` |
+| Stop server | `./doc-cli.sh kill` |
+| Restart server | `./doc-cli.sh kill && ./doc-cli.sh serve` |
 | First time setup | `make setup` |
 | New version | `./doc-cli.sh bump-version` |
 | Deploy | `./doc-cli.sh deploy` |
@@ -246,14 +262,28 @@ make serve
 
 ## Configuration
 
-This project uses two configuration files:
+This project uses modular configuration in `config/zensical/`:
+
+| File | Purpose |
+|------|---------|
+| `01-site.toml` | Site name, URL, repo info |
+| `02-assets.toml` | CSS, JS, and static files |
+| `03-navigation.toml` | Navigation structure |
+| `04-theme.toml` | Colors, fonts, features |
+| `05-markdown.toml` | Markdown extensions |
+| `06-plugins.toml` | Search, tags, etc. |
+| `07-development.toml` | Watch, strict mode |
+
+These merge into `zensical.toml` automatically during `serve` and `build`.
+
+### Legacy Config
 
 | File | Purpose | When to Use |
 |------|---------|-------------|
-| `zensical.toml` | Primary config for Zensical | New development, agents |
-| `mkdocs.yml` | Legacy config for MkDocs | MkDocs compatibility |
+| `zensical.toml` | Merged config (auto-generated) | Read-only, generated from above |
+| `mkdocs.yml` | Legacy config for MkDocs | MkDocs compatibility only |
 
-Prefer `zensical.toml` for new development to reduce cognitive overload.
+**Always edit files in `config/zensical/`** - never edit `zensical.toml` directly.
 
 ## Checklist
 

@@ -160,12 +160,24 @@ nav = [
     # --------------------------------------------------------------------------
     { "Docs-as-Code" = [
         { "Overview" = "docs-as-code/index.md" },
+
+        # Philosophy & Process
         { "Guiding Principles" = "docs-as-code/principles/index.md" },
         { "Workflow" = "docs-as-code/workflow/index.md" },
-        { "Stack & Tooling" = "docs-as-code/stack/index.md" },
         { "Quality & Style" = "docs-as-code/quality/index.md" },
-        { "AI & Security Posture" = "docs-as-code/ai_security/index.md" },
+
+        # Tooling
+        { "Stack & Tooling" = "docs-as-code/stack/index.md" },
         { "Zensical" = "docs-as-code/zensical/index.md" },
+
+        # AI Features
+        { "AI & Security" = [
+            { "Overview" = "docs-as-code/ai_security/index.md" },
+            { "Chat Widget" = "docs-as-code/ai_security/chat_widget.md" },
+            { "Chat Security" = "docs-as-code/ai_security/chat-security.md" },
+            { "Chat Implementation" = "docs-as-code/ai_security/chat-implementation.md" },
+            { "Implementation Guide" = "docs-as-code/ai_security/implementation.md" },
+        ] },
     ] },
 
     # --------------------------------------------------------------------------
