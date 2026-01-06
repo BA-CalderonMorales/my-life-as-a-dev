@@ -31,3 +31,6 @@ pydantic>=2
 
 # Google Agent Chat Backend
 google-generativeai
+
+# Config tooling
+tomli-w>=1.0.0

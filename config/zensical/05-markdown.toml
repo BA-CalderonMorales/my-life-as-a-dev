@@ -1,0 +1,37 @@
+# ==============================================================================
+# STANDARD MARKDOWN EXTENSIONS
+# ==============================================================================
+# Built-in Python Markdown extensions for enhanced authoring.
+# ==============================================================================
+
+[project.markdown_extensions]
+extra = {}
+def_list = {}
+md_in_html = {}
+meta = {}
+attr_list = {}
+admonition = {}
+
+
+# ==============================================================================
+# PYMDOWN EXTENSIONS
+# ==============================================================================
+# Advanced markdown features for code, tabs, and rich content.
+# ==============================================================================
+
+[project.markdown_extensions.pymdownx]
+highlight = { anchor_linenums = true }
+inlinehilite = {}
+snippets = {}
+extra = {}                             # Note: pymdownx.extra differs from markdown.extra
+details = {}
+
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [{ name = "mermaid", class = "mermaid" }]
+
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+
+[project.markdown_extensions.pymdownx.emoji]
+emoji_index = "material.extensions.emoji.twemoji"
+emoji_generator = "material.extensions.emoji.to_svg"

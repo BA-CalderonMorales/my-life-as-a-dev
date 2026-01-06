@@ -1,0 +1,107 @@
+# ==============================================================================
+# THEME BASICS
+# ==============================================================================
+# Core theme settings including branding, language, and template overrides.
+# ==============================================================================
+
+[project.theme]
+custom_dir = "docs/overrides"
+logo = "assets/images/me-today.png"
+favicon = "assets/images/favicon/favicon.ico"
+language = "en"
+
+
+# ==============================================================================
+# THEME FEATURES
+# ==============================================================================
+# Toggle-able capabilities organized by category.
+# Comment out any you don't need to improve performance.
+# ==============================================================================
+
+features = [
+    # Announcement Bar
+    "announce.dismiss",
+
+    # Code Block Enhancements
+    "content.code.annotate",
+    "content.code.copy",
+    "content.code.select",
+
+    # Content Actions & Tooltips
+    "content.action.edit",
+    "content.action.view",
+    "content.footnote.tooltips",
+    "content.tabs.link",
+    "content.tooltips",
+
+    # Navigation Behavior
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.instant",
+    "navigation.instant.prefetch",
+    "navigation.instant.progress",
+    "navigation.path",
+    "navigation.sections",
+    "navigation.tabs",
+    "navigation.tabs.sticky",
+    "navigation.top",
+    "navigation.tracking",
+
+    # Search Enhancements
+    "search.highlight",
+    "search.suggest",
+    "search.share",
+
+    # Table of Contents
+    "toc.follow",
+]
+
+
+# ==============================================================================
+# TYPOGRAPHY
+# ==============================================================================
+
+[project.theme.font]
+text = "Space Grotesk"
+code = "JetBrains Mono"
+
+
+# ==============================================================================
+# ICONS
+# ==============================================================================
+
+[project.theme.icon]
+repo = "fontawesome/brands/github"
+
+
+# ==============================================================================
+# COLOR SCHEMES
+# ==============================================================================
+# Dark mode is listed first, making it the default.
+# Users can toggle between schemes using the sun/moon icons.
+# ==============================================================================
+
+[[project.theme.palette]]
+scheme = "slate"
+primary = "teal"
+accent = "amber"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+scheme = "default"
+primary = "teal"
+accent = "amber"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to dark mode"
+
+
+# ==============================================================================
+# SOCIAL LINKS
+# ==============================================================================
+# Icons displayed in the footer linking to external profiles.
+# ==============================================================================
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"

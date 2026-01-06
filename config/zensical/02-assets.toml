@@ -1,0 +1,25 @@
+# ==============================================================================
+# CUSTOM ASSETS
+# ==============================================================================
+# Additional CSS files loaded after the theme styles.
+# Order matters for the cascade - later files override earlier ones.
+# ==============================================================================
+
+[project]
+extra_css = [
+    # Base theming
+    "assets/css/theme.css",
+    "assets/css/typography.css",
+    "assets/css/layout.css",
+
+    # Component styles
+    "assets/css/cards.css",
+    "assets/css/buttons.css",
+    "assets/css/code.css",
+    "assets/css/share.css",
+
+    # Page-specific styles
+    "assets/css/background.css",
+    "assets/css/landing.css",
+    "assets/css/canvas.css",
+]
