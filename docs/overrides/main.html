@@ -108,12 +108,14 @@
 <!-- AI Chat Widget Styles -->
 <link rel="stylesheet" href="{{ 'assets/css/chat-widget.css' | url }}">
 <!-- AI Chat Widget Scripts - Load in dependency order -->
-<script src="{{ 'assets/js/chat-widget/config.js' | url }}"></script>
-<script src="{{ 'assets/js/chat-widget/logger.js' | url }}"></script>
-<script src="{{ 'assets/js/chat-widget/message-parser.js' | url }}"></script>
-<script src="{{ 'assets/js/chat-widget/ui.js' | url }}"></script>
-<script src="{{ 'assets/js/chat-widget/api.js' | url }}"></script>
-<script src="{{ 'assets/js/chat-widget/index.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/lib/config.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/lib/logger.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/lib/message-parser.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/lib/api.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/src/model.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/src/view.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/src/view-model.js' | url }}"></script>
+<script src="{{ 'assets/js/chat-widget/src/main.js' | url }}"></script>
 {% endblock %}
 
 {% block classes %}
