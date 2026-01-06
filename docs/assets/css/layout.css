@@ -177,7 +177,15 @@
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item {
     padding-left: 0.5rem;
     border-left: 3px solid transparent;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+/* Ensure last item has same spacing as others */
+.md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0.2rem;
 }
 
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item:hover {
@@ -203,6 +211,15 @@
     border-left: none;
     margin-left: 0.75rem;
     padding-left: 0.5rem;
+}
+
+/* Consistent spacing for level 2+ items */
+.md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item,
+.md-nav[data-md-level="3"]>.md-nav__list>.md-nav__item,
+.md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item {
+    margin-bottom: 0;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
 }
 
 /* Smaller font and lighter color for deeper nesting */
@@ -326,7 +343,135 @@
 .md-nav__item--nested,
 .md-nav__container,
 .md-nav--primary .md-nav__link,
-.md-nav--secondary .md-nav__link {
+.md-nav--secondary .md-nav__link,
+/* Target label elements which Material uses for toggle functionality */
+.md-nav label,
+.md-nav label.md-nav__link,
+.md-nav__item label,
+.md-nav__item--nested>label,
+.md-nav__item--nested>label.md-nav__link,
+/* Focus and active states on labels */
+label.md-nav__link:focus,
+label.md-nav__link:active,
+label.md-nav__link[for]:focus,
+label.md-nav__link[for]:active {
     background: transparent !important;
     background-color: transparent !important;
+}
+
+/* ===========================================
+   MOBILE NAV DRAWER FIXES
+   Override drawer-specific background styles
+   =========================================== */
+
+/* Mobile drawer - remove all backgrounds on nav items */
+.md-nav--primary .md-nav__title,
+.md-nav--primary .md-nav__item,
+.md-nav--primary .md-nav__item--active,
+.md-nav--primary .md-nav__item--nested,
+.md-nav--lifted>.md-nav__list>.md-nav__item--active,
+.md-nav--lifted>.md-nav__list>.md-nav__item,
+.md-nav--lifted .md-nav__link {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Remove the expanded section background in mobile drawer */
+.md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav,
+.md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link,
+.md-nav--primary .md-nav__item--active>.md-nav {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Ensure consistent nav item sizing - no varying heights */
+.md-nav--primary .md-nav__item,
+.md-nav--lifted .md-nav__item {
+    min-height: auto;
+    margin: 0;
+}
+
+/* ===========================================
+   MOBILE-SPECIFIC OVERRIDES
+   Target mobile drawer at smaller breakpoints
+   =========================================== */
+
+@media screen and (max-width: 76.1875em) {
+
+    /* Force transparent backgrounds on ALL mobile nav elements including labels */
+    .md-nav--primary,
+    .md-nav--primary .md-nav,
+    .md-nav--primary .md-nav__item,
+    .md-nav--primary .md-nav__link,
+    .md-nav--primary .md-nav__title,
+    .md-nav--primary [data-md-toggle]:checked~.md-nav,
+    .md-nav--primary .md-nav__toggle:checked~.md-nav,
+    .md-nav--lifted,
+    .md-nav--lifted .md-nav,
+    .md-nav--lifted .md-nav__item,
+    .md-nav--lifted .md-nav__link,
+    .md-nav--lifted>.md-nav__list>.md-nav__item--active,
+    .md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav,
+    .md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link,
+    .md-nav__item--active,
+    .md-nav__item--nested,
+    /* Label elements for toggle functionality */
+    .md-nav--primary label,
+    .md-nav--primary label.md-nav__link,
+    .md-nav--lifted label,
+    .md-nav--lifted label.md-nav__link,
+    label.md-nav__link:focus,
+    label.md-nav__link:active {
+        background: transparent !important;
+        background-color: transparent !important;
+    }
+
+    /* Consistent link sizing for mobile readability */
+    .md-nav--primary .md-nav__link {
+        font-size: 0.85rem !important;
+    }
+}
+
+/* Disable native tooltips on touch/mobile devices */
+@media (hover: none) and (pointer: coarse) {
+    [title] {
+        position: relative;
+    }
+
+    [title]::after {
+        content: none !important;
+        display: none !important;
+    }
+}
+
+/* ===========================================
+   TABLE OF CONTENTS (Right Sidebar)
+   Fix active link colors for dark mode
+   =========================================== */
+
+/* TOC active link - ensure it uses theme accent color */
+.md-nav--secondary .md-nav__link--active,
+.md-nav--secondary .md-nav__item--active>.md-nav__link {
+    color: var(--md-accent-fg-color) !important;
+    font-weight: 600;
+}
+
+/* Dark mode specific TOC styling */
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link--active,
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__item--active>.md-nav__link {
+    color: var(--md-accent-fg-color) !important;
+}
+
+/* TOC hover state */
+.md-nav--secondary .md-nav__link:hover {
+    color: var(--md-accent-fg-color) !important;
+}
+
+/* TOC normal links - use lighter color for better contrast */
+.md-nav--secondary .md-nav__link {
+    color: var(--md-default-fg-color--light);
+}
+
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link {
+    color: var(--md-default-fg-color--light);
 }
