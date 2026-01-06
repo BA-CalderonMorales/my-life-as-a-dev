@@ -21,7 +21,7 @@ AI-powered features that enhance the documentation experience, built with modern
 
     ---
 
-    MVVM pattern with clean separation of concerns. Modular `src/` and `lib/` structure for maintainability.
+    MVVM frontend pattern with modular backend. Google ADK multi-agent orchestration with session memory.
 
     [:octicons-arrow-right-24: Architecture Guide](architecture.md)
 
@@ -29,7 +29,7 @@ AI-powered features that enhance the documentation experience, built with modern
 
     ---
 
-    Deploy to Google Cloud Run with Secret Manager. Free tier covers typical portfolio usage.
+    Deploy to Google Cloud Run with uv for fast builds. Modular agent structure for easy customization.
 
     [:octicons-arrow-right-24: Deployment Guide](deployment.md)
 
@@ -56,16 +56,17 @@ The primary AI feature is an interactive chat widget that:
 - **Works on all devices** with responsive mobile/desktop layouts
 - **Respects privacy** with no conversation logging
 
-**Status**: Production-ready and deployed
+**Status**: Production-ready and deployed (v3.0)
 
 **Technology Stack**:
 
 | Layer | Technology |
 |-------|------------|
 | Frontend | JavaScript MVVM, DOM injection |
-| Backend | Flask on Cloud Run |
-| AI Model | Google Gemini 2.0 Flash |
-| Security | Secret Manager, CORS, prompt guards |
+| Backend | Flask + Google ADK on Cloud Run |
+| AI Model | Google Gemini 2.5 Flash |
+| Orchestration | Multi-agent with 7 specialized sub-agents |
+| Security | Rate limiting, CORS, prompt injection detection |
 
 ---
 

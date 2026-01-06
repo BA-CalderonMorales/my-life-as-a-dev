@@ -4,142 +4,196 @@ How to add, modify, or update the ADK-based agent flows for the portfolio chat w
 
 ## Overview
 
-The chat widget uses Google ADK (Agent Development Kit) with a multi-agent architecture deployed to Cloud Run. Agents are defined in `~/agent-chat-proxy/agents/__init__.py` and can be updated without changing the main Flask application.
+The chat widget uses Google ADK (Agent Development Kit) with a modular multi-agent architecture deployed to Cloud Run. The v3.0 architecture separates prompts, agents, and configuration for easy maintenance.
 
 ## Architecture
 
 ```
+cloud/agent-chat-proxy/
+├── app/                    # Flask application
+├── agents/                 # Agent definitions
+│   ├── base.py            # Base agent class
+│   ├── registry.py        # Agent registry
+│   └── sub_agents/        # Individual agent modules
+├── prompts/               # Static prompt files (.txt)
+├── config/                # Settings and model config
+└── tests/                 # Test suite
+```
+
+### Agent Hierarchy
+
+```
 root_agent (portfolio_assistant)
-├── whats_this_site_about      - General site questions
-├── who_is_brandon             - About Brandon
-├── what_is_this_specific_page_about - Page-specific context
-└── what_is_this_project_about - Project inquiries
+├── site_about            - General site questions
+├── who_is_brandon        - About Brandon
+├── page_context          - Page-specific context
+├── project_info          - Project details
+├── resume_skills         - Career/skills info
+├── docs_navigation       - Site navigation help
+└── learning_coach        - Algorithm learning help
 
 Each agent has sub-agents:
-├── {prefix}_google_search_agent  - Web search capability
-└── {prefix}_url_context_agent    - URL content fetching
+├── {name}_google_search_agent   - Web search
+└── {name}_url_context_agent     - URL fetching
 ```
 
 ## File Locations
 
-| File | Location | Purpose |
-|------|----------|---------|
-| Agent definitions | `~/agent-chat-proxy/agents/__init__.py` | All agent configurations |
-| Flask app | `~/agent-chat-proxy/main.py` | HTTP handling, CORS, security |
-| Dependencies | `~/agent-chat-proxy/requirements.txt` | Python packages |
-| Container | `~/agent-chat-proxy/Dockerfile` | Cloud Run container config |
-| Deploy script | `~/agent-chat-proxy/deploy.sh` | One-command deployment |
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| Prompts | `cloud/agent-chat-proxy/prompts/*.txt` | Agent instructions (text files) |
+| Agent modules | `cloud/agent-chat-proxy/agents/sub_agents/` | Agent class definitions |
+| Registry | `cloud/agent-chat-proxy/agents/registry.py` | Agent registration |
+| Flask app | `cloud/agent-chat-proxy/app/main.py` | HTTP handling |
+| Security | `cloud/agent-chat-proxy/app/security/` | CORS, injection detection, safety |
+| Sessions | `cloud/agent-chat-proxy/app/session/` | Conversation memory |
+| Config | `cloud/agent-chat-proxy/config/settings.py` | Environment settings |
 
 ## Adding a New Agent
 
-### 1. Create Helper Sub-Agents
+### 1. Create the Prompt File
 
-```python
-# In ~/agent-chat-proxy/agents/__init__.py
+Create `prompts/my_new_agent.txt`:
 
-_my_agent_search = create_search_agent('my_agent')
-_my_agent_url = create_url_context_agent('my_agent')
+```text
+You help users with [specific topic].
+
+Key responsibilities:
+- [What this agent handles]
+- [Key information to include]
+
+Guidelines:
+- Be conversational and helpful
+- Include relevant links
+- Guide users to explore further
+
+Example good response:
+[Provide an example]
 ```
 
-### 2. Define the Agent
+### 2. Create the Agent Module
+
+Create `agents/sub_agents/my_new_agent.py`:
 
 ```python
-MY_AGENT_INSTRUCTION = """Your instruction text here.
-
-Be specific about:
-- What questions this agent handles
-- How it should respond
-- Example good/bad responses
-- Links to include
 """
+My New Agent - Handles [topic].
+"""
+from agents.base import BaseAgent
 
-my_new_agent = LlmAgent(
-    name='my_new_agent',  # alphanumeric + underscores only!
-    model='gemini-2.5-flash',
-    description='Brief description for agent routing.',
-    sub_agents=[],
-    instruction=MY_AGENT_INSTRUCTION,
-    tools=[
-        agent_tool.AgentTool(agent=_my_agent_search),
-        agent_tool.AgentTool(agent=_my_agent_url),
-    ],
-)
+
+class MyNewAgent(BaseAgent):
+    """Agent that handles [topic]."""
+    
+    @property
+    def name(self) -> str:
+        return 'my_new_agent'  # Must match prompt filename
+    
+    @property
+    def description(self) -> str:
+        return 'Answers questions about [topic].'
+    
+    @property
+    def prompt_file(self) -> str:
+        return 'my_new_agent'  # Without .txt
 ```
 
-### 3. Register with Root Agent
+### 3. Register the Agent
 
-Add to the `root_agent` sub_agents list:
-
-```python
-root_agent = LlmAgent(
-    name='portfolio_assistant',
-    model='gemini-2.5-flash',
-    description='Help with providing a succinct response to user inquiries about my site.',
-    sub_agents=[
-        whats_this_site_about,
-        who_is_brandon,
-        what_is_this_specific_page_about,
-        what_is_this_project_about,
-        my_new_agent,  # Add here
-    ],
-    instruction=ROOT_AGENT_INSTRUCTION,
-    tools=[...],
-)
-```
-
-### 4. Export the Agent
-
-Add to `__all__`:
+Update `agents/sub_agents/__init__.py`:
 
 ```python
+from .my_new_agent import MyNewAgent
+
 __all__ = [
-    'root_agent',
-    'whats_this_site_about',
-    'who_is_brandon',
-    'what_is_this_specific_page_about',
-    'what_is_this_project_about',
-    'my_new_agent',  # Add here
-    'create_search_agent',
-    'create_url_context_agent',
+    # ... existing agents ...
+    'MyNewAgent',
 ]
+```
+
+Update `agents/registry.py`:
+
+```python
+from agents.sub_agents import (
+    # ... existing imports ...
+    MyNewAgent,
+)
+
+agent_classes: List[Type[BaseAgent]] = [
+    # ... existing agents ...
+    MyNewAgent,
+]
+```
+
+### 4. Update Root Prompt (Optional)
+
+Add to `prompts/root.txt`:
+
+```text
+- my_new_agent: Questions about [topic]
 ```
 
 ### 5. Deploy
 
 ```bash
-cd ~/agent-chat-proxy && ./deploy.sh
+cd cloud/agent-chat-proxy && ./deploy.sh
+```
+
+## Modifying Existing Agents
+
+### Update Prompt Only
+
+Edit the corresponding file in `prompts/`. No code changes needed.
+
+```bash
+vim prompts/who_is_brandon.txt
+./deploy.sh
+```
+
+### Update Agent Behavior
+
+Edit the agent module in `agents/sub_agents/`:
+
+```python
+# Disable search for this agent
+@property
+def include_search(self) -> bool:
+    return False
+
+# Use more powerful model
+@property
+def model(self) -> str:
+    return 'pro'  # gemini-2.0-pro
 ```
 
 ## Naming Rules
 
-Agent names are converted to function declarations. They must:
-
+Agent names must:
 - Start with a letter or underscore
 - Contain only: `a-z`, `A-Z`, `0-9`, `_`, `.`, `:`, `-`
-- Be 64 characters or less
+- Be 64 characters or fewer
 - **No apostrophes, spaces, or special characters**
 
-**Good**: `who_is_brandon`, `project_about_agent`
-**Bad**: `What's_this_about`, `who is brandon`
+**Valid**: `who_is_brandon`, `project_info`, `my_agent_v2`
+**Invalid**: `what's_this`, `who is brandon`, `agent#1`
 
 ## Deployment Commands
 
-### Dry Run (Preview)
+### Dry Run
 
 ```bash
-cd ~/agent-chat-proxy && ./deploy.sh --dry-run
+cd cloud/agent-chat-proxy && ./deploy.sh --dry-run
 ```
 
 ### Full Deploy
 
 ```bash
-cd ~/agent-chat-proxy && ./deploy.sh
+cd cloud/agent-chat-proxy && ./deploy.sh
 ```
 
-### Manual Deploy (if script fails)
+### Manual Deploy
 
 ```bash
-cd ~/agent-chat-proxy
 gcloud run deploy agent-chat-proxy \
   --source . \
   --platform managed \
@@ -155,101 +209,116 @@ gcloud run deploy agent-chat-proxy \
 
 ## Testing
 
-### Health Check
+### Local Testing
 
 ```bash
-curl https://agent-chat-proxy-882389009262.us-central1.run.app/health
-# Expected: {"status":"healthy","version":"2.0.0-adk"}
+# Set up environment
+cd cloud/agent-chat-proxy
+cp .env.example .env
+# Edit .env with your API key
+
+# Run locally
+python -m app.main
+
+# Test health
+curl http://localhost:8080/health
+
+# Test chat
+curl -X POST http://localhost:8080/ \
+  -H 'Content-Type: application/json' \
+  -d '{"question":"Who is Brandon?"}'
 ```
 
-### Chat Test
+### Run Tests
 
 ```bash
-curl -s -X POST https://agent-chat-proxy-882389009262.us-central1.run.app/ \
+cd cloud/agent-chat-proxy
+pytest tests/
+```
+
+### Production Testing
+
+```bash
+# Get your service URL first
+SERVICE_URL=$(gcloud run services describe agent-chat-proxy --region=us-central1 --format='value(status.url)')
+
+# Health check
+curl $SERVICE_URL/health
+# Expected: {"status":"healthy","version":"3.0.0-adk"}
+
+# Chat test
+curl -s -X POST $SERVICE_URL/ \
   -H 'Content-Type: application/json' \
   -H 'Origin: https://ba-calderonmorales.github.io' \
   -d '{"question":"Who is Brandon?"}'
 ```
 
-### With Page Context
-
-```bash
-curl -s -X POST https://agent-chat-proxy-882389009262.us-central1.run.app/ \
-  -H 'Content-Type: application/json' \
-  -H 'Origin: https://ba-calderonmorales.github.io' \
-  -d '{"question":"What is this page about?", "page_url":"https://ba-calderonmorales.github.io/my-life-as-a-dev/learning/"}'
-```
-
 ## Viewing Logs
 
-### Recent Logs
-
 ```bash
+# Recent logs
 gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=agent-chat-proxy" \
   --limit 20 \
   --format "value(textPayload)" \
   --project=my-life-as-a-dev
-```
 
-### Error Logs
-
-```bash
+# Error logs
 gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=agent-chat-proxy AND severity>=ERROR" \
   --limit 10 \
-  --format "value(textPayload)" \
   --project=my-life-as-a-dev
 ```
 
 ## Troubleshooting
 
+### "Prompt file not found"
+
+Ensure the prompt file exists and name matches the `prompt_file` property.
+
 ### "Invalid function name" Error
 
-Agent names contain invalid characters. Fix by using only alphanumeric and underscores.
+Agent name contains invalid characters. Use only alphanumeric and underscores.
 
 ### "Internal error" Response
 
-Check Cloud Run logs for the stack trace. Common causes:
+Check Cloud Run logs. Common causes:
 - Missing API key in Secret Manager
 - Invalid agent configuration
 - ADK import errors
 
 ### CORS Errors
 
-Add the origin to `allowed_origins` in `main.py`:
+Add origin to `config/settings.py`:
 
 ```python
-allowed_origins = [
+allowed_origins_static: List[str] = field(default_factory=lambda: [
     'https://ba-calderonmorales.github.io',
-    'http://localhost:8001',
-    'http://localhost:8000',
-    # Add new origins here
-]
-```
-
-### Timeout Errors
-
-The default timeout is 120s. For complex agent chains, increase in deploy command:
-
-```bash
---timeout 180s
+    'https://your-new-domain.com',  # Add here
+    ...
+])
 ```
 
 ## Current Agents
 
 | Agent | Purpose | Triggered By |
 |-------|---------|--------------|
-| `whats_this_site_about` | General site info | "What is this site?" |
+| `site_about` | General site info | "What is this site?" |
 | `who_is_brandon` | Brandon's bio + links | "Who is Brandon?" |
-| `what_is_this_specific_page_about` | Page-specific context | "What is this page?" + URL |
-| `what_is_this_project_about` | Project details + contributors | Project questions |
+| `page_context` | Page-specific context | "What is this page?" + URL |
+| `project_info` | Project details | Project questions |
+| `resume_skills` | Career/skills info | Work experience questions |
+| `docs_navigation` | Site navigation | "Where can I find...?" |
+| `learning_coach` | Algorithm learning | Algorithm/interview prep |
 
 ## Service URLs
 
-- **Cloud Run**: https://agent-chat-proxy-882389009262.us-central1.run.app
+> **Security Note**: The Cloud Run URL should be configured via environment variables in frontend code, not hardcoded. Cloud Run provides DDoS protection, and our CORS policy restricts which origins can make requests.
+
+- **Cloud Run**: Check Cloud Console or `gcloud run services describe agent-chat-proxy --region=us-central1`
 - **Cloud Console**: https://console.cloud.google.com/run?project=my-life-as-a-dev
 - **Secret Manager**: https://console.cloud.google.com/security/secret-manager?project=my-life-as-a-dev
 
-## Related Skills
+## Related Documentation
 
-- [AI Security](.github/skills/ai-security.md) - Security implementation details
-- [Build and Test](.github/skills/build-and-test.md) - Local testing
+- [Architecture](../../cloud/agent-chat-proxy/docs/architecture.md) - Full architecture details
+- [Adding Agents](../../cloud/agent-chat-proxy/docs/adding-agents.md) - Detailed guide
+- [AI Security](ai-security.md) - Security implementation
