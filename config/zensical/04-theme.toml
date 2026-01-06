@@ -41,7 +41,7 @@ features = [
     "navigation.instant.prefetch",
     "navigation.instant.progress",
     "navigation.path",
-    "navigation.sections",
+    # "navigation.sections",  # Disabled: keeps nav collapsed by default
     "navigation.tabs",
     "navigation.tabs.sticky",
     "navigation.top",

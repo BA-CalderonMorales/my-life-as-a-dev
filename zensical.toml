@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-01-06 06:07:57 UTC
+#   Generated: 2026-01-06 07:58:25 UTC
 #
 # ##############################################################################
 
@@ -243,14 +243,32 @@ Overview = "learning/cloud_ai/index.md"
 ]
 
 [[project.nav]]
-Docs-as-Code = [
-    { Overview = "docs-as-code/index.md" },
-    { "Guiding Principles" = "docs-as-code/principles/index.md" },
-    { Workflow = "docs-as-code/workflow/index.md" },
-    { "Stack & Tooling" = "docs-as-code/stack/index.md" },
-    { "Quality & Style" = "docs-as-code/quality/index.md" },
-    { "AI & Security Posture" = "docs-as-code/ai_security/index.md" },
-    { Zensical = "docs-as-code/zensical/index.md" },
+
+[[project.nav.Docs-as-Code]]
+Overview = "docs-as-code/index.md"
+
+[[project.nav.Docs-as-Code]]
+"Guiding Principles" = "docs-as-code/principles/index.md"
+
+[[project.nav.Docs-as-Code]]
+Workflow = "docs-as-code/workflow/index.md"
+
+[[project.nav.Docs-as-Code]]
+"Quality & Style" = "docs-as-code/quality/index.md"
+
+[[project.nav.Docs-as-Code]]
+"Stack & Tooling" = "docs-as-code/stack/index.md"
+
+[[project.nav.Docs-as-Code]]
+Zensical = "docs-as-code/zensical/index.md"
+
+[[project.nav.Docs-as-Code]]
+"AI & Security" = [
+    { Overview = "docs-as-code/ai_security/index.md" },
+    { "Chat Widget" = "docs-as-code/ai_security/chat_widget.md" },
+    { "Chat Security" = "docs-as-code/ai_security/chat-security.md" },
+    { "Chat Implementation" = "docs-as-code/ai_security/chat-implementation.md" },
+    { "Implementation Guide" = "docs-as-code/ai_security/implementation.md" },
 ]
 
 [[project.nav]]
@@ -357,7 +375,6 @@ features = [
     "navigation.instant.prefetch",
     "navigation.instant.progress",
     "navigation.path",
-    "navigation.sections",
     "navigation.tabs",
     "navigation.tabs.sticky",
     "navigation.top",
