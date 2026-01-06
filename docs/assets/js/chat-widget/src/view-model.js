@@ -24,6 +24,8 @@ class ChatViewModel {
         this.view.bindClear(() => this.clearChat());
         this.view.bindCopy(() => this.copyChat());
         this.view.bindShare(() => this.shareChat());
+        this.view.bindMenuToggle();
+        this.view.bindMaximize();
     }
 
     openChat() {

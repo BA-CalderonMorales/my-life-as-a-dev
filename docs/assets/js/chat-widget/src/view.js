@@ -37,28 +37,12 @@ class ChatView {
         <span class="ai-chat-header-title">Ask about Brandon's work</span>
       </div>
       <div class="ai-chat-header-actions">
-        <button class="ai-chat-action-btn" id="ai-chat-clear" aria-label="Clear chat">
+        <button class="ai-chat-action-btn" id="ai-chat-maximize" aria-label="Maximize chat" title="Maximize">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="3 6 5 6 21 6"></polyline>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
           </svg>
         </button>
-        <button class="ai-chat-action-btn" id="ai-chat-copy" aria-label="Copy chat">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-        </button>
-        <button class="ai-chat-action-btn" id="ai-chat-share" aria-label="Share chat">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="18" cy="5" r="3"></circle>
-            <circle cx="6" cy="12" r="3"></circle>
-            <circle cx="18" cy="19" r="3"></circle>
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-          </svg>
-        </button>
-        <button class="ai-chat-close" aria-label="Close chat">
+        <button class="ai-chat-close" aria-label="Close chat" title="Close">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -67,20 +51,55 @@ class ChatView {
       </div>
     </div>
 
-    <div class="ai-chat-input-area">
-      <input type="text" id="ai-chat-input" placeholder="Ask a question..." autocomplete="off">
-      <button class="ai-chat-send-btn" aria-label="Send message">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="22" y1="2" x2="11" y2="13"></line>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-        </svg>
-      </button>
-    </div>
-
     <div id="ai-chat-messages" class="ai-chat-messages">
       <div class="ai-message ai-message-bot">
         <div class="ai-message-content">
           Hello! I can help you learn about Brandon's projects, skills, and experience. What would you like to know?
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-chat-input-area">
+      <input type="text" id="ai-chat-input" placeholder="Ask a question..." autocomplete="off">
+      <button class="ai-chat-send-btn" aria-label="Send message" title="Send">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+      <div class="ai-chat-menu-wrapper">
+        <button class="ai-chat-menu-btn" id="ai-chat-menu-toggle" aria-label="More options" aria-expanded="false" title="More options">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="5" r="1.5"></circle>
+            <circle cx="12" cy="12" r="1.5"></circle>
+            <circle cx="12" cy="19" r="1.5"></circle>
+          </svg>
+        </button>
+        <div class="ai-chat-menu" id="ai-chat-menu">
+          <button class="ai-chat-menu-item" id="ai-chat-clear" title="Clear conversation">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            <span>Clear</span>
+          </button>
+          <button class="ai-chat-menu-item" id="ai-chat-copy" title="Copy to clipboard">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy</span>
+          </button>
+          <button class="ai-chat-menu-item" id="ai-chat-share" title="Share conversation">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+            <span>Share</span>
+          </button>
         </div>
       </div>
     </div>
@@ -119,8 +138,12 @@ class ChatView {
     cacheDOM() {
         this.elements = {
             modal: document.getElementById('ai-chat-modal'),
+            container: document.querySelector('.ai-chat-container'),
             trigger: document.getElementById('ai-chat-trigger'),
             closeBtn: document.querySelector('.ai-chat-close'),
+            maximizeBtn: document.getElementById('ai-chat-maximize'),
+            menuToggle: document.getElementById('ai-chat-menu-toggle'),
+            menu: document.getElementById('ai-chat-menu'),
             clearBtn: document.getElementById('ai-chat-clear'),
             copyBtn: document.getElementById('ai-chat-copy'),
             shareBtn: document.getElementById('ai-chat-share'),
@@ -128,6 +151,7 @@ class ChatView {
             sendBtn: document.querySelector('.ai-chat-send-btn'),
             messagesDiv: document.getElementById('ai-chat-messages')
         };
+        this._isMaximized = false;
     }
 
     /**
@@ -155,19 +179,95 @@ class ChatView {
 
     bindClear(handler) {
         if (this.elements.clearBtn) {
-            this.elements.clearBtn.addEventListener('click', handler);
+            this.elements.clearBtn.addEventListener('click', () => {
+                this.closeMenu();
+                handler();
+            });
         }
     }
 
     bindCopy(handler) {
         if (this.elements.copyBtn) {
-            this.elements.copyBtn.addEventListener('click', handler);
+            this.elements.copyBtn.addEventListener('click', () => {
+                this.closeMenu();
+                handler();
+            });
         }
     }
 
     bindShare(handler) {
         if (this.elements.shareBtn) {
-            this.elements.shareBtn.addEventListener('click', handler);
+            this.elements.shareBtn.addEventListener('click', () => {
+                this.closeMenu();
+                handler();
+            });
+        }
+    }
+
+    bindMenuToggle() {
+        if (this.elements.menuToggle && this.elements.menu) {
+            this.elements.menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleMenu();
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (this.elements.menu &&
+                    !this.elements.menu.contains(e.target) &&
+                    !this.elements.menuToggle.contains(e.target)) {
+                    this.closeMenu();
+                }
+            });
+        }
+    }
+
+    bindMaximize(handler) {
+        if (this.elements.maximizeBtn) {
+            this.elements.maximizeBtn.addEventListener('click', () => {
+                this.toggleMaximize();
+                if (handler) handler(this._isMaximized);
+            });
+        }
+    }
+
+    toggleMenu() {
+        if (this.elements.menu && this.elements.menuToggle) {
+            const isOpen = this.elements.menu.classList.toggle('active');
+            this.elements.menuToggle.setAttribute('aria-expanded', isOpen);
+        }
+    }
+
+    closeMenu() {
+        if (this.elements.menu && this.elements.menuToggle) {
+            this.elements.menu.classList.remove('active');
+            this.elements.menuToggle.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    toggleMaximize() {
+        if (this.elements.container && this.elements.maximizeBtn) {
+            this._isMaximized = !this._isMaximized;
+            this.elements.container.classList.toggle('maximized', this._isMaximized);
+
+            // Update the icon based on state
+            const svg = this.elements.maximizeBtn.querySelector('svg');
+            if (this._isMaximized) {
+                // Minimize icon
+                svg.innerHTML = '<path d="M4 14h6m0 0v6m0-6L3 21M20 10h-6m0 0V4m0 6l7-7"></path>';
+                this.elements.maximizeBtn.setAttribute('aria-label', 'Minimize chat');
+                this.elements.maximizeBtn.setAttribute('title', 'Minimize');
+            } else {
+                // Maximize icon
+                svg.innerHTML = '<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>';
+                this.elements.maximizeBtn.setAttribute('aria-label', 'Maximize chat');
+                this.elements.maximizeBtn.setAttribute('title', 'Maximize');
+            }
+
+            // Auto-focus the input field
+            if (this.elements.input) {
+                this.elements.input.focus();
+            }
         }
     }
 
