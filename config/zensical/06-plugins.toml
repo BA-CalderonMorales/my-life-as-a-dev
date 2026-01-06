@@ -1,0 +1,67 @@
+# ==============================================================================
+# NAVIGATION PLUGINS
+# ==============================================================================
+
+[project.plugins]
+[project.plugins.awesome-nav]
+
+
+# ==============================================================================
+# GIT INTEGRATION PLUGINS
+# ==============================================================================
+# Show contributors and revision dates. Disabled in CI for performance.
+# ==============================================================================
+
+[project.plugins.git-authors]
+enabled = true            # Set via ENABLE_GIT_AUTHORS env var in CI
+show_email_address = true
+href = "mailto:{email}"
+
+[project.plugins.git-revision-date-localized]
+timezone = "America/North_Dakota/Center"
+
+
+# ==============================================================================
+# VERSIONING PLUGIN
+# ==============================================================================
+
+[project.plugins.mike]
+
+
+# ==============================================================================
+# IMAGE & MEDIA PLUGINS
+# ==============================================================================
+
+[project.plugins.panzoom]
+[project.plugins.glightbox]
+
+
+# ==============================================================================
+# SEARCH & DISCOVERY PLUGINS
+# ==============================================================================
+
+[project.plugins.search]
+[project.plugins.tags]
+
+
+# ==============================================================================
+# OPTIMIZATION PLUGINS
+# ==============================================================================
+# Production optimizations for smaller builds.
+# ==============================================================================
+
+[project.plugins.minify]
+minify_html = true
+minify_js = true
+minify_css = true
+
+[project.plugins.minify.htmlmin_opts]
+remove_comments = true
+
+
+# ==============================================================================
+# OUTPUT PLUGINS
+# ==============================================================================
+
+[project.plugins.print-site]
+enabled = false # Set via ENABLE_PRINT_SITE env var in CI

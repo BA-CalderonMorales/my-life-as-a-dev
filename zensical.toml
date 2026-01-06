@@ -1,29 +1,27 @@
-# ============================================================================
-# Zensical Configuration for Brandon's Simplified Life
-# Migrated from mkdocs.yml to leverage the modern Zensical ecosystem
-# ============================================================================
+# ##############################################################################
+#
+#                    ZENSICAL CONFIGURATION
+#                    Brandon's Simplified Life
+#
+#   AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
+#
+#   This file is generated from config/zensical/*.toml
+#   To modify, edit the source files and run:
+#       uv run python scripts/python/merge_zensical_config.py
+#
+#   Generated: 2026-01-06 06:07:57 UTC
+#
+# ##############################################################################
 
 [project]
-
-# Site metadata
 site_name = "Brandon's Simplified Life"
 site_description = "A collection of notes, resources, and tools for developers, engineers, and tech enthusiasts."
 site_author = "Brandon Calderon-Morales"
 site_url = "https://ba-calderonmorales.github.io/my-life-as-a-dev/"
-
-# Repository information
+copyright = "Copyright &copy; 2024-2025 Brandon Calderon-Morales"
 repo_url = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
 repo_name = "BA-CalderonMorales/my-life-as-a-dev"
-
-# Edit button configuration - enables "Edit this page" links
 edit_uri = "edit/main/docs/"
-
-# Copyright notice
-copyright = """
-Copyright &copy; 2024-2025 Brandon Calderon-Morales
-"""
-
-# Additional CSS (load order matters for cascade)
 extra_css = [
     "assets/css/theme.css",
     "assets/css/typography.css",
@@ -37,238 +35,322 @@ extra_css = [
     "assets/css/canvas.css",
 ]
 
-# Navigation structure - explicitly defined to match current mkdocs.yml
-nav = [
-    { "Home" = "index.md" },
+[[project.nav]]
+Home = "index.md"
 
-    # Learning section
-    { "Learning" = [
-        { "Overview" = "learning/index.md" },
-        { "Algorithms" = [
-            { "Overview" = "learning/algorithms/index.md" },
-            { "Arrays" = "learning/algorithms/arrays/index.md" },
-            { "Hash Tables" = "learning/algorithms/hash_tables/index.md" },
-            { "Sliding Window" = [
-                { "Overview" = "learning/algorithms/sliding_window/index.md" },
-                { "Problems" = [
-                    { "Max Sum Subarray K" = "learning/algorithms/sliding_window/problems/max_sum_subarray_k.md" },
-                    { "Longest Substring No Repeat" = "learning/algorithms/sliding_window/problems/longest_substring_no_repeat.md" },
-                ] },
-            ] },
-            { "Dynamic Programming" = [
-                { "Overview" = "learning/algorithms/dynamic_programming/index.md" },
-                { "Problems" = [
-                    { "Climbing Stairs" = "learning/algorithms/dynamic_programming/problems/climbing_stairs.md" },
-                    { "House Robber" = "learning/algorithms/dynamic_programming/problems/house_robber.md" },
-                    { "Coin Change" = "learning/algorithms/dynamic_programming/problems/coin_change.md" },
-                ] },
-            ] },
-            { "Two Pointers" = [
-                { "Overview" = "learning/algorithms/two_pointers/index.md" },
-                { "Problems" = [
-                    { "Two Sum Sorted" = "learning/algorithms/two_pointers/problems/two_sum_sorted.md" },
-                    { "Container With Most Water" = "learning/algorithms/two_pointers/problems/container_with_most_water.md" },
-                ] },
-            ] },
-            { "Fast & Slow Pointers" = [
-                { "Overview" = "learning/algorithms/fast_slow_pointers/index.md" },
-                { "Problems" = [
-                    { "Linked List Cycle" = "learning/algorithms/fast_slow_pointers/problems/linked_list_cycle.md" },
-                    { "Middle of Linked List" = "learning/algorithms/fast_slow_pointers/problems/middle_of_linked_list.md" },
-                    { "Linked List Cycle II" = "learning/algorithms/fast_slow_pointers/problems/linked_list_cycle_ii.md" },
-                ] },
-            ] },
-            { "Backtracking" = [
-                { "Overview" = "learning/algorithms/backtracking/index.md" },
-                { "Problems" = [
-                    { "Subsets" = "learning/algorithms/backtracking/problems/subsets.md" },
-                    { "Permutations" = "learning/algorithms/backtracking/problems/permutations.md" },
-                    { "N-Queens" = "learning/algorithms/backtracking/problems/n_queens.md" },
-                ] },
-            ] },
-            { "Binary Search on Answer" = [
-                { "Overview" = "learning/algorithms/binary_search_on_answer/index.md" },
-                { "Problems" = [
-                    { "Capacity To Ship Packages" = "learning/algorithms/binary_search_on_answer/problems/capacity_to_ship_packages.md" },
-                    { "Koko Eating Bananas" = "learning/algorithms/binary_search_on_answer/problems/koko_eating_bananas.md" },
-                    { "Minimum Time Complete Trips" = "learning/algorithms/binary_search_on_answer/problems/minimum_time_complete_trips.md" },
-                ] },
-            ] },
-            { "Greedy" = [
-                { "Overview" = "learning/algorithms/greedy/index.md" },
-                { "Problems" = [
-                    { "Jump Game" = "learning/algorithms/greedy/problems/jump_game.md" },
-                ] },
-            ] },
-            { "Heap / Priority Queue" = [
-                { "Overview" = "learning/algorithms/heap_priority_queue/index.md" },
-                { "Problems" = [
-                    { "Kth Largest Element" = "learning/algorithms/heap_priority_queue/problems/kth_largest_element.md" },
-                ] },
-            ] },
-            { "Monotonic Stack" = [
-                { "Overview" = "learning/algorithms/monotonic_stack/index.md" },
-                { "Problems" = [
-                    { "Daily Temperatures" = "learning/algorithms/monotonic_stack/problems/daily_temperatures.md" },
-                ] },
-            ] },
-            { "Graph Traversal" = [
-                { "Overview" = "learning/algorithms/graph_traversal/index.md" },
-                { "Problems" = [
-                    { "Number of Islands" = "learning/algorithms/graph_traversal/problems/number_of_islands.md" },
-                ] },
-            ] },
-            { "Trie" = [
-                { "Overview" = "learning/algorithms/trie/index.md" },
-                { "Problems" = [
-                    { "Implement Trie" = "learning/algorithms/trie/problems/implement_trie.md" },
-                ] },
-            ] },
-            { "Space Complexity" = "learning/algorithms/space_complexity/index.md" },
-        ] },
-        { "Data Structures" = [
-            { "Overview" = "learning/data_structures/index.md" },
-            { "Probabilistic" = "learning/data_structures/probabilistic/index.md" },
-            { "Spatial" = "learning/data_structures/spatial/index.md" },
-            { "Advanced Trees" = "learning/data_structures/advanced_trees/index.md" },
-        ] },
-        { "Interview Preparation" = "learning/interview_preparation/index.md" },
-        { "Additional Topics" = [
-            { "Overview" = "learning/additional_topics/index.md" },
-            { "System Design" = [
-                { "Overview" = "learning/additional_topics/system_design/index.md" },
-                { "Scalability" = "learning/additional_topics/system_design/scalability.md" },
-                { "API Design" = "learning/additional_topics/system_design/api_design.md" },
-            ] },
-            { "Distributed Systems" = [
-                { "Overview" = "learning/additional_topics/distributed_systems/index.md" },
-                { "Consensus" = "learning/additional_topics/distributed_systems/consensus.md" },
-                { "Patterns" = "learning/additional_topics/distributed_systems/patterns.md" },
-            ] },
-            { "Networking" = "learning/additional_topics/networking/index.md" },
-            { "Security" = "learning/additional_topics/security/index.md" },
-        ] },
-        { "Cloud AI Platforms" = [
-            { "Overview" = "learning/cloud_ai/index.md" },
-            { "Vertex AI" = [
-                { "Overview" = "learning/cloud_ai/vertex_ai/index.md" },
-                { "Environment Setup" = "learning/cloud_ai/vertex_ai/environment_setup.md" },
-                { "Workspace Setup" = "learning/cloud_ai/vertex_ai/workspace_setup.md" },
-                { "Google Cloud Setup" = "learning/cloud_ai/vertex_ai/google_cloud_setup.md" },
-                { "Connect to Vertex AI" = "learning/cloud_ai/vertex_ai/connect_to_vertex_ai.md" },
-                { "Explore Models" = "learning/cloud_ai/vertex_ai/explore_models.md" },
-                { "Code Examples" = "learning/cloud_ai/vertex_ai/code_examples.md" },
-                { "Vertex AI Studio" = "learning/cloud_ai/vertex_ai/vertex_ai_studio.md" },
-            ] },
-        ] },
-    ] },
+[[project.nav]]
 
-    # Docs-as-Code section
-    { "Docs-as-Code" = [
-        { "Overview" = "docs-as-code/index.md" },
-        { "Guiding Principles" = "docs-as-code/principles/index.md" },
-        { "Workflow" = "docs-as-code/workflow/index.md" },
-        { "Stack & Tooling" = "docs-as-code/stack/index.md" },
-        { "Quality & Style" = "docs-as-code/quality/index.md" },
-        { "AI & Security Posture" = "docs-as-code/ai_security/index.md" },
-        { "Zensical" = "docs-as-code/zensical/index.md" },
-    ] },
+[[project.nav.Learning]]
+Overview = "learning/index.md"
 
-    # Projects section
-    { "Projects" = [
-        { "Overview" = "projects/index.md" },
-        { "Active" = [
-            { "Overview" = "projects/active/index.md" },
-            { "Terminal Jarvis" = [
-                { "Overview" = "projects/active/terminal-jarvis/index.md" },
-                { "Quick Start" = [
-                    { "Installation" = "projects/active/terminal-jarvis/quick_start/installation.md" },
-                    { "Configuration" = "projects/active/terminal-jarvis/quick_start/configuration.md" },
-                    { "Usage" = "projects/active/terminal-jarvis/quick_start/usage.md" },
-                    { "AI Tools" = "projects/active/terminal-jarvis/quick_start/ai-tools.md" },
-                ] },
-                { "Details" = [
-                    { "Architecture" = "projects/active/terminal-jarvis/details/architecture.md" },
-                    { "Testing" = "projects/active/terminal-jarvis/details/testing.md" },
-                    { "Contributions" = "projects/active/terminal-jarvis/details/contributions.md" },
-                    { "Roadmap" = "projects/active/terminal-jarvis/details/roadmap.md" },
-                    { "Limitations" = "projects/active/terminal-jarvis/details/limitations.md" },
-                    { "Maintainers" = "projects/active/terminal-jarvis/details/maintainers.md" },
-                ] },
-            ] },
-            { "Coder Infrastructure (Starter Scripts)" = "projects/active/coder-starter-scripts/index.md" },
-            { "Coder Templates" = "projects/active/coder-templates/index.md" },
-            { "Docs-as-Code Portfolio" = [
-                { "Overview" = "projects/active/my-life-as-a-dev/index.md" },
-                { "Quick Start" = "projects/active/my-life-as-a-dev/quick_start/index.md" },
-                { "Details" = "projects/active/my-life-as-a-dev/details/index.md" },
-            ] },
-            { "Terminal Screensaver" = "projects/active/terminal-screensaver/index.md" },
-        ] },
-        { "Experiments" = [
-            { "Overview" = "projects/experiments/index.md" },
-            { "Immersive Awe Canvas" = [
-                { "Overview" = "projects/experiments/immersive-awe-canvas/index.md" },
-                { "Quick Start" = "projects/experiments/immersive-awe-canvas/quick_start/index.md" },
-                { "Details" = "projects/experiments/immersive-awe-canvas/details/index.md" },
-            ] },
-            { "Shadow Scroll Blossom" = [
-                { "Overview" = "projects/experiments/shadow-scroll-blossom/index.md" },
-                { "Quick Start" = "projects/experiments/shadow-scroll-blossom/quick_start/index.md" },
-                { "Details" = "projects/experiments/shadow-scroll-blossom/details/index.md" },
-            ] },
-            { "Rust Terminal Forge" = [
-                { "Overview" = "projects/experiments/rust-terminal-forge/index.md" },
-                { "Quick Start" = "projects/experiments/rust-terminal-forge/quick_start/index.md" },
-                { "Details" = "projects/experiments/rust-terminal-forge/details/index.md" },
-            ] },
-        ] },
-    ] },
+[[project.nav.Learning]]
 
-    { "Canvas" = [
-        { "Overview" = "canvas/index.md" },
-    ] },
+[[project.nav.Learning.Algorithms]]
+Overview = "learning/algorithms/index.md"
 
-    # About Me
-    { "About Me" = "resume/index.md" },
+[[project.nav.Learning.Algorithms]]
+Arrays = "learning/algorithms/arrays/index.md"
+
+[[project.nav.Learning.Algorithms]]
+"Hash Tables" = "learning/algorithms/hash_tables/index.md"
+
+[[project.nav.Learning.Algorithms]]
+
+[[project.nav.Learning.Algorithms."Sliding Window"]]
+Overview = "learning/algorithms/sliding_window/index.md"
+
+[[project.nav.Learning.Algorithms."Sliding Window"]]
+
+[[project.nav.Learning.Algorithms."Sliding Window".Problems]]
+"Max Sum Subarray K" = "learning/algorithms/sliding_window/problems/max_sum_subarray_k.md"
+
+[[project.nav.Learning.Algorithms."Sliding Window".Problems]]
+"Longest Substring No Repeat" = "learning/algorithms/sliding_window/problems/longest_substring_no_repeat.md"
+
+[[project.nav.Learning.Algorithms]]
+
+[[project.nav.Learning.Algorithms."Dynamic Programming"]]
+Overview = "learning/algorithms/dynamic_programming/index.md"
+
+[[project.nav.Learning.Algorithms."Dynamic Programming"]]
+Problems = [
+    { "Climbing Stairs" = "learning/algorithms/dynamic_programming/problems/climbing_stairs.md" },
+    { "House Robber" = "learning/algorithms/dynamic_programming/problems/house_robber.md" },
+    { "Coin Change" = "learning/algorithms/dynamic_programming/problems/coin_change.md" },
 ]
 
-# ----------------------------------------------------------------------------
-# Theme configuration
-# ----------------------------------------------------------------------------
+[[project.nav.Learning.Algorithms]]
+
+[[project.nav.Learning.Algorithms."Two Pointers"]]
+Overview = "learning/algorithms/two_pointers/index.md"
+
+[[project.nav.Learning.Algorithms."Two Pointers"]]
+
+[[project.nav.Learning.Algorithms."Two Pointers".Problems]]
+"Two Sum Sorted" = "learning/algorithms/two_pointers/problems/two_sum_sorted.md"
+
+[[project.nav.Learning.Algorithms."Two Pointers".Problems]]
+"Container With Most Water" = "learning/algorithms/two_pointers/problems/container_with_most_water.md"
+
+[[project.nav.Learning.Algorithms]]
+
+[[project.nav.Learning.Algorithms."Fast & Slow Pointers"]]
+Overview = "learning/algorithms/fast_slow_pointers/index.md"
+
+[[project.nav.Learning.Algorithms."Fast & Slow Pointers"]]
+
+[[project.nav.Learning.Algorithms."Fast & Slow Pointers".Problems]]
+"Linked List Cycle" = "learning/algorithms/fast_slow_pointers/problems/linked_list_cycle.md"
+
+[[project.nav.Learning.Algorithms."Fast & Slow Pointers".Problems]]
+"Middle of Linked List" = "learning/algorithms/fast_slow_pointers/problems/middle_of_linked_list.md"
+
+[[project.nav.Learning.Algorithms."Fast & Slow Pointers".Problems]]
+"Linked List Cycle II" = "learning/algorithms/fast_slow_pointers/problems/linked_list_cycle_ii.md"
+
+[[project.nav.Learning.Algorithms]]
+
+[[project.nav.Learning.Algorithms.Backtracking]]
+Overview = "learning/algorithms/backtracking/index.md"
+
+[[project.nav.Learning.Algorithms.Backtracking]]
+Problems = [
+    { Subsets = "learning/algorithms/backtracking/problems/subsets.md" },
+    { Permutations = "learning/algorithms/backtracking/problems/permutations.md" },
+    { N-Queens = "learning/algorithms/backtracking/problems/n_queens.md" },
+]
+
+[[project.nav.Learning.Algorithms]]
+
+[[project.nav.Learning.Algorithms."Binary Search on Answer"]]
+Overview = "learning/algorithms/binary_search_on_answer/index.md"
+
+[[project.nav.Learning.Algorithms."Binary Search on Answer"]]
+
+[[project.nav.Learning.Algorithms."Binary Search on Answer".Problems]]
+"Capacity To Ship Packages" = "learning/algorithms/binary_search_on_answer/problems/capacity_to_ship_packages.md"
+
+[[project.nav.Learning.Algorithms."Binary Search on Answer".Problems]]
+"Koko Eating Bananas" = "learning/algorithms/binary_search_on_answer/problems/koko_eating_bananas.md"
+
+[[project.nav.Learning.Algorithms."Binary Search on Answer".Problems]]
+"Minimum Time Complete Trips" = "learning/algorithms/binary_search_on_answer/problems/minimum_time_complete_trips.md"
+
+[[project.nav.Learning.Algorithms]]
+
+[[project.nav.Learning.Algorithms.Greedy]]
+Overview = "learning/algorithms/greedy/index.md"
+
+[[project.nav.Learning.Algorithms.Greedy]]
+Problems = [
+    { "Jump Game" = "learning/algorithms/greedy/problems/jump_game.md" },
+]
+
+[[project.nav.Learning.Algorithms]]
+
+[[project.nav.Learning.Algorithms."Heap / Priority Queue"]]
+Overview = "learning/algorithms/heap_priority_queue/index.md"
+
+[[project.nav.Learning.Algorithms."Heap / Priority Queue"]]
+
+[[project.nav.Learning.Algorithms."Heap / Priority Queue".Problems]]
+"Kth Largest Element" = "learning/algorithms/heap_priority_queue/problems/kth_largest_element.md"
+
+[[project.nav.Learning.Algorithms]]
+
+[[project.nav.Learning.Algorithms."Monotonic Stack"]]
+Overview = "learning/algorithms/monotonic_stack/index.md"
+
+[[project.nav.Learning.Algorithms."Monotonic Stack"]]
+Problems = [
+    { "Daily Temperatures" = "learning/algorithms/monotonic_stack/problems/daily_temperatures.md" },
+]
+
+[[project.nav.Learning.Algorithms]]
+
+[[project.nav.Learning.Algorithms."Graph Traversal"]]
+Overview = "learning/algorithms/graph_traversal/index.md"
+
+[[project.nav.Learning.Algorithms."Graph Traversal"]]
+Problems = [
+    { "Number of Islands" = "learning/algorithms/graph_traversal/problems/number_of_islands.md" },
+]
+
+[[project.nav.Learning.Algorithms]]
+
+[[project.nav.Learning.Algorithms.Trie]]
+Overview = "learning/algorithms/trie/index.md"
+
+[[project.nav.Learning.Algorithms.Trie]]
+Problems = [
+    { "Implement Trie" = "learning/algorithms/trie/problems/implement_trie.md" },
+]
+
+[[project.nav.Learning.Algorithms]]
+"Space Complexity" = "learning/algorithms/space_complexity/index.md"
+
+[[project.nav.Learning]]
+"Data Structures" = [
+    { Overview = "learning/data_structures/index.md" },
+    { Probabilistic = "learning/data_structures/probabilistic/index.md" },
+    { Spatial = "learning/data_structures/spatial/index.md" },
+    { "Advanced Trees" = "learning/data_structures/advanced_trees/index.md" },
+]
+
+[[project.nav.Learning]]
+"Interview Preparation" = "learning/interview_preparation/index.md"
+
+[[project.nav.Learning]]
+
+[[project.nav.Learning."Additional Topics"]]
+Overview = "learning/additional_topics/index.md"
+
+[[project.nav.Learning."Additional Topics"]]
+"System Design" = [
+    { Overview = "learning/additional_topics/system_design/index.md" },
+    { Scalability = "learning/additional_topics/system_design/scalability.md" },
+    { "API Design" = "learning/additional_topics/system_design/api_design.md" },
+]
+
+[[project.nav.Learning."Additional Topics"]]
+"Distributed Systems" = [
+    { Overview = "learning/additional_topics/distributed_systems/index.md" },
+    { Consensus = "learning/additional_topics/distributed_systems/consensus.md" },
+    { Patterns = "learning/additional_topics/distributed_systems/patterns.md" },
+]
+
+[[project.nav.Learning."Additional Topics"]]
+Networking = "learning/additional_topics/networking/index.md"
+
+[[project.nav.Learning."Additional Topics"]]
+Security = "learning/additional_topics/security/index.md"
+
+[[project.nav.Learning]]
+
+[[project.nav.Learning."Cloud AI Platforms"]]
+Overview = "learning/cloud_ai/index.md"
+
+[[project.nav.Learning."Cloud AI Platforms"]]
+"Vertex AI" = [
+    { Overview = "learning/cloud_ai/vertex_ai/index.md" },
+    { "Environment Setup" = "learning/cloud_ai/vertex_ai/environment_setup.md" },
+    { "Workspace Setup" = "learning/cloud_ai/vertex_ai/workspace_setup.md" },
+    { "Google Cloud Setup" = "learning/cloud_ai/vertex_ai/google_cloud_setup.md" },
+    { "Connect to Vertex AI" = "learning/cloud_ai/vertex_ai/connect_to_vertex_ai.md" },
+    { "Explore Models" = "learning/cloud_ai/vertex_ai/explore_models.md" },
+    { "Code Examples" = "learning/cloud_ai/vertex_ai/code_examples.md" },
+    { "Vertex AI Studio" = "learning/cloud_ai/vertex_ai/vertex_ai_studio.md" },
+]
+
+[[project.nav]]
+Docs-as-Code = [
+    { Overview = "docs-as-code/index.md" },
+    { "Guiding Principles" = "docs-as-code/principles/index.md" },
+    { Workflow = "docs-as-code/workflow/index.md" },
+    { "Stack & Tooling" = "docs-as-code/stack/index.md" },
+    { "Quality & Style" = "docs-as-code/quality/index.md" },
+    { "AI & Security Posture" = "docs-as-code/ai_security/index.md" },
+    { Zensical = "docs-as-code/zensical/index.md" },
+]
+
+[[project.nav]]
+
+[[project.nav.Projects]]
+Overview = "projects/index.md"
+
+[[project.nav.Projects]]
+
+[[project.nav.Projects.Active]]
+Overview = "projects/active/index.md"
+
+[[project.nav.Projects.Active]]
+
+[[project.nav.Projects.Active."Terminal Jarvis"]]
+Overview = "projects/active/terminal-jarvis/index.md"
+
+[[project.nav.Projects.Active."Terminal Jarvis"]]
+"Quick Start" = [
+    { Installation = "projects/active/terminal-jarvis/quick_start/installation.md" },
+    { Configuration = "projects/active/terminal-jarvis/quick_start/configuration.md" },
+    { Usage = "projects/active/terminal-jarvis/quick_start/usage.md" },
+    { "AI Tools" = "projects/active/terminal-jarvis/quick_start/ai-tools.md" },
+]
+
+[[project.nav.Projects.Active."Terminal Jarvis"]]
+Details = [
+    { Architecture = "projects/active/terminal-jarvis/details/architecture.md" },
+    { Testing = "projects/active/terminal-jarvis/details/testing.md" },
+    { Contributions = "projects/active/terminal-jarvis/details/contributions.md" },
+    { Roadmap = "projects/active/terminal-jarvis/details/roadmap.md" },
+    { Limitations = "projects/active/terminal-jarvis/details/limitations.md" },
+    { Maintainers = "projects/active/terminal-jarvis/details/maintainers.md" },
+]
+
+[[project.nav.Projects.Active]]
+"Coder Infrastructure (Starter Scripts)" = "projects/active/coder-starter-scripts/index.md"
+
+[[project.nav.Projects.Active]]
+"Coder Templates" = "projects/active/coder-templates/index.md"
+
+[[project.nav.Projects.Active]]
+"Docs-as-Code Portfolio" = [
+    { Overview = "projects/active/my-life-as-a-dev/index.md" },
+    { "Quick Start" = "projects/active/my-life-as-a-dev/quick_start/index.md" },
+    { Details = "projects/active/my-life-as-a-dev/details/index.md" },
+]
+
+[[project.nav.Projects.Active]]
+"Terminal Screensaver" = "projects/active/terminal-screensaver/index.md"
+
+[[project.nav.Projects]]
+
+[[project.nav.Projects.Experiments]]
+Overview = "projects/experiments/index.md"
+
+[[project.nav.Projects.Experiments]]
+"Immersive Awe Canvas" = [
+    { Overview = "projects/experiments/immersive-awe-canvas/index.md" },
+    { "Quick Start" = "projects/experiments/immersive-awe-canvas/quick_start/index.md" },
+    { Details = "projects/experiments/immersive-awe-canvas/details/index.md" },
+]
+
+[[project.nav.Projects.Experiments]]
+"Shadow Scroll Blossom" = [
+    { Overview = "projects/experiments/shadow-scroll-blossom/index.md" },
+    { "Quick Start" = "projects/experiments/shadow-scroll-blossom/quick_start/index.md" },
+    { Details = "projects/experiments/shadow-scroll-blossom/details/index.md" },
+]
+
+[[project.nav.Projects.Experiments]]
+"Rust Terminal Forge" = [
+    { Overview = "projects/experiments/rust-terminal-forge/index.md" },
+    { "Quick Start" = "projects/experiments/rust-terminal-forge/quick_start/index.md" },
+    { Details = "projects/experiments/rust-terminal-forge/details/index.md" },
+]
+
+[[project.nav]]
+Canvas = [
+    { Overview = "canvas/index.md" },
+]
+
+[[project.nav]]
+"About Me" = "resume/index.md"
+
 [project.theme]
-
-# Use classic variant for Material for MkDocs look (optional)
-# variant = "classic"
-
-# Custom template overrides
 custom_dir = "docs/overrides"
-
-# Logo and favicon
 logo = "assets/images/me-today.png"
 favicon = "assets/images/favicon/favicon.ico"
-
-# Language
 language = "en"
-
-# Features - matching mkdocs.yml features
 features = [
-    # Announcement bar dismiss
     "announce.dismiss",
-
-    # Code features
     "content.code.annotate",
     "content.code.copy",
     "content.code.select",
-
-    # Content features
     "content.action.edit",
     "content.action.view",
     "content.footnote.tooltips",
     "content.tabs.link",
     "content.tooltips",
-
-    # Navigation features
     "navigation.footer",
     "navigation.indexes",
     "navigation.instant",
@@ -280,69 +362,68 @@ features = [
     "navigation.tabs.sticky",
     "navigation.top",
     "navigation.tracking",
-
-    # Search features
     "search.highlight",
     "search.suggest",
     "search.share",
-
-    # TOC features
     "toc.follow",
 ]
 
-# Font configuration
 [project.theme.font]
 text = "Space Grotesk"
 code = "JetBrains Mono"
 
-# Icon configuration
 [project.theme.icon]
 repo = "fontawesome/brands/github"
 
-# Color scheme - dark mode first (default)
 [[project.theme.palette]]
 scheme = "slate"
 primary = "teal"
 accent = "amber"
-toggle.icon = "lucide/sun"
-toggle.name = "Switch to light mode"
+
+[project.theme.palette.toggle]
+icon = "lucide/sun"
+name = "Switch to light mode"
 
 [[project.theme.palette]]
 scheme = "default"
 primary = "teal"
 accent = "amber"
-toggle.icon = "lucide/moon"
-toggle.name = "Switch to dark mode"
 
-# ----------------------------------------------------------------------------
-# Social links
-# ----------------------------------------------------------------------------
+[project.theme.palette.toggle]
+icon = "lucide/moon"
+name = "Switch to dark mode"
+
 [[project.extra.social]]
 icon = "fontawesome/brands/github"
 link = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
 
-# ----------------------------------------------------------------------------
-# Markdown Extensions
-# ----------------------------------------------------------------------------
-[project.markdown_extensions]
-# Standard markdown extensions
-extra = {}
-def_list = {}
-md_in_html = {}
-meta = {}
-attr_list = {}
-admonition = {}
+[project.markdown_extensions.extra]
 
-# PyMdown Extensions for enhanced code and content features
-[project.markdown_extensions.pymdownx]
-highlight = { anchor_linenums = true }
-inlinehilite = {}
-snippets = {}
-extra = {}                             # Note: pymdownx.extra is different from markdown.extra above
-details = {}
+[project.markdown_extensions.def_list]
+
+[project.markdown_extensions.md_in_html]
+
+[project.markdown_extensions.meta]
+
+[project.markdown_extensions.attr_list]
+
+[project.markdown_extensions.admonition]
+
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+
+[project.markdown_extensions.pymdownx.inlinehilite]
+
+[project.markdown_extensions.pymdownx.snippets]
+
+[project.markdown_extensions.pymdownx.extra]
+
+[project.markdown_extensions.pymdownx.details]
 
 [project.markdown_extensions.pymdownx.superfences]
-custom_fences = [{ name = "mermaid", class = "mermaid" }]
+custom_fences = [
+    { name = "mermaid", class = "mermaid" },
+]
 
 [project.markdown_extensions.pymdownx.tabbed]
 alternate_style = true
@@ -351,40 +432,26 @@ alternate_style = true
 emoji_index = "material.extensions.emoji.twemoji"
 emoji_generator = "material.extensions.emoji.to_svg"
 
-# ----------------------------------------------------------------------------
-# Plugins Configuration
-# ----------------------------------------------------------------------------
-[project.plugins]
-
-# Navigation plugin
 [project.plugins.awesome-nav]
 
-# Git authors plugin
 [project.plugins.git-authors]
-enabled = false           # Controlled by ENABLE_GIT_AUTHORS env var in CI
+enabled = true
 show_email_address = true
 href = "mailto:{email}"
 
-# Git revision date plugin
 [project.plugins.git-revision-date-localized]
 timezone = "America/North_Dakota/Center"
 
-# Mike versioning plugin
 [project.plugins.mike]
 
-# Image zoom plugin
 [project.plugins.panzoom]
 
-# Lightbox plugin
 [project.plugins.glightbox]
 
-# Search plugin
 [project.plugins.search]
 
-# Tags plugin
 [project.plugins.tags]
 
-# Minify plugin
 [project.plugins.minify]
 minify_html = true
 minify_js = true
@@ -393,12 +460,11 @@ minify_css = true
 [project.plugins.minify.htmlmin_opts]
 remove_comments = true
 
-# Print site plugin
 [project.plugins.print-site]
-enabled = false # Controlled by ENABLE_PRINT_SITE env var in CI
+enabled = false
 
-# ----------------------------------------------------------------------------
-# Watch Paths (for development hot reload)
-# ----------------------------------------------------------------------------
 [project.watch]
-paths = ["docs/overrides", "scripts/python"]
+paths = [
+    "docs/**",
+    "scripts/python",
+]
