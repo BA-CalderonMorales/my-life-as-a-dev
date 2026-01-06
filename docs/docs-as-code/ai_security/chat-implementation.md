@@ -28,9 +28,11 @@ A comprehensive guide to the Claude Docs-style AI chat widget implementation usi
 ### Component Breakdown
 
 **Frontend (Static Site)**
-- **Location**: [docs/assets/js/chat-widget.js](../../assets/js/chat-widget.js)
+- **Location**: [docs/assets/js/chat-widget/](../../assets/js/chat-widget/)
+- **Architecture**: MVVM (Model-View-ViewModel)
 - **Purpose**: DOM injection, user interaction, rate limiting
 - **Key Features**:
+  - Modular Architecture (separated src/lib)
   - Claude Docs-inspired UI with floating button
   - Responsive design (mobile/tablet/desktop)
   - Dark mode support
@@ -58,19 +60,20 @@ A comprehensive guide to the Claude Docs-style AI chat widget implementation usi
 
 ### Frontend Files
 
-**[docs/assets/js/chat-widget.js](../../assets/js/chat-widget.js)** (NEW)
-```javascript
-// DOM injection approach (bypasses Zensical template limitations)
-function injectWidget() {
-  if (window.location.pathname.startsWith('/canvas/')) return;
-  const widgetHTML = `...`; // Full widget structure
-  document.body.insertAdjacentHTML('beforeend', widgetHTML);
-}
+The frontend has been refactored into a modular MVVM architecture to improve maintainability and reuse.
 
-// Enhanced error logging
-console.log('[AI Chat] Sending message...');
-console.log('[AI Chat] Response received:', data);
-```
+**[docs/assets/js/chat-widget/](../../assets/js/chat-widget/)**
+Structure:
+- `src/`: Core application logic
+    - `main.js`: Application entry point and composition root
+    - `model.js`: Application state (isOpen, messages list, loading state)
+    - `view.js`: DOM manipulation and event binding (dumb view)
+    - `view-model.js`: Business logic and glue code (bridges View and Model)
+- `lib/`: Reusable utilities
+    - `api.js`: Backend communication service
+    - `logger.js`: Logging utility
+    - `config.js`: Configuration
+    - `message-parser.js`: Markdown parsing
 
 **[docs/assets/css/chat-widget.css](../../assets/css/chat-widget.css)** (NEW)
 - Claude Docs-inspired design
@@ -80,7 +83,7 @@ console.log('[AI Chat] Response received:', data);
 
 **[docs/overrides/main.html](../../overrides/main.html)** (MODIFIED)
 - Added CSS/JS includes in `{% block scripts %}`
-- Widget HTML injected by JavaScript (not template)
+- Updated script tags to load the new separated MVVM modules in correct dependency order
 
 ### Backend Files
 
