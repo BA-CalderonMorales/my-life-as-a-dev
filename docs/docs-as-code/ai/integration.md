@@ -390,6 +390,52 @@ curl -X POST "YOUR_BACKEND_URL/chat" \
 
 ---
 
+## v3.0 Features
+
+The v3.0 backend architecture includes enhanced features:
+
+### Session Memory
+
+Conversations maintain context across messages within a session:
+
+```javascript
+// Frontend sends session_id with each message
+{
+  "question": "Tell me more about that",
+  "session_id": "abc-123-xyz",
+  "page_context": "/learning/algorithms/"
+}
+```
+
+The backend stores conversation history (up to 50 turns) with 30-minute TTL.
+
+### Rate Limiting
+
+The backend enforces rate limits:
+
+- **30 requests/minute** per IP address
+- **1000 requests/minute** global limit
+- **Burst protection**: max 10 requests in 5 seconds
+
+Response headers indicate current limits:
+
+```
+X-RateLimit-Limit: 30
+X-RateLimit-Remaining: 29
+X-RateLimit-Reset: 1767693633
+```
+
+### Security Layers
+
+| Layer | Protection |
+|-------|------------|
+| CORS | Origin validation (static list + Codespaces pattern) |
+| Prompt Injection | Detects manipulation attempts (jailbreak, role play) |
+| Safety Settings | Google HarmCategory thresholds |
+| DDoS | Cloud Run infrastructure-level protection |
+
+---
+
 ## File Reference
 
 | File | Purpose | Customization |
