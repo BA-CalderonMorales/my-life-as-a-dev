@@ -37,19 +37,19 @@ class ChatView {
         <span class="ai-chat-header-title">Ask about Brandon's work</span>
       </div>
       <div class="ai-chat-header-actions">
-        <button class="ai-chat-action-btn" id="ai-chat-clear" aria-label="Clear chat" title="Clear chat">
+        <button class="ai-chat-action-btn" id="ai-chat-clear" aria-label="Clear chat">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="3 6 5 6 21 6"></polyline>
             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
           </svg>
         </button>
-        <button class="ai-chat-action-btn" id="ai-chat-copy" aria-label="Copy chat" title="Copy chat">
+        <button class="ai-chat-action-btn" id="ai-chat-copy" aria-label="Copy chat">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
           </svg>
         </button>
-        <button class="ai-chat-action-btn" id="ai-chat-share" aria-label="Share chat" title="Share chat">
+        <button class="ai-chat-action-btn" id="ai-chat-share" aria-label="Share chat">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="18" cy="5" r="3"></circle>
             <circle cx="6" cy="12" r="3"></circle>

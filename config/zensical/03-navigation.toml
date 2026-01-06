@@ -171,12 +171,18 @@ nav = [
         { "Zensical" = "docs-as-code/zensical/index.md" },
 
         # AI Features
-        { "AI & Security" = [
-            { "Overview" = "docs-as-code/ai_security/index.md" },
-            { "Chat Widget" = "docs-as-code/ai_security/chat_widget.md" },
-            { "Chat Security" = "docs-as-code/ai_security/chat-security.md" },
-            { "Chat Implementation" = "docs-as-code/ai_security/chat-implementation.md" },
-            { "Implementation Guide" = "docs-as-code/ai_security/implementation.md" },
+        { "AI" = [
+            { "Overview" = "docs-as-code/ai/index.md" },
+            { "Chat Widget" = "docs-as-code/ai/chat_widget.md" },
+            { "Architecture" = "docs-as-code/ai/architecture.md" },
+            { "Deployment" = "docs-as-code/ai/deployment.md" },
+            { "Integration" = "docs-as-code/ai/integration.md" },
+        ] },
+
+        # Security
+        { "Security" = [
+            { "Overview" = "docs-as-code/security/index.md" },
+            { "Chat Widget Security" = "docs-as-code/security/chat-security.md" },
         ] },
     ] },
 

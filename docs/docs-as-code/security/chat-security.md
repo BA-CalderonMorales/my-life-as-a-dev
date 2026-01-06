@@ -6,7 +6,7 @@ Comprehensive security documentation for the Claude Docs-style AI chat widget, c
 
 ### Defense-in-Depth Strategy
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │  Layer 1: Frontend Security                                 │
 │  - Input validation (500 char limit)                        │
@@ -14,14 +14,14 @@ Comprehensive security documentation for the Claude Docs-style AI chat widget, c
 │  - XSS prevention (textContent, no innerHTML)               │
 │  - HTTPS-only communication                                 │
 └─────────────────────────────────────────────────────────────┘
-                            ↓
+                              ↓
 ┌─────────────────────────────────────────────────────────────┐
 │  Layer 2: Network Security                                  │
 │  - CORS validation (strict origin matching)                 │
 │  - Regex-based Codespaces support (*.app.github.dev)        │
 │  - No credentials in client code                            │
 └─────────────────────────────────────────────────────────────┘
-                            ↓
+                              ↓
 ┌─────────────────────────────────────────────────────────────┐
 │  Layer 3: Backend Security                                  │
 │  - Prompt injection detection (10+ patterns)                │
@@ -29,7 +29,7 @@ Comprehensive security documentation for the Claude Docs-style AI chat widget, c
 │  - System prompt protection                                 │
 │  - Cloud Run isolation (containerized)                      │
 └─────────────────────────────────────────────────────────────┘
-                            ↓
+                              ↓
 ┌─────────────────────────────────────────────────────────────┐
 │  Layer 4: Secret Management                                 │
 │  - Secret Manager (encrypted at rest)                       │
@@ -628,9 +628,10 @@ Before deployment, verify:
 
 ## Related Documentation
 
-- [Implementation Guide](chat-implementation.md) - Architecture and deployment
-- [AI Security Overview](index.md) - High-level feature overview
-- [Zensical Configuration](../zensical/index.md) - Site generator setup
+- [Chat Widget Overview](../ai/chat_widget.md) - Main chat widget documentation
+- [Architecture Guide](../ai/architecture.md) - MVVM pattern and file structure
+- [Deployment Guide](../ai/deployment.md) - Cloud Run setup
+- [Security Posture](index.md) - High-level security overview
 
 ## Security Contact
 
