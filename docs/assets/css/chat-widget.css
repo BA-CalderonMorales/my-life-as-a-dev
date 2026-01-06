@@ -163,12 +163,12 @@
     color: var(--md-default-fg-color);
 }
 
-/* Input Area - At top like search */
+/* Input Area - At bottom of modal */
 .ai-chat-input-area {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+    padding: 16px 20px;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
     display: flex;
-    gap: 8px;
+    gap: 10px;
     background: var(--md-default-bg-color);
     flex-shrink: 0;
 }
@@ -200,13 +200,20 @@
     color: var(--md-primary-bg-color);
     border: none;
     border-radius: 6px;
-    padding: 10px 14px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.15s ease;
     flex-shrink: 0;
+}
+
+.ai-chat-send-btn svg {
+    width: 16px;
+    height: 16px;
 }
 
 .ai-chat-send-btn:hover {
@@ -220,6 +227,117 @@
 .ai-chat-send-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+/* Menu Button (Vertical Ellipsis) */
+.ai-chat-menu-wrapper {
+    position: relative;
+}
+
+.ai-chat-menu-btn {
+    background: var(--md-default-fg-color--lightest);
+    color: var(--md-default-fg-color--light);
+    border: none;
+    border-radius: 6px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+
+.ai-chat-menu-btn:hover {
+    background: var(--md-default-fg-color--lighter);
+    color: var(--md-default-fg-color);
+}
+
+.ai-chat-menu-btn:active {
+    transform: scale(0.95);
+}
+
+.ai-chat-menu-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.ai-chat-menu-btn svg circle {
+    fill: currentColor;
+}
+
+/* Dropdown Menu */
+.ai-chat-menu {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    margin-bottom: 8px;
+    background: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-z3);
+    min-width: 120px;
+    padding: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    z-index: 10;
+}
+
+.ai-chat-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.ai-chat-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 10px;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--md-default-fg-color);
+    font-size: 0.75rem;
+    font-family: inherit;
+    text-align: left;
+    transition: background 0.15s ease;
+}
+
+.ai-chat-menu-item:hover {
+    background: var(--md-default-fg-color--lightest);
+}
+
+.ai-chat-menu-item:active {
+    transform: scale(0.98);
+}
+
+.ai-chat-menu-item svg {
+    color: var(--md-default-fg-color--light);
+    flex-shrink: 0;
+}
+
+.ai-chat-menu-item span {
+    flex: 1;
+}
+
+/* Maximized State */
+.ai-chat-container.maximized {
+    max-width: 96vw;
+    max-height: 90vh;
+    width: 96vw;
+    height: 90vh;
+}
+
+.ai-chat-container.maximized .ai-chat-messages {
+    max-height: none;
+    flex: 1;
 }
 
 /* Messages Area */
@@ -446,6 +564,11 @@
         overflow: hidden;
     }
 
+    /* Hide maximize button on mobile - already fullscreen */
+    #ai-chat-maximize {
+        display: none;
+    }
+
     .ai-chat-messages {
         min-height: 0;
         max-height: none;
@@ -453,6 +576,12 @@
         /* Ensure messages area handles all scrolling on mobile */
         touch-action: pan-y;
         overscroll-behavior: contain;
+    }
+
+    /* Menu adjustments for mobile */
+    .ai-chat-menu {
+        right: 0;
+        min-width: 160px;
     }
 
     /* Handle virtual keyboard - use dvh for dynamic viewport height */
@@ -497,6 +626,20 @@
 
 [data-md-color-scheme="slate"] .ai-message-bot .ai-message-content {
     background: rgba(255, 255, 255, 0.05);
+}
+
+[data-md-color-scheme="slate"] .ai-chat-menu {
+    background: var(--md-default-bg-color);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-md-color-scheme="slate"] .ai-chat-menu-btn {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+[data-md-color-scheme="slate"] .ai-chat-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 /* Toast Notification */
