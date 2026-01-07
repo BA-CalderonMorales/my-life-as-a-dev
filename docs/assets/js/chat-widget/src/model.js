@@ -9,6 +9,8 @@ class ChatModel {
         this.isLoading = false;
         this.messages = []; // Array of { text, sender, timestamp }
         this.sessionId = null;
+        this.conversationStarted = false; // Tracks if user has sent a message
+        this.suggestedPrompts = []; // Current page's suggested prompts
     }
 
     addMessage(text, sender) {
@@ -37,6 +39,15 @@ class ChatModel {
 
     clearMessages() {
         this.messages = [];
+        this.conversationStarted = false; // Reset on clear
+    }
+
+    setConversationStarted(started) {
+        this.conversationStarted = started;
+    }
+
+    setSuggestedPrompts(prompts) {
+        this.suggestedPrompts = prompts;
     }
 }
 

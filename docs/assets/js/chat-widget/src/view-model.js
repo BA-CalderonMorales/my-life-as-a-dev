@@ -12,6 +12,7 @@ class ChatViewModel {
         this.parser = parser;
         this.config = config;
         this.logger = logger;
+        this.prompts = window.SuggestedPrompts; // Reference prompts module
 
         this.init();
     }
@@ -26,11 +27,95 @@ class ChatViewModel {
         this.view.bindShare(() => this.shareChat());
         this.view.bindMenuToggle();
         this.view.bindMaximize();
+        this.view.bindPromptClick((text) => this.handlePromptClick(text));
+
+        // Listen for MkDocs Material page navigation to refresh prompts
+        this.setupPageNavigationListener();
+    }
+
+    /**
+     * Listen for page navigation events to refresh prompts
+     */
+    setupPageNavigationListener() {
+        // Track current page URL
+        this.currentPageUrl = window.location.pathname;
+
+        // MkDocs Material fires 'DOMContentSwitch' event on navigation
+        document.addEventListener('DOMContentSwitch', () => {
+            this.handlePageChange();
+        });
+
+        // Also listen for location$ observable (Material's internal navigation)
+        if (window.location$) {
+            window.location$.subscribe(() => {
+                this.handlePageChange();
+            });
+        }
+    }
+
+    /**
+     * Handle page navigation - refresh prompts if URL changed
+     */
+    handlePageChange() {
+        const newUrl = window.location.pathname;
+        if (newUrl !== this.currentPageUrl) {
+            this.currentPageUrl = newUrl;
+
+            // Clear prompts cache to force fresh prompts for new page
+            if (this.prompts) {
+                this.prompts.clearCache();
+            }
+
+            // If chat is open and conversation hasn't started, reload prompts
+            if (this.model.isOpen && !this.model.conversationStarted) {
+                this.loadPrompts();
+            }
+        }
     }
 
     openChat() {
         this.model.setOpen(true);
         this.view.show();
+
+        // Load prompts if conversation hasn't started
+        // Also reload if page URL has changed since last load
+        if (!this.model.conversationStarted) {
+            const currentUrl = window.location.pathname;
+            if (this.lastPromptsUrl !== currentUrl) {
+                this.loadPrompts();
+            } else {
+                // Just show the existing prompts
+                this.view.showPrompts();
+            }
+        }
+    }
+
+    /**
+     * Load suggested prompts for current page
+     */
+    loadPrompts() {
+        if (this.prompts) {
+            // Clear cache to ensure fresh prompts for this URL
+            this.prompts.clearCache();
+
+            const currentUrl = window.location.pathname;
+            const pagePrompts = this.prompts.getPromptsForPage(currentUrl);
+
+            this.lastPromptsUrl = currentUrl;
+            this.model.setSuggestedPrompts(pagePrompts);
+            this.view.renderPrompts(pagePrompts);
+            this.view.showPrompts();
+        }
+    }
+
+    /**
+     * Handle suggested prompt button click
+     */
+    handlePromptClick(promptText) {
+        if (this.view.elements.input) {
+            this.view.elements.input.value = promptText;
+        }
+        this.sendMessage(promptText);
     }
 
     closeChat() {
@@ -40,6 +125,12 @@ class ChatViewModel {
 
     async sendMessage(text) {
         if (!text) return;
+
+        // Hide prompts on first message
+        if (!this.model.conversationStarted) {
+            this.model.setConversationStarted(true);
+            this.view.hidePrompts();
+        }
 
         // Validation
         if (this.config && text.length > this.config.MAX_MESSAGE_LENGTH) {
@@ -93,6 +184,9 @@ class ChatViewModel {
     clearChat() {
         this.model.clearMessages();
         this.view.clearMessages();
+
+        // Reset and show prompts again
+        this.loadPrompts();
     }
 
     copyChat() {

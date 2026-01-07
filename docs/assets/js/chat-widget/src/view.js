@@ -59,6 +59,11 @@ class ChatView {
       </div>
     </div>
 
+    <div id="ai-chat-prompts" class="ai-chat-prompts">
+      <button class="ai-chat-prompt-btn" data-prompt-index="0"></button>
+      <button class="ai-chat-prompt-btn" data-prompt-index="1"></button>
+    </div>
+
     <div class="ai-chat-input-area">
       <input type="text" id="ai-chat-input" placeholder="Ask a question..." autocomplete="off">
       <button class="ai-chat-send-btn" aria-label="Send message" title="Send">
@@ -149,7 +154,9 @@ class ChatView {
             shareBtn: document.getElementById('ai-chat-share'),
             input: document.getElementById('ai-chat-input'),
             sendBtn: document.querySelector('.ai-chat-send-btn'),
-            messagesDiv: document.getElementById('ai-chat-messages')
+            messagesDiv: document.getElementById('ai-chat-messages'),
+            promptsContainer: document.getElementById('ai-chat-prompts'),
+            promptBtns: document.querySelectorAll('.ai-chat-prompt-btn')
         };
         this._isMaximized = false;
     }
@@ -479,6 +486,43 @@ class ChatView {
                 return;
             }
         }, { passive: false });
+    }
+
+    /**
+     * Suggested Prompts Methods
+     */
+    bindPromptClick(handler) {
+        if (this.elements.promptBtns) {
+            this.elements.promptBtns.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const promptText = btn.textContent;
+                    if (promptText) handler(promptText);
+                });
+            });
+        }
+    }
+
+    renderPrompts(prompts) {
+        if (!this.elements.promptBtns || !prompts) return;
+
+        prompts.forEach((prompt, index) => {
+            if (this.elements.promptBtns[index]) {
+                this.elements.promptBtns[index].textContent = prompt;
+                this.elements.promptBtns[index].setAttribute('title', prompt);
+            }
+        });
+    }
+
+    showPrompts() {
+        if (this.elements.promptsContainer) {
+            this.elements.promptsContainer.classList.add('visible');
+        }
+    }
+
+    hidePrompts() {
+        if (this.elements.promptsContainer) {
+            this.elements.promptsContainer.classList.remove('visible');
+        }
     }
 }
 

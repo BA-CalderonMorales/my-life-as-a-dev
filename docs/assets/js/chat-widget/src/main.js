@@ -21,6 +21,7 @@
         const config = window.ChatConfig;
         const logger = window.ChatLogger;
         const api = window.ChatAPI;
+        const prompts = window.SuggestedPrompts;
 
         // Always instantiate View first to handle cleanup/removal if needed
         const view = new window.ChatView();
@@ -54,6 +55,7 @@
             api: api,
             model: model,
             viewModel: viewModel,
+            prompts: prompts,
 
             open: () => viewModel.openChat(),
             close: () => viewModel.closeChat(),

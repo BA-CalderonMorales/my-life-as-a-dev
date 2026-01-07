@@ -665,3 +665,76 @@
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
+
+/* ==========================================================================
+   Suggested Prompts - Chip-style buttons above input
+   ========================================================================== */
+
+.ai-chat-prompts {
+    display: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 16px 16px;
+    justify-content: center;
+}
+
+.ai-chat-prompts.visible {
+    display: flex;
+}
+
+.ai-chat-prompt-btn {
+    background: var(--md-default-fg-color--lightest);
+    border: 1px solid var(--md-default-fg-color--lighter);
+    border-radius: 16px;
+    padding: 8px 14px;
+    font-size: 0.75rem;
+    font-family: inherit;
+    color: var(--md-default-fg-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    max-width: calc(50% - 4px);
+    text-align: center;
+    line-height: 1.4;
+    /* Truncate long prompts */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ai-chat-prompt-btn:hover {
+    background: var(--md-primary-fg-color);
+    border-color: var(--md-primary-fg-color);
+    color: var(--md-primary-bg-color);
+    transform: translateY(-1px);
+}
+
+.ai-chat-prompt-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Dark mode / Slate theme for prompts */
+[data-md-color-scheme="slate"] .ai-chat-prompt-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-md-color-scheme="slate"] .ai-chat-prompt-btn:hover {
+    background: var(--md-primary-fg-color);
+    border-color: var(--md-primary-fg-color);
+}
+
+/* Mobile adjustments for prompts */
+@media (max-width: 768px) {
+    .ai-chat-prompts {
+        padding: 12px 12px 12px;
+    }
+
+    .ai-chat-prompt-btn {
+        font-size: 0.7rem;
+        padding: 6px 12px;
+        /* Allow full width on very small screens */
+        max-width: 100%;
+        flex: 1 1 auto;
+        min-width: 45%;
+    }
+}
