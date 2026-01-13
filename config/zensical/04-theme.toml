@@ -62,8 +62,8 @@ features = [
 # ==============================================================================
 
 [project.theme.font]
-text = "Space Grotesk"
-code = "JetBrains Mono"
+text = "Georgia"
+code = "Courier New"
 
 
 # ==============================================================================
@@ -83,15 +83,15 @@ repo = "fontawesome/brands/github"
 
 [[project.theme.palette]]
 scheme = "slate"
-primary = "teal"
-accent = "amber"
+primary = "black"
+accent = "grey"
 toggle.icon = "lucide/sun"
 toggle.name = "Switch to light mode"
 
 [[project.theme.palette]]
 scheme = "default"
-primary = "teal"
-accent = "amber"
+primary = "black"
+accent = "grey"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to dark mode"
 

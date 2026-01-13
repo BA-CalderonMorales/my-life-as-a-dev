@@ -1,55 +1,58 @@
 /* ============================================
    Typography - Text Styling
    Fonts, headings, and text enhancements
+   Publication-style typography (WSJ/NYT inspired)
    ============================================ */
 
-/* Font stack aligned with Anthropic-style docs */
+/* Font stack aligned with publication style */
 :root {
-    --mlad-text-font: "Space Grotesk", "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --mlad-text-font: Georgia, "Times New Roman", Times, serif;
 }
 
 body {
     font-family: var(--mlad-text-font);
-    font-feature-settings: "liga" 1, "ss01" 1;
-    font-variation-settings: "wght" 450;
+    font-feature-settings: "liga" 1;
+    font-weight: 400;
 }
 
 /* Body text defaults */
 .md-typeset {
     font-family: var(--mlad-text-font);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    letter-spacing: -0.01em;
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: 0;
 }
 
 /* Headings */
 .md-typeset h1 {
     font-weight: 700;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
 }
 
 .md-typeset h2 {
     font-weight: 600;
     margin-top: 2rem;
+    letter-spacing: 0;
 }
 
 .md-typeset h3 {
     font-weight: 600;
+    letter-spacing: 0;
 }
 
 /* Hero section text enhancement */
 .tx-hero__content h1 {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
 }
 
 .tx-hero__content p {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    text-shadow: none;
 }
 
 [data-md-color-scheme="slate"] .tx-hero__content h1 {
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    text-shadow: none;
 }
 
 [data-md-color-scheme="slate"] .tx-hero__content p {
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
 }

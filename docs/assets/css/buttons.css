@@ -1,6 +1,7 @@
 /* ============================================
    Buttons - Interactive Elements
    Buttons, links, pills, and action elements
+   Minimalistic publication style - no rounded corners
    ============================================ */
 
 /* Primary button */
@@ -11,8 +12,8 @@
     padding: 0.75rem 1.5rem;
     font-weight: 600;
     text-decoration: none;
-    border-radius: 0.5rem;
-    transition: all 0.2s ease;
+    border-radius: 0;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .md-typeset .md-button,
@@ -29,13 +30,12 @@
 .md-button--primary {
     background: var(--md-primary-fg-color);
     color: #fff;
-    border: none;
+    border: 2px solid var(--md-primary-fg-color);
 }
 
 .md-button--primary:hover {
-    background: var(--md-primary-fg-color--dark);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 150, 136, 0.3);
+    background: transparent;
+    color: var(--md-primary-fg-color);
 }
 
 /* Secondary button */
@@ -60,15 +60,15 @@
     font-weight: 500;
     text-decoration: none;
     color: var(--md-primary-fg-color);
-    background: var(--md-accent-fg-color--transparent);
-    border-radius: 2rem;
-    transition: all 0.2s ease;
+    background: transparent;
+    border: 1px solid var(--md-primary-fg-color);
+    border-radius: 0;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .project-link:hover {
     background: var(--md-primary-fg-color);
     color: #fff;
-    transform: translateY(-1px);
 }
 
 .project-link svg {
@@ -89,15 +89,14 @@
     color: var(--md-default-fg-color--light);
     background: transparent;
     border: 1px solid var(--md-default-fg-color--lightest);
-    border-radius: 0.375rem;
-    transition: all 0.15s ease;
+    border-radius: 0;
+    transition: border-color 0.15s ease, color 0.15s ease;
     cursor: pointer;
 }
 
 .md-content__button:hover {
     color: var(--md-primary-fg-color);
     border-color: var(--md-primary-fg-color);
-    background: rgba(0, 150, 136, 0.05);
 }
 
 .md-content__button svg {
@@ -115,5 +114,5 @@
 }
 
 [data-md-color-scheme="slate"] .md-content__button:hover {
-    background: rgba(38, 166, 154, 0.1);
+    background: transparent;
 }

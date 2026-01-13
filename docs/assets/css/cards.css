@@ -1,6 +1,7 @@
 /* ============================================
    Cards - Grid Cards and Feature Blocks
    Card components, blockquotes, and feature highlights
+   Minimalistic publication style - no rounded corners
    ============================================ */
 
 /* Grid card layout */
@@ -19,29 +20,27 @@
     padding: 1.5rem;
     background: var(--md-default-bg-color);
     border: 1px solid var(--md-default-fg-color--lightest);
-    border-radius: 0.75rem;
-    transition: all 0.2s ease;
+    border-radius: 0;
+    transition: border-color 0.2s ease;
 }
 
 .grid.cards>li:hover,
 .grid.cards>ul>li:hover {
-    border-color: var(--md-primary-fg-color--light);
-    box-shadow: 0 4px 16px rgba(0, 150, 136, 0.1);
-    transform: translateY(-2px);
+    border-color: var(--md-primary-fg-color);
 }
 
 [data-md-color-scheme="slate"] .grid.cards>li:hover,
 [data-md-color-scheme="slate"] .grid.cards>ul>li:hover {
-    box-shadow: 0 4px 16px rgba(38, 166, 154, 0.15);
+    border-color: var(--md-primary-fg-color);
 }
 
 /* Blockquote styling */
 .md-typeset blockquote {
-    border-left: 4px solid var(--md-primary-fg-color);
-    background: var(--md-accent-fg-color--transparent);
+    border-left: 3px solid var(--md-primary-fg-color);
+    background: transparent;
     padding: 1rem 1.25rem;
     margin: 1.5rem 0;
-    border-radius: 0 0.5rem 0.5rem 0;
+    border-radius: 0;
 }
 
 .md-typeset blockquote p {

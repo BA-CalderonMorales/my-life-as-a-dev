@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-01-06 08:26:44 UTC
+#   Generated: 2026-01-13 06:21:23 UTC
 #
 # ##############################################################################
 
@@ -392,16 +392,16 @@ features = [
 ]
 
 [project.theme.font]
-text = "Space Grotesk"
-code = "JetBrains Mono"
+text = "Georgia"
+code = "Courier New"
 
 [project.theme.icon]
 repo = "fontawesome/brands/github"
 
 [[project.theme.palette]]
 scheme = "slate"
-primary = "teal"
-accent = "amber"
+primary = "black"
+accent = "grey"
 
 [project.theme.palette.toggle]
 icon = "lucide/sun"
@@ -409,8 +409,8 @@ name = "Switch to light mode"
 
 [[project.theme.palette]]
 scheme = "default"
-primary = "teal"
-accent = "amber"
+primary = "black"
+accent = "grey"
 
 [project.theme.palette.toggle]
 icon = "lucide/moon"
