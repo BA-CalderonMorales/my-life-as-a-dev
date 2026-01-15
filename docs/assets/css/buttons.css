@@ -26,28 +26,48 @@
     margin-right: 0;
 }
 
+/* Primary button - High specificity to override MkDocs Material defaults */
+.md-typeset .md-button--primary,
 .md-button--primary {
-    background: var(--md-primary-fg-color);
-    color: #fff;
-    border: none;
+    background: var(--mlad-button-bg) !important;
+    color: var(--mlad-button-fg) !important;
+    border: 1px solid var(--mlad-button-border) !important;
+    /* Editorial Style: Square/Minimal */
+    border-radius: var(--mlad-radius-md) !important;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
 }
 
+.md-typeset .md-button--primary:hover,
 .md-button--primary:hover {
-    background: var(--md-primary-fg-color--dark);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 150, 136, 0.3);
+    background: var(--mlad-button-bg-hover) !important;
+    transform: none !important;
+    /* No movement */
+    box-shadow: none !important;
+    /* No shadow */
+    text-decoration: underline;
 }
 
 /* Secondary button */
+.md-typeset .md-button:not(.md-button--primary),
 .md-button:not(.md-button--primary) {
-    border: 2px solid var(--md-primary-fg-color);
-    color: var(--md-primary-fg-color);
-    background: transparent;
+    border: 1px solid var(--mlad-button-border) !important;
+    color: var(--md-default-fg-color) !important;
+    background: transparent !important;
+    border-radius: var(--mlad-radius-md) !important;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
 }
 
+.md-typeset .md-button:not(.md-button--primary):hover,
 .md-button:not(.md-button--primary):hover {
-    background: var(--md-primary-fg-color);
-    color: #fff;
+    background: var(--mlad-button-bg) !important;
+    color: var(--mlad-button-fg) !important;
+    text-decoration: none;
 }
 
 /* Project link pills */
@@ -97,7 +117,7 @@
 .md-content__button:hover {
     color: var(--md-primary-fg-color);
     border-color: var(--md-primary-fg-color);
-    background: rgba(0, 150, 136, 0.05);
+    background: var(--md-accent-fg-color--transparent);
 }
 
 .md-content__button svg {
@@ -115,5 +135,5 @@
 }
 
 [data-md-color-scheme="slate"] .md-content__button:hover {
-    background: rgba(38, 166, 154, 0.1);
+    background: var(--md-accent-fg-color--transparent);
 }
