@@ -18,11 +18,10 @@
     flex-direction: column;
     padding: 1.5rem;
     background: transparent;
-    border: none;
-    /* No border for seamless flow */
-    border-top: 1px solid var(--md-default-fg-color--lightest);
-    /* Minimal divider style */
-    border-radius: 0;
+    border: 1px solid var(--mlad-button-border);
+    /* Button-like border */
+    border-radius: var(--mlad-radius-md);
+    /* Button-like radius */
     transition: all 0.2s ease;
 }
 
@@ -30,11 +29,9 @@
 .grid.cards>ul>li:hover {
     border-color: var(--md-primary-fg-color);
     box-shadow: none;
-    /* Removed shadow/card lift effect */
-    background: var(--md-code-bg-color);
-    /* Subtle background shift on hover */
+    background: var(--mlad-menu-btn-bg-hover);
+    /* Subtle hover fill */
     transform: none;
-    /* No movement */
 }
 
 [data-md-color-scheme="slate"] .grid.cards>li:hover,

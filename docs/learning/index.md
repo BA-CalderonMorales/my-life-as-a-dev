@@ -6,25 +6,49 @@ A lightweight map of the study guides in this repository. Everything is written 
 
 ## Start here
 
-**Algorithm Patterns**
-:   Jump straight into the pattern library with short guides and worked examples.
-    [Open the overview](algorithms/index.md)
+<div class="grid cards" markdown>
 
-**Data Structures**
-:   Focused notes on arrays, hash tables, heaps, and tries with practice links.
-    [Browse structures](data_structures/index.md)
+-   :material-graph:{ .lg .middle } **Algorithm Patterns**
 
-**Interview Preparation**
-:   Frameworks for planning, solving, and communicating under pressure.
-    [Use the interview playbook](interview_preparation/index.md)
+    ---
 
-**Additional Topics**
-:   Quick hops to staple engineering articles and free resources.
-    [Open the reading list](additional_topics/index.md)
+    Jump straight into the pattern library with short guides and worked examples.
 
-**Cloud AI Platforms**
-:   Hands-on guides for cloud AI services including Google Vertex AI.
-    [Explore cloud AI](cloud_ai/index.md)
+    [:octicons-arrow-right-24: Open Overview](algorithms/index.md)
+
+-   :material-database:{ .lg .middle } **Data Structures**
+
+    ---
+
+    Focused notes on arrays, hash tables, heaps, and tries with practice links.
+
+    [:octicons-arrow-right-24: Browse Structures](data_structures/index.md)
+
+-   :material-account-voice:{ .lg .middle } **Interview Preparation**
+
+    ---
+
+    Frameworks for planning, solving, and communicating under pressure.
+
+    [:octicons-arrow-right-24: Use Playbook](interview_preparation/index.md)
+
+-   :material-library:{ .lg .middle } **Additional Topics**
+
+    ---
+
+    Quick hops to staple engineering articles and free resources.
+
+    [:octicons-arrow-right-24: Reading List](additional_topics/index.md)
+
+-   :material-cloud-circle:{ .lg .middle } **Cloud AI Platforms**
+
+    ---
+
+    Hands-on guides for cloud AI services including Google Vertex AI.
+
+    [:octicons-arrow-right-24: Explore Cloud AI](cloud_ai/index.md)
+
+</div>
 
 ---
 
@@ -32,21 +56,41 @@ A lightweight map of the study guides in this repository. Everything is written 
 
 Each pattern links to detailed notes and a representative LeetCode problem.
 
-**Sliding Window**
-:   Optimize contiguous ranges in strings and arrays.
-    [Notes](algorithms/sliding_window/index.md) · [LC 3](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+<div class="grid cards" markdown>
 
-**Dynamic Programming**
-:   Break problems into overlapping subproblems and cache results.
-    [Notes](algorithms/dynamic_programming/index.md) · [LC 322](https://leetcode.com/problems/coin-change/)
+-   :material-code-brackets:{ .lg .middle } **Sliding Window**
 
-**Two Pointers**
-:   Traverse from both ends or move pointers together to simplify scans.
-    [Notes](algorithms/two_pointers/index.md) · [LC 15](https://leetcode.com/problems/3sum/)
+    ---
 
-**Fast & Slow Pointers**
-:   Detect cycles and middle points with offset pointer speeds.
-    [Notes](algorithms/fast_slow_pointers/index.md) · [LC 141](https://leetcode.com/problems/linked-list-cycle/)
+    Optimize contiguous ranges in strings and arrays.
+
+    [:octicons-arrow-right-24: View Notes](algorithms/sliding_window/index.md)
+
+-   :material-code-brackets:{ .lg .middle } **Dynamic Programming**
+
+    ---
+
+    Break problems into overlapping subproblems and cache results.
+
+    [:octicons-arrow-right-24: View Notes](algorithms/dynamic_programming/index.md)
+
+-   :material-code-brackets:{ .lg .middle } **Two Pointers**
+
+    ---
+
+    Traverse from both ends or move pointers together to simplify scans.
+
+    [:octicons-arrow-right-24: View Notes](algorithms/two_pointers/index.md)
+
+-   :material-code-brackets:{ .lg .middle } **Fast & Slow Pointers**
+
+    ---
+
+    Detect cycles and middle points with offset pointer speeds.
+
+    [:octicons-arrow-right-24: View Notes](algorithms/fast_slow_pointers/index.md)
+
+</div>
 
 **Backtracking**
 :   Explore search spaces with reversible choices.
