@@ -102,15 +102,20 @@
     padding-block: 0.35rem;
     background: transparent !important;
     transition: background 0.15s ease;
+    color: var(--md-default-fg-color) !important;
+    /* Ensure visibility against solid bg */
+    font-weight: 450;
+    /* Slightly more weight for legibility */
 }
 
-/* Text ellipsis - target the span that Material provides, not the whole link */
-.md-sidebar--primary .md-nav__link .md-ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: block;
-    max-width: 100%;
+/* Standard Link Hover */
+.md-sidebar--primary .md-nav__link:hover {
+    color: var(--md-primary-fg-color) !important;
+    background: var(--md-accent-fg-color--transparent) !important;
+    text-decoration: underline;
+    /* Editorial style indicator */
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
 }
 
 /* Container links (with dropdown arrows) need flex layout preserved */
@@ -143,6 +148,10 @@
 .md-sidebar--primary .md-nav__item--nested>.md-nav__container,
 .md-sidebar--primary .md-nav__item--section>.md-nav__container {
     background: transparent !important;
+    pointer-events: auto;
+    /* Ensure clickable */
+    color: var(--mlad-header-fg) !important;
+    /* Force readable text color */
 }
 
 /* Hover on nested/active items */
@@ -151,6 +160,9 @@
 .md-sidebar--primary .md-nav__item--nested>.md-nav__container:hover,
 .md-sidebar--primary .md-nav__item--section>.md-nav__container:hover {
     background: var(--md-accent-fg-color--transparent) !important;
+    color: var(--md-primary-fg-color) !important;
+    font-weight: 500;
+    /* Subtle bold on hover */
 }
 
 @media screen and (max-width: 76.25rem) {
@@ -160,15 +172,27 @@
         margin: 0;
     }
 
-    .md-sidebar--primary,
-    .md-sidebar--primary .md-sidebar__scrollwrap,
-    .md-drawer,
+    /* Mobile/Tablet Drawer - Absolutely No Blur */
+    .md-drawer {
+        background: var(--md-default-bg-color) !important;
+        border-right: 1px solid var(--md-default-fg-color--lightest) !important;
+        opacity: 1 !important;
+    }
+
+    /* The overlay that dims the background behind the drawer */
+    [data-md-toggle="drawer"]:checked~.md-overlay {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background-color: rgba(0, 0, 0, 0.54) !important;
+        /* Standard material dimmer */
+    }
+
     .md-drawer__content,
-    .md-nav--primary {
-        background: var(--nav-surface);
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        border: none;
+    .md-nav--primary,
+    .md-sidebar--primary .md-sidebar__scrollwrap {
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
     }
 
     .md-sidebar--primary .md-sidebar__inner,
@@ -176,6 +200,8 @@
         border-radius: 0;
         border: none;
         margin: 0;
+        background: transparent !important;
+        backdrop-filter: none !important;
     }
 }
 
@@ -203,4 +229,31 @@
 
 .md-tabs .md-tabs__item {
     color: var(--mlad-header-fg);
+}
+
+/* ==========================================================================
+   GLOBAL OVERRIDES FOR MOBILE MENU (Force Fix)
+   Removes all blur filters from the overlay and drawer
+   ========================================================================== */
+
+/* CRITICAL: Overlay must not block clicks when drawer is closed */
+.md-overlay {
+    pointer-events: none !important;
+}
+
+/* Only enable overlay interaction when drawer is open */
+[data-md-toggle="drawer"]:checked~.md-overlay {
+    pointer-events: auto !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    /* Standard dim, no blur */
+}
+
+/* Mobile Drawer - Remove blur effects */
+.md-drawer {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
 }

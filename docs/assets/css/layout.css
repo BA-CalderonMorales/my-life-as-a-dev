@@ -3,13 +3,6 @@
    Page structure, columns, and spacing
    ============================================ */
 
-/* Performance: content-visibility for heavy containers */
-.md-main__inner,
-.tx-container {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 1000px;
-}
-
 /* Hero section layout */
 .tx-hero {
     display: flex;
@@ -250,14 +243,17 @@
 
 /* Allow horizontal scrolling for deeply nested items */
 .md-nav__link {
-    white-space: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    text-overflow: clip;
+    /* white-space: nowrap; - Removed for interactions safety */
+    /* overflow-x: auto; - Removed as it blocks clicks on some mobile browsers */
+    /* overflow-y: hidden; */
+    /* text-overflow: clip; */
+    white-space: normal;
+    /* Wrap text instead */
     max-width: 100%;
-    scrollbar-width: thin;
-    scrollbar-color: var(--md-default-fg-color--lighter) transparent;
+    /* scrollbar-width: thin; */
+    /* scrollbar-color: var(--md-default-fg-color--lighter) transparent; */
 }
+
 
 /* Webkit scrollbar styling for nav links */
 .md-nav__link::-webkit-scrollbar {
