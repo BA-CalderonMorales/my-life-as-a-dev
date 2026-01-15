@@ -478,3 +478,46 @@ label.md-nav__link[for]:active {
 [data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link {
     color: var(--md-default-fg-color--light);
 }
+
+/* ============================================
+   PWA Safe Area Support
+   Handles notches and home indicators on mobile
+   ============================================ */
+
+/* Apply safe area insets for standalone PWA mode */
+@supports (padding: env(safe-area-inset-top)) {
+    /* When running as standalone PWA, add padding for notches */
+    @media all and (display-mode: standalone) {
+        .md-header {
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .md-footer {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .md-sidebar--primary {
+            padding-left: env(safe-area-inset-left);
+        }
+
+        .md-sidebar--secondary {
+            padding-right: env(safe-area-inset-right);
+        }
+
+        /* Ensure content doesn't get hidden behind home indicator */
+        .md-content {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+
+    /* Also apply when using apple-mobile-web-app-capable */
+    @media all and (display-mode: fullscreen) {
+        .md-header {
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .md-footer {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+}
