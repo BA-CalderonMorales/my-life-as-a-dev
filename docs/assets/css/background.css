@@ -98,24 +98,22 @@
 
 /* Navigation link styling with consistent hover */
 .md-sidebar--primary .md-nav__link {
-    border-radius: 0.4rem;
+    border-radius: 0;
     padding-block: 0.35rem;
     background: transparent !important;
-    transition: background 0.15s ease;
+    transition: background 0.15s ease, opacity 0.15s ease;
     color: var(--md-default-fg-color) !important;
-    /* Ensure visibility against solid bg */
     font-weight: 450;
-    /* Slightly more weight for legibility */
 }
 
 /* Standard Link Hover */
 .md-sidebar--primary .md-nav__link:hover {
-    color: var(--md-primary-fg-color) !important;
+    color: var(--md-default-fg-color) !important;
     background: var(--md-accent-fg-color--transparent) !important;
     text-decoration: underline;
-    /* Editorial style indicator */
     text-decoration-thickness: 1px;
     text-underline-offset: 4px;
+    opacity: 0.8;
 }
 
 /* Container links (with dropdown arrows) need flex layout preserved */
@@ -133,6 +131,7 @@
 /* Active link styling */
 .md-sidebar--primary .md-nav__link.md-nav__link--active {
     background: var(--md-accent-fg-color--transparent) !important;
+    font-weight: 600;
 }
 
 /* Reset nested/active item backgrounds to transparent by default */
@@ -142,16 +141,14 @@
     background: transparent !important;
 }
 
-/* Links inside nested/active items - transparent by default */
+/* Links inside nested/active items - use consistent text color */
 .md-sidebar--primary .md-nav__item--nested>.md-nav__link,
 .md-sidebar--primary .md-nav__item--active>.md-nav__link,
 .md-sidebar--primary .md-nav__item--nested>.md-nav__container,
 .md-sidebar--primary .md-nav__item--section>.md-nav__container {
     background: transparent !important;
     pointer-events: auto;
-    /* Ensure clickable */
-    color: var(--mlad-header-fg) !important;
-    /* Force readable text color */
+    color: var(--md-default-fg-color) !important;
 }
 
 /* Hover on nested/active items */
@@ -160,9 +157,8 @@
 .md-sidebar--primary .md-nav__item--nested>.md-nav__container:hover,
 .md-sidebar--primary .md-nav__item--section>.md-nav__container:hover {
     background: var(--md-accent-fg-color--transparent) !important;
-    color: var(--md-primary-fg-color) !important;
-    font-weight: 500;
-    /* Subtle bold on hover */
+    color: var(--md-default-fg-color) !important;
+    opacity: 0.8;
 }
 
 @media screen and (max-width: 76.25rem) {
@@ -172,7 +168,7 @@
         margin: 0;
     }
 
-    /* Mobile/Tablet Drawer - Absolutely No Blur */
+    /* Mobile/Tablet Drawer - Solid background, no blur */
     .md-drawer {
         background: var(--md-default-bg-color) !important;
         border-right: 1px solid var(--md-default-fg-color--lightest) !important;
@@ -184,7 +180,6 @@
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
         background-color: rgba(0, 0, 0, 0.54) !important;
-        /* Standard material dimmer */
     }
 
     .md-drawer__content,
@@ -202,6 +197,29 @@
         margin: 0;
         background: transparent !important;
         backdrop-filter: none !important;
+    }
+
+    /* Mobile nav links - consistent with rest of app */
+    .md-nav--primary .md-nav__link,
+    .md-nav--primary .md-nav__item .md-nav__link {
+        color: var(--md-default-fg-color) !important;
+    }
+
+    .md-nav--primary .md-nav__link:hover,
+    .md-nav--primary .md-nav__item .md-nav__link:hover {
+        color: var(--md-default-fg-color) !important;
+        opacity: 0.8;
+        text-decoration: underline;
+    }
+
+    /* Mobile nav title */
+    .md-nav--primary .md-nav__title {
+        color: var(--md-default-fg-color) !important;
+        background: transparent !important;
+    }
+
+    .md-nav--primary .md-nav__title[for="__drawer"] {
+        color: var(--md-default-fg-color) !important;
     }
 }
 
