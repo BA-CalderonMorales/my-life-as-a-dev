@@ -18,26 +18,21 @@
     flex-direction: column;
     padding: 1.5rem;
     background: transparent;
-    border: 1px solid var(--mlad-button-border);
-    /* Button-like border */
-    border-radius: var(--mlad-radius-md);
-    /* Button-like radius */
-    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    border-radius: 0;
+    transition: all 0.15s ease;
 }
 
 .grid.cards>li:hover,
 .grid.cards>ul>li:hover {
-    border-color: var(--md-primary-fg-color);
-    box-shadow: none;
-    background: var(--mlad-menu-btn-bg-hover);
-    /* Subtle hover fill */
+    border-color: rgba(0, 0, 0, 0.1);
+    background: transparent;
     transform: none;
 }
 
 [data-md-color-scheme="slate"] .grid.cards>li:hover,
 [data-md-color-scheme="slate"] .grid.cards>ul>li:hover {
-    box-shadow: none;
-    border-color: var(--md-primary-fg-color);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Blockquote styling */

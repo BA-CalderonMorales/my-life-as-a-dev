@@ -62,7 +62,7 @@ features = [
 # ==============================================================================
 
 [project.theme.font]
-text = "Space Grotesk"
+text = "Inter"
 code = "JetBrains Mono"
 
 

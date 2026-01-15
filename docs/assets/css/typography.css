@@ -3,9 +3,9 @@
    Fonts, headings, and text enhancements
    ============================================ */
 
-/* Font stack aligned with Anthropic-style docs */
+/* Font stack - Clean, neutral, minimal */
 :root {
-    --mlad-text-font: "Space Grotesk", "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --mlad-text-font: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
