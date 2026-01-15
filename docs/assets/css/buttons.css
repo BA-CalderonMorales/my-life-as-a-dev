@@ -26,48 +26,46 @@
     margin-right: 0;
 }
 
-/* Primary button - High specificity to override MkDocs Material defaults */
+/* Primary button - Minimal, borderless */
 .md-typeset .md-button--primary,
 .md-button--primary {
     background: var(--mlad-button-bg) !important;
     color: var(--mlad-button-fg) !important;
-    border: 1px solid var(--mlad-button-border) !important;
-    /* Editorial Style: Square/Minimal */
-    border-radius: var(--mlad-radius-md) !important;
+    border: none !important;
+    border-radius: 0 !important;
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.8rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.875rem;
 }
 
 .md-typeset .md-button--primary:hover,
 .md-button--primary:hover {
     background: var(--mlad-button-bg-hover) !important;
     transform: none !important;
-    /* No movement */
     box-shadow: none !important;
-    /* No shadow */
     text-decoration: underline;
 }
 
-/* Secondary button */
+/* Secondary button - Ghost style */
 .md-typeset .md-button:not(.md-button--primary),
 .md-button:not(.md-button--primary) {
-    border: 1px solid var(--mlad-button-border) !important;
+    border: 1px solid transparent !important;
     color: var(--md-default-fg-color) !important;
     background: transparent !important;
-    border-radius: var(--mlad-radius-md) !important;
+    border-radius: 0 !important;
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.8rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.875rem;
 }
 
 .md-typeset .md-button:not(.md-button--primary):hover,
 .md-button:not(.md-button--primary):hover {
-    background: var(--mlad-button-bg) !important;
-    color: var(--mlad-button-fg) !important;
-    text-decoration: none;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+    background: transparent !important;
+    color: var(--md-default-fg-color) !important;
+    text-decoration: underline;
 }
 
 /* Project link pills */

@@ -26,12 +26,11 @@
     /* ============================================
        Global Layout & Spacing Tokens
        ============================================ */
-    /* Professional/Editorial Radius (Minimal) */
-    --mlad-radius-sm: 0px;
-    --mlad-radius-md: 2px;
-    --mlad-radius-lg: 4px;
-    --mlad-radius-pill: 4px;
-    /* Reduced from 2rem to allow for more minimal look */
+    /* Ultra-minimal: No border radius */
+    --mlad-radius-sm: 0;
+    --mlad-radius-md: 0;
+    --mlad-radius-lg: 0;
+    --mlad-radius-pill: 0;
 
     --mlad-spacing-xs: 0.25rem;
     --mlad-spacing-sm: 0.5rem;
