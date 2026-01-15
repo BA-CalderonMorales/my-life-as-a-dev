@@ -85,6 +85,25 @@
 <meta name="site_url" content="{{ config.site_url }}">
 <link rel="icon" href="{{ config.theme.logo | url }}" />
 
+<!-- PWA: Web App Manifest for Android -->
+<link rel="manifest" href="{{ 'manifest.webmanifest' | url }}">
+
+<!-- PWA: iOS/Safari specific meta tags for full-screen home screen app -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SimplifiedLife">
+<link rel="apple-touch-icon" href="{{ 'assets/images/favicon/icon-192.png' | url }}">
+
+<!-- PWA: Android/Chrome theme color -->
+<meta name="theme-color" content="#1a1a2e">
+
+<!-- PWA: Microsoft/Windows tile -->
+<meta name="msapplication-TileColor" content="#1a1a2e">
+
+<!-- PWA: Mobile viewport optimization for standalone mode -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+
 <!-- Additional patches and polyfills loaded from external file -->
 <script src="{{ 'assets/js/console-patch.js' | url }}"></script>
 <!-- Import map for Three.js ES modules -->
