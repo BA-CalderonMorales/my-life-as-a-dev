@@ -48,10 +48,10 @@
     text-decoration: underline;
 }
 
-/* Secondary button - Ghost style, no border */
+/* Secondary button - Ghost style with light border */
 .md-typeset .md-button:not(.md-button--primary),
 .md-button:not(.md-button--primary) {
-    border: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
     color: var(--md-default-fg-color) !important;
     background: transparent !important;
     border-radius: 0 !important;
@@ -61,9 +61,14 @@
     font-size: 0.875rem;
 }
 
+[data-md-color-scheme="slate"] .md-typeset .md-button:not(.md-button--primary),
+[data-md-color-scheme="slate"] .md-button:not(.md-button--primary) {
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
 .md-typeset .md-button:not(.md-button--primary):hover,
 .md-button:not(.md-button--primary):hover {
-    border: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.4) !important;
     background: rgba(0, 0, 0, 0.05) !important;
     color: var(--md-default-fg-color) !important;
     text-decoration: underline;
@@ -71,6 +76,7 @@
 
 [data-md-color-scheme="slate"] .md-typeset .md-button:not(.md-button--primary):hover,
 [data-md-color-scheme="slate"] .md-button:not(.md-button--primary):hover {
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
     background: rgba(255, 255, 255, 0.1) !important;
 }
 
