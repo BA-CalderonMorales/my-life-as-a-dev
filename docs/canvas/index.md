@@ -57,5 +57,5 @@ hide:
 }
 </style>
 
-<!-- The Three.js scene is initialized by assets/js/canvas-scene.js -->
-<!-- This script loads globally and handles instant navigation properly -->
+<!-- Crystal Cave Scene - initialized by canvas/scene/main.js -->
+<!-- Modular architecture under assets/js/canvas/scene/ -->
