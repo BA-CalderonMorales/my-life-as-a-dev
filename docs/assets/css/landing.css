@@ -19,38 +19,44 @@
     margin: 0;
 }
 
-/* Hero section card - floating card effect */
+/* Hero section card - Minimal / No border */
 .landing-page .tx-hero {
-    background: var(--md-default-bg-color);
-    border-radius: 1rem;
-    padding: 2rem;
+    background: transparent;
+    border-radius: 0;
+    padding: 2rem 0;
+    /* Align with content edge */
     margin: 1rem auto;
     max-width: 1200px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    box-shadow: none;
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
 }
 
 [data-md-color-scheme="slate"] .landing-page .tx-hero {
-    background: rgba(15, 15, 35, 0.95);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
 }
 
-/* Content sections as floating cards */
+/* Content sections - seamless flow */
 .landing-page .tx-container,
 .landing-page section.md-typeset,
 .landing-page .md-typeset>*:not(.tx-hero) {
     background: var(--md-default-bg-color);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
+    /* Keep content readable */
+    border-radius: 0;
+    padding: 1.5rem 0;
+    /* Remove horizontal padding impact */
     margin: 1rem auto;
     max-width: 1200px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: none;
+    border: none;
 }
 
 [data-md-color-scheme="slate"] .landing-page .tx-container,
 [data-md-color-scheme="slate"] .landing-page section.md-typeset,
 [data-md-color-scheme="slate"] .landing-page .md-typeset>*:not(.tx-hero) {
-    background: rgba(15, 15, 35, 0.95);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: var(--md-default-bg-color);
+    box-shadow: none;
+    border: none;
 }

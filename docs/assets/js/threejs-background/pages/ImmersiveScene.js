@@ -42,28 +42,27 @@ export class ImmersiveScene {
         this.interactiveParticles = null;
         this.auroraVeil = null;
 
-        // Theme colors - warm amber/brown palette that mirrors the new site theme
-        // Deliberately softer so the background supports legibility at night
+        // Theme colors - Monochrome/Minimalist
         this.themes = {
             dark: {
-                gradientTop: 0x261108,      // Burnt umber glow
-                gradientBottom: 0x080302,   // Deep espresso base
-                accent: 0xf1c184,           // Soft amber highlight
-                particlePrimary: 0xc08752,  // Caramel core particles
-                particleSecondary: 0xf6d1a5, // Honey accent
-                waveColor: 0xa96a3a,
-                waveOpacity: 0.22,          // Slightly richer in dark mode
-                auroraColor: 0xf7d8b6,
+                gradientTop: 0x000000,      // Pure black
+                gradientBottom: 0x111111,   // Very dark gray
+                accent: 0xffffff,           // White accent
+                particlePrimary: 0x888888,  // Gray particles
+                particleSecondary: 0x444444, // Darker gray
+                waveColor: 0x333333,
+                waveOpacity: 0.22,
+                auroraColor: 0x222222,
             },
             light: {
-                gradientTop: 0xfff8f0,      // Diffused parchment white
-                gradientBottom: 0xf2e2d1,   // Warm sand base
-                accent: 0xc08752,           // Caramel accent
-                particlePrimary: 0xa16237,  // Toasted bronze
-                particleSecondary: 0xf3c19a, // Peach glow
-                waveColor: 0xdca675,
-                waveOpacity: 0.14,          // Soft in light mode
-                auroraColor: 0xf7d0a4,
+                gradientTop: 0xffffff,      // Pure white
+                gradientBottom: 0xf5f5f5,   // Very light gray
+                accent: 0x000000,           // Black accent
+                particlePrimary: 0x333333,  // Dark gray
+                particleSecondary: 0x888888, // Light gray
+                waveColor: 0xcccccc,
+                waveOpacity: 0.14,
+                auroraColor: 0xe0e0e0,
             }
         };
 

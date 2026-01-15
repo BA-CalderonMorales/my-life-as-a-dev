@@ -17,22 +17,30 @@
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    background: var(--md-default-bg-color);
-    border: 1px solid var(--md-default-fg-color--lightest);
-    border-radius: 0.75rem;
+    background: transparent;
+    border: none;
+    /* No border for seamless flow */
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+    /* Minimal divider style */
+    border-radius: 0;
     transition: all 0.2s ease;
 }
 
 .grid.cards>li:hover,
 .grid.cards>ul>li:hover {
-    border-color: var(--md-primary-fg-color--light);
-    box-shadow: 0 4px 16px rgba(0, 150, 136, 0.1);
-    transform: translateY(-2px);
+    border-color: var(--md-primary-fg-color);
+    box-shadow: none;
+    /* Removed shadow/card lift effect */
+    background: var(--md-code-bg-color);
+    /* Subtle background shift on hover */
+    transform: none;
+    /* No movement */
 }
 
 [data-md-color-scheme="slate"] .grid.cards>li:hover,
 [data-md-color-scheme="slate"] .grid.cards>ul>li:hover {
-    box-shadow: 0 4px 16px rgba(38, 166, 154, 0.15);
+    box-shadow: none;
+    border-color: var(--md-primary-fg-color);
 }
 
 /* Blockquote styling */

@@ -6,12 +6,12 @@
 :root {
     --nav-surface: rgba(255, 255, 255, 0.9);
     --nav-surface-strong: rgba(255, 255, 255, 0.96);
-    --nav-border: rgba(15, 23, 42, 0.08);
+    --nav-border: rgba(0, 0, 0, 0.1);
 }
 
 [data-md-color-scheme="slate"] {
-    --nav-surface: rgba(11, 14, 28, 0.78);
-    --nav-surface-strong: rgba(6, 8, 20, 0.9);
+    --nav-surface: rgba(0, 0, 0, 0.78);
+    --nav-surface-strong: rgba(0, 0, 0, 0.9);
     --nav-border: rgba(255, 255, 255, 0.1);
 }
 
@@ -181,10 +181,26 @@
 
 /* Header - solid background for navigation */
 .md-header {
-    background: var(--md-default-bg-color);
+    background: var(--mlad-header-bg);
+    color: var(--mlad-header-fg);
+}
+
+/* Force header icons (menu, search, repo) to match theme */
+.md-header .md-header__button.md-icon {
+    color: var(--mlad-header-fg);
+}
+
+.md-header .md-header__button.md-icon:hover {
+    background: var(--mlad-menu-btn-bg-hover);
+    border-radius: 50%;
 }
 
 /* Tabs - solid background */
 .md-tabs {
-    background: var(--md-default-bg-color);
+    background: var(--mlad-header-bg);
+    color: var(--mlad-header-fg);
+}
+
+.md-tabs .md-tabs__item {
+    color: var(--mlad-header-fg);
 }

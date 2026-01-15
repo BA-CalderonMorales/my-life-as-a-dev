@@ -3,6 +3,13 @@
    Page structure, columns, and spacing
    ============================================ */
 
+/* Performance: content-visibility for heavy containers */
+.md-main__inner,
+.tx-container {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 1000px;
+}
+
 /* Hero section layout */
 .tx-hero {
     display: flex;
