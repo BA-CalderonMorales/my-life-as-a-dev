@@ -8,33 +8,41 @@ A curated set of builds that show how I approach tooling, automation, and creati
 
 Production-ready tools and infrastructure I actively maintain.
 
-**Terminal Jarvis**
-:   Unified CLI for orchestrating multiple AI coding assistants.
+<div class="grid cards" markdown>
 
-    - [Docs](active/terminal-jarvis/index.md)
-    - [GitHub](https://github.com/BA-CalderonMorales/terminal-jarvis)
-    - [NPM](https://www.npmjs.com/package/terminal-jarvis)
-    - [Crates.io](https://crates.io/crates/terminal-jarvis)
+-   :material-console:{ .lg .middle } **Terminal Jarvis**
 
-**Coder Infrastructure**
-:   Templates and scripts for self-hosted Coder deployments.
+    ---
 
-    - [Docs](active/coder-starter-scripts/index.md)
-    - [Starter Scripts](https://github.com/BA-CalderonMorales/coder-starter-scripts)
-    - [Templates](https://github.com/BA-CalderonMorales/coder-templates)
+    Unified CLI for orchestrating multiple AI coding assistants.
 
-**Docs-as-Code Portfolio**
-:   The system behind this site: mike, MkDocs, and repeatable releases.
+    [:octicons-arrow-right-24: View Docs](active/terminal-jarvis/index.md)
 
-    - [Docs](active/my-life-as-a-dev/index.md)
-    - [GitHub](https://github.com/BA-CalderonMorales/my-life-as-a-dev)
-    - [Live](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
+-   :material-server:{ .lg .middle } **Coder Infrastructure**
 
-**Terminal Screensaver**
-:   Rust crate for dynamic, plugin-friendly terminal visuals.
+    ---
 
-    - [Docs](active/terminal-screensaver/index.md)
-    - [GitHub](https://github.com/BA-CalderonMorales/terminal-screensaver)
+    Templates and scripts for self-hosted Coder deployments.
+
+    [:octicons-arrow-right-24: View Docs](active/coder-starter-scripts/index.md)
+
+-   :material-book-open-variant:{ .lg .middle } **Docs-as-Code Portfolio**
+
+    ---
+
+    The system behind this site: mike, MkDocs, and repeatable releases.
+
+    [:octicons-arrow-right-24: View Docs](active/my-life-as-a-dev/index.md)
+
+-   :material-monitor:{ .lg .middle } **Terminal Screensaver**
+
+    ---
+
+    Rust crate for dynamic, plugin-friendly terminal visuals.
+
+    [:octicons-arrow-right-24: View Docs](active/terminal-screensaver/index.md)
+
+</div>
 
 ---
 
@@ -42,12 +50,17 @@ Production-ready tools and infrastructure I actively maintain.
 
 Exploratory projects and creative sandboxes. Stability not guaranteed.
 
-**Immersive Awe Canvas**
-:   Interactive 3D experiments with WebGL and responsive theming.
+<div class="grid cards" markdown>
 
-    - [Docs](experiments/immersive-awe-canvas/index.md)
-    - [GitHub](https://github.com/BA-CalderonMorales/immersive-awe-canvas)
-    - [Prod](https://immersive-awe-canvas.lovable.app)
+-   :material-palette:{ .lg .middle } **Immersive Awe Canvas**
+
+    ---
+
+    Interactive 3D experiments with WebGL and responsive theming.
+
+    [:octicons-arrow-right-24: View Docs](experiments/immersive-awe-canvas/index.md)
+
+</div>
     - [QA](https://ba-calderonmorales.github.io/immersive-awe-canvas)
 
 **Shadow Scroll Blossom**

@@ -6,25 +6,49 @@ This site treats documentation like any other product release: versioned, automa
 
 ## Sections
 
-**Guiding Principles**
-:   Navigation, safety, and maintainability rules.
-    [Open principles](principles/index.md)
+<div class="grid cards" markdown>
 
-**Workflow**
-:   Preview, version, and deploy steps.
-    [Open workflow](workflow/index.md)
+-   :material-compass-outline:{ .lg .middle } **Guiding Principles**
 
-**Stack & Tooling**
-:   MkDocs, mike, Actions, doc-cli overview.
-    [Open stack](stack/index.md)
+    ---
 
-**Quality & Style**
-:   Writing conventions and consistency.
-    [Open quality guide](quality/index.md)
+    Navigation, safety, and maintainability rules.
 
-**AI & Security Posture**
-:   Preconditions before enabling AI features.
-    [Open AI stance](ai_security/index.md)
+    [:octicons-arrow-right-24: Open Principles](principles/index.md)
+
+-   :material-call-split:{ .lg .middle } **Workflow**
+
+    ---
+
+    Preview, version, and deploy steps.
+
+    [:octicons-arrow-right-24: Open Workflow](workflow/index.md)
+
+-   :material-layers-triple:{ .lg .middle } **Stack & Tooling**
+
+    ---
+
+    MkDocs, mike, Actions, doc-cli overview.
+
+    [:octicons-arrow-right-24: Open Stack](stack/index.md)
+
+-   :material-check-decagram:{ .lg .middle } **Quality & Style**
+
+    ---
+
+    Writing conventions and consistency.
+
+    [:octicons-arrow-right-24: Open Guide](quality/index.md)
+
+-   :material-shield-lock-outline:{ .lg .middle } **AI & Security**
+
+    ---
+
+    Preconditions before enabling AI features.
+
+    [:octicons-arrow-right-24: Open AI Stance](ai_security/index.md)
+
+</div>
 
 ---
 
