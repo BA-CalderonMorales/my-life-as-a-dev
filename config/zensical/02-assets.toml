@@ -26,5 +26,5 @@ extra_css = [
 
 extra_javascript = [
     # Canvas page Three.js scene (must load globally for instant navigation)
-    "assets/js/canvas-scene.js",
+    "assets/js/canvas/scene/main.js",
 ]
