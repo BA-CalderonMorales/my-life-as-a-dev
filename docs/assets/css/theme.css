@@ -19,8 +19,8 @@
     --brand-teal-glow: rgba(0, 0, 0, 0.15);
     --brand-coral-glow: rgba(100, 100, 100, 0.15);
 
-    /* Link color tokens */
-    --md-link-color: var(--md-primary-fg-color);
+    /* Link color tokens - consistent underline style */
+    --md-link-color: inherit;
     --md-link-color-hover: var(--md-accent-fg-color);
 
     /* ============================================
@@ -94,8 +94,8 @@
     --md-primary-fg-color--dark: #999999;
     --md-accent-fg-color: #a0a0a0;
     --md-accent-fg-color--transparent: rgba(255, 255, 255, 0.15);
-    --md-link-color: #ffffff;
-    --md-link-color-hover: #cccccc;
+    --md-link-color: inherit;
+    --md-link-color-hover: #a0a0a0;
 
     /* Component Tokens - Dark Mode Specifics */
     /* Using a dark gray button instead of white to reduce contrast glare */
@@ -127,11 +127,14 @@
 /* Anchor colors - exclude buttons */
 .md-typeset a:not(.md-button),
 .md-typeset a:not(.md-button):visited {
-    color: var(--md-link-color);
-    transition: color 0.2s ease;
+    color: var(--md-default-fg-color);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: opacity 0.2s ease;
 }
 
 .md-typeset a:not(.md-button):hover,
 .md-typeset a:not(.md-button):focus-visible {
-    color: var(--md-link-color-hover);
+    opacity: 0.7;
 }

@@ -11,7 +11,8 @@
     padding: 0.75rem 1.5rem;
     font-weight: 600;
     text-decoration: none;
-    border-radius: 0.5rem;
+    border-radius: 0;
+    border: none;
     transition: all 0.2s ease;
 }
 
@@ -47,10 +48,10 @@
     text-decoration: underline;
 }
 
-/* Secondary button - Ghost style */
+/* Secondary button - Ghost style, no border */
 .md-typeset .md-button:not(.md-button--primary),
 .md-button:not(.md-button--primary) {
-    border: 1px solid transparent !important;
+    border: none !important;
     color: var(--md-default-fg-color) !important;
     background: transparent !important;
     border-radius: 0 !important;
@@ -62,10 +63,15 @@
 
 .md-typeset .md-button:not(.md-button--primary):hover,
 .md-button:not(.md-button--primary):hover {
-    border-color: rgba(0, 0, 0, 0.15) !important;
-    background: transparent !important;
+    border: none !important;
+    background: rgba(0, 0, 0, 0.05) !important;
     color: var(--md-default-fg-color) !important;
     text-decoration: underline;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .md-button:not(.md-button--primary):hover,
+[data-md-color-scheme="slate"] .md-button:not(.md-button--primary):hover {
+    background: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* Project link pills */
