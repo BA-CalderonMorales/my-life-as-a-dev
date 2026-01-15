@@ -23,3 +23,8 @@ extra_css = [
     "assets/css/landing.css",
     "assets/css/canvas.css",
 ]
+
+extra_javascript = [
+    # Canvas page Three.js scene (must load globally for instant navigation)
+    "assets/js/canvas-scene.js",
+]

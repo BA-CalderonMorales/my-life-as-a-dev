@@ -2,6 +2,14 @@
    Canvas - Dedicated showcase surface styling
    ===================================================== */
 
+/* Hide UI elements for clean canvas experience */
+.canvas-page .md-content__button,
+.canvas-page .md-source-file,
+.canvas-page .share-actions,
+.canvas-page h1:first-of-type {
+    display: none !important;
+}
+
 .canvas-page .md-main {
     background: transparent;
 }
