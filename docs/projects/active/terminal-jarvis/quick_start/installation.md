@@ -18,7 +18,7 @@ This document provides comprehensive installation instructions for Terminal Jarv
 - **Instant Setup**: Complete environment ready in 60 seconds
 - **Zero Dependencies**: No local software installation required
 - **Consistent Experience**: Same environment across all platforms
-- **Pre-configured Tools**: Rust 1.87, Node.js 20, GitHub CLI, AI tools ready
+- **Pre-configured Tools**: Rust 1.87+, Node.js 20+, GitHub CLI, AI tools ready
 - **Built-in Debugging**: Full debugging setup with LLDB and VS Code integration
 
 ### VS Code Dev Containers (Local Docker)
@@ -146,8 +146,8 @@ For WSL users, follow Linux instructions.
 
 ### Prerequisites
 
-- Rust 1.70 or later
-- Node.js and NPM
+- Rust 1.87 or later (required for full feature support)
+- Node.js 20+ and NPM
 - Git
 
 ### Steps
@@ -211,6 +211,19 @@ If not found, reinstall Rust:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source ~/.cargo/env
 ```
+
+### NVM Users: PATH Configuration
+
+If you use NVM (Node Version Manager), npm global installs require additional PATH configuration:
+
+```bash
+# Add npm global bin to PATH (add to ~/.bashrc or ~/.zshrc)
+export PATH="$(npm config get prefix)/bin:$PATH"
+source ~/.bashrc
+```
+
+!!! warning "Known Issue"
+    Fresh installs in NVM environments may encounter EACCES permission errors. Use `npx terminal-jarvis` as an alternative, or configure npm to use a user-writable directory (see Permission errors section above).
 
 ### Verification Steps
 

@@ -271,9 +271,57 @@ export HTTPS_PROXY=http://proxy.example.com:8080
 
 ## Known Bugs
 
-### None Currently Documented
+### Fresh Install Issues in Codespaces/NVM Environments (v0.0.73-v0.0.74)
 
-All critical bugs have been addressed. If you encounter issues:
+**Issue**: [#39](https://github.com/BA-CalderonMorales/terminal-jarvis/issues/39) - Fresh installations may fail with npm EACCES permission errors when installing tools like Claude.
+
+**Symptom**:
+```
+npm EACCES: permission denied
+```
+
+**Root Cause**:
+- NVM-installed npm isn't in sudo's PATH
+- Database setup fails to find `config/tools` directory when run outside project root
+
+**Workaround**:
+1. Use `npx terminal-jarvis` instead of global install
+2. Configure npm to use user-writable directories (see Installation Guide)
+3. Run from within a cloned terminal-jarvis directory for development
+
+**Status**: Being addressed in [#40](https://github.com/BA-CalderonMorales/terminal-jarvis/issues/40)
+
+---
+
+### Binary Size Discrepancy: macOS vs Linux (v0.0.73+)
+
+**Issue**: [#38](https://github.com/BA-CalderonMorales/terminal-jarvis/issues/38) - macOS binary (~26.7 MB) is approximately 3x larger than Linux equivalent (~8.67 MB).
+
+**Impact**: Larger download size for macOS users
+
+**Investigation Areas**:
+- Linker settings differences
+- Debug symbol inclusion
+- Universal binary configurations
+
+**Status**: Under investigation
+
+---
+
+### NVM PATH Issues (Fixed in v0.0.73)
+
+**Issue**: [#37](https://github.com/BA-CalderonMorales/terminal-jarvis/issues/37) - Tool installation failed silently when npm was installed via NVM.
+
+**Root Cause**: NVM-installed npm wasn't in sudo's PATH, and error messages were suppressed.
+
+**Resolution**: Fixed in v0.0.73. Users on older versions should upgrade:
+```bash
+npm update -g terminal-jarvis
+```
+
+---
+
+If you encounter other issues:
 
 1. Check this document for known limitations
 2. Search [GitHub Issues](https://github.com/BA-CalderonMorales/terminal-jarvis/issues)
@@ -308,4 +356,4 @@ Many limitations listed here are being actively addressed. Check the [Roadmap](r
 
 ---
 
-**Last Updated**: January 2025
+**Last Updated**: January 2026
