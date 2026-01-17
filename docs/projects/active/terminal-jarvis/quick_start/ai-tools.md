@@ -368,6 +368,25 @@ terminal-jarvis info <tool>
 npm info <package-name>
 ```
 
+## Upcoming Tools
+
+Terminal Jarvis is tracking **12+ additional AI coding tools** for future integration ([#44](https://github.com/BA-CalderonMorales/terminal-jarvis/issues/44)):
+
+| Tool | Description | Status |
+|------|-------------|--------|
+| Copilot CLI | GitHub's AI-powered CLI assistant | Planned |
+| Cursor Agent | VS Code fork with AI-first design | Under evaluation |
+| Droid | AI coding assistant | Under evaluation |
+| Continue | Open-source AI code assistant | Under evaluation |
+| Cline | CLI-based AI assistant | Under evaluation |
+| Tabnine | AI code completion | Under evaluation |
+| Codeium | Free AI code completion | Under evaluation |
+| Sourcegraph Cody | AI coding assistant | Under evaluation |
+| Replit AI | Replit's coding assistant | Under evaluation |
+| Amazon Q | AWS AI developer tool | Under evaluation |
+
+Want to see a specific tool added? Comment on [issue #44](https://github.com/BA-CalderonMorales/terminal-jarvis/issues/44) or submit a PR!
+
 ## Adding New Tools
 
 Want to see a tool added to Terminal Jarvis? Check out:

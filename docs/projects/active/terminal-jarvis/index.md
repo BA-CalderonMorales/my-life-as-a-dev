@@ -8,9 +8,9 @@
 
 !!! info "Project Signal"
 
-    - **Status**: v0.x.70 with bi-weekly -> monthly updates (it's a side project bro.)
+    - **Status**: v0.0.74 (113 ⭐ • 16 forks) — bi-weekly to monthly updates
     - **Focus**: Orchestrating multi-vendor AI CLIs with one workflow
-    - **Stack**: Node.js, TypeScript, Rust core, Chalk+Ink terminal UI
+    - **Stack**: Rust core (85%), TypeScript wrapper, Shell scripts
     - **Ideal For**: Developers juggling multiple AI assistants across projects
 
 ## Quick Links
@@ -28,10 +28,10 @@
 
 ## Highlights
 
-- Tool switcher supports Claude, Gemini, Qwen, Goose, Amp, Aider, OpenCode, LLXprt, Codex, and Crush with consistent commands.
-- Smart authentication system remembers sessions, detects browser logins, and retries after rate limits.
-- Beautiful T.JARVIS interface with ASCII art, live status dashboard, and theme toggles (Classic/Matrix/etc.).
-- Update workflow keeps every CLI current via `terminal-jarvis update-all` and surfaces release notes inline.
+- Tool switcher supports **10 AI coding tools**: Claude, Gemini, Qwen, Goose, Amp, Aider, OpenCode, LLXprt, Codex, and Crush — with 12+ more tracked for future integration.
+- Smart authentication system remembers sessions, detects browser logins, and handles headless/CI environments gracefully.
+- Beautiful T.JARVIS interface with ASCII art, live status dashboard, and theme toggles (T.JARVIS/Classic/Matrix).
+- Update workflow keeps every CLI current via `terminal-jarvis update` and surfaces release notes inline.
 
 ## Core Scenarios
 
