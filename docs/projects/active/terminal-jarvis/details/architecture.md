@@ -4,76 +4,57 @@ This document provides a comprehensive technical overview of Terminal Jarvis's a
 
 ## Project Structure
 
-The project follows a domain-based modular architecture designed for maintainability, extensibility, and clear separation of concerns:
+The project follows a domain-based modular architecture designed for maintainability, extensibility, and clear separation of concerns. As of v0.0.74, Terminal Jarvis includes **14 domain modules**:
 
 ```
 src/
 ├── main.rs                    # Entry point - minimal code, delegates to CLI
 ├── lib.rs                     # Library entry point for module organization
-├── cli.rs                     # Clean, expressive CLI interface definitions
-├── installation_arguments.rs # Installation commands and NPM validation
-├── progress_utils.rs          # Theme-integrated messaging and progress indicators
+├── cli.rs                     # Clean, expressive CLI interface definitions (~10KB)
+├── installation_arguments.rs  # Installation commands and NPM validation (~8KB)
+├── progress_utils.rs          # Theme-integrated messaging and progress indicators (~10KB)
 │
-├── cli_logic/                 # Business logic domain (9 focused modules)
-│   ├── mod.rs                 # Module coordination and re-exports
-│   ├── cli_logic_entry_point.rs        # Main CLI logic entry point
-│   ├── cli_logic_interactive.rs        # Interactive T.JARVIS interface
-│   ├── cli_logic_tool_execution.rs     # Tool execution workflows
-│   ├── cli_logic_update_operations.rs  # Tool update management
-│   ├── cli_logic_list_operations.rs    # Tool listing operations
-│   ├── cli_logic_info_operations.rs    # Tool information display
-│   ├── cli_logic_config_management.rs  # Configuration management
-│   ├── cli_logic_template_operations.rs # Template system operations
-│   └── cli_logic_utilities.rs          # Shared utility functions
+├── api/                       # API framework domain
+│   └── ...                    # HTTP client, base routes, tool operation endpoints
 │
-├── auth_manager/              # Authentication domain (5 focused modules)
-│   ├── mod.rs                 # Module coordination and re-exports
-│   ├── auth_entry_point.rs            # Authentication system entry point
-│   ├── auth_environment_detection.rs  # Environment detection logic
-│   ├── auth_environment_setup.rs      # Environment configuration
-│   ├── auth_api_key_management.rs     # API key handling
-│   └── auth_warning_system.rs         # Browser prevention warnings
+├── auth_manager/              # Authentication domain
+│   └── ...                    # Environment detection, API key management, browser prevention
 │
-├── config/                    # Configuration domain (5 focused modules)
-│   ├── mod.rs                 # Module coordination and re-exports
-│   ├── config_entry_point.rs          # Configuration system entry point
-│   ├── config_structures.rs           # TOML configuration structures
-│   ├── config_file_operations.rs      # File I/O operations
-│   ├── config_manager.rs              # Configuration management logic
-│   └── config_version_cache.rs        # Version caching system
+├── cli_logic/                 # Business logic domain (largest module)
+│   └── ...                    # Interactive UI, tool execution, update operations
 │
-├── services/                  # External integrations domain (5 focused modules)
-│   ├── mod.rs                 # Module coordination and re-exports
-│   ├── services_entry_point.rs        # Service layer entry point
-│   ├── services_package_operations.rs # Package management operations
-│   ├── services_npm_operations.rs     # NPM-specific operations
-│   ├── services_github_integration.rs # GitHub CLI integration
-│   └── services_tool_configuration.rs # Tool configuration mapping
+├── config/                    # Configuration domain
+│   └── ...                    # TOML parsing, file operations, version caching
 │
-├── theme/                     # UI theming domain (7 focused modules)
-│   ├── mod.rs                 # Module coordination and re-exports
-│   ├── theme_entry_point.rs           # Theme system entry point
-│   ├── theme_definitions.rs           # Theme color definitions
-│   ├── theme_config.rs                # Theme configuration management
-│   ├── theme_global_config.rs         # Global theme state
-│   ├── theme_background_layout.rs     # Background and layout styling
-│   ├── theme_text_formatting.rs       # Text formatting utilities
-│   └── theme_utilities.rs             # Theme utility functions
+├── db/                        # Database domain (libsql integration)
+│   └── ...                    # Tool state persistence, session tracking
 │
-├── tools/                     # Tool management domain (6 focused modules)
-│   ├── mod.rs                 # Module coordination and re-exports
-│   ├── tools_entry_point.rs           # Tool system entry point
-│   ├── tools_detection.rs             # Tool detection and verification
-│   ├── tools_command_mapping.rs       # Command-to-tool mapping
-│   ├── tools_execution_engine.rs      # Tool execution engine
-│   ├── tools_process_management.rs    # Process lifecycle management
-│   └── tools_startup_guidance.rs      # Tool startup guidance system
+├── error/                     # Error handling domain
+│   └── ...                    # Custom error types, context propagation
 │
-└── api/                       # API framework domain (4 focused modules)
-    ├── mod.rs                 # Module coordination and re-exports
-    ├── api_base.rs            # Base API route configurations
-    ├── api_client.rs          # HTTP client abstraction layer
-    └── api_tool_operations.rs # API tool operation endpoints
+├── evals/                     # Evaluation framework domain
+│   └── ...                    # Comparative testing across AI tools
+│
+├── logging/                   # Logging domain
+│   └── ...                    # Structured logging, debug output
+│
+├── presentation/              # Presentation layer domain
+│   └── ...                    # ASCII art, dashboard rendering, menu systems
+│
+├── security/                  # Security domain
+│   └── ...                    # Input validation, safe command execution
+│
+├── services/                  # External integrations domain
+│   └── ...                    # NPM operations, GitHub integration, package management
+│
+├── theme/                     # UI theming domain
+│   └── ...                    # Color definitions, theme switching, formatting
+│
+├── tools/                     # Tool management domain
+│   └── ...                    # Detection, execution engine, process lifecycle
+│
+└── voice/                     # Voice interaction domain (experimental)
+    └── ...                    # Voice command support (future feature)
 ```
 
 ## Architecture Philosophy
@@ -82,13 +63,20 @@ src/
 
 - **`main.rs` & `lib.rs`**: Minimal entry points that delegate to domain modules
 - **`cli.rs`**: Expressive command definitions with optional subcommands (defaults to interactive mode)
-- **`cli_logic/`**: Complete business logic domain including the interactive T.JARVIS interface, tool execution workflows, and operation management
+- **`api/`**: API framework for HTTP client operations and tool endpoints
 - **`auth_manager/`**: Authentication domain with environment detection, browser prevention, and API key management
+- **`cli_logic/`**: Core business logic including the interactive T.JARVIS interface, tool execution workflows, and operation management
 - **`config/`**: Configuration domain handling TOML file operations, structure management, and version caching
-- **`services/`**: External integrations domain for package management, NPM operations, and GitHub CLI integration
-- **`theme/`**: UI theming domain with color definitions, global state management, and formatting utilities
-- **`tools/`**: Tool management domain covering detection, command mapping, execution, and process lifecycle
-- **`api/`**: API framework domain for future web integrations (currently unused)
+- **`db/`**: Database integration using libsql for tool state persistence and session tracking
+- **`error/`**: Centralized error handling with custom error types and context propagation
+- **`evals/`**: Evaluation framework for comparative testing across different AI tools
+- **`logging/`**: Structured logging system for debug output and diagnostics
+- **`presentation/`**: UI rendering including ASCII art, dashboards, and menu systems
+- **`security/`**: Input validation, command sanitization, and safe execution patterns
+- **`services/`**: External integrations for package management, NPM operations, and GitHub CLI
+- **`theme/`**: UI theming with color definitions, global state management, and formatting
+- **`tools/`**: Tool management covering detection, command mapping, execution, and process lifecycle
+- **`voice/`**: Experimental voice interaction support (future feature)
 
 ### Design Principles
 
