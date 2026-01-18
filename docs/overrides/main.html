@@ -118,6 +118,10 @@
 
 {% block scripts %}
 {{ super() }}
+<!-- Search Modal Enhancements for mobile/tablet -->
+<link rel="stylesheet" href="{{ 'assets/css/search-modal.css' | url }}">
+<script src="{{ 'assets/js/search-modal.js' | url }}"></script>
+
 <!-- Pull-to-Refresh for mobile/tablet -->
 <link rel="stylesheet" href="{{ 'assets/css/pull-to-refresh.css' | url }}">
 <script src="{{ 'assets/js/pull-to-refresh.js' | url }}"></script>

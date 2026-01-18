@@ -554,3 +554,133 @@ label.md-nav__link[for]:active {
         }
     }
 }
+
+/* ============================================
+   Landscape Mode - Mobile/Tablet Navbar
+   Ensures navbar looks good when device rotates
+   ============================================ */
+
+@media screen and (max-height: 30rem) and (orientation: landscape) {
+    /* Compact header in landscape */
+    .md-header {
+        min-height: 40px;
+    }
+
+    .md-header__inner {
+        padding: 0 8px;
+    }
+
+    /* Smaller header buttons in landscape */
+    .md-header__button {
+        padding: 6px;
+    }
+
+    .md-header__button.md-logo {
+        padding: 4px;
+    }
+
+    .md-header__button.md-logo img {
+        height: 1.5rem;
+    }
+
+    /* Header title - keep compact */
+    .md-header__title {
+        font-size: 0.85rem;
+        margin-left: 0.5rem;
+    }
+
+    .md-header__title--active .md-header__topic + .md-header__topic {
+        font-size: 0.75rem;
+    }
+
+    /* Navigation tabs - smaller in landscape */
+    .md-tabs {
+        min-height: 36px;
+    }
+
+    .md-tabs__link {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+
+    /* Drawer in landscape - narrower */
+    .md-drawer {
+        width: min(280px, 70vw);
+    }
+
+    /* Drawer navigation links - compact */
+    .md-nav--primary .md-nav__link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem !important;
+    }
+
+    .md-nav--primary .md-nav__title {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    /* Safe area handling in landscape */
+    .md-header {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+
+    .md-drawer {
+        padding-left: max(0.5rem, env(safe-area-inset-left));
+    }
+}
+
+/* Tablet landscape - slightly larger than mobile landscape */
+@media screen and (min-width: 769px) and (max-height: 500px) and (orientation: landscape) {
+    .md-header {
+        min-height: 48px;
+    }
+
+    .md-header__button.md-logo img {
+        height: 1.75rem;
+    }
+
+    .md-header__title {
+        font-size: 0.9rem;
+    }
+
+    .md-tabs {
+        min-height: 40px;
+    }
+
+    .md-tabs__link {
+        padding: 10px 16px;
+        font-size: 0.8rem;
+    }
+
+    .md-drawer {
+        width: min(320px, 50vw);
+    }
+}
+
+/* Very short landscape screens (phone in landscape) */
+@media screen and (max-height: 22rem) and (orientation: landscape) {
+    /* Hide navigation tabs to save vertical space */
+    .md-tabs {
+        display: none;
+    }
+
+    /* Even more compact header */
+    .md-header {
+        min-height: 36px;
+    }
+
+    .md-header__button.md-logo img {
+        height: 1.25rem;
+    }
+
+    .md-header__title {
+        font-size: 0.8rem;
+    }
+
+    /* Compact drawer items */
+    .md-nav--primary .md-nav__link {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem !important;
+    }
+}
