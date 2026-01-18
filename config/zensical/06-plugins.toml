@@ -35,6 +35,24 @@ timezone = "America/North_Dakota/Center"
 [project.plugins.panzoom]
 [project.plugins.glightbox]
 
+# ==============================================================================
+# IMAGE OPTIMIZATION PLUGIN
+# ==============================================================================
+# Build-time image optimization for optimal performance on all devices.
+# Converts images to WebP, generates responsive sizes, and adds lazy loading.
+# Essential for low-powered devices (Samsung Fridge, older phones, etc.)
+# ==============================================================================
+
+[project.plugins.image-optimizer]
+enabled = true
+webp_quality = 80
+generate_lqip = true
+lqip_width = 20
+enable_lazy_loading = true
+skip_patterns = ["favicon", "icon-"]
+max_dimension = 2560
+responsive_sizes = [320, 640, 1024, 1920]
+
 
 # ==============================================================================
 # SEARCH & DISCOVERY PLUGINS
