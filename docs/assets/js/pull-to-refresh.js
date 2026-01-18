@@ -176,9 +176,20 @@
         announcement.textContent = 'Refreshing page...';
         document.body.appendChild(announcement);
 
+        // Disable browser scroll restoration to prevent returning to previous scroll position
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
+        // Scroll to top immediately
+        window.scrollTo(0, 0);
+
         // Perform refresh after minimum animation time
+        // Use location.replace to avoid scroll restoration from browser history
         setTimeout(function() {
-            window.location.reload();
+            // Remove any hash to ensure we start at top, then navigate
+            const url = window.location.href.split('#')[0];
+            window.location.replace(url);
         }, CONFIG.refreshTimeout);
     }
 
@@ -256,6 +267,15 @@
         // Skip if already initialized
         if (isEnabled) {
             return;
+        }
+
+        // Ensure page starts at top after pull-to-refresh
+        // Check if we came from a pull-to-refresh action
+        if ('scrollRestoration' in history && history.scrollRestoration === 'manual') {
+            // Scroll to top to ensure fresh view
+            window.scrollTo(0, 0);
+            // Restore automatic scroll restoration for normal navigation
+            history.scrollRestoration = 'auto';
         }
 
         // Create DOM elements
