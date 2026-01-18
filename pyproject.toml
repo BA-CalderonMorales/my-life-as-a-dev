@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my-life-as-a-dev"
+version = "1.0.0"
+description = "Brandon's documentation site with custom MkDocs plugins"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Brandon A. Calderon Morales", email = "b.dev.c.m@gmail.com"}
+]
+keywords = ["mkdocs", "documentation", "image-optimization"]
+
+[project.entry-points."mkdocs.plugins"]
+image-optimizer = "scripts.python.plugins.image_optimizer:ImageOptimizerPlugin"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["scripts*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v"

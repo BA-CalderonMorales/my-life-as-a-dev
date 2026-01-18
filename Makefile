@@ -1,14 +1,16 @@
-.PHONY: help setup serve build cli config check-config
+.PHONY: help setup serve build cli config check-config optimize-images test
 
 DEV_ADDR ?= 0.0.0.0:8001
 
 help:
 	@echo "Commands:"
-	@echo "  make setup        - Install Python dependencies and setup project"
-	@echo "  make serve        - Start Zensical development server (port 8001)"
-	@echo "  make build        - Build site with Zensical"
-	@echo "  make config       - Merge config/zensical/*.toml into zensical.toml"
-	@echo "  make cli          - Run documentation CLI tools"
+	@echo "  make setup           - Install Python dependencies and setup project"
+	@echo "  make serve           - Start Zensical development server (port 8001)"
+	@echo "  make build           - Build site with Zensical"
+	@echo "  make config          - Merge config/zensical/*.toml into zensical.toml"
+	@echo "  make cli             - Run documentation CLI tools"
+	@echo "  make optimize-images - Optimize images (WebP, responsive sizes, LQIP)"
+	@echo "  make test            - Run tests"
 
 setup:
 	uv pip install --upgrade pip
@@ -39,4 +41,23 @@ build: check-config
 
 cli:
 	./doc-cli.sh
+
+# Optimize images for web delivery (WebP conversion, responsive sizes, LQIP)
+# This runs independently of the build for faster iteration
+optimize-images:
+	@echo "Optimizing images..."
+	uv run python -m scripts.python.plugins.image_optimizer.cli --verbose
+
+# Dry run to see what would be optimized
+optimize-images-dry:
+	@echo "Image optimization dry run..."
+	uv run python -m scripts.python.plugins.image_optimizer.cli --dry-run --verbose
+
+# Run all tests
+test:
+	uv run python -m pytest tests/ -v
+
+# Run image optimizer tests only
+test-optimizer:
+	uv run python -m pytest tests/test_image_optimizer.py -v
 
