@@ -484,10 +484,22 @@ label.md-nav__link[for]:active {
    Handles notches and home indicators on mobile
    ============================================ */
 
-/* Apply safe area insets for standalone PWA mode */
 @supports (padding: env(safe-area-inset-top)) {
-    /* When running as standalone PWA, add padding for notches */
+    /* Standalone PWA mode (Android and iOS home screen apps) */
     @media all and (display-mode: standalone) {
+        /* Fill notch area with header background color */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: env(safe-area-inset-top);
+            background: var(--mlad-header-bg, var(--md-default-bg-color));
+            z-index: 100;
+        }
+
+        /* Header padding pushes content below notch */
         .md-header {
             padding-top: env(safe-area-inset-top);
         }
@@ -504,20 +516,41 @@ label.md-nav__link[for]:active {
             padding-right: env(safe-area-inset-right);
         }
 
-        /* Ensure content doesn't get hidden behind home indicator */
         .md-content {
             padding-bottom: env(safe-area-inset-bottom);
         }
+
+        /* Mobile drawer safe area */
+        .md-drawer {
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
+        }
     }
 
-    /* Also apply when using apple-mobile-web-app-capable */
+    /* Fullscreen mode */
     @media all and (display-mode: fullscreen) {
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: env(safe-area-inset-top);
+            background: var(--mlad-header-bg, var(--md-default-bg-color));
+            z-index: 100;
+        }
+
         .md-header {
             padding-top: env(safe-area-inset-top);
         }
 
         .md-footer {
             padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .md-drawer {
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
         }
     }
 }
