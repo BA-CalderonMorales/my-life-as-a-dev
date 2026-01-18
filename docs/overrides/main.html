@@ -118,6 +118,10 @@
 
 {% block scripts %}
 {{ super() }}
+<!-- Pull-to-Refresh for mobile/tablet -->
+<link rel="stylesheet" href="{{ 'assets/css/pull-to-refresh.css' | url }}">
+<script src="{{ 'assets/js/pull-to-refresh.js' | url }}"></script>
+
 <!-- Enhanced tooltips for interactive elements -->
 <script src="{{ 'assets/js/enhanced-tooltips.js' | url }}"></script>
 
