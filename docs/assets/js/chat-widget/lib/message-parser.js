@@ -34,8 +34,8 @@ class MessageParser {
             bulletLine: /^[\s]*[\*\-]\s+(.+)$/,
             // Numbered list: starts with number followed by . or )
             numberedLine: /^[\s]*(\d+)[\.\)]\s+(.+)$/,
-            // Headers: lines starting with # (h1-h6)
-            headerLine: /^(#{1,6})\s+(.+)$/
+            // Headers: lines starting with # (h1-h6), space after # is optional
+            headerLine: /^(#{1,6})\s*(.+)$/
         };
 
         // Punctuation that shouldn't be part of URLs
@@ -166,10 +166,11 @@ class MessageParser {
      * @returns {string} - Normalized text with proper line breaks before headers
      */
     normalizeHeaders(text) {
-        // Add newline before markdown headers (#{1,6} followed by space and content)
+        // Add newline before markdown headers
+        // Handles both "text:### Header" and "text:#1. Header" (no space after #)
         // Only match after sentence-ending chars or word chars (not URL chars like / = & ")
-        // This prevents breaking URLs that contain # (fragment identifiers)
-        return text.replace(/([.!?:)\]a-zA-Z0-9])[^\S\n]*(#{1,6})[ \t]+/g, '$1\n$2 ');
+        // Match #{1,6} followed by optional space and then word char or digit
+        return text.replace(/([.!?:)\]a-zA-Z0-9])[^\S\n]*(#{1,6})[ \t]*(?=[a-zA-Z0-9])/g, '$1\n$2 ');
     }
 
     /**
