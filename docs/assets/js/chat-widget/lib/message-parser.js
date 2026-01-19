@@ -75,23 +75,31 @@ class MessageParser {
 
     /**
      * Normalize input text to fix common API response issues
-     * - Join header markers with their content if split across lines
-     * - Join markdown links that span multiple lines
+     * This runs BEFORE escaping and link parsing to avoid breaking anchor tags
      * @param {string} text - Raw text from API
      * @returns {string} - Normalized text
      */
     normalizeInput(text) {
         let result = text;
 
-        // Fix headers split across lines: "#1.\nTerminal" -> "#1. Terminal"
-        // Match header marker at end of line followed by content on next line
-        result = result.replace(/^(#{1,6}[^\n]*?)\n+(?=\S)/gm, '$1 ');
+        // 1. First, fix markdown links that span multiple lines
+        // Remove newlines inside markdown link brackets [text] - replace with space
+        result = result.replace(/\[([^\]]*)\]/g, (match, content) => {
+            return '[' + content.replace(/\n+/g, ' ').trim() + ']';
+        });
 
-        // Fix markdown links split across lines
-        // Join lines within [...] brackets
-        result = result.replace(/\[([^\]]*)\n+([^\]]*)\]/g, '[$1 $2]');
-        // Join lines within (...) after ]
-        result = result.replace(/\]\(([^)]*)\n+([^)]*)\)/g, ']($1$2)');
+        // Remove newlines inside markdown link URLs (url) - remove completely
+        result = result.replace(/\]\(([^)]*)\)/g, (match, url) => {
+            return '](' + url.replace(/\n+/g, '').trim() + ')';
+        });
+
+        // 2. Normalize inline headers (add newline before # headers)
+        // Only after sentence-ending punctuation to avoid false matches
+        result = result.replace(/([.!?:])\s*(#{1,6})\s*(?=\S)/g, '$1\n$2 ');
+
+        // 3. Normalize inline bullet points
+        result = result.replace(/([.!?:])\s*\*\s+/g, '$1\n* ');
+        result = result.replace(/([.!?:])\s*-\s+/g, '$1\n- ');
 
         return result;
     }
@@ -109,16 +117,17 @@ class MessageParser {
 
     /**
      * Parse structured content like bullet points and numbered lists
-     * @param {string} text - Text to parse
+     * @param {string} text - Text to parse (may contain anchor tags from parseMarkdownLinks)
      * @returns {string} - Text with HTML lists
      */
     parseStructuredContent(text) {
-        // Normalize line breaks - handle both \n and inline patterns
-        let normalized = this.normalizeHeaders(text);
-        normalized = this.normalizeBulletPoints(normalized);
+        // NOTE: Do NOT call normalizeHeaders/normalizeBulletPoints here!
+        // At this point, text may contain anchor tags from parseMarkdownLinks.
+        // Any newline insertion would break those tags.
+        // All normalization should happen in normalizeInput() before escaping.
 
         // Split into lines
-        const lines = normalized.split('\n');
+        const lines = text.split('\n');
         const result = [];
         let currentList = null;
         let listType = null;
