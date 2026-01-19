@@ -55,14 +55,18 @@ class MessageParser {
         // Step 1: Escape HTML to prevent XSS
         let result = this.escapeHtml(text);
 
-        // Step 2: Parse structured content (lists)
+        // Step 2: Parse markdown links FIRST (before line-based processing)
+        // This prevents normalization from breaking [text](url) patterns
+        result = this.parseMarkdownLinks(result);
+
+        // Step 3: Parse structured content (headers, lists)
         result = this.parseStructuredContent(result);
 
-        // Step 3: Parse inline formatting (bold, italic)
+        // Step 4: Parse inline formatting (bold, italic)
         result = this.parseInlineFormatting(result);
 
-        // Step 4: Parse links (URLs and emails)
-        result = this.parseLinks(result);
+        // Step 5: Parse raw URLs and emails
+        result = this.parseRawLinks(result);
 
         return result;
     }
@@ -163,10 +167,9 @@ class MessageParser {
      */
     normalizeHeaders(text) {
         // Add newline before markdown headers (#{1,6} followed by space and content)
-        // This handles inline headers like "text:### Header" or "text ### Header"
-        // [^\S\n]* matches horizontal whitespace only (spaces/tabs, not newlines)
-        // Only add newline if not already preceded by newline
-        return text.replace(/([^\n])[^\S\n]*(#{1,6})[ \t]+/g, '$1\n$2 ');
+        // Only match after sentence-ending chars or word chars (not URL chars like / = & ")
+        // This prevents breaking URLs that contain # (fragment identifiers)
+        return text.replace(/([.!?:)\]a-zA-Z0-9])[^\S\n]*(#{1,6})[ \t]+/g, '$1\n$2 ');
     }
 
     /**
@@ -226,18 +229,25 @@ class MessageParser {
     }
 
     /**
-     * Parse URLs and emails into clickable links
+     * Parse markdown-style links [text](url) into anchor tags
+     * This runs EARLY to protect links from being broken by normalization
+     * @param {string} text - Text to parse
+     * @returns {string} - Text with markdown links converted to HTML
+     */
+    parseMarkdownLinks(text) {
+        return text.replace(this.patterns.markdownLink, (match, linkText, url) => {
+            return this.createMarkdownLink(linkText, url);
+        });
+    }
+
+    /**
+     * Parse raw URLs and emails into clickable links
+     * This runs LATE, after all other processing
      * @param {string} text - Text to parse
      * @returns {string} - Text with HTML links
      */
-    parseLinks(text) {
+    parseRawLinks(text) {
         let result = text;
-
-        // First, replace markdown-style links [text](url)
-        // This must happen BEFORE raw URL replacement to prevent conflicts
-        result = result.replace(this.patterns.markdownLink, (match, linkText, url) => {
-            return this.createMarkdownLink(linkText, url);
-        });
 
         // Replace raw URLs with clickable links (but not if already inside an anchor tag)
         result = result.replace(this.patterns.url, (url, offset) => {
