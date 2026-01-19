@@ -26,8 +26,8 @@ class MessageParser {
             italic: /(?<!\*)\*([^*]+)\*(?!\*)|(?<!_)_([^_]+)_(?!_)/g,
             // URL pattern (raw URLs)
             url: /(https?:\/\/[^\s<>"'\)\]]+)/g,
-            // Markdown link pattern: [text](url)
-            markdownLink: /\[([^\]]+)\]\(([^)]+)\)/g,
+            // Markdown link pattern: [text](url) - exclude newlines to prevent breaking
+            markdownLink: /\[([^\]\n]+)\]\(([^)\n]+)\)/g,
             // Email pattern
             email: /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
             // Bullet point line: starts with * or - followed by space
@@ -167,10 +167,9 @@ class MessageParser {
      */
     normalizeHeaders(text) {
         // Add newline before markdown headers
-        // Handles both "text:### Header" and "text:#1. Header" (no space after #)
-        // Only match after sentence-ending chars or word chars (not URL chars like / = & ")
-        // Match #{1,6} followed by optional space and then word char or digit
-        return text.replace(/([.!?:)\]a-zA-Z0-9])[^\S\n]*(#{1,6})[ \t]*(?=[a-zA-Z0-9])/g, '$1\n$2 ');
+        // Only match after sentence-ending punctuation (. ! ? :) followed by optional space
+        // This is restrictive to avoid breaking URLs with # fragments
+        return text.replace(/([.!?:])[^\S\n]*(#{1,6})[ \t]*(?=[a-zA-Z0-9])/g, '$1\n$2 ');
     }
 
     /**
