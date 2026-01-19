@@ -84,9 +84,9 @@ class MessageParser {
      * @returns {string} - Text with HTML lists
      */
     parseStructuredContent(text) {
-        // Normalize line breaks - handle both \n and inline bullet patterns
-        // Look for patterns like "text: * item1 * item2" or "text:\n* item1\n* item2"
-        const normalized = this.normalizeBulletPoints(text);
+        // Normalize line breaks - handle both \n and inline patterns
+        let normalized = this.normalizeHeaders(text);
+        normalized = this.normalizeBulletPoints(normalized);
 
         // Split into lines
         const lines = normalized.split('\n');
@@ -153,6 +153,23 @@ class MessageParser {
         }
 
         return result.join('');
+    }
+
+    /**
+     * Normalize headers that might be inline
+     * Converts "text### Header" or "text ### Header" to "text\n### Header"
+     * @param {string} text - Text to normalize
+     * @returns {string} - Normalized text with proper line breaks before headers
+     */
+    normalizeHeaders(text) {
+        let result = text;
+
+        // Add newline before markdown headers that aren't at start of text
+        // Match: any non-whitespace char followed by optional space, then 1-6 # followed by space and text
+        // This handles cases like "text:### Header" or "text ### Header"
+        result = result.replace(/([^\n\s])\s*(#{1,6})\s+/g, '$1\n$2 ');
+
+        return result;
     }
 
     /**
