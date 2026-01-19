@@ -1,12 +1,14 @@
 /**
  * MessageParser - Handles parsing and formatting of chat messages
- * 
+ *
  * This class converts raw text responses into formatted HTML, handling:
+ * - Markdown headers (# h1, ## h2, ### h3, etc.)
  * - Markdown-style formatting (bold, italic)
+ * - Markdown links [text](url)
  * - Bullet points and nested lists
- * - URLs and email links
+ * - Raw URLs and email links
  * - Proper escaping for XSS prevention
- * 
+ *
  * Expected input format from API (Pydantic model):
  * {
  *   "answer": "string with markdown formatting",
@@ -22,14 +24,18 @@ class MessageParser {
             bold: /\*\*([^*]+)\*\*|__([^_]+)__/g,
             // Italic: *text* or _text_ (but not inside bold)
             italic: /(?<!\*)\*([^*]+)\*(?!\*)|(?<!_)_([^_]+)_(?!_)/g,
-            // URL pattern
+            // URL pattern (raw URLs)
             url: /(https?:\/\/[^\s<>"'\)\]]+)/g,
+            // Markdown link pattern: [text](url)
+            markdownLink: /\[([^\]]+)\]\(([^)]+)\)/g,
             // Email pattern
             email: /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
             // Bullet point line: starts with * or - followed by space
             bulletLine: /^[\s]*[\*\-]\s+(.+)$/,
             // Numbered list: starts with number followed by . or )
-            numberedLine: /^[\s]*(\d+)[\.\)]\s+(.+)$/
+            numberedLine: /^[\s]*(\d+)[\.\)]\s+(.+)$/,
+            // Headers: lines starting with # (h1-h6)
+            headerLine: /^(#{1,6})\s+(.+)$/
         };
 
         // Punctuation that shouldn't be part of URLs
@@ -90,6 +96,21 @@ class MessageParser {
 
         for (const line of lines) {
             const trimmed = line.trim();
+
+            // Check for header first (before checking lists)
+            const headerMatch = trimmed.match(this.patterns.headerLine);
+            if (headerMatch) {
+                // Close any open list
+                if (currentList !== null && currentList.length > 0) {
+                    result.push(this.buildList(currentList, listType));
+                    currentList = null;
+                    listType = null;
+                }
+                const level = headerMatch[1].length; // Number of # symbols
+                const headerText = headerMatch[2].trim();
+                result.push(`<h${level} class="ai-chat-header ai-chat-h${level}">${headerText}</h${level}>`);
+                continue;
+            }
 
             // Check for bullet point
             const bulletMatch = trimmed.match(this.patterns.bulletLine);
@@ -198,8 +219,19 @@ class MessageParser {
     parseLinks(text) {
         let result = text;
 
-        // Replace URLs with clickable links
-        result = result.replace(this.patterns.url, (url) => {
+        // First, replace markdown-style links [text](url)
+        // This must happen BEFORE raw URL replacement to prevent conflicts
+        result = result.replace(this.patterns.markdownLink, (match, linkText, url) => {
+            return this.createMarkdownLink(linkText, url);
+        });
+
+        // Replace raw URLs with clickable links (but not if already inside an anchor tag)
+        result = result.replace(this.patterns.url, (url, offset) => {
+            // Check if this URL is already part of an anchor tag (from markdown link)
+            const beforeUrl = result.substring(Math.max(0, offset - 10), offset);
+            if (beforeUrl.includes('href="') || beforeUrl.includes("href='")) {
+                return url; // Already linked, don't double-link
+            }
             return this.createLink(url);
         });
 
@@ -210,6 +242,22 @@ class MessageParser {
         });
 
         return result;
+    }
+
+    /**
+     * Create an HTML link from a markdown-style link
+     * @param {string} linkText - Display text for the link
+     * @param {string} url - URL to link to
+     * @returns {string} - HTML anchor tag
+     */
+    createMarkdownLink(linkText, url) {
+        // Clean up the URL - add protocol if missing
+        let cleanUrl = url.trim();
+        if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://') && !cleanUrl.startsWith('mailto:')) {
+            cleanUrl = 'https://' + cleanUrl;
+        }
+
+        return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${linkText}</a>`;
     }
 
     /**
