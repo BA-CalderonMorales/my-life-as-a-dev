@@ -157,19 +157,16 @@ class MessageParser {
 
     /**
      * Normalize headers that might be inline
-     * Converts "text### Header" or "text ### Header" to "text\n### Header"
+     * Ensures markdown headers are on their own lines
      * @param {string} text - Text to normalize
      * @returns {string} - Normalized text with proper line breaks before headers
      */
     normalizeHeaders(text) {
-        let result = text;
-
-        // Add newline before markdown headers that aren't at start of text
-        // Match: any non-whitespace char followed by optional space, then 1-6 # followed by space and text
-        // This handles cases like "text:### Header" or "text ### Header"
-        result = result.replace(/([^\n\s])\s*(#{1,6})\s+/g, '$1\n$2 ');
-
-        return result;
+        // Add newline before markdown headers (#{1,6} followed by space and content)
+        // This handles inline headers like "text:### Header" or "text ### Header"
+        // [^\S\n]* matches horizontal whitespace only (spaces/tabs, not newlines)
+        // Only add newline if not already preceded by newline
+        return text.replace(/([^\n])[^\S\n]*(#{1,6})[ \t]+/g, '$1\n$2 ');
     }
 
     /**
