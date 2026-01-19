@@ -564,6 +564,11 @@
         overflow: hidden;
     }
 
+    /* Add safe area padding for iPhone notch on mobile */
+    .ai-chat-header {
+        padding-top: 12px;
+    }
+
     /* Hide maximize button on mobile - already fullscreen */
     #ai-chat-maximize {
         display: none;
@@ -589,6 +594,22 @@
         .ai-chat-container {
             height: 100dvh;
             max-height: 100dvh;
+        }
+    }
+
+    /* Safe area insets for iPhone notch and home indicator */
+    @supports (padding-top: env(safe-area-inset-top)) {
+        .ai-chat-header {
+            padding-top: calc(12px + env(safe-area-inset-top));
+        }
+
+        .ai-chat-input-area {
+            padding-bottom: calc(16px + env(safe-area-inset-bottom));
+        }
+
+        .ai-chat-trigger {
+            bottom: calc(20px + env(safe-area-inset-bottom));
+            right: calc(20px + env(safe-area-inset-right));
         }
     }
 }

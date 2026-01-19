@@ -8,6 +8,22 @@ This is an MkDocs Material documentation hub using Zensical as the primary stati
 
 ## Critical Rules
 
+### ALWAYS use `./doc-cli` for common operations
+
+**This is mandatory.** Use the interactive CLI tool for serving, building, and other common tasks:
+
+```bash
+./doc-cli    # Launch interactive menu - handles everything automatically
+```
+
+The doc-cli tool:
+- Automatically activates the correct Python environment
+- Provides an interactive menu for all common operations
+- Eliminates the need to remember complex command flags
+- Works consistently across all environments
+
+**DO NOT** run `uv run zensical serve`, `uv run mkdocs serve`, or similar commands directly. Use `./doc-cli` instead.
+
 ### ALWAYS use `uv` for Python package management
 
 **This is mandatory.** Never use `pip` directly. Always use `uv`:
@@ -31,10 +47,10 @@ The project uses a virtual environment at `.venv/`. All Python tools (zensical, 
 ## Quick Commands
 
 ```bash
+./doc-cli     # Interactive CLI - PREFERRED for all operations
 make setup    # Install dependencies (uses uv)
-make serve    # Start Zensical dev server
-make build    # Build site with Zensical
-doc-cli       # Interactive CLI (uses .venv automatically)
+make serve    # Start Zensical dev server (alternative to doc-cli)
+make build    # Build site with Zensical (alternative to doc-cli)
 ```
 
 ## Skills Index
