@@ -1,12 +1,29 @@
 /**
  * MessageParser - Handles parsing and formatting of chat messages
- * 
+ *
  * This class converts raw text responses into formatted HTML, handling:
+ * - Markdown links [text](url)
  * - Markdown-style formatting (bold, italic)
- * - Bullet points and nested lists
+ * - Bullet points and numbered lists
  * - URLs and email links
  * - Proper escaping for XSS prevention
- * 
+ *
+ * Parsing Strategy (Placeholder-Based):
+ * The parser uses placeholders to protect markdown links from corruption
+ * during intermediate transformations. Placeholders use null characters
+ * (\x00) which won't appear in normal text and won't match any patterns.
+ *
+ * Order of operations:
+ * 1. Extract markdown links → store with placeholders (protects [text](url))
+ * 2. Escape HTML (XSS prevention)
+ * 3. Parse inline formatting (bold, italic)
+ * 4. Parse structured content (lists, paragraphs)
+ * 5. Parse raw URLs and emails
+ * 6. Restore markdown links from placeholders
+ *
+ * Note: We intentionally DON'T parse # headers because they conflict with
+ * numbered list content and the AI rarely uses them appropriately in chat.
+ *
  * Expected input format from API (Pydantic model):
  * {
  *   "answer": "string with markdown formatting",
@@ -18,11 +35,13 @@ class MessageParser {
     constructor() {
         // Patterns for markdown parsing
         this.patterns = {
+            // Markdown link: [text](url)
+            markdownLink: /\[([^\]]+)\]\(([^)]+)\)/g,
             // Bold: **text** or __text__
             bold: /\*\*([^*]+)\*\*|__([^_]+)__/g,
             // Italic: *text* or _text_ (but not inside bold)
             italic: /(?<!\*)\*([^*]+)\*(?!\*)|(?<!_)_([^_]+)_(?!_)/g,
-            // URL pattern
+            // URL pattern (but not already in href or markdown link)
             url: /(https?:\/\/[^\s<>"'\)\]]+)/g,
             // Email pattern
             email: /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
@@ -34,6 +53,11 @@ class MessageParser {
 
         // Punctuation that shouldn't be part of URLs
         this.trailingPunctuation = ['.', ',', '!', '?', ')', ']', ';', ':', "'", '"'];
+
+        // Placeholder storage for protected content
+        // Using null character delimiters that won't appear in text or match patterns
+        this.placeholders = new Map();
+        this.placeholderCounter = 0;
     }
 
     /**
@@ -46,19 +70,83 @@ class MessageParser {
             return '';
         }
 
-        // Step 1: Escape HTML to prevent XSS
-        let result = this.escapeHtml(text);
+        // Reset placeholder storage for each parse
+        this.placeholders = new Map();
+        this.placeholderCounter = 0;
 
-        // Step 2: Parse structured content (lists)
-        result = this.parseStructuredContent(result);
+        // Step 1: Extract and protect markdown links with placeholders
+        // Uses null character delimiters to avoid conflicts with markdown patterns
+        let result = this.extractMarkdownLinks(text);
 
-        // Step 3: Parse inline formatting (bold, italic)
+        // Step 2: Escape HTML to prevent XSS
+        result = this.escapeHtml(result);
+
+        // Step 3: Parse inline formatting FIRST (bold, italic)
+        // This preserves formatting within list items
         result = this.parseInlineFormatting(result);
 
-        // Step 4: Parse links (URLs and emails)
+        // Step 4: Parse structured content (lists, paragraphs)
+        result = this.parseStructuredContent(result);
+
+        // Step 5: Parse raw links (URLs and emails not in markdown format)
         result = this.parseLinks(result);
 
+        // Step 6: Restore markdown links from placeholders
+        result = this.restorePlaceholders(result);
+
         return result;
+    }
+
+    /**
+     * Extract markdown links and replace with placeholders
+     * Uses null character (\x00) as delimiter to avoid conflicts with markdown
+     * @param {string} text - Raw text
+     * @returns {string} - Text with placeholders instead of markdown links
+     */
+    extractMarkdownLinks(text) {
+        return text.replace(this.patterns.markdownLink, (match, linkText, url) => {
+            // Use null character as delimiter - won't conflict with any patterns
+            const placeholder = `\x00LINK${this.placeholderCounter++}\x00`;
+            // Store the link info for later restoration
+            this.placeholders.set(placeholder, { text: linkText, url: url });
+            return placeholder;
+        });
+    }
+
+    /**
+     * Restore placeholders with actual HTML links
+     * @param {string} text - Text with placeholders
+     * @returns {string} - Text with HTML anchor tags
+     */
+    restorePlaceholders(text) {
+        let result = text;
+        for (const [placeholder, linkInfo] of this.placeholders) {
+            const { text: linkText, url } = linkInfo;
+            // Ensure URL has protocol
+            const safeUrl = this.ensureProtocol(url);
+            // Escape the link text for safety (in case it contains HTML)
+            const escapedText = this.escapeHtml(linkText);
+            const anchor = `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${escapedText}</a>`;
+            // Use split/join for reliable replacement (handles special chars in placeholder)
+            result = result.split(placeholder).join(anchor);
+        }
+        return result;
+    }
+
+    /**
+     * Ensure URL has a protocol (default to https)
+     * @param {string} url - URL that may or may not have protocol
+     * @returns {string} - URL with protocol
+     */
+    ensureProtocol(url) {
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+            return url;
+        }
+        if (url.startsWith('mailto:')) {
+            return url;
+        }
+        // Default to https for protocol-less URLs
+        return 'https://' + url;
     }
 
     /**
@@ -74,12 +162,12 @@ class MessageParser {
 
     /**
      * Parse structured content like bullet points and numbered lists
+     * Note: We don't parse # headers as they conflict with numbered list content
      * @param {string} text - Text to parse
-     * @returns {string} - Text with HTML lists
+     * @returns {string} - Text with HTML lists and paragraphs
      */
     parseStructuredContent(text) {
         // Normalize line breaks - handle both \n and inline bullet patterns
-        // Look for patterns like "text: * item1 * item2" or "text:\n* item1\n* item2"
         const normalized = this.normalizeBulletPoints(text);
 
         // Split into lines
@@ -94,7 +182,11 @@ class MessageParser {
             // Check for bullet point
             const bulletMatch = trimmed.match(this.patterns.bulletLine);
             if (bulletMatch) {
-                if (currentList === null) {
+                if (currentList === null || listType !== 'ul') {
+                    // Close any existing list of different type
+                    if (currentList !== null && currentList.length > 0) {
+                        result.push(this.buildList(currentList, listType));
+                    }
                     currentList = [];
                     listType = 'ul';
                 }
@@ -105,7 +197,11 @@ class MessageParser {
             // Check for numbered list
             const numberedMatch = trimmed.match(this.patterns.numberedLine);
             if (numberedMatch) {
-                if (currentList === null) {
+                if (currentList === null || listType !== 'ol') {
+                    // Close any existing list of different type
+                    if (currentList !== null && currentList.length > 0) {
+                        result.push(this.buildList(currentList, listType));
+                    }
                     currentList = [];
                     listType = 'ol';
                 }
