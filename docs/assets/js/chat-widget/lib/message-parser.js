@@ -52,21 +52,46 @@ class MessageParser {
             return '';
         }
 
-        // Step 1: Escape HTML to prevent XSS
-        let result = this.escapeHtml(text);
+        // Step 1: Normalize input to fix broken markdown from API
+        let result = this.normalizeInput(text);
 
-        // Step 2: Parse markdown links FIRST (before line-based processing)
-        // This prevents normalization from breaking [text](url) patterns
+        // Step 2: Escape HTML to prevent XSS
+        result = this.escapeHtml(result);
+
+        // Step 3: Parse markdown links FIRST (before line-based processing)
         result = this.parseMarkdownLinks(result);
 
-        // Step 3: Parse structured content (headers, lists)
+        // Step 4: Parse structured content (headers, lists)
         result = this.parseStructuredContent(result);
 
-        // Step 4: Parse inline formatting (bold, italic)
+        // Step 5: Parse inline formatting (bold, italic)
         result = this.parseInlineFormatting(result);
 
-        // Step 5: Parse raw URLs and emails
+        // Step 6: Parse raw URLs and emails
         result = this.parseRawLinks(result);
+
+        return result;
+    }
+
+    /**
+     * Normalize input text to fix common API response issues
+     * - Join header markers with their content if split across lines
+     * - Join markdown links that span multiple lines
+     * @param {string} text - Raw text from API
+     * @returns {string} - Normalized text
+     */
+    normalizeInput(text) {
+        let result = text;
+
+        // Fix headers split across lines: "#1.\nTerminal" -> "#1. Terminal"
+        // Match header marker at end of line followed by content on next line
+        result = result.replace(/^(#{1,6}[^\n]*?)\n+(?=\S)/gm, '$1 ');
+
+        // Fix markdown links split across lines
+        // Join lines within [...] brackets
+        result = result.replace(/\[([^\]]*)\n+([^\]]*)\]/g, '[$1 $2]');
+        // Join lines within (...) after ]
+        result = result.replace(/\]\(([^)]*)\n+([^)]*)\)/g, ']($1$2)');
 
         return result;
     }
