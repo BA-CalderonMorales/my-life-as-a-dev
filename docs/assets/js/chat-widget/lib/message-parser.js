@@ -1,12 +1,29 @@
 /**
  * MessageParser - Handles parsing and formatting of chat messages
- * 
+ *
  * This class converts raw text responses into formatted HTML, handling:
+ * - Markdown headers (# through ######)
+ * - Markdown links [text](url)
  * - Markdown-style formatting (bold, italic)
  * - Bullet points and nested lists
  * - URLs and email links
  * - Proper escaping for XSS prevention
- * 
+ *
+ * Parsing Strategy (Placeholder-Based):
+ * The parser uses placeholders to protect markdown links from corruption
+ * during intermediate transformations. This prevents issues where header
+ * normalization or line splitting could break anchor tags.
+ *
+ * Order of operations:
+ * 1. Extract markdown links → store with placeholders
+ * 2. Normalize headers (ensure proper line breaks)
+ * 3. Escape HTML
+ * 4. Parse headers
+ * 5. Parse lists and paragraphs
+ * 6. Parse inline formatting (bold, italic)
+ * 7. Parse raw URLs and emails
+ * 8. Restore markdown links from placeholders
+ *
  * Expected input format from API (Pydantic model):
  * {
  *   "answer": "string with markdown formatting",
@@ -18,11 +35,15 @@ class MessageParser {
     constructor() {
         // Patterns for markdown parsing
         this.patterns = {
+            // Markdown link: [text](url)
+            markdownLink: /\[([^\]]+)\]\(([^)]+)\)/g,
+            // Header: # through ###### at start of line
+            header: /^(#{1,6})\s+(.+)$/,
             // Bold: **text** or __text__
             bold: /\*\*([^*]+)\*\*|__([^_]+)__/g,
             // Italic: *text* or _text_ (but not inside bold)
             italic: /(?<!\*)\*([^*]+)\*(?!\*)|(?<!_)_([^_]+)_(?!_)/g,
-            // URL pattern
+            // URL pattern (but not already in href or markdown link)
             url: /(https?:\/\/[^\s<>"'\)\]]+)/g,
             // Email pattern
             email: /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
@@ -34,6 +55,10 @@ class MessageParser {
 
         // Punctuation that shouldn't be part of URLs
         this.trailingPunctuation = ['.', ',', '!', '?', ')', ']', ';', ':', "'", '"'];
+
+        // Placeholder storage for protected content
+        this.placeholders = new Map();
+        this.placeholderCounter = 0;
     }
 
     /**
@@ -46,17 +71,102 @@ class MessageParser {
             return '';
         }
 
-        // Step 1: Escape HTML to prevent XSS
-        let result = this.escapeHtml(text);
+        // Reset placeholder storage for each parse
+        this.placeholders = new Map();
+        this.placeholderCounter = 0;
 
-        // Step 2: Parse structured content (lists)
+        // Step 1: Extract and protect markdown links with placeholders
+        // This prevents link corruption during subsequent transformations
+        let result = this.extractMarkdownLinks(text);
+
+        // Step 2: Normalize headers (ensure proper line breaks before #)
+        result = this.normalizeHeaders(result);
+
+        // Step 3: Escape HTML to prevent XSS
+        result = this.escapeHtml(result);
+
+        // Step 4: Parse structured content (headers, lists, paragraphs)
         result = this.parseStructuredContent(result);
 
-        // Step 3: Parse inline formatting (bold, italic)
+        // Step 5: Parse inline formatting (bold, italic)
         result = this.parseInlineFormatting(result);
 
-        // Step 4: Parse links (URLs and emails)
+        // Step 6: Parse raw links (URLs and emails not in markdown format)
         result = this.parseLinks(result);
+
+        // Step 7: Restore markdown links from placeholders
+        result = this.restorePlaceholders(result);
+
+        return result;
+    }
+
+    /**
+     * Extract markdown links and replace with placeholders
+     * Protects [text](url) from being corrupted by other transformations
+     * @param {string} text - Raw text
+     * @returns {string} - Text with placeholders instead of markdown links
+     */
+    extractMarkdownLinks(text) {
+        return text.replace(this.patterns.markdownLink, (match, linkText, url) => {
+            const placeholder = `__MDLINK_${this.placeholderCounter++}__`;
+            // Store the link info for later restoration
+            this.placeholders.set(placeholder, { text: linkText, url: url });
+            return placeholder;
+        });
+    }
+
+    /**
+     * Restore placeholders with actual HTML links
+     * @param {string} text - Text with placeholders
+     * @returns {string} - Text with HTML anchor tags
+     */
+    restorePlaceholders(text) {
+        let result = text;
+        for (const [placeholder, linkInfo] of this.placeholders) {
+            const { text: linkText, url } = linkInfo;
+            // Ensure URL has protocol
+            const safeUrl = this.ensureProtocol(url);
+            const anchor = `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${this.escapeHtml(linkText)}</a>`;
+            result = result.replace(placeholder, anchor);
+        }
+        return result;
+    }
+
+    /**
+     * Ensure URL has a protocol (default to https)
+     * @param {string} url - URL that may or may not have protocol
+     * @returns {string} - URL with protocol
+     */
+    ensureProtocol(url) {
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+            return url;
+        }
+        if (url.startsWith('mailto:')) {
+            return url;
+        }
+        // Default to https for protocol-less URLs
+        return 'https://' + url;
+    }
+
+    /**
+     * Normalize headers to ensure proper line breaks
+     * Handles inline headers like "Some text # Header" → "Some text\n# Header"
+     * @param {string} text - Text to normalize
+     * @returns {string} - Text with proper line breaks before headers
+     */
+    normalizeHeaders(text) {
+        let result = text;
+
+        // Ensure headers at start of text or after newlines are preserved
+        // Handle inline headers: "text # header" → "text\n# header"
+        // But don't match # inside words or URLs
+        result = result.replace(/([^\n#])(\s*)(#{1,6})\s+/g, (match, before, space, hashes) => {
+            // If there's content before the hash, add a newline
+            if (before.trim()) {
+                return before + '\n' + hashes + ' ';
+            }
+            return match;
+        });
 
         return result;
     }
@@ -73,9 +183,9 @@ class MessageParser {
     }
 
     /**
-     * Parse structured content like bullet points and numbered lists
+     * Parse structured content like headers, bullet points and numbered lists
      * @param {string} text - Text to parse
-     * @returns {string} - Text with HTML lists
+     * @returns {string} - Text with HTML headers, lists, and paragraphs
      */
     parseStructuredContent(text) {
         // Normalize line breaks - handle both \n and inline bullet patterns
@@ -90,6 +200,21 @@ class MessageParser {
 
         for (const line of lines) {
             const trimmed = line.trim();
+
+            // Check for header (# through ######)
+            const headerMatch = trimmed.match(this.patterns.header);
+            if (headerMatch) {
+                // Close any open list first
+                if (currentList !== null && currentList.length > 0) {
+                    result.push(this.buildList(currentList, listType));
+                    currentList = null;
+                    listType = null;
+                }
+                const level = headerMatch[1].length; // Number of # symbols
+                const headerText = headerMatch[2].trim();
+                result.push(`<h${level} class="ai-chat-header ai-chat-h${level}">${headerText}</h${level}>`);
+                continue;
+            }
 
             // Check for bullet point
             const bulletMatch = trimmed.match(this.patterns.bulletLine);
