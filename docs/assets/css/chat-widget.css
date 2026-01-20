@@ -552,11 +552,6 @@
         align-items: stretch;
         /* Mobile: prevent any scrolling on overlay itself */
         overflow: hidden;
-        /* Safe area insets for iPhone notch */
-        padding-top: env(safe-area-inset-top, 0);
-        padding-bottom: env(safe-area-inset-bottom, 0);
-        padding-left: env(safe-area-inset-left, 0);
-        padding-right: env(safe-area-inset-right, 0);
     }
 
     .ai-chat-container {
@@ -569,9 +564,20 @@
         overflow: hidden;
     }
     
-    /* Header padding for iPhone notch when keyboard is active */
+    /* Header padding for iPhone notch */
     .ai-chat-header {
-        padding-top: max(12px, env(safe-area-inset-top, 12px));
+        padding-top: 12px;
+        padding-top: calc(12px + env(safe-area-inset-top, 0px));
+        padding-left: max(16px, env(safe-area-inset-left, 16px));
+        padding-right: max(16px, env(safe-area-inset-right, 16px));
+    }
+
+    /* Input area padding for iPhone home indicator and side safe areas */
+    .ai-chat-input-area {
+        padding-bottom: 16px;
+        padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        padding-left: max(20px, env(safe-area-inset-left, 20px));
+        padding-right: max(20px, env(safe-area-inset-right, 20px));
     }
 
     /* Hide maximize button on mobile - already fullscreen */
@@ -586,6 +592,9 @@
         /* Ensure messages area handles all scrolling on mobile */
         touch-action: pan-y;
         overscroll-behavior: contain;
+        /* Side safe areas for devices with notches */
+        padding-left: max(16px, env(safe-area-inset-left, 16px));
+        padding-right: max(16px, env(safe-area-inset-right, 16px));
     }
 
     /* Menu adjustments for mobile */
@@ -737,6 +746,9 @@
 @media (max-width: 768px) {
     .ai-chat-prompts {
         padding: 12px 12px 12px;
+        /* Side safe areas for devices with notches */
+        padding-left: max(12px, env(safe-area-inset-left, 12px));
+        padding-right: max(12px, env(safe-area-inset-right, 12px));
     }
 
     .ai-chat-prompt-btn {
