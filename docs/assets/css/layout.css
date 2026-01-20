@@ -525,6 +525,31 @@ label.md-nav__link[for]:active {
             padding-top: env(safe-area-inset-top);
             padding-left: env(safe-area-inset-left);
         }
+
+        /* Search modal - must be above body::before (z-index: 100) */
+        .md-search {
+            z-index: 101;
+        }
+
+        /* Search modal inner container (full-screen on mobile) */
+        .md-search__inner {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        /* Search form safe area */
+        .md-search__form {
+            margin-top: env(safe-area-inset-top);
+        }
+
+        /* Ensure search output has safe area padding */
+        .md-search__output {
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
     }
 
     /* Fullscreen mode */
@@ -551,6 +576,31 @@ label.md-nav__link[for]:active {
         .md-drawer {
             padding-top: env(safe-area-inset-top);
             padding-left: env(safe-area-inset-left);
+        }
+
+        /* Search modal - must be above body::before (z-index: 100) */
+        .md-search {
+            z-index: 101;
+        }
+
+        /* Search modal inner container (full-screen on mobile) */
+        .md-search__inner {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        /* Search form safe area */
+        .md-search__form {
+            margin-top: env(safe-area-inset-top);
+        }
+
+        /* Ensure search output has safe area padding */
+        .md-search__output {
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
         }
     }
 }
