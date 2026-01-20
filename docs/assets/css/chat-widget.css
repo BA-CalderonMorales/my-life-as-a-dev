@@ -552,6 +552,11 @@
         align-items: stretch;
         /* Mobile: prevent any scrolling on overlay itself */
         overflow: hidden;
+        /* Safe area insets for iPhone notch */
+        padding-top: env(safe-area-inset-top, 0);
+        padding-bottom: env(safe-area-inset-bottom, 0);
+        padding-left: env(safe-area-inset-left, 0);
+        padding-right: env(safe-area-inset-right, 0);
     }
 
     .ai-chat-container {
@@ -562,6 +567,11 @@
         /* Isolate touch actions within container */
         touch-action: pan-y;
         overflow: hidden;
+    }
+    
+    /* Header padding for iPhone notch when keyboard is active */
+    .ai-chat-header {
+        padding-top: max(12px, env(safe-area-inset-top, 12px));
     }
 
     /* Hide maximize button on mobile - already fullscreen */
