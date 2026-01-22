@@ -1,3 +1,13 @@
+---
+title: Immersive Awe Canvas
+description: Interactive WebGL worlds with time-of-day controls, responsive theming, and agent-friendly repo automation.
+tags:
+  - Experiment
+  - WebGL
+  - React
+  - JavaScript
+---
+
 # Immersive Awe Canvas
 
 > Interactive WebGL worlds with time-of-day controls, responsive theming, and agent-friendly repo automation.

@@ -1,3 +1,12 @@
+---
+title: Shadow Scroll Blossom
+description: Particle trails that react to scrolling, mouse movement, and touch gestures with customizable palettes.
+tags:
+  - Experiment
+  - JavaScript
+  - WebGL
+---
+
 # Shadow Scroll Blossom
 
 > Particle trails that react to scrolling, mouse movement, and touch gestures with customizable palettes.

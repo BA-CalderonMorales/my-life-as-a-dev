@@ -1,3 +1,12 @@
+---
+title: Coder Templates
+description: Terraform-based workspace templates that make Terminal Jarvis-ready environments portable across laptops, Docker hosts, and cloud VMs.
+tags:
+  - Project
+  - DevOps
+  - Cloud
+---
+
 # Coder Templates
 
 > Terraform-based workspace templates that make Terminal Jarvis-ready environments portable across laptops, Docker hosts, and cloud VMs.

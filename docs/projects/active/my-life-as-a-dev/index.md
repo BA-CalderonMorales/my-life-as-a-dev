@@ -1,3 +1,13 @@
+---
+title: Docs-as-Code Portfolio
+description: The MkDocs Material + Zensical system that powers this entire site, complete with AI-aware plugins and versioned releases.
+tags:
+  - Project
+  - Documentation
+  - Python
+  - AI
+---
+
 # Docs-as-Code Portfolio
 
 > The MkDocs Material + Zensical system that powers this entire site, complete with AI-aware plugins and versioned releases.
