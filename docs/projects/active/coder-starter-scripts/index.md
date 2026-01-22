@@ -50,30 +50,8 @@ tags:
 
 ## Documentation Map
 
-<div class="grid cards" markdown>
-
--   :material-play-circle:{ .lg .middle } **Quick Start**
-
-    ---
-
-    Step-by-step walkthrough for installing, launching, and stopping local servers.
-
-    [Open Guide](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/QUICK_START.md)
-
--   :material-map:{ .lg .middle } **Maintainer Guide**
-
-    ---
-
-    Release workflow, testing matrix, and coding standards for contributors.
-
-    [Read the Guide](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/MAINTAINER.md)
-
--   :material-robot:{ .lg .middle } **Agent Playbook**
-
-    ---
-
-    AI/LLM collaboration rules that keep scripted contributions consistent.
-
-    [Explore Rules](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/CLAUDE.md)
-
-</div>
+| Document | Description |
+| --- | --- |
+| [Quick Start](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/QUICK_START.md) | Step-by-step walkthrough for installing, launching, and stopping local servers |
+| [Maintainer Guide](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/docs/MAINTAINER.md) | Release workflow, testing matrix, and coding standards for contributors |
+| [Agent Playbook](https://github.com/BA-CalderonMorales/coder-starter-scripts/blob/develop/CLAUDE.md) | AI/LLM collaboration rules that keep scripted contributions consistent |

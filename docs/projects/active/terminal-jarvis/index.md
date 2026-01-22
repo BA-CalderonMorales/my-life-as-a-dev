@@ -49,40 +49,11 @@ tags:
 - **Team enablement**: Ship a single onboarding script that installs Jarvis plus shared configuration.
 - **Experimentation**: Quickly try newer tools (e.g., LLXprt, Crush) while still running stable favorites.
 
-## Documentation Map
+## Documentation
 
-<div class="grid cards" markdown>
-
--   :material-download:{ .lg .middle } **Installation**
-
-    ---
-
-    Platform-specific requirements, package managers, and troubleshooting.
-
-    [Open Guide](quick_start/installation.md)
-
--   :material-console:{ .lg .middle } **Usage**
-
-    ---
-
-    Interactive mode, direct commands, keyboard shortcuts, and automation tips.
-
-    [View Docs](quick_start/usage.md)
-
--   :material-cog:{ .lg .middle } **Configuration**
-
-    ---
-
-    TOML settings, theme customization, and tool overrides.
-
-    [Configure Jarvis](quick_start/configuration.md)
-
--   :material-robot:{ .lg .middle } **AI Tools**
-
-    ---
-
-    Auth flows, feature matrix, and provider-specific notes for all supported assistants.
-
-    [Browse Matrix](quick_start/ai-tools.md)
-
-</div>
+| Guide | Description |
+| :---- | :---------- |
+| [Installation](quick_start/installation.md) | Platform-specific requirements, package managers, and troubleshooting |
+| [Usage](quick_start/usage.md) | Interactive mode, direct commands, keyboard shortcuts, and automation tips |
+| [Configuration](quick_start/configuration.md) | TOML settings, theme customization, and tool overrides |
+| [AI Tools](quick_start/ai-tools.md) | Auth flows, feature matrix, and provider-specific notes |

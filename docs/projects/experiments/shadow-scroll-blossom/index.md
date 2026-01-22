@@ -49,30 +49,8 @@ tags:
 
 ## Documentation Map
 
-<div class="grid cards" markdown>
-
--   :material-play-circle:{ .lg .middle } **Quick Start**
-
-	---
-
-	Scripts, environment variables, and dev server instructions.
-
-	[Open Guide](quick_start/index.md)
-
--   :material-palette:{ .lg .middle } **Visual System**
-
-	---
-
-	Particle parameters, presets, and customization hooks.
-
-	[Explore Details](details/index.md)
-
--   :material-file-code:{ .lg .middle } **Export Recipes**
-
-	---
-
-	How to embed effects in other sites or components.
-
-	[Read Details](details/index.md#export-recipes)
-
-</div>
+| Document | Description |
+| --- | --- |
+| [Quick Start](quick_start/index.md) | Scripts, environment variables, and dev server instructions |
+| [Visual System](details/index.md) | Particle parameters, presets, and customization hooks |
+| [Export Recipes](details/index.md#export-recipes) | How to embed effects in other sites or components |

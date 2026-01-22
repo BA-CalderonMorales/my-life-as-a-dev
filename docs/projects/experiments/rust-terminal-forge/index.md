@@ -50,30 +50,8 @@ tags:
 
 ## Documentation Map
 
-<div class="grid cards" markdown>
-
--   :material-play-circle:{ .lg .middle } **Quick Start**
-
-	---
-
-	Dev environment, scripts, and dual frontend/backend boot sequence.
-
-	[Open Guide](quick_start/index.md)
-
--   :material-terminal:{ .lg .middle } **Terminal Details**
-
-	---
-
-	Architecture notes covering websocket streaming and security controls.
-
-	[Explore Details](details/index.md)
-
--   :material-bug:{ .lg .middle } **Known Issues**
-
-	---
-
-	Track experimental limitations and open bugs.
-
-	[View Issues](https://github.com/BA-CalderonMorales/rust-terminal-forge/issues)
-
-</div>
+| Document | Description |
+| --- | --- |
+| [Quick Start](quick_start/index.md) | Dev environment, scripts, and dual frontend/backend boot sequence |
+| [Terminal Details](details/index.md) | Architecture notes covering websocket streaming and security controls |
+| [Known Issues](https://github.com/BA-CalderonMorales/rust-terminal-forge/issues) | Track experimental limitations and open bugs |
