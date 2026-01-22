@@ -1,6 +1,7 @@
 ---
 title: Deployment Guide
 description: Deploy the AI chat widget backend to Google Cloud Run with multi-agent architecture.
+comments: true
 ---
 
 # Deployment Guide

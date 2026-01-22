@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Daily Temperatures
 
 **Difficulty**: Medium  

@@ -6,6 +6,7 @@ tags:
   - Rust
   - React
   - TypeScript
+comments: true
 ---
 
 # Rust Terminal Forge

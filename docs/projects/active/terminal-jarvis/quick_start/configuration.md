@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Configuration Guide
 
 Customize Terminal Jarvis behavior through configuration files and modular tool definitions.

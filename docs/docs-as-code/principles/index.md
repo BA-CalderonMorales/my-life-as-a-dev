@@ -6,6 +6,7 @@ tags:
   - Workflow
 hide:
   - toc
+comments: true
 ---
 
 # Docs-as-Code Principles

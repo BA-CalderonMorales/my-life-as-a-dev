@@ -1,6 +1,7 @@
 ---
 title: Integration Guide
 description: Plug-and-play guide for integrating the AI chat widget into your own Zensical or MkDocs Material site.
+comments: true
 ---
 
 # Integration Guide

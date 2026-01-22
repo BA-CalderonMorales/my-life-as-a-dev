@@ -5,6 +5,7 @@ tags:
   - Algorithms
   - Interview
   - Python
+comments: true
 ---
 
 # Two Pointers Pattern

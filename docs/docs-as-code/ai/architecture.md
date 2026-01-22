@@ -1,6 +1,7 @@
 ---
 title: Architecture
 description: MVVM architecture, file structure, and component breakdown for the AI chat widget.
+comments: true
 ---
 
 # Chat Widget Architecture

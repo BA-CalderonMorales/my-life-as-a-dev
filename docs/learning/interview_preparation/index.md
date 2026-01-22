@@ -5,6 +5,7 @@ tags:
   - Interview
   - Algorithms
   - Learning
+comments: true
 ---
 
 # Technical Interview Preparation

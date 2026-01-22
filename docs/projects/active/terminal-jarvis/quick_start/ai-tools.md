@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Supported AI Coding Tools
 
 Terminal Jarvis supports a comprehensive suite of AI coding tools with seamless installation, updates, and execution. This guide is the authoritative reference for all supported tools.

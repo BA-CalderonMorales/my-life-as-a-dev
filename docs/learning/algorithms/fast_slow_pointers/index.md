@@ -3,6 +3,7 @@ tags:
   - Algorithms
   - Interview
   - Python
+comments: true
 ---
 
 # Fast and Slow Pointers Pattern

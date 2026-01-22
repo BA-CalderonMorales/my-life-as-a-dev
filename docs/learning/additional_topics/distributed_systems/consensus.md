@@ -1,6 +1,7 @@
 ---
 title: Consensus Algorithms
 description: How distributed nodes agree on the truth.
+comments: true
 ---
 
 # Consensus Algorithms

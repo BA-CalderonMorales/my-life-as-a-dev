@@ -1,6 +1,7 @@
 ---
 title: Workspace Setup
 description: Create your project folder and set up Jupyter Lab for Vertex AI development.
+comments: true
 ---
 
 # Workspace Setup

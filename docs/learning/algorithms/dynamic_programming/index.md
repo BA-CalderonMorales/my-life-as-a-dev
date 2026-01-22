@@ -3,6 +3,7 @@ tags:
   - Algorithms
   - Interview
   - Python
+comments: true
 ---
 
 # Dynamic Programming Pattern

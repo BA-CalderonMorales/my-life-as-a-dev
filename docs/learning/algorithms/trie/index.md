@@ -3,6 +3,7 @@ tags:
   - Algorithms
   - Interview
   - Data Structures
+comments: true
 ---
 
 # Trie (Prefix Tree) Pattern

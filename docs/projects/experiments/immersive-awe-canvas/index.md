@@ -6,6 +6,7 @@ tags:
   - WebGL
   - React
   - JavaScript
+comments: true
 ---
 
 # Immersive Awe Canvas

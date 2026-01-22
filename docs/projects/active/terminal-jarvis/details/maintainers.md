@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Maintainer's Guide
 
 This guide provides detailed instructions for maintainers to publish releases and manage the Terminal Jarvis project.

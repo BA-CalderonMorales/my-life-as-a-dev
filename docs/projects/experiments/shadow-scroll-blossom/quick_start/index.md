@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Quick Start Guide
 
 Get up and running with Shadow Scroll Blossom in minutes.

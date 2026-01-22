@@ -7,6 +7,7 @@ tags:
   - JavaScript
 hide:
   - toc
+comments: true
 ---
 
 # Experiments

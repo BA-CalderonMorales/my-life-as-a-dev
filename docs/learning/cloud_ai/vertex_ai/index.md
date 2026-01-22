@@ -6,6 +6,7 @@ tags:
   - AI
   - Python
   - Tutorial
+comments: true
 ---
 
 # Vertex AI Quickstart

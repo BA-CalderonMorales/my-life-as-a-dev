@@ -1,6 +1,7 @@
 ---
 title: Resiliency Patterns
 description: Design patterns for surviving failure.
+comments: true
 ---
 
 # Resiliency Patterns

@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Implement Trie (Prefix Tree)
 
 **Difficulty**: Medium  

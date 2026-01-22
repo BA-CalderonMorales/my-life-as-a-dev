@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Contributing to Terminal Jarvis
 
 We welcome contributions from the community! This guide provides everything you need to know to contribute effectively.

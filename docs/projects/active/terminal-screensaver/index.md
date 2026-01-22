@@ -4,6 +4,7 @@ description: A Rust crate and binary that turns any terminal into a configurable
 tags:
   - Project
   - Rust
+comments: true
 ---
 
 # Terminal Screensaver

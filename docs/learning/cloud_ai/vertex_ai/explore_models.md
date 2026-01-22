@@ -1,6 +1,7 @@
 ---
 title: Explore Models
 description: Discover available Vertex AI generative models and their capabilities.
+comments: true
 ---
 
 # Explore Models

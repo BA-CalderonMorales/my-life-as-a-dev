@@ -3,6 +3,7 @@ tags:
   - Algorithms
   - Interview
   - Python
+comments: true
 ---
 
 # Binary Search on Answer Pattern

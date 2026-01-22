@@ -5,6 +5,7 @@ tags:
   - Project
   - DevOps
   - Cloud
+comments: true
 ---
 
 # Coder Starter Scripts

@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Roadmap
 
 Terminal Jarvis aims to become the definitive AI coding orchestration platform - the first unified command center that intelligently coordinates multiple AI tools, prioritizes security-first architecture, and focuses on authentic developer experience.

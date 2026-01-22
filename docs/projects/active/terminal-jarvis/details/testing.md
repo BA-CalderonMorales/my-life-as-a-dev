@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Testing Strategy
 
 This document outlines the comprehensive testing approach to ensure core functionality remains stable as Terminal Jarvis evolves.

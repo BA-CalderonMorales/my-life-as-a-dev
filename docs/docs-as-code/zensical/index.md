@@ -5,6 +5,7 @@ tags:
   - Documentation
   - Python
   - Setup
+comments: true
 ---
 
 # Zensical

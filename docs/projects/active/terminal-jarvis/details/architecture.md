@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Architecture and Technical Details
 
 This document provides a comprehensive technical overview of Terminal Jarvis's architecture, design patterns, and internal structure.

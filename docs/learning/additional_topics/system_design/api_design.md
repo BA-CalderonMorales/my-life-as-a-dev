@@ -1,6 +1,7 @@
 ---
 title: API Design
 description: Patterns and protocols for service communication.
+comments: true
 ---
 
 # API Design

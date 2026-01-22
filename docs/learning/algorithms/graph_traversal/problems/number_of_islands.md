@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Number of Islands
 
 **Difficulty**: Medium  

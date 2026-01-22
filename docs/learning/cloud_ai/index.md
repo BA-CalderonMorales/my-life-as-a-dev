@@ -5,6 +5,7 @@ tags:
   - Cloud
   - AI
   - Tutorial
+comments: true
 ---
 
 # Cloud AI Platforms
