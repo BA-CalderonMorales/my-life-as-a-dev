@@ -1,3 +1,12 @@
+---
+title: Coder Starter Scripts
+description: Platform-specific bootstrap scripts for running personal Coder servers in under two minutes.
+tags:
+  - Project
+  - DevOps
+  - Cloud
+---
+
 # Coder Starter Scripts
 
 > Platform-specific bootstrap scripts for running personal Coder servers in under two minutes.

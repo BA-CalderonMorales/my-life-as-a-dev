@@ -1,3 +1,13 @@
+---
+title: Terminal Jarvis
+description: A unified command center that installs, updates, and runs 10+ AI coding assistants from one delightful terminal UI.
+tags:
+  - Project
+  - Rust
+  - AI
+  - TypeScript
+---
+
 # Terminal Jarvis
 
 > A unified command center that installs, updates, and runs 10+ AI coding assistants from one delightful terminal UI.

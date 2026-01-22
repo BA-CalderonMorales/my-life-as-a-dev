@@ -1,4 +1,6 @@
 ---
+title: Projects
+description: A curated set of builds that show how I approach tooling, automation, and creative experiments.
 tags:
   - Project
   - DevOps

@@ -1,3 +1,13 @@
+---
+title: Rust Terminal Forge
+description: Browser-based terminal emulator that marries a React front end with a Rust-powered execution core.
+tags:
+  - Experiment
+  - Rust
+  - React
+  - TypeScript
+---
+
 # Rust Terminal Forge
 
 > Browser-based terminal emulator that marries a React front end with a Rust-powered execution core.

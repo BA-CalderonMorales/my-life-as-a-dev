@@ -1,3 +1,11 @@
+---
+title: Terminal Screensaver
+description: A Rust crate and binary that turns any terminal into a configurable, scriptable visual canvas.
+tags:
+  - Project
+  - Rust
+---
+
 # Terminal Screensaver
 
 > A Rust crate and binary that turns any terminal into a configurable, scriptable visual canvas.
