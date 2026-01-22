@@ -23,6 +23,7 @@ A living documentation hub for projects, learning notes, and technical reference
 ## Features
 
 - **AI-Powered Chat Widget** - Claude Docs-inspired assistant using Gemini API via Cloud Run
+- **Search by Tags** - Filter content by tags like `[Algorithms]`, `[Python]`, `[Interview]`
 - **Versioned Documentation** - Every release is preserved with mike
 - **Blazing Fast Builds** - Zensical delivers ~0.4s builds (20x faster than MkDocs)
 - **Rust-powered CLI** - doc-cli for setup, serving, version bumps, and deploys
@@ -81,13 +82,14 @@ Run `./doc-cli.sh` with no arguments for an interactive menu.
 
 ```
 my-life-as-a-dev/
- docs/                  # Documentation content and assets
- mkdocs.yml             # MkDocs configuration
- zensical.toml          # Zensical configuration
- scripts/rust/          # Rust CLI source (doc-cli)
- scripts/python/        # Python helper scripts
- e2e/                   # End-to-end tests
- site/                  # Built static site (gitignored)
+├── docs/                  # Documentation content and assets
+├── config/zensical/       # Modular Zensical configuration
+├── zensical.toml          # Generated Zensical configuration
+├── scripts/rust/          # Rust CLI source (doc-cli)
+├── scripts/python/        # Python helper scripts
+├── e2e/                   # End-to-end tests (Playwright)
+├── tests/                 # Unit tests
+└── site/                  # Built static site (gitignored)
 ```
 
 ## AI Chat Widget
@@ -95,14 +97,17 @@ my-life-as-a-dev/
 The site features a Claude Docs-inspired chat widget with security-first design.
 
 **Stack:**
-- Frontend: JavaScript DOM injection with rate limiting and XSS prevention
-- Backend: Google Cloud Run + Flask proxy for API key security
-- AI Model: Google Gemini 2.0 Flash
+
+- Frontend: MVVM architecture with JavaScript DOM injection, rate limiting, and XSS prevention
+- Backend: Google Cloud Run with Google ADK (Agent Development Kit)
+- AI Model: Google Gemini 2.0 Flash with multi-agent orchestration
 - Security: CORS validation, prompt injection detection, Secret Manager
 
 **Documentation:**
-- [Implementation Guide](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/ai_security/chat-implementation/)
-- [Security Documentation](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/ai_security/chat-security/)
+
+- [AI Features Overview](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/ai/)
+- [Architecture Guide](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/ai/architecture/)
+- [Security Documentation](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/security/chat-security/)
 
 ## Contributing
 
