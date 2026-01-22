@@ -1,3 +1,10 @@
+---
+tags:
+  - Data Structures
+  - Algorithms
+  - Interview
+---
+
 # Hash Tables and Sets
 
 Hash tables and sets are fundamental data structures that provide fast lookups, insertions, and deletions. They are essential tools for solving a wide range of algorithmic problems efficiently.

@@ -1,6 +1,10 @@
 ---
 title: Security
 description: Fundamentals of securing applications and infrastructure.
+tags:
+  - Security
+  - DevOps
+  - Interview
 ---
 
 # Security

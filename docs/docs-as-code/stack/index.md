@@ -1,6 +1,10 @@
 ---
 title: Docs-as-Code Stack
 description: The tools that power the site and how they fit together.
+tags:
+  - Documentation
+  - DevOps
+  - Python
 hide:
   - toc
 ---

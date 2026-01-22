@@ -1,3 +1,10 @@
+---
+tags:
+  - Experiment
+  - WebGL
+  - JavaScript
+---
+
 # Experiments
 
 Exploratory projects and creative sandboxes. Stability not guaranteed.

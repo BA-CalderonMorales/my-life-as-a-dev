@@ -1,3 +1,10 @@
+---
+tags:
+  - Algorithms
+  - Interview
+  - Data Structures
+---
+
 # Trie (Prefix Tree) Pattern
 
 A Trie is a tree-based data structure for storing strings where each path from root to leaf represents a word. It's particularly efficient for prefix-based operations and is fundamental for dictionary implementations, autocomplete, and spell checking.

@@ -1,6 +1,10 @@
 ---
 title: Distributed Systems
 description: Building reliable systems from unreliable components.
+tags:
+  - Distributed Systems
+  - System Design
+  - Interview
 ---
 
 # Distributed Systems

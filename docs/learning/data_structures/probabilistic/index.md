@@ -1,6 +1,10 @@
 ---
 title: Probabilistic Data Structures
 description: Efficient approximations for massive datasets (Bloom Filters, HyperLogLog).
+tags:
+  - Data Structures
+  - System Design
+  - Interview
 ---
 
 # Probabilistic Data Structures

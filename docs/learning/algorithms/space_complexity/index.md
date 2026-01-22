@@ -1,3 +1,10 @@
+---
+tags:
+  - Algorithms
+  - Interview
+  - Learning
+---
+
 # Space Complexity Analysis
 
 Space complexity measures the amount of memory an algorithm uses relative to its input size. Understanding space complexity is crucial for writing efficient algorithms, especially when dealing with large datasets or memory-constrained environments.

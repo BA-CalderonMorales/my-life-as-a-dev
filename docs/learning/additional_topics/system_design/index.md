@@ -1,6 +1,10 @@
 ---
 title: System Design
 description: The art of designing scalable, reliable, and maintainable software systems.
+tags:
+  - System Design
+  - Interview
+  - Cloud
 ---
 
 # System Design

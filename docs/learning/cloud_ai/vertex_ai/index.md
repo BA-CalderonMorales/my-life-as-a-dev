@@ -1,6 +1,11 @@
 ---
 title: Vertex AI Quickstart
 description: All-in-one guide to set up, connect, and use Google Vertex AI for generative AI development.
+tags:
+  - Cloud
+  - AI
+  - Python
+  - Tutorial
 ---
 
 # Vertex AI Quickstart

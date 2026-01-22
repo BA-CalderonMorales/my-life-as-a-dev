@@ -1,3 +1,10 @@
+---
+tags:
+  - Algorithms
+  - Interview
+  - Data Structures
+---
+
 # Heap and Priority Queue Pattern
 
 A heap is a tree-based data structure that maintains elements in a specific order. A priority queue is typically implemented using a heap and allows efficient access to the minimum or maximum element. This pattern is essential for problems requiring frequent access to extremes or maintaining sorted order dynamically.
