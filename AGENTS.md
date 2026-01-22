@@ -67,6 +67,7 @@ doc-cli       # Interactive CLI (uses .venv automatically)
 | Skill | When to Use |
 |-------|-------------|
 | [Git Workflow](.github/skills/git-workflow.md) | Commits, branches, and PRs |
+| [Encode Fix Intent](.github/skills/encode-fix-intent.md) | Replace noisy comments with clearly named fix wrappers |
 | [Version and Deploy](.github/skills/version-and-deploy.md) | Releasing new versions |
 
 ### Security

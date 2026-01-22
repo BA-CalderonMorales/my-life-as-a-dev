@@ -24,7 +24,7 @@ const ChatConfig = {
     },
 
     // Pages where widget should not appear
-    excludedPaths: ['/canvas/'],
+    excludedPaths: [],
 
     // Check if widget should be injected on current page
     shouldInject: function () {

@@ -28,6 +28,7 @@ This directory contains detailed skill guides for AI assistants and contributors
 
 ### Workflow
 - [git-workflow.md](git-workflow.md) - Commits, branches, PRs
+- [encode-fix-intent.md](encode-fix-intent.md) - Replace noisy comments with clearly named fix wrappers
 - [version-and-deploy.md](version-and-deploy.md) - Release new versions
 
 ### Security
