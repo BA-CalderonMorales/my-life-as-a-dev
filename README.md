@@ -99,8 +99,8 @@ The site features a Claude Docs-inspired chat widget with security-first design.
 **Stack:**
 
 - Frontend: MVVM architecture with JavaScript DOM injection, rate limiting, and XSS prevention
-- Backend: Google Cloud Run with Google ADK (Agent Development Kit)
-- AI Model: Google Gemini 2.0 Flash with multi-agent orchestration
+- Backend: Go proxy on Google Cloud Run + Google ADK (Agent Development Kit)
+- AI Model: Any Google Gemini model (currently using Gemini 3 Flash for speed and accuracy)
 - Security: CORS validation, prompt injection detection, Secret Manager
 
 **Documentation:**
