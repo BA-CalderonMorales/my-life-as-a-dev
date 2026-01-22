@@ -1,6 +1,8 @@
 ---
 title: Docs-as-Code Workflow
 description: How to preview, version, and deploy the site with repeatable commands.
+hide:
+  - toc
 ---
 
 # Docs-as-Code Workflow

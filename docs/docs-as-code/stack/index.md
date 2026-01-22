@@ -1,6 +1,8 @@
 ---
 title: Docs-as-Code Stack
 description: The tools that power the site and how they fit together.
+hide:
+  - toc
 ---
 
 # Docs-as-Code Stack
