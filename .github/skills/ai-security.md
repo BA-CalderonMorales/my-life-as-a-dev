@@ -4,16 +4,19 @@ Understand and safely work with AI features in this repository.
 
 ## Overview
 
-This repository has AI features that are **disabled in production** but exist in the codebase:
+This repository has AI features that are enabled in the backend Go service (`agent-chat-proxy`).
 
-- `scripts/python/ai_proxy.py` - AI proxy server
-- `mkdocs_plugins/ai_plugin.py` - MkDocs AI plugin
+## Architecture
 
-## Current Status
+The AI features are implemented in a standalone Go service deployed to Cloud Run. The security layer handles:
+- Authorization
+- Rate Limiting
+- Prompt Injection Defense
+- Input/Output Filtering
 
-**Production**: AI features are DISABLED.
+## Service Location
 
-These features exist for experimentation but require security hardening before production use.
+The backend code is located in `cloud/agent-chat-proxy-go/` (or `temp_backend_source/go_proxy/` during development).
 
 ## Security Requirements
 
@@ -21,83 +24,59 @@ Before enabling AI features in production, implement:
 
 ### 1. Authentication
 
-```python
-# Required: Verify user identity before AI requests
-def verify_auth(request):
-    token = request.headers.get("Authorization")
-    if not valid_token(token):
-        raise AuthenticationError("Invalid token")
+The service uses Google Cloud IAM for service-to-service auth, but the public endpoint relies on API keys or Origin verification.
+
+```go
+// Authorization logic in internal/security
+func (s *SecurityConfig) VerifyOrigin(origin string) bool {
+    // ... check allowed origins ...
+}
 ```
 
 ### 2. Rate Limiting
 
-```python
-# Required: Prevent abuse
-from functools import lru_cache
-import time
+The service implements a token bucket rate limiter in `internal/security/ratelimit.go`.
 
-rate_limits = {}  # user_id -> (count, window_start)
+```go
+// Example usage in HTTP handler
+limiter = security.NewRateLimiter(30, 10, 1000)
 
-def check_rate_limit(user_id: str, max_requests: int = 100, window: int = 3600):
-    now = time.time()
-    count, start = rate_limits.get(user_id, (0, now))
-    
-    if now - start > window:
-        rate_limits[user_id] = (1, now)
-        return True
-    
-    if count >= max_requests:
-        raise RateLimitError("Rate limit exceeded")
-    
-    rate_limits[user_id] = (count + 1, start)
-    return True
+if !limiter.Check(r).Allowed {
+    http.Error(w, "Rate limit exceeded", http.StatusTooManyRequests)
+}
 ```
 
 ### 3. Token Protection
 
-**NEVER** expose API tokens in client-side code.
+**NEVER** expose API tokens in client-side code. The Gemini API key is stored in Secret Manager and injected at runtime.
 
-```python
-# WRONG - Never do this
-API_KEY = "sk-abc123..."  # In client-side code
-
-# RIGHT - Server-side proxy
-def call_ai_api(prompt: str) -> str:
-    api_key = os.environ.get("AI_API_KEY")  # Server-side only
-    # ... make request with key ...
+```go
+// Correct: Load from environment/secret
+apiKey := os.Getenv("GOOGLE_API_KEY")
 ```
 
-### 4. Request Logging
+### 4. Prompt Injection Defense
 
-```python
-# Required: Log all AI requests for audit
-import logging
+The service includes active defense against prompt injection attempts in `internal/security/injection.go`.
 
-logger = logging.getLogger("ai_audit")
-
-def log_request(user_id: str, prompt: str, response: str):
-    logger.info(
-        "AI request",
-        extra={
-            "user_id": user_id,
-            "prompt_hash": hashlib.sha256(prompt.encode()).hexdigest(),
-            "response_length": len(response),
-            "timestamp": datetime.utcnow().isoformat(),
-        }
-    )
+```go
+// Checks for patterns like "ignore previous instructions"
+if security.IsPromptInjection(req.Question) {
+    // Return a safe, generic response
+    return security.GetInjectionResponse()
+}
 ```
 
 ### 5. Input/Output Filtering
 
-```python
-# Required: Filter dangerous content
-BLOCKED_PATTERNS = [
-    r"ignore previous instructions",
-    r"reveal.*api.*key",
-    # Add more patterns
-]
+Filters are applied at the ADK layer to ensure responses remain within the "portfolio assistant" persona and do not leak system instructions.
 
-def filter_input(prompt: str) -> str:
+```go
+// Internal logic to block unsafe content
+if security.ContainsBlockedContent(response) {
+    return "I cannot answer that question."
+}
+```
     for pattern in BLOCKED_PATTERNS:
         if re.search(pattern, prompt, re.IGNORECASE):
             raise SecurityError("Blocked prompt pattern")

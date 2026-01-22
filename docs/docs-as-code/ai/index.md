@@ -63,9 +63,9 @@ The primary AI feature is an interactive chat widget that:
 | Layer | Technology |
 |-------|------------|
 | Frontend | JavaScript MVVM, DOM injection |
-| Backend | Flask + Google ADK on Cloud Run |
-| AI Model | Google Gemini 2.5 Flash |
-| Orchestration | Multi-agent with 7 specialized sub-agents |
+| Backend | Go HTTP server on Cloud Run |
+| AI Model | Google Gemini 2.0 Flash |
+| Orchestration | Multi-agent with function calling |
 | Security | Rate limiting, CORS, prompt injection detection |
 
 ---

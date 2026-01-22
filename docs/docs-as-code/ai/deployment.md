@@ -1,18 +1,18 @@
 ---
 title: Deployment Guide
-description: Deploy the AI chat widget backend to Google Cloud Run with Google ADK multi-agent architecture.
+description: Deploy the AI chat widget backend to Google Cloud Run with multi-agent architecture.
 ---
 
 # Deployment Guide
 
-This guide walks through deploying the chat widget backend to Google Cloud Run using the modular v3.0 architecture with Google ADK (Agent Development Kit).
+This guide walks through deploying the chat widget backend to Google Cloud Run using a modular multi-agent architecture.
 
 ## Prerequisites
 
 - Google Cloud account with billing enabled
 - `gcloud` CLI installed and configured
 - Gemini API key from [Google AI Studio](https://aistudio.google.com/)
-- Basic Python knowledge
+- Go 1.22+ (for local development)
 
 ---
 
@@ -28,8 +28,8 @@ This guide walks through deploying the chat widget backend to Google Cloud Run u
                               v
 +-------------------------------------------------------------+
 |  Cloud Run (agent-chat-proxy)                               |
-|  +-- Flask application with rate limiting                   |
-|  +-- Google ADK multi-agent orchestration                   |
+|  +-- Go HTTP server with rate limiting                      |
+|  +-- Multi-agent orchestration via function calling         |
 |  +-- Session memory for conversation continuity             |
 |  +-- Security: CORS, prompt injection detection             |
 |                             |                               |
@@ -45,17 +45,13 @@ This guide walks through deploying the chat widget backend to Google Cloud Run u
 |  |  +-- docs_navigation     - Site navigation            |  |
 |  |  +-- learning_coach      - Algorithm learning         |  |
 |  +-------------------------------------------------------+  |
-|                             |                               |
-|                             | Each agent has:               |
-|                             | - Google Search sub-agent     |
-|                             | - URL Context sub-agent       |
 +-------------------------------------------------------------+
                               |
                               | API request
                               v
 +-------------------------------------------------------------+
-|  Google AI (Gemini API via ADK)                             |
-|  -- Gemini 2.5 Flash model                                  |
+|  Google AI (Gemini API)                                     |
+|  -- Gemini 2.0 Flash model                                  |
 +-------------------------------------------------------------+
 ```
 
@@ -63,203 +59,163 @@ This guide walks through deploying the chat widget backend to Google Cloud Run u
 
 ## Project Structure
 
-The v3.0 architecture uses a modular pattern for maintainability:
+The backend uses a modular Go architecture for maintainability:
 
 ```
 agent-chat-proxy/
-+-- app/                          # Flask application
-|   +-- __init__.py
-|   +-- main.py                  # Entry point, app factory
-|   +-- routes/                  # HTTP endpoints
-|   |   +-- chat.py              # Main chat endpoint
-|   |   +-- health.py            # Health checks
++-- cmd/                          # Application entrypoints
+|   +-- server/
+|       +-- main.go              # Entry point
+|
++-- internal/                     # Private application code
+|   +-- api/                     # HTTP handlers
+|   |   +-- chat.go              # Main chat endpoint
+|   |   +-- health.go            # Health checks
+|   +-- adk/                     # AI/Agent orchestration
+|   |   +-- client.go            # Gemini client setup
+|   |   +-- orchestrator.go      # Multi-agent routing
+|   |   +-- executor.go          # Sub-agent execution
+|   +-- agents/                  # Agent definitions
+|   |   +-- registry.go          # Agent registration
+|   |   +-- types.go             # Agent types
+|   +-- prompts/                 # Static prompt files
+|   |   +-- root.txt             # Root orchestrator
+|   |   +-- site_about.txt
+|   |   +-- ...
+|   +-- config/                  # Configuration
+|   |   +-- config.go            # Environment settings
 |   +-- security/                # Security layer
-|   |   +-- cors.py              # CORS configuration
-|   |   +-- injection.py         # Prompt injection detection
-|   |   +-- rate_limit.py        # Rate limiting
-|   |   +-- safety.py            # ADK safety settings
+|   |   +-- cors.go              # CORS configuration
+|   |   +-- injection.go         # Prompt injection detection
+|   |   +-- rate_limit.go        # Rate limiting
 |   +-- session/                 # Session management
-|       +-- memory.py            # Conversation memory
+|       +-- manager.go           # Conversation memory
 |
-+-- agents/                       # Agent definitions
-|   +-- __init__.py              # Agent registry exports
-|   +-- base.py                  # Base agent class
-|   +-- registry.py              # Agent registration
-|   +-- sub_agents/              # Individual agents
-|       +-- site_about.py
-|       +-- who_is_brandon.py
-|       +-- ...
-|
-+-- prompts/                      # Static prompt files
-|   +-- root.txt                 # Root orchestrator
-|   +-- site_about.txt
-|   +-- ...
-|
-+-- config/                       # Configuration
-|   +-- settings.py              # Environment settings
-|   +-- models.py                # Model configurations
-|
-+-- Dockerfile                    # Container config (uses uv)
-+-- requirements.txt
++-- Dockerfile                    # Container config
++-- go.mod                        # Go module definition
++-- go.sum                        # Dependency checksums
 +-- deploy.sh                     # Deployment script
-+-- pyproject.toml
 ```
 
 ---
 
 ## Step 1: Create the Backend
 
-### Option A: Clone the Template
+### Option A: Use Your Own Implementation
 
-```bash
-# Clone the reference implementation
-git clone https://github.com/BA-CalderonMorales/my-life-as-a-dev
-cd my-life-as-a-dev/cloud/agent-chat-proxy
+Create a Go HTTP service that:
 
-# Copy to your own directory
-cp -r . ~/my-chat-proxy
-cd ~/my-chat-proxy
-```
+1. Accepts POST requests with `{"question": "...", "session_id": "..."}`
+2. Routes to appropriate sub-agents via function calling
+3. Returns `{"answer": "...", "session_id": "..."}`
 
 ### Option B: Create from Scratch
 
 Create the directory structure above. Key files:
 
-#### config/settings.py
+#### internal/config/config.go
 
-```python
-"""Application settings loaded from environment."""
-import os
-from dataclasses import dataclass, field
-from typing import List
+```go
+package config
 
-@dataclass
-class Settings:
-    gcp_project: str = field(
-        default_factory=lambda: os.environ.get('GCP_PROJECT', 'your-project-id')
-    )
-    port: int = field(
-        default_factory=lambda: int(os.environ.get('PORT', 8080))
-    )
-    
-    # CORS - add your domains here
-    allowed_origins_static: List[str] = field(default_factory=lambda: [
-        'https://your-domain.github.io',
-        'http://localhost:8001',
-        'http://localhost:8000',
-    ])
-    
-    # Codespaces pattern for dynamic CORS
-    codespaces_pattern: str = r'https://.*-800[01]\.app\.github\.dev$'
-    
-    @property
-    def prompts_dir(self) -> str:
-        import pathlib
-        return str(pathlib.Path(__file__).parent.parent / 'prompts')
-    
-    def get_prompt(self, name: str) -> str:
-        import pathlib
-        prompt_path = pathlib.Path(self.prompts_dir) / f'{name}.txt'
-        return prompt_path.read_text().strip()
+import (
+    "os"
+    "time"
+)
 
-settings = Settings()
+// Config holds all application configuration
+type Config struct {
+    Port             string
+    Environment      string
+    GoogleAPIKey     string
+    CurrentModel     string
+    MaxMessageLength int
+    SessionTTL       time.Duration
+    AllowedOrigins   []string
+}
+
+// Load creates a Config from environment variables
+func Load() *Config {
+    return &Config{
+        Port:             getEnv("PORT", "8080"),
+        Environment:      getEnv("ENV", "development"),
+        GoogleAPIKey:     os.Getenv("GOOGLE_API_KEY"),
+        CurrentModel:     getEnv("MODEL_ID", "gemini-2.0-flash"),
+        MaxMessageLength: 2000,
+        SessionTTL:       30 * time.Minute,
+        AllowedOrigins: []string{
+            "https://your-username.github.io",
+            "http://localhost:8001",
+        },
+    }
+}
+
+func getEnv(key, fallback string) string {
+    if value, ok := os.LookupEnv(key); ok {
+        return value
+    }
+    return fallback
+}
 ```
 
-#### agents/base.py
+#### internal/agents/types.go
 
-```python
-"""Base agent class for all sub-agents."""
-from abc import ABC, abstractmethod
-from google.adk.agents import LlmAgent
-from google.adk.tools import agent_tool
-from google.adk.tools.google_search_tool import GoogleSearchTool
-from google.adk.tools import url_context
-from config.settings import settings
+```go
+package agents
 
-def create_search_agent(name_prefix: str) -> LlmAgent:
-    return LlmAgent(
-        name=f'{name_prefix}_google_search_agent',
-        model='gemini-2.5-flash',
-        description='Agent specialized in performing Google searches.',
-        instruction='Use GoogleSearchTool to find information.',
-        tools=[GoogleSearchTool()],
-    )
-
-def create_url_context_agent(name_prefix: str) -> LlmAgent:
-    return LlmAgent(
-        name=f'{name_prefix}_url_context_agent',
-        model='gemini-2.5-flash',
-        description='Agent specialized in fetching URL content.',
-        instruction='Use UrlContextTool to retrieve content from URLs.',
-        tools=[url_context],
-    )
-
-class BaseAgent(ABC):
-    @property
-    @abstractmethod
-    def name(self) -> str: pass
-    
-    @property
-    @abstractmethod
-    def description(self) -> str: pass
-    
-    @property
-    @abstractmethod
-    def prompt_file(self) -> str: pass
-    
-    def get_instruction(self) -> str:
-        return settings.get_prompt(self.prompt_file)
-    
-    def build(self) -> LlmAgent:
-        return LlmAgent(
-            name=self.name,
-            model='gemini-2.5-flash',
-            description=self.description,
-            instruction=self.get_instruction(),
-            tools=[
-                agent_tool.AgentTool(agent=create_search_agent(self.name)),
-                agent_tool.AgentTool(agent=create_url_context_agent(self.name)),
-            ],
-        )
+// Agent represents a distinct capability or persona within the system
+type Agent struct {
+    Name        string
+    Description string
+    PromptFile  string
+    Instruction string // Loaded content from the prompt file
+}
 ```
 
-#### Dockerfile (uses uv for fast builds)
+#### Dockerfile (Go multi-stage build)
 
 ```dockerfile
-FROM python:3.11-slim
+FROM golang:1.22-alpine AS builder
 
 WORKDIR /app
 
-# Install uv for fast dependency installation
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc curl \
-    && curl -LsSf https://astral.sh/uv/install.sh | sh \
-    && rm -rf /var/lib/apt/lists/*
+# Copy go mod files
+COPY go.mod go.sum ./
+RUN go mod download
 
-ENV PATH="/root/.local/bin:$PATH"
-
-COPY requirements.txt .
-RUN uv pip install --system --no-cache -r requirements.txt
-
+# Copy source code
 COPY . .
 
-ENV PYTHONUNBUFFERED=1
+# Build
+RUN CGO_ENABLED=0 GOOS=linux go build -o server ./cmd/server
+
+# Final stage
+FROM alpine:latest
+
+WORKDIR /app
+
+COPY --from=builder /app/server .
+COPY --from=builder /app/internal/prompts ./internal/prompts
+
 ENV PORT=8080
 
 EXPOSE 8080
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "4", "--timeout", "120", "app.main:app"]
+CMD ["./server"]
 ```
 
-#### requirements.txt
+#### go.mod
 
-```
-flask>=3.0.0
-gunicorn>=21.0.0
-google-adk>=0.3.0
-google-genai>=0.5.0
-google-cloud-secret-manager>=2.20.0
-python-dotenv>=1.0.0
+```go
+module github.com/your-username/agent-chat-proxy
+
+go 1.22
+
+require (
+    github.com/google/generative-ai-go v0.18.0
+    github.com/google/uuid v1.6.0
+    google.golang.org/api v0.200.0
+)
 ```
 
 ---
@@ -268,10 +224,10 @@ python-dotenv>=1.0.0
 
 ### Create Prompt Files
 
-Each agent needs a prompt file in prompts/. Example:
+Each agent needs a prompt file in `internal/prompts/`. Example:
 
 ```text
-# prompts/site_about.txt
+# internal/prompts/site_about.txt
 
 You help visitors understand what this site is about.
 
@@ -285,38 +241,39 @@ When someone asks what the site is about, share these highlights.
 Keep it conversational and welcoming.
 ```
 
-### Create Agent Modules
+### Register Agents
 
-```python
-# agents/sub_agents/site_about.py
-from agents.base import BaseAgent
+Agents are registered in the registry and exposed as function declarations for Gemini's function calling:
 
-class SiteAboutAgent(BaseAgent):
-    @property
-    def name(self) -> str:
-        return 'site_about'
+```go
+// internal/agents/registry.go
+package agents
+
+type Registry struct {
+    RootAgent *Agent
+    Agents    map[string]*Agent
+}
+
+func NewRegistry(promptsDir string) *Registry {
+    r := &Registry{
+        Agents: make(map[string]*Agent),
+    }
     
-    @property
-    def description(self) -> str:
-        return 'Handles questions about what this site is.'
+    // Register agents
+    agents := []Agent{
+        {Name: "site_about", Description: "Handles general site questions", PromptFile: "site_about"},
+        {Name: "project_info", Description: "Handles project questions", PromptFile: "project_info"},
+        // Add more agents...
+    }
     
-    @property
-    def prompt_file(self) -> str:
-        return 'site_about'
-```
-
-### Register in Registry
-
-```python
-# agents/registry.py
-from agents.sub_agents import SiteAboutAgent, YourOtherAgent
-
-class AgentRegistry:
-    def _load_agents(self):
-        agent_classes = [SiteAboutAgent, YourOtherAgent]
-        for cls in agent_classes:
-            agent = cls()
-            self._agents[agent.name] = agent
+    for _, a := range agents {
+        agent := a
+        agent.Instruction = loadPrompt(promptsDir, a.PromptFile)
+        r.Agents[a.Name] = &agent
+    }
+    
+    return r
+}
 ```
 
 ---
@@ -411,15 +368,15 @@ curl -X POST $SERVICE_URL/ \
 
 ## Security Features
 
-The v3.0 architecture includes multiple security layers:
+The architecture includes multiple security layers:
 
 | Feature | Description |
 |---------|-------------|
 | **CORS** | Only approved origins can make requests |
-| **Rate Limiting** | 30 req/min per IP, 1000 req/min global |
-| **Burst Protection** | Max 10 requests in 5 seconds |
+| **Rate Limiting** | Configurable per-IP and global limits |
+| **Burst Protection** | Prevents rapid-fire requests |
 | **Prompt Injection** | Blocks manipulation attempts |
-| **Safety Settings** | Google ADK harm category filters |
+| **Safety Settings** | Gemini harm category filters |
 | **DDoS Protection** | Cloud Run infrastructure-level |
 
 ### Rate Limit Headers
@@ -436,13 +393,11 @@ X-RateLimit-Reset: 1767693633
 
 ## Adding New Agents
 
-1. Create prompt: prompts/my_agent.txt
-2. Create module: agents/sub_agents/my_agent.py
-3. Register in agents/sub_agents/__init__.py
-4. Add to agents/registry.py
-5. Deploy: ./deploy.sh
+1. Create prompt: `internal/prompts/my_agent.txt`
+2. Register in `internal/agents/registry.go`
+3. Deploy: `./deploy.sh`
 
-See [Update Agent Flows](../../../.github/skills/update-agent-flows.md) for details.
+See the skills documentation for details on adding agents.
 
 ---
 
@@ -452,11 +407,11 @@ See [Update Agent Flows](../../../.github/skills/update-agent-flows.md) for deta
 |---------|-------|---------|
 | min-instances | 0 | Scale to zero when idle |
 | max-instances | 10 | Prevent runaway costs |
-| memory | 1Gi | Sufficient for ADK agents |
+| memory | 512Mi-1Gi | Go is memory-efficient |
 | CPU | 1 | Good balance |
 | timeout | 120s | Allow complex agent chains |
 
-Estimated cost: Free tier covers ~2M requests/month.
+Estimated cost: Free tier covers ~2M requests/month. Go's fast cold starts make min-instances=0 very practical.
 
 ---
 
@@ -464,11 +419,10 @@ Estimated cost: Free tier covers ~2M requests/month.
 
 | Issue | Solution |
 |-------|----------|
-| 403 Forbidden | Add origin to allowed_origins_static |
-| Prompt file not found | Check filename matches prompt_file property |
-| Rate limit exceeded | Wait or adjust limits in rate_limit.py |
-| Cold start slow | Consider min-instances=1 |
-| ADK import error | Verify google-adk in requirements.txt |
+| 403 Forbidden | Add origin to allowed origins in config |
+| Prompt file not found | Check filename and path in prompts directory |
+| Rate limit exceeded | Wait or adjust limits in security config |
+| Cold start slow | Consider min-instances=1 (less needed with Go) |
 
 ### View Logs
 

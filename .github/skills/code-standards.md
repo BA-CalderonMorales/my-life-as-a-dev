@@ -98,6 +98,49 @@ def function(arg1: str, arg2: int) -> bool:
 - Run `cargo clippy` and fix warnings
 - Meaningful error messages
 
+## Go Standards
+
+### Style
+
+- Go 1.22+
+- Run `go fmt` before committing
+- Run `go vet` to catch common errors
+- Follow [Effective Go](https://go.dev/doc/effective_go)
+
+### Naming
+
+- **Packages**: meaningful, single-word, lower-case (e.g., `config`, not `configuration`)
+- **Interfaces**: Method name + "er" (e.g., `Reader`, `Writer`)
+- **Variables**: Short and descriptive (e.g., `i` for index, `req` for request)
+- **Functions**: PascalCase for exported, camelCase for internal
+
+### Example
+
+```go
+package config
+
+import (
+	"fmt"
+	"os"
+)
+
+// Config holds service configuration.
+type Config struct {
+	Port int
+}
+
+// Load reads configuration from environment.
+func Load() (*Config, error) {
+	portStr := os.Getenv("PORT")
+	if portStr == "" {
+		return nil, fmt.Errorf("PORT env var required")
+	}
+	// ... logic
+	return &Config{Port: 8080}, nil
+}
+```
+
+
 ### Example
 
 ```rust

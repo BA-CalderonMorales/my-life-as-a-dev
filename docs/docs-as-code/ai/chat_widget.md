@@ -108,7 +108,8 @@ Inspired by [Claude's documentation chat](https://docs.anthropic.com) which prov
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  Backend (Cloud Run)                                        │
-│  ├── Flask Proxy Service                                    │
+│  ├── Go HTTP Service (lightweight, fast cold starts)        │
+│  ├── Multi-agent orchestration with function calling        │
 │  ├── Prompt Injection Safeguards                            │
 │  ├── CORS Validation (dynamic Codespaces support)           │
 │  └── Secret Manager Integration                             │
@@ -138,9 +139,10 @@ Inspired by [Claude's documentation chat](https://docs.anthropic.com) which prov
 
 | Component | Purpose |
 |-----------|---------|
-| **main.py** | Flask service with Gemini integration |
+| **Go HTTP Server** | Lightweight service with Gemini integration |
+| **Agent Registry** | Multi-agent orchestration via function calling |
 | **CORS Handler** | Regex-based origin validation (supports Codespaces) |
-| **Prompt Guard** | 10+ pattern detection for injection attempts |
+| **Prompt Guard** | Pattern detection for injection attempts |
 | **Secret Manager** | Secure API key retrieval |
 
 ---
@@ -156,14 +158,15 @@ Inspired by [Claude's documentation chat](https://docs.anthropic.com) which prov
 ### 1. Deploy Backend
 
 ```bash
-# Clone the backend
-git clone https://github.com/BA-CalderonMorales/agent-chat-proxy
+# Navigate to your backend source
+cd your-backend-source/
 
 # Deploy to Cloud Run
 gcloud run deploy agent-chat-proxy \
   --source . \
   --region us-central1 \
-  --allow-unauthenticated
+  --allow-unauthenticated \
+  --project=YOUR_PROJECT_ID
 ```
 
 ### 2. Add Frontend
