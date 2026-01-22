@@ -175,6 +175,19 @@ export class InteractionManager {
     }
 
     _handleKeyDown(e) {
+        // Don't intercept keyboard events when user is typing in an input field
+        const activeElement = document.activeElement;
+        const isTyping = activeElement && (
+            activeElement.tagName === 'INPUT' ||
+            activeElement.tagName === 'TEXTAREA' ||
+            activeElement.isContentEditable ||
+            activeElement.closest('.ai-chat-container')
+        );
+
+        if (isTyping) {
+            return;
+        }
+
         const rotateSpeed = 0.05;
 
         switch (e.code) {
