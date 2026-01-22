@@ -1,6 +1,9 @@
 ---
 title: Docs-as-Code Quality & Style
 description: Conventions that keep pages readable and consistent.
+tags:
+  - Documentation
+  - Workflow
 hide:
   - toc
 ---

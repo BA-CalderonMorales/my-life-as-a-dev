@@ -1,3 +1,10 @@
+---
+tags:
+  - Algorithms
+  - Interview
+  - Python
+---
+
 # Fast and Slow Pointers Pattern
 
 The Fast and Slow Pointers pattern, also known as the Floyd's Cycle Detection algorithm or the Tortoise and Hare algorithm, uses two pointers moving at different speeds through a data structure. This technique is particularly effective for cycle detection and finding middle elements.

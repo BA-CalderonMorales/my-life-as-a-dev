@@ -1,6 +1,10 @@
 ---
 title: Advanced Trees
 description: Specialized trees for specialized problems.
+tags:
+  - Data Structures
+  - Algorithms
+  - Interview
 ---
 
 # Advanced Trees

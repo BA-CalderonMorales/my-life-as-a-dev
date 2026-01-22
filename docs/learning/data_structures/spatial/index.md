@@ -1,6 +1,10 @@
 ---
 title: Spatial Data Structures
 description: Organizing data in multi-dimensional space.
+tags:
+  - Data Structures
+  - Algorithms
+  - Interview
 ---
 
 # Spatial Data Structures

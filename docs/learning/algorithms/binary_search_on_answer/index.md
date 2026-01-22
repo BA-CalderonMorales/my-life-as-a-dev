@@ -1,3 +1,10 @@
+---
+tags:
+  - Algorithms
+  - Interview
+  - Python
+---
+
 # Binary Search on Answer Pattern
 
 Binary Search on Answer is a technique where you use binary search not to find an element, but to find an optimal value (minimum or maximum) that satisfies certain conditions. It's particularly powerful for optimization problems.

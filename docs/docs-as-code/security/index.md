@@ -1,6 +1,10 @@
 ---
 title: Security Posture
 description: Security principles and practices for this documentation site and its AI features.
+tags:
+  - Security
+  - DevOps
+  - Cloud
 ---
 
 # Security Posture

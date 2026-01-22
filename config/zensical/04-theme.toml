@@ -73,6 +73,35 @@ code = "Fira Code"
 [project.theme.icon]
 repo = "fontawesome/brands/github"
 
+# Tag icons - associate tag identifiers with icons
+[project.theme.icon.tag]
+default = "lucide/hash"
+python = "fontawesome/brands/python"
+rust = "fontawesome/brands/rust"
+javascript = "fontawesome/brands/js"
+typescript = "simple/typescript"
+html = "fontawesome/brands/html5"
+css = "fontawesome/brands/css3"
+react = "fontawesome/brands/react"
+algorithm = "lucide/binary"
+data-structure = "lucide/network"
+setup = "lucide/settings"
+tutorial = "lucide/graduation-cap"
+project = "lucide/folder-code"
+cloud = "lucide/cloud"
+ai = "lucide/brain"
+learning = "lucide/book-open"
+interview = "lucide/mic"
+system-design = "lucide/server"
+security = "lucide/shield"
+workflow = "lucide/git-branch"
+documentation = "lucide/file-text"
+webgl = "lucide/box"
+experiment = "lucide/flask-conical"
+devops = "lucide/container"
+networking = "lucide/wifi"
+distributed = "lucide/network"
+
 
 # ==============================================================================
 # COLOR SCHEMES
@@ -94,6 +123,41 @@ primary = "teal"
 accent = "amber"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to dark mode"
+
+
+# ==============================================================================
+# TAG IDENTIFIERS
+# ==============================================================================
+# Map tag names to identifiers for icon association.
+# Tags not listed here will use the default icon.
+# ==============================================================================
+
+[project.extra.tags]
+Python = "python"
+Rust = "rust"
+JavaScript = "javascript"
+TypeScript = "typescript"
+HTML5 = "html"
+CSS = "css"
+React = "react"
+Algorithms = "algorithm"
+"Data Structures" = "data-structure"
+Setup = "setup"
+Tutorial = "tutorial"
+Project = "project"
+Cloud = "cloud"
+AI = "ai"
+Learning = "learning"
+Interview = "interview"
+"System Design" = "system-design"
+Security = "security"
+Workflow = "workflow"
+Documentation = "documentation"
+WebGL = "webgl"
+Experiment = "experiment"
+DevOps = "devops"
+Networking = "networking"
+"Distributed Systems" = "distributed"
 
 
 # ==============================================================================

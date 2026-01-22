@@ -1,6 +1,10 @@
 ---
 title: Technical Interview Preparation
 description: A systematic 7-step framework for technical interviews, plus communication strategies, time management, and practice plans.
+tags:
+  - Interview
+  - Algorithms
+  - Learning
 ---
 
 # Technical Interview Preparation

@@ -1,3 +1,10 @@
+---
+tags:
+  - Algorithms
+  - Interview
+  - Data Structures
+---
+
 # Monotonic Stack Pattern
 
 A monotonic stack is a stack that maintains elements in a monotonically increasing or decreasing order. This pattern is powerful for solving problems that require finding the next greater or smaller element, or problems involving ranges with specific ordering properties.

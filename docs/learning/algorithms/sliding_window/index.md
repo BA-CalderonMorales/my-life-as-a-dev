@@ -1,6 +1,10 @@
 ---
 title: Sliding Window Pattern
 description: Optimize contiguous sequence problems from O(n^2) to O(n) using the sliding window technique.
+tags:
+  - Algorithms
+  - Interview
+  - Python
 ---
 
 # Sliding Window Pattern

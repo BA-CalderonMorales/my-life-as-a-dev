@@ -1,6 +1,10 @@
 ---
 title: Networking
 description: How the internet actually works.
+tags:
+  - Networking
+  - System Design
+  - Interview
 ---
 
 # Networking

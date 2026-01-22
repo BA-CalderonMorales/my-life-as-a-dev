@@ -1,6 +1,10 @@
 ---
 title: Data Structures
 description: Core data structures with complexity analysis, use cases, and practice problems.
+tags:
+  - Data Structures
+  - Learning
+  - Interview
 ---
 
 # Data Structures

@@ -1,6 +1,10 @@
 ---
 title: Additional Topics
 description: Curated resources on distributed systems, networking, security, and engineering best practices.
+tags:
+  - System Design
+  - Distributed Systems
+  - Learning
 ---
 
 # Additional Topics

@@ -1,3 +1,9 @@
+---
+tags:
+  - Project
+  - DevOps
+---
+
 # Projects
 
 A curated set of builds that show how I approach tooling, automation, and creative experiments.

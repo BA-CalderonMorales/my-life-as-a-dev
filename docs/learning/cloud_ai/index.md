@@ -1,6 +1,10 @@
 ---
 title: Cloud AI Platforms
 description: Hands-on guides for cloud-based AI platforms including Google Vertex AI.
+tags:
+  - Cloud
+  - AI
+  - Tutorial
 ---
 
 # Cloud AI Platforms

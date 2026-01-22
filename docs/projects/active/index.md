@@ -1,3 +1,10 @@
+---
+tags:
+  - Project
+  - DevOps
+  - Rust
+---
+
 # Active Projects
 
 Production-ready tools and infrastructure I actively maintain.

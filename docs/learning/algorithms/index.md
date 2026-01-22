@@ -1,6 +1,10 @@
 ---
 title: Algorithm Patterns
 description: Master algorithmic patterns to recognize problem types, apply systematic techniques, and build problem-solving intuition.
+tags:
+  - Algorithms
+  - Learning
+  - Interview
 ---
 
 # Algorithm Patterns

@@ -12,6 +12,9 @@ meta = {}
 attr_list = {}
 admonition = {}
 
+[project.markdown_extensions.toc]
+permalink = true
+
 
 # ==============================================================================
 # PYMDOWN EXTENSIONS

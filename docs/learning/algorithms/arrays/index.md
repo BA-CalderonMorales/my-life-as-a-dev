@@ -1,3 +1,10 @@
+---
+tags:
+  - Data Structures
+  - Algorithms
+  - Interview
+---
+
 # Array Data Structures
 
 Arrays are fundamental data structures that store elements in contiguous memory locations, enabling efficient access by index. Understanding arrays deeply is essential for solving algorithmic problems and building efficient systems.

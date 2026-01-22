@@ -1,3 +1,10 @@
+---
+tags:
+  - Algorithms
+  - Interview
+  - Python
+---
+
 # Greedy Algorithms Pattern
 
 Greedy algorithms make locally optimal choices at each step with the hope of finding a global optimum. They build solutions piece by piece, always choosing the next piece that offers the most immediate benefit.

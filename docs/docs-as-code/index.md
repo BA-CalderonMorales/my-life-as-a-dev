@@ -1,3 +1,10 @@
+---
+tags:
+  - Documentation
+  - DevOps
+  - Workflow
+---
+
 # Docs-as-Code Platform
 
 This site treats documentation like any other product release: versioned, automated, and written with intent. Everything you see is built with MkDocs Material, backed by mike for versioning, and shipped through GitHub Actions.

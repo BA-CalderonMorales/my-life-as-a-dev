@@ -1,6 +1,10 @@
 ---
 title: Zensical - The Future of Material for MkDocs
 description: Exploring Zensical, the modern static site generator from the creators of Material for MkDocs.
+tags:
+  - Documentation
+  - Python
+  - Setup
 ---
 
 # Zensical

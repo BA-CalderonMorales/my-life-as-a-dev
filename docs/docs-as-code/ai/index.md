@@ -1,6 +1,10 @@
 ---
 title: AI Features
 description: AI-powered features on this documentation site, including the chat widget.
+tags:
+  - AI
+  - Cloud
+  - JavaScript
 ---
 
 # AI Features

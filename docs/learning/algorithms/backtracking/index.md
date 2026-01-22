@@ -1,6 +1,10 @@
 ---
 title: Backtracking Pattern
 description: Systematically explore all possible solutions by building candidates incrementally and pruning invalid paths.
+tags:
+  - Algorithms
+  - Interview
+  - Python
 ---
 
 # Backtracking Pattern

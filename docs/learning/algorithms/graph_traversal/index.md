@@ -1,3 +1,10 @@
+---
+tags:
+  - Algorithms
+  - Interview
+  - Data Structures
+---
+
 # Graph Traversal Pattern (BFS and DFS)
 
 Graph traversal algorithms systematically visit all vertices and edges in a graph. Breadth-First Search (BFS) and Depth-First Search (DFS) are fundamental patterns that form the basis for many graph algorithms.

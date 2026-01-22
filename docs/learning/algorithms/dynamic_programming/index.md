@@ -1,3 +1,10 @@
+---
+tags:
+  - Algorithms
+  - Interview
+  - Python
+---
+
 # Dynamic Programming Pattern
 
 Dynamic Programming (DP) is a method for solving complex problems by breaking them down into simpler overlapping subproblems. It optimizes recursive solutions by storing results to avoid redundant calculations.

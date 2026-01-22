@@ -1,6 +1,9 @@
 ---
 title: Docs-as-Code Principles
 description: Opinionated rules that keep navigation, safety, and maintainability consistent.
+tags:
+  - Documentation
+  - Workflow
 hide:
   - toc
 ---

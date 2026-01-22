@@ -1,6 +1,9 @@
 ---
 title: Learning Resources
 description: A curated collection of software engineering fundamentals, from algorithms and data structures to system design and cloud AI.
+tags:
+  - Learning
+  - Tutorial
 ---
 
 # Learning Resources

@@ -1,6 +1,10 @@
 ---
 title: Two Pointers Pattern
 description: Reduce O(n^2) to O(n) by using two references to traverse data structures efficiently.
+tags:
+  - Algorithms
+  - Interview
+  - Python
 ---
 
 # Two Pointers Pattern
