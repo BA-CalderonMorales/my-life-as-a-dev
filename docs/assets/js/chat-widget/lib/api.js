@@ -1,8 +1,15 @@
 /**
  * Chat Widget API
- * 
+ *
  * Handles communication with the backend AI service.
- * Includes rate limiting, request building, and response handling.
+ * Includes rate limiting, request building, structured response handling,
+ * and error management.
+ *
+ * Response Flow:
+ * 1. Raw response from Cloud Run API
+ * 2. ResponseTransformer validates and structures the response
+ * 3. MessageParser validates for UI rendering
+ * 4. Structured response returned to caller
  */
 
 const ChatAPI = {
@@ -13,11 +20,12 @@ const ChatAPI = {
     /**
      * Send a message to the AI backend
      * @param {string} message - User's message
-     * @returns {Promise<object>} - Validated response data
+     * @returns {Promise<object>} - Structured response data
      */
     sendMessage: async function (message) {
         const config = window.ChatConfig;
         const logger = window.ChatLogger;
+        const transformer = window.ResponseTransformer;
         const parser = window.MessageParser ? new window.MessageParser() : null;
 
         // Rate limiting check
@@ -50,15 +58,32 @@ const ChatAPI = {
         }
 
         const data = await response.json();
-        logger.log('Response data:', data);
+        logger.log('Raw response data:', data);
 
-        // Validate response
+        // Transform the response using the structured transformer
+        let structuredResponse;
+        if (transformer) {
+            structuredResponse = transformer.transform(data);
+
+            if (!structuredResponse.success) {
+                logger.error('Response transformation failed:', structuredResponse.error);
+                throw new Error('Invalid response format: ' + structuredResponse.error);
+            }
+
+            logger.log('Structured response:', transformer.getSummary(structuredResponse));
+        }
+
+        // Also validate with parser for backward compatibility
         const validatedData = this.validateResponse(data, parser);
 
         // Update session
         this.sessionId = validatedData.session_id;
 
-        return validatedData;
+        // Return enriched response with both structured and validated data
+        return {
+            ...validatedData,
+            structured: structuredResponse ? structuredResponse.data : null
+        };
     },
 
     /**
@@ -82,11 +107,32 @@ const ChatAPI = {
             throw new Error('Invalid response format');
         }
 
+        // Normalize the response
+        const normalizedAnswer = this.normalizeText(data.answer);
+
         return {
-            answer: data.answer,
+            answer: normalizedAnswer,
             session_id: data.session_id || null,
             sources: data.sources || []
         };
+    },
+
+    /**
+     * Normalize text for consistent handling
+     * @param {string} text - Raw text
+     * @returns {string} - Normalized text
+     */
+    normalizeText: function (text) {
+        if (!text) return '';
+
+        // Normalize line endings
+        let normalized = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+        // Remove excessive blank lines
+        normalized = normalized.replace(/\n{3,}/g, '\n\n');
+
+        // Trim whitespace
+        return normalized.trim();
     },
 
     /**
@@ -104,7 +150,26 @@ const ChatAPI = {
         if (error.message.includes('CORS')) {
             return 'Connection blocked. Please try again from the production site.';
         }
+        if (error.message.includes('Invalid response format')) {
+            return 'Received an unexpected response. Please try again.';
+        }
         return 'Sorry, I encountered an error. Please try again.';
+    },
+
+    /**
+     * Get the current session ID
+     * @returns {string|null} - Current session ID
+     */
+    getSessionId: function () {
+        return this.sessionId;
+    },
+
+    /**
+     * Reset the session (useful for "new conversation" feature)
+     */
+    resetSession: function () {
+        this.sessionId = null;
+        window.ChatLogger.log('Session reset');
     }
 };
 
