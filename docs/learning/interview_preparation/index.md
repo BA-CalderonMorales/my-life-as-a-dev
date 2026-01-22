@@ -1,6 +1,11 @@
+---
+title: Technical Interview Preparation
+description: A systematic 7-step framework for technical interviews, plus communication strategies, time management, and practice plans.
+---
+
 # Technical Interview Preparation
 
-Preparing for technical interviews requires not just algorithmic knowledge, but also strategy, communication skills, and a systematic approach. This guide covers essential frameworks and techniques to help you succeed in your next technical interview.
+Technical interviews require more than algorithmic knowledge. Success comes from strategy, communication skills, and a systematic approach. This guide provides a complete framework for your next interview.
 
 <div class="grid cards" markdown>
 
@@ -10,452 +15,275 @@ Preparing for technical interviews requires not just algorithmic knowledge, but 
 
     From understanding the prompt to optimizing and discussing trade-offs.
 
-    [Review the steps](#a-systematic-framework-for-technical-interviews)
+    [:octicons-arrow-right-24: Jump to Framework](#the-7-step-framework)
 
 -   :material-account-voice:{ .lg .middle } **Communication**
 
     ---
 
-    Clarifying questions, narrating intent, and discussing edge cases crisply.
+    Clarifying questions, narrating intent, and discussing edge cases clearly.
 
-    [See communication cues](#step-1-understand-the-problem)
+    [:octicons-arrow-right-24: Communication Tips](#communication-best-practices)
 
--   :material-brain:{ .lg .middle } **Pattern Drills**
+-   :material-brain:{ .lg .middle } **Pattern Recognition**
 
     ---
 
     Map problems to sliding window, DP, graphs, and more.
 
-    [Pair with algorithm patterns](../algorithms/index.md)
+    [:octicons-arrow-right-24: Algorithm Patterns](../algorithms/index.md)
 
--   :material-timer-outline:{ .lg .middle } **Practice Plan**
+-   :material-timer-outline:{ .lg .middle } **Time Management**
 
     ---
 
-    Quick reps, timed mocks, and review loops for consistency.
+    Allocate your 45-60 minutes effectively across each phase.
 
-    [Use with LeetCode lists](../index.md#algorithm-patterns-at-a-glance)
+    [:octicons-arrow-right-24: Time Tips](#time-management)
 
 </div>
 
+---
+
 ## The Interview Process
 
-Technical interviews typically include several rounds:
+```text
+┌────────────────────────────────────────────────────────────────────────────┐
+│                        TYPICAL INTERVIEW PIPELINE                          │
+└────────────────────────────────────────────────────────────────────────────┘
 
-1. **Phone/Video Screening**: Basic coding problems, data structure knowledge
-2. **Technical Rounds**: Multiple sessions focusing on algorithms, system design
-3. **Behavioral Interviews**: Team fit, past experiences, problem-solving approach
-4. **Onsite/Virtual Onsite**: Combination of technical and cultural fit assessments
+  SCREENING           TECHNICAL            BEHAVIORAL          ONSITE
+  ────────           ─────────            ──────────          ──────
+  30-45 min          45-60 min            30-45 min           4-6 hours
 
-## A Systematic Framework for Technical Interviews
+  ┌─────────┐        ┌─────────┐          ┌─────────┐        ┌─────────┐
+  │ Phone/  │───────>│ Coding  │─────────>│ Team    │───────>│ Multiple│
+  │ Video   │        │ Rounds  │          │ Fit     │        │ Rounds  │
+  │         │        │ (1-2)   │          │         │        │         │
+  └─────────┘        └─────────┘          └─────────┘        └─────────┘
+       │                  │                    │                  │
+       │                  │                    │                  │
+       ▼                  ▼                    ▼                  ▼
+   Basic DSA          Algorithms           Experience         Technical
+   Questions          System Design        Scenarios          + Cultural
+```
 
-A structured approach helps you tackle problems methodically and communicate effectively with interviewers.
+---
+
+## The 7-Step Framework
+
+A structured approach for tackling any coding problem.
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  1. UNDERSTAND  ──>  2. PLAN  ──>  3. DESIGN  ──>  4. IMPLEMENT            │
+│        │                                                    │              │
+│        │         7. OPTIMIZE  <──  6. ANALYZE  <──  5. TEST               │
+│        │              │                                                    │
+│        └──────────────┴────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
 ### Step 1: Understand the Problem
 
-- **Ask Clarifying Questions**
+!!! tip "Key Actions"
 
-    - What are the input constraints? (size, range, type)
-    - What should be returned? (value, index, boolean)
-    - Are there edge cases to consider? (empty input, duplicates, negative numbers)
-    - What are the performance expectations?
+    - **Ask clarifying questions**: Input constraints, return type, edge cases
+    - **Restate the problem**: Explain it in your own words
+    - **Work through examples**: Confirm understanding with interviewer
 
-- **Restate the Problem**
-
-    - Explain the problem in your own words
-    - Confirm you understand what's being asked
-    - Show examples to verify understanding
+| Question Type | Example |
+|---------------|---------|
+| Input constraints | "What's the maximum array size?" |
+| Return type | "Should I return the value or the index?" |
+| Edge cases | "What if the input is empty?" |
+| Performance | "Do I need O(n) or is O(n log n) acceptable?" |
 
 ### Step 2: Plan Your Approach
 
-- **Think Out Loud**
+!!! tip "Key Actions"
 
-    - Share your initial thoughts
-    - Discuss potential approaches
-    - Consider trade-offs between solutions
-
-- **Start Simple**
-
-    - Begin with brute force solution
-    - Explain time and space complexity
-    - Discuss why it might not be optimal
-
-- **Optimize**
-
-    - Identify bottlenecks
-    - Consider data structures that could help
-    - Think about mathematical properties or patterns
+    - **Think out loud**: Share your reasoning process
+    - **Start simple**: Begin with brute force, then optimize
+    - **Consider patterns**: Which algorithm pattern fits?
 
 ### Step 3: Design Your Solution
 
-- **Outline the Algorithm**
+!!! tip "Key Actions"
 
-    - Write pseudocode or high-level steps
-    - Verify logic with examples
-    - Get interviewer's approval before coding
+    - **Write pseudocode**: High-level steps before coding
+    - **Verify with examples**: Walk through logic manually
+    - **Get approval**: Confirm approach before implementing
 
-- **Consider Edge Cases**
+**Edge Cases Checklist:**
 
-    - Empty input
-    - Single element
-    - All same elements
-    - Maximum/minimum constraints
-    - Negative numbers, zeros
+- [ ] Empty input
+- [ ] Single element
+- [ ] All same elements
+- [ ] Maximum/minimum values
+- [ ] Negative numbers, zeros
 
 ### Step 4: Implement Your Code
 
-- **Write Clean Code**
+!!! tip "Key Actions"
 
-    - Use meaningful variable names
-    - Add comments for complex logic
-    - Keep functions focused and modular
-    - Follow language conventions
-
-- **Communicate While Coding**
-
-    - Explain what you're writing
-    - Mention any assumptions
-    - Point out edge case handling
+    - **Use meaningful names**: `left`, `right` not `i`, `j`
+    - **Comment complex logic**: One-liner for tricky parts
+    - **Communicate while coding**: Explain what you're writing
 
 ### Step 5: Test Your Solution
 
-- **Walk Through Examples**
+!!! tip "Key Actions"
 
-    - Use the given examples
-    - Create your own test cases
-    - Include edge cases
-
-- **Trace Execution**
-
-    - Step through code line by line
-    - Track variable values
-    - Verify output at each step
-
-- **Find and Fix Bugs**
-
-    - Look for common mistakes
-    - Check boundary conditions
-    - Test with edge cases
+    - **Trace execution**: Step through with variable values
+    - **Test edge cases**: Empty, single, duplicates
+    - **Find and fix bugs**: Check boundary conditions
 
 ### Step 6: Analyze Complexity
 
-- **Time Complexity**
+!!! tip "Key Actions"
 
-    - Count operations in terms of input size
-    - Consider all loops and recursive calls
-    - Express in Big O notation
-
-- **Space Complexity**
-
-    - Count extra memory used
-    - Include recursion stack space
-    - Consider input vs auxiliary space
+    - **Time complexity**: Count operations, express in Big O
+    - **Space complexity**: Count extra memory, include stack space
+    - **Justify your analysis**: Explain the reasoning
 
 ### Step 7: Optimize and Discuss
 
-- **Consider Improvements**
+!!! tip "Key Actions"
 
-    - Can we do better than current approach?
-    - Are there alternative data structures?
-    - Could preprocessing help?
+    - **Consider improvements**: Better algorithms, data structures?
+    - **Discuss trade-offs**: Time vs space, simplicity vs performance
+    - **Show depth**: Mention alternative approaches
 
-- **Discuss Trade-offs**
-
-    - Time vs space trade-offs
-    - Simplicity vs performance
-    - Different inputs might favor different approaches
-
-## Common Interview Patterns
-
-### Pattern Recognition
-
-Learn to recognize these common patterns in problems:
-
-
-- **Array/String Manipulation**
-
-    - Two pointers
-    - Sliding window
-    - Prefix sums
-    - Hash maps for frequency counting
-
-- **Dynamic Programming**
-
-    - Overlapping subproblems
-    - Optimal substructure
-    - Memoization vs tabulation
-
-- **Graph/Tree Problems**
-
-    - BFS for shortest path
-    - DFS for path finding
-    - Topological sort for dependencies
-
-- **Search Problems**
-
-    - Binary search and variants
-    - Backtracking for combinations/permutations
-
-### Problem-Solving Strategies
-
-1. **Look for Patterns**
-    - Have you seen similar problems?
-    - What patterns does this problem exhibit?
-    - What data structures are commonly used for this type?
-
-2. **Start with Examples**
-    - Work through small examples manually
-    - Look for patterns in the solution
-    - Generalize from examples to algorithm
-
-3. **Think About Data Structures**
-    - What operations do you need? (insert, delete, find, min/max)
-    - Which data structure provides these efficiently?
-    - Consider trade-offs between structures
-
-4. **Consider Preprocessing**
-    - Can you transform the input to make queries faster?
-    - Would sorting help?
-    - Can you build auxiliary data structures?
-
-5. **Divide and Conquer**
-    - Can you break the problem into smaller subproblems?
-    - Do subproblem solutions combine to solve original?
-    - Is there a recursive structure?
+---
 
 ## Communication Best Practices
 
-### What to Do
+<div class="grid" markdown>
 
-- **Be Collaborative**
+!!! success "Do This"
 
-    - Treat interviewer as a teammate
-    - Ask for hints when truly stuck
-    - Show you can work with others
+    - **Be collaborative**: Treat interviewer as teammate
+    - **Think out loud**: Verbalize your reasoning
+    - **Be honest**: Admit what you don't know
+    - **Stay positive**: View hints as helpful, not failures
 
-- **Think Out Loud**
+!!! danger "Avoid This"
 
-    - Verbalize your thought process
-    - Explain your reasoning
-    - Show how you approach problems
+    - **Don't jump to code**: Plan first, code second
+    - **Don't be silent**: Interviewer can't see your thoughts
+    - **Don't give up**: Keep trying, ask for hints
+    - **Don't ignore hints**: They're meant to help
 
-- **Be Honest**
+</div>
 
-    - Admit when you don't know something
-    - Explain what you do know
-    - Show willingness to learn
-
-- **Stay Positive**
-
-    - Don't get frustrated with mistakes
-    - View hints as helpful, not failures
-    - Maintain energy throughout
-
-### What to Avoid
-
-- **Don't Jump to Code**
-
-    - Resist urge to code immediately
-    - Plan first, code second
-    - Verify approach before implementing
-
-- **Don't Be Silent**
-
-    - Silence makes it hard to help you
-    - Interviewer can't see your thought process
-    - Missing chance to show problem-solving skills
-
-- **Don't Give Up**
-
-    - Keep trying even if stuck
-    - Break problem into smaller pieces
-    - Ask for hints to keep moving
-
-- **Don't Ignore Hints**
-
-    - Hints are meant to help
-    - Consider them carefully
-    - Use them to adjust approach
+---
 
 ## Time Management
 
-### During the Interview
+### Session Allocation (45-60 minutes)
 
-- **Typical 45-60 Minute Session**
+```text
+┌────────────────────────────────────────────────────────────────────────────┐
+│                         TIME ALLOCATION                                     │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│  ██████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  Understand (5 min)      │
+│  ░░░░░░░░░░██████████████████░░░░░░░░░░░░░░░░░░░  Plan (10 min)           │
+│  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░█████████████████░░  Code (20-25 min)        │
+│  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░███  Test (5-10 min)         │
+│  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█  Optimize (5 min)        │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+```
 
-    - 5 minutes: Problem understanding and questions
-    - 10 minutes: Planning and discussing approach
-    - 20-25 minutes: Coding solution
-    - 5-10 minutes: Testing and debugging
-    - 5 minutes: Complexity analysis and optimization discussion
-
-- **Adjust Based on Progress**
-
-    - If coding takes longer, that's okay
-    - Quality matters more than finishing quickly
-    - Communicate if you need more time
-
-### Practice Sessions
-
-- **Build Speed Gradually**
-
-    - Start without time limits
-    - Add time pressure as you improve
-    - Aim to solve medium problems in 30-40 minutes
-
-- **Simulate Real Conditions**
-
-    - Practice speaking out loud
-    - Use whiteboard or basic text editor
-    - Time yourself on complete solutions
+---
 
 ## Preparation Strategy
 
-### Study Plan
+### 10-Week Study Plan
 
-- **Foundations (2-3 weeks)**
+| Phase | Duration | Focus |
+|-------|----------|-------|
+| **Foundations** | Week 1-3 | Data structures, basic algorithms, pattern recognition |
+| **Pattern Practice** | Week 4-7 | One pattern per week, 5-10 problems each |
+| **Mock Interviews** | Week 8-9 | Practice with peers, get feedback |
+| **Review** | Week 10 | Revisit challenging problems, boost confidence |
 
-    - Review core data structures
-    - Practice basic algorithms
-    - Learn common patterns
+### Daily Practice Routine
 
-- **Pattern Practice (4-6 weeks)**
+```text
+┌──────────────────────────────────────────────────────────┐
+│  EFFECTIVE PRACTICE SESSION (60-90 minutes)              │
+├──────────────────────────────────────────────────────────┤
+│                                                          │
+│  1. Warm-up (10 min)                                     │
+│     └── Review yesterday's problems                      │
+│                                                          │
+│  2. New Problem (30-40 min)                              │
+│     └── Solve without looking at solution                │
+│                                                          │
+│  3. Review Solution (15 min)                             │
+│     └── Compare with optimal, understand gaps            │
+│                                                          │
+│  4. Spaced Repetition (10 min)                           │
+│     └── Retry a problem from 3-7 days ago                │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
+```
 
-    - Focus on one pattern per week
-    - Solve 5-10 problems per pattern
-    - Review and understand solutions
+---
 
-- **Mock Interviews (2-3 weeks)**
+## Common Mistakes
 
-    - Practice with peers
-    - Use interview platforms
-    - Get feedback on communication
+### Technical
 
-- **Review and Refine (1 week)**
+| Mistake | Prevention |
+|---------|------------|
+| Off-by-one errors | Use inclusive/exclusive consistently |
+| Not handling edge cases | Use the checklist above |
+| Integer overflow | Consider constraints, use `long` if needed |
+| Incorrect complexity | Practice analyzing complexity |
 
-    - Revisit challenging problems
-    - Review common mistakes
-    - Boost confidence
+### Communication
 
-### Practice Resources
+| Mistake | Prevention |
+|---------|------------|
+| Jumping to code | Verbally commit to plan first |
+| Working in silence | Set timer to speak every 30 seconds |
+| Ignoring hints | Pause, acknowledge, and incorporate |
+| Not testing | Always trace through with example |
 
-- **Problem Practice**
-
-    - LeetCode (by pattern and company)
-    - HackerRank
-    - CodeSignal
-
-- **Mock Interviews**
-
-    - Pramp
-    - Interviewing.io
-    - Peer practice
-
-- **Learning Resources**
-
-    - Algorithm pattern guides (see related pages)
-    - Video walkthroughs
-    - Company engineering blogs
-
-## Common Mistakes to Avoid
-
-### Technical Mistakes
-
-- Not considering edge cases
-- Off-by-one errors in loops
-- Integer overflow issues
-- Not handling null/empty inputs
-- Incorrect complexity analysis
-
-### Communication Mistakes
-
-- Not asking clarifying questions
-- Jumping straight to code
-- Working in silence
-- Not testing solution
-- Ignoring interviewer's hints
-
-### Mindset Mistakes
-
-- Panicking when stuck
-- Memorizing solutions instead of understanding patterns
-- Not practicing communication
-- Giving up too easily
-- Focusing only on "easy" problems
+---
 
 ## Day-Before Checklist
 
-- **Technical Preparation**
+<div class="grid" markdown>
 
-    - Review core algorithms and patterns
-    - Practice a few warm-up problems
-    - Review your notes on common mistakes
+!!! abstract "Technical"
 
-- **Logistics**
+    - [ ] Review core patterns
+    - [ ] Warm up with 1-2 easy problems
+    - [ ] Review common mistakes
 
-    - Test your equipment (camera, mic, internet)
-    - Prepare your coding environment
-    - Have backup plans (phone number, alternative device)
+!!! abstract "Logistics"
 
-- **Mental Preparation**
+    - [ ] Test camera, mic, internet
+    - [ ] Prepare coding environment
+    - [ ] Have backup contact method
 
-    - Get good sleep
-    - Plan something relaxing
-    - Review your accomplishments and strengths
+!!! abstract "Mental"
 
-## During the Interview
+    - [ ] Get 7-8 hours of sleep
+    - [ ] Plan something relaxing
+    - [ ] Review your accomplishments
 
-- **Opening**
+</div>
 
-    - Greet interviewer warmly
-    - Listen carefully to problem statement
-    - Take notes if needed
-
-- **Middle**
-
-    - Follow the 7-step framework
-    - Communicate continuously
-    - Stay calm and focused
-
-- **Closing**
-
-    - Thank the interviewer
-    - Ask thoughtful questions about team/role
-    - Send follow-up thank you email
-
-## After the Interview
-
-- **Reflect and Learn**
-
-    - Write down problems you solved
-    - Note what went well and what didn't
-    - Identify areas to improve
-
-- **Follow Up**
-
-    - Send thank you email within 24 hours
-    - Mention specific parts of conversation
-    - Reiterate your interest
-
-- **Keep Preparing**
-
-    - Continue practicing regardless of outcome
-    - Each interview is learning experience
-    - Build on what you learned
-
-## Further Learning
-
-The framework and strategies above provide a complete system for technical interview success. For additional perspectives:
-
-
-- **Company-Specific Preparation**: Different companies emphasize different aspects (algorithms vs system design vs coding style)
-- **Mock Interview Platforms**: Practice with real interviewers to get feedback on communication and approach
-- **Domain-Specific Topics**: Some roles require knowledge beyond algorithms (ML, distributed systems, frontend frameworks)
-
-The key is consistent practice using the systematic framework while refining communication skills. Understanding *how* to approach problems is more valuable than memorizing solutions.
+---
 
 ## Related Topics
 
 - [Algorithm Patterns](../algorithms/index.md) - Master common algorithmic patterns
-- [Data Structures](../algorithms/arrays/index.md) - Understanding fundamental data structures
-- [System Design](../../docs-as-code/index.md) - Preparing for system design interviews
+- [Data Structures](../data_structures/index.md) - Understand fundamental data structures
+- [System Design](../additional_topics/system_design/index.md) - Prepare for system design interviews

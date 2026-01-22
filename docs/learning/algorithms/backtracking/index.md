@@ -1,203 +1,258 @@
+---
+title: Backtracking Pattern
+description: Systematically explore all possible solutions by building candidates incrementally and pruning invalid paths.
+---
+
 # Backtracking Pattern
 
-Backtracking is a systematic way to explore all possible solutions by building candidates incrementally and abandoning them ("backtracking") as soon as it determines that the candidate cannot lead to a valid solution.
+Backtracking systematically explores all possible solutions by building candidates incrementally and abandoning them ("backtracking") as soon as they cannot lead to a valid solution. It's the foundation for solving permutations, combinations, and constraint satisfaction problems.
 
-## When to Use Backtracking
+<div class="grid cards" markdown>
 
-Use backtracking when:
+-   :material-speedometer:{ .lg .middle } **Time Complexity**
+
+    ---
+
+    O(k^n) or O(n!) depending on problem (exponential)
+
+-   :material-memory:{ .lg .middle } **Space Complexity**
+
+    ---
+
+    O(n) - recursion depth
+
+</div>
+
+---
+
+## When to Use
+
+!!! tip "Pattern Recognition"
+
+    Look for these keywords in problem statements:
+
+    - "All possible combinations/permutations"
+    - "Generate all valid..."
+    - "Find all paths"
+    - "N-Queens / Sudoku" (constraint satisfaction)
+    - "Subsets / Power set"
+
+---
+
+## Visual Explanation
+
+```text
+BACKTRACKING DECISION TREE
+─────────────────────────────────────────────────────────────────────
+
+Subsets of [1, 2, 3]:
+
+                            []
+                    ┌───────┴───────┐
+                 include 1?       exclude 1
+                    │                 │
+                   [1]               []
+              ┌────┴────┐       ┌────┴────┐
+           incl 2   excl 2   incl 2   excl 2
+              │        │        │        │
+            [1,2]    [1]      [2]       []
+           ┌──┴──┐  ┌─┴─┐   ┌─┴─┐    ┌─┴─┐
+          +3  no +3 no +3  +3 no  +3 no
+           │    │    │    │    │    │    │
+        [1,2,3][1,2][1,3][1][2,3][2][3] []
 
 
-- Need to find all possible solutions (permutations, combinations, subsets)
-- Constraint satisfaction problems (N-Queens, Sudoku)
-- Decision problems with multiple choices at each step
-- Exploring paths in a maze or tree
-- Problems requiring exhaustive search with pruning
+CHOOSE → EXPLORE → UNCHOOSE
+─────────────────────────────────────────────────────────────────────
+
+def backtrack(current, choices):
+    if is_solution(current):
+        save(current)
+        return
+    
+    for choice in choices:
+        if is_valid(choice):
+            current.add(choice)      # CHOOSE
+            backtrack(current)       # EXPLORE
+            current.remove(choice)   # UNCHOOSE (backtrack!)
+```
+
+---
 
 ## Core Approach
 
-### The Process
+```text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         BACKTRACKING TEMPLATE                               │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-1. **Choose**: Pick a candidate to add to current solution
-2. **Explore**: Recursively explore with this choice
-3. **Unchoose**: Remove the candidate (backtrack)
-4. **Prune**: Skip invalid paths early
+    1. BASE CASE
+       └── If solution is complete, save it and return
 
-### Key Characteristics
+    2. ITERATE CHOICES
+       └── For each valid choice at current position:
 
-- **Recursive**: Naturally expressed as recursion
-- **State Management**: Build and tear down state
-- **Pruning**: Abandon paths that can't succeed
-- **Completeness**: Explores all valid possibilities
+    3. CHOOSE
+       └── Add choice to current solution
+
+    4. EXPLORE
+       └── Recursively call with updated state
+
+    5. UNCHOOSE
+       └── Remove choice (restore state for next iteration)
+
+    6. PRUNE (optional)
+       └── Skip invalid paths early to improve performance
+```
+
+| Step | Purpose |
+|------|---------|
+| **Choose** | Make a decision, modify state |
+| **Explore** | Recursively solve smaller subproblem |
+| **Unchoose** | Restore state for trying next option |
+| **Prune** | Skip branches that can't lead to valid solutions |
+
+---
 
 ## Problem 1: Subsets
 
-**Difficulty**: Medium  
-**LeetCode**: #78
+**Difficulty**: Medium | **LeetCode**: #78
 
 ### Problem Statement
 
 Given an array of unique integers, return all possible subsets (the power set).
 
-**Example**:
 ```
 Input: nums = [1, 2, 3]
 Output: [[], [1], [2], [3], [1,2], [1,3], [2,3], [1,2,3]]
 ```
-
-### Approach
-
-For each element, we have two choices:
-1. Include it in current subset
-2. Don't include it
-
-Build subsets by making these choices recursively.
 
 ### Solution
 
 ```python
 def subsets(nums):
     """
-    Generate all subsets of nums.
-    
-    Time Complexity: O(2^n) - 2^n subsets to generate
-    Space Complexity: O(n) - recursion depth
+    Time: O(2^n) - 2^n subsets to generate
+    Space: O(n) - recursion depth
     """
     result = []
     
     def backtrack(start, current):
-        """
-        Build subsets starting from index start.
+        result.append(current[:])  # Add copy of current subset
         
-        Args:
-            start: Index to start considering elements
-            current: Current subset being built
-        """
-        # Add current subset to result
-        result.append(current[:])  # Make a copy
-        
-        # Try adding each remaining element
         for i in range(start, len(nums)):
-            # Choose: add nums[i] to current subset
-            current.append(nums[i])
-            
-            # Explore: recursively build subsets
-            backtrack(i + 1, current)
-            
-            # Unchoose: remove nums[i] (backtrack)
-            current.pop()
+            current.append(nums[i])    # CHOOSE
+            backtrack(i + 1, current)   # EXPLORE
+            current.pop()               # UNCHOOSE
     
     backtrack(0, [])
     return result
-
-# Alternative: Iterative approach
-def subsets_iterative(nums):
-    """Generate subsets iteratively."""
-    result = [[]]  # Start with empty subset
-    
-    for num in nums:
-        # For each existing subset, create new subset with num added
-        result += [curr + [num] for curr in result]
-    
-    return result
-
-# Test
-nums = [1, 2, 3]
-print(subsets(nums))
-# Output: [[], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]]
 ```
 
-### Step-by-Step Walkthrough
+### Walkthrough
 
-```
+```text
 nums = [1, 2, 3]
 
 backtrack(0, [])
-  Add [] to result
-  
-  i=0: Choose 1
-    backtrack(1, [1])
-      Add [1] to result
-      
-      i=1: Choose 2
-        backtrack(2, [1,2])
-          Add [1,2] to result
-          
-          i=2: Choose 3
-            backtrack(3, [1,2,3])
-              Add [1,2,3] to result
-              No more elements
-            Unchoose 3: [1,2]
-        Unchoose 2: [1]
-      
-      i=2: Choose 3
-        backtrack(3, [1,3])
-          Add [1,3] to result
-          No more elements
-        Unchoose 3: [1]
-    Unchoose 1: []
-  
-  i=1: Choose 2
-    backtrack(2, [2])
-      Add [2] to result
-      
-      i=2: Choose 3
-        backtrack(3, [2,3])
-          Add [2,3] to result
-          No more elements
-        Unchoose 3: [2]
-    Unchoose 2: []
-  
-  i=2: Choose 3
-    backtrack(3, [3])
-      Add [3] to result
-      No more elements
-    Unchoose 3: []
+├── Add [] to result
+├── Choose 1 → backtrack(1, [1])
+│   ├── Add [1]
+│   ├── Choose 2 → backtrack(2, [1,2])
+│   │   ├── Add [1,2]
+│   │   └── Choose 3 → backtrack(3, [1,2,3])
+│   │       └── Add [1,2,3]
+│   └── Choose 3 → backtrack(3, [1,3])
+│       └── Add [1,3]
+├── Choose 2 → backtrack(2, [2])
+│   ├── Add [2]
+│   └── Choose 3 → backtrack(3, [2,3])
+│       └── Add [2,3]
+└── Choose 3 → backtrack(3, [3])
+    └── Add [3]
 
 Result: [[], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]]
 ```
 
+---
+
 ## Problem 2: Permutations
 
-**Difficulty**: Medium  
-**LeetCode**: #46
+**Difficulty**: Medium | **LeetCode**: #46
 
 ### Problem Statement
 
 Given an array of distinct integers, return all possible permutations.
 
-**Example**:
 ```
 Input: nums = [1, 2, 3]
 Output: [[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]]
 ```
-
-### Approach
-
-Build permutations by:
-1. For each unused element, add it to current permutation
-2. Recursively build rest of permutation
-3. Remove element and try next option
-
-Track which elements are used to avoid duplicates.
 
 ### Solution
 
 ```python
 def permute(nums):
     """
-    Generate all permutations of nums.
-    
-    Time Complexity: O(n! * n) - n! permutations, n to copy each
-    Space Complexity: O(n) - recursion depth
+    Time: O(n! * n) - n! permutations, n to copy each
+    Space: O(n) - recursion depth
     """
     result = []
     
     def backtrack(current, remaining):
-        """
-        Build permutations with current built and remaining elements.
+        if not remaining:
+            result.append(current[:])
+            return
         
-        Args:
-            current: Current permutation being built
+        for i in range(len(remaining)):
+            current.append(remaining[i])
+            backtrack(current, remaining[:i] + remaining[i+1:])
+            current.pop()
+    
+    backtrack([], nums)
+    return result
+```
+
+---
+
+## Practice Problems
+
+| Problem | Difficulty | Key Concept | Link |
+|---------|------------|-------------|------|
+| Subsets | Medium | Include/exclude choice | [Solution](problems/subsets.md) |
+| Permutations | Medium | Track remaining elements | [Solution](problems/permutations.md) |
+| N-Queens | Hard | Constraint validation | [Solution](problems/n_queens.md) |
+| Combination Sum | Medium | Allow repeated elements | [LC 39](https://leetcode.com/problems/combination-sum/) |
+
+---
+
+## Key Takeaways
+
+<div class="grid" markdown>
+
+!!! success "Do This"
+
+    - Always restore state after exploring (unchoose)
+    - Prune invalid branches early
+    - Use a `start` index to avoid duplicates in subsets
+
+!!! danger "Avoid This"
+
+    - Forgetting to make copies when saving solutions
+    - Not restoring state (leads to incorrect results)
+    - Missing base case (infinite recursion)
+
+</div>
+
+---
+
+## LeetCode Practice
+
+- [78. Subsets](https://leetcode.com/problems/subsets/)
+- [46. Permutations](https://leetcode.com/problems/permutations/)
+- [51. N-Queens](https://leetcode.com/problems/n-queens/)
+- [39. Combination Sum](https://leetcode.com/problems/combination-sum/)
+- [79. Word Search](https://leetcode.com/problems/word-search/)
             remaining: Elements not yet used
         """
         # Base case: no remaining elements

@@ -1,10 +1,11 @@
-# Learning Resources
-
-A lightweight map of the study guides in this repository. Everything is written so you can move from concept to practice without wading through fluff.
-
+---
+title: Learning Resources
+description: A curated collection of software engineering fundamentals, from algorithms and data structures to system design and cloud AI.
 ---
 
-## Start here
+# Learning Resources
+
+A structured path through software engineering fundamentals. Each guide is written to help you move from concept to practice efficiently, with visual explanations and hands-on examples.
 
 <div class="grid cards" markdown>
 
@@ -12,15 +13,15 @@ A lightweight map of the study guides in this repository. Everything is written 
 
     ---
 
-    Jump straight into the pattern library with short guides and worked examples.
+    Master 12+ essential patterns with visual explanations, step-by-step walkthroughs, and LeetCode practice problems.
 
-    [:octicons-arrow-right-24: Open Overview](algorithms/index.md)
+    [:octicons-arrow-right-24: Open Pattern Library](algorithms/index.md)
 
 -   :material-database:{ .lg .middle } **Data Structures**
 
     ---
 
-    Focused notes on arrays, hash tables, heaps, and tries with practice links.
+    From arrays to tries, understand when and why to use each structure with complexity analysis.
 
     [:octicons-arrow-right-24: Browse Structures](data_structures/index.md)
 
@@ -28,52 +29,118 @@ A lightweight map of the study guides in this repository. Everything is written 
 
     ---
 
-    Frameworks for planning, solving, and communicating under pressure.
+    A 7-step framework for technical interviews plus communication strategies and practice plans.
 
-    [:octicons-arrow-right-24: Use Playbook](interview_preparation/index.md)
+    [:octicons-arrow-right-24: Start Preparing](interview_preparation/index.md)
 
--   :material-library:{ .lg .middle } **Additional Topics**
+-   :material-server-network:{ .lg .middle } **System Design**
 
     ---
 
-    Quick hops to staple engineering articles and free resources.
+    Scalability, reliability, and maintainability principles for building production systems.
 
-    [:octicons-arrow-right-24: Reading List](additional_topics/index.md)
+    [:octicons-arrow-right-24: Learn Design](additional_topics/system_design/index.md)
 
 -   :material-cloud-circle:{ .lg .middle } **Cloud AI Platforms**
 
     ---
 
-    Hands-on guides for cloud AI services including Google Vertex AI.
+    Hands-on guides for Google Vertex AI, from setup to deployment.
 
     [:octicons-arrow-right-24: Explore Cloud AI](cloud_ai/index.md)
+
+-   :material-library:{ .lg .middle } **Additional Topics**
+
+    ---
+
+    Curated resources on distributed systems, networking, security, and engineering best practices.
+
+    [:octicons-arrow-right-24: Browse Topics](additional_topics/index.md)
 
 </div>
 
 ---
 
-## Algorithm patterns at a glance
+## Learning Path
 
-Each pattern links to detailed notes and a representative LeetCode problem.
+```text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           RECOMMENDED PROGRESSION                            │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-| Pattern | Description | Links |
-|---------|-------------|-------|
-| **Sliding Window** | Optimize contiguous ranges in strings and arrays | [Notes](algorithms/sliding_window/index.md) |
-| **Dynamic Programming** | Break problems into overlapping subproblems and cache results | [Notes](algorithms/dynamic_programming/index.md) |
-| **Two Pointers** | Traverse from both ends or move pointers together to simplify scans | [Notes](algorithms/two_pointers/index.md) |
-| **Fast & Slow Pointers** | Detect cycles and middle points with offset pointer speeds | [Notes](algorithms/fast_slow_pointers/index.md) |
-| **Backtracking** | Explore search spaces with reversible choices | [Notes](algorithms/backtracking/index.md) · [LC 46](https://leetcode.com/problems/permutations/) |
-| **Binary Search on Answer** | Probe candidate solutions to converge on optimal values | [Notes](algorithms/binary_search_on_answer/index.md) · [LC 875](https://leetcode.com/problems/koko-eating-bananas/) |
-| **Greedy Algorithms** | Make locally optimal choices with provable global wins | [Notes](algorithms/greedy/index.md) · [LC 45](https://leetcode.com/problems/jump-game-ii/) |
-| **Heap / Priority Queue** | Surface extremes quickly for scheduling and top-k problems | [Notes](algorithms/heap_priority_queue/index.md) · [LC 347](https://leetcode.com/problems/top-k-frequent-elements/) |
-| **Monotonic Stack** | Track next greater/smaller elements efficiently | [Notes](algorithms/monotonic_stack/index.md) · [LC 739](https://leetcode.com/problems/daily-temperatures/) |
-| **Graph Traversal (BFS/DFS)** | Systematically explore graphs and grids | [Notes](algorithms/graph_traversal/index.md) · [LC 200](https://leetcode.com/problems/number-of-islands/) |
-| **Trie (Prefix Tree)** | Speed up prefix queries and dictionary operations | [Notes](algorithms/trie/index.md) · [LC 208](https://leetcode.com/problems/implement-trie-prefix-tree/) |
+    ┌───────────────┐       ┌───────────────┐       ┌───────────────┐
+    │   FOUNDATION  │       │   PATTERNS    │       │   ADVANCED    │
+    │               │       │               │       │               │
+    │ Data          │──────>│ Sliding       │──────>│ System        │
+    │ Structures    │       │ Window        │       │ Design        │
+    │               │       │               │       │               │
+    │ Arrays        │       │ Two Pointers  │       │ Distributed   │
+    │ Hash Tables   │       │               │       │ Systems       │
+    │ Trees         │       │ Dynamic       │       │               │
+    │ Graphs        │       │ Programming   │       │ Cloud AI      │
+    │               │       │               │       │               │
+    │ Complexity    │       │ Backtracking  │       │ Interview     │
+    │ Analysis      │       │               │       │ Prep          │
+    └───────────────┘       └───────────────┘       └───────────────┘
+          │                       │                       │
+          │                       │                       │
+          ▼                       ▼                       ▼
+    2-3 weeks              4-6 weeks               Ongoing
+```
 
 ---
 
-## How to use these notes
+## Algorithm Patterns at a Glance
 
-1. Start with Sliding Window to warm up, then branch into dynamic programming or graph traversal based on your goals.
-2. Keep a notebook nearby and rewrite solutions in your own words; it cements the intuition.
-3. Treat the examples as templates to refine, not scripts to memorize.
+Each pattern includes conceptual overview, step-by-step approach, and worked LeetCode examples.
+
+| Pattern | Use Case | Complexity | Links |
+|---------|----------|------------|-------|
+| **Sliding Window** | Contiguous subarrays, substring problems | O(n) | [Notes](algorithms/sliding_window/index.md) |
+| **Two Pointers** | Sorted arrays, palindromes, partitioning | O(n) | [Notes](algorithms/two_pointers/index.md) |
+| **Fast & Slow** | Cycle detection, middle element | O(n) | [Notes](algorithms/fast_slow_pointers/index.md) |
+| **Dynamic Programming** | Overlapping subproblems, optimization | O(n) to O(n^2) | [Notes](algorithms/dynamic_programming/index.md) |
+| **Backtracking** | Permutations, combinations, constraint satisfaction | O(2^n) | [Notes](algorithms/backtracking/index.md) |
+| **Binary Search on Answer** | Optimization with monotonic check | O(n log k) | [Notes](algorithms/binary_search_on_answer/index.md) |
+| **Greedy** | Local optima lead to global optima | O(n log n) | [Notes](algorithms/greedy/index.md) |
+| **Heap / Priority Queue** | Top-k, scheduling, streaming | O(n log k) | [Notes](algorithms/heap_priority_queue/index.md) |
+| **Monotonic Stack** | Next greater/smaller element | O(n) | [Notes](algorithms/monotonic_stack/index.md) |
+| **Graph Traversal** | BFS/DFS, connectivity, shortest path | O(V + E) | [Notes](algorithms/graph_traversal/index.md) |
+| **Trie** | Prefix matching, autocomplete | O(m) | [Notes](algorithms/trie/index.md) |
+
+---
+
+## How to Use These Notes
+
+<div class="grid" markdown>
+
+!!! tip "Active Learning"
+
+    Don't just read the solutions. Write code from scratch, trace through examples by hand, and explain approaches out loud.
+
+!!! tip "Pattern Recognition"
+
+    When stuck on a new problem, ask: "What pattern does this remind me of?" The pattern library helps build this intuition.
+
+!!! tip "Spaced Repetition"
+
+    Revisit problems after a few days. If you can't solve it again, you haven't truly learned it yet.
+
+!!! tip "Track Progress"
+
+    Keep a log of problems solved and patterns practiced. Celebrate consistency over cramming.
+
+</div>
+
+---
+
+## Quick Reference
+
+| Resource | Best For |
+|----------|----------|
+| [Algorithm Patterns](algorithms/index.md) | Systematic problem-solving techniques |
+| [Data Structures](data_structures/index.md) | Understanding when to use which structure |
+| [Interview Prep](interview_preparation/index.md) | Communication and strategy under pressure |
+| [System Design](additional_topics/system_design/index.md) | Designing scalable systems |
+| [Distributed Systems](additional_topics/distributed_systems/index.md) | Consensus, consistency, and resilience |
+| [Cloud AI](cloud_ai/index.md) | Hands-on with Vertex AI and cloud ML |
