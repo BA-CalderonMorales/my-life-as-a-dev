@@ -183,3 +183,6 @@ cython_debug/
 
 # Scripts - Ignore build artifacts
 /scripts/rust/target/
+
+# Temporary Cloud Source for local analysis
+temp_backend_source/

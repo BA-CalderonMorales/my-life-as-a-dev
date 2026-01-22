@@ -4,20 +4,24 @@ How to add, modify, or update the ADK-based agent flows for the portfolio chat w
 
 ## Overview
 
-The chat widget uses Google ADK (Agent Development Kit) with a modular multi-agent architecture deployed to Cloud Run. The v3.0 architecture separates prompts, agents, and configuration for easy maintenance.
+The chat widget uses Google ADK (Agent Development Kit) with a modular multi-agent architecture deployed to Cloud Run. The v3.0 architecture (Go implementation) separates prompts, agents, and configuration for easy maintenance.
 
 ## Architecture
 
 ```
-cloud/agent-chat-proxy/
-├── app/                    # Flask application
-├── agents/                 # Agent definitions
-│   ├── base.py            # Base agent class
-│   ├── registry.py        # Agent registry
-│   └── sub_agents/        # Individual agent modules
-├── prompts/               # Static prompt files (.txt)
-├── config/                # Settings and model config
-└── tests/                 # Test suite
+cloud/agent-chat-proxy-go/
+├── cmd/server/             # Main entry point: main.go
+├── internal/
+│   ├── adk/               # Agent Development Kit (Orchestrator)
+│   ├── agents/            # Agent definitions & Registry
+│   │   ├── registry.go    # Agent registry
+│   │   └── types.go       # Agent struct definition
+│   ├── api/               # HTTP handlers
+│   ├── config/            # Configuration
+│   ├── prompts/           # Static prompt files (.txt)
+│   └── security/          # Security (CORS, Rate Limiting)
+├── go.mod                 # Go dependencies
+└── Dockerfile             # Container definition
 ```
 
 ### Agent Hierarchy
@@ -31,29 +35,22 @@ root_agent (portfolio_assistant)
 ├── resume_skills         - Career/skills info
 ├── docs_navigation       - Site navigation help
 └── learning_coach        - Algorithm learning help
-
-Each agent has sub-agents:
-├── {name}_google_search_agent   - Web search
-└── {name}_url_context_agent     - URL fetching
 ```
 
 ## File Locations
 
 | Component | Location | Purpose |
 |-----------|----------|---------|
-| Prompts | `cloud/agent-chat-proxy/prompts/*.txt` | Agent instructions (text files) |
-| Agent modules | `cloud/agent-chat-proxy/agents/sub_agents/` | Agent class definitions |
-| Registry | `cloud/agent-chat-proxy/agents/registry.py` | Agent registration |
-| Flask app | `cloud/agent-chat-proxy/app/main.py` | HTTP handling |
-| Security | `cloud/agent-chat-proxy/app/security/` | CORS, injection detection, safety |
-| Sessions | `cloud/agent-chat-proxy/app/session/` | Conversation memory |
-| Config | `cloud/agent-chat-proxy/config/settings.py` | Environment settings |
+| Prompts | `internal/prompts/*.txt` | Agent instructions (text files) |
+| Registry | `internal/agents/registry.go` | Agent registration |
+| HTTP Handlers | `internal/api/chat.go` | HTTP handling logic |
+| Config | `internal/config/config.go` | Environment settings |
 
 ## Adding a New Agent
 
 ### 1. Create the Prompt File
 
-Create `prompts/my_new_agent.txt`:
+Create `internal/prompts/my_new_agent.txt`:
 
 ```text
 You help users with [specific topic].
@@ -71,140 +68,71 @@ Example good response:
 [Provide an example]
 ```
 
-### 2. Create the Agent Module
+### 2. Register the Agent
 
-Create `agents/sub_agents/my_new_agent.py`:
+Update `internal/agents/registry.go`:
 
-```python
-"""
-My New Agent - Handles [topic].
-"""
-from agents.base import BaseAgent
+Add a new entry to the `definitions` slice in the `loadAgents` function:
 
-
-class MyNewAgent(BaseAgent):
-    """Agent that handles [topic]."""
-    
-    @property
-    def name(self) -> str:
-        return 'my_new_agent'  # Must match prompt filename
-    
-    @property
-    def description(self) -> str:
-        return 'Answers questions about [topic].'
-    
-    @property
-    def prompt_file(self) -> str:
-        return 'my_new_agent'  # Without .txt
+```go
+func (r *Registry) loadAgents() {
+    definitions := []Agent{
+        // ... existing agents ...
+        {
+            Name:        "my_new_agent", 
+            Description: "Answers questions about [topic]", 
+            PromptFile:  "my_new_agent.txt",
+        },
+    }
+    // ...
+}
 ```
 
-### 3. Register the Agent
+### 3. Update Root Prompt (Optional)
 
-Update `agents/sub_agents/__init__.py`:
-
-```python
-from .my_new_agent import MyNewAgent
-
-__all__ = [
-    # ... existing agents ...
-    'MyNewAgent',
-]
-```
-
-Update `agents/registry.py`:
-
-```python
-from agents.sub_agents import (
-    # ... existing imports ...
-    MyNewAgent,
-)
-
-agent_classes: List[Type[BaseAgent]] = [
-    # ... existing agents ...
-    MyNewAgent,
-]
-```
-
-### 4. Update Root Prompt (Optional)
-
-Add to `prompts/root.txt`:
+Add to `internal/prompts/root.txt` to include the new agent in the routing logic:
 
 ```text
 - my_new_agent: Questions about [topic]
 ```
 
-### 5. Deploy
+### 4. Deploy
 
 ```bash
-cd cloud/agent-chat-proxy && ./deploy.sh
+cd cloud/agent-chat-proxy-go && ./deploy.sh
 ```
 
 ## Modifying Existing Agents
 
 ### Update Prompt Only
 
-Edit the corresponding file in `prompts/`. No code changes needed.
+Edit the corresponding file in `internal/prompts/`. No code changes needed.
 
 ```bash
-vim prompts/who_is_brandon.txt
+vim internal/prompts/who_is_brandon.txt
 ./deploy.sh
-```
-
-### Update Agent Behavior
-
-Edit the agent module in `agents/sub_agents/`:
-
-```python
-# Disable search for this agent
-@property
-def include_search(self) -> bool:
-    return False
-
-# Use more powerful model
-@property
-def model(self) -> str:
-    return 'pro'  # gemini-2.0-pro
 ```
 
 ## Naming Rules
 
 Agent names must:
 - Start with a letter or underscore
-- Contain only: `a-z`, `A-Z`, `0-9`, `_`, `.`, `:`, `-`
-- Be 64 characters or fewer
-- **No apostrophes, spaces, or special characters**
-
-**Valid**: `who_is_brandon`, `project_info`, `my_agent_v2`
-**Invalid**: `what's_this`, `who is brandon`, `agent#1`
+- Contain only: `a-z`, `A-Z`, `0-9`, `_`
+- Match the filename of the prompt (without extension) for consistency
 
 ## Deployment Commands
-
-### Dry Run
-
-```bash
-cd cloud/agent-chat-proxy && ./deploy.sh --dry-run
-```
-
-### Full Deploy
-
-```bash
-cd cloud/agent-chat-proxy && ./deploy.sh
-```
 
 ### Manual Deploy
 
 ```bash
+# From the root of the Go service
 gcloud run deploy agent-chat-proxy \
   --source . \
   --platform managed \
   --region us-central1 \
   --allow-unauthenticated \
-  --memory 1Gi \
-  --cpu 1 \
-  --timeout 120s \
   --set-secrets="GOOGLE_API_KEY=gemini-api-key:latest" \
-  --set-env-vars "GCP_PROJECT=my-life-as-a-dev" \
-  --project=my-life-as-a-dev
+  --project=YOUR_PROJECT_ID
 ```
 
 ## Testing
@@ -212,13 +140,8 @@ gcloud run deploy agent-chat-proxy \
 ### Local Testing
 
 ```bash
-# Set up environment
-cd cloud/agent-chat-proxy
-cp .env.example .env
-# Edit .env with your API key
-
 # Run locally
-python -m app.main
+go run cmd/server/main.go
 
 # Test health
 curl http://localhost:8080/health
@@ -229,27 +152,19 @@ curl -X POST http://localhost:8080/ \
   -d '{"question":"Who is Brandon?"}'
 ```
 
-### Run Tests
-
-```bash
-cd cloud/agent-chat-proxy
-pytest tests/
-```
-
 ### Production Testing
 
 ```bash
 # Get your service URL first
-SERVICE_URL=$(gcloud run services describe agent-chat-proxy --region=us-central1 --format='value(status.url)')
+SERVICE_URL=$(gcloud run services describe agent-chat-proxy --region=us-central1 --format='value(status.url)' --project=YOUR_PROJECT_ID)
 
 # Health check
 curl $SERVICE_URL/health
-# Expected: {"status":"healthy","version":"3.0.0-adk"}
 
 # Chat test
 curl -s -X POST $SERVICE_URL/ \
   -H 'Content-Type: application/json' \
-  -H 'Origin: https://ba-calderonmorales.github.io' \
+  -H 'Origin: https://username.github.io' \
   -d '{"question":"Who is Brandon?"}'
 ```
 
@@ -260,12 +175,12 @@ curl -s -X POST $SERVICE_URL/ \
 gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=agent-chat-proxy" \
   --limit 20 \
   --format "value(textPayload)" \
-  --project=my-life-as-a-dev
+  --project=YOUR_PROJECT_ID
 
 # Error logs
 gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=agent-chat-proxy AND severity>=ERROR" \
   --limit 10 \
-  --project=my-life-as-a-dev
+  --project=YOUR_PROJECT_ID
 ```
 
 ## Troubleshooting
@@ -291,7 +206,7 @@ Add origin to `config/settings.py`:
 
 ```python
 allowed_origins_static: List[str] = field(default_factory=lambda: [
-    'https://ba-calderonmorales.github.io',
+    'https://username.github.io',
     'https://your-new-domain.com',  # Add here
     ...
 ])
@@ -314,11 +229,11 @@ allowed_origins_static: List[str] = field(default_factory=lambda: [
 > **Security Note**: The Cloud Run URL should be configured via environment variables in frontend code, not hardcoded. Cloud Run provides DDoS protection, and our CORS policy restricts which origins can make requests.
 
 - **Cloud Run**: Check Cloud Console or `gcloud run services describe agent-chat-proxy --region=us-central1`
-- **Cloud Console**: https://console.cloud.google.com/run?project=my-life-as-a-dev
-- **Secret Manager**: https://console.cloud.google.com/security/secret-manager?project=my-life-as-a-dev
+- **Cloud Console**: https://console.cloud.google.com/run?project=YOUR_PROJECT_ID
+- **Secret Manager**: https://console.cloud.google.com/security/secret-manager?project=YOUR_PROJECT_ID
 
 ## Related Documentation
 
-- [Architecture](../../cloud/agent-chat-proxy/docs/architecture.md) - Full architecture details
-- [Adding Agents](../../cloud/agent-chat-proxy/docs/adding-agents.md) - Detailed guide
+- [Retrieve Cloud Source](retrieve-cloud-source.md) - How to get the source code if not available locally
 - [AI Security](ai-security.md) - Security implementation
+
