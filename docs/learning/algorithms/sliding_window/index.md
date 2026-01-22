@@ -1,97 +1,197 @@
+---
+title: Sliding Window Pattern
+description: Optimize contiguous sequence problems from O(n^2) to O(n) using the sliding window technique.
+---
+
 # Sliding Window Pattern
 
-The sliding window pattern is a powerful technique for solving problems involving contiguous sequences within arrays or strings. It optimizes brute force approaches from O(n^2) to O(n) by maintaining a "window" that slides through the data.
+The sliding window pattern optimizes problems involving contiguous sequences in arrays or strings. It transforms brute force O(n^2) approaches into O(n) by maintaining a "window" that slides through the data.
 
-## When to Use Sliding Window
+<div class="grid cards" markdown>
 
-Use this pattern when you need to:
+-   :material-speedometer:{ .lg .middle } **Time Complexity**
+
+    ---
+
+    O(n) - single pass through the array
+
+-   :material-memory:{ .lg .middle } **Space Complexity**
+
+    ---
+
+    O(1) to O(k) depending on window state
+
+</div>
+
+---
+
+## When to Use
+
+!!! tip "Pattern Recognition"
+
+    Look for these keywords in problem statements:
+
+    - "Contiguous subarray/substring"
+    - "Maximum/minimum sum of k elements"
+    - "Longest substring with condition"
+    - "Find all anagrams"
+
+| Signal | Example Problem |
+|--------|-----------------|
+| Fixed-size contiguous sum | Max sum of k consecutive elements |
+| Variable-size with constraint | Longest substring without repeating chars |
+| Sliding aggregation | Running average, moving median |
+
+---
+
+## Visual Explanation
+
+```text
+FIXED-SIZE WINDOW (k=3)
+─────────────────────────────────────────────────────────────────────
+
+Array: [ 1 | 3 | 2 | 6 | -1 | 4 | 1 | 8 | 2 ]
+        ─────────
+        Window 1
+        Sum = 6
+
+Array: [ 1 | 3 | 2 | 6 | -1 | 4 | 1 | 8 | 2 ]
+            ─────────
+            Window 2
+            Sum = 11  (subtract 1, add 6)
+
+Array: [ 1 | 3 | 2 | 6 | -1 | 4 | 1 | 8 | 2 ]
+                ─────────
+                Window 3
+                Sum = 7   (subtract 3, add -1)
 
 
-- Find optimal contiguous subarrays or substrings
-- Track elements within a fixed or variable window size
-- Aggregate data over ranges efficiently
-- Minimize or maximize values in sequences
+VARIABLE-SIZE WINDOW
+─────────────────────────────────────────────────────────────────────
+
+String: "abcabcbb"  - Find longest substring without repeating chars
+
+Step 1: "a"         window = {a}, len = 1
+Step 2: "ab"        window = {a,b}, len = 2
+Step 3: "abc"       window = {a,b,c}, len = 3  <-- current max
+Step 4: "abca"      DUPLICATE! Contract from left
+        "bca"       window = {b,c,a}, len = 3
+Step 5: "bcab"      DUPLICATE! Contract from left
+        "cab"       window = {c,a,b}, len = 3
+...
+```
+
+---
 
 ## Core Approach
 
-The sliding window technique involves:
+```text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         SLIDING WINDOW ALGORITHM                            │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-1. **Initialize Window**: Start with a window at the beginning of the array
-2. **Expand Window**: Grow the window by moving the right boundary
-3. **Process Window**: Update aggregates or check conditions
-4. **Contract Window**: Shrink from the left when conditions are met or violated
-5. **Track Result**: Maintain the best result found so far
+    1. INITIALIZE
+       └── left = 0, result = initial_value, window_state = {}
+
+    2. EXPAND (for each right in 0..n-1)
+       └── Add arr[right] to window_state
+
+    3. CONTRACT (while window is invalid)
+       └── Remove arr[left] from window_state
+       └── left++
+
+    4. UPDATE RESULT
+       └── result = best(result, current_window)
+
+    5. RETURN result
+```
 
 ### Two Main Types
 
-**Fixed-Size Window**: Window size remains constant throughout
+| Type | When to Use | Example |
+|------|-------------|---------|
+| **Fixed-Size** | Window size is given (k) | Max sum of k elements |
+| **Variable-Size** | Window size depends on condition | Longest valid substring |
 
-- Move both pointers together
-- Simple implementation
+---
 
-**Variable-Size Window**: Window expands and contracts based on conditions
-
-- Expand right pointer to grow window
-- Contract left pointer to shrink window
-- More complex but handles dynamic constraints
-
-## Template Pattern
+## Template Code
 
 ```python
-def sliding_window_template(arr, condition):
-    """General sliding window template."""
-    left = 0
-    result = initial_value
-    window_state = {}  # Track window contents
+def sliding_window_fixed(arr, k):
+    """Fixed-size sliding window template."""
+    n = len(arr)
+    if n < k:
+        return None
     
-    for right in range(len(arr)):
-        # Expand: add arr[right] to window
-        update_window(window_state, arr[right])
-        
-        # Contract: shrink window if condition violated
-        while window_invalid(window_state, condition):
-            remove_from_window(window_state, arr[left])
+    # Compute first window
+    window_sum = sum(arr[:k])
+    result = window_sum
+    
+    # Slide the window
+    for right in range(k, n):
+        window_sum += arr[right] - arr[right - k]  # Add new, remove old
+        result = max(result, window_sum)
+    
+    return result
+
+
+def sliding_window_variable(s):
+    """Variable-size sliding window template."""
+    left = 0
+    result = 0
+    char_set = set()
+    
+    for right in range(len(s)):
+        # Contract while invalid
+        while s[right] in char_set:
+            char_set.remove(s[left])
             left += 1
         
+        # Expand
+        char_set.add(s[right])
+        
         # Update result
-        result = update_result(result, right - left + 1)
+        result = max(result, right - left + 1)
     
     return result
 ```
 
+---
+
 ## Practice Problems
 
-Work through these problems to master the sliding window pattern:
+| Problem | Difficulty | Key Concept | Link |
+|---------|------------|-------------|------|
+| Maximum Sum Subarray of Size K | Easy | Fixed-size | [Solution](problems/max_sum_subarray_k.md) |
+| Longest Substring Without Repeating | Medium | Variable-size, hash set | [Solution](problems/longest_substring_no_repeat.md) |
+| Minimum Window Substring | Hard | Variable-size, hash map | [LC 76](https://leetcode.com/problems/minimum-window-substring/) |
 
-| Problem | Difficulty | Key Concept |
-|---------|------------|-------------|
-| [Maximum Sum Subarray of Size K](problems/max_sum_subarray_k.md) | Easy | Fixed-size window |
-| [Longest Substring Without Repeating Characters](problems/longest_substring_no_repeat.md) | Medium | Variable-size window |
+---
 
 ## Key Takeaways
 
-1. **Avoid Nested Loops**: Transform O(n^2) to O(n)
-2. **Window State**: Track what's in the current window efficiently
-3. **Two Pointers**: Left and right boundaries define the window
-4. **Incremental Updates**: Add/remove elements as window moves
+<div class="grid" markdown>
 
-## Practice Tips
+!!! success "Do This"
 
-- Identify if window size is fixed or variable
-- Determine what state to track in the window
-- Consider using hash maps for character/element counts
-- Handle edge cases: empty input, window larger than array
-- Visualize the window movement
+    - Identify if window size is fixed or variable
+    - Use hash maps for character/element counts
+    - Update state incrementally (add new, remove old)
 
-## Common Mistakes
+!!! danger "Avoid This"
 
-- Off-by-one errors with window boundaries
-- Not properly updating window state when contracting
-- Forgetting to handle edge cases
-- Using wrong condition for window expansion/contraction
+    - Off-by-one errors with window boundaries
+    - Forgetting to update state when contracting
+    - Recomputing window sum from scratch each time
+
+</div>
+
+---
 
 ## LeetCode Practice
 
 - [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 - [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
 - [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
+- [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)

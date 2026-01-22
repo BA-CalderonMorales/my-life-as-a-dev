@@ -1,29 +1,67 @@
 ---
 title: Cloud AI Platforms
-description: Study, practice, and deploy AI solutions using cloud platforms like Google Vertex AI.
+description: Hands-on guides for cloud-based AI platforms including Google Vertex AI.
 ---
 
 # Cloud AI Platforms
 
-This section provides hands-on guides for working with cloud-based AI and ML platforms. Each guide walks you from initial setup through deploying working solutions.
+Practical, hands-on guides for working with cloud-based AI and ML platforms. Each guide takes you from initial setup through deploying working solutions.
 
----
+<div class="grid cards" markdown>
 
-## Available Guides
+-   :material-google-cloud:{ .lg .middle } **Google Vertex AI**
 
-**Google Vertex AI**
-:   Complete quickstart for Google's unified AI platform. Covers environment setup, authentication, SDK usage, and Vertex AI Studio.
-    [Start the guide](vertex_ai/index.md)
+    ---
+
+    Complete quickstart for Google's unified AI platform. Environment setup, authentication, SDK usage, and Vertex AI Studio.
+
+    [:octicons-arrow-right-24: Start the Guide](vertex_ai/index.md)
+
+-   :material-aws:{ .lg .middle } **AWS Bedrock**
+
+    ---
+
+    Foundation models, guardrails, and agents on AWS.
+
+    :material-clock-outline: Coming Soon
+
+-   :material-microsoft-azure:{ .lg .middle } **Azure OpenAI**
+
+    ---
+
+    Enterprise-grade OpenAI models with Azure security and compliance.
+
+    :material-clock-outline: Coming Soon
+
+</div>
 
 ---
 
 ## What You Will Learn
 
-- Set up local development environments for cloud AI work
-- Configure authentication and service accounts
-- Connect to cloud AI APIs programmatically
-- Use generative models for text generation and chat
-- Navigate cloud AI studio interfaces for rapid prototyping
+```text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         CLOUD AI LEARNING PATH                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+    ┌───────────────┐       ┌───────────────┐       ┌───────────────┐
+    │   SETUP       │       │   EXPLORE     │       │   BUILD       │
+    │               │       │               │       │               │
+    │ - Environment │──────>│ - AI Studio   │──────>│ - Custom      │
+    │ - Auth        │       │ - Models      │       │   Prompts     │
+    │ - SDK         │       │ - APIs        │       │ - Integrations│
+    └───────────────┘       └───────────────┘       └───────────────┘
+```
+
+### Skills Covered
+
+| Skill | Description |
+|-------|-------------|
+| **Environment Setup** | Configure local development for cloud AI work |
+| **Authentication** | Service accounts, API keys, and secure access |
+| **SDK Usage** | Connect to cloud AI APIs programmatically |
+| **Generative Models** | Text generation, chat, and multimodal AI |
+| **Studio Interfaces** | Rapid prototyping without code |
 
 ---
 
@@ -31,15 +69,30 @@ This section provides hands-on guides for working with cloud-based AI and ML pla
 
 Before starting any guide, you should have:
 
-1. A Google Cloud account (for Vertex AI guides)
-2. Basic Python knowledge
-3. Command line familiarity
-4. A text editor or IDE
+!!! note "Requirements"
+
+    1. **Cloud Account**: Google Cloud (for Vertex AI guides)
+    2. **Python**: Basic knowledge of Python programming
+    3. **CLI**: Comfort with command line operations
+    4. **Editor**: VS Code or similar IDE
 
 ---
 
-## Coming Soon
+## Platform Comparison
 
-- AWS Bedrock Guide
-- Azure OpenAI Service Guide
-- Multi-cloud AI comparison
+| Feature | Vertex AI | AWS Bedrock | Azure OpenAI |
+|---------|-----------|-------------|--------------|
+| **Models** | Gemini, PaLM, Codey | Claude, Titan, Llama | GPT-4, GPT-3.5 |
+| **Custom Training** | Yes | No | Fine-tuning |
+| **Enterprise** | Yes | Yes | Yes |
+| **Free Tier** | Limited | Limited | Limited |
+
+---
+
+## Roadmap
+
+Planned guides for additional platforms:
+
+- [ ] **AWS Bedrock** - Foundation models and agents
+- [ ] **Azure OpenAI** - GPT models with Azure integration
+- [ ] **Multi-cloud Comparison** - Choosing the right platform

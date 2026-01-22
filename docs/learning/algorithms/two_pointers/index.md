@@ -1,76 +1,122 @@
+---
+title: Two Pointers Pattern
+description: Reduce O(n^2) to O(n) by using two references to traverse data structures efficiently.
+---
+
 # Two Pointers Pattern
 
-The Two Pointers pattern uses two references to traverse a data structure, often from different positions or directions. This technique can reduce time complexity from O(n²) to O(n) for many problems.
+The Two Pointers pattern uses two references to traverse a data structure from different positions or directions. This technique reduces time complexity from O(n^2) to O(n) for many problems.
 
-## When to Use Two Pointers
+<div class="grid cards" markdown>
 
-Use this pattern when:
+-   :material-speedometer:{ .lg .middle } **Time Complexity**
+
+    ---
+
+    O(n) - single pass through the array
+
+-   :material-memory:{ .lg .middle } **Space Complexity**
+
+    ---
+
+    O(1) - only pointer variables
+
+</div>
+
+---
+
+## When to Use
+
+!!! tip "Pattern Recognition"
+
+    Look for these keywords in problem statements:
+
+    - "Sorted array" (huge hint!)
+    - "Find pair/triplet with sum"
+    - "Palindrome"
+    - "Partition array"
+    - "Remove duplicates in place"
+
+---
+
+## Visual Explanation
+
+```text
+OPPOSITE ENDS (Most common)
+─────────────────────────────────────────────────────────────────────
+
+Finding pair that sums to target in sorted array:
+
+Array: [ 1 | 2 | 3 | 4 | 6 | 8 | 9 ]   Target: 10
+        ↑                       ↑
+       left                   right
+       
+       Sum = 1 + 9 = 10  (Found!)
+
+If sum < target: move left →
+If sum > target: move right ←
 
 
-- Processing sorted arrays or lists
-- Finding pairs or triplets with specific properties
-- Partitioning arrays based on conditions
-- Comparing elements from different positions
-- Problems involving palindromes or reversals
+SAME DIRECTION
+─────────────────────────────────────────────────────────────────────
 
-## Core Approach
+Removing duplicates from sorted array:
 
-### Common Variations
+Array: [ 1 | 1 | 2 | 2 | 2 | 3 ]
+        ↑   ↑
+       slow fast
 
-- **Opposite Ends**
+Fast explores, slow marks unique position.
+When fast finds new value, copy to slow+1.
 
-    - Start pointers at beginning and end
-    - Move toward each other based on conditions
-    - Useful for: pair sums, palindromes, container problems
 
-- **Same Direction**
+CONVERGING FROM ENDS
+─────────────────────────────────────────────────────────────────────
 
-    - Both pointers move forward
-    - Fast pointer explores, slow pointer maintains position
-    - Useful for: removing duplicates, partitioning
+Container With Most Water:
 
-- **Different Speeds**
+heights: [ 1 | 8 | 6 | 2 | 5 | 4 | 8 | 3 | 7 ]
+           ↑                               ↑
+          left                           right
+          
+Area = min(1, 7) * 8 = 8
+Move shorter height inward to potentially find taller container.
+```
 
-    - Pointers move at different rates
-    - See Fast and Slow Pointers pattern
+---
 
-## Problem 1: Two Sum II - Input Array Is Sorted
+## Core Variations
 
-**Difficulty**: Medium  
-**LeetCode**: #167
+| Variation | Movement | Use Case |
+|-----------|----------|----------|
+| **Opposite Ends** | Start at both ends, move toward center | Pair sums, palindromes, container problems |
+| **Same Direction** | Both move forward at different speeds | Remove duplicates, partitioning |
+| **Different Speeds** | Fast/slow pointers | Cycle detection, middle element |
+
+---
+
+## Problem 1: Two Sum II - Sorted Array
+
+**Difficulty**: Medium | **LeetCode**: #167
 
 ### Problem Statement
 
-Given a sorted array of integers, find two numbers that add up to a target. Return the indices (1-indexed).
+Given a sorted array, find two numbers that add up to target. Return indices (1-indexed).
 
-**Example**:
 ```
 Input: numbers = [2, 7, 11, 15], target = 9
 Output: [1, 2]
-Explanation: 2 + 7 = 9
 ```
-
-### Approach
-
-Since array is sorted:
-
-- Start with pointers at both ends
-- If sum too small, move left pointer right
-- If sum too large, move right pointer left
-- If sum equals target, found answer
 
 ### Solution
 
 ```python
 def two_sum(numbers, target):
     """
-    Find two numbers that sum to target in sorted array.
-    
-    Time Complexity: O(n) - single pass with two pointers
-    Space Complexity: O(1) - only using pointers
+    Time: O(n) - single pass with two pointers
+    Space: O(1) - only pointer variables
     """
-    left = 0
-    right = len(numbers) - 1
+    left, right = 0, len(numbers) - 1
     
     while left < right:
         current_sum = numbers[left] + numbers[right]
@@ -78,126 +124,119 @@ def two_sum(numbers, target):
         if current_sum == target:
             return [left + 1, right + 1]  # 1-indexed
         elif current_sum < target:
-            left += 1  # Need larger sum
+            left += 1   # Need larger sum
         else:
             right -= 1  # Need smaller sum
     
-    return []  # No solution found
-
-# Test
-numbers = [2, 7, 11, 15]
-target = 9
-print(two_sum(numbers, target))  # Output: [1, 2]
+    return []
 ```
 
-### Step-by-Step Walkthrough
+### Walkthrough
 
-```
+```text
 numbers = [2, 7, 11, 15], target = 9
 
-Initial: left=0 (2), right=3 (15)
+Step 1: left=0 (2), right=3 (15)
+        2 + 15 = 17 > 9  →  move right
 
-Iteration 1: 2 + 15 = 17 > 9
-  Sum too large, move right left
-  right = 2
+Step 2: left=0 (2), right=2 (11)
+        2 + 11 = 13 > 9  →  move right
 
-Iteration 2: left=0 (2), right=2 (11)
-  2 + 11 = 13 > 9
-  Sum too large, move right left
-  right = 1
+Step 3: left=0 (2), right=1 (7)
+        2 + 7 = 9 = target  →  FOUND!
 
-Iteration 3: left=0 (2), right=1 (7)
-  2 + 7 = 9 = target ✓
-  Found answer!
-
-Result: [1, 2] (1-indexed)
+Result: [1, 2]
 ```
+
+---
 
 ## Problem 2: Container With Most Water
 
-**Difficulty**: Medium  
-**LeetCode**: #11
+**Difficulty**: Medium | **LeetCode**: #11
 
 ### Problem Statement
 
-Given an array of heights representing vertical lines, find two lines that together with x-axis form a container that holds the most water.
+Find two lines that form a container holding the most water.
 
-**Example**:
 ```
 Input: height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
 Output: 49
-Explanation: Container formed by heights at index 1 and 8 (8 and 7)
 ```
-
-### Approach
-
-Water capacity = min(height[left], height[right]) * (right - left)
-
-Strategy:
-
-- Start with widest container (pointers at ends)
-- Move pointer with shorter height inward
-- Track maximum area seen
-
-Why move shorter height? Moving taller height can only decrease area (width decreases, height can't increase past shorter one).
 
 ### Solution
 
 ```python
 def max_area(height):
     """
-    Find maximum water container area.
-    
-    Time Complexity: O(n) - single pass
-    Space Complexity: O(1) - only pointers
+    Time: O(n) - single pass
+    Space: O(1) - only pointers
     """
-    left = 0
-    right = len(height) - 1
+    left, right = 0, len(height) - 1
     max_water = 0
     
     while left < right:
-        # Calculate current area
         width = right - left
-        current_height = min(height[left], height[right])
-        current_area = width * current_height
-        max_water = max(max_water, current_area)
+        h = min(height[left], height[right])
+        max_water = max(max_water, width * h)
         
-        # Move pointer with shorter height
+        # Move shorter height inward
         if height[left] < height[right]:
             left += 1
         else:
             right -= 1
     
     return max_water
-
-# Test
-height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
-print(max_area(height))  # Output: 49
 ```
 
-### Step-by-Step Walkthrough
+!!! question "Why move the shorter height?"
 
-```
-height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
-         [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    Moving the taller height can only **decrease** area because:
+    
+    - Width decreases by 1
+    - Height is limited by the shorter line (unchanged)
+    
+    Moving the shorter height **might** find a taller line, potentially increasing area.
 
-left=0 (h=1), right=8 (h=7):
-  area = min(1, 7) * 8 = 1 * 8 = 8
-  max_water = 8
-  height[left] < height[right], move left
+---
 
-left=1 (h=8), right=8 (h=7):
-  area = min(8, 7) * 7 = 7 * 7 = 49
-  max_water = 49
-  height[left] > height[right], move right
+## Practice Problems
 
-left=1 (h=8), right=7 (h=3):
-  area = min(8, 3) * 6 = 3 * 6 = 18
-  max_water = 49 (unchanged)
-  height[left] > height[right], move right
+| Problem | Difficulty | Key Concept | Link |
+|---------|------------|-------------|------|
+| Two Sum II | Medium | Opposite ends, sorted array | [Solution](problems/two_sum_sorted.md) |
+| Container With Most Water | Medium | Greedy pointer movement | [Solution](problems/container_with_most_water.md) |
+| 3Sum | Medium | Sort + two pointers | [LC 15](https://leetcode.com/problems/3sum/) |
+| Remove Duplicates | Easy | Same direction | [LC 26](https://leetcode.com/problems/remove-duplicates-from-sorted-array/) |
 
-left=1 (h=8), right=6 (h=8):
-  area = min(8, 8) * 5 = 8 * 5 = 40
+---
+
+## Key Takeaways
+
+<div class="grid" markdown>
+
+!!! success "Do This"
+
+    - Sort array first if not sorted (enables two pointers)
+    - Decide pointer movement based on comparison result
+    - Handle duplicates explicitly if needed
+
+!!! danger "Avoid This"
+
+    - Using two pointers on unsorted data without sorting
+    - Moving wrong pointer (think about which direction helps)
+    - Forgetting edge cases (empty array, single element)
+
+</div>
+
+---
+
+## LeetCode Practice
+
+- [167. Two Sum II](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+- [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
+- [15. 3Sum](https://leetcode.com/problems/3sum/)
+- [26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+- [125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
   max_water = 49 (unchanged)
   heights equal, move right
 
