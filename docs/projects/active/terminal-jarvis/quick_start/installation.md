@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Installation Guide
 
 This document provides comprehensive installation instructions for Terminal Jarvis across different platforms and use cases.

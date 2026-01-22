@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Known Limitations and Issues
 
 This document outlines current limitations, known issues, and workarounds for Terminal Jarvis.

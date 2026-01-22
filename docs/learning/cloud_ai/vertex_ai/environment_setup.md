@@ -1,6 +1,7 @@
 ---
 title: Environment Setup
 description: Install Anaconda and create a Python environment for Vertex AI development.
+comments: true
 ---
 
 # Environment Setup

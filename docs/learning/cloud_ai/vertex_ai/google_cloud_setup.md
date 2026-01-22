@@ -1,6 +1,7 @@
 ---
 title: Google Cloud Setup
 description: Create a Google Cloud project, service account, and download credentials for Vertex AI.
+comments: true
 ---
 
 # Google Cloud Setup

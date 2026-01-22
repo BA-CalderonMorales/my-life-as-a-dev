@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Project Details
 
 ## Architecture Overview

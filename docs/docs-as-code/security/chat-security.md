@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # AI Chat Widget Security
 
 Comprehensive security documentation for the Claude Docs-style AI chat widget, covering defense-in-depth strategies, testing procedures, and incident response.

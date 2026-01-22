@@ -5,6 +5,7 @@ tags:
   - Algorithms
   - Learning
   - Interview
+comments: true
 ---
 
 # Algorithm Patterns

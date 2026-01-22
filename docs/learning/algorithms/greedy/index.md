@@ -3,6 +3,7 @@ tags:
   - Algorithms
   - Interview
   - Python
+comments: true
 ---
 
 # Greedy Algorithms Pattern

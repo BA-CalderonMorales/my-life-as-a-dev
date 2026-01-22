@@ -1,6 +1,7 @@
 ---
 title: Resume - Brandon A. Calderon Morales
 description: A relaxed walkthrough of the work, wins, and lessons that shape how I build.
+comments: false
 hide:
 
   - toc

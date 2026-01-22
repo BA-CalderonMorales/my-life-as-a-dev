@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Koko Eating Bananas
 
 **Difficulty**: Medium  

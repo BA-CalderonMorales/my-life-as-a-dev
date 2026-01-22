@@ -6,6 +6,7 @@ tags:
   - Documentation
   - Python
   - AI
+comments: true
 ---
 
 # Docs-as-Code Portfolio

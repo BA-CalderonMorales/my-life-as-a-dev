@@ -3,6 +3,7 @@ tags:
   - Documentation
   - DevOps
   - Workflow
+comments: true
 ---
 
 # Docs-as-Code Platform

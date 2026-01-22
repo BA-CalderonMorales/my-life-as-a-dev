@@ -1,6 +1,7 @@
 ---
 title: Scalability Strategies
 description: Techniques for scaling systems to handle massive load.
+comments: true
 ---
 
 # Scalability Strategies

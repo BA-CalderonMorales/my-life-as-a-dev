@@ -3,6 +3,7 @@ tags:
   - Data Structures
   - Algorithms
   - Interview
+comments: true
 ---
 
 # Hash Tables and Sets

@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Permutations
 
 **Difficulty**: Medium  

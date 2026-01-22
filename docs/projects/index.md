@@ -4,6 +4,7 @@ description: A curated set of builds that show how I approach tooling, automatio
 tags:
   - Project
   - DevOps
+comments: true
 ---
 
 # Projects

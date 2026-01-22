@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-01-22 08:56:55 UTC
+#   Generated: 2026-01-22 10:41:57 UTC
 #
 # ##############################################################################
 
@@ -517,6 +517,8 @@ emoji_index = "material.extensions.emoji.twemoji"
 emoji_generator = "material.extensions.emoji.to_svg"
 
 [project.plugins.awesome-nav]
+
+[project.plugins.meta]
 
 [project.plugins.git-authors]
 enabled = true

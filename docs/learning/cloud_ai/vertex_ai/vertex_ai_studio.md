@@ -1,6 +1,7 @@
 ---
 title: Vertex AI Studio
 description: Use Google's web-based Vertex AI Studio for rapid prototyping and code generation.
+comments: true
 ---
 
 # Vertex AI Studio

@@ -5,6 +5,7 @@ tags:
   - Experiment
   - JavaScript
   - WebGL
+comments: true
 ---
 
 # Shadow Scroll Blossom

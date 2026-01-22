@@ -1,6 +1,7 @@
 ---
 title: Connect to Vertex AI
 description: Initialize the Vertex AI SDK and authenticate using your service account credentials.
+comments: true
 ---
 
 # Connect to Vertex AI

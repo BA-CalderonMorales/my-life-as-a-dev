@@ -4,6 +4,7 @@ description: A curated collection of software engineering fundamentals, from alg
 tags:
   - Learning
   - Tutorial
+comments: true
 ---
 
 # Learning Resources

@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Minimum Time to Complete Trips
 
 **Difficulty**: Medium  

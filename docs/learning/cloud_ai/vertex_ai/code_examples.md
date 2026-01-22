@@ -1,6 +1,7 @@
 ---
 title: Code Examples
 description: Sample code for Vertex AI queries, streaming, chat, and configuration options.
+comments: true
 ---
 
 # Code Examples

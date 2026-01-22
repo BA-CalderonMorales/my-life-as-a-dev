@@ -1,6 +1,7 @@
 ---
 title: Chat Widget Overview
 description: A Claude Docs-inspired AI chat widget for documentation sites. Overview of components, architecture, and how to integrate into your own Zensical site.
+comments: true
 ---
 
 # AI Chat Widget

@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Quick Start Guide
 
 Get up and running with Rust Terminal Forge in minutes.

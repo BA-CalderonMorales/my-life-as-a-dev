@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Quick Start Guide
 
 Get up and running with Immersive Awe Canvas in minutes.

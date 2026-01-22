@@ -6,6 +6,7 @@ tags:
   - Rust
   - AI
   - TypeScript
+comments: true
 ---
 
 # Terminal Jarvis

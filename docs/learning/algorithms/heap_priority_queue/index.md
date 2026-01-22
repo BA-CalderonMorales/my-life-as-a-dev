@@ -3,6 +3,7 @@ tags:
   - Algorithms
   - Interview
   - Data Structures
+comments: true
 ---
 
 # Heap and Priority Queue Pattern

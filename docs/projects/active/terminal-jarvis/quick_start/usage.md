@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Usage Guide
 
 Learn how to use Terminal Jarvis effectively to manage and run AI coding tools.

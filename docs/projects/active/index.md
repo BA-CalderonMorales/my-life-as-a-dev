@@ -7,6 +7,7 @@ tags:
   - Rust
 hide:
   - toc
+comments: true
 ---
 
 # Active Projects

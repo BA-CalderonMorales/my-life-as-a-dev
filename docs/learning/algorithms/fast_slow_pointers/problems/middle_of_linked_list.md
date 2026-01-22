@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Middle of the Linked List
 
 **Difficulty**: Easy  

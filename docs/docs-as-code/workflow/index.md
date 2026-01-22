@@ -7,6 +7,7 @@ tags:
   - Documentation
 hide:
   - toc
+comments: true
 ---
 
 # Docs-as-Code Workflow

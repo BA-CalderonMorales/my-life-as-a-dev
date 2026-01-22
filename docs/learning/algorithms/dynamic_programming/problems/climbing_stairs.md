@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Climbing Stairs
 
 **Difficulty**: Easy  

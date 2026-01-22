@@ -7,6 +7,7 @@ tags:
   - Python
 hide:
   - toc
+comments: true
 ---
 
 # Docs-as-Code Stack

@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 # Jump Game
 
 **Difficulty**: Medium  
