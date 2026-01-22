@@ -23,6 +23,7 @@ A living documentation hub for projects, learning notes, and technical reference
 ## Features
 
 - **AI-Powered Chat Widget** - Claude Docs-inspired assistant using Gemini API via Cloud Run
+- **Giscus Comments** - GitHub Discussions-powered comments on every content page
 - **Search by Tags** - Filter content by tags like `[Algorithms]`, `[Python]`, `[Interview]`
 - **Versioned Documentation** - Every release is preserved with mike
 - **Blazing Fast Builds** - Zensical delivers ~0.4s builds (20x faster than MkDocs)
@@ -108,6 +109,12 @@ The site features a Claude Docs-inspired chat widget with security-first design.
 - [AI Features Overview](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/ai/)
 - [Architecture Guide](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/ai/architecture/)
 - [Security Documentation](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/security/chat-security/)
+
+## Comments
+
+Every content page (except Home and Resume) has [Giscus](https://giscus.app/) comments powered by GitHub Discussions. The comment theme automatically syncs with the site's dark/light mode toggle.
+
+To leave a comment, sign in with your GitHub account at the bottom of any page.
 
 ## Contributing
 
