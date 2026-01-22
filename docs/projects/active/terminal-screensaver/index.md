@@ -16,7 +16,7 @@ tags:
 
 !!! info "Project Signal"
 
-	- **Status**: Actively developed (taking a brief detour - 12/21/2025, but will come back to this.)
+	- **Status**: On pause (will return to this)
 	- **Focus**: Dynamic, plugin-ready terminal visuals
 	- **Stack**: Rust, Crossterm, TOML configs
 	- **Ideal For**: Developers who want ambient motion or keyboard-triggered scripts inside the terminal
@@ -48,30 +48,8 @@ tags:
 
 ## Documentation Map
 
-<div class="grid cards" markdown>
-
--   :material-play-circle:{ .lg .middle } **Quick Start**
-
-	---
-
-	Installation, demo config, and launch instructions.
-
-	[Open Guide](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/quick-start.md)
-
--   :material-palette:{ .lg .middle } **Configuration**
-
-	---
-
-	TOML schema, actions, theming, and keyboard mappings.
-
-	[View Docs](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/configuration.md)
-
--   :material-architecture:{ .lg .middle } **Architecture**
-
-	---
-
-	Event loop, plugin hooks, and rendering pipeline.
-
-	[Read Notes](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/architecture.md)
-
-</div>
+| Document | Description |
+| --- | --- |
+| [Quick Start](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/quick-start.md) | Installation, demo config, and launch instructions |
+| [Configuration](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/configuration.md) | TOML schema, actions, theming, and keyboard mappings |
+| [Architecture](https://github.com/BA-CalderonMorales/terminal-screensaver/blob/main/docs/architecture.md) | Event loop, plugin hooks, and rendering pipeline |

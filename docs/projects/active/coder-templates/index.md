@@ -50,30 +50,8 @@ tags:
 
 ## Documentation Map
 
-<div class="grid cards" markdown>
-
--   :material-download:{ .lg .middle } **Packaging Workflow**
-
-	---
-
-	Explains interactive vs direct modes plus artifact naming conventions.
-
-	[View Scripts](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/scripts)
-
--   :material-cloud:{ .lg .middle } **Deployment Models**
-
-	---
-
-	Cloud-specific guidance for Docker Desktop, GCP, AWS, Azure, and known limits.
-
-	[Read Guides](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/docs/deployment_models)
-
--   :material-docker:{ .lg .middle } **Template Catalog**
-
-	---
-
-	Dive into each template directory for Terraform variables and README instructions.
-
-	[Explore Templates](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/templates)
-
-</div>
+| Document | Description |
+| --- | --- |
+| [Packaging Workflow](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/scripts) | Explains interactive vs direct modes plus artifact naming conventions |
+| [Deployment Models](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/docs/deployment_models) | Cloud-specific guidance for Docker Desktop, GCP, AWS, Azure, and known limits |
+| [Template Catalog](https://github.com/BA-CalderonMorales/coder-templates/tree/develop/templates) | Dive into each template directory for Terraform variables and README instructions |

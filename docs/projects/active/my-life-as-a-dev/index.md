@@ -50,30 +50,8 @@ tags:
 
 ## Documentation Map
 
-<div class="grid cards" markdown>
-
--   :material-rocket-launch:{ .lg .middle } **Quick Start**
-
-	---
-
-	Environment setup, serving docs locally, and build verification steps.
-
-	[Open Guide](quick_start/index.md)
-
--   :material-file-tree:{ .lg .middle } **Details**
-
-	---
-
-	Architecture, plugin internals, deployment flow, and contribution standards.
-
-	[Explore Details](details/index.md)
-
--   :material-shield-check:{ .lg .middle } **Workflow Skills**
-
-	---
-
-	Hands-on guides for versioning, releases, and day-to-day workflow.
-
-	[Review Playbooks](../../docs-as-code/workflow/index.md)
-
-</div>
+| Document | Description |
+| --- | --- |
+| [Quick Start](quick_start/index.md) | Environment setup, serving docs locally, and build verification steps |
+| [Details](details/index.md) | Architecture, plugin internals, deployment flow, and contribution standards |
+| [Workflow Skills](../../docs-as-code/workflow/index.md) | Hands-on guides for versioning, releases, and day-to-day workflow |

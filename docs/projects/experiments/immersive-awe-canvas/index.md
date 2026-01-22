@@ -50,30 +50,8 @@ tags:
 
 ## Documentation Map
 
-<div class="grid cards" markdown>
-
--   :material-play-circle:{ .lg .middle } **Quick Start**
-
-	---
-
-	Local dev requirements, scripts, and scene controls.
-
-	[Open Guide](quick_start/index.md)
-
--   :material-cube:{ .lg .middle } **Scene Details**
-
-	---
-
-	Architecture, component breakdown, and customization hooks.
-
-	[Explore Details](details/index.md)
-
--   :material-shield-check:{ .lg .middle } **Agent Rules**
-
-	---
-
-	Repository guardrails for AI collaborators.
-
-	[View RULES](https://github.com/BA-CalderonMorales/immersive-awe-canvas/blob/main/agents/RULES.md)
-
-</div>
+| Document | Description |
+| --- | --- |
+| [Quick Start](quick_start/index.md) | Local dev requirements, scripts, and scene controls |
+| [Scene Details](details/index.md) | Architecture, component breakdown, and customization hooks |
+| [Agent Rules](https://github.com/BA-CalderonMorales/immersive-awe-canvas/blob/main/agents/RULES.md) | Repository guardrails for AI collaborators |
