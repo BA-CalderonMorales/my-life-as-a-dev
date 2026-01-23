@@ -10,7 +10,7 @@
  * - PWA-compatible with safe area insets
  */
 
-(function() {
+(function () {
     'use strict';
 
     // Configuration
@@ -59,6 +59,52 @@
      */
     function isAtTop() {
         return window.scrollY <= 0;
+    }
+
+    /**
+     * Check if touch originated from an element that handles its own scrolling/dragging
+     * These elements should not trigger pull-to-refresh
+     */
+    function isInteractiveTarget(target) {
+        if (!target) return false;
+
+        // Check if touch is within canvas container (WebGL scene)
+        if (target.closest('#canvas-scene') ||
+            target.closest('#canvas-container') ||
+            target.closest('.canvas-container') ||
+            target.closest('.canvas-stage__viewport') ||
+            target.tagName === 'CANVAS') {
+            return true;
+        }
+
+        // Check if touch is within AI chat modal
+        if (target.closest('.ai-chat-modal') ||
+            target.closest('.ai-chat-container') ||
+            target.closest('#ai-chat-modal')) {
+            return true;
+        }
+
+        // Check if touch is within MkDocs search modal
+        if (target.closest('.md-search') ||
+            target.closest('.md-search__inner') ||
+            target.closest('[data-md-component="search"]')) {
+            return true;
+        }
+
+        // Check if touch is within any scrollable element with explicit overflow
+        let el = target;
+        while (el && el !== document.body) {
+            const style = window.getComputedStyle(el);
+            const overflowY = style.overflowY;
+            const isScrollable = (overflowY === 'auto' || overflowY === 'scroll') &&
+                el.scrollHeight > el.clientHeight;
+            if (isScrollable) {
+                return true;
+            }
+            el = el.parentElement;
+        }
+
+        return false;
     }
 
     /**
@@ -145,7 +191,7 @@
             container.style.transform = 'translateY(-100%)';
 
             // Remove transition class after animation
-            setTimeout(function() {
+            setTimeout(function () {
                 container.classList.remove('ptr-transitioning');
             }, 300);
         }
@@ -186,7 +232,7 @@
 
         // Perform refresh after minimum animation time
         // Use location.replace to avoid scroll restoration from browser history
-        setTimeout(function() {
+        setTimeout(function () {
             // Remove any hash to ensure we start at top, then navigate
             const url = window.location.href.split('#')[0];
             window.location.replace(url);
@@ -198,6 +244,10 @@
      */
     function onTouchStart(e) {
         if (isRefreshing || !isAtTop()) return;
+
+        // Don't activate pull-to-refresh on interactive elements
+        // that handle their own touch/scroll behavior
+        if (isInteractiveTarget(e.target)) return;
 
         startY = e.touches[0].clientY;
         currentY = startY;
@@ -324,10 +374,10 @@
     }
 
     // Re-initialize on instant navigation (MkDocs Material)
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Handle instant navigation if used
         if (typeof document$ !== 'undefined') {
-            document$.subscribe(function() {
+            document$.subscribe(function () {
                 // Reset state on navigation
                 if (isRefreshing) {
                     isRefreshing = false;

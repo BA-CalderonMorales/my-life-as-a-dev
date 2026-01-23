@@ -13,6 +13,40 @@ Use the Rust-based documentation CLI for common tasks.
 - Understanding project structure (agents)
 - Any routine documentation task
 
+## Critical: Background Server for AI Agents
+
+**When running as an AI agent**, always start the server in the background so you can continue using the terminal for other commands:
+
+```bash
+# Start server in background (REQUIRED for agents)
+cd /workspaces/my-life-as-a-dev && nohup ./doc-cli serve > /tmp/server.log 2>&1 &
+
+# Wait for server to be ready
+sleep 3
+
+# Verify server is running
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8001/ || echo "Server not ready"
+```
+
+**Why this matters:**
+- AI agents need the terminal to run other commands (git, tests, agent-browser, etc.)
+- Foreground servers block the terminal until manually stopped
+- Using `nohup` with `&` allows the server to run independently
+- Logs go to `/tmp/server.log` for debugging if needed
+
+**To restart the server:**
+
+```bash
+# Kill existing, then start fresh in background
+./doc-cli kill && nohup ./doc-cli serve > /tmp/server.log 2>&1 &
+```
+
+**To check server logs:**
+
+```bash
+tail -f /tmp/server.log
+```
+
 ## Running Doc-CLI
 
 ```bash
