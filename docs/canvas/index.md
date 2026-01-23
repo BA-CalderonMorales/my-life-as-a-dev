@@ -9,7 +9,7 @@ hide:
   - navigation
   - toc
   - path
-comments: true
+comments: false
 ---
 
 <style>
