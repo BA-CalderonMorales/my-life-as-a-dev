@@ -1,8 +1,8 @@
 /**
  * Canvas Scene Entry Point
- * 
+ *
  * Lightweight bootstrap that handles page detection and lifecycle
- * for the Crystal Cave scene. Works with MkDocs instant navigation.
+ * for the Zen Geometry scene. Works with MkDocs instant navigation.
  */
 
 (function () {
@@ -20,16 +20,16 @@
 
         try {
             // Dynamic import of the modular scene
-            const { CrystalCaveScene } = await import('./CrystalCaveScene.js');
+            const { ZenGeometryScene } = await import('./ZenGeometryScene.js');
 
-            sceneInstance = new CrystalCaveScene();
+            sceneInstance = new ZenGeometryScene();
             const success = await sceneInstance.init();
 
             if (!success) {
                 sceneInstance = null;
             }
         } catch (err) {
-            console.error('Failed to load Crystal Cave Scene:', err);
+            console.error('Failed to load Zen Geometry Scene:', err);
             sceneInstance = null;
         }
     }
