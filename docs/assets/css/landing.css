@@ -82,3 +82,50 @@
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+/* ============================================
+   Mobile Optimizations
+   Reduce canvas intensity, improve readability
+   ============================================ */
+
+@media screen and (max-width: 48rem) {
+
+    /* Reduce canvas opacity on mobile for better readability */
+    .landing-page .threejs-bg-container {
+        opacity: 0.25;
+    }
+
+    [data-md-color-scheme="slate"] .landing-page .threejs-bg-container {
+        opacity: 0.35;
+    }
+
+    /* Tighter hero padding on mobile */
+    .landing-page .tx-hero {
+        padding: 2rem 1.25rem;
+    }
+
+    .landing-page .tx-container,
+    .landing-page section.md-typeset {
+        padding: 1.5rem 1.25rem;
+    }
+}
+
+/* Very small mobile screens */
+@media screen and (max-width: 30rem) {
+    .landing-page .threejs-bg-container {
+        opacity: 0.2;
+    }
+
+    [data-md-color-scheme="slate"] .landing-page .threejs-bg-container {
+        opacity: 0.3;
+    }
+
+    .landing-page .tx-hero {
+        padding: 1.5rem 1rem;
+    }
+
+    .landing-page .tx-container,
+    .landing-page section.md-typeset {
+        padding: 1.25rem 1rem;
+    }
+}
