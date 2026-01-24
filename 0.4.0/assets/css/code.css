@@ -1,0 +1,98 @@
+/* ============================================
+   Code - Code Blocks and Syntax Highlighting
+   Pre, code elements, copy button, and annotations
+   ============================================ */
+
+/* Code block container */
+.md-typeset pre {
+    background: var(--md-code-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.5rem;
+    position: relative;
+    margin: 1rem 0;
+}
+
+/* Inline code */
+.md-typeset code {
+    background: var(--md-code-bg-color);
+    border-radius: 0.25rem;
+    padding: 0.1em 0.3em;
+    font-size: 0.85em;
+}
+
+/* Code block inner content */
+.md-typeset pre>code {
+    display: block;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    background: transparent;
+    border: none;
+}
+
+/* Light mode code blocks */
+[data-md-color-scheme="default"] .md-typeset pre {
+    background: #f8f9fa;
+    border-color: #e9ecef;
+}
+
+[data-md-color-scheme="default"] .md-typeset code {
+    background: #f1f3f5;
+    color: #212529;
+}
+
+/* Dark mode code blocks */
+[data-md-color-scheme="slate"] .md-typeset pre {
+    background: #1e1e2e;
+    border-color: #313244;
+}
+
+[data-md-color-scheme="slate"] .md-typeset code {
+    background: #313244;
+    color: #cdd6f4;
+}
+
+/* Inline code in paragraphs */
+.md-typeset p code,
+.md-typeset li code,
+.md-typeset td code {
+    padding: 0.15em 0.4em;
+    font-weight: 500;
+}
+
+/* Copy button */
+.md-typeset .md-clipboard {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.md-typeset pre:hover .md-clipboard {
+    opacity: 1;
+}
+
+/* Code annotations */
+.md-typeset .md-annotation {
+    outline: 2px solid var(--md-accent-fg-color);
+}
+
+/* Line numbers */
+.md-typeset .linenums {
+    padding-left: 2.5rem;
+}
+
+/* Highlighted lines */
+.md-typeset .highlight .hll {
+    background: rgba(255, 235, 59, 0.2);
+    display: block;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .hll {
+    background: rgba(250, 179, 135, 0.15);
+}

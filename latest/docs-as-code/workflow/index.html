@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="How to preview, version, and deploy the site with repeatable commands.">
+        <meta name="description" content="How to preview, build, and deploy the site with repeatable commands.">
       
       
         <meta name="author" content="Brandon Calderon-Morales">
@@ -18,7 +18,7 @@
         <link rel="prev" href="../principles/">
       
       
-        <link rel="next" href="../quality/">
+        <link rel="next" href="versioning/">
       
       
         
@@ -4211,16 +4211,32 @@
   
   
   
-    <li class="md-nav__item md-nav__item--active">
+    
+    
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
+        
+          
+        
       
         
       
+    
+    
+    
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
           
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
   
   
   <span class="md-ellipsis">
@@ -4234,17 +4250,43 @@
   
   
 
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Workflow
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="versioning/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Workflow
+    Versioning
   
 
     
@@ -4253,37 +4295,13 @@
   
 
       </a>
-      
-        
+    </li>
+  
 
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#quick-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick commands
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -6239,6 +6257,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ci-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI behavior
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6296,6 +6325,24 @@
   
 
       
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Workflow
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
     </ol>
   </nav>
 
@@ -6324,17 +6371,47 @@
 <h1 id="docs-as-code-workflow">Docs-as-Code Workflow<a class="headerlink" href="#docs-as-code-workflow" title="Permanent link">&para;</a></h1>
 <ol>
 <li><strong>Write or edit Markdown.</strong></li>
-<li><strong>Preview locally.</strong> <code>make serve</code> or <code>./doc-cli.sh startup</code> for a quick build.</li>
-<li><strong>Version with mike.</strong> Cut docs releases using <code>doc-cli bump-version</code> when ready.</li>
-<li><strong>Deploy.</strong> <code>doc-cli deploy</code> or let GitHub Actions publish to GitHub Pages.</li>
+<li><strong>Preview locally.</strong> <code>make serve</code> starts the Zensical dev server.</li>
+<li><strong>Build.</strong> <code>make build</code> compiles the site to <code>site/</code>.</li>
+<li><strong>Deploy.</strong> Trigger the GitHub Actions workflow or run <code>./doc-cli.sh deploy &lt;version&gt; --push</code>.</li>
 </ol>
+<p>For versioning details, see <a href="versioning/">Versioning</a>.</p>
+<hr />
 <h2 id="quick-commands">Quick commands<a class="headerlink" href="#quick-commands" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local preview</td>
+<td><code>make serve</code></td>
+</tr>
+<tr>
+<td>Build site</td>
+<td><code>make build</code></td>
+</tr>
+<tr>
+<td>Deploy version</td>
+<td><code>./doc-cli.sh deploy 0.4.0 --push</code></td>
+</tr>
+<tr>
+<td>List versions</td>
+<td><code>uv run python scripts/python/versioned_deploy.py list</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ci-behavior">CI behavior<a class="headerlink" href="#ci-behavior" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Local preview: <code>make serve</code></li>
-<li>Baseline checks: <code>./doc-cli.sh startup</code></li>
-<li>Build static site: <code>make build</code></li>
-<li>Versioned release: <code>doc-cli bump-version &amp;&amp; doc-cli deploy</code></li>
+<li><strong>Push to main</strong>: Builds and validates the site. No deployment.</li>
+<li><strong>Pull request</strong>: Builds and runs structure tests.</li>
+<li><strong>Workflow dispatch</strong>: Deploys the specified version to GitHub Pages.</li>
 </ul>
+<p>To deploy, go to <strong>Actions &gt; Build and Deploy Docs &gt; Run workflow</strong> and enter the version number.</p>
 
   
 
@@ -6670,13 +6747,13 @@
         
         
           
-          <a href="../quality/" class="md-footer__link md-footer__link--next" aria-label="Next: Quality &amp; Style">
+          <a href="versioning/" class="md-footer__link md-footer__link--next" aria-label="Next: Versioning">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Quality & Style
+                Versioning
               </div>
             </div>
             <div class="md-footer__button md-icon">
