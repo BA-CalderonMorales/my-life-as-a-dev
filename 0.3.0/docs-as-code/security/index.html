@@ -6639,12 +6639,12 @@
 </tbody>
 </table>
 <h3 id="budget-alerts">Budget Alerts<a class="headerlink" href="#budget-alerts" title="Permanent link">&para;</a></h3>
-<pre><code class="language-bash">gcloud billing budgets create \
-  --billing-account=YOUR_BILLING_ACCOUNT \
-  --display-name=&quot;Security Budget&quot; \
-  --budget-amount=5USD \
-  --threshold-rule=percent=0.9
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gcloud<span class="w"> </span>billing<span class="w"> </span>budgets<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>--billing-account<span class="o">=</span>YOUR_BILLING_ACCOUNT<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--display-name<span class="o">=</span><span class="s2">&quot;Security Budget&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>--budget-amount<span class="o">=</span>5USD<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span>--threshold-rule<span class="o">=</span><span class="nv">percent</span><span class="o">=</span><span class="m">0</span>.9
+</code></pre></div>
 <hr />
 <h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
 <h3 id="google-cloud">Google Cloud<a class="headerlink" href="#google-cloud" title="Permanent link">&para;</a></h3>
@@ -7085,6 +7085,23 @@
 
 <!-- Three.js Background Animation -->
 <script type="module" src="../../assets/js/threejs-background/main.js"></script>
+
+<!-- Page class detection for landing page -->
+<script>
+  (function () {
+    const path = window.location.pathname;
+    // Check if this is the home page (ends with /latest/, /0.x.y/, or just the repo root)
+    const isHome = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/.test(path);
+    const isCanvas = path.includes('/canvas/');
+
+    if (isHome) {
+      document.body.classList.add('landing-page');
+    }
+    if (isCanvas) {
+      document.body.classList.add('canvas-page');
+    }
+  })();
+</script>
 
 <!-- Canvas Page Three.js Scene (handles instant navigation) -->
 <script type="module" src="../../assets/js/canvas/scene/main.js"></script>

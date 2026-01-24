@@ -6575,42 +6575,42 @@
 </ul>
 <h2 id="local-development">Local Development<a class="headerlink" href="#local-development" title="Permanent link">&para;</a></h2>
 <h3 id="1-clone-the-repository">1. Clone the Repository<a class="headerlink" href="#1-clone-the-repository" title="Permanent link">&para;</a></h3>
-<pre><code class="language-bash">git clone https://github.com/BA-CalderonMorales/my-life-as-a-dev.git
-cd my-life-as-a-dev
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/BA-CalderonMorales/my-life-as-a-dev.git
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>my-life-as-a-dev
+</code></pre></div>
 <h3 id="2-set-up-virtual-environment-recommended">2. Set Up Virtual Environment (Recommended)<a class="headerlink" href="#2-set-up-virtual-environment-recommended" title="Permanent link">&para;</a></h3>
-<p><strong>On Windows:</strong></p>
-<pre><code class="language-bash">python -m venv venv
-.\venv\Scripts\activate
-</code></pre>
-<p><strong>On macOS/Linux:</strong></p>
-<pre><code class="language-bash">python3 -m venv venv
-source venv/bin/activate
-</code></pre>
+<p><strong>On Windows:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>.<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</code></pre></div></p>
+<p><strong>On macOS/Linux:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</code></pre></div></p>
 <h3 id="3-install-dependencies">3. Install Dependencies<a class="headerlink" href="#3-install-dependencies" title="Permanent link">&para;</a></h3>
-<pre><code class="language-bash">uv run python -m pip install --upgrade pip
-uv pip install -r requirements.txt
-uv pip install -e .  # Install in development mode
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="w">  </span><span class="c1"># Install in development mode</span>
+</code></pre></div>
 <h3 id="4-start-the-development-server">4. Start the Development Server<a class="headerlink" href="#4-start-the-development-server" title="Permanent link">&para;</a></h3>
-<pre><code class="language-bash"># Set PYTHONPATH and start the server
-export PYTHONPATH=$PYTHONPATH:$(pwd) &amp;&amp; mkdocs serve
-
-# On Windows PowerShell:
-# $env:PYTHONPATH=&quot;$env:PYTHONPATH;$(pwd)&quot;; mkdocs serve
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Set PYTHONPATH and start the server</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdocs<span class="w"> </span>serve
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># On Windows PowerShell:</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># $env:PYTHONPATH=&quot;$env:PYTHONPATH;$(pwd)&quot;; mkdocs serve</span>
+</code></pre></div>
 <p>The site will be available at http://127.0.0.1:8000/</p>
 <h2 id="building-for-production">Building for Production<a class="headerlink" href="#building-for-production" title="Permanent link">&para;</a></h2>
-<pre><code class="language-bash">export PYTHONPATH=$PYTHONPATH:$(pwd) &amp;&amp; mkdocs build --verbose
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdocs<span class="w"> </span>build<span class="w"> </span>--verbose
+</code></pre></div>
 <p>The static site will be generated in the <code>site</code> directory.</p>
 <h2 id="using-the-cli-tool">Using the CLI Tool<a class="headerlink" href="#using-the-cli-tool" title="Permanent link">&para;</a></h2>
 <p>The project includes a Rust-based CLI tool for common tasks:</p>
-<pre><code class="language-bash">cd scripts
-cargo build --release
-./target/release/doc-cli
-./doc-cli.sh
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>scripts
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>cargo<span class="w"> </span>build<span class="w"> </span>--release
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>./target/release/doc-cli
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>./doc-cli.sh
+</code></pre></div>
 <h2 id="ai-integration-setup-local-development-only">AI Integration Setup (Local Development Only)<a class="headerlink" href="#ai-integration-setup-local-development-only" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p><strong>Important</strong>: AI features are currently disabled in production. This setup is for local development and testing only.</p>
@@ -6619,8 +6619,8 @@ cargo build --release
 <ol>
 <li>
 <p>Set up your GitHub Personal Access Token:
-   <code>bash
-   export GITHUB_TOKEN=your_github_pat_here</code></p>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GITHUB_TOKEN</span><span class="o">=</span>your_github_pat_here
+</code></pre></div></p>
 </li>
 <li>
 <p>Start the AI proxy (optional, for testing AI features):
@@ -7011,6 +7011,23 @@ uv run python scripts/python/ai_proxy.py</code></p>
 
 <!-- Three.js Background Animation -->
 <script type="module" src="../../../../assets/js/threejs-background/main.js"></script>
+
+<!-- Page class detection for landing page -->
+<script>
+  (function () {
+    const path = window.location.pathname;
+    // Check if this is the home page (ends with /latest/, /0.x.y/, or just the repo root)
+    const isHome = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/.test(path);
+    const isCanvas = path.includes('/canvas/');
+
+    if (isHome) {
+      document.body.classList.add('landing-page');
+    }
+    if (isCanvas) {
+      document.body.classList.add('canvas-page');
+    }
+  })();
+</script>
 
 <!-- Canvas Page Three.js Scene (handles instant navigation) -->
 <script type="module" src="../../../../assets/js/canvas/scene/main.js"></script>

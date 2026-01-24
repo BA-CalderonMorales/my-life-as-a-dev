@@ -6818,6 +6818,23 @@
 <!-- Three.js Background Animation -->
 <script type="module" src="../../assets/js/threejs-background/main.js"></script>
 
+<!-- Page class detection for landing page -->
+<script>
+  (function () {
+    const path = window.location.pathname;
+    // Check if this is the home page (ends with /latest/, /0.x.y/, or just the repo root)
+    const isHome = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/.test(path);
+    const isCanvas = path.includes('/canvas/');
+
+    if (isHome) {
+      document.body.classList.add('landing-page');
+    }
+    if (isCanvas) {
+      document.body.classList.add('canvas-page');
+    }
+  })();
+</script>
+
 <!-- Canvas Page Three.js Scene (handles instant navigation) -->
 <script type="module" src="../../assets/js/canvas/scene/main.js"></script>
 
