@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Page Not Found - Redirecting...</title>
+    <script>
+        // Redirect deleted versions to latest
+        const path = window.location.pathname;
+        const match = path.match(/^\/my-life-as-a-dev\/(\d+\.\d+\.\d+|v\d+\.\d+\.\d+)\//);
+        if (match) {
+            // This is an old version URL, redirect to latest equivalent
+            const versionedPath = path.replace(/^\/my-life-as-a-dev\/[^\/]+/, '/my-life-as-a-dev/latest');
+            window.location.replace(versionedPath);
+        } else {
+            // Not a version URL, redirect to home
+            window.location.replace('/my-life-as-a-dev/latest/');
+        }
+    </script>
+    <noscript>
+        <meta http-equiv="refresh" content="0; URL=/my-life-as-a-dev/latest/">
+    </noscript>
+</head>
+<body>
+    <p>Page not found. Redirecting to <a href="/my-life-as-a-dev/latest/">latest documentation</a>...</p>
+</body>
+</html>
