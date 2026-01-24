@@ -147,6 +147,12 @@ def deploy_version(
     # Remove existing entry for this version
     versions = [v for v in versions if v.get("version") != version]
 
+    # Remove aliases from other versions (aliases should be unique)
+    for alias in aliases:
+        for v in versions:
+            if alias in v.get("aliases", []):
+                v["aliases"].remove(alias)
+
     # Add new version entry
     version_entry = {
         "version": version,
