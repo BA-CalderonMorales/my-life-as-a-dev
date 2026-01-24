@@ -12,6 +12,9 @@ comments: true
 
 Every release gets its own immutable snapshot. Readers can switch versions from the header dropdown. Old URLs redirect to the latest equivalent.
 
+!!! info "Interim solution"
+    Zensical does not yet support versioning natively. This approach bridges the gap until their [versioning feature](https://github.com/zensical/backlog/issues/45) ships.
+
 ---
 
 ## How it works
