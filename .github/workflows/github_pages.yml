@@ -1,7 +1,6 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy Docs
 
 on:
-
   push:
     branches:
       - main
@@ -35,8 +34,8 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to deploy (e.g., 1.0.0). Leave empty for auto-increment.'
-        required: false
+        description: 'Version to deploy (e.g., 0.4.0). Required for deployment.'
+        required: true
         type: string
 
 permissions:
@@ -44,16 +43,15 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
 
-  build-and-deploy:
+  # Build job - runs on push and PR to validate the site builds
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -83,64 +81,112 @@ jobs:
           echo "Building site with Zensical..."
           zensical build
           echo "Build complete!"
-
-          # Create .nojekyll to prevent GitHub Pages from ignoring files
           touch site/.nojekyll
 
-          # Verify Three.js assets are included
-          echo "Verifying Three.js assets in build..."
+          # Verify Three.js assets
           if [ -d "site/assets/js/threejs-background" ]; then
-            echo "✓ Three.js assets found in build"
-            ls -la site/assets/js/threejs-background/
+            echo "Three.js assets found"
           else
-            echo "✗ WARNING: Three.js assets NOT found in build!"
-            find site/assets -type f -name "*.js" | head -20
+            echo "WARNING: Three.js assets NOT found!"
           fi
 
-          echo "Build output structure:"
-          ls -la site/
-
-      - name: Get version
-        if: github.event_name != 'pull_request'
-        id: version
+      - name: Get current deployed version
+        id: current
         run: |
-          # Use input version if provided, otherwise read from versions.json
-          if [ -n "${{ inputs.version }}" ]; then
-            VERSION="${{ inputs.version }}"
-          else
-            # Read current version and increment patch
-            if [ -f versions.json ]; then
-              CURRENT=$(cat versions.json | python -c "import sys, json; v=json.load(sys.stdin); print(v['versions'][0]['version'] if v.get('versions') else '0.0.0')")
-              # Increment patch version
-              IFS='.' read -r major minor patch <<< "$CURRENT"
-              VERSION="${major}.${minor}.$((patch + 1))"
-            else
-              VERSION="0.1.0"
-            fi
-          fi
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Deploying version: $VERSION"
+          git fetch origin gh-pages --depth=1 || true
+          CURRENT=$(git show origin/gh-pages:versions.json 2>/dev/null | python -c "
+          import sys, json
+          try:
+              data = json.load(sys.stdin)
+              # Find version with 'latest' alias
+              for v in data:
+                  if 'latest' in v.get('aliases', []):
+                      print(v['version'])
+                      sys.exit(0)
+              # Fallback to first version
+              print(data[0]['version'] if data else '0.0.0')
+          except:
+              print('0.0.0')
+          " 2>/dev/null) || CURRENT="0.0.0"
+          echo "version=$CURRENT" >> $GITHUB_OUTPUT
+
+      - name: Suggest next version
+        id: suggest
+        run: |
+          CURRENT="${{ steps.current.outputs.version }}"
+          IFS='.' read -r major minor patch <<< "$CURRENT"
+          NEXT="${major}.${minor}.$((patch + 1))"
+          echo "version=$NEXT" >> $GITHUB_OUTPUT
+
+      - name: Build summary (push)
+        if: github.event_name == 'push'
+        run: |
+          echo "## Build Successful" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Site built and validated. **No deployment was made.**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Deploy manually" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Current live version: **${{ steps.current.outputs.version }}**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "To deploy, run the workflow manually:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "1. Go to [Actions > Build and Deploy Docs](https://github.com/${{ github.repository }}/actions/workflows/github_pages.yml)" >> $GITHUB_STEP_SUMMARY
+          echo "2. Click **Run workflow**" >> $GITHUB_STEP_SUMMARY
+          echo "3. Enter version: \`${{ steps.suggest.outputs.version }}\` (suggested)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Or deploy locally:" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+          echo "./doc-cli.sh deploy ${{ steps.suggest.outputs.version }} --push" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Build summary (PR)
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "## Build Successful" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Site builds correctly. Merge to deploy." >> $GITHUB_STEP_SUMMARY
+
+  # Deploy job - only runs on workflow_dispatch
+  deploy:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build site
+        run: zensical build
 
       - name: Configure git
-        if: github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Deploy versioned docs
-        if: github.event_name != 'pull_request'
+      - name: Deploy version ${{ inputs.version }}
         run: |
           python scripts/python/versioned_deploy.py deploy \
-            "${{ steps.version.outputs.version }}" \
+            "${{ inputs.version }}" \
             --alias latest \
             --push \
             --no-build
 
-      - name: Output deployment URL
-        if: github.event_name != 'pull_request'
+      - name: Deployment summary
         run: |
-          echo "## Deployment Complete! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "## Deployed version ${{ inputs.version }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **Version:** ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
           echo "- **URL:** https://ba-calderonmorales.github.io/my-life-as-a-dev/" >> $GITHUB_STEP_SUMMARY
-          echo "- **Versioned URL:** https://ba-calderonmorales.github.io/my-life-as-a-dev/${{ steps.version.outputs.version }}/" >> $GITHUB_STEP_SUMMARY
+          echo "- **Versioned:** https://ba-calderonmorales.github.io/my-life-as-a-dev/${{ inputs.version }}/" >> $GITHUB_STEP_SUMMARY
