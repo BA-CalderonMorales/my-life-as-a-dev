@@ -2,7 +2,7 @@
  * Custom version selector for Zensical-built sites.
  * Fetches versions.json and renders a dropdown in the header.
  */
-(function() {
+(function () {
   'use strict';
 
   // Find the base URL (handles versioned paths like /0.1.39/ or /latest/)
@@ -100,10 +100,71 @@
     return container;
   }
 
+  // Check if current version is latest
+  function isLatestVersion(versions, currentVersion) {
+    if (!versions || versions.length === 0) return true;
+    const latest = versions.find(v => v.aliases && v.aliases.includes('latest'));
+    if (!latest) return true;  // No latest defined, assume current is latest
+    return latest.version === currentVersion || currentVersion === 'latest';
+  }
+
+  // Create "back to latest" banner
+  function createLatestBanner(versions, currentVersion) {
+    const latest = versions.find(v => v.aliases && v.aliases.includes('latest'));
+    if (!latest) return null;
+
+    const baseUrl = getBaseUrl();
+    const banner = document.createElement('div');
+    banner.className = 'md-version-banner';
+    banner.innerHTML = `
+      <div class="md-version-banner__content">
+        <span class="md-version-banner__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V7h2v6h-2z" fill="currentColor"/>
+          </svg>
+        </span>
+        <span>You are viewing an older version (<strong>${currentVersion}</strong>). </span>
+        <a href="${baseUrl}latest/" class="md-version-banner__link">View latest (${latest.version})</a>
+      </div>
+    `;
+    return banner;
+  }
+
   // Add styles
   function addStyles() {
     const style = document.createElement('style');
     style.textContent = `
+      .md-version-banner {
+        background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+        color: white;
+        padding: 0.6rem 1rem;
+        text-align: center;
+        font-size: 0.85rem;
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      }
+      .md-version-banner__content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .md-version-banner__icon {
+        display: flex;
+        align-items: center;
+      }
+      .md-version-banner__link {
+        color: white;
+        font-weight: bold;
+        text-decoration: underline;
+        margin-left: 0.25rem;
+      }
+      .md-version-banner__link:hover {
+        text-decoration: none;
+      }
       .md-version {
         position: relative;
         margin-left: 0.4rem;
@@ -169,6 +230,16 @@
     }
 
     addStyles();
+
+    const currentVersion = getCurrentVersion();
+
+    // Show banner if not on latest version
+    if (!isLatestVersion(versions, currentVersion)) {
+      const banner = createLatestBanner(versions, currentVersion);
+      if (banner) {
+        document.body.insertBefore(banner, document.body.firstChild);
+      }
+    }
 
     // Wait for header to be available
     const observer = new MutationObserver((mutations, obs) => {
