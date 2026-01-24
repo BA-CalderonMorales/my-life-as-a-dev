@@ -5,13 +5,16 @@
 (function () {
   'use strict';
 
-  // Find the base URL (handles versioned paths like /0.1.39/ or /latest/)
+  // Find the base URL (repo root, without version segment)
+  // For GitHub Pages: /repo-name/ (versions.json lives here)
+  // For versioned paths like /repo-name/0.3.0/ -> returns /repo-name/
   function getBaseUrl() {
     const path = window.location.pathname;
-    const match = path.match(/^(\/[^\/]+\/[^\/]+\/)/);  // e.g., /my-life-as-a-dev/latest/
-    if (match) {
-      // Go up to the repo root (slice 0-2 gives ['', 'repo-name'])
-      return path.split('/').slice(0, 2).join('/') + '/';
+    const parts = path.split('/').filter(Boolean);
+    // GitHub Pages structure: /repo-name/version/page
+    // We want just /repo-name/
+    if (parts.length >= 1) {
+      return '/' + parts[0] + '/';
     }
     return '/';
   }
@@ -26,7 +29,7 @@
       if (!response.ok) return null;
       return await response.json();
     } catch (e) {
-      console.warn('Could not fetch versions.json:', e);
+      // Silently fail - version selector is optional
       return null;
     }
   }
