@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-01-24 04:43:55 UTC
+#   Generated: 2026-01-24 07:09:24 UTC
 #
 # ##############################################################################
 
@@ -255,7 +255,10 @@ Overview = "docs-as-code/index.md"
 "Guiding Principles" = "docs-as-code/principles/index.md"
 
 [[project.nav.Docs-as-Code]]
-Workflow = "docs-as-code/workflow/index.md"
+Workflow = [
+    { Overview = "docs-as-code/workflow/index.md" },
+    { Versioning = "docs-as-code/workflow/versioning.md" },
+]
 
 [[project.nav.Docs-as-Code]]
 "Quality & Style" = "docs-as-code/quality/index.md"

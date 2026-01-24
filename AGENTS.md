@@ -28,6 +28,21 @@ uv run zensical serve
 
 The project uses a virtual environment at `.venv/`. All Python tools (zensical, mkdocs, etc.) are installed there.
 
+### ALWAYS use `agent-browser` for browser automation
+
+**Never use Playwright MCP tools.** Use the agent-browser CLI at `/tmp/agent-browser`:
+
+```bash
+cd /tmp/agent-browser
+./bin/agent-browser open "http://localhost:8001/my-life-as-a-dev/"
+./bin/agent-browser snapshot    # Get page structure
+./bin/agent-browser eval "..."  # Run JavaScript
+./bin/agent-browser console     # Check for errors
+./bin/agent-browser close
+```
+
+See [Agent Browser Skill](.github/skills/agent-browser/SKILL.md) for full usage.
+
 ## Quick Commands
 
 ```bash
