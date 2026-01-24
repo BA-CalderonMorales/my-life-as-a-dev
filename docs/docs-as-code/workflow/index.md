@@ -5,8 +5,6 @@ tags:
   - Workflow
   - DevOps
   - Documentation
-hide:
-  - toc
 comments: true
 ---
 
@@ -39,3 +37,18 @@ For versioning details, see [Versioning](versioning.md).
 - **Workflow dispatch**: Deploys the specified version to GitHub Pages.
 
 To deploy, go to **Actions > Build and Deploy Docs > Run workflow** and enter the version number.
+
+---
+
+## Why we use a custom versioning script
+
+Zensical does not yet support versioning natively. The team has it on their [roadmap](https://github.com/zensical/backlog/issues/45) with plans for both directory-based and git-based versioning.
+
+Until then, we use `versioned_deploy.py` to provide mike-style versioned deployments. This script:
+
+- Builds with Zensical
+- Copies output to versioned directories on `gh-pages`
+- Maintains `versions.json` for the version selector
+- Handles the `latest` alias
+
+When Zensical ships native versioning, we can migrate to their approach.
