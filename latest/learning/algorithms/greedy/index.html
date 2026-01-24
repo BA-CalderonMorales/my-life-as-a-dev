@@ -6683,15 +6683,15 @@
 <strong>LeetCode</strong>: #55</p>
 <h3 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h3>
 <p>Given an array where each element represents your maximum jump length at that position, determine if you can reach the last index starting from the first index.</p>
-<p><strong>Example</strong>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Input: nums = [2, 3, 1, 1, 4]
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Output: true
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Explanation: Jump 1 step from 0 to 1, then 3 steps to the last index
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Input: nums = [3, 2, 1, 0, 4]
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Output: false
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Explanation: You will always arrive at index 3, which has 0 jump length
-</code></pre></div></p>
+<p><strong>Example</strong>:</p>
+<pre><code>Input: nums = [2, 3, 1, 1, 4]
+Output: true
+Explanation: Jump 1 step from 0 to 1, then 3 steps to the last index
+
+Input: nums = [3, 2, 1, 0, 4]
+Output: false
+Explanation: You will always arrive at index 3, which has 0 jump length
+</code></pre>
 <h3 id="approach">Approach<a class="headerlink" href="#approach" title="Permanent link">&para;</a></h3>
 <p>Greedy approach: Track maximum reachable index</p>
 <ul>
@@ -6702,88 +6702,88 @@
 </ul>
 <p>Always choosing maximum reach ensures we explore all possibilities.</p>
 <h3 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">can_jump</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="sd">    Determine if can reach last index using greedy.</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sd">    Time Complexity: O(n) - single pass</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="sd">    Space Complexity: O(1) - only tracking max reach</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">max_reach</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="c1"># Can&#39;t reach this position</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">max_reach</span><span class="p">:</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            <span class="k">return</span> <span class="kc">False</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="c1"># Update maximum reachable position</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="n">max_reach</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_reach</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="c1"># Reached or passed last index</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        <span class="k">if</span> <span class="n">max_reach</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>            <span class="k">return</span> <span class="kc">True</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="k">return</span> <span class="kc">False</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="c1"># Test</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="nb">print</span><span class="p">(</span><span class="n">can_jump</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]))</span>  <span class="c1"># Output: True</span>
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="nb">print</span><span class="p">(</span><span class="n">can_jump</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">]))</span>  <span class="c1"># Output: False</span>
-</code></pre></div>
+<pre><code class="language-python">def can_jump(nums):
+    &quot;&quot;&quot;
+    Determine if can reach last index using greedy.
+
+    Time Complexity: O(n) - single pass
+    Space Complexity: O(1) - only tracking max reach
+    &quot;&quot;&quot;
+    max_reach = 0
+
+    for i in range(len(nums)):
+        # Can't reach this position
+        if i &gt; max_reach:
+            return False
+
+        # Update maximum reachable position
+        max_reach = max(max_reach, i + nums[i])
+
+        # Reached or passed last index
+        if max_reach &gt;= len(nums) - 1:
+            return True
+
+    return False
+
+# Test
+print(can_jump([2, 3, 1, 1, 4]))  # Output: True
+print(can_jump([3, 2, 1, 0, 4]))  # Output: False
+</code></pre>
 <h3 id="step-by-step-walkthrough">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Example 1: nums = [2, 3, 1, 1, 4]
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>i=0, nums[0]=2:
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  max_reach = max(0, 0+2) = 2
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  Can reach up to index 2
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>i=1, nums[1]=3:
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  1 &lt;= 2 (reachable)
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  max_reach = max(2, 1+3) = 4
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  Can reach up to index 4 (last index!)
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  Return True
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>Result: True
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>Example 2: nums = [3, 2, 1, 0, 4]
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>i=0, nums[0]=3:
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>  max_reach = max(0, 0+3) = 3
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>  Can reach up to index 3
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>i=1, nums[1]=2:
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>  1 &lt;= 3 (reachable)
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>  max_reach = max(3, 1+2) = 3
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>  Still max 3
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>i=2, nums[2]=1:
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>  2 &lt;= 3 (reachable)
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>  max_reach = max(3, 2+1) = 3
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>  Still max 3
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>i=3, nums[3]=0:
-<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>  3 &lt;= 3 (reachable)
-<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>  max_reach = max(3, 3+0) = 3
-<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>  Can&#39;t advance beyond 3
-<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>i=4:
-<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>  4 &gt; 3 (not reachable!)
-<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>  Return False
-<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>
-<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>Result: False
-</code></pre></div>
+<pre><code>Example 1: nums = [2, 3, 1, 1, 4]
+
+i=0, nums[0]=2:
+  max_reach = max(0, 0+2) = 2
+  Can reach up to index 2
+
+i=1, nums[1]=3:
+  1 &lt;= 2 (reachable)
+  max_reach = max(2, 1+3) = 4
+  Can reach up to index 4 (last index!)
+  Return True
+
+Result: True
+
+Example 2: nums = [3, 2, 1, 0, 4]
+
+i=0, nums[0]=3:
+  max_reach = max(0, 0+3) = 3
+  Can reach up to index 3
+
+i=1, nums[1]=2:
+  1 &lt;= 3 (reachable)
+  max_reach = max(3, 1+2) = 3
+  Still max 3
+
+i=2, nums[2]=1:
+  2 &lt;= 3 (reachable)
+  max_reach = max(3, 2+1) = 3
+  Still max 3
+
+i=3, nums[3]=0:
+  3 &lt;= 3 (reachable)
+  max_reach = max(3, 3+0) = 3
+  Can't advance beyond 3
+
+i=4:
+  4 &gt; 3 (not reachable!)
+  Return False
+
+Result: False
+</code></pre>
 <h2 id="problem-2-meeting-rooms-ii">Problem 2: Meeting Rooms II<a class="headerlink" href="#problem-2-meeting-rooms-ii" title="Permanent link">&para;</a></h2>
 <p><strong>Difficulty</strong>: Medium<br />
 <strong>LeetCode</strong>: #253</p>
 <h3 id="problem-statement_1">Problem Statement<a class="headerlink" href="#problem-statement_1" title="Permanent link">&para;</a></h3>
 <p>Given an array of meeting time intervals, find the minimum number of conference rooms required.</p>
-<p><strong>Example</strong>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Input: intervals = [[0,30],[5,10],[15,20]]
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Output: 2
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Explanation: Meetings [5,10] and [15,20] overlap with [0,30]
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Input: intervals = [[7,10],[2,4]]
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>Output: 1
-</code></pre></div></p>
+<p><strong>Example</strong>:</p>
+<pre><code>Input: intervals = [[0,30],[5,10],[15,20]]
+Output: 2
+Explanation: Meetings [5,10] and [15,20] overlap with [0,30]
+
+Input: intervals = [[7,10],[2,4]]
+Output: 1
+</code></pre>
 <h3 id="approach_1">Approach<a class="headerlink" href="#approach_1" title="Permanent link">&para;</a></h3>
 <p>Greedy with separate start and end times:
 1. Separate start times and end times, sort both
@@ -6793,129 +6793,129 @@
 5. Track maximum rooms needed simultaneously</p>
 <p>This works because we only care about overlap count, not which specific meetings.</p>
 <h3 id="solution_1">Solution<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">min_meeting_rooms</span><span class="p">(</span><span class="n">intervals</span><span class="p">):</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="sd">    Find minimum conference rooms needed.</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="sd">    Time Complexity: O(n log n) - sorting</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="sd">    Space Complexity: O(n) - separate arrays</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">intervals</span><span class="p">:</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="k">return</span> <span class="mi">0</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="c1"># Separate start and end times</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="n">starts</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">])</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="n">ends</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">])</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="n">rooms</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="n">max_rooms</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="n">start_ptr</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="n">end_ptr</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>    <span class="c1"># Process all events</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    <span class="k">while</span> <span class="n">start_ptr</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">intervals</span><span class="p">):</span>
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>        <span class="c1"># Meeting starting</span>
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>        <span class="k">if</span> <span class="n">starts</span><span class="p">[</span><span class="n">start_ptr</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">ends</span><span class="p">[</span><span class="n">end_ptr</span><span class="p">]:</span>
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>            <span class="n">rooms</span> <span class="o">+=</span> <span class="mi">1</span>
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>            <span class="n">max_rooms</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_rooms</span><span class="p">,</span> <span class="n">rooms</span><span class="p">)</span>
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>            <span class="n">start_ptr</span> <span class="o">+=</span> <span class="mi">1</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>        <span class="c1"># Meeting ending</span>
-<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>            <span class="n">rooms</span> <span class="o">-=</span> <span class="mi">1</span>
-<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>            <span class="n">end_ptr</span> <span class="o">+=</span> <span class="mi">1</span>
-<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>
-<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>    <span class="k">return</span> <span class="n">max_rooms</span>
-<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>
-<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="c1"># Alternative: Using heap</span>
-<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
-<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>
-<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="k">def</span><span class="w"> </span><span class="nf">min_meeting_rooms_heap</span><span class="p">(</span><span class="n">intervals</span><span class="p">):</span>
-<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Alternative using min heap.&quot;&quot;&quot;</span>
-<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">intervals</span><span class="p">:</span>
-<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>        <span class="k">return</span> <span class="mi">0</span>
-<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>
-<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>    <span class="c1"># Sort by start time</span>
-<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>    <span class="n">intervals</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>
-<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a>    <span class="c1"># Heap stores end times of ongoing meetings</span>
-<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a>    <span class="n">heap</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>
-<a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a>    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">:</span>
-<a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a>        <span class="c1"># Remove ended meetings</span>
-<a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a>        <span class="k">if</span> <span class="n">heap</span> <span class="ow">and</span> <span class="n">heap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">start</span><span class="p">:</span>
-<a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
-<a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a>
-<a id="__codelineno-4-53" name="__codelineno-4-53" href="#__codelineno-4-53"></a>        <span class="c1"># Add current meeting</span>
-<a id="__codelineno-4-54" name="__codelineno-4-54" href="#__codelineno-4-54"></a>        <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
-<a id="__codelineno-4-55" name="__codelineno-4-55" href="#__codelineno-4-55"></a>
-<a id="__codelineno-4-56" name="__codelineno-4-56" href="#__codelineno-4-56"></a>    <span class="c1"># Heap size is max concurrent meetings</span>
-<a id="__codelineno-4-57" name="__codelineno-4-57" href="#__codelineno-4-57"></a>    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
-<a id="__codelineno-4-58" name="__codelineno-4-58" href="#__codelineno-4-58"></a>
-<a id="__codelineno-4-59" name="__codelineno-4-59" href="#__codelineno-4-59"></a><span class="c1"># Test</span>
-<a id="__codelineno-4-60" name="__codelineno-4-60" href="#__codelineno-4-60"></a><span class="n">intervals</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">],[</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span><span class="p">]]</span>
-<a id="__codelineno-4-61" name="__codelineno-4-61" href="#__codelineno-4-61"></a><span class="nb">print</span><span class="p">(</span><span class="n">min_meeting_rooms</span><span class="p">(</span><span class="n">intervals</span><span class="p">))</span>  <span class="c1"># Output: 2</span>
-</code></pre></div>
+<pre><code class="language-python">def min_meeting_rooms(intervals):
+    &quot;&quot;&quot;
+    Find minimum conference rooms needed.
+
+    Time Complexity: O(n log n) - sorting
+    Space Complexity: O(n) - separate arrays
+    &quot;&quot;&quot;
+    if not intervals:
+        return 0
+
+    # Separate start and end times
+    starts = sorted([i[0] for i in intervals])
+    ends = sorted([i[1] for i in intervals])
+
+    rooms = 0
+    max_rooms = 0
+    start_ptr = 0
+    end_ptr = 0
+
+    # Process all events
+    while start_ptr &lt; len(intervals):
+        # Meeting starting
+        if starts[start_ptr] &lt; ends[end_ptr]:
+            rooms += 1
+            max_rooms = max(max_rooms, rooms)
+            start_ptr += 1
+        # Meeting ending
+        else:
+            rooms -= 1
+            end_ptr += 1
+
+    return max_rooms
+
+# Alternative: Using heap
+import heapq
+
+def min_meeting_rooms_heap(intervals):
+    &quot;&quot;&quot;Alternative using min heap.&quot;&quot;&quot;
+    if not intervals:
+        return 0
+
+    # Sort by start time
+    intervals.sort(key=lambda x: x[0])
+
+    # Heap stores end times of ongoing meetings
+    heap = []
+
+    for start, end in intervals:
+        # Remove ended meetings
+        if heap and heap[0] &lt;= start:
+            heapq.heappop(heap)
+
+        # Add current meeting
+        heapq.heappush(heap, end)
+
+    # Heap size is max concurrent meetings
+    return len(heap)
+
+# Test
+intervals = [[0,30],[5,10],[15,20]]
+print(min_meeting_rooms(intervals))  # Output: 2
+</code></pre>
 <h3 id="step-by-step-walkthrough_1">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>intervals = [[0,30],[5,10],[15,20]]
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Sort separately:
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  starts = [0, 5, 15]
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  ends   = [10, 20, 30]
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>Process timeline:
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Time 0: meeting starts
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  rooms = 1, max = 1
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  start_ptr = 1, end_ptr = 0
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>Time 5: meeting starts (before any ends at 10)
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>  rooms = 2, max = 2
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>  start_ptr = 2, end_ptr = 0
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>Time 10: meeting ends (10 == ends[0])
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>  Can&#39;t process yet (15 &lt; 10 is false)
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
-<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>Time 15: meeting starts (after 10 ends)
-<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>  15 &gt;= 10, so meeting ended first
-<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>  rooms = 1
-<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>  end_ptr = 1
-<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>  Then meeting starts:
-<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>  rooms = 2, max = 2
-<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>  start_ptr = 3
-<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>
-<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>Done processing starts
-<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>
-<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>Result: 2 rooms needed
-<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>
-<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>Heap alternative:
-<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>  Sort: [[0,30],[5,10],[15,20]]
-<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>
-<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>  Process [0,30]:
-<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>    heap = [30]
-<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>    size = 1
-<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>
-<a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>  Process [5,10]:
-<a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>    5 &lt; 30, can&#39;t remove
-<a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a>    heap = [10, 30]
-<a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>    size = 2
-<a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>
-<a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>  Process [15,20]:
-<a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>    15 &gt; 10, remove 10
-<a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>    heap = [30]
-<a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>    Add 20: heap = [20, 30]
-<a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>    size = 2
-<a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a>
-<a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a>  Result: 2
-</code></pre></div>
+<pre><code>intervals = [[0,30],[5,10],[15,20]]
+
+Sort separately:
+  starts = [0, 5, 15]
+  ends   = [10, 20, 30]
+
+Process timeline:
+Time 0: meeting starts
+  rooms = 1, max = 1
+  start_ptr = 1, end_ptr = 0
+
+Time 5: meeting starts (before any ends at 10)
+  rooms = 2, max = 2
+  start_ptr = 2, end_ptr = 0
+
+Time 10: meeting ends (10 == ends[0])
+  Can't process yet (15 &lt; 10 is false)
+
+Time 15: meeting starts (after 10 ends)
+  15 &gt;= 10, so meeting ended first
+  rooms = 1
+  end_ptr = 1
+  Then meeting starts:
+  rooms = 2, max = 2
+  start_ptr = 3
+
+Done processing starts
+
+Result: 2 rooms needed
+
+Heap alternative:
+  Sort: [[0,30],[5,10],[15,20]]
+
+  Process [0,30]:
+    heap = [30]
+    size = 1
+
+  Process [5,10]:
+    5 &lt; 30, can't remove
+    heap = [10, 30]
+    size = 2
+
+  Process [15,20]:
+    15 &gt; 10, remove 10
+    heap = [30]
+    Add 20: heap = [20, 30]
+    size = 2
+
+  Result: 2
+</code></pre>
 <h2 id="problem-3-partition-labels">Problem 3: Partition Labels<a class="headerlink" href="#problem-3-partition-labels" title="Permanent link">&para;</a></h2>
 <p><strong>Difficulty</strong>: Medium<br />
 <strong>LeetCode</strong>: #763</p>
 <h3 id="problem-statement_2">Problem Statement<a class="headerlink" href="#problem-statement_2" title="Permanent link">&para;</a></h3>
 <p>Given a string, partition it into as many parts as possible so that each letter appears in at most one part. Return the sizes of the partitions.</p>
-<p><strong>Example</strong>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Input: s = &quot;ababcbacadefegdehijhklij&quot;
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Output: [9,7,8]
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Explanation: &quot;ababcbaca&quot;, &quot;defegde&quot;, &quot;hijhklij&quot;
-</code></pre></div></p>
+<p><strong>Example</strong>:</p>
+<pre><code>Input: s = &quot;ababcbacadefegdehijhklij&quot;
+Output: [9,7,8]
+Explanation: &quot;ababcbaca&quot;, &quot;defegde&quot;, &quot;hijhklij&quot;
+</code></pre>
 <h3 id="approach_2">Approach<a class="headerlink" href="#approach_2" title="Permanent link">&para;</a></h3>
 <p>Greedy with last occurrence tracking:
 1. Record last occurrence of each character
@@ -6924,101 +6924,101 @@
 4. Extend partition end if later character appears earlier</p>
 <p>Greedy works because we always extend to include all occurrences.</p>
 <h3 id="solution_2">Solution<a class="headerlink" href="#solution_2" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">partition_labels</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="sd">    Partition string into maximum parts.</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sd">    Time Complexity: O(n) - two passes</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sd">    Space Complexity: O(1) - at most 26 characters</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="c1"># Record last occurrence of each character</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="n">last</span> <span class="o">=</span> <span class="p">{</span><span class="n">char</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">)}</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="n">partitions</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>        <span class="c1"># Extend partition to include this character&#39;s last occurrence</span>
-<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">last</span><span class="p">[</span><span class="n">char</span><span class="p">])</span>
-<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
-<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>        <span class="c1"># Reached end of current partition</span>
-<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
-<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>            <span class="n">partitions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>            <span class="n">start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
-<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>    <span class="k">return</span> <span class="n">partitions</span>
-<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>
-<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="c1"># Test</span>
-<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;ababcbacadefegdehijhklij&quot;</span>
-<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="nb">print</span><span class="p">(</span><span class="n">partition_labels</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>  <span class="c1"># Output: [9, 7, 8]</span>
-</code></pre></div>
+<pre><code class="language-python">def partition_labels(s):
+    &quot;&quot;&quot;
+    Partition string into maximum parts.
+
+    Time Complexity: O(n) - two passes
+    Space Complexity: O(1) - at most 26 characters
+    &quot;&quot;&quot;
+    # Record last occurrence of each character
+    last = {char: i for i, char in enumerate(s)}
+
+    partitions = []
+    start = 0
+    end = 0
+
+    for i, char in enumerate(s):
+        # Extend partition to include this character's last occurrence
+        end = max(end, last[char])
+
+        # Reached end of current partition
+        if i == end:
+            partitions.append(end - start + 1)
+            start = i + 1
+
+    return partitions
+
+# Test
+s = &quot;ababcbacadefegdehijhklij&quot;
+print(partition_labels(s))  # Output: [9, 7, 8]
+</code></pre>
 <h3 id="step-by-step-walkthrough_2">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough_2" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>s = &quot;ababcbacadefegdehijhklij&quot;
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Build last occurrence map:
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  a: 8, b: 5, c: 7, d: 14, e: 15, f: 11, 
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  g: 13, h: 19, i: 22, j: 23, k: 20, l: 21
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>Process characters:
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>i=0, char=&#39;a&#39;:
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>  end = max(0, last[&#39;a&#39;]=8) = 8
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>  Not at end yet
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>i=1, char=&#39;b&#39;:
-<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>  end = max(8, last[&#39;b&#39;]=5) = 8
-<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>  Not at end yet
-<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
-<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>i=2, char=&#39;a&#39;:
-<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>  end = max(8, last[&#39;a&#39;]=8) = 8
-<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>  Not at end yet
-<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>
-<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>...
-<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>
-<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>i=5, char=&#39;b&#39;:
-<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>  end = max(8, last[&#39;b&#39;]=5) = 8
-<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>  Not at end yet
-<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>
-<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>i=7, char=&#39;c&#39;:
-<a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>  end = max(8, last[&#39;c&#39;]=7) = 8
-<a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>  Not at end yet
-<a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>
-<a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>i=8, char=&#39;a&#39;:
-<a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a>  end = max(8, last[&#39;a&#39;]=8) = 8
-<a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a>  i == end! Create partition
-<a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a>  size = 8 - 0 + 1 = 9
-<a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a>  partitions = [9]
-<a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a>  start = 9
-<a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a>
-<a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a>i=9, char=&#39;d&#39;:
-<a id="__codelineno-8-39" name="__codelineno-8-39" href="#__codelineno-8-39"></a>  end = max(8, last[&#39;d&#39;]=14) = 14
-<a id="__codelineno-8-40" name="__codelineno-8-40" href="#__codelineno-8-40"></a>
-<a id="__codelineno-8-41" name="__codelineno-8-41" href="#__codelineno-8-41"></a>i=10, char=&#39;e&#39;:
-<a id="__codelineno-8-42" name="__codelineno-8-42" href="#__codelineno-8-42"></a>  end = max(14, last[&#39;e&#39;]=15) = 15
-<a id="__codelineno-8-43" name="__codelineno-8-43" href="#__codelineno-8-43"></a>
-<a id="__codelineno-8-44" name="__codelineno-8-44" href="#__codelineno-8-44"></a>...
-<a id="__codelineno-8-45" name="__codelineno-8-45" href="#__codelineno-8-45"></a>
-<a id="__codelineno-8-46" name="__codelineno-8-46" href="#__codelineno-8-46"></a>i=15, char=&#39;e&#39;:
-<a id="__codelineno-8-47" name="__codelineno-8-47" href="#__codelineno-8-47"></a>  end = max(15, last[&#39;e&#39;]=15) = 15
-<a id="__codelineno-8-48" name="__codelineno-8-48" href="#__codelineno-8-48"></a>  i == end! Create partition
-<a id="__codelineno-8-49" name="__codelineno-8-49" href="#__codelineno-8-49"></a>  size = 15 - 9 + 1 = 7
-<a id="__codelineno-8-50" name="__codelineno-8-50" href="#__codelineno-8-50"></a>  partitions = [9, 7]
-<a id="__codelineno-8-51" name="__codelineno-8-51" href="#__codelineno-8-51"></a>  start = 16
-<a id="__codelineno-8-52" name="__codelineno-8-52" href="#__codelineno-8-52"></a>
-<a id="__codelineno-8-53" name="__codelineno-8-53" href="#__codelineno-8-53"></a>i=16, char=&#39;h&#39;:
-<a id="__codelineno-8-54" name="__codelineno-8-54" href="#__codelineno-8-54"></a>  end = max(15, last[&#39;h&#39;]=19) = 19
-<a id="__codelineno-8-55" name="__codelineno-8-55" href="#__codelineno-8-55"></a>
-<a id="__codelineno-8-56" name="__codelineno-8-56" href="#__codelineno-8-56"></a>...
-<a id="__codelineno-8-57" name="__codelineno-8-57" href="#__codelineno-8-57"></a>
-<a id="__codelineno-8-58" name="__codelineno-8-58" href="#__codelineno-8-58"></a>i=23, char=&#39;j&#39;:
-<a id="__codelineno-8-59" name="__codelineno-8-59" href="#__codelineno-8-59"></a>  end = max(23, last[&#39;j&#39;]=23) = 23
-<a id="__codelineno-8-60" name="__codelineno-8-60" href="#__codelineno-8-60"></a>  i == end! Create partition
-<a id="__codelineno-8-61" name="__codelineno-8-61" href="#__codelineno-8-61"></a>  size = 23 - 16 + 1 = 8
-<a id="__codelineno-8-62" name="__codelineno-8-62" href="#__codelineno-8-62"></a>  partitions = [9, 7, 8]
-<a id="__codelineno-8-63" name="__codelineno-8-63" href="#__codelineno-8-63"></a>
-<a id="__codelineno-8-64" name="__codelineno-8-64" href="#__codelineno-8-64"></a>Result: [9, 7, 8]
-</code></pre></div>
+<pre><code>s = &quot;ababcbacadefegdehijhklij&quot;
+
+Build last occurrence map:
+  a: 8, b: 5, c: 7, d: 14, e: 15, f: 11, 
+  g: 13, h: 19, i: 22, j: 23, k: 20, l: 21
+
+Process characters:
+
+i=0, char='a':
+  end = max(0, last['a']=8) = 8
+  Not at end yet
+
+i=1, char='b':
+  end = max(8, last['b']=5) = 8
+  Not at end yet
+
+i=2, char='a':
+  end = max(8, last['a']=8) = 8
+  Not at end yet
+
+...
+
+i=5, char='b':
+  end = max(8, last['b']=5) = 8
+  Not at end yet
+
+i=7, char='c':
+  end = max(8, last['c']=7) = 8
+  Not at end yet
+
+i=8, char='a':
+  end = max(8, last['a']=8) = 8
+  i == end! Create partition
+  size = 8 - 0 + 1 = 9
+  partitions = [9]
+  start = 9
+
+i=9, char='d':
+  end = max(8, last['d']=14) = 14
+
+i=10, char='e':
+  end = max(14, last['e']=15) = 15
+
+...
+
+i=15, char='e':
+  end = max(15, last['e']=15) = 15
+  i == end! Create partition
+  size = 15 - 9 + 1 = 7
+  partitions = [9, 7]
+  start = 16
+
+i=16, char='h':
+  end = max(15, last['h']=19) = 19
+
+...
+
+i=23, char='j':
+  end = max(23, last['j']=23) = 23
+  i == end! Create partition
+  size = 23 - 16 + 1 = 8
+  partitions = [9, 7, 8]
+
+Result: [9, 7, 8]
+</code></pre>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Proof Required</strong>: Greedy needs proof that local optimum leads to global</li>
@@ -7059,38 +7059,38 @@
 <li>Draw timeline or diagram to visualize choices</li>
 </ul>
 <h2 id="template-pattern">Template Pattern<a class="headerlink" href="#template-pattern" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">greedy_template</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;General greedy algorithm template.&quot;&quot;&quot;</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="c1"># Step 1: Sort by some criterion</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">items</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">greedy_criterion</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">initial_value</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="c1"># Step 2: Make greedy choices</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>        <span class="c1"># Step 3: Check if choice is feasible</span>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>        <span class="k">if</span> <span class="n">is_feasible</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>            <span class="c1"># Step 4: Update result with greedy choice</span>
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">make_choice</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
-<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    <span class="k">return</span> <span class="n">result</span>
-<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
-<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="c1"># Interval scheduling template</span>
-<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="k">def</span><span class="w"> </span><span class="nf">interval_template</span><span class="p">(</span><span class="n">intervals</span><span class="p">):</span>
-<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Template for interval problems.&quot;&quot;&quot;</span>
-<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>    <span class="c1"># Sort by end time (or start time depending on problem)</span>
-<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>    <span class="n">intervals</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>
-<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>    <span class="n">last_end</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>
-<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>
-<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">:</span>
-<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>        <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;=</span> <span class="n">last_end</span><span class="p">:</span>  <span class="c1"># No overlap</span>
-<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>            <span class="n">last_end</span> <span class="o">=</span> <span class="n">end</span>
-<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>
-<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>    <span class="k">return</span> <span class="n">count</span>
-</code></pre></div>
+<pre><code class="language-python">def greedy_template(items):
+    &quot;&quot;&quot;General greedy algorithm template.&quot;&quot;&quot;
+    # Step 1: Sort by some criterion
+    items.sort(key=lambda x: greedy_criterion(x))
+
+    result = initial_value
+
+    # Step 2: Make greedy choices
+    for item in items:
+        # Step 3: Check if choice is feasible
+        if is_feasible(item, result):
+            # Step 4: Update result with greedy choice
+            result = make_choice(item, result)
+
+    return result
+
+# Interval scheduling template
+def interval_template(intervals):
+    &quot;&quot;&quot;Template for interval problems.&quot;&quot;&quot;
+    # Sort by end time (or start time depending on problem)
+    intervals.sort(key=lambda x: x[1])
+
+    count = 0
+    last_end = float('-inf')
+
+    for start, end in intervals:
+        if start &gt;= last_end:  # No overlap
+            count += 1
+            last_end = end
+
+    return count
+</code></pre>
 <h2 id="common-mistakes">Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Assuming greedy works without proof</li>

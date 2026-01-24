@@ -449,7 +449,7 @@ class ChatView {
     setupSearchModalObserver() {
         // Track our own "search visually open" state
         let searchVisuallyOpen = false;
-        
+
         const updateTrigger = () => {
             const trigger = document.getElementById('ai-chat-trigger');
             if (trigger) {
@@ -459,16 +459,15 @@ class ChatView {
 
         const searchCheckbox = document.getElementById('__search');
         const searchLabel = document.querySelector('label[for="__search"]');
-        
+
         // Escape or Enter closes search
         document.addEventListener('keydown', (e) => {
             if ((e.key === 'Escape' || e.key === 'Enter') && searchVisuallyOpen) {
                 searchVisuallyOpen = false;
-                console.log('[Search] ' + e.key + ' pressed');
                 updateTrigger();
             }
         });
-        
+
         // Handle all search-related clicks with debounce
         let lastClickTime = 0;
         document.addEventListener('click', (e) => {
@@ -476,44 +475,38 @@ class ChatView {
             const target = e.target;
             const isSearchButton = target.closest('button.r') || target.closest('.lucide-search');
             const isSearchLabel = target.closest('label[for="__search"]');
-            
-            console.log('[Search] click detected, btn=' + !!isSearchButton + ', label=' + !!isSearchLabel + ', target=' + target.tagName + '.' + target.className);
-            
+
             // Search toggle button or magnifying glass label clicked
             if (isSearchButton || isSearchLabel) {
                 // Debounce - ignore clicks within 100ms
                 if (now - lastClickTime < 100) {
-                    console.log('[Search] debounced');
                     return;
                 }
                 lastClickTime = now;
-                
+
                 searchVisuallyOpen = !searchVisuallyOpen;
-                console.log('[Search] toggled to ' + searchVisuallyOpen);
                 updateTrigger();
                 return;
             }
-            
+
             // If search is open and clicking outside the search form, close
             if (searchVisuallyOpen) {
                 const searchForm = document.querySelector('.md-search__form');
                 const isInsideSearchForm = searchForm && searchForm.contains(target);
                 const isSearchCheckbox = target.id === '__search' || target.classList.contains('md-toggle');
-                
+
                 if (!isInsideSearchForm && !isSearchCheckbox) {
                     searchVisuallyOpen = false;
-                    console.log('[Search] clicked outside, closing');
                     updateTrigger();
                 }
             }
         }, true);
-        
+
         // Initial state
         if (searchCheckbox) {
             searchVisuallyOpen = searchCheckbox.checked;
         }
         updateTrigger();
-        console.log('[Search] init, searchVisuallyOpen=' + searchVisuallyOpen);
     }
 
     /**
