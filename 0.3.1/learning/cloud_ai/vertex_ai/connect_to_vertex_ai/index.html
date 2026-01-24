@@ -6427,19 +6427,19 @@
 <hr />
 <h2 id="initialize-the-sdk">Initialize the SDK<a class="headerlink" href="#initialize-the-sdk" title="Permanent link">&para;</a></h2>
 <p>Use the following code to connect to Vertex AI APIs:</p>
-<pre><code class="language-python">from google.auth.transport.requests import Request
-from google.oauth2.service_account import Credentials
-import vertexai
-
-api_key_path = &quot;path/to/your/jsonkey.json&quot;
-credentials = Credentials.from_service_account_file(
-    api_key_path,
-    scopes=[&quot;https://www.googleapis.com/auth/cloud-platform&quot;],
-)
-PROJECT_ID = &quot;my-gcp-course-project&quot;
-REGION = &quot;us-central1&quot;
-vertexai.init(project=PROJECT_ID, location=REGION, credentials=credentials)
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">google.auth.transport.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">Request</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">google.oauth2.service_account</span><span class="w"> </span><span class="kn">import</span> <span class="n">Credentials</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">vertexai</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">api_key_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/jsonkey.json&quot;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">credentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="o">.</span><span class="n">from_service_account_file</span><span class="p">(</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">api_key_path</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">scopes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;https://www.googleapis.com/auth/cloud-platform&quot;</span><span class="p">],</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">PROJECT_ID</span> <span class="o">=</span> <span class="s2">&quot;my-gcp-course-project&quot;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">REGION</span> <span class="o">=</span> <span class="s2">&quot;us-central1&quot;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">vertexai</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="n">PROJECT_ID</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">REGION</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="n">credentials</span><span class="p">)</span>
+</code></pre></div>
 <hr />
 <h2 id="configuration-details">Configuration Details<a class="headerlink" href="#configuration-details" title="Permanent link">&para;</a></h2>
 <table>
