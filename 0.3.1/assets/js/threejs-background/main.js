@@ -42,11 +42,7 @@ class ThreeJSBackgroundApp {
 
         if (success) {
             this.isInitialized = true;
-            // Only log welcome message once per session
-            if (!this.hasLoggedWelcome) {
-                console.log('Welcome to Brandon\'s Portfolio - Crafted with passion');
-                this.hasLoggedWelcome = true;
-            }
+            this.hasLoggedWelcome = true;
         }
     }
 

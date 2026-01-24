@@ -7050,222 +7050,222 @@
 </ul>
 <h2 id="tool-configuration-architecture">Tool Configuration Architecture<a class="headerlink" href="#tool-configuration-architecture" title="Permanent link">&para;</a></h2>
 <p>Terminal Jarvis uses a modular configuration system with individual tool definitions stored in the <code>config/tools/</code> directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>config/
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── tools/           # Individual tool configurations
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   ├── aider.toml
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   ├── amp.toml
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   ├── claude.toml  # Anthropic Claude configuration
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   ├── codex.toml
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   ├── crush.toml
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   ├── gemini.toml  # Google Gemini configuration
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   ├── goose.toml
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│   ├── llxprt.toml
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│   ├── opencode.toml
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│   └── qwen.toml    # Qwen coding assistant
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>└── config.toml      # Global Terminal Jarvis settings
-</code></pre></div>
+<pre><code>config/
+├── tools/           # Individual tool configurations
+│   ├── aider.toml
+│   ├── amp.toml
+│   ├── claude.toml  # Anthropic Claude configuration
+│   ├── codex.toml
+│   ├── crush.toml
+│   ├── gemini.toml  # Google Gemini configuration
+│   ├── goose.toml
+│   ├── llxprt.toml
+│   ├── opencode.toml
+│   └── qwen.toml    # Qwen coding assistant
+└── config.toml      # Global Terminal Jarvis settings
+</code></pre>
 <h2 id="tool-definition-structure">Tool Definition Structure<a class="headerlink" href="#tool-definition-structure" title="Permanent link">&para;</a></h2>
 <p>Each tool configuration in <code>config/tools/</code> follows this structure:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">[tool]</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Tool Name&quot;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">config_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tool-key&quot;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Tool description&quot;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">cli_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tool-command&quot;</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">requires_npm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">[tool.install]</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;npm&quot;</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;install&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;package-name&quot;</span><span class="p">]</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">verify_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tool --version&quot;</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="k">[tool.auth]</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="n">env_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;TOOL_API_KEY&quot;</span><span class="p">]</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="n">setup_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://tool-setup-url&quot;</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="n">auth_instructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Setup instructions&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml">[tool]
+display_name = &quot;Tool Name&quot;
+config_key = &quot;tool-key&quot;
+description = &quot;Tool description&quot;
+cli_command = &quot;tool-command&quot;
+requires_npm = true
+status = &quot;stable&quot;
+
+[tool.install]
+command = &quot;npm&quot;
+args = [&quot;install&quot;, &quot;-g&quot;, &quot;package-name&quot;]
+verify_command = &quot;tool --version&quot;
+
+[tool.auth]
+env_vars = [&quot;TOOL_API_KEY&quot;]
+setup_url = &quot;https://tool-setup-url&quot;
+auth_instructions = &quot;Setup instructions&quot;
+</code></pre>
 <h2 id="configuration-examples">Configuration Examples<a class="headerlink" href="#configuration-examples" title="Permanent link">&para;</a></h2>
 <h3 id="claude-configuration">Claude Configuration<a class="headerlink" href="#claude-configuration" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">[tool]</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Claude&quot;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">config_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;claude&quot;</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Anthropic&#39;s Claude for advanced reasoning and code assistance&quot;</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">cli_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;claude&quot;</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">requires_npm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">[tool.install]</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;npm&quot;</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;install&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;@anthropic-ai/claude-code&quot;</span><span class="p">]</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">verify_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;claude --version&quot;</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">[tool.auth]</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="n">env_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ANTHROPIC_API_KEY&quot;</span><span class="p">]</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="n">setup_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://console.anthropic.com&quot;</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="n">auth_instructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Get your API key from Anthropic Console&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml">[tool]
+display_name = &quot;Claude&quot;
+config_key = &quot;claude&quot;
+description = &quot;Anthropic's Claude for advanced reasoning and code assistance&quot;
+cli_command = &quot;claude&quot;
+requires_npm = true
+status = &quot;stable&quot;
+
+[tool.install]
+command = &quot;npm&quot;
+args = [&quot;install&quot;, &quot;-g&quot;, &quot;@anthropic-ai/claude-code&quot;]
+verify_command = &quot;claude --version&quot;
+
+[tool.auth]
+env_vars = [&quot;ANTHROPIC_API_KEY&quot;]
+setup_url = &quot;https://console.anthropic.com&quot;
+auth_instructions = &quot;Get your API key from Anthropic Console&quot;
+</code></pre>
 <h3 id="gemini-configuration">Gemini Configuration<a class="headerlink" href="#gemini-configuration" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">[tool]</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Gemini&quot;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">config_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gemini&quot;</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Google&#39;s Gemini for multi-modal AI assistance&quot;</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">cli_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gemini&quot;</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">requires_npm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">[tool.install]</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;npm&quot;</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;install&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;@google/gemini-cli&quot;</span><span class="p">]</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="n">verify_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gemini --version&quot;</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="k">[tool.auth]</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">env_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;GEMINI_API_KEY&quot;</span><span class="p">]</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="n">setup_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://makersuite.google.com/app/apikey&quot;</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="n">auth_instructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Get your API key from Google AI Studio&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml">[tool]
+display_name = &quot;Gemini&quot;
+config_key = &quot;gemini&quot;
+description = &quot;Google's Gemini for multi-modal AI assistance&quot;
+cli_command = &quot;gemini&quot;
+requires_npm = true
+status = &quot;stable&quot;
+
+[tool.install]
+command = &quot;npm&quot;
+args = [&quot;install&quot;, &quot;-g&quot;, &quot;@google/gemini-cli&quot;]
+verify_command = &quot;gemini --version&quot;
+
+[tool.auth]
+env_vars = [&quot;GEMINI_API_KEY&quot;]
+setup_url = &quot;https://makersuite.google.com/app/apikey&quot;
+auth_instructions = &quot;Get your API key from Google AI Studio&quot;
+</code></pre>
 <h3 id="goose-configuration-curl-based">Goose Configuration (curl-based)<a class="headerlink" href="#goose-configuration-curl-based" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">[tool]</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Goose&quot;</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">config_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;goose&quot;</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Block&#39;s Goose AI coding assistant&quot;</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">cli_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;goose&quot;</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">requires_npm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="k">[tool.install]</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;curl&quot;</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-fsSL&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;https://github.com/block/goose/releases/download/stable/download_cli.sh&quot;</span><span class="p">]</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">pipe_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bash&quot;</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="n">verify_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;goose --version&quot;</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="k">[tool.auth]</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="n">env_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="n">setup_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="n">auth_instructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Goose works out of the box&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml">[tool]
+display_name = &quot;Goose&quot;
+config_key = &quot;goose&quot;
+description = &quot;Block's Goose AI coding assistant&quot;
+cli_command = &quot;goose&quot;
+requires_npm = false
+status = &quot;stable&quot;
+
+[tool.install]
+command = &quot;curl&quot;
+args = [&quot;-fsSL&quot;, &quot;https://github.com/block/goose/releases/download/stable/download_cli.sh&quot;]
+pipe_to = &quot;bash&quot;
+verify_command = &quot;goose --version&quot;
+
+[tool.auth]
+env_vars = []
+setup_url = &quot;&quot;
+auth_instructions = &quot;Goose works out of the box&quot;
+</code></pre>
 <h3 id="aider-configuration-uv-based">Aider Configuration (uv-based)<a class="headerlink" href="#aider-configuration-uv-based" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">[tool]</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Aider&quot;</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">config_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;aider&quot;</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;AI pair programming in your terminal&quot;</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">cli_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;aider&quot;</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">requires_npm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="k">[tool.install]</span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;uv&quot;</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;install&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--force&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;python3.12&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--with&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;pip&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;aider-chat@latest&quot;</span><span class="p">]</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="n">verify_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;aider --version&quot;</span>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="k">[tool.auth]</span>
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="n">env_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span>
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="n">setup_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://platform.openai.com/api-keys&quot;</span>
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="n">auth_instructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Set OPENAI_API_KEY environment variable&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml">[tool]
+display_name = &quot;Aider&quot;
+config_key = &quot;aider&quot;
+description = &quot;AI pair programming in your terminal&quot;
+cli_command = &quot;aider&quot;
+requires_npm = false
+status = &quot;stable&quot;
+
+[tool.install]
+command = &quot;uv&quot;
+args = [&quot;tool&quot;, &quot;install&quot;, &quot;--force&quot;, &quot;--python&quot;, &quot;python3.12&quot;, &quot;--with&quot;, &quot;pip&quot;, &quot;aider-chat@latest&quot;]
+verify_command = &quot;aider --version&quot;
+
+[tool.auth]
+env_vars = [&quot;OPENAI_API_KEY&quot;]
+setup_url = &quot;https://platform.openai.com/api-keys&quot;
+auth_instructions = &quot;Set OPENAI_API_KEY environment variable&quot;
+</code></pre>
 <h2 id="global-configuration">Global Configuration<a class="headerlink" href="#global-configuration" title="Permanent link">&para;</a></h2>
 <h3 id="configtoml-structure">config.toml Structure<a class="headerlink" href="#configtoml-structure" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">[general]</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;t.jarvis&quot;</span><span class="w">  </span><span class="c1"># Options: &quot;t.jarvis&quot;, &quot;classic&quot;, &quot;matrix&quot;</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">auto_update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">check_updates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">[tools]</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Tool-specific overrides (optional)</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">claude</span><span class="p">.</span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">gemini</span><span class="p">.</span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">qwen</span><span class="p">.</span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="k">[ui]</span>
-<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="n">show_ascii_art</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="n">colored_output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-</code></pre></div>
+<pre><code class="language-toml">[general]
+theme = &quot;t.jarvis&quot;  # Options: &quot;t.jarvis&quot;, &quot;classic&quot;, &quot;matrix&quot;
+auto_update = true
+check_updates = true
+
+[tools]
+# Tool-specific overrides (optional)
+claude.enabled = true
+gemini.enabled = true
+qwen.enabled = true
+
+[ui]
+show_ascii_art = true
+colored_output = true
+</code></pre>
 <h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
 <p>Terminal Jarvis respects these environment variables:</p>
 <h3 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Claude</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key-here&quot;</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Gemini</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key-here&quot;</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Qwen</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DASHSCOPE_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key-here&quot;</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># Codex</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key-here&quot;</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="c1"># Aider</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key-here&quot;</span>
-</code></pre></div>
+<pre><code class="language-bash"># Claude
+export ANTHROPIC_API_KEY=&quot;your-key-here&quot;
+
+# Gemini
+export GEMINI_API_KEY=&quot;your-key-here&quot;
+
+# Qwen
+export DASHSCOPE_API_KEY=&quot;your-key-here&quot;
+
+# Codex
+export OPENAI_API_KEY=&quot;your-key-here&quot;
+
+# Aider
+export OPENAI_API_KEY=&quot;your-key-here&quot;
+</code></pre>
 <h3 id="tool-behavior">Tool Behavior<a class="headerlink" href="#tool-behavior" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Prevent browser opening in headless/CI environments</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">CODEX_NO_BROWSER</span><span class="o">=</span><span class="m">1</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_NO_BROWSER</span><span class="o">=</span><span class="m">1</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># Custom configuration directory</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TERMINAL_JARVIS_CONFIG_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.config/terminal-jarvis&quot;</span>
-</code></pre></div>
+<pre><code class="language-bash"># Prevent browser opening in headless/CI environments
+export CODEX_NO_BROWSER=1
+export GEMINI_NO_BROWSER=1
+
+# Custom configuration directory
+export TERMINAL_JARVIS_CONFIG_DIR=&quot;$HOME/.config/terminal-jarvis&quot;
+</code></pre>
 <h2 id="customization">Customization<a class="headerlink" href="#customization" title="Permanent link">&para;</a></h2>
 <h3 id="adding-custom-tool-configurations">Adding Custom Tool Configurations<a class="headerlink" href="#adding-custom-tool-configurations" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Create a new TOML file in <code>config/tools/</code>:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>touch<span class="w"> </span>config/tools/my-tool.toml
-</code></pre></div>
+<pre><code class="language-bash">touch config/tools/my-tool.toml
+</code></pre>
 <ol>
 <li>Define the tool structure:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">[tool]</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;My Tool&quot;</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">config_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-tool&quot;</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Custom AI tool&quot;</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">cli_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-tool&quot;</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">requires_npm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;testing&quot;</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="k">[tool.install]</span>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;npm&quot;</span>
-<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;install&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;my-tool-package&quot;</span><span class="p">]</span>
-<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="n">verify_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-tool --version&quot;</span>
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="k">[tool.auth]</span>
-<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="n">env_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;MY_TOOL_API_KEY&quot;</span><span class="p">]</span>
-<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="n">setup_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://my-tool.com/setup&quot;</span>
-<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="n">auth_instructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Get your API key from My Tool&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml">[tool]
+display_name = &quot;My Tool&quot;
+config_key = &quot;my-tool&quot;
+description = &quot;Custom AI tool&quot;
+cli_command = &quot;my-tool&quot;
+requires_npm = true
+status = &quot;testing&quot;
+
+[tool.install]
+command = &quot;npm&quot;
+args = [&quot;install&quot;, &quot;-g&quot;, &quot;my-tool-package&quot;]
+verify_command = &quot;my-tool --version&quot;
+
+[tool.auth]
+env_vars = [&quot;MY_TOOL_API_KEY&quot;]
+setup_url = &quot;https://my-tool.com/setup&quot;
+auth_instructions = &quot;Get your API key from My Tool&quot;
+</code></pre>
 <ol>
 <li>Terminal Jarvis will automatically discover the new tool.</li>
 </ol>
 <h3 id="theme-configuration">Theme Configuration<a class="headerlink" href="#theme-configuration" title="Permanent link">&para;</a></h3>
 <p>Create a custom theme by modifying the global config:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">[ui]</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;custom&quot;</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">[ui.colors]</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">primary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#00FF00&quot;</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="n">secondary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#0000FF&quot;</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="n">accent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#FF0000&quot;</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#00FF00&quot;</span>
-<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="n">warning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#FFA500&quot;</span>
-<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#FF0000&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml">[ui]
+theme = &quot;custom&quot;
+
+[ui.colors]
+primary = &quot;#00FF00&quot;
+secondary = &quot;#0000FF&quot;
+accent = &quot;#FF0000&quot;
+success = &quot;#00FF00&quot;
+warning = &quot;#FFA500&quot;
+error = &quot;#FF0000&quot;
+</code></pre>
 <h2 id="configuration-commands">Configuration Commands<a class="headerlink" href="#configuration-commands" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># View current configuration</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>terminal-jarvis<span class="w"> </span>config
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Edit configuration file</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>terminal-jarvis<span class="w"> </span>config<span class="w"> </span>edit
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Reset to defaults</span>
-<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>terminal-jarvis<span class="w"> </span>config<span class="w"> </span>reset
-<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
-<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="c1"># Validate configuration</span>
-<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>terminal-jarvis<span class="w"> </span>config<span class="w"> </span>validate
-</code></pre></div>
+<pre><code class="language-bash"># View current configuration
+terminal-jarvis config
+
+# Edit configuration file
+terminal-jarvis config edit
+
+# Reset to defaults
+terminal-jarvis config reset
+
+# Validate configuration
+terminal-jarvis config validate
+</code></pre>
 <h2 id="tool-information">Tool Information<a class="headerlink" href="#tool-information" title="Permanent link">&para;</a></h2>
 <p>To see the exact configuration for any tool:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>terminal-jarvis<span class="w"> </span>info<span class="w"> </span>&lt;tool&gt;
-</code></pre></div>
+<pre><code class="language-bash">terminal-jarvis info &lt;tool&gt;
+</code></pre>
 <p>This displays:</p>
 <ul>
 <li>Installation status</li>
@@ -7285,27 +7285,27 @@
 </ul>
 <h2 id="troubleshooting-configuration">Troubleshooting Configuration<a class="headerlink" href="#troubleshooting-configuration" title="Permanent link">&para;</a></h2>
 <h3 id="configuration-not-loading">Configuration Not Loading<a class="headerlink" href="#configuration-not-loading" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Check configuration file location</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>terminal-jarvis<span class="w"> </span>config<span class="w"> </span>--path
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Validate configuration syntax</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>terminal-jarvis<span class="w"> </span>config<span class="w"> </span>validate
-</code></pre></div>
+<pre><code class="language-bash"># Check configuration file location
+terminal-jarvis config --path
+
+# Validate configuration syntax
+terminal-jarvis config validate
+</code></pre>
 <h3 id="tool-not-appearing">Tool Not Appearing<a class="headerlink" href="#tool-not-appearing" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Verify tool configuration exists</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>ls<span class="w"> </span>~/.config/terminal-jarvis/config/tools/
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Check tool is properly defined</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>terminal-jarvis<span class="w"> </span>info<span class="w"> </span>&lt;tool-name&gt;
-</code></pre></div>
+<pre><code class="language-bash"># Verify tool configuration exists
+ls ~/.config/terminal-jarvis/config/tools/
+
+# Check tool is properly defined
+terminal-jarvis info &lt;tool-name&gt;
+</code></pre>
 <h3 id="authentication-issues">Authentication Issues<a class="headerlink" href="#authentication-issues" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Check environment variables</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$ANTHROPIC_API_KEY</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$GEMINI_API_KEY</span>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># View authentication requirements</span>
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>terminal-jarvis<span class="w"> </span>info<span class="w"> </span>&lt;tool-name&gt;
-</code></pre></div>
+<pre><code class="language-bash"># Check environment variables
+echo $ANTHROPIC_API_KEY
+echo $GEMINI_API_KEY
+
+# View authentication requirements
+terminal-jarvis info &lt;tool-name&gt;
+</code></pre>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
 <ul>

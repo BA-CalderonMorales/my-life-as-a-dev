@@ -7381,55 +7381,55 @@
 <p>This document provides a comprehensive technical overview of Terminal Jarvis's architecture, design patterns, and internal structure.</p>
 <h2 id="project-structure">Project Structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h2>
 <p>The project follows a domain-based modular architecture designed for maintainability, extensibility, and clear separation of concerns. As of v0.0.74, Terminal Jarvis includes <strong>14 domain modules</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>src/
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── main.rs                    # Entry point - minimal code, delegates to CLI
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── lib.rs                     # Library entry point for module organization
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── cli.rs                     # Clean, expressive CLI interface definitions (~10KB)
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── installation_arguments.rs  # Installation commands and NPM validation (~8KB)
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── progress_utils.rs          # Theme-integrated messaging and progress indicators (~10KB)
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── api/                       # API framework domain
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   └── ...                    # HTTP client, base routes, tool operation endpoints
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├── auth_manager/              # Authentication domain
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│   └── ...                    # Environment detection, API key management, browser prevention
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>├── cli_logic/                 # Business logic domain (largest module)
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│   └── ...                    # Interactive UI, tool execution, update operations
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>├── config/                    # Configuration domain
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>│   └── ...                    # TOML parsing, file operations, version caching
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>│
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>├── db/                        # Database domain (libsql integration)
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>│   └── ...                    # Tool state persistence, session tracking
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>│
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>├── error/                     # Error handling domain
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>│   └── ...                    # Custom error types, context propagation
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>│
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>├── evals/                     # Evaluation framework domain
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>│   └── ...                    # Comparative testing across AI tools
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>│
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>├── logging/                   # Logging domain
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>│   └── ...                    # Structured logging, debug output
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>│
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>├── presentation/              # Presentation layer domain
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>│   └── ...                    # ASCII art, dashboard rendering, menu systems
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>│
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>├── security/                  # Security domain
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>│   └── ...                    # Input validation, safe command execution
-<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>│
-<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>├── services/                  # External integrations domain
-<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>│   └── ...                    # NPM operations, GitHub integration, package management
-<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>│
-<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>├── theme/                     # UI theming domain
-<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>│   └── ...                    # Color definitions, theme switching, formatting
-<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>│
-<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>├── tools/                     # Tool management domain
-<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>│   └── ...                    # Detection, execution engine, process lifecycle
-<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>│
-<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>└── voice/                     # Voice interaction domain (experimental)
-<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>    └── ...                    # Voice command support (future feature)
-</code></pre></div>
+<pre><code>src/
+├── main.rs                    # Entry point - minimal code, delegates to CLI
+├── lib.rs                     # Library entry point for module organization
+├── cli.rs                     # Clean, expressive CLI interface definitions (~10KB)
+├── installation_arguments.rs  # Installation commands and NPM validation (~8KB)
+├── progress_utils.rs          # Theme-integrated messaging and progress indicators (~10KB)
+│
+├── api/                       # API framework domain
+│   └── ...                    # HTTP client, base routes, tool operation endpoints
+│
+├── auth_manager/              # Authentication domain
+│   └── ...                    # Environment detection, API key management, browser prevention
+│
+├── cli_logic/                 # Business logic domain (largest module)
+│   └── ...                    # Interactive UI, tool execution, update operations
+│
+├── config/                    # Configuration domain
+│   └── ...                    # TOML parsing, file operations, version caching
+│
+├── db/                        # Database domain (libsql integration)
+│   └── ...                    # Tool state persistence, session tracking
+│
+├── error/                     # Error handling domain
+│   └── ...                    # Custom error types, context propagation
+│
+├── evals/                     # Evaluation framework domain
+│   └── ...                    # Comparative testing across AI tools
+│
+├── logging/                   # Logging domain
+│   └── ...                    # Structured logging, debug output
+│
+├── presentation/              # Presentation layer domain
+│   └── ...                    # ASCII art, dashboard rendering, menu systems
+│
+├── security/                  # Security domain
+│   └── ...                    # Input validation, safe command execution
+│
+├── services/                  # External integrations domain
+│   └── ...                    # NPM operations, GitHub integration, package management
+│
+├── theme/                     # UI theming domain
+│   └── ...                    # Color definitions, theme switching, formatting
+│
+├── tools/                     # Tool management domain
+│   └── ...                    # Detection, execution engine, process lifecycle
+│
+└── voice/                     # Voice interaction domain (experimental)
+    └── ...                    # Voice command support (future feature)
+</code></pre>
 <h2 id="architecture-philosophy">Architecture Philosophy<a class="headerlink" href="#architecture-philosophy" title="Permanent link">&para;</a></h2>
 <h3 id="domain-architecture">Domain Architecture<a class="headerlink" href="#domain-architecture" title="Permanent link">&para;</a></h3>
 <ul>
@@ -7460,40 +7460,40 @@
 </ol>
 <h2 id="configuration-system">Configuration System<a class="headerlink" href="#configuration-system" title="Permanent link">&para;</a></h2>
 <p>Terminal Jarvis uses a <strong>modular configuration system</strong> stored in <code>config/tools/</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>config/
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── tools/
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│   ├── claude.toml      # Anthropic Claude configuration
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│   ├── gemini.toml      # Google Gemini configuration
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│   ├── qwen.toml        # Qwen coding assistant configuration
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│   ├── opencode.toml
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   ├── llxprt.toml
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   ├── codex.toml
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│   ├── crush.toml
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│   ├── goose.toml
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│   ├── amp.toml
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│   └── aider.toml
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>└── config.toml          # Global Terminal Jarvis settings
-</code></pre></div>
+<pre><code>config/
+├── tools/
+│   ├── claude.toml      # Anthropic Claude configuration
+│   ├── gemini.toml      # Google Gemini configuration
+│   ├── qwen.toml        # Qwen coding assistant configuration
+│   ├── opencode.toml
+│   ├── llxprt.toml
+│   ├── codex.toml
+│   ├── crush.toml
+│   ├── goose.toml
+│   ├── amp.toml
+│   └── aider.toml
+└── config.toml          # Global Terminal Jarvis settings
+</code></pre>
 <h3 id="tool-configuration-structure">Tool Configuration Structure<a class="headerlink" href="#tool-configuration-structure" title="Permanent link">&para;</a></h3>
 <p>Each tool configuration file contains:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">[tool]</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Tool Name&quot;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">config_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tool-key&quot;</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Tool description&quot;</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">cli_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tool-command&quot;</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">requires_npm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">[tool.install]</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;npm&quot;</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;install&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;package-name&quot;</span><span class="p">]</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">verify_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tool --version&quot;</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">[tool.auth]</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="n">env_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;TOOL_API_KEY&quot;</span><span class="p">]</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="n">setup_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://tool-setup-url&quot;</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="n">auth_instructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Setup instructions&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml">[tool]
+display_name = &quot;Tool Name&quot;
+config_key = &quot;tool-key&quot;
+description = &quot;Tool description&quot;
+cli_command = &quot;tool-command&quot;
+requires_npm = true
+status = &quot;stable&quot;
+
+[tool.install]
+command = &quot;npm&quot;
+args = [&quot;install&quot;, &quot;-g&quot;, &quot;package-name&quot;]
+verify_command = &quot;tool --version&quot;
+
+[tool.auth]
+env_vars = [&quot;TOOL_API_KEY&quot;]
+setup_url = &quot;https://tool-setup-url&quot;
+auth_instructions = &quot;Setup instructions&quot;
+</code></pre>
 <h3 id="benefits-of-modular-configuration">Benefits of Modular Configuration<a class="headerlink" href="#benefits-of-modular-configuration" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Automatic Discovery</strong>: New tools added to <code>config/tools/</code> are automatically available</li>
@@ -7502,15 +7502,15 @@
 <li><strong>Database Ready</strong>: Structure supports future database integration</li>
 </ul>
 <h2 id="npm-package-structure">NPM Package Structure<a class="headerlink" href="#npm-package-structure" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>npm/terminal-jarvis/
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── package.json           # NPM package configuration
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── bin/
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>│   └── terminal-jarvis   # Binary wrapper
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>├── src/
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│   └── index.ts          # TypeScript entry point
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>├── dist/                  # Compiled JavaScript
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>└── biome.json            # Biome linting configuration
-</code></pre></div>
+<pre><code>npm/terminal-jarvis/
+├── package.json           # NPM package configuration
+├── bin/
+│   └── terminal-jarvis   # Binary wrapper
+├── src/
+│   └── index.ts          # TypeScript entry point
+├── dist/                  # Compiled JavaScript
+└── biome.json            # Biome linting configuration
+</code></pre>
 <h3 id="package-architecture">Package Architecture<a class="headerlink" href="#package-architecture" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Rust Binary</strong>: Pre-compiled for immediate functionality</li>
@@ -7575,11 +7575,11 @@
 </ol>
 <h3 id="special-tool-handling">Special Tool Handling<a class="headerlink" href="#special-tool-handling" title="Permanent link">&para;</a></h3>
 <p><strong>OpenCode</strong>: Requires initial delay for terminal state preparation</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// OpenCode-specific initialization</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">if</span><span class="w"> </span><span class="n">tool</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;opencode&quot;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">tokio</span><span class="p">::</span><span class="n">time</span><span class="p">::</span><span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span><span class="p">::</span><span class="n">from_millis</span><span class="p">(</span><span class="mi">500</span><span class="p">)).</span><span class="k">await</span><span class="p">;</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-rust">// OpenCode-specific initialization
+if tool == &quot;opencode&quot; {
+    tokio::time::sleep(Duration::from_millis(500)).await;
+}
+</code></pre>
 <p><strong>Gemini</strong>: API key validation before execution</p>
 <p><strong>Qwen</strong>: Dashboard/scope detection and API key management</p>
 <h2 id="installation-system">Installation System<a class="headerlink" href="#installation-system" title="Permanent link">&para;</a></h2>
@@ -7591,12 +7591,12 @@
 <li><strong>uv-based</strong>: Python package installation (Aider)</li>
 </ol>
 <h3 id="installation-flow">Installation Flow<a class="headerlink" href="#installation-flow" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="mf">1.</span><span class="w"> </span><span class="n">Check</span><span class="w"> </span><span class="n">prerequisites</span><span class="w"> </span><span class="p">(</span><span class="n">npm</span><span class="p">,</span><span class="w"> </span><span class="n">curl</span><span class="p">,</span><span class="w"> </span><span class="n">uv</span><span class="w"> </span><span class="n">availability</span><span class="p">)</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="mf">2.</span><span class="w"> </span><span class="n">Execute</span><span class="w"> </span><span class="n">installation</span><span class="w"> </span><span class="n">command</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="mf">3.</span><span class="w"> </span><span class="n">Verify</span><span class="w"> </span><span class="n">installation</span><span class="w"> </span><span class="n">success</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="mf">4.</span><span class="w"> </span><span class="n">Cache</span><span class="w"> </span><span class="n">tool</span><span class="w"> </span><span class="n">status</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="mf">5.</span><span class="w"> </span><span class="n">Provide</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="n">steps</span>
-</code></pre></div>
+<pre><code class="language-rust">1. Check prerequisites (npm, curl, uv availability)
+2. Execute installation command
+3. Verify installation success
+4. Cache tool status
+5. Provide next steps
+</code></pre>
 <h3 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Verifies package existence on NPM registry</li>
@@ -7609,24 +7609,24 @@
 <ol>
 <li><strong>Create tool configuration</strong> in <code>config/tools/</code>:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">[tool]</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;New Tool&quot;</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">config_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;newtool&quot;</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;New AI coding tool&quot;</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">cli_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;newtool&quot;</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">requires_npm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;testing&quot;</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="k">[tool.install]</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;npm&quot;</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;install&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;newtool-package&quot;</span><span class="p">]</span>
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="n">verify_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;newtool --version&quot;</span>
-<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
-<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="k">[tool.auth]</span>
-<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="n">env_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;NEWTOOL_API_KEY&quot;</span><span class="p">]</span>
-<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="n">setup_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://example.com/newtool/setup&quot;</span>
-<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="n">auth_instructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Visit setup URL to get API key&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml">[tool]
+display_name = &quot;New Tool&quot;
+config_key = &quot;newtool&quot;
+description = &quot;New AI coding tool&quot;
+cli_command = &quot;newtool&quot;
+requires_npm = true
+status = &quot;testing&quot;
+
+[tool.install]
+command = &quot;npm&quot;
+args = [&quot;install&quot;, &quot;-g&quot;, &quot;newtool-package&quot;]
+verify_command = &quot;newtool --version&quot;
+
+[tool.auth]
+env_vars = [&quot;NEWTOOL_API_KEY&quot;]
+setup_url = &quot;https://example.com/newtool/setup&quot;
+auth_instructions = &quot;Visit setup URL to get API key&quot;
+</code></pre>
 <ol>
 <li>
 <p><strong>Tool automatically discovered</strong>: No code changes needed!</p>
@@ -7635,10 +7635,10 @@
 <p><strong>Test the integration</strong>:</p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>terminal-jarvis<span class="w"> </span>list<span class="w">        </span><span class="c1"># Should show new tool</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>terminal-jarvis<span class="w"> </span>info<span class="w"> </span>newtool
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>terminal-jarvis<span class="w"> </span>install<span class="w"> </span>newtool
-</code></pre></div>
+<pre><code class="language-bash">terminal-jarvis list        # Should show new tool
+terminal-jarvis info newtool
+terminal-jarvis install newtool
+</code></pre>
 <p>This modular approach ensures new tools integrate cleanly with detection, info display, and execution while keeping changes isolated.</p>
 <h2 id="testing-strategy">Testing Strategy<a class="headerlink" href="#testing-strategy" title="Permanent link">&para;</a></h2>
 <h3 id="test-coverage">Test Coverage<a class="headerlink" href="#test-coverage" title="Permanent link">&para;</a></h3>

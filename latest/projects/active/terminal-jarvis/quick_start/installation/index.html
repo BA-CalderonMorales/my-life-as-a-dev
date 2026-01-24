@@ -7136,9 +7136,9 @@
 <h2 id="recommended-pre-configured-development-environment">Recommended: Pre-configured Development Environment<a class="headerlink" href="#recommended-pre-configured-development-environment" title="Permanent link">&para;</a></h2>
 <p><strong>For the best Terminal Jarvis experience, especially for development and testing AI tools:</strong></p>
 <h3 id="github-codespaces-cloud-development">GitHub Codespaces (Cloud Development)<a class="headerlink" href="#github-codespaces-cloud-development" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Click &quot;Code&quot; → &quot;Codespaces&quot; → &quot;Create codespace&quot; on the repository</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># Or use the direct link: https://github.com/codespaces/new?template_repository=BA-CalderonMorales/terminal-jarvis</span>
-</code></pre></div>
+<pre><code class="language-bash"># Click &quot;Code&quot; → &quot;Codespaces&quot; → &quot;Create codespace&quot; on the repository
+# Or use the direct link: https://github.com/codespaces/new?template_repository=BA-CalderonMorales/terminal-jarvis
+</code></pre>
 <p><strong>Advantages:</strong></p>
 <ul>
 <li><strong>Instant Setup</strong>: Complete environment ready in 60 seconds</li>
@@ -7164,28 +7164,28 @@
 <p>Terminal Jarvis is available through <strong>three official distribution channels</strong>:</p>
 <h3 id="1-npm-installation-recommended-for-most-users">1. NPM Installation (Recommended for Most Users)<a class="headerlink" href="#1-npm-installation-recommended-for-most-users" title="Permanent link">&para;</a></h3>
 <p>Try it instantly with npx (no installation required):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npx<span class="w"> </span>terminal-jarvis
-</code></pre></div>
+<pre><code class="language-bash">npx terminal-jarvis
+</code></pre>
 <p>Or install globally:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>terminal-jarvis
-</code></pre></div>
+<pre><code class="language-bash">npm install -g terminal-jarvis
+</code></pre>
 <p>For production, use the stable version:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>terminal-jarvis@stable
-</code></pre></div>
+<pre><code class="language-bash">npm install -g terminal-jarvis@stable
+</code></pre>
 <p>For testing new features, use beta:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>terminal-jarvis@beta
-</code></pre></div>
+<pre><code class="language-bash">npm install -g terminal-jarvis@beta
+</code></pre>
 <h3 id="2-rust-crate-installation-for-rust-developers">2. Rust Crate Installation (For Rust Developers)<a class="headerlink" href="#2-rust-crate-installation-for-rust-developers" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cargo<span class="w"> </span>install<span class="w"> </span>terminal-jarvis
-</code></pre></div>
+<pre><code class="language-bash">cargo install terminal-jarvis
+</code></pre>
 <p>Verify the installation:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>terminal-jarvis<span class="w"> </span>--help
-</code></pre></div>
+<pre><code class="language-bash">terminal-jarvis --help
+</code></pre>
 <h3 id="3-homebrew-installation-macoslinux-package-manager">3. Homebrew Installation (macOS/Linux Package Manager)<a class="headerlink" href="#3-homebrew-installation-macoslinux-package-manager" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>brew<span class="w"> </span>tap<span class="w"> </span>ba-calderonmorales/terminal-jarvis
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>brew<span class="w"> </span>install<span class="w"> </span>terminal-jarvis
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>terminal-jarvis<span class="w"> </span>--version
-</code></pre></div>
+<pre><code class="language-bash">brew tap ba-calderonmorales/terminal-jarvis
+brew install terminal-jarvis
+terminal-jarvis --version
+</code></pre>
 <h3 id="distribution-channel-comparison">Distribution Channel Comparison<a class="headerlink" href="#distribution-channel-comparison" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7229,32 +7229,32 @@
 <p class="admonition-title">Important</p>
 <p>macOS users must install Rust before using Terminal Jarvis.</p>
 </div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># 1. Install Rust via rustup</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>curl<span class="w"> </span>--proto<span class="w"> </span><span class="s1">&#39;=https&#39;</span><span class="w"> </span>--tlsv1.2<span class="w"> </span>-sSf<span class="w"> </span>https://sh.rustup.rs<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># 2. Reload your shell environment</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nb">source</span><span class="w"> </span>~/.cargo/env
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># 3. Install Terminal Jarvis</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>terminal-jarvis
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># 4. Verify installation</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>terminal-jarvis<span class="w"> </span>--help
-</code></pre></div>
+<pre><code class="language-bash"># 1. Install Rust via rustup
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# 2. Reload your shell environment
+source ~/.cargo/env
+
+# 3. Install Terminal Jarvis
+npm install -g terminal-jarvis
+
+# 4. Verify installation
+terminal-jarvis --help
+</code></pre>
 <h3 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Most Linux distributions work out-of-the-box</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>terminal-jarvis
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># If you encounter issues, install Node.js first:</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># Ubuntu/Debian:</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>nodejs<span class="w"> </span>npm
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="c1"># CentOS/RHEL/Fedora:</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>nodejs<span class="w"> </span>npm
-</code></pre></div>
+<pre><code class="language-bash"># Most Linux distributions work out-of-the-box
+npm install -g terminal-jarvis
+
+# If you encounter issues, install Node.js first:
+# Ubuntu/Debian:
+sudo apt update &amp;&amp; sudo apt install nodejs npm
+
+# CentOS/RHEL/Fedora:
+sudo dnf install nodejs npm
+</code></pre>
 <h3 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>terminal-jarvis
-</code></pre></div>
+<pre><code class="language-bash">npm install -g terminal-jarvis
+</code></pre>
 <p>For WSL users, follow Linux instructions.</p>
 <h2 id="building-from-source">Building from Source<a class="headerlink" href="#building-from-source" title="Permanent link">&para;</a></h2>
 <h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
@@ -7264,12 +7264,12 @@
 <li>Git</li>
 </ul>
 <h3 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/BA-CalderonMorales/terminal-jarvis.git
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">cd</span><span class="w"> </span>terminal-jarvis
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>cargo<span class="w"> </span>build<span class="w"> </span>--release
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>cargo<span class="w"> </span>install<span class="w"> </span>--path<span class="w"> </span>.
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>terminal-jarvis<span class="w"> </span>--help
-</code></pre></div>
+<pre><code class="language-bash">git clone https://github.com/BA-CalderonMorales/terminal-jarvis.git
+cd terminal-jarvis
+cargo build --release
+cargo install --path .
+terminal-jarvis --help
+</code></pre>
 <h2 id="requirements-and-dependencies">Requirements and Dependencies<a class="headerlink" href="#requirements-and-dependencies" title="Permanent link">&para;</a></h2>
 <h3 id="required">Required<a class="headerlink" href="#required" title="Permanent link">&para;</a></h3>
 <ul>
@@ -7285,49 +7285,49 @@
 <h2 id="troubleshooting-installation">Troubleshooting Installation<a class="headerlink" href="#troubleshooting-installation" title="Permanent link">&para;</a></h2>
 <h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
 <h4 id="command-not-found-after-npm-install">"command not found" after NPM install<a class="headerlink" href="#command-not-found-after-npm-install" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>npm<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>prefix
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>npm<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>prefix<span class="k">)</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
-</code></pre></div>
+<pre><code class="language-bash">npm config get prefix
+export PATH=&quot;$(npm config get prefix)/bin:$PATH&quot;
+source ~/.bashrc
+</code></pre>
 <h4 id="permission-errors-on-macoslinux">Permission errors on macOS/Linux<a class="headerlink" href="#permission-errors-on-macoslinux" title="Permanent link">&para;</a></h4>
-<p><strong>Option 1:</strong> Use npx instead:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>npx<span class="w"> </span>terminal-jarvis
-</code></pre></div></p>
-<p><strong>Option 2:</strong> Configure NPM to use a different directory:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>mkdir<span class="w"> </span>~/.npm-global
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>npm<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>prefix<span class="w"> </span><span class="s1">&#39;~/.npm-global&#39;</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=~/.npm-global/bin:$PATH&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
-</code></pre></div></p>
+<p><strong>Option 1:</strong> Use npx instead:</p>
+<pre><code class="language-bash">npx terminal-jarvis
+</code></pre>
+<p><strong>Option 2:</strong> Configure NPM to use a different directory:</p>
+<pre><code class="language-bash">mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
 <h4 id="rust-related-errors-on-macos">Rust-related errors on macOS<a class="headerlink" href="#rust-related-errors-on-macos" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>rustc<span class="w"> </span>--version
-</code></pre></div>
-<p>If not found, reinstall Rust:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>curl<span class="w"> </span>--proto<span class="w"> </span><span class="s1">&#39;=https&#39;</span><span class="w"> </span>--tlsv1.2<span class="w"> </span>-sSf<span class="w"> </span>https://sh.rustup.rs<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nb">source</span><span class="w"> </span>~/.cargo/env
-</code></pre></div></p>
+<pre><code class="language-bash">rustc --version
+</code></pre>
+<p>If not found, reinstall Rust:</p>
+<pre><code class="language-bash">curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
+</code></pre>
 <h3 id="nvm-users-path-configuration">NVM Users: PATH Configuration<a class="headerlink" href="#nvm-users-path-configuration" title="Permanent link">&para;</a></h3>
 <p>If you use NVM (Node Version Manager), npm global installs require additional PATH configuration:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Add npm global bin to PATH (add to ~/.bashrc or ~/.zshrc)</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>npm<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>prefix<span class="k">)</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
-</code></pre></div>
+<pre><code class="language-bash"># Add npm global bin to PATH (add to ~/.bashrc or ~/.zshrc)
+export PATH=&quot;$(npm config get prefix)/bin:$PATH&quot;
+source ~/.bashrc
+</code></pre>
 <div class="admonition warning">
 <p class="admonition-title">Known Issue</p>
 <p>Fresh installs in NVM environments may encounter EACCES permission errors. Use <code>npx terminal-jarvis</code> as an alternative, or configure npm to use a user-writable directory (see Permission errors section above).</p>
 </div>
 <h3 id="verification-steps">Verification Steps<a class="headerlink" href="#verification-steps" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>terminal-jarvis<span class="w"> </span>--version
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>terminal-jarvis<span class="w"> </span>--help
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>terminal-jarvis
-</code></pre></div>
+<pre><code class="language-bash">terminal-jarvis --version
+terminal-jarvis --help
+terminal-jarvis
+</code></pre>
 <h2 id="uninstallation">Uninstallation<a class="headerlink" href="#uninstallation" title="Permanent link">&para;</a></h2>
 <h3 id="npm-installation">NPM Installation<a class="headerlink" href="#npm-installation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>npm<span class="w"> </span>uninstall<span class="w"> </span>-g<span class="w"> </span>terminal-jarvis
-</code></pre></div>
+<pre><code class="language-bash">npm uninstall -g terminal-jarvis
+</code></pre>
 <h3 id="source-installation">Source Installation<a class="headerlink" href="#source-installation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>cargo<span class="w"> </span>uninstall<span class="w"> </span>terminal-jarvis
-</code></pre></div>
+<pre><code class="language-bash">cargo uninstall terminal-jarvis
+</code></pre>
 <h2 id="package-information">Package Information<a class="headerlink" href="#package-information" title="Permanent link">&para;</a></h2>
 <p><strong>NPM Package Details:</strong></p>
 <ul>
