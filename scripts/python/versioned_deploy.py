@@ -183,6 +183,39 @@ def deploy_version(
         with open(root_index, "w") as f:
             f.write(redirect_html)
 
+    # Create 404.html to redirect deleted versions to latest
+    root_404 = gh_pages_dir / "404.html"
+    repo_name = "my-life-as-a-dev"  # TODO: could be extracted from git remote
+    not_found_html = f'''<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Page Not Found - Redirecting...</title>
+    <script>
+        // Redirect deleted versions to latest
+        const path = window.location.pathname;
+        const match = path.match(/^\\/{repo_name}\\/(\\d+\\.\\d+\\.\\d+|v\\d+\\.\\d+\\.\\d+)\\//);
+        if (match) {{
+            // This is an old version URL, redirect to latest equivalent
+            const versionedPath = path.replace(/^\\/{repo_name}\\/[^\\/]+/, '/{repo_name}/latest');
+            window.location.replace(versionedPath);
+        }} else {{
+            // Not a version URL, redirect to home
+            window.location.replace('/{repo_name}/latest/');
+        }}
+    </script>
+    <noscript>
+        <meta http-equiv="refresh" content="0; URL=/{repo_name}/latest/">
+    </noscript>
+</head>
+<body>
+    <p>Page not found. Redirecting to <a href="/{repo_name}/latest/">latest documentation</a>...</p>
+</body>
+</html>
+'''
+    with open(root_404, "w") as f:
+        f.write(not_found_html)
+
     # Add .nojekyll
     (gh_pages_dir / ".nojekyll").touch()
 
