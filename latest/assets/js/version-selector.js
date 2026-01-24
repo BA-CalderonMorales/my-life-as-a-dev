@@ -10,8 +10,8 @@
     const path = window.location.pathname;
     const match = path.match(/^(\/[^\/]+\/[^\/]+\/)/);  // e.g., /my-life-as-a-dev/latest/
     if (match) {
-      // Go up to the repo root
-      return path.split('/').slice(0, 3).join('/') + '/';
+      // Go up to the repo root (slice 0-2 gives ['', 'repo-name'])
+      return path.split('/').slice(0, 2).join('/') + '/';
     }
     return '/';
   }
