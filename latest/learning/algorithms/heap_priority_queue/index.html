@@ -4363,11 +4363,9 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../docs-as-code/zensical/internationalization/" class="md-nav__link">
+      <a href="../../../docs-as-code/zensical/internationalization.md" class="md-nav__link">
         
   
-  
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-languages" viewBox="0 0 24 24"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg>
   
   <span class="md-ellipsis">
     
@@ -6723,11 +6721,11 @@
 <strong>LeetCode</strong>: #215</p>
 <h3 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h3>
 <p>Find the kth largest element in an unsorted array. Note that it is the kth largest element in sorted order, not the kth distinct element.</p>
-<p><strong>Example</strong>:</p>
-<pre><code>Input: nums = [3, 2, 1, 5, 6, 4], k = 2
-Output: 5
-Explanation: The array sorted is [1, 2, 3, 4, 5, 6], so 2nd largest is 5
-</code></pre>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Input: nums = [3, 2, 1, 5, 6, 4], k = 2
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Output: 5
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Explanation: The array sorted is [1, 2, 3, 4, 5, 6], so 2nd largest is 5
+</code></pre></div></p>
 <h3 id="approach">Approach<a class="headerlink" href="#approach" title="Permanent link">&para;</a></h3>
 <p>Use a min heap of size k:</p>
 <ul>
@@ -6737,82 +6735,82 @@ Explanation: The array sorted is [1, 2, 3, 4, 5, 6], so 2nd largest is 5
 </ul>
 <p>This ensures we always have k largest elements, with kth largest at top.</p>
 <h3 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h3>
-<pre><code class="language-python">import heapq
-
-def find_kth_largest(nums, k):
-    &quot;&quot;&quot;
-    Find kth largest element using min heap.
-
-    Time Complexity: O(n log k) - process n elements with heap of size k
-    Space Complexity: O(k) - heap stores k elements
-    &quot;&quot;&quot;
-    # Maintain min heap of k largest elements
-    min_heap = []
-
-    for num in nums:
-        heapq.heappush(min_heap, num)
-
-        # Keep heap size at k
-        if len(min_heap) &gt; k:
-            heapq.heappop(min_heap)
-
-    # Root of min heap is kth largest
-    return min_heap[0]
-
-# Alternative: Using Python's nlargest
-def find_kth_largest_alt(nums, k):
-    &quot;&quot;&quot;Alternative using heapq.nlargest.&quot;&quot;&quot;
-    return heapq.nlargest(k, nums)[-1]
-
-# Test
-nums = [3, 2, 1, 5, 6, 4]
-k = 2
-print(find_kth_largest(nums, k))  # Output: 5
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">find_kth_largest</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sd">    Find kth largest element using min heap.</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="sd">    Time Complexity: O(n log k) - process n elements with heap of size k</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="sd">    Space Complexity: O(k) - heap stores k elements</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="c1"># Maintain min heap of k largest elements</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">min_heap</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">min_heap</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="c1"># Keep heap size at k</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">min_heap</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">:</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">min_heap</span><span class="p">)</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="c1"># Root of min heap is kth largest</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    <span class="k">return</span> <span class="n">min_heap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="c1"># Alternative: Using Python&#39;s nlargest</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="k">def</span><span class="w"> </span><span class="nf">find_kth_largest_alt</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Alternative using heapq.nlargest.&quot;&quot;&quot;</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    <span class="k">return</span> <span class="n">heapq</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">nums</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="c1"># Test</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="nb">print</span><span class="p">(</span><span class="n">find_kth_largest</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>  <span class="c1"># Output: 5</span>
+</code></pre></div>
 <h3 id="step-by-step-walkthrough">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough" title="Permanent link">&para;</a></h3>
-<pre><code>nums = [3, 2, 1, 5, 6, 4], k = 2
-
-Process nums[0]=3:
-  heap = [3], size = 1 &lt; k, keep all
-
-Process nums[1]=2:
-  heap = [2, 3], size = 2 = k, keep all
-  Min heap: 2 at root
-
-Process nums[2]=1:
-  heap = [1, 3, 2], size = 3 &gt; k
-  Pop smallest: heap = [2, 3]
-  Min heap: 2 at root
-
-Process nums[3]=5:
-  heap = [2, 5, 3], size = 3 &gt; k
-  Pop smallest: heap = [3, 5]
-  Min heap: 3 at root
-
-Process nums[4]=6:
-  heap = [3, 5, 6], size = 3 &gt; k
-  Pop smallest: heap = [5, 6]
-  Min heap: 5 at root
-
-Process nums[5]=4:
-  heap = [4, 6, 5], size = 3 &gt; k
-  Pop smallest: heap = [5, 6]
-  Min heap: 5 at root
-
-Result: 5 (kth largest element)
-
-Heap maintains 2 largest elements: [5, 6]
-Smallest of these (at root) is kth largest: 5
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>nums = [3, 2, 1, 5, 6, 4], k = 2
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Process nums[0]=3:
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  heap = [3], size = 1 &lt; k, keep all
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>Process nums[1]=2:
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  heap = [2, 3], size = 2 = k, keep all
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  Min heap: 2 at root
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>Process nums[2]=1:
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  heap = [1, 3, 2], size = 3 &gt; k
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  Pop smallest: heap = [2, 3]
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  Min heap: 2 at root
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>Process nums[3]=5:
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>  heap = [2, 5, 3], size = 3 &gt; k
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>  Pop smallest: heap = [3, 5]
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>  Min heap: 3 at root
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>Process nums[4]=6:
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>  heap = [3, 5, 6], size = 3 &gt; k
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>  Pop smallest: heap = [5, 6]
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>  Min heap: 5 at root
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>Process nums[5]=4:
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>  heap = [4, 6, 5], size = 3 &gt; k
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>  Pop smallest: heap = [5, 6]
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>  Min heap: 5 at root
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>Result: 5 (kth largest element)
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>Heap maintains 2 largest elements: [5, 6]
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>Smallest of these (at root) is kth largest: 5
+</code></pre></div>
 <h2 id="problem-2-merge-k-sorted-lists">Problem 2: Merge K Sorted Lists<a class="headerlink" href="#problem-2-merge-k-sorted-lists" title="Permanent link">&para;</a></h2>
 <p><strong>Difficulty</strong>: Hard<br />
 <strong>LeetCode</strong>: #23</p>
 <h3 id="problem-statement_1">Problem Statement<a class="headerlink" href="#problem-statement_1" title="Permanent link">&para;</a></h3>
 <p>Merge k sorted linked lists into one sorted linked list.</p>
-<p><strong>Example</strong>:</p>
-<pre><code>Input: lists = [[1,4,5],[1,3,4],[2,6]]
-Output: [1,1,2,3,4,4,5,6]
-</code></pre>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Input: lists = [[1,4,5],[1,3,4],[2,6]]
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Output: [1,1,2,3,4,4,5,6]
+</code></pre></div></p>
 <h3 id="approach_1">Approach<a class="headerlink" href="#approach_1" title="Permanent link">&para;</a></h3>
 <p>Use min heap to track smallest unprocessed element from each list:
 1. Add first element from each list to heap
@@ -6821,145 +6819,145 @@ Output: [1,1,2,3,4,4,5,6]
 4. Repeat until all elements processed</p>
 <p>Heap efficiently finds minimum among k candidates.</p>
 <h3 id="solution_1">Solution<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h3>
-<pre><code class="language-python">import heapq
-
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-def merge_k_lists(lists):
-    &quot;&quot;&quot;
-    Merge k sorted linked lists.
-
-    Time Complexity: O(n log k) - n total nodes, heap operations on k elements
-    Space Complexity: O(k) - heap stores at most k nodes
-    &quot;&quot;&quot;
-    # Min heap: (value, list_index, node)
-    # Use index to break ties (Python heapq requires comparable elements)
-    min_heap = []
-
-    # Add first node from each list
-    for i, head in enumerate(lists):
-        if head:
-            heapq.heappush(min_heap, (head.val, i, head))
-
-    # Dummy head for result list
-    dummy = ListNode(0)
-    current = dummy
-
-    while min_heap:
-        # Get smallest element
-        val, i, node = heapq.heappop(min_heap)
-
-        # Add to result
-        current.next = node
-        current = current.next
-
-        # Add next node from same list
-        if node.next:
-            heapq.heappush(min_heap, (node.next.val, i, node.next))
-
-    return dummy.next
-
-# Helper to create linked list from array
-def create_list(arr):
-    &quot;&quot;&quot;Create linked list from array.&quot;&quot;&quot;
-    dummy = ListNode(0)
-    current = dummy
-    for val in arr:
-        current.next = ListNode(val)
-        current = current.next
-    return dummy.next
-
-# Helper to convert linked list to array
-def list_to_array(head):
-    &quot;&quot;&quot;Convert linked list to array.&quot;&quot;&quot;
-    result = []
-    while head:
-        result.append(head.val)
-        head = head.next
-    return result
-
-# Test
-lists = [
-    create_list([1, 4, 5]),
-    create_list([1, 3, 4]),
-    create_list([2, 6])
-]
-merged = merge_k_lists(lists)
-print(list_to_array(merged))  # Output: [1, 1, 2, 3, 4, 4, 5, 6]
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">ListNode</span><span class="p">:</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">next</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">next</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">merge_k_lists</span><span class="p">(</span><span class="n">lists</span><span class="p">):</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="sd">    Merge k sorted linked lists.</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="sd">    Time Complexity: O(n log k) - n total nodes, heap operations on k elements</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="sd">    Space Complexity: O(k) - heap stores at most k nodes</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="c1"># Min heap: (value, list_index, node)</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="c1"># Use index to break ties (Python heapq requires comparable elements)</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="n">min_heap</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    <span class="c1"># Add first node from each list</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">head</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lists</span><span class="p">):</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>        <span class="k">if</span> <span class="n">head</span><span class="p">:</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">min_heap</span><span class="p">,</span> <span class="p">(</span><span class="n">head</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">head</span><span class="p">))</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>    <span class="c1"># Dummy head for result list</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>    <span class="n">dummy</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>    <span class="n">current</span> <span class="o">=</span> <span class="n">dummy</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>    <span class="k">while</span> <span class="n">min_heap</span><span class="p">:</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>        <span class="c1"># Get smallest element</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>        <span class="n">val</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">min_heap</span><span class="p">)</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>        <span class="c1"># Add to result</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>        <span class="n">current</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">node</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>        <span class="c1"># Add next node from same list</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">min_heap</span><span class="p">,</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">next</span><span class="p">))</span>
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>
+<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>    <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span>
+<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>
+<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="c1"># Helper to create linked list from array</span>
+<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a><span class="k">def</span><span class="w"> </span><span class="nf">create_list</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create linked list from array.&quot;&quot;&quot;</span>
+<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a>    <span class="n">dummy</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a>    <span class="n">current</span> <span class="o">=</span> <span class="n">dummy</span>
+<a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>    <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">:</span>
+<a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a>        <span class="n">current</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+<a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a>        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span>
+<a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a>    <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span>
+<a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a>
+<a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a><span class="c1"># Helper to convert linked list to array</span>
+<a id="__codelineno-4-53" name="__codelineno-4-53" href="#__codelineno-4-53"></a><span class="k">def</span><span class="w"> </span><span class="nf">list_to_array</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+<a id="__codelineno-4-54" name="__codelineno-4-54" href="#__codelineno-4-54"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert linked list to array.&quot;&quot;&quot;</span>
+<a id="__codelineno-4-55" name="__codelineno-4-55" href="#__codelineno-4-55"></a>    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-4-56" name="__codelineno-4-56" href="#__codelineno-4-56"></a>    <span class="k">while</span> <span class="n">head</span><span class="p">:</span>
+<a id="__codelineno-4-57" name="__codelineno-4-57" href="#__codelineno-4-57"></a>        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">head</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+<a id="__codelineno-4-58" name="__codelineno-4-58" href="#__codelineno-4-58"></a>        <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span>
+<a id="__codelineno-4-59" name="__codelineno-4-59" href="#__codelineno-4-59"></a>    <span class="k">return</span> <span class="n">result</span>
+<a id="__codelineno-4-60" name="__codelineno-4-60" href="#__codelineno-4-60"></a>
+<a id="__codelineno-4-61" name="__codelineno-4-61" href="#__codelineno-4-61"></a><span class="c1"># Test</span>
+<a id="__codelineno-4-62" name="__codelineno-4-62" href="#__codelineno-4-62"></a><span class="n">lists</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-4-63" name="__codelineno-4-63" href="#__codelineno-4-63"></a>    <span class="n">create_list</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]),</span>
+<a id="__codelineno-4-64" name="__codelineno-4-64" href="#__codelineno-4-64"></a>    <span class="n">create_list</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span>
+<a id="__codelineno-4-65" name="__codelineno-4-65" href="#__codelineno-4-65"></a>    <span class="n">create_list</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<a id="__codelineno-4-66" name="__codelineno-4-66" href="#__codelineno-4-66"></a><span class="p">]</span>
+<a id="__codelineno-4-67" name="__codelineno-4-67" href="#__codelineno-4-67"></a><span class="n">merged</span> <span class="o">=</span> <span class="n">merge_k_lists</span><span class="p">(</span><span class="n">lists</span><span class="p">)</span>
+<a id="__codelineno-4-68" name="__codelineno-4-68" href="#__codelineno-4-68"></a><span class="nb">print</span><span class="p">(</span><span class="n">list_to_array</span><span class="p">(</span><span class="n">merged</span><span class="p">))</span>  <span class="c1"># Output: [1, 1, 2, 3, 4, 4, 5, 6]</span>
+</code></pre></div>
 <h3 id="step-by-step-walkthrough_1">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough_1" title="Permanent link">&para;</a></h3>
-<pre><code>lists = [[1,4,5], [1,3,4], [2,6]]
-
-Initialize heap with first nodes:
-  heap = [(1, 0, node1), (1, 1, node1'), (2, 2, node2)]
-  Heap structure (min): 1 at root
-
-Iteration 1:
-  Pop (1, 0, node1) - smallest
-  Add to result: [1]
-  Push next from list 0: (4, 0, node4)
-  heap = [(1, 1, node1'), (2, 2, node2), (4, 0, node4)]
-
-Iteration 2:
-  Pop (1, 1, node1') - smallest
-  Add to result: [1, 1]
-  Push next from list 1: (3, 1, node3)
-  heap = [(2, 2, node2), (3, 1, node3), (4, 0, node4)]
-
-Iteration 3:
-  Pop (2, 2, node2) - smallest
-  Add to result: [1, 1, 2]
-  Push next from list 2: (6, 2, node6)
-  heap = [(3, 1, node3), (4, 0, node4), (6, 2, node6)]
-
-Iteration 4:
-  Pop (3, 1, node3)
-  Add to result: [1, 1, 2, 3]
-  Push next from list 1: (4, 1, node4')
-  heap = [(4, 0, node4), (4, 1, node4'), (6, 2, node6)]
-
-Iteration 5:
-  Pop (4, 0, node4)
-  Add to result: [1, 1, 2, 3, 4]
-  Push next from list 0: (5, 0, node5)
-  heap = [(4, 1, node4'), (5, 0, node5), (6, 2, node6)]
-
-Iteration 6:
-  Pop (4, 1, node4')
-  Add to result: [1, 1, 2, 3, 4, 4]
-  No next from list 1
-  heap = [(5, 0, node5), (6, 2, node6)]
-
-Iteration 7:
-  Pop (5, 0, node5)
-  Add to result: [1, 1, 2, 3, 4, 4, 5]
-  No next from list 0
-  heap = [(6, 2, node6)]
-
-Iteration 8:
-  Pop (6, 2, node6)
-  Add to result: [1, 1, 2, 3, 4, 4, 5, 6]
-  No next from list 2
-  heap = []
-
-Result: [1, 1, 2, 3, 4, 4, 5, 6]
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>lists = [[1,4,5], [1,3,4], [2,6]]
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Initialize heap with first nodes:
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  heap = [(1, 0, node1), (1, 1, node1&#39;), (2, 2, node2)]
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  Heap structure (min): 1 at root
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>Iteration 1:
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  Pop (1, 0, node1) - smallest
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  Add to result: [1]
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  Push next from list 0: (4, 0, node4)
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>  heap = [(1, 1, node1&#39;), (2, 2, node2), (4, 0, node4)]
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>Iteration 2:
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>  Pop (1, 1, node1&#39;) - smallest
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>  Add to result: [1, 1]
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>  Push next from list 1: (3, 1, node3)
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>  heap = [(2, 2, node2), (3, 1, node3), (4, 0, node4)]
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>Iteration 3:
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>  Pop (2, 2, node2) - smallest
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>  Add to result: [1, 1, 2]
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>  Push next from list 2: (6, 2, node6)
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>  heap = [(3, 1, node3), (4, 0, node4), (6, 2, node6)]
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>Iteration 4:
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>  Pop (3, 1, node3)
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>  Add to result: [1, 1, 2, 3]
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>  Push next from list 1: (4, 1, node4&#39;)
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>  heap = [(4, 0, node4), (4, 1, node4&#39;), (6, 2, node6)]
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>Iteration 5:
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>  Pop (4, 0, node4)
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>  Add to result: [1, 1, 2, 3, 4]
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>  Push next from list 0: (5, 0, node5)
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>  heap = [(4, 1, node4&#39;), (5, 0, node5), (6, 2, node6)]
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>Iteration 6:
+<a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>  Pop (4, 1, node4&#39;)
+<a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>  Add to result: [1, 1, 2, 3, 4, 4]
+<a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a>  No next from list 1
+<a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>  heap = [(5, 0, node5), (6, 2, node6)]
+<a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>
+<a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>Iteration 7:
+<a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>  Pop (5, 0, node5)
+<a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>  Add to result: [1, 1, 2, 3, 4, 4, 5]
+<a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>  No next from list 0
+<a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>  heap = [(6, 2, node6)]
+<a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a>
+<a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a>Iteration 8:
+<a id="__codelineno-5-50" name="__codelineno-5-50" href="#__codelineno-5-50"></a>  Pop (6, 2, node6)
+<a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a>  Add to result: [1, 1, 2, 3, 4, 4, 5, 6]
+<a id="__codelineno-5-52" name="__codelineno-5-52" href="#__codelineno-5-52"></a>  No next from list 2
+<a id="__codelineno-5-53" name="__codelineno-5-53" href="#__codelineno-5-53"></a>  heap = []
+<a id="__codelineno-5-54" name="__codelineno-5-54" href="#__codelineno-5-54"></a>
+<a id="__codelineno-5-55" name="__codelineno-5-55" href="#__codelineno-5-55"></a>Result: [1, 1, 2, 3, 4, 4, 5, 6]
+</code></pre></div>
 <h2 id="problem-3-find-median-from-data-stream">Problem 3: Find Median from Data Stream<a class="headerlink" href="#problem-3-find-median-from-data-stream" title="Permanent link">&para;</a></h2>
 <p><strong>Difficulty</strong>: Hard<br />
 <strong>LeetCode</strong>: #295</p>
 <h3 id="problem-statement_2">Problem Statement<a class="headerlink" href="#problem-statement_2" title="Permanent link">&para;</a></h3>
 <p>Design a data structure that supports adding integers and finding the median efficiently.</p>
-<p><strong>Example</strong>:</p>
-<pre><code>MedianFinder mf = new MedianFinder()
-mf.addNum(1)    
-mf.addNum(2)    
-mf.findMedian() -&gt; 1.5
-mf.addNum(3)    
-mf.findMedian() -&gt; 2
-</code></pre>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>MedianFinder mf = new MedianFinder()
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>mf.addNum(1)    
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>mf.addNum(2)    
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>mf.findMedian() -&gt; 1.5
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>mf.addNum(3)    
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>mf.findMedian() -&gt; 2
+</code></pre></div></p>
 <h3 id="approach_2">Approach<a class="headerlink" href="#approach_2" title="Permanent link">&para;</a></h3>
 <p>Use two heaps to maintain balance:</p>
 <ul>
@@ -6977,99 +6975,99 @@ mf.findMedian() -&gt; 2
 <li>All elements in max heap ≤ all elements in min heap</li>
 </ul>
 <h3 id="solution_2">Solution<a class="headerlink" href="#solution_2" title="Permanent link">&para;</a></h3>
-<pre><code class="language-python">import heapq
-
-class MedianFinder:
-    &quot;&quot;&quot;
-    Maintain running median using two heaps.
-
-    Time Complexity: 
-      - addNum: O(log n) - heap operations
-      - findMedian: O(1) - just peek at heap tops
-    Space Complexity: O(n) - store all numbers
-    &quot;&quot;&quot;
-
-    def __init__(self):
-        # Max heap (smaller half) - use negative values for max heap
-        self.small = []
-        # Min heap (larger half)
-        self.large = []
-
-    def addNum(self, num):
-        &quot;&quot;&quot;Add number to data structure.&quot;&quot;&quot;
-        # Add to max heap (small) first
-        heapq.heappush(self.small, -num)
-
-        # Balance: ensure max(small) &lt;= min(large)
-        if self.small and self.large and (-self.small[0] &gt; self.large[0]):
-            val = -heapq.heappop(self.small)
-            heapq.heappush(self.large, val)
-
-        # Balance sizes: difference should be at most 1
-        if len(self.small) &gt; len(self.large) + 1:
-            val = -heapq.heappop(self.small)
-            heapq.heappush(self.large, val)
-        elif len(self.large) &gt; len(self.small):
-            val = heapq.heappop(self.large)
-            heapq.heappush(self.small, -val)
-
-    def findMedian(self):
-        &quot;&quot;&quot;Find current median.&quot;&quot;&quot;
-        if len(self.small) &gt; len(self.large):
-            # Odd count: median is top of larger heap (small)
-            return -self.small[0]
-        else:
-            # Even count: median is average of both tops
-            return (-self.small[0] + self.large[0]) / 2.0
-
-# Test
-mf = MedianFinder()
-mf.addNum(1)
-mf.addNum(2)
-print(mf.findMedian())  # Output: 1.5
-mf.addNum(3)
-print(mf.findMedian())  # Output: 2.0
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MedianFinder</span><span class="p">:</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sd">    Maintain running median using two heaps.</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sd">    Time Complexity: </span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="sd">      - addNum: O(log n) - heap operations</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="sd">      - findMedian: O(1) - just peek at heap tops</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="sd">    Space Complexity: O(n) - store all numbers</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>        <span class="c1"># Max heap (smaller half) - use negative values for max heap</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">small</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>        <span class="c1"># Min heap (larger half)</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">large</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">addNum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add number to data structure.&quot;&quot;&quot;</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>        <span class="c1"># Add to max heap (small) first</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>        <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">,</span> <span class="o">-</span><span class="n">num</span><span class="p">)</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>        <span class="c1"># Balance: ensure max(small) &lt;= min(large)</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">small</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">large</span> <span class="ow">and</span> <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>            <span class="n">val</span> <span class="o">=</span> <span class="o">-</span><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">)</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>        <span class="c1"># Balance sizes: difference should be at most 1</span>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>            <span class="n">val</span> <span class="o">=</span> <span class="o">-</span><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">)</span>
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a>        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">):</span>
+<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a>            <span class="n">val</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">)</span>
+<a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">,</span> <span class="o">-</span><span class="n">val</span><span class="p">)</span>
+<a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a>
+<a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">findMedian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Find current median.&quot;&quot;&quot;</span>
+<a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">):</span>
+<a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a>            <span class="c1"># Odd count: median is top of larger heap (small)</span>
+<a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a>            <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-7-43" name="__codelineno-7-43" href="#__codelineno-7-43"></a>            <span class="c1"># Even count: median is average of both tops</span>
+<a id="__codelineno-7-44" name="__codelineno-7-44" href="#__codelineno-7-44"></a>            <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span>
+<a id="__codelineno-7-45" name="__codelineno-7-45" href="#__codelineno-7-45"></a>
+<a id="__codelineno-7-46" name="__codelineno-7-46" href="#__codelineno-7-46"></a><span class="c1"># Test</span>
+<a id="__codelineno-7-47" name="__codelineno-7-47" href="#__codelineno-7-47"></a><span class="n">mf</span> <span class="o">=</span> <span class="n">MedianFinder</span><span class="p">()</span>
+<a id="__codelineno-7-48" name="__codelineno-7-48" href="#__codelineno-7-48"></a><span class="n">mf</span><span class="o">.</span><span class="n">addNum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-7-49" name="__codelineno-7-49" href="#__codelineno-7-49"></a><span class="n">mf</span><span class="o">.</span><span class="n">addNum</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-7-50" name="__codelineno-7-50" href="#__codelineno-7-50"></a><span class="nb">print</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">findMedian</span><span class="p">())</span>  <span class="c1"># Output: 1.5</span>
+<a id="__codelineno-7-51" name="__codelineno-7-51" href="#__codelineno-7-51"></a><span class="n">mf</span><span class="o">.</span><span class="n">addNum</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-7-52" name="__codelineno-7-52" href="#__codelineno-7-52"></a><span class="nb">print</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">findMedian</span><span class="p">())</span>  <span class="c1"># Output: 2.0</span>
+</code></pre></div>
 <h3 id="step-by-step-walkthrough_2">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough_2" title="Permanent link">&para;</a></h3>
-<pre><code>Operations: addNum(1), addNum(2), findMedian(), addNum(3), findMedian()
-
-addNum(1):
-  Push -1 to small: small = [-1], large = []
-  No balancing needed (large is empty)
-  Sizes: small=1, large=0
-
-addNum(2):
-  Push -2 to small: small = [-2, -1], large = []
-  Check max(small) vs min(large): -(-2)=2 &gt; empty, skip
-  Balance sizes: small=2, large=0 (diff &gt; 1)
-    Move from small to large: pop -2, push 2
-    small = [-1], large = [2]
-  Sizes: small=1, large=1
-
-findMedian():
-  Even count: (1 + 2) / 2 = 1.5
-  Result: 1.5
-
-addNum(3):
-  Push -3 to small: small = [-3, -1], large = [2]
-  Check max(small) vs min(large): -(-3)=3 &gt; 2
-    Move max from small to large: pop -3, push 3
-    small = [-1], large = [2, 3]
-  Balance sizes: small=1, large=2 (large &gt; small)
-    Move from large to small: pop 2, push -2
-    small = [-2, -1], large = [3]
-  Sizes: small=2, large=1
-
-findMedian():
-  Odd count: top of small = -(-2) = 2
-  Result: 2.0
-
-Final state:
-  small (max heap) = [-2, -1] → represents [2, 1]
-  large (min heap) = [3]
-  Numbers in order: 1, 2, 3
-  Median: 2
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Operations: addNum(1), addNum(2), findMedian(), addNum(3), findMedian()
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>addNum(1):
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  Push -1 to small: small = [-1], large = []
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  No balancing needed (large is empty)
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  Sizes: small=1, large=0
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>addNum(2):
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>  Push -2 to small: small = [-2, -1], large = []
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>  Check max(small) vs min(large): -(-2)=2 &gt; empty, skip
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>  Balance sizes: small=2, large=0 (diff &gt; 1)
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    Move from small to large: pop -2, push 2
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>    small = [-1], large = [2]
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>  Sizes: small=1, large=1
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>findMedian():
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>  Even count: (1 + 2) / 2 = 1.5
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>  Result: 1.5
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>addNum(3):
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>  Push -3 to small: small = [-3, -1], large = [2]
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>  Check max(small) vs min(large): -(-3)=3 &gt; 2
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>    Move max from small to large: pop -3, push 3
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>    small = [-1], large = [2, 3]
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>  Balance sizes: small=1, large=2 (large &gt; small)
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>    Move from large to small: pop 2, push -2
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>    small = [-2, -1], large = [3]
+<a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>  Sizes: small=2, large=1
+<a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>
+<a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>findMedian():
+<a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>  Odd count: top of small = -(-2) = 2
+<a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a>  Result: 2.0
+<a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a>
+<a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a>Final state:
+<a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a>  small (max heap) = [-2, -1] → represents [2, 1]
+<a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a>  large (min heap) = [3]
+<a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a>  Numbers in order: 1, 2, 3
+<a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a>  Median: 2
+</code></pre></div>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Heap Selection</strong>: Min heap for k largest, max heap for k smallest</li>
@@ -7109,46 +7107,46 @@ Final state:
 <li>Think about time complexity: heap operations are O(log n)</li>
 </ul>
 <h2 id="template-pattern">Template Pattern<a class="headerlink" href="#template-pattern" title="Permanent link">&para;</a></h2>
-<pre><code class="language-python">import heapq
-
-# Single heap for k-th element
-def kth_element_template(arr, k):
-    &quot;&quot;&quot;Find kth largest using min heap.&quot;&quot;&quot;
-    heap = []
-    for num in arr:
-        heapq.heappush(heap, num)
-        if len(heap) &gt; k:
-            heapq.heappop(heap)
-    return heap[0]
-
-# Two heaps for running median
-class MedianTemplate:
-    &quot;&quot;&quot;Maintain running median.&quot;&quot;&quot;
-    def __init__(self):
-        self.small = []  # max heap (negated)
-        self.large = []  # min heap
-
-    def add(self, num):
-        heapq.heappush(self.small, -num)
-
-        # Balance property
-        if self.small and self.large and (-self.small[0] &gt; self.large[0]):
-            val = -heapq.heappop(self.small)
-            heapq.heappush(self.large, val)
-
-        # Balance sizes
-        if len(self.small) &gt; len(self.large) + 1:
-            val = -heapq.heappop(self.small)
-            heapq.heappush(self.large, val)
-        elif len(self.large) &gt; len(self.small):
-            val = heapq.heappop(self.large)
-            heapq.heappush(self.small, -val)
-
-    def get_median(self):
-        if len(self.small) &gt; len(self.large):
-            return -self.small[0]
-        return (-self.small[0] + self.large[0]) / 2.0
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># Single heap for k-th element</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">kth_element_template</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find kth largest using min heap.&quot;&quot;&quot;</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">heap</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">:</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">:</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="k">return</span> <span class="n">heap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="c1"># Two heaps for running median</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="k">class</span><span class="w"> </span><span class="nc">MedianTemplate</span><span class="p">:</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Maintain running median.&quot;&quot;&quot;</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">small</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># max heap (negated)</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">large</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># min heap</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>        <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">,</span> <span class="o">-</span><span class="n">num</span><span class="p">)</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>        <span class="c1"># Balance property</span>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">small</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">large</span> <span class="ow">and</span> <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>            <span class="n">val</span> <span class="o">=</span> <span class="o">-</span><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">)</span>
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>        <span class="c1"># Balance sizes</span>
+<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>            <span class="n">val</span> <span class="o">=</span> <span class="o">-</span><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">)</span>
+<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">):</span>
+<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>            <span class="n">val</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">)</span>
+<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">,</span> <span class="o">-</span><span class="n">val</span><span class="p">)</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>
+<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_median</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">):</span>
+<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>            <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>        <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span>
+</code></pre></div>
 <h2 id="common-mistakes">Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Forgetting Python heapq is min heap only</li>
@@ -7182,34 +7180,34 @@ class MedianTemplate:
 </li>
 </ul>
 <p><strong>Implementation Pattern</strong>:</p>
-<pre><code class="language-python">def top_k_frequent(nums, k):
-    &quot;&quot;&quot;
-    Find k most frequent elements using heap.
-
-    Time: O(n log k) - Better than O(n log n) full sort
-    Space: O(n) - frequency map + O(k) heap
-    &quot;&quot;&quot;
-    from collections import Counter
-    import heapq
-
-    # Count frequencies
-    freq = Counter(nums)
-
-    # Min heap of size k (stores (freq, num) pairs)
-    # Keep k largest frequencies
-    heap = []
-    for num, count in freq.items():
-        heapq.heappush(heap, (count, num))
-        if len(heap) &gt; k:
-            heapq.heappop(heap)
-
-    # Extract numbers (discard frequencies)
-    return [num for count, num in heap]
-
-# Example: Social media trending
-posts = [1, 1, 1, 2, 2, 3, 4, 4, 4, 4]
-print(top_k_frequent(posts, 2))  # [1, 4] - top 2 posts
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">top_k_frequent</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="sd">    Find k most frequent elements using heap.</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="sd">    Time: O(n log k) - Better than O(n log n) full sort</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="sd">    Space: O(n) - frequency map + O(k) heap</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="c1"># Count frequencies</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    <span class="n">freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    <span class="c1"># Min heap of size k (stores (freq, num) pairs)</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    <span class="c1"># Keep k largest frequencies</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    <span class="n">heap</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>    <span class="k">for</span> <span class="n">num</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">freq</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>        <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">num</span><span class="p">))</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">:</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>            <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>    <span class="c1"># Extract numbers (discard frequencies)</span>
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">num</span> <span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">heap</span><span class="p">]</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="c1"># Example: Social media trending</span>
+<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="n">posts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="nb">print</span><span class="p">(</span><span class="n">top_k_frequent</span><span class="p">(</span><span class="n">posts</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># [1, 4] - top 2 posts</span>
+</code></pre></div>
 <h3 id="application-2-graph-algorithms-dijkstras-shortest-path">Application 2: Graph Algorithms (Dijkstra's Shortest Path)<a class="headerlink" href="#application-2-graph-algorithms-dijkstras-shortest-path" title="Permanent link">&para;</a></h3>
 <p>Heaps are fundamental to efficient graph algorithms, particularly for finding shortest paths.</p>
 <ul>
@@ -7224,63 +7222,63 @@ print(top_k_frequent(posts, 2))  # [1, 4] - top 2 posts
 </li>
 </ul>
 <p><strong>Dijkstra's Algorithm with Heap</strong>:</p>
-<pre><code class="language-python">import heapq
-from collections import defaultdict
-
-def dijkstra(graph, start):
-    &quot;&quot;&quot;
-    Find shortest paths from start to all nodes.
-
-    Time: O((V + E) log V) with heap
-          O(V²) with simple array (worse for sparse graphs)
-    Space: O(V)
-
-    Args:
-        graph: dict of node -&gt; [(neighbor, weight)]
-        start: starting node
-
-    Returns:
-        dict of node -&gt; shortest distance from start
-    &quot;&quot;&quot;
-    # Distance to each node (infinity initially)
-    distances = {node: float('inf') for node in graph}
-    distances[start] = 0
-
-    # Min heap: (distance, node)
-    heap = [(0, start)]
-    visited = set()
-
-    while heap:
-        current_dist, node = heapq.heappop(heap)
-
-        # Skip if already processed
-        if node in visited:
-            continue
-        visited.add(node)
-
-        # Update neighbors
-        for neighbor, weight in graph[node]:
-            distance = current_dist + weight
-
-            # Found shorter path
-            if distance &lt; distances[neighbor]:
-                distances[neighbor] = distance
-                heapq.heappush(heap, (distance, neighbor))
-
-    return distances
-
-# Example: Road network
-roads = {
-    'A': [('B', 4), ('C', 2)],
-    'B': [('C', 1), ('D', 5)],
-    'C': [('D', 8), ('E', 10)],
-    'D': [('E', 2)],
-    'E': []
-}
-
-distances = dijkstra(roads, 'A')
-print(f&quot;Shortest path A to E: {distances['E']}&quot;)  # 11
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">dijkstra</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="sd">    Find shortest paths from start to all nodes.</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="sd">    Time: O((V + E) log V) with heap</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="sd">          O(V²) with simple array (worse for sparse graphs)</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="sd">    Space: O(V)</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="sd">    Args:</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="sd">        graph: dict of node -&gt; [(neighbor, weight)]</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="sd">        start: starting node</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="sd">        dict of node -&gt; shortest distance from start</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>    <span class="c1"># Distance to each node (infinity initially)</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>    <span class="n">distances</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">}</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>    <span class="n">distances</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>    <span class="c1"># Min heap: (distance, node)</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>    <span class="n">heap</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">start</span><span class="p">)]</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>    <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>    <span class="k">while</span> <span class="n">heap</span><span class="p">:</span>
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>        <span class="n">current_dist</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>
+<a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>        <span class="c1"># Skip if already processed</span>
+<a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>        <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+<a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a>            <span class="k">continue</span>
+<a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a>        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>
+<a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a>        <span class="c1"># Update neighbors</span>
+<a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a>        <span class="k">for</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+<a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a>            <span class="n">distance</span> <span class="o">=</span> <span class="n">current_dist</span> <span class="o">+</span> <span class="n">weight</span>
+<a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a>
+<a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a>            <span class="c1"># Found shorter path</span>
+<a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a>            <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="n">distances</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]:</span>
+<a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a>                <span class="n">distances</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span>
+<a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a>                <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">))</span>
+<a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a>
+<a id="__codelineno-11-44" name="__codelineno-11-44" href="#__codelineno-11-44"></a>    <span class="k">return</span> <span class="n">distances</span>
+<a id="__codelineno-11-45" name="__codelineno-11-45" href="#__codelineno-11-45"></a>
+<a id="__codelineno-11-46" name="__codelineno-11-46" href="#__codelineno-11-46"></a><span class="c1"># Example: Road network</span>
+<a id="__codelineno-11-47" name="__codelineno-11-47" href="#__codelineno-11-47"></a><span class="n">roads</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-11-48" name="__codelineno-11-48" href="#__codelineno-11-48"></a>    <span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span>
+<a id="__codelineno-11-49" name="__codelineno-11-49" href="#__codelineno-11-49"></a>    <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)],</span>
+<a id="__codelineno-11-50" name="__codelineno-11-50" href="#__codelineno-11-50"></a>    <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)],</span>
+<a id="__codelineno-11-51" name="__codelineno-11-51" href="#__codelineno-11-51"></a>    <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span>
+<a id="__codelineno-11-52" name="__codelineno-11-52" href="#__codelineno-11-52"></a>    <span class="s1">&#39;E&#39;</span><span class="p">:</span> <span class="p">[]</span>
+<a id="__codelineno-11-53" name="__codelineno-11-53" href="#__codelineno-11-53"></a><span class="p">}</span>
+<a id="__codelineno-11-54" name="__codelineno-11-54" href="#__codelineno-11-54"></a>
+<a id="__codelineno-11-55" name="__codelineno-11-55" href="#__codelineno-11-55"></a><span class="n">distances</span> <span class="o">=</span> <span class="n">dijkstra</span><span class="p">(</span><span class="n">roads</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<a id="__codelineno-11-56" name="__codelineno-11-56" href="#__codelineno-11-56"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shortest path A to E: </span><span class="si">{</span><span class="n">distances</span><span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 11</span>
+</code></pre></div>
 <ul>
 <li>
 <p><strong>Why Heap Matters</strong></p>
@@ -7310,100 +7308,100 @@ print(f&quot;Shortest path A to E: {distances['E']}&quot;)  # 11
 3. Repeatedly merge two smallest nodes into parent
 4. Result: Binary tree where frequent chars have shorter codes</p>
 <p><strong>Implementation</strong>:</p>
-<pre><code class="language-python">import heapq
-from collections import Counter, namedtuple
-
-Node = namedtuple('Node', ['freq', 'char', 'left', 'right'])
-
-def huffman_encoding(text):
-    &quot;&quot;&quot;
-    Build Huffman tree and generate codes.
-
-    Time: O(n log n) - n chars, heap operations
-    Space: O(n) - tree nodes
-    &quot;&quot;&quot;
-    if not text:
-        return {}, None
-
-    # Count frequencies
-    freq = Counter(text)
-
-    # Build heap of leaf nodes
-    # Use negative freq for max heap behavior (most frequent first)
-    heap = [Node(f, ch, None, None) for ch, f in freq.items()]
-    heapq.heapify(heap)
-
-    # Build tree
-    while len(heap) &gt; 1:
-        # Pop two smallest frequency nodes
-        left = heapq.heappop(heap)
-        right = heapq.heappop(heap)
-
-        # Create parent with combined frequency
-        parent = Node(
-            freq=left.freq + right.freq,
-            char=None,  # Internal nodes have no character
-            left=left,
-            right=right
-        )
-        heapq.heappush(heap, parent)
-
-    # Root of tree
-    root = heap[0]
-
-    # Generate codes (DFS on tree)
-    codes = {}
-    def generate_codes(node, code=''):
-        if node.char is not None:  # Leaf node
-            codes[node.char] = code or '0'  # Single char gets '0'
-        else:
-            if node.left:
-                generate_codes(node.left, code + '0')
-            if node.right:
-                generate_codes(node.right, code + '1')
-
-    generate_codes(root)
-    return codes, root
-
-def encode_text(text, codes):
-    &quot;&quot;&quot;Encode text using Huffman codes.&quot;&quot;&quot;
-    return ''.join(codes[ch] for ch in text)
-
-def decode_text(encoded, root):
-    &quot;&quot;&quot;Decode using Huffman tree.&quot;&quot;&quot;
-    if not encoded:
-        return ''
-
-    result = []
-    node = root
-
-    for bit in encoded:
-        # Traverse tree
-        node = node.left if bit == '0' else node.right
-
-        # Reached leaf
-        if node.char is not None:
-            result.append(node.char)
-            node = root  # Reset to root
-
-    return ''.join(result)
-
-# Example
-text = &quot;huffman encoding example&quot;
-codes, tree = huffman_encoding(text)
-
-print(&quot;Character codes:&quot;)
-for char, code in sorted(codes.items()):
-    print(f&quot;  '{char}': {code}&quot;)
-
-encoded = encode_text(text, codes)
-print(f&quot;\nOriginal: {len(text) * 8} bits&quot;)
-print(f&quot;Encoded:  {len(encoded)} bits&quot;)
-print(f&quot;Compression: {(1 - len(encoded)/(len(text)*8)) * 100:.1f}%&quot;)
-
-decoded = decode_text(encoded, tree)
-assert decoded == text, &quot;Encoding/decoding failed!&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">namedtuple</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">Node</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Node&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;freq&#39;</span><span class="p">,</span> <span class="s1">&#39;char&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">])</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">huffman_encoding</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="sd">    Build Huffman tree and generate codes.</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="sd">    Time: O(n log n) - n chars, heap operations</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="sd">    Space: O(n) - tree nodes</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>        <span class="k">return</span> <span class="p">{},</span> <span class="kc">None</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>    <span class="c1"># Count frequencies</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>    <span class="n">freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>    <span class="c1"># Build heap of leaf nodes</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>    <span class="c1"># Use negative freq for max heap behavior (most frequent first)</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>    <span class="n">heap</span> <span class="o">=</span> <span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">ch</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">ch</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">freq</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>    <span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>    <span class="c1"># Build tree</span>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>        <span class="c1"># Pop two smallest frequency nodes</span>
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>        <span class="n">left</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>        <span class="n">right</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a>        <span class="c1"># Create parent with combined frequency</span>
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a>        <span class="n">parent</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+<a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a>            <span class="n">freq</span><span class="o">=</span><span class="n">left</span><span class="o">.</span><span class="n">freq</span> <span class="o">+</span> <span class="n">right</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span>
+<a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a>            <span class="n">char</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># Internal nodes have no character</span>
+<a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a>            <span class="n">left</span><span class="o">=</span><span class="n">left</span><span class="p">,</span>
+<a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a>            <span class="n">right</span><span class="o">=</span><span class="n">right</span>
+<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a>        <span class="p">)</span>
+<a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a>        <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+<a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a>
+<a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a>    <span class="c1"># Root of tree</span>
+<a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a>    <span class="n">root</span> <span class="o">=</span> <span class="n">heap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a>
+<a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a>    <span class="c1"># Generate codes (DFS on tree)</span>
+<a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a>    <span class="n">codes</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">generate_codes</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+<a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a>        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">char</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Leaf node</span>
+<a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a>            <span class="n">codes</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="n">code</span> <span class="ow">or</span> <span class="s1">&#39;0&#39;</span>  <span class="c1"># Single char gets &#39;0&#39;</span>
+<a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a>            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+<a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a>                <span class="n">generate_codes</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">code</span> <span class="o">+</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
+<a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a>            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+<a id="__codelineno-12-51" name="__codelineno-12-51" href="#__codelineno-12-51"></a>                <span class="n">generate_codes</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">code</span> <span class="o">+</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<a id="__codelineno-12-52" name="__codelineno-12-52" href="#__codelineno-12-52"></a>
+<a id="__codelineno-12-53" name="__codelineno-12-53" href="#__codelineno-12-53"></a>    <span class="n">generate_codes</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<a id="__codelineno-12-54" name="__codelineno-12-54" href="#__codelineno-12-54"></a>    <span class="k">return</span> <span class="n">codes</span><span class="p">,</span> <span class="n">root</span>
+<a id="__codelineno-12-55" name="__codelineno-12-55" href="#__codelineno-12-55"></a>
+<a id="__codelineno-12-56" name="__codelineno-12-56" href="#__codelineno-12-56"></a><span class="k">def</span><span class="w"> </span><span class="nf">encode_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">codes</span><span class="p">):</span>
+<a id="__codelineno-12-57" name="__codelineno-12-57" href="#__codelineno-12-57"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode text using Huffman codes.&quot;&quot;&quot;</span>
+<a id="__codelineno-12-58" name="__codelineno-12-58" href="#__codelineno-12-58"></a>    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">codes</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-12-59" name="__codelineno-12-59" href="#__codelineno-12-59"></a>
+<a id="__codelineno-12-60" name="__codelineno-12-60" href="#__codelineno-12-60"></a><span class="k">def</span><span class="w"> </span><span class="nf">decode_text</span><span class="p">(</span><span class="n">encoded</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+<a id="__codelineno-12-61" name="__codelineno-12-61" href="#__codelineno-12-61"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Decode using Huffman tree.&quot;&quot;&quot;</span>
+<a id="__codelineno-12-62" name="__codelineno-12-62" href="#__codelineno-12-62"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">encoded</span><span class="p">:</span>
+<a id="__codelineno-12-63" name="__codelineno-12-63" href="#__codelineno-12-63"></a>        <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+<a id="__codelineno-12-64" name="__codelineno-12-64" href="#__codelineno-12-64"></a>
+<a id="__codelineno-12-65" name="__codelineno-12-65" href="#__codelineno-12-65"></a>    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-12-66" name="__codelineno-12-66" href="#__codelineno-12-66"></a>    <span class="n">node</span> <span class="o">=</span> <span class="n">root</span>
+<a id="__codelineno-12-67" name="__codelineno-12-67" href="#__codelineno-12-67"></a>
+<a id="__codelineno-12-68" name="__codelineno-12-68" href="#__codelineno-12-68"></a>    <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="n">encoded</span><span class="p">:</span>
+<a id="__codelineno-12-69" name="__codelineno-12-69" href="#__codelineno-12-69"></a>        <span class="c1"># Traverse tree</span>
+<a id="__codelineno-12-70" name="__codelineno-12-70" href="#__codelineno-12-70"></a>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">bit</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+<a id="__codelineno-12-71" name="__codelineno-12-71" href="#__codelineno-12-71"></a>
+<a id="__codelineno-12-72" name="__codelineno-12-72" href="#__codelineno-12-72"></a>        <span class="c1"># Reached leaf</span>
+<a id="__codelineno-12-73" name="__codelineno-12-73" href="#__codelineno-12-73"></a>        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">char</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-12-74" name="__codelineno-12-74" href="#__codelineno-12-74"></a>            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">char</span><span class="p">)</span>
+<a id="__codelineno-12-75" name="__codelineno-12-75" href="#__codelineno-12-75"></a>            <span class="n">node</span> <span class="o">=</span> <span class="n">root</span>  <span class="c1"># Reset to root</span>
+<a id="__codelineno-12-76" name="__codelineno-12-76" href="#__codelineno-12-76"></a>
+<a id="__codelineno-12-77" name="__codelineno-12-77" href="#__codelineno-12-77"></a>    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<a id="__codelineno-12-78" name="__codelineno-12-78" href="#__codelineno-12-78"></a>
+<a id="__codelineno-12-79" name="__codelineno-12-79" href="#__codelineno-12-79"></a><span class="c1"># Example</span>
+<a id="__codelineno-12-80" name="__codelineno-12-80" href="#__codelineno-12-80"></a><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;huffman encoding example&quot;</span>
+<a id="__codelineno-12-81" name="__codelineno-12-81" href="#__codelineno-12-81"></a><span class="n">codes</span><span class="p">,</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">huffman_encoding</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-12-82" name="__codelineno-12-82" href="#__codelineno-12-82"></a>
+<a id="__codelineno-12-83" name="__codelineno-12-83" href="#__codelineno-12-83"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Character codes:&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-84" name="__codelineno-12-84" href="#__codelineno-12-84"></a><span class="k">for</span> <span class="n">char</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">codes</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+<a id="__codelineno-12-85" name="__codelineno-12-85" href="#__codelineno-12-85"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  &#39;</span><span class="si">{</span><span class="n">char</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-86" name="__codelineno-12-86" href="#__codelineno-12-86"></a>
+<a id="__codelineno-12-87" name="__codelineno-12-87" href="#__codelineno-12-87"></a><span class="n">encoded</span> <span class="o">=</span> <span class="n">encode_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">codes</span><span class="p">)</span>
+<a id="__codelineno-12-88" name="__codelineno-12-88" href="#__codelineno-12-88"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Original: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="si">}</span><span class="s2"> bits&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-89" name="__codelineno-12-89" href="#__codelineno-12-89"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Encoded:  </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">encoded</span><span class="p">)</span><span class="si">}</span><span class="s2"> bits&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-90" name="__codelineno-12-90" href="#__codelineno-12-90"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Compression: </span><span class="si">{</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">encoded</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">*</span><span class="mi">8</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-91" name="__codelineno-12-91" href="#__codelineno-12-91"></a>
+<a id="__codelineno-12-92" name="__codelineno-12-92" href="#__codelineno-12-92"></a><span class="n">decoded</span> <span class="o">=</span> <span class="n">decode_text</span><span class="p">(</span><span class="n">encoded</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
+<a id="__codelineno-12-93" name="__codelineno-12-93" href="#__codelineno-12-93"></a><span class="k">assert</span> <span class="n">decoded</span> <span class="o">==</span> <span class="n">text</span><span class="p">,</span> <span class="s2">&quot;Encoding/decoding failed!&quot;</span>
+</code></pre></div>
 <ul>
 <li>
 <p><strong>Compression Analysis</strong></p>

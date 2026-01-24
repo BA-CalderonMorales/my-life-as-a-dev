@@ -4363,11 +4363,9 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../docs-as-code/zensical/internationalization/" class="md-nav__link">
+      <a href="../../../docs-as-code/zensical/internationalization.md" class="md-nav__link">
         
   
-  
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-languages" viewBox="0 0 24 24"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg>
   
   <span class="md-ellipsis">
     
@@ -6420,20 +6418,20 @@
 <hr />
 <h2 id="the-three-pillars">The Three Pillars<a class="headerlink" href="#the-three-pillars" title="Permanent link">&para;</a></h2>
 <p>Every production system must balance these concerns:</p>
-<pre><code class="language-text">┌─────────────────────────────────────────────────────────────────────────────┐
-│                           SYSTEM DESIGN PILLARS                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-
-         RELIABILITY              SCALABILITY             MAINTAINABILITY
-    ┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
-    │ Works correctly │      │ Handles growth  │      │ Easy to operate │
-    │ under adversity │      │ efficiently     │      │ and evolve      │
-    ├─────────────────┤      ├─────────────────┤      ├─────────────────┤
-    │ - Fault tolerant│      │ - Horizontal    │      │ - Observability │
-    │ - Redundancy    │      │ - Vertical      │      │ - Simplicity    │
-    │ - Graceful fail │      │ - Auto-scaling  │      │ - Documentation │
-    └─────────────────┘      └─────────────────┘      └─────────────────┘
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                           SYSTEM DESIGN PILLARS                             │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>└─────────────────────────────────────────────────────────────────────────────┘
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>         RELIABILITY              SCALABILITY             MAINTAINABILITY
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    ┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    │ Works correctly │      │ Handles growth  │      │ Easy to operate │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    │ under adversity │      │ efficiently     │      │ and evolve      │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    ├─────────────────┤      ├─────────────────┤      ├─────────────────┤
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    │ - Fault tolerant│      │ - Horizontal    │      │ - Observability │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    │ - Redundancy    │      │ - Vertical      │      │ - Simplicity    │
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    │ - Graceful fail │      │ - Auto-scaling  │      │ - Documentation │
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    └─────────────────┘      └─────────────────┘      └─────────────────┘
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -6464,17 +6462,17 @@
 <h2 id="core-concepts">Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">&para;</a></h2>
 <h3 id="cap-theorem">CAP Theorem<a class="headerlink" href="#cap-theorem" title="Permanent link">&para;</a></h3>
 <p>In a distributed data store, you can only guarantee two of the three:</p>
-<pre><code class="language-text">                          Consistency
-                              /\
-                             /  \
-                            /    \
-                           / CP   \
-                          /________\
-                         /          \
-                        /     AP     \
-               Availability ──────── Partition
-                                     Tolerance
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>                          Consistency
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>                              /\
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>                             /  \
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>                            /    \
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                           / CP   \
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                          /________\
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>                         /          \
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>                        /     AP     \
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>               Availability ──────── Partition
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>                                     Tolerance
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -6568,21 +6566,21 @@
 </tbody>
 </table>
 <h3 id="latency-numbers">Latency Numbers<a class="headerlink" href="#latency-numbers" title="Permanent link">&para;</a></h3>
-<pre><code class="language-text">┌─────────────────────────────────────────────────────────────────────────────┐
-│                         LATENCY COMPARISON                                  │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  L1 Cache Reference           ████                           0.5 ns        │
-│  Mutex Lock/Unlock            ████████████████               100 ns        │
-│  Main Memory Reference        ████████████████               100 ns        │
-│  Send 2KB over 1Gbps          ████████████████████████       20 us         │
-│  Read 1MB from Memory         ████████████████████████████   250 us        │
-│  Datacenter Round Trip        █████████████████████████████  500 us        │
-│  Disk Seek                    ██████████████████████████████ 10 ms         │
-│  CA to Netherlands Round Trip ██████████████████████████████ 150 ms        │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>┌─────────────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│                         LATENCY COMPARISON                                  │
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├─────────────────────────────────────────────────────────────────────────────┤
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│                                                                             │
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│  L1 Cache Reference           ████                           0.5 ns        │
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│  Mutex Lock/Unlock            ████████████████               100 ns        │
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│  Main Memory Reference        ████████████████               100 ns        │
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│  Send 2KB over 1Gbps          ████████████████████████       20 us         │
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│  Read 1MB from Memory         ████████████████████████████   250 us        │
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>│  Datacenter Round Trip        █████████████████████████████  500 us        │
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│  Disk Seek                    ██████████████████████████████ 10 ms         │
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>│  CA to Netherlands Round Trip ██████████████████████████████ 150 ms        │
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>│                                                                             │
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>└─────────────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -6627,31 +6625,31 @@
 </table>
 <hr />
 <h2 id="system-design-interview-framework">System Design Interview Framework<a class="headerlink" href="#system-design-interview-framework" title="Permanent link">&para;</a></h2>
-<pre><code class="language-text">1. CLARIFY REQUIREMENTS (5 min)
-   └── Functional requirements
-   └── Non-functional requirements (scale, latency, availability)
-   └── Constraints and assumptions
-
-2. ESTIMATE SCALE (5 min)
-   └── Users: DAU, peak concurrent users
-   └── Storage: data size, growth rate
-   └── Bandwidth: read/write ratio
-
-3. HIGH-LEVEL DESIGN (10-15 min)
-   └── Core components
-   └── Data flow
-   └── API design
-
-4. DEEP DIVE (15-20 min)
-   └── Data model
-   └── Scaling strategies
-   └── Trade-offs
-
-5. WRAP UP (5 min)
-   └── Bottlenecks
-   └── Future improvements
-   └── Monitoring and alerts
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>1. CLARIFY REQUIREMENTS (5 min)
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>   └── Functional requirements
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>   └── Non-functional requirements (scale, latency, availability)
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>   └── Constraints and assumptions
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>2. ESTIMATE SCALE (5 min)
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>   └── Users: DAU, peak concurrent users
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>   └── Storage: data size, growth rate
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>   └── Bandwidth: read/write ratio
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>3. HIGH-LEVEL DESIGN (10-15 min)
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>   └── Core components
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>   └── Data flow
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>   └── API design
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>4. DEEP DIVE (15-20 min)
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>   └── Data model
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>   └── Scaling strategies
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>   └── Trade-offs
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>5. WRAP UP (5 min)
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>   └── Bottlenecks
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>   └── Future improvements
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>   └── Monitoring and alerts
+</code></pre></div>
 <hr />
 <h2 id="deep-dives">Deep Dives<a class="headerlink" href="#deep-dives" title="Permanent link">&para;</a></h2>
 <ul>

@@ -4354,11 +4354,9 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs-as-code/zensical/internationalization/" class="md-nav__link">
+      <a href="../../../../docs-as-code/zensical/internationalization.md" class="md-nav__link">
         
   
-  
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-languages" viewBox="0 0 24 24"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg>
   
   <span class="md-ellipsis">
     
@@ -6611,31 +6609,31 @@
 </ul>
 <h2 id="local-development">Local Development<a class="headerlink" href="#local-development" title="Permanent link">&para;</a></h2>
 <h3 id="1-clone-the-repository">1. Clone the Repository<a class="headerlink" href="#1-clone-the-repository" title="Permanent link">&para;</a></h3>
-<pre><code class="language-bash">git clone https://github.com/BA-CalderonMorales/rust-terminal-forge.git
-cd rust-terminal-forge
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/BA-CalderonMorales/rust-terminal-forge.git
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>rust-terminal-forge
+</code></pre></div>
 <h3 id="2-install-dependencies">2. Install Dependencies<a class="headerlink" href="#2-install-dependencies" title="Permanent link">&para;</a></h3>
-<pre><code class="language-bash">npm install
-wasm-pack build
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npm<span class="w"> </span>install
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>wasm-pack<span class="w"> </span>build
+</code></pre></div>
 <h3 id="3-start-the-development-server">3. Start the Development Server<a class="headerlink" href="#3-start-the-development-server" title="Permanent link">&para;</a></h3>
-<pre><code class="language-bash">npm run dev
-</code></pre>
-<p>Or using Yarn:</p>
-<pre><code class="language-bash">yarn dev
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>npm<span class="w"> </span>run<span class="w"> </span>dev
+</code></pre></div>
+<p>Or using Yarn:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>yarn<span class="w"> </span>dev
+</code></pre></div></p>
 <p>Open <a href="http://localhost:8080">http://localhost:8080</a> in your browser.</p>
 <h3 id="4-build-for-production">4. Build for Production<a class="headerlink" href="#4-build-for-production" title="Permanent link">&para;</a></h3>
-<pre><code class="language-bash">wasm-pack build --release
-npm run build
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>wasm-pack<span class="w"> </span>build<span class="w"> </span>--release
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>npm<span class="w"> </span>run<span class="w"> </span>build
+</code></pre></div>
 <p>The production build will be in the <code>dist/</code> directory.</p>
 <h3 id="5-preview-production-build">5. Preview Production Build<a class="headerlink" href="#5-preview-production-build" title="Permanent link">&para;</a></h3>
-<pre><code class="language-bash">npm run preview
-</code></pre>
-<p>Or using Yarn:</p>
-<pre><code class="language-bash">yarn preview
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>npm<span class="w"> </span>run<span class="w"> </span>preview
+</code></pre></div>
+<p>Or using Yarn:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>yarn<span class="w"> </span>preview
+</code></pre></div></p>
 <h2 id="project-scripts">Project Scripts<a class="headerlink" href="#project-scripts" title="Permanent link">&para;</a></h2>
 <ul>
 <li><code>dev</code>: Start development server</li>
@@ -6651,16 +6649,16 @@ npm run build
 <ol>
 <li>
 <p>Build the project:
-   <code>bash
-   wasm-pack build --release
-   npm run build</code></p>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>wasm-pack<span class="w"> </span>build<span class="w"> </span>--release
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>npm<span class="w"> </span>run<span class="w"> </span>build
+</code></pre></div></p>
 </li>
 <li>
 <p>Deploy to GitHub Pages:
-   <code>bash
-   git add dist -f
-   git commit -m "Deploy to GitHub Pages"
-   git subtree push --prefix dist origin gh-pages</code></p>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>add<span class="w"> </span>dist<span class="w"> </span>-f
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Deploy to GitHub Pages&quot;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>git<span class="w"> </span>subtree<span class="w"> </span>push<span class="w"> </span>--prefix<span class="w"> </span>dist<span class="w"> </span>origin<span class="w"> </span>gh-pages
+</code></pre></div></p>
 </li>
 </ol>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
