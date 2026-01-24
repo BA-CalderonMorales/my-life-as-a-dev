@@ -1,0 +1,140 @@
+/* ============================================
+   Theme - Colors and CSS Variables
+   Core design tokens and color scheme definitions
+   Teal/Coral palette matching profile image
+   ============================================ */
+
+:root {
+    /* Brand colors - Monochrome Minimalist */
+    --md-primary-fg-color: #000000;
+    --md-primary-fg-color--light: #333333;
+    --md-primary-fg-color--dark: #000000;
+    --md-accent-fg-color: #666666;
+    --md-accent-fg-color--light: #999999;
+    --md-accent-fg-color--transparent: rgba(0, 0, 0, 0.1);
+
+    /* Extended palette for UI elements */
+    --brand-teal: #333333;
+    --brand-coral: #666666;
+    --brand-teal-glow: rgba(0, 0, 0, 0.15);
+    --brand-coral-glow: rgba(100, 100, 100, 0.15);
+
+    /* Link color tokens - consistent underline style */
+    --md-link-color: inherit;
+    --md-link-color-hover: var(--md-accent-fg-color);
+
+    /* ============================================
+       Global Layout & Spacing Tokens
+       ============================================ */
+    /* Ultra-minimal: No border radius */
+    --mlad-radius-sm: 0;
+    --mlad-radius-md: 0;
+    --mlad-radius-lg: 0;
+    --mlad-radius-pill: 0;
+
+    --mlad-spacing-xs: 0.25rem;
+    --mlad-spacing-sm: 0.5rem;
+    --mlad-spacing-md: 1rem;
+    --mlad-spacing-lg: 2rem;
+
+    /* ============================================
+       Global Component Tokens (Single Source of Truth)
+       Easy configuration for Buttons, UI elements across the app
+       ============================================ */
+
+    /* Default (Light Mode) Component Colors */
+    --mlad-button-bg: #000000;
+    --mlad-button-fg: #ffffff;
+    --mlad-button-border: #000000;
+    --mlad-button-bg-hover: #333333;
+
+    --mlad-header-bg: #ffffff;
+    --mlad-header-fg: #000000;
+    --mlad-menu-btn-bg: transparent;
+    --mlad-menu-btn-bg-hover: rgba(0, 0, 0, 0.05);
+
+    --mlad-chat-bg: #000000;
+    --mlad-chat-fg: #ffffff;
+}
+
+/* Light mode overrides */
+[data-md-color-scheme="default"] {
+    --md-default-bg-color: #ffffff;
+    --md-default-fg-color: #000000;
+    --md-default-fg-color--light: #333333;
+    --md-default-fg-color--lighter: #666666;
+    --md-default-fg-color--lightest: rgba(0, 0, 0, 0.12);
+    --md-code-bg-color: #f5f5f5;
+    --md-code-fg-color: #000000;
+
+    /* Ensure Header is White */
+    --md-primary-fg-color: #000000;
+    --md-primary-bg-color: #ffffff;
+}
+
+/* Dark mode overrides */
+[data-md-color-scheme="slate"] {
+    /* Base Colors */
+    --md-default-bg-color: #000000;
+    --md-default-fg-color: #e0e0e0;
+    /* Softened white text */
+    --md-default-fg-color--light: #a0a0a0;
+    --md-default-fg-color--lighter: #707070;
+    --md-default-fg-color--lightest: rgba(255, 255, 255, 0.15);
+
+    /* Code Blocks */
+    --md-code-bg-color: #111111;
+    --md-code-fg-color: #e0e0e0;
+
+    /* Primary / Accent (Links & Highlights) */
+    --md-primary-fg-color: #ffffff;
+    --md-primary-bg-color: #000000;
+    /* Header background */
+    --md-primary-fg-color--light: #cccccc;
+    --md-primary-fg-color--dark: #999999;
+    --md-accent-fg-color: #a0a0a0;
+    --md-accent-fg-color--transparent: rgba(255, 255, 255, 0.15);
+    --md-link-color: inherit;
+    --md-link-color-hover: #a0a0a0;
+
+    /* Component Tokens - Dark Mode Specifics */
+    /* Using a dark gray button instead of white to reduce contrast glare */
+    --mlad-button-bg: #222222;
+    --mlad-button-fg: #ffffff;
+    --mlad-button-border: #444444;
+    --mlad-button-bg-hover: #333333;
+
+    --mlad-header-bg: #000000;
+    --mlad-header-fg: #ffffff;
+    --mlad-menu-btn-bg: transparent;
+    --mlad-menu-btn-bg-hover: rgba(255, 255, 255, 0.1);
+
+    --mlad-chat-bg: #222222;
+    --mlad-chat-fg: #ffffff;
+}
+
+/* Focus states */
+:focus-visible {
+    outline: 2px solid var(--md-accent-fg-color);
+    outline-offset: 2px;
+}
+
+/* Selection highlight */
+::selection {
+    background: var(--md-accent-fg-color--transparent);
+}
+
+/* Anchor colors - exclude buttons */
+.md-typeset a:not(.md-button),
+.md-typeset a:not(.md-button):visited {
+    color: var(--md-default-fg-color);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: opacity 0.2s ease;
+}
+
+.md-typeset a:not(.md-button):hover,
+.md-typeset a:not(.md-button):focus-visible {
+    opacity: 0.7;
+}
