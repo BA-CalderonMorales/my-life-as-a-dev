@@ -175,5 +175,8 @@
 {% if page and page.url != '' and not is_canvas_page %}
 {% include "partials/share.html" %}
 {% endif %}
+{% endblock %}
+
+{% block comments %}
 {% include "partials/comments.html" %}
 {% endblock %}
