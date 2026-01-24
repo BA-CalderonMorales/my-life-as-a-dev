@@ -6714,55 +6714,55 @@
 <li>Built-in UI strings ("Search", "Table of contents", "Next", "Previous", etc.)</li>
 <li>Text directionality (left-to-right or right-to-left)</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">[project.theme]</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;en&quot;</span><span class="w">  </span><span class="c1"># Currently English</span>
-</code></pre></div>
+<pre><code class="language-toml">[project.theme]
+language = &quot;en&quot;  # Currently English
+</code></pre>
 <h3 id="what-the-language-selector-does">What the Language Selector Does<a class="headerlink" href="#what-the-language-selector-does" title="Permanent link">&para;</a></h3>
 <p>When configured, the language selector dropdown links to <strong>completely separate documentation sites</strong> - one for each language:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/en/  --&gt; English site
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/es/  --&gt; Spanish site (must be manually created)
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>/de/  --&gt; German site (must be manually created)
-</code></pre></div>
+<pre><code>/en/  --&gt; English site
+/es/  --&gt; Spanish site (must be manually created)
+/de/  --&gt; German site (must be manually created)
+</code></pre>
 <h2 id="current-configuration">Current Configuration<a class="headerlink" href="#current-configuration" title="Permanent link">&para;</a></h2>
 <p>The language selector is <strong>configured but commented out</strong> in <a href="../config/zensical/04-theme.toml">04-theme.toml</a>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Uncomment when translated content is available:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># [[project.extra.alternate]]</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># name = &quot;English&quot;</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># link = &quot;/en/&quot;</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># lang = &quot;en&quot;</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1">#</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># [[project.extra.alternate]]</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># name = &quot;Espanol&quot;</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># link = &quot;/es/&quot;</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1"># lang = &quot;es&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml"># Uncomment when translated content is available:
+
+# [[project.extra.alternate]]
+# name = &quot;English&quot;
+# link = &quot;/en/&quot;
+# lang = &quot;en&quot;
+#
+# [[project.extra.alternate]]
+# name = &quot;Espanol&quot;
+# link = &quot;/es/&quot;
+# lang = &quot;es&quot;
+</code></pre>
 <h2 id="setting-up-multi-language-support">Setting Up Multi-Language Support<a class="headerlink" href="#setting-up-multi-language-support" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-restructure-documentation">Step 1: Restructure Documentation<a class="headerlink" href="#step-1-restructure-documentation" title="Permanent link">&para;</a></h3>
 <p>Move your current docs into a language-specific folder:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Create language directories</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>docs/en<span class="w"> </span>docs/es
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Move existing content to English</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>mv<span class="w"> </span>docs/*.md<span class="w"> </span>docs/en/
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>mv<span class="w"> </span>docs/learning<span class="w"> </span>docs/en/
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>mv<span class="w"> </span>docs/projects<span class="w"> </span>docs/en/
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># ... etc</span>
-</code></pre></div>
+<pre><code class="language-bash"># Create language directories
+mkdir -p docs/en docs/es
+
+# Move existing content to English
+mv docs/*.md docs/en/
+mv docs/learning docs/en/
+mv docs/projects docs/en/
+# ... etc
+</code></pre>
 <p>Resulting structure:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docs/
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>├── en/           # English content
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>│   ├── index.md
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>│   ├── learning/
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│   ├── projects/
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│   └── ...
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>├── es/           # Spanish content (translated copies)
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>│   ├── index.md
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>│   ├── learning/
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>│   ├── projects/
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>│   └── ...
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>└── overrides/    # Shared theme overrides
-</code></pre></div>
+<pre><code>docs/
+├── en/           # English content
+│   ├── index.md
+│   ├── learning/
+│   ├── projects/
+│   └── ...
+├── es/           # Spanish content (translated copies)
+│   ├── index.md
+│   ├── learning/
+│   ├── projects/
+│   └── ...
+└── overrides/    # Shared theme overrides
+</code></pre>
 <h3 id="step-2-translate-content">Step 2: Translate Content<a class="headerlink" href="#step-2-translate-content" title="Permanent link">&para;</a></h3>
 <p>For each language, you need to:</p>
 <ol>
@@ -6772,16 +6772,16 @@
 </ol>
 <h3 id="step-3-configure-the-selector">Step 3: Configure the Selector<a class="headerlink" href="#step-3-configure-the-selector" title="Permanent link">&para;</a></h3>
 <p>Uncomment the language configuration in <code>config/zensical/04-theme.toml</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">[[project.extra.alternate]]</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;English&quot;</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">link</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/en/&quot;</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;en&quot;</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">[[project.extra.alternate]]</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Espanol&quot;</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="n">link</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/es/&quot;</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;es&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml">[[project.extra.alternate]]
+name = &quot;English&quot;
+link = &quot;/en/&quot;
+lang = &quot;en&quot;
+
+[[project.extra.alternate]]
+name = &quot;Espanol&quot;
+link = &quot;/es/&quot;
+lang = &quot;es&quot;
+</code></pre>
 <h3 id="step-4-build-and-deploy">Step 4: Build and Deploy<a class="headerlink" href="#step-4-build-and-deploy" title="Permanent link">&para;</a></h3>
 <p>You may need to build and deploy each language version separately, or use a multi-site build configuration.</p>
 <h2 id="translation-options">Translation Options<a class="headerlink" href="#translation-options" title="Permanent link">&para;</a></h2>
@@ -6870,31 +6870,31 @@
 </tbody>
 </table>
 <p>For right-to-left languages, set:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">[project.theme]</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ar&quot;</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;rtl&quot;</span>
-</code></pre></div>
+<pre><code class="language-toml">[project.theme]
+language = &quot;ar&quot;
+direction = &quot;rtl&quot;
+</code></pre>
 <h2 id="ui-translation-customization">UI Translation Customization<a class="headerlink" href="#ui-translation-customization" title="Permanent link">&para;</a></h2>
 <p>To customize built-in UI translations, create a custom language file:</p>
-<div class="highlight"><span class="filename">docs/overrides/partials/languages/custom.html</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cm">&lt;!-- Import base language and fallback --&gt;</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>{% import &quot;partials/languages/es.html&quot; as language %}
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>{% import &quot;partials/languages/en.html&quot; as fallback %}
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="cm">&lt;!-- Custom overrides --&gt;</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>{% macro override(key) %}{{ {
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  &quot;search.placeholder&quot;: &quot;Buscar en la documentacion...&quot;,
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  &quot;toc.title&quot;: &quot;En esta pagina&quot;
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>}[key] }}{% endmacro %}
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="cm">&lt;!-- Re-export --&gt;</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>{% macro t(key) %}{{
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>  override(key) or language.t(key) or fallback.t(key)
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>}}{% endmacro %}
-</code></pre></div>
-<p>Then reference it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">[project.theme]</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;custom&quot;</span>
-</code></pre></div>
+<p>```html title="docs/overrides/partials/languages/custom.html"</p>
+<!-- Import base language and fallback -->
+<p _="%" _partials_languages_en.html_="&quot;partials/languages/en.html&quot;" as="as" fallback="fallback" import="import">{% import "partials/languages/es.html" as language %}</p>
+<!-- Custom overrides -->
+<p>{% macro override(key) %}{{ {
+  "search.placeholder": "Buscar en la documentacion...",
+  "toc.title": "En esta pagina"
+}[key] }}{% endmacro %}</p>
+<!-- Re-export -->
+<p>{% macro t(key) %}{{
+  override(key) or language.t(key) or fallback.t(key)
+}}{% endmacro %}</p>
+<pre><code>
+Then reference it:
+
+```toml
+[project.theme]
+language = &quot;custom&quot;
+</code></pre>
 <h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/">MkDocs Material - Changing the Language</a></li>
@@ -7206,6 +7206,23 @@
 
 <!-- Three.js Background Animation -->
 <script type="module" src="../../../assets/js/threejs-background/main.js"></script>
+
+<!-- Page class detection for landing page -->
+<script>
+  (function () {
+    const path = window.location.pathname;
+    // Check if this is the home page (ends with /latest/, /0.x.y/, or just the repo root)
+    const isHome = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/.test(path);
+    const isCanvas = path.includes('/canvas/');
+
+    if (isHome) {
+      document.body.classList.add('landing-page');
+    }
+    if (isCanvas) {
+      document.body.classList.add('canvas-page');
+    }
+  })();
+</script>
 
 <!-- Canvas Page Three.js Scene (handles instant navigation) -->
 <script type="module" src="../../../assets/js/canvas/scene/main.js"></script>

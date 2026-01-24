@@ -6624,11 +6624,11 @@
 <p>Both work with Vertex AI. Use the SDK approach for production; Studio exports are great for quick testing.</p>
 </div>
 <p>To use exported code from Studio, install the required package:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>google-genai
-</code></pre></div>
+<pre><code class="language-bash">pip install --upgrade google-genai
+</code></pre>
 <p>Authenticate with your Google Cloud account:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gcloud<span class="w"> </span>auth<span class="w"> </span>application-default<span class="w"> </span>login
-</code></pre></div>
+<pre><code class="language-bash">gcloud auth application-default login
+</code></pre>
 <hr />
 <h2 id="studio-features">Studio Features<a class="headerlink" href="#studio-features" title="Permanent link">&para;</a></h2>
 <table>
@@ -7078,6 +7078,23 @@
 
 <!-- Three.js Background Animation -->
 <script type="module" src="../../../../assets/js/threejs-background/main.js"></script>
+
+<!-- Page class detection for landing page -->
+<script>
+  (function () {
+    const path = window.location.pathname;
+    // Check if this is the home page (ends with /latest/, /0.x.y/, or just the repo root)
+    const isHome = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/.test(path);
+    const isCanvas = path.includes('/canvas/');
+
+    if (isHome) {
+      document.body.classList.add('landing-page');
+    }
+    if (isCanvas) {
+      document.body.classList.add('canvas-page');
+    }
+  })();
+</script>
 
 <!-- Canvas Page Three.js Scene (handles instant navigation) -->
 <script type="module" src="../../../../assets/js/canvas/scene/main.js"></script>

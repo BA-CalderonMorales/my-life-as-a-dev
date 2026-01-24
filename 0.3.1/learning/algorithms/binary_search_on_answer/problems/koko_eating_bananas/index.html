@@ -6469,11 +6469,11 @@
 <h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
 <p>Koko loves bananas. There are N piles of bananas, where pile i has piles[i] bananas. The guards will return in H hours. Koko can decide her eating speed k (bananas per hour). Each hour, she chooses a pile and eats k bananas. If the pile has fewer than k bananas, she eats them all and won't eat more that hour.</p>
 <p>Find the minimum eating speed k so she can eat all bananas within H hours.</p>
-<p><strong>Example</strong>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Input: piles = [3, 6, 7, 11], h = 8
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Output: 4
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Explanation: Speed 4 allows eating all bananas in 8 hours
-</code></pre></div></p>
+<p><strong>Example</strong>:</p>
+<pre><code>Input: piles = [3, 6, 7, 11], h = 8
+Output: 4
+Explanation: Speed 4 allows eating all bananas in 8 hours
+</code></pre>
 <h2 id="approach">Approach<a class="headerlink" href="#approach" title="Permanent link">&para;</a></h2>
 <p>Key observations:</p>
 <ul>
@@ -6484,86 +6484,86 @@
 </ul>
 <p>Binary search for minimum speed that works.</p>
 <h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">min_eating_speed</span><span class="p">(</span><span class="n">piles</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sd">    Find minimum eating speed to finish all bananas in h hours.</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="sd">    Time Complexity: O(n * log(max(piles))) - binary search * validation</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="sd">    Space Complexity: O(1) - only using pointers</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">can_eat_all_with_speed</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if can eat all bananas with speed k in h hours.&quot;&quot;&quot;</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="n">hours_needed</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="k">for</span> <span class="n">pile</span> <span class="ow">in</span> <span class="n">piles</span><span class="p">:</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="c1"># Ceiling division: hours to eat this pile</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>            <span class="n">hours_needed</span> <span class="o">+=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">pile</span> <span class="o">/</span> <span class="n">k</span><span class="p">)</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="k">return</span> <span class="n">hours_needed</span> <span class="o">&lt;=</span> <span class="n">h</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    <span class="c1"># Search space: [1, max pile size]</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="n">left</span> <span class="o">=</span> <span class="mi">1</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="n">right</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">piles</span><span class="p">)</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="c1"># Binary search for minimum speed</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>        <span class="k">if</span> <span class="n">can_eat_all_with_speed</span><span class="p">(</span><span class="n">mid</span><span class="p">):</span>
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>            <span class="c1"># This speed works, try slower</span>
-<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>            <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span>
-<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>            <span class="c1"># This speed too slow, need faster</span>
-<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>            <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>
-<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    <span class="k">return</span> <span class="n">left</span>
-<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>
-<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="c1"># Test</span>
-<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="n">piles</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
-<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="n">h</span> <span class="o">=</span> <span class="mi">8</span>
-<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="nb">print</span><span class="p">(</span><span class="n">min_eating_speed</span><span class="p">(</span><span class="n">piles</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>  <span class="c1"># Output: 4</span>
-</code></pre></div>
+<pre><code class="language-python">import math
+
+def min_eating_speed(piles, h):
+    &quot;&quot;&quot;
+    Find minimum eating speed to finish all bananas in h hours.
+
+    Time Complexity: O(n * log(max(piles))) - binary search * validation
+    Space Complexity: O(1) - only using pointers
+    &quot;&quot;&quot;
+    def can_eat_all_with_speed(k):
+        &quot;&quot;&quot;Check if can eat all bananas with speed k in h hours.&quot;&quot;&quot;
+        hours_needed = 0
+        for pile in piles:
+            # Ceiling division: hours to eat this pile
+            hours_needed += math.ceil(pile / k)
+        return hours_needed &lt;= h
+
+    # Search space: [1, max pile size]
+    left = 1
+    right = max(piles)
+
+    # Binary search for minimum speed
+    while left &lt; right:
+        mid = (left + right) // 2
+
+        if can_eat_all_with_speed(mid):
+            # This speed works, try slower
+            right = mid
+        else:
+            # This speed too slow, need faster
+            left = mid + 1
+
+    return left
+
+# Test
+piles = [3, 6, 7, 11]
+h = 8
+print(min_eating_speed(piles, h))  # Output: 4
+</code></pre>
 <h2 id="step-by-step-walkthrough">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>piles = [3, 6, 7, 11], h = 8
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Search space: [1, 11 (max pile)]
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Iteration 1: mid = (1 + 11) // 2 = 6
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  Can eat with speed 6?
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    Pile 3: ceil(3/6) = 1 hour
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    Pile 6: ceil(6/6) = 1 hour
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    Pile 7: ceil(7/6) = 2 hours
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    Pile 11: ceil(11/6) = 2 hours
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    Total: 6 hours &lt;= 8 hours
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  Works! Try slower: right = 6
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>Iteration 2: mid = (1 + 6) // 2 = 3
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>  Can eat with speed 3?
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    Pile 3: ceil(3/3) = 1 hour
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    Pile 6: ceil(6/3) = 2 hours
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    Pile 7: ceil(7/3) = 3 hours
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    Pile 11: ceil(11/3) = 4 hours
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    Total: 10 hours &gt; 8 hours
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>  Doesn&#39;t work! Need faster: left = 4
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>Iteration 3: mid = (4 + 6) // 2 = 5
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>  Can eat with speed 5?
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    Total: 8 hours &lt;= 8 hours
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>  Works! Try slower: right = 5
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>Iteration 4: mid = (4 + 5) // 2 = 4
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>  Can eat with speed 4?
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>    Pile 3: ceil(3/4) = 1 hour
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>    Pile 6: ceil(6/4) = 2 hours
-<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>    Pile 7: ceil(7/4) = 2 hours
-<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    Pile 11: ceil(11/4) = 3 hours
-<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>    Total: 8 hours &lt;= 8 hours
-<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>  Works! Try slower: right = 4
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>
-<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>left = right = 4, exit loop
-<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>
-<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>Result: 4
-</code></pre></div>
+<pre><code>piles = [3, 6, 7, 11], h = 8
+
+Search space: [1, 11 (max pile)]
+
+Iteration 1: mid = (1 + 11) // 2 = 6
+  Can eat with speed 6?
+    Pile 3: ceil(3/6) = 1 hour
+    Pile 6: ceil(6/6) = 1 hour
+    Pile 7: ceil(7/6) = 2 hours
+    Pile 11: ceil(11/6) = 2 hours
+    Total: 6 hours &lt;= 8 hours
+  Works! Try slower: right = 6
+
+Iteration 2: mid = (1 + 6) // 2 = 3
+  Can eat with speed 3?
+    Pile 3: ceil(3/3) = 1 hour
+    Pile 6: ceil(6/3) = 2 hours
+    Pile 7: ceil(7/3) = 3 hours
+    Pile 11: ceil(11/3) = 4 hours
+    Total: 10 hours &gt; 8 hours
+  Doesn't work! Need faster: left = 4
+
+Iteration 3: mid = (4 + 6) // 2 = 5
+  Can eat with speed 5?
+    Total: 8 hours &lt;= 8 hours
+  Works! Try slower: right = 5
+
+Iteration 4: mid = (4 + 5) // 2 = 4
+  Can eat with speed 4?
+    Pile 3: ceil(3/4) = 1 hour
+    Pile 6: ceil(6/4) = 2 hours
+    Pile 7: ceil(7/4) = 2 hours
+    Pile 11: ceil(11/4) = 3 hours
+    Total: 8 hours &lt;= 8 hours
+  Works! Try slower: right = 4
+
+left = right = 4, exit loop
+
+Result: 4
+</code></pre>
 <h2 id="personal-notes">Personal Notes<a class="headerlink" href="#personal-notes" title="Permanent link">&para;</a></h2>
 <p><em>Add your own notes, insights, and variations here as you practice this problem.</em></p>
 
@@ -6941,6 +6941,23 @@
 
 <!-- Three.js Background Animation -->
 <script type="module" src="../../../../../assets/js/threejs-background/main.js"></script>
+
+<!-- Page class detection for landing page -->
+<script>
+  (function () {
+    const path = window.location.pathname;
+    // Check if this is the home page (ends with /latest/, /0.x.y/, or just the repo root)
+    const isHome = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/.test(path);
+    const isCanvas = path.includes('/canvas/');
+
+    if (isHome) {
+      document.body.classList.add('landing-page');
+    }
+    if (isCanvas) {
+      document.body.classList.add('canvas-page');
+    }
+  })();
+</script>
 
 <!-- Canvas Page Three.js Scene (handles instant navigation) -->
 <script type="module" src="../../../../../assets/js/canvas/scene/main.js"></script>

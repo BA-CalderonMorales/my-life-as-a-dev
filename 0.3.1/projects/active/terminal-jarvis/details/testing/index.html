@@ -7035,8 +7035,8 @@
 <p>Terminal Jarvis uses multiple testing scripts for different scenarios:</p>
 <h3 id="smoke-testsh"><code>smoke-test.sh</code><a class="headerlink" href="#smoke-testsh" title="Permanent link">&para;</a></h3>
 <p>Quick validation of core functionality:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>./scripts/smoke-test.sh
-</code></pre></div>
+<pre><code class="language-bash">./scripts/smoke-test.sh
+</code></pre>
 <p><strong>What it tests</strong>:</p>
 <ul>
 <li>CLI help commands</li>
@@ -7048,8 +7048,8 @@
 <p><strong>When to use</strong>: Before commits, quick validation</p>
 <h3 id="test-core-functionalitysh"><code>test-core-functionality.sh</code><a class="headerlink" href="#test-core-functionalitysh" title="Permanent link">&para;</a></h3>
 <p>Comprehensive test suite (33 tests):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./scripts/test-core-functionality.sh
-</code></pre></div>
+<pre><code class="language-bash">./scripts/test-core-functionality.sh
+</code></pre>
 <p><strong>What it tests</strong>:</p>
 <ul>
 <li>All 10 AI tools are available</li>
@@ -7062,8 +7062,8 @@
 <p><strong>When to use</strong>: Before releases, major changes</p>
 <h3 id="local-cish"><code>local-ci.sh</code><a class="headerlink" href="#local-cish" title="Permanent link">&para;</a></h3>
 <p>Full CI pipeline validation:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>./scripts/cicd/local-ci.sh
-</code></pre></div>
+<pre><code class="language-bash">./scripts/cicd/local-ci.sh
+</code></pre>
 <p><strong>What it does</strong>:</p>
 <ul>
 <li>Code formatting (<code>cargo fmt</code>)</li>
@@ -7084,19 +7084,19 @@
 <li><strong>Document the fix</strong> in CHANGELOG.md</li>
 </ol>
 <p>Example workflow:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 1. Add test to test-core-functionality.sh</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>run_test<span class="w"> </span><span class="s2">&quot;Test 34: Reproduce bug XYZ&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="s2">&quot;terminal-jarvis command-that-fails&quot;</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># 2. Fix the bug in source code</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># 3. Verify fix</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>./scripts/test-core-functionality.sh
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># 4. Commit with test</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>git<span class="w"> </span>add<span class="w"> </span>scripts/test-core-functionality.sh<span class="w"> </span>src/
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;fix: resolve issue XYZ with regression test&quot;</span>
-</code></pre></div>
+<pre><code class="language-bash"># 1. Add test to test-core-functionality.sh
+run_test &quot;Test 34: Reproduce bug XYZ&quot; \
+    &quot;terminal-jarvis command-that-fails&quot;
+
+# 2. Fix the bug in source code
+
+# 3. Verify fix
+./scripts/test-core-functionality.sh
+
+# 4. Commit with test
+git add scripts/test-core-functionality.sh src/
+git commit -m &quot;fix: resolve issue XYZ with regression test&quot;
+</code></pre>
 <h2 id="core-functionality-guarantees">Core Functionality Guarantees<a class="headerlink" href="#core-functionality-guarantees" title="Permanent link">&para;</a></h2>
 <h3 id="1-tool-management">1. Tool Management<a class="headerlink" href="#1-tool-management" title="Permanent link">&para;</a></h3>
 <ul>
@@ -7143,9 +7143,9 @@
 <h2 id="homebrew-testing-infrastructure">Homebrew Testing Infrastructure<a class="headerlink" href="#homebrew-testing-infrastructure" title="Permanent link">&para;</a></h2>
 <p>Terminal Jarvis includes comprehensive Homebrew Formula testing:</p>
 <h3 id="local-tap-testing">Local Tap Testing<a class="headerlink" href="#local-tap-testing" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Test Homebrew Formula locally</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./scripts/test-homebrew-formula.sh
-</code></pre></div>
+<pre><code class="language-bash"># Test Homebrew Formula locally
+./scripts/test-homebrew-formula.sh
+</code></pre>
 <p><strong>What it tests</strong>:</p>
 <ul>
 <li>Formula syntax validation</li>
@@ -7155,9 +7155,9 @@
 <li>Installation workflow</li>
 </ul>
 <h3 id="multi-platform-build-system">Multi-Platform Build System<a class="headerlink" href="#multi-platform-build-system" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Build for multiple platforms</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>./scripts/utils/build-multiplatform.sh
-</code></pre></div>
+<pre><code class="language-bash"># Build for multiple platforms
+./scripts/utils/build-multiplatform.sh
+</code></pre>
 <p><strong>Supported platforms</strong>:</p>
 <ul>
 <li>macOS ARM64 (Apple Silicon)</li>
@@ -7167,17 +7167,17 @@
 </ul>
 <h2 id="integration-with-development-workflow">Integration with Development Workflow<a class="headerlink" href="#integration-with-development-workflow" title="Permanent link">&para;</a></h2>
 <h3 id="pre-commit-testing">Pre-commit Testing<a class="headerlink" href="#pre-commit-testing" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Quick validation before commits</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>./scripts/smoke-test.sh
-</code></pre></div>
+<pre><code class="language-bash"># Quick validation before commits
+./scripts/smoke-test.sh
+</code></pre>
 <h3 id="pre-release-testing">Pre-release Testing<a class="headerlink" href="#pre-release-testing" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Comprehensive validation before releases</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>./scripts/test-core-functionality.sh
-</code></pre></div>
+<pre><code class="language-bash"># Comprehensive validation before releases
+./scripts/test-core-functionality.sh
+</code></pre>
 <h3 id="full-release-pipeline">Full Release Pipeline<a class="headerlink" href="#full-release-pipeline" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Complete CI/CD with testing</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>./scripts/cicd/local-cicd.sh
-</code></pre></div>
+<pre><code class="language-bash"># Complete CI/CD with testing
+./scripts/cicd/local-cicd.sh
+</code></pre>
 <h2 id="regression-prevention-strategy">Regression Prevention Strategy<a class="headerlink" href="#regression-prevention-strategy" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Automated Testing</strong>: All core functionality is validated automatically</li>
@@ -7188,10 +7188,10 @@
 </ol>
 <h2 id="adding-new-tests">Adding New Tests<a class="headerlink" href="#adding-new-tests" title="Permanent link">&para;</a></h2>
 <p>When adding new functionality, extend <code>scripts/test-core-functionality.sh</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Add new test</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>run_test<span class="w"> </span><span class="s2">&quot;Test N: New feature description&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="s2">&quot;command_to_test_new_feature&quot;</span>
-</code></pre></div>
+<pre><code class="language-bash"># Add new test
+run_test &quot;Test N: New feature description&quot; \
+    &quot;command_to_test_new_feature&quot;
+</code></pre>
 <p>This ensures that new features are protected against future regressions.</p>
 <h2 id="test-philosophy">Test Philosophy<a class="headerlink" href="#test-philosophy" title="Permanent link">&para;</a></h2>
 <p><strong>Core Principle</strong>: Every bug fix should include a test that would have caught it.</p>
@@ -7220,15 +7220,15 @@
 </ul>
 <h2 id="performance-testing">Performance Testing<a class="headerlink" href="#performance-testing" title="Permanent link">&para;</a></h2>
 <h3 id="benchmarks">Benchmarks<a class="headerlink" href="#benchmarks" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Measure tool detection performance</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nb">time</span><span class="w"> </span>terminal-jarvis<span class="w"> </span>list
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Measure installation time</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nb">time</span><span class="w"> </span>terminal-jarvis<span class="w"> </span>install<span class="w"> </span>claude
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># Measure update performance</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nb">time</span><span class="w"> </span>terminal-jarvis<span class="w"> </span>update
-</code></pre></div>
+<pre><code class="language-bash"># Measure tool detection performance
+time terminal-jarvis list
+
+# Measure installation time
+time terminal-jarvis install claude
+
+# Measure update performance
+time terminal-jarvis update
+</code></pre>
 <h3 id="optimization-targets">Optimization Targets<a class="headerlink" href="#optimization-targets" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Tool detection: &lt; 100ms (cached)</li>
@@ -7623,6 +7623,23 @@
 
 <!-- Three.js Background Animation -->
 <script type="module" src="../../../../../assets/js/threejs-background/main.js"></script>
+
+<!-- Page class detection for landing page -->
+<script>
+  (function () {
+    const path = window.location.pathname;
+    // Check if this is the home page (ends with /latest/, /0.x.y/, or just the repo root)
+    const isHome = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/.test(path);
+    const isCanvas = path.includes('/canvas/');
+
+    if (isHome) {
+      document.body.classList.add('landing-page');
+    }
+    if (isCanvas) {
+      document.body.classList.add('canvas-page');
+    }
+  })();
+</script>
 
 <!-- Canvas Page Three.js Scene (handles instant navigation) -->
 <script type="module" src="../../../../../assets/js/canvas/scene/main.js"></script>

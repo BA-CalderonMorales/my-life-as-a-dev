@@ -7346,8 +7346,8 @@
 </ul>
 <p><strong>Current Behavior</strong>:</p>
 <p>Terminal Jarvis detects when tools are performing authentication and displays:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[INFO] [tool] session ended - likely due to authentication, configuration, or user exit
-</code></pre></div>
+<pre><code>[INFO] [tool] session ended - likely due to authentication, configuration, or user exit
+</code></pre>
 <p><strong>Why This Happens</strong>:</p>
 <ul>
 <li>Tools may exit after authentication setup</li>
@@ -7366,10 +7366,10 @@
 <p><strong>Requirement</strong>: Rust toolchain must be installed before using Terminal Jarvis</p>
 <p><strong>Details</strong>: Some tools require compilation or Rust-specific dependencies on macOS</p>
 <p><strong>Solution</strong>: Install Rust before Terminal Jarvis:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>--proto<span class="w"> </span><span class="s1">&#39;=https&#39;</span><span class="w"> </span>--tlsv1.2<span class="w"> </span>-sSf<span class="w"> </span>https://sh.rustup.rs<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">source</span><span class="w"> </span>~/.cargo/env
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>terminal-jarvis
-</code></pre></div>
+<pre><code class="language-bash">curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
+npm install -g terminal-jarvis
+</code></pre>
 <p><strong>Why</strong>: macOS system security and binary compilation requirements</p>
 <p><strong>Status</strong>: Documented limitation. See <a href="../../quick_start/installation/#macos-prerequisites">Installation Guide</a> for complete setup instructions.</p>
 <h3 id="windows-support">Windows Support<a class="headerlink" href="#windows-support" title="Permanent link">&para;</a></h3>
@@ -7381,10 +7381,10 @@
 <li>Best experience is through WSL2</li>
 </ul>
 <p><strong>Recommended Setup</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># In WSL2</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>terminal-jarvis
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>terminal-jarvis
-</code></pre></div>
+<pre><code class="language-bash"># In WSL2
+npm install -g terminal-jarvis
+terminal-jarvis
+</code></pre>
 <p><strong>Future Plans</strong>: Improved native Windows support in roadmap</p>
 <h2 id="performance-considerations">Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permanent link">&para;</a></h2>
 <h3 id="package-size">Package Size<a class="headerlink" href="#package-size" title="Permanent link">&para;</a></h3>
@@ -7405,16 +7405,16 @@
 <p><strong>Issue</strong>: Requires shell environment refresh after installation</p>
 <p><strong>Symptom</strong>: "command not found" after <code>terminal-jarvis install opencode</code></p>
 <p><strong>Solution</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc<span class="w">  </span><span class="c1"># or ~/.zshrc</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># or simply restart your terminal</span>
-</code></pre></div>
+<pre><code class="language-bash">source ~/.bashrc  # or ~/.zshrc
+# or simply restart your terminal
+</code></pre>
 <p><strong>Why</strong>: OpenCode modifies PATH, which requires shell reload</p>
 <h3 id="gemini">Gemini<a class="headerlink" href="#gemini" title="Permanent link">&para;</a></h3>
 <p><strong>Issue</strong>: API key validation before first use</p>
 <p><strong>Solution</strong>: Set <code>GEMINI_API_KEY</code> environment variable:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key-here&quot;</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>terminal-jarvis<span class="w"> </span>gemini
-</code></pre></div>
+<pre><code class="language-bash">export GEMINI_API_KEY=&quot;your-key-here&quot;
+terminal-jarvis gemini
+</code></pre>
 <h3 id="qwen">Qwen<a class="headerlink" href="#qwen" title="Permanent link">&para;</a></h3>
 <p><strong>Issue</strong>: Dashboard vs Scope detection</p>
 <p><strong>Symptom</strong>: Qwen may ask about authentication method</p>
@@ -7422,9 +7422,9 @@
 <h3 id="aider">Aider<a class="headerlink" href="#aider" title="Permanent link">&para;</a></h3>
 <p><strong>Issue</strong>: Requires Python 3.12 and <code>uv</code> package manager</p>
 <p><strong>Solution</strong>: Install prerequisites:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>terminal-jarvis<span class="w"> </span>install<span class="w"> </span>aider
-</code></pre></div>
+<pre><code class="language-bash">curl -LsSf https://astral.sh/uv/install.sh | sh
+terminal-jarvis install aider
+</code></pre>
 <h2 id="configuration-limitations">Configuration Limitations<a class="headerlink" href="#configuration-limitations" title="Permanent link">&para;</a></h2>
 <h3 id="project-specific-configs">Project-Specific Configs<a class="headerlink" href="#project-specific-configs" title="Permanent link">&para;</a></h3>
 <p><strong>Current</strong>: Project-level <code>terminal-jarvis.toml</code> supported but not well documented</p>
@@ -7456,9 +7456,9 @@
 <h3 id="proxy-support">Proxy Support<a class="headerlink" href="#proxy-support" title="Permanent link">&para;</a></h3>
 <p><strong>Current</strong>: Respects system proxy settings via environment variables</p>
 <p><strong>Configuration</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">HTTP_PROXY</span><span class="o">=</span>http://proxy.example.com:8080
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">HTTPS_PROXY</span><span class="o">=</span>http://proxy.example.com:8080
-</code></pre></div>
+<pre><code class="language-bash">export HTTP_PROXY=http://proxy.example.com:8080
+export HTTPS_PROXY=http://proxy.example.com:8080
+</code></pre>
 <p><strong>Limitation</strong>: Some tools may not respect proxy settings</p>
 <h2 id="distribution-channel-differences">Distribution Channel Differences<a class="headerlink" href="#distribution-channel-differences" title="Permanent link">&para;</a></h2>
 <h3 id="npm-vs-cargo-vs-homebrew">NPM vs Cargo vs Homebrew<a class="headerlink" href="#npm-vs-cargo-vs-homebrew" title="Permanent link">&para;</a></h3>
@@ -7499,9 +7499,9 @@
 <h2 id="known-bugs">Known Bugs<a class="headerlink" href="#known-bugs" title="Permanent link">&para;</a></h2>
 <h3 id="fresh-install-issues-in-codespacesnvm-environments-v0073-v0074">Fresh Install Issues in Codespaces/NVM Environments (v0.0.73-v0.0.74)<a class="headerlink" href="#fresh-install-issues-in-codespacesnvm-environments-v0073-v0074" title="Permanent link">&para;</a></h3>
 <p><strong>Issue</strong>: <a href="https://github.com/BA-CalderonMorales/terminal-jarvis/issues/39">#39</a> - Fresh installations may fail with npm EACCES permission errors when installing tools like Claude.</p>
-<p><strong>Symptom</strong>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>npm EACCES: permission denied
-</code></pre></div></p>
+<p><strong>Symptom</strong>:</p>
+<pre><code>npm EACCES: permission denied
+</code></pre>
 <p><strong>Root Cause</strong>:
 - NVM-installed npm isn't in sudo's PATH
 - Database setup fails to find <code>config/tools</code> directory when run outside project root</p>
@@ -7523,9 +7523,9 @@
 <h3 id="nvm-path-issues-fixed-in-v0073">NVM PATH Issues (Fixed in v0.0.73)<a class="headerlink" href="#nvm-path-issues-fixed-in-v0073" title="Permanent link">&para;</a></h3>
 <p><strong>Issue</strong>: <a href="https://github.com/BA-CalderonMorales/terminal-jarvis/issues/37">#37</a> - Tool installation failed silently when npm was installed via NVM.</p>
 <p><strong>Root Cause</strong>: NVM-installed npm wasn't in sudo's PATH, and error messages were suppressed.</p>
-<p><strong>Resolution</strong>: Fixed in v0.0.73. Users on older versions should upgrade:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>npm<span class="w"> </span>update<span class="w"> </span>-g<span class="w"> </span>terminal-jarvis
-</code></pre></div></p>
+<p><strong>Resolution</strong>: Fixed in v0.0.73. Users on older versions should upgrade:</p>
+<pre><code class="language-bash">npm update -g terminal-jarvis
+</code></pre>
 <hr />
 <p>If you encounter other issues:</p>
 <ol>
@@ -7954,6 +7954,23 @@
 
 <!-- Three.js Background Animation -->
 <script type="module" src="../../../../../assets/js/threejs-background/main.js"></script>
+
+<!-- Page class detection for landing page -->
+<script>
+  (function () {
+    const path = window.location.pathname;
+    // Check if this is the home page (ends with /latest/, /0.x.y/, or just the repo root)
+    const isHome = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/.test(path);
+    const isCanvas = path.includes('/canvas/');
+
+    if (isHome) {
+      document.body.classList.add('landing-page');
+    }
+    if (isCanvas) {
+      document.body.classList.add('canvas-page');
+    }
+  })();
+</script>
 
 <!-- Canvas Page Three.js Scene (handles instant navigation) -->
 <script type="module" src="../../../../../assets/js/canvas/scene/main.js"></script>
