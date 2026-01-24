@@ -1,0 +1,22 @@
+{% if config.extra.version %}
+  <div class="md-version">
+    <button class="md-header__button md-icon" aria-label="{{ lang.t('select.version.title') }}">
+      {% include ".icons/material/source-branch.svg" %}
+    </button>
+    <div class="md-version-dropdown">
+      <ol>
+        {% for version in config.extra.version_dropdown %}
+          <li>
+            <a href="{{ (version.url | replace('${site_url}', config.site_url)) | url }}">
+              {% if version.aliases %}
+                {{ version.title }} ({{ version.aliases | join(", ") }})
+              {% else %}
+                {{ version.title }}
+              {% endif %}
+            </a>
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+{% endif %}
