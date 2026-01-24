@@ -168,7 +168,10 @@ nav = [
 
         # Tooling
         { "Stack & Tooling" = "docs-as-code/stack/index.md" },
-        { "Zensical" = "docs-as-code/zensical/index.md" },
+        { "Zensical" = [
+            { "Overview" = "docs-as-code/zensical/index.md" },
+            { "Internationalization" = "docs-as-code/zensical/internationalization.md" },
+        ] },
 
         # AI Features
         { "AI" = [
