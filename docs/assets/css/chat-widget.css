@@ -588,8 +588,8 @@
 
     /* Input area padding for iPhone home indicator and side safe areas */
     .ai-chat-input-area {
-        padding-bottom: 16px;
-        padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: 8px;
+        padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
         padding-left: max(20px, env(safe-area-inset-left, 20px));
         padding-right: max(20px, env(safe-area-inset-right, 20px));
     }
