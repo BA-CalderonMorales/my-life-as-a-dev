@@ -1,0 +1,606 @@
+/* ============================================
+   Layout - Containers and Grid System
+   Page structure, columns, and spacing
+   ============================================ */
+
+/* Hero section layout */
+.tx-hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 4rem 0;
+}
+
+.tx-hero__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.tx-hero__details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: flex-start;
+}
+
+
+.tx-hero__details .md-button {
+    align-self: flex-start;
+}
+
+.tx-hero__content {
+    flex: 1 1 500px;
+    max-width: 600px;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.tx-hero__image {
+    flex: 1 1 350px;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.tx-hero__image img {
+    width: min(420px, 100%);
+    height: auto;
+    border-radius: 1.25rem;
+    box-shadow: 0 25px 45px rgba(15, 23, 42, 0.2);
+    object-fit: cover;
+}
+
+[data-md-color-scheme="slate"] .tx-hero__image img {
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.55);
+}
+
+/* Main content container */
+.tx-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Two column layout */
+.tx-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 76.25rem) {
+    .tx-hero__content {
+        padding: 0 1rem;
+    }
+}
+
+@media screen and (max-width: 60rem) {
+    .tx-hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 2.5rem 0 2rem;
+        gap: 1.5rem;
+    }
+
+    .tx-hero__content {
+        max-width: 100%;
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        align-items: center;
+    }
+
+    .tx-hero__intro {
+        order: 1;
+        width: 100%;
+    }
+
+    .tx-hero__details {
+        order: 3;
+        width: 100%;
+        align-items: center;
+    }
+
+    .tx-hero__details .md-button {
+        align-self: center;
+    }
+
+    .tx-hero__image {
+        order: 2;
+        padding: 0 1.25rem;
+    }
+
+    .tx-hero__image img {
+        width: min(340px, 90vw);
+        margin-inline: auto;
+    }
+}
+
+@media screen and (max-width: 37.5rem) {
+    .tx-hero__image {
+        padding: 1rem 0.5rem 0;
+    }
+
+    .tx-hero__details .md-button {
+        width: 100%;
+    }
+
+    .tx-hero__image img {
+        width: 100%;
+        border-radius: 1rem;
+    }
+}
+
+/* ============================================
+   Navigation Sidebar Enhancements
+   Visual grouping and section dividers
+   ============================================ */
+
+/* ===========================================
+   TOP-LEVEL SECTIONS (Home, Learning, Docs-as-Code, Projects, Resume)
+   These need clear horizontal separators between them
+   =========================================== */
+
+/* Primary nav container at level 0 */
+.md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--md-primary-fg-color);
+    margin-bottom: 0;
+}
+
+.md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item:last-child {
+    border-bottom: none;
+}
+
+/* Top-level section titles - make them stand out */
+.md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item>.md-nav__link,
+.md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--md-primary-fg-color);
+}
+
+/* ===========================================
+   LEVEL 1 - Major subsections within a domain
+   (e.g., Algorithms, Data Structures under Learning)
+   =========================================== */
+
+.md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item {
+    padding-left: 0.5rem;
+    border-left: 3px solid transparent;
+    margin-bottom: 0;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+/* Ensure last item has same spacing as others */
+.md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0.2rem;
+}
+
+.md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item:hover {
+    border-left-color: var(--md-accent-fg-color);
+}
+
+.md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item>.md-nav__link,
+.md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--md-default-fg-color);
+}
+
+/* ===========================================
+   LEVEL 2+ - Deeper nested items (patterns, problems)
+   Remove the stacking left borders - use indentation only
+   =========================================== */
+
+/* Remove left border for deeper levels - it stacks and looks bad */
+.md-nav[data-md-level="2"]>.md-nav__list,
+.md-nav[data-md-level="3"]>.md-nav__list,
+.md-nav[data-md-level="4"]>.md-nav__list {
+    border-left: none;
+    margin-left: 0.75rem;
+    padding-left: 0.5rem;
+}
+
+/* Consistent spacing for level 2+ items */
+.md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item,
+.md-nav[data-md-level="3"]>.md-nav__list>.md-nav__item,
+.md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item {
+    margin-bottom: 0;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+}
+
+/* Smaller font and lighter color for deeper nesting */
+.md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item>.md-nav__link,
+.md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
+    font-size: 0.8rem;
+    color: var(--md-default-fg-color--light);
+}
+
+.md-nav[data-md-level="3"]>.md-nav__list>.md-nav__item>.md-nav__link,
+.md-nav[data-md-level="3"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link,
+.md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item>.md-nav__link,
+.md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
+    font-size: 0.75rem;
+    color: var(--md-default-fg-color--lighter);
+}
+
+/* ===========================================
+   NAV LINK TEXT OVERFLOW - Horizontal scroll for long names
+   =========================================== */
+
+/* Allow horizontal scrolling for deeply nested items */
+.md-nav__link {
+    /* white-space: nowrap; - Removed for interactions safety */
+    /* overflow-x: auto; - Removed as it blocks clicks on some mobile browsers */
+    /* overflow-y: hidden; */
+    /* text-overflow: clip; */
+    white-space: normal;
+    /* Wrap text instead */
+    max-width: 100%;
+    /* scrollbar-width: thin; */
+    /* scrollbar-color: var(--md-default-fg-color--lighter) transparent; */
+}
+
+
+/* Webkit scrollbar styling for nav links */
+.md-nav__link::-webkit-scrollbar {
+    height: 3px;
+}
+
+.md-nav__link::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.md-nav__link::-webkit-scrollbar-thumb {
+    background: var(--md-default-fg-color--lighter);
+    border-radius: 3px;
+}
+
+.md-nav__link::-webkit-scrollbar-thumb:hover {
+    background: var(--md-default-fg-color--light);
+}
+
+/* ===========================================
+   NESTED ITEM INDICATORS
+   Make expandable sections visually distinct
+   =========================================== */
+
+.md-nav__item--nested>.md-nav__container>.md-nav__link,
+.md-nav__item--nested>.md-nav__link {
+    font-weight: 600 !important;
+}
+
+/* Expand/collapse icon styling */
+.md-nav__icon {
+    color: var(--md-default-fg-color--lighter);
+}
+
+.md-nav__item--nested:hover>.md-nav__container .md-nav__icon,
+.md-nav__item--nested:hover>label .md-nav__icon {
+    color: var(--md-accent-fg-color);
+}
+
+/* ===========================================
+   ACTIVE AND HOVER STATES
+   =========================================== */
+
+/* Hover state for all nav links */
+.md-nav__link:hover {
+    color: var(--md-accent-fg-color) !important;
+}
+
+/* Currently active page */
+.md-nav__item--active>.md-nav__link {
+    color: var(--md-accent-fg-color) !important;
+    font-weight: 700 !important;
+}
+
+/* Active parent sections */
+.md-nav__item--active>.md-nav__container>.md-nav__link {
+    color: var(--md-accent-fg-color) !important;
+}
+
+/* ===========================================
+   REMOVE DEFAULT BACKGROUNDS
+   Override MkDocs Material default backgrounds
+   These selectors must match or exceed Material's specificity
+   =========================================== */
+
+/* Override Material's active link background */
+.md-nav--primary .md-nav__item .md-nav__link--active,
+.md-nav--primary .md-nav__link--active {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Override Material's hover/focus backgrounds */
+.md-nav--primary .md-nav__link[for]:focus,
+.md-nav--primary .md-nav__link[for]:hover,
+.md-nav--primary .md-nav__link[href]:focus,
+.md-nav--primary .md-nav__link[href]:hover,
+.md-nav--primary .md-nav__link[for]:focus:not(.md-nav__link--active),
+.md-nav--primary .md-nav__link[for]:hover:not(.md-nav__link--active),
+.md-nav--primary .md-nav__link[href]:focus:not(.md-nav__link--active),
+.md-nav--primary .md-nav__link[href]:hover:not(.md-nav__link--active) {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Remove all nav backgrounds comprehensively */
+.md-nav__item,
+.md-nav__link,
+.md-nav__item--active,
+.md-nav__item--nested,
+.md-nav__container,
+.md-nav--primary .md-nav__link,
+.md-nav--secondary .md-nav__link,
+/* Target label elements which Material uses for toggle functionality */
+.md-nav label,
+.md-nav label.md-nav__link,
+.md-nav__item label,
+.md-nav__item--nested>label,
+.md-nav__item--nested>label.md-nav__link,
+/* Focus and active states on labels */
+label.md-nav__link:focus,
+label.md-nav__link:active,
+label.md-nav__link[for]:focus,
+label.md-nav__link[for]:active {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* ===========================================
+   MOBILE NAV DRAWER FIXES
+   Override drawer-specific background styles
+   =========================================== */
+
+/* Mobile drawer - remove all backgrounds on nav items */
+.md-nav--primary .md-nav__title,
+.md-nav--primary .md-nav__item,
+.md-nav--primary .md-nav__item--active,
+.md-nav--primary .md-nav__item--nested,
+.md-nav--lifted>.md-nav__list>.md-nav__item--active,
+.md-nav--lifted>.md-nav__list>.md-nav__item,
+.md-nav--lifted .md-nav__link {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Remove the expanded section background in mobile drawer */
+.md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav,
+.md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link,
+.md-nav--primary .md-nav__item--active>.md-nav {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Ensure consistent nav item sizing - no varying heights */
+.md-nav--primary .md-nav__item,
+.md-nav--lifted .md-nav__item {
+    min-height: auto;
+    margin: 0;
+}
+
+/* ===========================================
+   MOBILE-SPECIFIC OVERRIDES
+   Target mobile drawer at smaller breakpoints
+   =========================================== */
+
+@media screen and (max-width: 76.1875em) {
+
+    /* Force transparent backgrounds on ALL mobile nav elements including labels */
+    .md-nav--primary,
+    .md-nav--primary .md-nav,
+    .md-nav--primary .md-nav__item,
+    .md-nav--primary .md-nav__link,
+    .md-nav--primary .md-nav__title,
+    .md-nav--primary [data-md-toggle]:checked~.md-nav,
+    .md-nav--primary .md-nav__toggle:checked~.md-nav,
+    .md-nav--lifted,
+    .md-nav--lifted .md-nav,
+    .md-nav--lifted .md-nav__item,
+    .md-nav--lifted .md-nav__link,
+    .md-nav--lifted>.md-nav__list>.md-nav__item--active,
+    .md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav,
+    .md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link,
+    .md-nav__item--active,
+    .md-nav__item--nested,
+    /* Label elements for toggle functionality */
+    .md-nav--primary label,
+    .md-nav--primary label.md-nav__link,
+    .md-nav--lifted label,
+    .md-nav--lifted label.md-nav__link,
+    label.md-nav__link:focus,
+    label.md-nav__link:active {
+        background: transparent !important;
+        background-color: transparent !important;
+    }
+
+    /* Consistent link sizing for mobile readability */
+    .md-nav--primary .md-nav__link {
+        font-size: 0.85rem !important;
+    }
+}
+
+/* Disable native tooltips on touch/mobile devices */
+@media (hover: none) and (pointer: coarse) {
+    [title] {
+        position: relative;
+    }
+
+    [title]::after {
+        content: none !important;
+        display: none !important;
+    }
+}
+
+/* ===========================================
+   TABLE OF CONTENTS (Right Sidebar)
+   Fix active link colors for dark mode
+   =========================================== */
+
+/* TOC active link - ensure it uses theme accent color */
+.md-nav--secondary .md-nav__link--active,
+.md-nav--secondary .md-nav__item--active>.md-nav__link {
+    color: var(--md-accent-fg-color) !important;
+    font-weight: 600;
+}
+
+/* Dark mode specific TOC styling */
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link--active,
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__item--active>.md-nav__link {
+    color: var(--md-accent-fg-color) !important;
+}
+
+/* TOC hover state */
+.md-nav--secondary .md-nav__link:hover {
+    color: var(--md-accent-fg-color) !important;
+}
+
+/* TOC normal links - use lighter color for better contrast */
+.md-nav--secondary .md-nav__link {
+    color: var(--md-default-fg-color--light);
+}
+
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link {
+    color: var(--md-default-fg-color--light);
+}
+
+/* ============================================
+   PWA Safe Area Support
+   Handles notches and home indicators on mobile
+   ============================================ */
+
+@supports (padding: env(safe-area-inset-top)) {
+    /* Standalone PWA mode (Android and iOS home screen apps) */
+    @media all and (display-mode: standalone) {
+        /* Fill notch area with header background color */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: env(safe-area-inset-top);
+            background: var(--mlad-header-bg, var(--md-default-bg-color));
+            z-index: 100;
+        }
+
+        /* Header padding pushes content below notch */
+        .md-header {
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .md-footer {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .md-sidebar--primary {
+            padding-left: env(safe-area-inset-left);
+        }
+
+        .md-sidebar--secondary {
+            padding-right: env(safe-area-inset-right);
+        }
+
+        .md-content {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        /* Mobile drawer safe area */
+        .md-drawer {
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
+        }
+
+        /* Search modal - must be above body::before (z-index: 100) */
+        .md-search {
+            z-index: 101;
+        }
+
+        /* Search modal inner container (full-screen on mobile) */
+        .md-search__inner {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        /* Search form safe area */
+        .md-search__form {
+            margin-top: env(safe-area-inset-top);
+        }
+
+        /* Ensure search output has safe area padding */
+        .md-search__output {
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+
+    /* Fullscreen mode */
+    @media all and (display-mode: fullscreen) {
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: env(safe-area-inset-top);
+            background: var(--mlad-header-bg, var(--md-default-bg-color));
+            z-index: 100;
+        }
+
+        .md-header {
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .md-footer {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .md-drawer {
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
+        }
+
+        /* Search modal - must be above body::before (z-index: 100) */
+        .md-search {
+            z-index: 101;
+        }
+
+        /* Search modal inner container (full-screen on mobile) */
+        .md-search__inner {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        /* Search form safe area */
+        .md-search__form {
+            margin-top: env(safe-area-inset-top);
+        }
+
+        /* Ensure search output has safe area padding */
+        .md-search__output {
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+}
