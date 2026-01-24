@@ -65,7 +65,11 @@ impl Command for HelpCommand {
 
         println!("\nVersion & Deploy:");
         println!("  bump-version         Bump the documentation version");
-        println!("  deploy               Deploy all versions of the documentation");
+        println!("  deploy [VERSION]     Deploy a versioned release to GitHub Pages");
+        println!("                       If VERSION omitted, prompts interactively");
+        println!("    Options:");
+        println!("      --push           Push to remote after deploy");
+        println!("      --no-push        Skip pushing (default: prompts)");
         println!("  help                 Show this help message");
 
         println!("\nConfiguration:");
@@ -77,6 +81,8 @@ impl Command for HelpCommand {
         println!("  ./doc-cli kill           # Stop server");
         println!("  ./doc-cli kill && ./doc-cli serve   # Restart");
         println!("  ./doc-cli build          # Build for production");
+        println!("  ./doc-cli deploy         # Interactive versioned deploy");
+        println!("  ./doc-cli deploy 0.3.2 --push  # Deploy specific version");
 
         Ok(())
     }

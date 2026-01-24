@@ -2,9 +2,9 @@
 
 [![Build status](https://img.shields.io/github/actions/workflow/status/BA-CalderonMorales/my-life-as-a-dev/github_pages.yml?branch=main&label=build)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions)
 [![License](https://img.shields.io/github/license/BA-CalderonMorales/my-life-as-a-dev)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/blob/main/LICENSE)
-[![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
+[![Documentation](https://img.shields.io/badge/docs-0.3.1-blue)](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
 
-A living documentation hub for projects, learning notes, and technical references. Powered by Zensical with versioned releases via mike.
+A living documentation hub for projects, learning notes, and technical references. Powered by Zensical with versioned releases.
 
 ![Site Preview](docs/assets/images/homepage-screenshot.png)
 
@@ -25,8 +25,8 @@ A living documentation hub for projects, learning notes, and technical reference
 - **AI-Powered Chat Widget** - Claude Docs-inspired assistant using Gemini API via Cloud Run
 - **Giscus Comments** - GitHub Discussions-powered comments on every content page
 - **Search by Tags** - Filter content by tags like `[Algorithms]`, `[Python]`, `[Interview]`
-- **Versioned Documentation** - Every release is preserved with mike
-- **Blazing Fast Builds** - Zensical delivers ~0.4s builds (20x faster than MkDocs)
+- **Versioned Documentation** - Every release is preserved with `versioned_deploy.py`
+- **Blazing Fast Builds** - Zensical delivers ~0.5-3s builds
 - **Rust-powered CLI** - doc-cli for setup, serving, version bumps, and deploys
 - **GitHub Pages Pipeline** - Automatic builds and deploys on every push
 - **Dark/Light Mode** - Toggle between themes with one click
@@ -70,14 +70,24 @@ doc-cli [COMMAND]
 Primary Commands:
   serve          Start development server (port 8001)
   build          Build site with Zensical
-
-Version & Deploy:
-  bump-version   Create a new documentation version
-  deploy         Publish all versions to GitHub Pages
   help           Show available commands
 ```
 
 Run `./doc-cli.sh` with no arguments for an interactive menu.
+
+## Versioned Deployment
+
+Deploy a new version:
+
+```bash
+# Interactive mode (prompts for version)
+./doc-cli.sh deploy
+
+# Direct with version
+./doc-cli.sh deploy 0.3.2 --push
+```
+
+Version format: `0.x.y` (no `v` prefix). See [Version and Deploy Skill](.github/skills/version-and-deploy/SKILL.md) for full workflow.
 
 ## Repository Layout
 

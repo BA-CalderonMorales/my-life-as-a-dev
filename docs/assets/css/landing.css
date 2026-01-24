@@ -15,7 +15,7 @@
 
 /* Landing page layout - clean, minimal */
 .landing-page .md-main {
-    background: var(--md-default-bg-color);
+    background: transparent;
 }
 
 .landing-page .md-main__inner {
