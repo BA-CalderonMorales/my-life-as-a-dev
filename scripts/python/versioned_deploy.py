@@ -159,7 +159,19 @@ def deploy_version(
         "title": version,
         "aliases": aliases
     }
-    versions.insert(0, version_entry)  # Add at beginning (newest first)
+    versions.append(version_entry)
+
+    # Sort by semantic version (descending)
+    def version_key(v):
+        """Parse version string to tuple for sorting."""
+        ver = v.get("version", "0.0.0")
+        try:
+            parts = [int(p) for p in ver.split(".")]
+            return tuple(parts)
+        except ValueError:
+            return (0, 0, 0)
+
+    versions.sort(key=version_key, reverse=True)
 
     save_versions_json(gh_pages_dir, versions)
 
