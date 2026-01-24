@@ -178,10 +178,10 @@
         align-items: center;
         gap: 0.35rem;
         padding: 0.4rem 0.5rem 0.4rem 0.7rem;
-        background: var(--md-primary-fg-color, #077a6d);
+        background: var(--mlad-button-bg, #000);
         border: none;
         border-radius: 2rem;
-        color: #fff;
+        color: var(--mlad-button-fg, #fff);
         cursor: pointer;
         font-size: 0.7rem;
         font-family: inherit;
@@ -191,7 +191,7 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       }
       .md-version__current:hover {
-        background: var(--md-primary-fg-color--dark, #056459);
+        background: var(--mlad-button-bg-hover, #333);
         box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
       }
       .md-version__current svg {
@@ -202,7 +202,7 @@
         flex-shrink: 0;
       }
       .md-version--active .md-version__current {
-        background: var(--md-primary-fg-color--dark, #056459);
+        background: var(--mlad-button-bg-hover, #333);
       }
       .md-version--active .md-version__current svg {
         transform: rotate(180deg);

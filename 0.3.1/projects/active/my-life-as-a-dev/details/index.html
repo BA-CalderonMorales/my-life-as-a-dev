@@ -6646,14 +6646,15 @@
 <h1 id="project-details">Project Details<a class="headerlink" href="#project-details" title="Permanent link">&para;</a></h1>
 <h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h2>
 <p>The Docs-as-Code Portfolio is built with a modular architecture that separates concerns and promotes maintainability:</p>
-<pre class="mermaid"><code>graph TD
+<pre><code class="language-mermaid">graph TD
     A[MkDocs] --&gt; B[Material Theme]
     A --&gt; C[Custom Plugins]
     C --&gt; D[AI Integration]
     C --&gt; E[Versioning]
     A --&gt; F[GitHub Actions]
     F --&gt; G[Automated Deployment]
-    F --&gt; H[Testing]</code></pre>
+    F --&gt; H[Testing]
+</code></pre>
 <h2 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h2>
 <h3 id="1-documentation-engine">1. Documentation Engine<a class="headerlink" href="#1-documentation-engine" title="Permanent link">&para;</a></h3>
 <ul>
@@ -6725,22 +6726,22 @@
 </tbody>
 </table>
 <h3 id="project-structure">Project Structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>my-life-as-a-dev/
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── mkdocs.yml             # Main configuration
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── requirements.txt       # Python dependencies
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── mkdocs_plugins/        # Custom plugins
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   └── ai_plugin.py      # AI integration (currently disabled)
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── docs/                  # Documentation source
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   ├── assets/           # Static files
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   ├── overrides/        # Theme overrides (AI UI commented out)
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   ├── repositories/     # Project documentation
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│   └── ...
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>└── scripts/              # Build and deployment scripts
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    ├── python/
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    │   └── ai_proxy.py   # FastAPI AI proxy (dev only)
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    └── rust/
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        └── src/doc-cli.rs # CLI tool
-</code></pre></div>
+<pre><code>my-life-as-a-dev/
+├── mkdocs.yml             # Main configuration
+├── requirements.txt       # Python dependencies
+├── mkdocs_plugins/        # Custom plugins
+│   └── ai_plugin.py      # AI integration (currently disabled)
+├── docs/                  # Documentation source
+│   ├── assets/           # Static files
+│   ├── overrides/        # Theme overrides (AI UI commented out)
+│   ├── repositories/     # Project documentation
+│   └── ...
+└── scripts/              # Build and deployment scripts
+    ├── python/
+    │   └── ai_proxy.py   # FastAPI AI proxy (dev only)
+    └── rust/
+        └── src/doc-cli.rs # CLI tool
+</code></pre>
 <h2 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h2>
 <p>The project is automatically deployed to GitHub Pages using GitHub Actions:</p>
 <ol>
