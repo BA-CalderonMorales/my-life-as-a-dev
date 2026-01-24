@@ -11,7 +11,6 @@ on:
       - '.github/copilot-instructions.md'
       - '.cursorrules'
       - '.cursor/rules/**'
-      - 'versions.json'
       - 'Makefile'
       - 'doc-cli'
       - 'doc-cli/**'
@@ -26,7 +25,6 @@ on:
       - '.github/copilot-instructions.md'
       - '.cursorrules'
       - '.cursor/rules/**'
-      - 'versions.json'
       - 'Makefile'
       - 'doc-cli'
       - 'doc-cli/**'
@@ -35,6 +33,11 @@ on:
       - 'CODE_OF_CONDUCT.md'
 
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to deploy (e.g., 1.0.0). Leave empty for auto-increment.'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -48,7 +51,7 @@ concurrency:
 
 jobs:
 
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -56,15 +59,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          sparse-checkout: |
-            docs
-            zensical.toml
-            mkdocs.yml
-            mkdocs_plugins
-            requirements.txt
-            versions.json
-            e2e
-            scripts/python
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -84,67 +78,69 @@ jobs:
           playwright install chromium
           python -m pytest e2e/test_structure.py -v
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
       - name: Build site with Zensical
         run: |
           echo "Building site with Zensical..."
           zensical build
           echo "Build complete!"
-          
+
           # Create .nojekyll to prevent GitHub Pages from ignoring files
           touch site/.nojekyll
-          
+
           # Verify Three.js assets are included
-          # Note: This path is defined in docs/overrides/main.html
           echo "Verifying Three.js assets in build..."
           if [ -d "site/assets/js/threejs-background" ]; then
             echo "✓ Three.js assets found in build"
             ls -la site/assets/js/threejs-background/
           else
             echo "✗ WARNING: Three.js assets NOT found in build!"
-            echo "Build directory structure:"
             find site/assets -type f -name "*.js" | head -20
           fi
-          
-          # Show build output
+
           echo "Build output structure:"
           ls -la site/
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./site
+      - name: Get version
+        if: github.event_name != 'pull_request'
+        id: version
+        run: |
+          # Use input version if provided, otherwise read from versions.json
+          if [ -n "${{ inputs.version }}" ]; then
+            VERSION="${{ inputs.version }}"
+          else
+            # Read current version and increment patch
+            if [ -f versions.json ]; then
+              CURRENT=$(cat versions.json | python -c "import sys, json; v=json.load(sys.stdin); print(v['versions'][0]['version'] if v.get('versions') else '0.0.0')")
+              # Increment patch version
+              IFS='.' read -r major minor patch <<< "$CURRENT"
+              VERSION="${major}.${minor}.$((patch + 1))"
+            else
+              VERSION="0.1.0"
+            fi
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Deploying version: $VERSION"
 
-  deploy:
-    if: github.event_name != 'pull_request'
-    needs: build
+      - name: Configure git
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      - name: Deploy versioned docs
+        if: github.event_name != 'pull_request'
+        run: |
+          python scripts/python/versioned_deploy.py deploy \
+            "${{ steps.version.outputs.version }}" \
+            --alias latest \
+            --push \
+            --no-build
 
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-  deploy-preview:
-    if: github.event_name == 'pull_request'
-    needs: build
-
-    environment:
-      name: github-pages-preview
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy Preview to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-        with:
-          preview: true
+      - name: Output deployment URL
+        if: github.event_name != 'pull_request'
+        run: |
+          echo "## Deployment Complete! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **URL:** https://ba-calderonmorales.github.io/my-life-as-a-dev/" >> $GITHUB_STEP_SUMMARY
+          echo "- **Versioned URL:** https://ba-calderonmorales.github.io/my-life-as-a-dev/${{ steps.version.outputs.version }}/" >> $GITHUB_STEP_SUMMARY
