@@ -126,6 +126,17 @@ toggle.name = "Switch to dark mode"
 
 
 # ==============================================================================
+# VERSION SELECTOR
+# ==============================================================================
+# Enable mike versioning provider for documentation version dropdown.
+# This allows users to switch between different versions of the docs.
+# ==============================================================================
+
+[project.extra.version]
+provider = "mike"
+
+
+# ==============================================================================
 # TAG IDENTIFIERS
 # ==============================================================================
 # Map tag names to identifiers for icon association.
@@ -158,6 +169,37 @@ Experiment = "experiment"
 DevOps = "devops"
 Networking = "networking"
 "Distributed Systems" = "distributed"
+
+
+# ==============================================================================
+# LANGUAGE SELECTOR (i18n)
+# ==============================================================================
+# Multi-language support. Each alternate entry creates a language option
+# in the header dropdown. Requires separate translated content directories.
+#
+# IMPORTANT: This does NOT auto-translate content!
+# You must create separate docs for each language:
+#   - docs/en/ for English
+#   - docs/es/ for Spanish
+#   - etc.
+#
+# Uncomment when translated content is available:
+# ==============================================================================
+
+# [[project.extra.alternate]]
+# name = "English"
+# link = "/en/"
+# lang = "en"
+#
+# [[project.extra.alternate]]
+# name = "Espanol"
+# link = "/es/"
+# lang = "es"
+#
+# [[project.extra.alternate]]
+# name = "Deutsch"
+# link = "/de/"
+# lang = "de"
 
 
 # ==============================================================================

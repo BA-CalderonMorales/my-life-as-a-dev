@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-01-23 19:01:16 UTC
+#   Generated: 2026-01-24 04:18:36 UTC
 #
 # ##############################################################################
 
@@ -263,7 +263,10 @@ Workflow = "docs-as-code/workflow/index.md"
 "Stack & Tooling" = "docs-as-code/stack/index.md"
 
 [[project.nav.Docs-as-Code]]
-Zensical = "docs-as-code/zensical/index.md"
+Zensical = [
+    { Overview = "docs-as-code/zensical/index.md" },
+    { Internationalization = "docs-as-code/zensical/internationalization.md" },
+]
 
 [[project.nav.Docs-as-Code]]
 AI = [
@@ -446,6 +449,9 @@ accent = "amber"
 [project.theme.palette.toggle]
 icon = "lucide/moon"
 name = "Switch to dark mode"
+
+[project.extra.version]
+provider = "mike"
 
 [project.extra.tags]
 Python = "python"
