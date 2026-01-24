@@ -6468,11 +6468,11 @@
 <strong>LeetCode</strong>: <a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/">#1011</a></p>
 <h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
 <p>A conveyor belt has packages that must be shipped within D days. Each package has a weight, and you need to find the minimum ship capacity to ship all packages within D days. Packages must be shipped in order.</p>
-<p><strong>Example</strong>:</p>
-<pre><code>Input: weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], days = 5
-Output: 15
-Explanation: Ship with capacity 15 can ship all packages in 5 days
-</code></pre>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Input: weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], days = 5
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Output: 15
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Explanation: Ship with capacity 15 can ship all packages in 5 days
+</code></pre></div></p>
 <h2 id="approach">Approach<a class="headerlink" href="#approach" title="Permanent link">&para;</a></h2>
 <p>Key observations:</p>
 <ul>
@@ -6483,100 +6483,100 @@ Explanation: Ship with capacity 15 can ship all packages in 5 days
 </ul>
 <p>Binary search for the minimum capacity that works.</p>
 <h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
-<pre><code class="language-python">def ship_within_days(weights, days):
-    &quot;&quot;&quot;
-    Find minimum ship capacity to ship all packages within days.
-
-    Time Complexity: O(n * log(sum(weights))) - binary search * validation
-    Space Complexity: O(1) - only using pointers
-    &quot;&quot;&quot;
-    def can_ship_with_capacity(capacity):
-        &quot;&quot;&quot;Check if we can ship all packages within days using this capacity.&quot;&quot;&quot;
-        days_needed = 1
-        current_load = 0
-
-        for weight in weights:
-            if current_load + weight &gt; capacity:
-                # Need a new day
-                days_needed += 1
-                current_load = weight
-            else:
-                current_load += weight
-
-        return days_needed &lt;= days
-
-    # Search space: [max single package, sum of all packages]
-    left = max(weights)
-    right = sum(weights)
-
-    # Binary search for minimum capacity
-    while left &lt; right:
-        mid = (left + right) // 2
-
-        if can_ship_with_capacity(mid):
-            # This capacity works, try smaller
-            right = mid
-        else:
-            # This capacity doesn't work, need larger
-            left = mid + 1
-
-    return left
-
-# Test
-weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-days = 5
-print(ship_within_days(weights, days))  # Output: 15
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">ship_within_days</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">days</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="sd">    Find minimum ship capacity to ship all packages within days.</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sd">    Time Complexity: O(n * log(sum(weights))) - binary search * validation</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="sd">    Space Complexity: O(1) - only using pointers</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">can_ship_with_capacity</span><span class="p">(</span><span class="n">capacity</span><span class="p">):</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if we can ship all packages within days using this capacity.&quot;&quot;&quot;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="n">days_needed</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="n">current_load</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="k">for</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">:</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="k">if</span> <span class="n">current_load</span> <span class="o">+</span> <span class="n">weight</span> <span class="o">&gt;</span> <span class="n">capacity</span><span class="p">:</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                <span class="c1"># Need a new day</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>                <span class="n">days_needed</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>                <span class="n">current_load</span> <span class="o">=</span> <span class="n">weight</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>                <span class="n">current_load</span> <span class="o">+=</span> <span class="n">weight</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        <span class="k">return</span> <span class="n">days_needed</span> <span class="o">&lt;=</span> <span class="n">days</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="c1"># Search space: [max single package, sum of all packages]</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    <span class="n">right</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    <span class="c1"># Binary search for minimum capacity</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>        <span class="k">if</span> <span class="n">can_ship_with_capacity</span><span class="p">(</span><span class="n">mid</span><span class="p">):</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>            <span class="c1"># This capacity works, try smaller</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>            <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>            <span class="c1"># This capacity doesn&#39;t work, need larger</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>            <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>    <span class="k">return</span> <span class="n">left</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="c1"># Test</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="n">days</span> <span class="o">=</span> <span class="mi">5</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="nb">print</span><span class="p">(</span><span class="n">ship_within_days</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">days</span><span class="p">))</span>  <span class="c1"># Output: 15</span>
+</code></pre></div>
 <h2 id="step-by-step-walkthrough">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough" title="Permanent link">&para;</a></h2>
-<pre><code>weights = [1,2,3,4,5,6,7,8,9,10], days = 5
-
-Search space: [10 (max weight), 55 (sum of all)]
-
-Iteration 1: mid = (10 + 55) // 2 = 32
-  Can ship with capacity 32?
-    Day 1: 1+2+3+4+5+6+7 = 28
-    Day 2: 8+9+10 = 27
-    Total: 2 days &lt;= 5 days
-  Works! Try smaller: right = 32
-
-Iteration 2: mid = (10 + 32) // 2 = 21
-  Can ship with capacity 21?
-    Day 1: 1+2+3+4+5+6 = 21
-    Day 2: 7+8 = 15
-    Day 3: 9+10 = 19
-    Total: 3 days &lt;= 5 days
-  Works! Try smaller: right = 21
-
-Iteration 3: mid = (10 + 21) // 2 = 15
-  Can ship with capacity 15?
-    Day 1: 1+2+3+4+5 = 15
-    Day 2: 6+7 = 13
-    Day 3: 8 = 8
-    Day 4: 9 = 9
-    Day 5: 10 = 10
-    Total: 5 days &lt;= 5 days
-  Works! Try smaller: right = 15
-
-Iteration 4: mid = (10 + 15) // 2 = 12
-  Can ship with capacity 12?
-    Day 1: 1+2+3+4 = 10
-    Day 2: 5+6 = 11
-    Day 3: 7 = 7
-    Day 4: 8 = 8
-    Day 5: 9 = 9
-    Day 6: 10 = 10
-    Total: 6 days &gt; 5 days
-  Doesn't work! Need larger: left = 13
-
-Iteration 5: mid = (13 + 15) // 2 = 14
-  Can ship with capacity 14?
-    Total: 6 days &gt; 5 days
-  Doesn't work! Need larger: left = 15
-
-left = right = 15, exit loop
-
-Result: 15
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>weights = [1,2,3,4,5,6,7,8,9,10], days = 5
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Search space: [10 (max weight), 55 (sum of all)]
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Iteration 1: mid = (10 + 55) // 2 = 32
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  Can ship with capacity 32?
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    Day 1: 1+2+3+4+5+6+7 = 28
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    Day 2: 8+9+10 = 27
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    Total: 2 days &lt;= 5 days
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  Works! Try smaller: right = 32
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>Iteration 2: mid = (10 + 32) // 2 = 21
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  Can ship with capacity 21?
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    Day 1: 1+2+3+4+5+6 = 21
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    Day 2: 7+8 = 15
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    Day 3: 9+10 = 19
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    Total: 3 days &lt;= 5 days
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>  Works! Try smaller: right = 21
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>Iteration 3: mid = (10 + 21) // 2 = 15
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>  Can ship with capacity 15?
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    Day 1: 1+2+3+4+5 = 15
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    Day 2: 6+7 = 13
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    Day 3: 8 = 8
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    Day 4: 9 = 9
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    Day 5: 10 = 10
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    Total: 5 days &lt;= 5 days
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>  Works! Try smaller: right = 15
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>Iteration 4: mid = (10 + 15) // 2 = 12
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>  Can ship with capacity 12?
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>    Day 1: 1+2+3+4 = 10
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    Day 2: 5+6 = 11
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>    Day 3: 7 = 7
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>    Day 4: 8 = 8
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>    Day 5: 9 = 9
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>    Day 6: 10 = 10
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>    Total: 6 days &gt; 5 days
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>  Doesn&#39;t work! Need larger: left = 13
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>Iteration 5: mid = (13 + 15) // 2 = 14
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>  Can ship with capacity 14?
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>    Total: 6 days &gt; 5 days
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>  Doesn&#39;t work! Need larger: left = 15
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>left = right = 15, exit loop
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>Result: 15
+</code></pre></div>
 <h2 id="personal-notes">Personal Notes<a class="headerlink" href="#personal-notes" title="Permanent link">&para;</a></h2>
 <p><em>Add your own notes, insights, and variations here as you practice this problem.</em></p>
 

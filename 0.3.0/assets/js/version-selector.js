@@ -176,28 +176,33 @@
       .md-version__current {
         display: flex;
         align-items: center;
-        gap: 0.25rem;
-        padding: 0.35rem 0.6rem;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        gap: 0.35rem;
+        padding: 0.4rem 0.5rem 0.4rem 0.7rem;
+        background: var(--md-primary-fg-color, #077a6d);
+        border: none;
         border-radius: 2rem;
-        color: var(--md-primary-bg-color, white);
+        color: #fff;
         cursor: pointer;
         font-size: 0.7rem;
         font-family: inherit;
-        font-weight: 500;
+        font-weight: 600;
         transition: all 0.2s ease;
         white-space: nowrap;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       }
       .md-version__current:hover {
-        background: rgba(255, 255, 255, 0.15);
-        border-color: rgba(255, 255, 255, 0.3);
+        background: var(--md-primary-fg-color--dark, #056459);
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
       }
       .md-version__current svg {
-        width: 12px;
-        height: 12px;
-        opacity: 0.7;
+        width: 14px;
+        height: 14px;
+        opacity: 1;
         transition: transform 0.2s ease;
+        flex-shrink: 0;
+      }
+      .md-version--active .md-version__current {
+        background: var(--md-primary-fg-color--dark, #056459);
       }
       .md-version--active .md-version__current svg {
         transform: rotate(180deg);
@@ -244,12 +249,13 @@
           margin-left: 0.25rem;
         }
         .md-version__current {
-          padding: 0.3rem 0.5rem;
+          padding: 0.35rem 0.4rem 0.35rem 0.6rem;
           font-size: 0.65rem;
+          gap: 0.25rem;
         }
         .md-version__current svg {
-          width: 10px;
-          height: 10px;
+          width: 12px;
+          height: 12px;
         }
         .md-version__list {
           min-width: 9rem;
@@ -263,7 +269,7 @@
       /* Responsive: Tablet */
       @media screen and (min-width: 30rem) and (max-width: 60rem) {
         .md-version__current {
-          padding: 0.35rem 0.55rem;
+          padding: 0.38rem 0.45rem 0.38rem 0.65rem;
         }
       }
     `;

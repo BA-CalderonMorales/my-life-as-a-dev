@@ -6471,64 +6471,64 @@
 </div>
 <hr />
 <h2 id="visual-explanation">Visual Explanation<a class="headerlink" href="#visual-explanation" title="Permanent link">&para;</a></h2>
-<pre><code class="language-text">BACKTRACKING DECISION TREE
-─────────────────────────────────────────────────────────────────────
-
-Subsets of [1, 2, 3]:
-
-                            []
-                    ┌───────┴───────┐
-                 include 1?       exclude 1
-                    │                 │
-                   [1]               []
-              ┌────┴────┐       ┌────┴────┐
-           incl 2   excl 2   incl 2   excl 2
-              │        │        │        │
-            [1,2]    [1]      [2]       []
-           ┌──┴──┐  ┌─┴─┐   ┌─┴─┐    ┌─┴─┐
-          +3  no +3 no +3  +3 no  +3 no
-           │    │    │    │    │    │    │
-        [1,2,3][1,2][1,3][1][2,3][2][3] []
-
-
-CHOOSE → EXPLORE → UNCHOOSE
-─────────────────────────────────────────────────────────────────────
-
-def backtrack(current, choices):
-    if is_solution(current):
-        save(current)
-        return
-
-    for choice in choices:
-        if is_valid(choice):
-            current.add(choice)      # CHOOSE
-            backtrack(current)       # EXPLORE
-            current.remove(choice)   # UNCHOOSE (backtrack!)
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>BACKTRACKING DECISION TREE
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>─────────────────────────────────────────────────────────────────────
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Subsets of [1, 2, 3]:
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                            []
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                    ┌───────┴───────┐
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                 include 1?       exclude 1
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                    │                 │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                   [1]               []
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>              ┌────┴────┐       ┌────┴────┐
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>           incl 2   excl 2   incl 2   excl 2
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>              │        │        │        │
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>            [1,2]    [1]      [2]       []
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>           ┌──┴──┐  ┌─┴─┐   ┌─┴─┐    ┌─┴─┐
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>          +3  no +3 no +3  +3 no  +3 no
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>           │    │    │    │    │    │    │
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        [1,2,3][1,2][1,3][1][2,3][2][3] []
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>CHOOSE → EXPLORE → UNCHOOSE
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>─────────────────────────────────────────────────────────────────────
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>def backtrack(current, choices):
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    if is_solution(current):
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        save(current)
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>        return
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    for choice in choices:
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        if is_valid(choice):
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>            current.add(choice)      # CHOOSE
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>            backtrack(current)       # EXPLORE
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>            current.remove(choice)   # UNCHOOSE (backtrack!)
+</code></pre></div>
 <hr />
 <h2 id="core-approach">Core Approach<a class="headerlink" href="#core-approach" title="Permanent link">&para;</a></h2>
-<pre><code class="language-text">┌─────────────────────────────────────────────────────────────────────────────┐
-│                         BACKTRACKING TEMPLATE                               │
-└─────────────────────────────────────────────────────────────────────────────┘
-
-    1. BASE CASE
-       └── If solution is complete, save it and return
-
-    2. ITERATE CHOICES
-       └── For each valid choice at current position:
-
-    3. CHOOSE
-       └── Add choice to current solution
-
-    4. EXPLORE
-       └── Recursively call with updated state
-
-    5. UNCHOOSE
-       └── Remove choice (restore state for next iteration)
-
-    6. PRUNE (optional)
-       └── Skip invalid paths early to improve performance
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>┌─────────────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│                         BACKTRACKING TEMPLATE                               │
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>└─────────────────────────────────────────────────────────────────────────────┘
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    1. BASE CASE
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>       └── If solution is complete, save it and return
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    2. ITERATE CHOICES
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>       └── For each valid choice at current position:
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    3. CHOOSE
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>       └── Add choice to current solution
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    4. EXPLORE
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>       └── Recursively call with updated state
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    5. UNCHOOSE
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>       └── Remove choice (restore state for next iteration)
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    6. PRUNE (optional)
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>       └── Skip invalid paths early to improve performance
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -6560,79 +6560,79 @@ def backtrack(current, choices):
 <p><strong>Difficulty</strong>: Medium | <strong>LeetCode</strong>: #78</p>
 <h3 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h3>
 <p>Given an array of unique integers, return all possible subsets (the power set).</p>
-<pre><code>Input: nums = [1, 2, 3]
-Output: [[], [1], [2], [3], [1,2], [1,3], [2,3], [1,2,3]]
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Input: nums = [1, 2, 3]
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Output: [[], [1], [2], [3], [1,2], [1,3], [2,3], [1,2,3]]
+</code></pre></div>
 <h3 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h3>
-<pre><code class="language-python">def subsets(nums):
-    &quot;&quot;&quot;
-    Time: O(2^n) - 2^n subsets to generate
-    Space: O(n) - recursion depth
-    &quot;&quot;&quot;
-    result = []
-
-    def backtrack(start, current):
-        result.append(current[:])  # Add copy of current subset
-
-        for i in range(start, len(nums)):
-            current.append(nums[i])    # CHOOSE
-            backtrack(i + 1, current)   # EXPLORE
-            current.pop()               # UNCHOOSE
-
-    backtrack(0, [])
-    return result
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">subsets</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="sd">    Time: O(2^n) - 2^n subsets to generate</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="sd">    Space: O(n) - recursion depth</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">backtrack</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">[:])</span>  <span class="c1"># Add copy of current subset</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>            <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>    <span class="c1"># CHOOSE</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>            <span class="n">backtrack</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">current</span><span class="p">)</span>   <span class="c1"># EXPLORE</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>            <span class="n">current</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>               <span class="c1"># UNCHOOSE</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="n">backtrack</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[])</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div>
 <h3 id="walkthrough">Walkthrough<a class="headerlink" href="#walkthrough" title="Permanent link">&para;</a></h3>
-<pre><code class="language-text">nums = [1, 2, 3]
-
-backtrack(0, [])
-├── Add [] to result
-├── Choose 1 → backtrack(1, [1])
-│   ├── Add [1]
-│   ├── Choose 2 → backtrack(2, [1,2])
-│   │   ├── Add [1,2]
-│   │   └── Choose 3 → backtrack(3, [1,2,3])
-│   │       └── Add [1,2,3]
-│   └── Choose 3 → backtrack(3, [1,3])
-│       └── Add [1,3]
-├── Choose 2 → backtrack(2, [2])
-│   ├── Add [2]
-│   └── Choose 3 → backtrack(3, [2,3])
-│       └── Add [2,3]
-└── Choose 3 → backtrack(3, [3])
-    └── Add [3]
-
-Result: [[], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]]
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>nums = [1, 2, 3]
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>backtrack(0, [])
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>├── Add [] to result
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>├── Choose 1 → backtrack(1, [1])
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│   ├── Add [1]
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>│   ├── Choose 2 → backtrack(2, [1,2])
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>│   │   ├── Add [1,2]
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>│   │   └── Choose 3 → backtrack(3, [1,2,3])
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>│   │       └── Add [1,2,3]
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>│   └── Choose 3 → backtrack(3, [1,3])
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>│       └── Add [1,3]
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>├── Choose 2 → backtrack(2, [2])
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>│   ├── Add [2]
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>│   └── Choose 3 → backtrack(3, [2,3])
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>│       └── Add [2,3]
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>└── Choose 3 → backtrack(3, [3])
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    └── Add [3]
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>Result: [[], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]]
+</code></pre></div>
 <hr />
 <h2 id="problem-2-permutations">Problem 2: Permutations<a class="headerlink" href="#problem-2-permutations" title="Permanent link">&para;</a></h2>
 <p><strong>Difficulty</strong>: Medium | <strong>LeetCode</strong>: #46</p>
 <h3 id="problem-statement_1">Problem Statement<a class="headerlink" href="#problem-statement_1" title="Permanent link">&para;</a></h3>
 <p>Given an array of distinct integers, return all possible permutations.</p>
-<pre><code>Input: nums = [1, 2, 3]
-Output: [[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]]
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Input: nums = [1, 2, 3]
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Output: [[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]]
+</code></pre></div>
 <h3 id="solution_1">Solution<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h3>
-<pre><code class="language-python">def permute(nums):
-    &quot;&quot;&quot;
-    Time: O(n! * n) - n! permutations, n to copy each
-    Space: O(n) - recursion depth
-    &quot;&quot;&quot;
-    result = []
-
-    def backtrack(current, remaining):
-        if not remaining:
-            result.append(current[:])
-            return
-
-        for i in range(len(remaining)):
-            current.append(remaining[i])
-            backtrack(current, remaining[:i] + remaining[i+1:])
-            current.pop()
-
-    backtrack([], nums)
-    return result
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">permute</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="sd">    Time: O(n! * n) - n! permutations, n to copy each</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="sd">    Space: O(n) - recursion depth</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">backtrack</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">remaining</span><span class="p">):</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">remaining</span><span class="p">:</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">[:])</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>            <span class="k">return</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">remaining</span><span class="p">)):</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>            <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">remaining</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>            <span class="n">backtrack</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">remaining</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">remaining</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>            <span class="n">current</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>    <span class="n">backtrack</span><span class="p">([],</span> <span class="n">nums</span><span class="p">)</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div>
 <hr />
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <table>
@@ -6753,11 +6753,9 @@ return result
 <p>nums = [1, 2, 3]
 print(permute(nums))</p>
 <h1 id="output-123-132-213-231-312-321">Output: [[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]]<a class="headerlink" href="#output-123-132-213-231-312-321" title="Permanent link">&para;</a></h1>
-<pre><code>
-### Step-by-Step Walkthrough
-
-</code></pre>
-<p>nums = [1, 2, 3]</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>### Step-by-Step Walkthrough
+</code></pre></div>
+nums = [1, 2, 3]</p>
 <p>backtrack([], [1,2,3])</p>
 <p>i=0: Choose 1
     backtrack([1], [2,3])</p>
@@ -6788,20 +6786,19 @@ Unchoose 1
     backtrack([3], [1,2])
       ... generates [3,1,2] and [3,2,1]
     Unchoose 3</p>
-<p>Result: [[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]]</p>
-<pre><code>
-## Problem 3: N-Queens
-
-**Difficulty**: Hard  
-**LeetCode**: #51
-
-### Problem Statement
-
-Place n queens on an n×n chessboard so that no two queens attack each other. Return all distinct solutions.
-
-**Example**:
-</code></pre>
-<p>Input: n = 4
+<p>Result: [[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>## Problem 3: N-Queens
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>**Difficulty**: Hard  
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>**LeetCode**: #51
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>### Problem Statement
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>Place n queens on an n×n chessboard so that no two queens attack each other. Return all distinct solutions.
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>**Example**:
+</code></pre></div>
+Input: n = 4
 Output: [
   [".Q..",
    "...Q",
@@ -6811,114 +6808,113 @@ Output: [
    "Q...",
    "...Q",
    ".Q.."]
-]</p>
-<pre><code>
-### Approach
-
-Place queens row by row:
-1. For each row, try placing queen in each column
-2. Check if placement is safe (no attacks)
-3. Recursively place queens in remaining rows
-4. If successful, add solution; otherwise backtrack
-
-Track columns, diagonals, and anti-diagonals under attack.
-
-### Solution
-
-```python
-def solve_n_queens(n):
-    &quot;&quot;&quot;
-    Solve N-Queens problem.
-
-    Time Complexity: O(n!) - try n positions in first row, n-1 in second, etc.
-    Space Complexity: O(n^2) - board storage
-    &quot;&quot;&quot;
-    result = []
-    board = [['.'] * n for _ in range(n)]
-
-    # Track attacked positions
-    cols = set()
-    diagonals = set()  # row - col
-    anti_diagonals = set()  # row + col
-
-    def is_safe(row, col):
-        &quot;&quot;&quot;Check if placing queen at (row, col) is safe.&quot;&quot;&quot;
-        return (col not in cols and
-                (row - col) not in diagonals and
-                (row + col) not in anti_diagonals)
-
-    def backtrack(row):
-        &quot;&quot;&quot;Place queens starting from row.&quot;&quot;&quot;
-        if row == n:
-            # All queens placed successfully
-            result.append([''.join(row) for row in board])
-            return
-
-        # Try placing queen in each column
-        for col in range(n):
-            if is_safe(row, col):
-                # Choose: place queen
-                board[row][col] = 'Q'
-                cols.add(col)
-                diagonals.add(row - col)
-                anti_diagonals.add(row + col)
-
-                # Explore: place queens in next rows
-                backtrack(row + 1)
-
-                # Unchoose: remove queen (backtrack)
-                board[row][col] = '.'
-                cols.remove(col)
-                diagonals.remove(row - col)
-                anti_diagonals.remove(row + col)
-
-    backtrack(0)
-    return result
-
-# Test
-n = 4
-solutions = solve_n_queens(n)
-for sol in solutions:
-    for row in sol:
-        print(row)
-    print()
-# Output: Two valid 4-queens solutions
-</code></pre>
+]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>### Approach
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Place queens row by row:
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>1. For each row, try placing queen in each column
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>2. Check if placement is safe (no attacks)
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>3. Recursively place queens in remaining rows
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>4. If successful, add solution; otherwise backtrack
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>Track columns, diagonals, and anti-diagonals under attack.
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>### Solution
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>```python
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>def solve_n_queens(n):
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    &quot;&quot;&quot;
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    Solve N-Queens problem.
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>    Time Complexity: O(n!) - try n positions in first row, n-1 in second, etc.
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>    Space Complexity: O(n^2) - board storage
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>    &quot;&quot;&quot;
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>    result = []
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>    board = [[&#39;.&#39;] * n for _ in range(n)]
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>    # Track attacked positions
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>    cols = set()
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>    diagonals = set()  # row - col
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>    anti_diagonals = set()  # row + col
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>
+<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>    def is_safe(row, col):
+<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>        &quot;&quot;&quot;Check if placing queen at (row, col) is safe.&quot;&quot;&quot;
+<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>        return (col not in cols and
+<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>                (row - col) not in diagonals and
+<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>                (row + col) not in anti_diagonals)
+<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>
+<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>    def backtrack(row):
+<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>        &quot;&quot;&quot;Place queens starting from row.&quot;&quot;&quot;
+<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>        if row == n:
+<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>            # All queens placed successfully
+<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>            result.append([&#39;&#39;.join(row) for row in board])
+<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>            return
+<a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>
+<a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a>        # Try placing queen in each column
+<a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a>        for col in range(n):
+<a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a>            if is_safe(row, col):
+<a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a>                # Choose: place queen
+<a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a>                board[row][col] = &#39;Q&#39;
+<a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a>                cols.add(col)
+<a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a>                diagonals.add(row - col)
+<a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a>                anti_diagonals.add(row + col)
+<a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a>
+<a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a>                # Explore: place queens in next rows
+<a id="__codelineno-9-52" name="__codelineno-9-52" href="#__codelineno-9-52"></a>                backtrack(row + 1)
+<a id="__codelineno-9-53" name="__codelineno-9-53" href="#__codelineno-9-53"></a>
+<a id="__codelineno-9-54" name="__codelineno-9-54" href="#__codelineno-9-54"></a>                # Unchoose: remove queen (backtrack)
+<a id="__codelineno-9-55" name="__codelineno-9-55" href="#__codelineno-9-55"></a>                board[row][col] = &#39;.&#39;
+<a id="__codelineno-9-56" name="__codelineno-9-56" href="#__codelineno-9-56"></a>                cols.remove(col)
+<a id="__codelineno-9-57" name="__codelineno-9-57" href="#__codelineno-9-57"></a>                diagonals.remove(row - col)
+<a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a>                anti_diagonals.remove(row + col)
+<a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a>
+<a id="__codelineno-9-60" name="__codelineno-9-60" href="#__codelineno-9-60"></a>    backtrack(0)
+<a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a>    return result
+<a id="__codelineno-9-62" name="__codelineno-9-62" href="#__codelineno-9-62"></a>
+<a id="__codelineno-9-63" name="__codelineno-9-63" href="#__codelineno-9-63"></a># Test
+<a id="__codelineno-9-64" name="__codelineno-9-64" href="#__codelineno-9-64"></a>n = 4
+<a id="__codelineno-9-65" name="__codelineno-9-65" href="#__codelineno-9-65"></a>solutions = solve_n_queens(n)
+<a id="__codelineno-9-66" name="__codelineno-9-66" href="#__codelineno-9-66"></a>for sol in solutions:
+<a id="__codelineno-9-67" name="__codelineno-9-67" href="#__codelineno-9-67"></a>    for row in sol:
+<a id="__codelineno-9-68" name="__codelineno-9-68" href="#__codelineno-9-68"></a>        print(row)
+<a id="__codelineno-9-69" name="__codelineno-9-69" href="#__codelineno-9-69"></a>    print()
+<a id="__codelineno-9-70" name="__codelineno-9-70" href="#__codelineno-9-70"></a># Output: Two valid 4-queens solutions
+</code></pre></div></p>
 <h3 id="step-by-step-walkthrough">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough" title="Permanent link">&para;</a></h3>
-<pre><code>n = 4
-
-backtrack(row=0)
-  Try col=0: Safe? Yes
-    Place Q at (0,0)
-    cols={0}, diag={0}, anti={0}
-
-    backtrack(row=1)
-      Try col=0: Safe? No (col 0 taken)
-      Try col=1: Safe? No (diagonal)
-      Try col=2: Safe? Yes
-        Place Q at (1,2)
-        cols={0,2}, diag={0,-1}, anti={0,3}
-
-        backtrack(row=2)
-          Try col=0: Safe? No (anti-diagonal)
-          Try col=1: Safe? No (diagonal)
-          Try col=2: Safe? No (col taken)
-          Try col=3: Safe? No (anti-diagonal)
-          No valid placement, backtrack
-
-        Remove Q from (1,2)
-
-      Try col=3: Safe? Yes
-        Place Q at (1,3)
-        ... continue exploring
-        Eventually finds solution [.Q.., ...Q, Q..., ..Q.]
-
-  Try col=1: Safe? Yes
-    Place Q at (0,1)
-    ... explore and find solution [..Q., Q..., ...Q, .Q..]
-
-Result: Two valid solutions
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>n = 4
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>backtrack(row=0)
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  Try col=0: Safe? Yes
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    Place Q at (0,0)
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    cols={0}, diag={0}, anti={0}
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    backtrack(row=1)
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>      Try col=0: Safe? No (col 0 taken)
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>      Try col=1: Safe? No (diagonal)
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>      Try col=2: Safe? Yes
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        Place Q at (1,2)
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        cols={0,2}, diag={0,-1}, anti={0,3}
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>        backtrack(row=2)
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>          Try col=0: Safe? No (anti-diagonal)
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>          Try col=1: Safe? No (diagonal)
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>          Try col=2: Safe? No (col taken)
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>          Try col=3: Safe? No (anti-diagonal)
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>          No valid placement, backtrack
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>        Remove Q from (1,2)
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>      Try col=3: Safe? Yes
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>        Place Q at (1,3)
+<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>        ... continue exploring
+<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>        Eventually finds solution [.Q.., ...Q, Q..., ..Q.]
+<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>
+<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>  Try col=1: Safe? Yes
+<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>    Place Q at (0,1)
+<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>    ... explore and find solution [..Q., Q..., ...Q, .Q..]
+<a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>
+<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>Result: Two valid solutions
+</code></pre></div>
 <h2 id="key-takeaways_1">Key Takeaways<a class="headerlink" href="#key-takeaways_1" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Choose-Explore-Unchoose</strong>: Core pattern of backtracking</li>
@@ -6950,39 +6946,39 @@ Result: Two valid solutions
 <li>Knight's tour</li>
 </ul>
 <h2 id="template-pattern">Template Pattern<a class="headerlink" href="#template-pattern" title="Permanent link">&para;</a></h2>
-<pre><code class="language-python">def backtrack_template(problem_input):
-    &quot;&quot;&quot;General backtracking template.&quot;&quot;&quot;
-    result = []
-
-    def backtrack(state, choices):
-        &quot;&quot;&quot;
-        Args:
-            state: Current solution being built
-            choices: Available choices at this step
-        &quot;&quot;&quot;
-        # Base case: solution complete
-        if is_solution_complete(state):
-            result.append(copy_solution(state))
-            return
-
-        # Try each choice
-        for choice in choices:
-            # Prune: skip invalid choices
-            if not is_valid(choice, state):
-                continue
-
-            # Choose: add choice to state
-            make_choice(state, choice)
-
-            # Explore: recurse with updated state
-            backtrack(state, get_remaining_choices(choices, choice))
-
-            # Unchoose: remove choice (backtrack)
-            undo_choice(state, choice)
-
-    backtrack(initial_state, all_choices)
-    return result
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">backtrack_template</span><span class="p">(</span><span class="n">problem_input</span><span class="p">):</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;General backtracking template.&quot;&quot;&quot;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">backtrack</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">choices</span><span class="p">):</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="sd">        Args:</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="sd">            state: Current solution being built</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="sd">            choices: Available choices at this step</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="sd">        &quot;&quot;&quot;</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>        <span class="c1"># Base case: solution complete</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>        <span class="k">if</span> <span class="n">is_solution_complete</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">copy_solution</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>            <span class="k">return</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>        <span class="c1"># Try each choice</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>        <span class="k">for</span> <span class="n">choice</span> <span class="ow">in</span> <span class="n">choices</span><span class="p">:</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>            <span class="c1"># Prune: skip invalid choices</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid</span><span class="p">(</span><span class="n">choice</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>                <span class="k">continue</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>            <span class="c1"># Choose: add choice to state</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>            <span class="n">make_choice</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">choice</span><span class="p">)</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>            <span class="c1"># Explore: recurse with updated state</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>            <span class="n">backtrack</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">get_remaining_choices</span><span class="p">(</span><span class="n">choices</span><span class="p">,</span> <span class="n">choice</span><span class="p">))</span>
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>            <span class="c1"># Unchoose: remove choice (backtrack)</span>
+<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>            <span class="n">undo_choice</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">choice</span><span class="p">)</span>
+<a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>
+<a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>    <span class="n">backtrack</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="n">all_choices</span><span class="p">)</span>
+<a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a>    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div>
 <h2 id="practice-tips">Practice Tips<a class="headerlink" href="#practice-tips" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Draw the decision tree to visualize recursion</li>
@@ -7026,124 +7022,124 @@ Result: Two valid solutions
 </ul>
 <h4 id="step-2-define-your-state">Step 2: Define Your State<a class="headerlink" href="#step-2-define-your-state" title="Permanent link">&para;</a></h4>
 <p>What information do you need to track?</p>
-<pre><code class="language-python"># Example: N-Queens
-state = {
-    'board': [['.'] * n for _ in range(n)],
-    'cols': set(),        # Columns under attack
-    'diagonals': set(),   # Diagonals under attack
-    'anti_diagonals': set()
-}
-
-# Example: Permutations
-state = {
-    'current': [],  # Current permutation being built
-    'used': set()   # Elements already used
-}
-
-# Keep state minimal - only what's needed for decision making
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Example: N-Queens</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">state</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="s1">&#39;board&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)],</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="s1">&#39;cols&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>        <span class="c1"># Columns under attack</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="s1">&#39;diagonals&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>   <span class="c1"># Diagonals under attack</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="s1">&#39;anti_diagonals&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">()</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="p">}</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="c1"># Example: Permutations</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="n">state</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>    <span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="p">[],</span>  <span class="c1"># Current permutation being built</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>    <span class="s1">&#39;used&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">()</span>   <span class="c1"># Elements already used</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="p">}</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="c1"># Keep state minimal - only what&#39;s needed for decision making</span>
+</code></pre></div>
 <h4 id="step-3-identify-choice-points">Step 3: Identify Choice Points<a class="headerlink" href="#step-3-identify-choice-points" title="Permanent link">&para;</a></h4>
 <p>At each step, what decisions can you make?</p>
-<pre><code class="language-python">def get_choices(state):
-    &quot;&quot;&quot;
-    Return valid choices at current state.
-
-    For N-Queens: which columns in current row
-    For Permutations: which unused elements
-    For Sudoku: which numbers (1-9) in current cell
-    &quot;&quot;&quot;
-    # This varies by problem
-    pass
-
-# Key: Choices should be mutually exclusive
-# Each choice leads to different branch of solution tree
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_choices</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="sd">    Return valid choices at current state.</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="sd">    For N-Queens: which columns in current row</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="sd">    For Permutations: which unused elements</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="sd">    For Sudoku: which numbers (1-9) in current cell</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    <span class="c1"># This varies by problem</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="k">pass</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="c1"># Key: Choices should be mutually exclusive</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="c1"># Each choice leads to different branch of solution tree</span>
+</code></pre></div>
 <h4 id="step-4-define-valid-choice-function">Step 4: Define Valid Choice Function<a class="headerlink" href="#step-4-define-valid-choice-function" title="Permanent link">&para;</a></h4>
 <p>When is a choice valid?</p>
-<pre><code class="language-python">def is_valid(choice, state):
-    &quot;&quot;&quot;
-    Check if choice satisfies all constraints.
-
-    This is your pruning function - crucial for performance.
-    &quot;&quot;&quot;
-    # Example: N-Queens
-    # Invalid if: column, diagonal, or anti-diagonal under attack
-
-    # Example: Sudoku
-    # Invalid if: number already in row, column, or 3x3 box
-
-    # Return False as early as possible to prune tree
-    pass
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_valid</span><span class="p">(</span><span class="n">choice</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="sd">    Check if choice satisfies all constraints.</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="sd">    This is your pruning function - crucial for performance.</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="c1"># Example: N-Queens</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    <span class="c1"># Invalid if: column, diagonal, or anti-diagonal under attack</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    <span class="c1"># Example: Sudoku</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="c1"># Invalid if: number already in row, column, or 3x3 box</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>    <span class="c1"># Return False as early as possible to prune tree</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>    <span class="k">pass</span>
+</code></pre></div>
 <h4 id="step-5-implement-backtracking-template">Step 5: Implement Backtracking Template<a class="headerlink" href="#step-5-implement-backtracking-template" title="Permanent link">&para;</a></h4>
-<pre><code class="language-python">def backtrack(state, result):
-    &quot;&quot;&quot;
-    Universal backtracking template.
-
-    Adapt by:
-    1. Changing base case check
-    2. Customizing choice generation
-    3. Defining what makes choice valid
-    4. Specifying how to make/unmake choice
-    &quot;&quot;&quot;
-    # BASE CASE: Solution complete
-    if is_solution_complete(state):
-        result.append(copy_solution(state))
-        return
-
-    # RECURSIVE CASE: Try each choice
-    for choice in get_choices(state):
-        # PRUNE: Skip invalid choices
-        if not is_valid(choice, state):
-            continue
-
-        # CHOOSE: Make the choice
-        make_choice(state, choice)
-
-        # EXPLORE: Recursively solve subproblem
-        backtrack(state, result)
-
-        # UNCHOOSE: Undo the choice (backtrack)
-        unmake_choice(state, choice)
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">backtrack</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="sd">    Universal backtracking template.</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="sd">    Adapt by:</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="sd">    1. Changing base case check</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="sd">    2. Customizing choice generation</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="sd">    3. Defining what makes choice valid</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="sd">    4. Specifying how to make/unmake choice</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>    <span class="c1"># BASE CASE: Solution complete</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>    <span class="k">if</span> <span class="n">is_solution_complete</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">copy_solution</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>        <span class="k">return</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>    <span class="c1"># RECURSIVE CASE: Try each choice</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>    <span class="k">for</span> <span class="n">choice</span> <span class="ow">in</span> <span class="n">get_choices</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>        <span class="c1"># PRUNE: Skip invalid choices</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid</span><span class="p">(</span><span class="n">choice</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>            <span class="k">continue</span>
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>        <span class="c1"># CHOOSE: Make the choice</span>
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>        <span class="n">make_choice</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">choice</span><span class="p">)</span>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a>
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>        <span class="c1"># EXPLORE: Recursively solve subproblem</span>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a>        <span class="n">backtrack</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a>
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a>        <span class="c1"># UNCHOOSE: Undo the choice (backtrack)</span>
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a>        <span class="n">unmake_choice</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">choice</span><span class="p">)</span>
+</code></pre></div>
 <h4 id="step-6-optimize-with-pruning">Step 6: Optimize with Pruning<a class="headerlink" href="#step-6-optimize-with-pruning" title="Permanent link">&para;</a></h4>
 <p>Good pruning can reduce time from hours to milliseconds.</p>
-<pre><code class="language-python"># Example: Combination Sum
-def combination_sum(candidates, target):
-    &quot;&quot;&quot;
-    Find combinations that sum to target.
-
-    Without pruning: Try all combinations (exponential)
-    With pruning: Skip branches that exceed target early
-    &quot;&quot;&quot;
-    result = []
-    candidates.sort()  # Sort for pruning
-
-    def backtrack(start, current, current_sum):
-        if current_sum == target:
-            result.append(current[:])
-            return
-
-        for i in range(start, len(candidates)):
-            num = candidates[i]
-
-            # PRUNE: If current sum + num exceeds target,
-            # all future numbers will too (since sorted)
-            if current_sum + num &gt; target:
-                break  # Skip entire remaining branch
-
-            current.append(num)
-            backtrack(i, current, current_sum + num)
-            current.pop()
-
-    backtrack(0, [], 0)
-    return result
-
-# Pruning impact:
-# candidates = [2,3,5], target = 8
-# Without pruning: Explores ~100 states
-# With pruning: Explores ~20 states (5x speedup)
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Example: Combination Sum</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">combination_sum</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="sd">    Find combinations that sum to target.</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="sd">    Without pruning: Try all combinations (exponential)</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="sd">    With pruning: Skip branches that exceed target early</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>    <span class="n">candidates</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>  <span class="c1"># Sort for pruning</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">backtrack</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="n">current_sum</span><span class="p">):</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>        <span class="k">if</span> <span class="n">current_sum</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">[:])</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>            <span class="k">return</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)):</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>            <span class="n">num</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>            <span class="c1"># PRUNE: If current sum + num exceeds target,</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>            <span class="c1"># all future numbers will too (since sorted)</span>
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>            <span class="k">if</span> <span class="n">current_sum</span> <span class="o">+</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">:</span>
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>                <span class="k">break</span>  <span class="c1"># Skip entire remaining branch</span>
+<a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a>
+<a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a>            <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+<a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a>            <span class="n">backtrack</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="n">current_sum</span> <span class="o">+</span> <span class="n">num</span><span class="p">)</span>
+<a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a>            <span class="n">current</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a>
+<a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a>    <span class="n">backtrack</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[],</span> <span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-16-30" name="__codelineno-16-30" href="#__codelineno-16-30"></a>    <span class="k">return</span> <span class="n">result</span>
+<a id="__codelineno-16-31" name="__codelineno-16-31" href="#__codelineno-16-31"></a>
+<a id="__codelineno-16-32" name="__codelineno-16-32" href="#__codelineno-16-32"></a><span class="c1"># Pruning impact:</span>
+<a id="__codelineno-16-33" name="__codelineno-16-33" href="#__codelineno-16-33"></a><span class="c1"># candidates = [2,3,5], target = 8</span>
+<a id="__codelineno-16-34" name="__codelineno-16-34" href="#__codelineno-16-34"></a><span class="c1"># Without pruning: Explores ~100 states</span>
+<a id="__codelineno-16-35" name="__codelineno-16-35" href="#__codelineno-16-35"></a><span class="c1"># With pruning: Explores ~20 states (5x speedup)</span>
+</code></pre></div>
 <h4 id="step-7-analyze-and-improve">Step 7: Analyze and Improve<a class="headerlink" href="#step-7-analyze-and-improve" title="Permanent link">&para;</a></h4>
 <p>After initial implementation:</p>
 <ul>
@@ -7175,122 +7171,122 @@ def combination_sum(candidates, target):
 </ul>
 <h3 id="advanced-patterns">Advanced Patterns<a class="headerlink" href="#advanced-patterns" title="Permanent link">&para;</a></h3>
 <h4 id="pattern-1-avoiding-duplicates">Pattern 1: Avoiding Duplicates<a class="headerlink" href="#pattern-1-avoiding-duplicates" title="Permanent link">&para;</a></h4>
-<pre><code class="language-python">def subsets_with_duplicates(nums):
-    &quot;&quot;&quot;
-    Generate unique subsets when input has duplicates.
-
-    Key: Sort and skip consecutive duplicates at same level.
-    &quot;&quot;&quot;
-    nums.sort()
-    result = []
-
-    def backtrack(start, current):
-        result.append(current[:])
-
-        for i in range(start, len(nums)):
-            # Skip duplicate elements at same recursion level
-            if i &gt; start and nums[i] == nums[i-1]:
-                continue
-
-            current.append(nums[i])
-            backtrack(i + 1, current)
-            current.pop()
-
-    backtrack(0, [])
-    return result
-
-# Input: [1, 2, 2]
-# Without dedup: [[],[1],[1,2],[1,2,2],[1,2],[2],[2,2],[2]]
-# With dedup:    [[],[1],[1,2],[1,2,2],[2],[2,2]]
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">subsets_with_duplicates</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="sd">    Generate unique subsets when input has duplicates.</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="sd">    Key: Sort and skip consecutive duplicates at same level.</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>    <span class="n">nums</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">backtrack</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">[:])</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>            <span class="c1"># Skip duplicate elements at same recursion level</span>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">start</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>                <span class="k">continue</span>
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>            <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>            <span class="n">backtrack</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">current</span><span class="p">)</span>
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>            <span class="n">current</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>
+<a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>    <span class="n">backtrack</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[])</span>
+<a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a>    <span class="k">return</span> <span class="n">result</span>
+<a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a>
+<a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a><span class="c1"># Input: [1, 2, 2]</span>
+<a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a><span class="c1"># Without dedup: [[],[1],[1,2],[1,2,2],[1,2],[2],[2,2],[2]]</span>
+<a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a><span class="c1"># With dedup:    [[],[1],[1,2],[1,2,2],[2],[2,2]]</span>
+</code></pre></div>
 <h4 id="pattern-2-memoization-for-overlapping-subproblems">Pattern 2: Memoization for Overlapping Subproblems<a class="headerlink" href="#pattern-2-memoization-for-overlapping-subproblems" title="Permanent link">&para;</a></h4>
-<pre><code class="language-python">def word_break_all(s, word_dict):
-    &quot;&quot;&quot;
-    Find all ways to break string using dictionary words.
-
-    Problem: Same substring processed multiple times
-    Solution: Memoize results by substring
-    &quot;&quot;&quot;
-    memo = {}
-
-    def backtrack(start):
-        if start in memo:
-            return memo[start]
-
-        if start == len(s):
-            return [[]]
-
-        result = []
-        for end in range(start + 1, len(s) + 1):
-            word = s[start:end]
-            if word in word_dict:
-                # Found valid word - recurse on rest
-                for rest in backtrack(end):
-                    result.append([word] + rest)
-
-        memo[start] = result
-        return result
-
-    return [' '.join(words) for words in backtrack(0)]
-
-# s = &quot;catsanddog&quot;, dict = [&quot;cat&quot;,&quot;cats&quot;,&quot;and&quot;,&quot;sand&quot;,&quot;dog&quot;]
-# Without memo: O(2^n) - exponential
-# With memo: O(n^3) - polynomial
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">word_break_all</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">word_dict</span><span class="p">):</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="sd">    Find all ways to break string using dictionary words.</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="sd">    Problem: Same substring processed multiple times</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="sd">    Solution: Memoize results by substring</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>    <span class="n">memo</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">backtrack</span><span class="p">(</span><span class="n">start</span><span class="p">):</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>        <span class="k">if</span> <span class="n">start</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>            <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">start</span><span class="p">]</span>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>        <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>            <span class="k">return</span> <span class="p">[[]]</span>
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>        <span class="k">for</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>            <span class="n">word</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>            <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_dict</span><span class="p">:</span>
+<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>                <span class="c1"># Found valid word - recurse on rest</span>
+<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a>                <span class="k">for</span> <span class="n">rest</span> <span class="ow">in</span> <span class="n">backtrack</span><span class="p">(</span><span class="n">end</span><span class="p">):</span>
+<a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">word</span><span class="p">]</span> <span class="o">+</span> <span class="n">rest</span><span class="p">)</span>
+<a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a>
+<a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>        <span class="n">memo</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+<a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a>        <span class="k">return</span> <span class="n">result</span>
+<a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a>
+<a id="__codelineno-18-28" name="__codelineno-18-28" href="#__codelineno-18-28"></a>    <span class="k">return</span> <span class="p">[</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">)</span> <span class="k">for</span> <span class="n">words</span> <span class="ow">in</span> <span class="n">backtrack</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
+<a id="__codelineno-18-29" name="__codelineno-18-29" href="#__codelineno-18-29"></a>
+<a id="__codelineno-18-30" name="__codelineno-18-30" href="#__codelineno-18-30"></a><span class="c1"># s = &quot;catsanddog&quot;, dict = [&quot;cat&quot;,&quot;cats&quot;,&quot;and&quot;,&quot;sand&quot;,&quot;dog&quot;]</span>
+<a id="__codelineno-18-31" name="__codelineno-18-31" href="#__codelineno-18-31"></a><span class="c1"># Without memo: O(2^n) - exponential</span>
+<a id="__codelineno-18-32" name="__codelineno-18-32" href="#__codelineno-18-32"></a><span class="c1"># With memo: O(n^3) - polynomial</span>
+</code></pre></div>
 <h4 id="pattern-3-constraint-propagation">Pattern 3: Constraint Propagation<a class="headerlink" href="#pattern-3-constraint-propagation" title="Permanent link">&para;</a></h4>
-<pre><code class="language-python">def sudoku_solver(board):
-    &quot;&quot;&quot;
-    Solve Sudoku with constraint propagation.
-
-    Instead of trying all numbers 1-9,
-    maintain set of possible values for each cell.
-    &quot;&quot;&quot;
-    # Possible values for each cell
-    possible = [[set(range(1, 10)) if board[i][j] == 0 else set()
-                 for j in range(9)] for i in range(9)]
-
-    # Remove impossibilities based on initial state
-    for i in range(9):
-        for j in range(9):
-            if board[i][j] != 0:
-                propagate_constraints(board, possible, i, j, board[i][j])
-
-    def backtrack():
-        # Find cell with fewest possibilities (most constrained)
-        min_choices = 10
-        best_cell = None
-
-        for i in range(9):
-            for j in range(9):
-                if board[i][j] == 0 and len(possible[i][j]) &lt; min_choices:
-                    min_choices = len(possible[i][j])
-                    best_cell = (i, j)
-
-        if best_cell is None:
-            return True  # Solved
-
-        i, j = best_cell
-
-        # Try each possible value
-        for num in list(possible[i][j]):
-            board[i][j] = num
-            old_possible = [row[:] for row in possible]
-
-            if propagate_constraints(board, possible, i, j, num):
-                if backtrack():
-                    return True
-
-            board[i][j] = 0
-            possible[:] = old_possible
-
-        return False
-
-    return backtrack()
-
-# Most constrained first: Huge pruning improvement
-# Random order: ~100,000 states
-# Most constrained: ~1,000 states (100x faster)
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">sudoku_solver</span><span class="p">(</span><span class="n">board</span><span class="p">):</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="sd">    Solve Sudoku with constraint propagation.</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="sd">    Instead of trying all numbers 1-9,</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="sd">    maintain set of possible values for each cell.</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>    <span class="c1"># Possible values for each cell</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>    <span class="n">possible</span> <span class="o">=</span> <span class="p">[[</span><span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>                 <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)]</span>
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>    <span class="c1"># Remove impossibilities based on initial state</span>
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>            <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>                <span class="n">propagate_constraints</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">possible</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>
+<a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">backtrack</span><span class="p">():</span>
+<a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a>        <span class="c1"># Find cell with fewest possibilities (most constrained)</span>
+<a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a>        <span class="n">min_choices</span> <span class="o">=</span> <span class="mi">10</span>
+<a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a>        <span class="n">best_cell</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-19-22" name="__codelineno-19-22" href="#__codelineno-19-22"></a>
+<a id="__codelineno-19-23" name="__codelineno-19-23" href="#__codelineno-19-23"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+<a id="__codelineno-19-24" name="__codelineno-19-24" href="#__codelineno-19-24"></a>            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+<a id="__codelineno-19-25" name="__codelineno-19-25" href="#__codelineno-19-25"></a>                <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">possible</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">min_choices</span><span class="p">:</span>
+<a id="__codelineno-19-26" name="__codelineno-19-26" href="#__codelineno-19-26"></a>                    <span class="n">min_choices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">possible</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+<a id="__codelineno-19-27" name="__codelineno-19-27" href="#__codelineno-19-27"></a>                    <span class="n">best_cell</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+<a id="__codelineno-19-28" name="__codelineno-19-28" href="#__codelineno-19-28"></a>
+<a id="__codelineno-19-29" name="__codelineno-19-29" href="#__codelineno-19-29"></a>        <span class="k">if</span> <span class="n">best_cell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-19-30" name="__codelineno-19-30" href="#__codelineno-19-30"></a>            <span class="k">return</span> <span class="kc">True</span>  <span class="c1"># Solved</span>
+<a id="__codelineno-19-31" name="__codelineno-19-31" href="#__codelineno-19-31"></a>
+<a id="__codelineno-19-32" name="__codelineno-19-32" href="#__codelineno-19-32"></a>        <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">best_cell</span>
+<a id="__codelineno-19-33" name="__codelineno-19-33" href="#__codelineno-19-33"></a>
+<a id="__codelineno-19-34" name="__codelineno-19-34" href="#__codelineno-19-34"></a>        <span class="c1"># Try each possible value</span>
+<a id="__codelineno-19-35" name="__codelineno-19-35" href="#__codelineno-19-35"></a>        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">possible</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]):</span>
+<a id="__codelineno-19-36" name="__codelineno-19-36" href="#__codelineno-19-36"></a>            <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span>
+<a id="__codelineno-19-37" name="__codelineno-19-37" href="#__codelineno-19-37"></a>            <span class="n">old_possible</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[:]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">possible</span><span class="p">]</span>
+<a id="__codelineno-19-38" name="__codelineno-19-38" href="#__codelineno-19-38"></a>
+<a id="__codelineno-19-39" name="__codelineno-19-39" href="#__codelineno-19-39"></a>            <span class="k">if</span> <span class="n">propagate_constraints</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">possible</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+<a id="__codelineno-19-40" name="__codelineno-19-40" href="#__codelineno-19-40"></a>                <span class="k">if</span> <span class="n">backtrack</span><span class="p">():</span>
+<a id="__codelineno-19-41" name="__codelineno-19-41" href="#__codelineno-19-41"></a>                    <span class="k">return</span> <span class="kc">True</span>
+<a id="__codelineno-19-42" name="__codelineno-19-42" href="#__codelineno-19-42"></a>
+<a id="__codelineno-19-43" name="__codelineno-19-43" href="#__codelineno-19-43"></a>            <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-19-44" name="__codelineno-19-44" href="#__codelineno-19-44"></a>            <span class="n">possible</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">old_possible</span>
+<a id="__codelineno-19-45" name="__codelineno-19-45" href="#__codelineno-19-45"></a>
+<a id="__codelineno-19-46" name="__codelineno-19-46" href="#__codelineno-19-46"></a>        <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-19-47" name="__codelineno-19-47" href="#__codelineno-19-47"></a>
+<a id="__codelineno-19-48" name="__codelineno-19-48" href="#__codelineno-19-48"></a>    <span class="k">return</span> <span class="n">backtrack</span><span class="p">()</span>
+<a id="__codelineno-19-49" name="__codelineno-19-49" href="#__codelineno-19-49"></a>
+<a id="__codelineno-19-50" name="__codelineno-19-50" href="#__codelineno-19-50"></a><span class="c1"># Most constrained first: Huge pruning improvement</span>
+<a id="__codelineno-19-51" name="__codelineno-19-51" href="#__codelineno-19-51"></a><span class="c1"># Random order: ~100,000 states</span>
+<a id="__codelineno-19-52" name="__codelineno-19-52" href="#__codelineno-19-52"></a><span class="c1"># Most constrained: ~1,000 states (100x faster)</span>
+</code></pre></div>
 <h3 id="problem-solving-strategy">Problem-Solving Strategy<a class="headerlink" href="#problem-solving-strategy" title="Permanent link">&para;</a></h3>
 <p>When encountering new backtracking problem:</p>
 <ol>
