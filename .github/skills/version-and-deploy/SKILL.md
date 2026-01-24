@@ -1,102 +1,111 @@
 # Skill: Version and Deploy
 
-Deploy documentation to GitHub Pages using Zensical.
+Deploy versioned documentation to GitHub Pages using Zensical.
 
 ## When to Use
 
 - Deploying updates to production
 - Releasing a new documentation version
-- Managing version history
+- Managing version history on gh-pages
+- Cleaning up old versions
 
 ## Deployment Overview
 
-The site is built with **Zensical** and deployed to GitHub Pages automatically via GitHub Actions.
+The site is built with **Zensical** and deployed to GitHub Pages. Versioned documentation uses `versioned_deploy.py` for multi-version support.
 
 | Component | Technology |
 |-----------|------------|
-| Build | Zensical (~0.4s builds) |
-| Hosting | GitHub Pages |
+| Build | Zensical (~0.5-3s builds) |
+| Hosting | GitHub Pages (gh-pages branch) |
+| Versioning | `versioned_deploy.py` with mike-style structure |
 | CI/CD | GitHub Actions |
 
-## Automatic Deployment
+## Version Naming Convention
 
-Every push to `main` triggers automatic deployment:
+Use `0.x.y` format (no `v` prefix):
 
-1. GitHub Actions runs `.github/workflows/github_pages.yml`
-2. Zensical builds the site
-3. Site is deployed to GitHub Pages
+- **Major** (0.x.0 -> 1.0.0): Breaking changes
+- **Minor** (0.3.0 -> 0.4.0): New features
+- **Patch** (0.3.0 -> 0.3.1): Bug fixes
 
-No manual steps required for regular updates.
+Current convention: Stay in `0.x.y` during active development.
 
-## Manual Deployment
+## Versioned Deployment Workflow
 
-Using doc-cli:
-
-```bash
-# Interactive mode
-./doc-cli.sh
-
-# Or direct command
-./doc-cli.sh deploy
-```
-
-## Version Bump Workflow
-
-### 1. Bump Version
+### 1. Build the Site
 
 ```bash
-# Using doc-cli
-./doc-cli.sh bump-version
+make build
 ```
 
-This will:
-- Prompt for version type (major, minor, patch)
-- Update `versions.json`
-- Create git tag
-- Push changes (triggers automatic deployment)
-
-### 2. Using Helper Script
+### 2. Deploy a New Version
 
 ```bash
-./scripts/bump-version.sh
+uv run python scripts/python/versioned_deploy.py 0.3.1 --alias latest --push
 ```
 
-## Version Naming
+Options:
+- `--alias latest`: Sets this version as the default
+- `--push`: Automatically pushes to gh-pages
+- Without `--push`: Preview changes locally first
 
-Follow semantic versioning:
-- **Major** (1.0.0 -> 2.0.0): Breaking changes
-- **Minor** (1.0.0 -> 1.1.0): New features
-- **Patch** (1.0.0 -> 1.0.1): Bug fixes
+### 3. Update versions.json
 
-## GitHub Actions Workflow
+The script automatically updates `versions.json`. Structure:
 
-The workflow (`.github/workflows/github_pages.yml`) does:
-
-```yaml
-# Simplified flow
-- Checkout repository (sparse)
-- Install zensical
-- Build with zensical
-- Deploy to GitHub Pages
+```json
+[
+  {
+    "version": "0.3.1",
+    "title": "0.3.1",
+    "aliases": ["latest"]
+  }
+]
 ```
 
-Triggers:
-- Push to `main` branch
-- Pull requests (preview only)
-- Manual workflow dispatch
+## Automatic Deployment (CI/CD)
 
-## Force Redeploy
+The GitHub Actions workflow (`.github/workflows/github_pages.yml`) handles automatic deployment on push to `main`. For versioned releases, use the manual workflow.
 
-If needed:
+## Manual gh-pages Cleanup
+
+When you need to remove old versions:
+
+### 1. Create a Worktree
 
 ```bash
-./doc-cli.sh deploy --force
+git worktree add /tmp/gh-pages-cleanup gh-pages
+cd /tmp/gh-pages-cleanup
 ```
 
-Or via GitHub Actions:
-1. Go to Actions tab
-2. Select "Deploy to GitHub Pages" workflow
-3. Click "Run workflow"
+### 2. List and Remove Old Versions
+
+```bash
+# List version directories
+ls -la | grep -E '^d.*[0-9]+\.[0-9]+\.[0-9]+'
+
+# Remove old versions
+rm -rf 0.3.0 v0.2.0 # etc.
+```
+
+### 3. Update versions.json
+
+Edit `versions.json` to remove old version entries.
+
+### 4. Commit and Push
+
+```bash
+git add -A
+git commit -m "chore: clean up old versions, keep 0.3.1"
+git push origin gh-pages
+```
+
+### 5. Clean Up Worktree
+
+```bash
+cd /workspaces/my-life-as-a-dev
+git worktree remove /tmp/gh-pages-cleanup
+```
 
 ## Local Preview
 
@@ -106,11 +115,28 @@ Before deploying, preview locally:
 # Build and serve with Zensical
 make serve
 
-# Or
-./doc-cli.sh serve
+# Or direct
+uv run zensical serve
 ```
 
+## Version Selector Features
+
+The version selector (`/docs/assets/js/version-selector.js`) includes:
+
+- Dropdown with all available versions
+- "Back to latest" banner when viewing old versions
+- Automatic redirect support via `latest` alias
+
 ## Troubleshooting
+
+### versions.json 404 on Versioned Pages
+
+The `getBaseUrl()` function in `version-selector.js` must return the repository root, not the versioned path:
+
+```javascript
+// Correct: /my-life-as-a-dev/
+// Wrong: /my-life-as-a-dev/0.3.1/
+```
 
 ### Build Fails in CI
 
@@ -126,12 +152,20 @@ Common issues:
 ### Site Not Updating
 
 1. Check if workflow completed successfully
-2. Clear browser cache
+2. Clear browser cache (Ctrl+Shift+R)
 3. Wait a few minutes for CDN propagation
+
+### Old Versions Still Visible
+
+1. Check gh-pages branch directly
+2. Use worktree method to clean up
+3. Verify `versions.json` matches directory structure
 
 ## Checklist
 
-- [ ] All changes committed and pushed
+- [ ] All changes committed and pushed to main
 - [ ] Build succeeds locally (`make build`)
-- [ ] GitHub Actions completed successfully
+- [ ] Version deployed with `versioned_deploy.py`
+- [ ] `versions.json` has correct version with `latest` alias
+- [ ] Old versions cleaned up if needed
 - [ ] Live site verified: https://ba-calderonmorales.github.io/my-life-as-a-dev/
