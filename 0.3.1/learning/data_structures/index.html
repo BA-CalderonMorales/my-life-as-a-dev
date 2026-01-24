@@ -6411,16 +6411,16 @@
 </tr>
 </tbody>
 </table>
-<pre><code class="language-text">Array:  [ 1 | 2 | 3 | 4 | 5 ]
-         ↑               ↑
-        O(1)           O(1)
-        access         access
-
-Linked: [1]→[2]→[3]→[4]→[5]→null
-         ↑
-        Head
-        O(1) insert/delete at known position
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Array:  [ 1 | 2 | 3 | 4 | 5 ]
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         ↑               ↑
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        O(1)           O(1)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        access         access
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Linked: [1]→[2]→[3]→[4]→[5]→null
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>         ↑
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        Head
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        O(1) insert/delete at known position
+</code></pre></div>
 <hr />
 <h2 id="associative-structures">Associative Structures<a class="headerlink" href="#associative-structures" title="Permanent link">&para;</a></h2>
 <p>Key-value mappings and membership testing with constant-time operations.</p>
@@ -6448,17 +6448,17 @@ Linked: [1]→[2]→[3]→[4]→[5]→null
 </tr>
 </tbody>
 </table>
-<pre><code class="language-text">Hash Table:
-  Key → Hash Function → Index
-  &quot;apple&quot; → hash(&quot;apple&quot;) % size → 3
-
-  Buckets:
-  [0] → null
-  [1] → (&quot;banana&quot;, 5)
-  [2] → null
-  [3] → (&quot;apple&quot;, 2) → (&quot;grape&quot;, 8)  ← collision
-  [4] → null
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Hash Table:
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  Key → Hash Function → Index
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  &quot;apple&quot; → hash(&quot;apple&quot;) % size → 3
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  Buckets:
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  [0] → null
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  [1] → (&quot;banana&quot;, 5)
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  [2] → null
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  [3] → (&quot;apple&quot;, 2) → (&quot;grape&quot;, 8)  ← collision
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  [4] → null
+</code></pre></div>
 <hr />
 <h2 id="hierarchical-structures">Hierarchical Structures<a class="headerlink" href="#hierarchical-structures" title="Permanent link">&para;</a></h2>
 <p>Tree-based structures for ordered access and hierarchical relationships.</p>
@@ -6498,17 +6498,17 @@ Linked: [1]→[2]→[3]→[4]→[5]→null
 </tr>
 </tbody>
 </table>
-<pre><code class="language-text">Binary Search Tree:        Min Heap:
-        8                      1
-       / \                   /   \
-      3   10                3     2
-     / \    \              / \   / \
-    1   6    14           5   4 7   6
-       / \   /
-      4   7 13
-
-BST: left &lt; parent &lt; right    Heap: parent ≤ children
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Binary Search Tree:        Min Heap:
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>        8                      1
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>       / \                   /   \
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>      3   10                3     2
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>     / \    \              / \   / \
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    1   6    14           5   4 7   6
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>       / \   /
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>      4   7 13
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>BST: left &lt; parent &lt; right    Heap: parent ≤ children
+</code></pre></div>
 <hr />
 <h2 id="graph-structures">Graph Structures<a class="headerlink" href="#graph-structures" title="Permanent link">&para;</a></h2>
 <p>Model relationships and connections between entities.</p>
@@ -6536,13 +6536,13 @@ BST: left &lt; parent &lt; right    Heap: parent ≤ children
 </tr>
 </tbody>
 </table>
-<pre><code class="language-text">Graph:  A --- B              Adjacency List:        Adjacency Matrix:
-        |     |              A: [B, C]                  A  B  C  D
-        C --- D              B: [A, D]              A [ 0  1  1  0 ]
-                             C: [A, D]              B [ 1  0  0  1 ]
-                             D: [B, C]              C [ 1  0  0  1 ]
-                                                    D [ 0  1  1  0 ]
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Graph:  A --- B              Adjacency List:        Adjacency Matrix:
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>        |     |              A: [B, C]                  A  B  C  D
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        C --- D              B: [A, D]              A [ 0  1  1  0 ]
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                             C: [A, D]              B [ 1  0  0  1 ]
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                             D: [B, C]              C [ 1  0  0  1 ]
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>                                                    D [ 0  1  1  0 ]
+</code></pre></div>
 <hr />
 <h2 id="specialized-structures">Specialized Structures<a class="headerlink" href="#specialized-structures" title="Permanent link">&para;</a></h2>
 <p>Advanced structures for specific problem domains.</p>
@@ -6636,27 +6636,27 @@ BST: left &lt; parent &lt; right    Heap: parent ≤ children
 <p><em>* At known position. m = key length, n = number of elements</em></p>
 <hr />
 <h2 id="decision-guide">Decision Guide<a class="headerlink" href="#decision-guide" title="Permanent link">&para;</a></h2>
-<pre><code class="language-text">&quot;I need fast lookups by key...&quot;
-  └──▶ HASH TABLE
-
-&quot;I need elements in sorted order...&quot;
-  └──▶ BINARY SEARCH TREE or SORTED ARRAY
-
-&quot;I need the min/max element quickly...&quot;
-  └──▶ HEAP
-
-&quot;I need to match string prefixes...&quot;
-  └──▶ TRIE
-
-&quot;I need LIFO (last-in, first-out)...&quot;
-  └──▶ STACK
-
-&quot;I need FIFO (first-in, first-out)...&quot;
-  └──▶ QUEUE
-
-&quot;I need to model relationships...&quot;
-  └──▶ GRAPH (adjacency list/matrix)
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;I need fast lookups by key...&quot;
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  └──▶ HASH TABLE
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>&quot;I need elements in sorted order...&quot;
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  └──▶ BINARY SEARCH TREE or SORTED ARRAY
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>&quot;I need the min/max element quickly...&quot;
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  └──▶ HEAP
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>&quot;I need to match string prefixes...&quot;
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>  └──▶ TRIE
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>&quot;I need LIFO (last-in, first-out)...&quot;
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>  └──▶ STACK
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>&quot;I need FIFO (first-in, first-out)...&quot;
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>  └──▶ QUEUE
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>&quot;I need to model relationships...&quot;
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>  └──▶ GRAPH (adjacency list/matrix)
+</code></pre></div>
 
 
   <nav class="md-tags" >
