@@ -1,0 +1,277 @@
+/* ============================================
+   Background - Three.js Background Container
+   Fixed background layer styling
+   ============================================ */
+
+:root {
+    --nav-surface: rgba(255, 255, 255, 0.9);
+    --nav-surface-strong: rgba(255, 255, 255, 0.96);
+    --nav-border: rgba(0, 0, 0, 0.1);
+}
+
+[data-md-color-scheme="slate"] {
+    --nav-surface: rgba(0, 0, 0, 0.78);
+    --nav-surface-strong: rgba(0, 0, 0, 0.9);
+    --nav-border: rgba(255, 255, 255, 0.1);
+}
+
+.threejs-bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0.6;
+}
+
+.threejs-bg-container canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Dark mode: more visible */
+[data-md-color-scheme="slate"] .threejs-bg-container {
+    opacity: 0.7;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .threejs-bg-container {
+        display: none;
+    }
+}
+
+/* ============================================
+   Content Legibility Layer
+   Solid backgrounds for readable content areas
+   ============================================ */
+
+/* Main content area - solid background for legibility */
+.md-content__inner {
+    background: var(--nav-surface);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 0.75rem;
+    border: 1px solid var(--nav-border);
+    padding: 1.5rem;
+    margin: 0.5rem;
+}
+
+/* Left + right sidebars adopt subtle glass styling */
+.md-sidebar--primary,
+.md-sidebar--secondary {
+    padding: 0;
+    margin: 0.5rem 0;
+    border: none;
+}
+
+.md-sidebar--primary .md-sidebar__scrollwrap,
+.md-sidebar--secondary .md-sidebar__scrollwrap {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+}
+
+.md-sidebar--primary .md-sidebar__inner,
+.md-sidebar--secondary .md-sidebar__inner {
+    background: var(--nav-surface);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 0.5rem;
+    border: 1px solid var(--nav-border);
+    padding: 0.5rem 0.75rem 0.75rem;
+    margin: 0;
+}
+
+.md-sidebar--primary .md-nav,
+.md-sidebar--primary .md-nav__title,
+.md-sidebar--primary .md-nav__list,
+.md-sidebar--primary .md-nav__item {
+    background: transparent !important;
+    box-shadow: none;
+}
+
+/* Navigation link styling with consistent hover */
+.md-sidebar--primary .md-nav__link {
+    border-radius: 0;
+    padding-block: 0.35rem;
+    background: transparent !important;
+    transition: background 0.15s ease, opacity 0.15s ease;
+    color: var(--md-default-fg-color) !important;
+    font-weight: 450;
+}
+
+/* Standard Link Hover */
+.md-sidebar--primary .md-nav__link:hover {
+    color: var(--md-default-fg-color) !important;
+    background: var(--md-accent-fg-color--transparent) !important;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    opacity: 0.8;
+}
+
+/* Container links (with dropdown arrows) need flex layout preserved */
+.md-sidebar--primary .md-nav__container {
+    background: transparent !important;
+}
+
+/* Consistent hover background for all nav links and labels */
+.md-sidebar--primary .md-nav__link:hover,
+.md-sidebar--primary .md-nav__link:focus,
+.md-sidebar--primary label.md-nav__link:hover {
+    background: var(--md-accent-fg-color--transparent) !important;
+}
+
+/* Active link styling */
+.md-sidebar--primary .md-nav__link.md-nav__link--active {
+    background: var(--md-accent-fg-color--transparent) !important;
+    font-weight: 600;
+}
+
+/* Reset nested/active item backgrounds to transparent by default */
+.md-sidebar--primary .md-nav__item--nested,
+.md-sidebar--primary .md-nav__item--active,
+.md-sidebar--primary .md-nav__item--section {
+    background: transparent !important;
+}
+
+/* Links inside nested/active items - use consistent text color */
+.md-sidebar--primary .md-nav__item--nested>.md-nav__link,
+.md-sidebar--primary .md-nav__item--active>.md-nav__link,
+.md-sidebar--primary .md-nav__item--nested>.md-nav__container,
+.md-sidebar--primary .md-nav__item--section>.md-nav__container {
+    background: transparent !important;
+    pointer-events: auto;
+    color: var(--md-default-fg-color) !important;
+}
+
+/* Hover on nested/active items */
+.md-sidebar--primary .md-nav__item--nested>.md-nav__link:hover,
+.md-sidebar--primary .md-nav__item--active>.md-nav__link:hover,
+.md-sidebar--primary .md-nav__item--nested>.md-nav__container:hover,
+.md-sidebar--primary .md-nav__item--section>.md-nav__container:hover {
+    background: var(--md-accent-fg-color--transparent) !important;
+    color: var(--md-default-fg-color) !important;
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 76.25rem) {
+
+    .md-sidebar--primary,
+    .md-sidebar--secondary {
+        margin: 0;
+    }
+
+    /* Mobile/Tablet Drawer - Solid background, no blur */
+    .md-drawer {
+        background: var(--md-default-bg-color) !important;
+        border-right: 1px solid var(--md-default-fg-color--lightest) !important;
+        opacity: 1 !important;
+    }
+
+    /* The overlay that dims the background behind the drawer */
+    [data-md-toggle="drawer"]:checked~.md-overlay {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background-color: rgba(0, 0, 0, 0.54) !important;
+    }
+
+    .md-drawer__content,
+    .md-nav--primary,
+    .md-sidebar--primary .md-sidebar__scrollwrap {
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    .md-sidebar--primary .md-sidebar__inner,
+    .md-sidebar--secondary .md-sidebar__inner {
+        border-radius: 0;
+        border: none;
+        margin: 0;
+        background: transparent !important;
+        backdrop-filter: none !important;
+    }
+
+    /* Mobile nav links - consistent with rest of app */
+    .md-nav--primary .md-nav__link,
+    .md-nav--primary .md-nav__item .md-nav__link {
+        color: var(--md-default-fg-color) !important;
+    }
+
+    .md-nav--primary .md-nav__link:hover,
+    .md-nav--primary .md-nav__item .md-nav__link:hover {
+        color: var(--md-default-fg-color) !important;
+        opacity: 0.8;
+        text-decoration: underline;
+    }
+
+    /* Mobile nav title */
+    .md-nav--primary .md-nav__title {
+        color: var(--md-default-fg-color) !important;
+        background: transparent !important;
+    }
+
+    .md-nav--primary .md-nav__title[for="__drawer"] {
+        color: var(--md-default-fg-color) !important;
+    }
+}
+
+/* Header - solid background for navigation */
+.md-header {
+    background: var(--mlad-header-bg);
+    color: var(--mlad-header-fg);
+}
+
+/* Force header icons (menu, search, repo) to match theme */
+.md-header .md-header__button.md-icon {
+    color: var(--mlad-header-fg);
+}
+
+.md-header .md-header__button.md-icon:hover {
+    background: var(--mlad-menu-btn-bg-hover);
+    border-radius: 50%;
+}
+
+/* Tabs - solid background */
+.md-tabs {
+    background: var(--mlad-header-bg);
+    color: var(--mlad-header-fg);
+}
+
+.md-tabs .md-tabs__item {
+    color: var(--mlad-header-fg);
+}
+
+/* ==========================================================================
+   GLOBAL OVERRIDES FOR MOBILE MENU (Force Fix)
+   Removes all blur filters from the overlay and drawer
+   ========================================================================== */
+
+/* CRITICAL: Overlay must not block clicks when drawer is closed */
+.md-overlay {
+    pointer-events: none !important;
+}
+
+/* Only enable overlay interaction when drawer is open */
+[data-md-toggle="drawer"]:checked~.md-overlay {
+    pointer-events: auto !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    /* Standard dim, no blur */
+}
+
+/* Mobile Drawer - Remove blur effects */
+.md-drawer {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+}
