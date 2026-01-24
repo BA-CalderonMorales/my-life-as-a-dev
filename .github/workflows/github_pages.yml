@@ -93,30 +93,39 @@ jobs:
       - name: Get current deployed version
         id: current
         run: |
-          git fetch origin gh-pages --depth=1 || true
-          CURRENT=$(git show origin/gh-pages:versions.json 2>/dev/null | python -c "
-          import sys, json
+          git fetch origin gh-pages --depth=1 2>/dev/null || true
+          CURRENT="0.0.0"
+          if git show origin/gh-pages:versions.json > /tmp/versions.json 2>/dev/null; then
+            CURRENT=$(python -c "
+          import json
           try:
-              data = json.load(sys.stdin)
-              # Find version with 'latest' alias
+              with open('/tmp/versions.json') as f:
+                  data = json.load(f)
               for v in data:
                   if 'latest' in v.get('aliases', []):
                       print(v['version'])
-                      sys.exit(0)
-              # Fallback to first version
+                      exit(0)
               print(data[0]['version'] if data else '0.0.0')
-          except:
+          except Exception as e:
               print('0.0.0')
-          " 2>/dev/null) || CURRENT="0.0.0"
-          echo "version=$CURRENT" >> $GITHUB_OUTPUT
+          ")
+          fi
+          echo "version=${CURRENT}" >> $GITHUB_OUTPUT
+          echo "Current deployed version: ${CURRENT}"
 
       - name: Suggest next version
         id: suggest
         run: |
           CURRENT="${{ steps.current.outputs.version }}"
-          IFS='.' read -r major minor patch <<< "$CURRENT"
-          NEXT="${major}.${minor}.$((patch + 1))"
-          echo "version=$NEXT" >> $GITHUB_OUTPUT
+          if [ -z "$CURRENT" ] || [ "$CURRENT" = "0.0.0" ]; then
+            NEXT="0.1.0"
+          else
+            IFS='.' read -r major minor patch <<< "$CURRENT"
+            patch=${patch:-0}
+            NEXT="${major}.${minor}.$((patch + 1))"
+          fi
+          echo "version=${NEXT}" >> $GITHUB_OUTPUT
+          echo "Suggested next version: ${NEXT}"
 
       - name: Build summary (push)
         if: github.event_name == 'push'
