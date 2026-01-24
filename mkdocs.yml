@@ -1,0 +1,6 @@
+# MkDocs configuration for mike versioning compatibility
+# Zensical reads this for the version provider setting
+
+extra:
+  version:
+    provider: mike
