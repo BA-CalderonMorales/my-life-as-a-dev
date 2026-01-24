@@ -163,7 +163,10 @@ nav = [
 
         # Philosophy & Process
         { "Guiding Principles" = "docs-as-code/principles/index.md" },
-        { "Workflow" = "docs-as-code/workflow/index.md" },
+        { "Workflow" = [
+            { "Overview" = "docs-as-code/workflow/index.md" },
+            { "Versioning" = "docs-as-code/workflow/versioning.md" },
+        ] },
         { "Quality & Style" = "docs-as-code/quality/index.md" },
 
         # Tooling
