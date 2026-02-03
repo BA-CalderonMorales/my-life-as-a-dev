@@ -116,6 +116,7 @@ doc-cli       # Interactive CLI (uses .venv automatically)
 7. **Test changes**: Use `make serve` to preview
 8. **Use zensical.toml** as the primary configuration (not mkdocs.yml)
 9. **No output truncation**: Show full command output - only truncate if explicitly asked
+10. **Leverage code-simplifier**: Use the code-simplifier agent for incremental commits to maintain code quality and consistency
 
 ## Working with AI Assistants
 
