@@ -52,26 +52,9 @@ Technical interviews require more than algorithmic knowledge. Success comes from
 
 ## The Interview Process
 
-```text
-┌────────────────────────────────────────────────────────────────────────────┐
-│                        TYPICAL INTERVIEW PIPELINE                          │
-└────────────────────────────────────────────────────────────────────────────┘
+[![Interview Pipeline Diagram](../../assets/images/diagrams/interview-prep/pipeline.svg)](../../assets/images/diagrams/interview-prep/pipeline.excalidraw)
 
-  SCREENING           TECHNICAL            BEHAVIORAL          ONSITE
-  ────────           ─────────            ──────────          ──────
-  30-45 min          45-60 min            30-45 min           4-6 hours
-
-  ┌─────────┐        ┌─────────┐          ┌─────────┐        ┌─────────┐
-  │ Phone/  │───────>│ Coding  │─────────>│ Team    │───────>│ Multiple│
-  │ Video   │        │ Rounds  │          │ Fit     │        │ Rounds  │
-  │         │        │ (1-2)   │          │         │        │         │
-  └─────────┘        └─────────┘          └─────────┘        └─────────┘
-       │                  │                    │                  │
-       │                  │                    │                  │
-       ▼                  ▼                    ▼                  ▼
-   Basic DSA          Algorithms           Experience         Technical
-   Questions          System Design        Scenarios          + Cultural
-```
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 ---
 
@@ -79,15 +62,9 @@ Technical interviews require more than algorithmic knowledge. Success comes from
 
 A structured approach for tackling any coding problem.
 
-```text
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  1. UNDERSTAND  ──>  2. PLAN  ──>  3. DESIGN  ──>  4. IMPLEMENT            │
-│        │                                                    │              │
-│        │         7. OPTIMIZE  <──  6. ANALYZE  <──  5. TEST               │
-│        │              │                                                    │
-│        └──────────────┴────────────────────────────────────────────────────┘
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+[![Problem Solving Framework](../../assets/images/diagrams/interview-prep/framework.svg)](../../assets/images/diagrams/interview-prep/framework.excalidraw)
+
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 ### Step 1: Understand the Problem
 
@@ -188,19 +165,9 @@ A structured approach for tackling any coding problem.
 
 ### Session Allocation (45-60 minutes)
 
-```text
-┌────────────────────────────────────────────────────────────────────────────┐
-│                         TIME ALLOCATION                                     │
-├────────────────────────────────────────────────────────────────────────────┤
-│                                                                            │
-│  ██████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  Understand (5 min)      │
-│  ░░░░░░░░░░██████████████████░░░░░░░░░░░░░░░░░░░  Plan (10 min)           │
-│  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░█████████████████░░  Code (20-25 min)        │
-│  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░███  Test (5-10 min)         │
-│  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█  Optimize (5 min)        │
-│                                                                            │
-└────────────────────────────────────────────────────────────────────────────┘
-```
+[![Time Allocation](../../assets/images/diagrams/interview-prep/time-allocation.svg)](../../assets/images/diagrams/interview-prep/time-allocation.excalidraw)
+
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 ---
 
@@ -217,25 +184,9 @@ A structured approach for tackling any coding problem.
 
 ### Daily Practice Routine
 
-```text
-┌──────────────────────────────────────────────────────────┐
-│  EFFECTIVE PRACTICE SESSION (60-90 minutes)              │
-├──────────────────────────────────────────────────────────┤
-│                                                          │
-│  1. Warm-up (10 min)                                     │
-│     └── Review yesterday's problems                      │
-│                                                          │
-│  2. New Problem (30-40 min)                              │
-│     └── Solve without looking at solution                │
-│                                                          │
-│  3. Review Solution (15 min)                             │
-│     └── Compare with optimal, understand gaps            │
-│                                                          │
-│  4. Spaced Repetition (10 min)                           │
-│     └── Retry a problem from 3-7 days ago                │
-│                                                          │
-└──────────────────────────────────────────────────────────┘
-```
+[![Practice Routine](../../assets/images/diagrams/interview-prep/practice-routine.svg)](../../assets/images/diagrams/interview-prep/practice-routine.excalidraw)
+
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 ---
 
