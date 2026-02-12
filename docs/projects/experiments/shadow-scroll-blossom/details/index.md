@@ -8,9 +8,9 @@ comments: true
 
 Shadow Scroll Blossom is built with modern web technologies to deliver smooth, interactive particle effects:
 
-[![Architecture Diagram](../../../../assets/images/diagrams/shadow-scroll-blossom-architecture.excalidraw)](../../../../assets/images/diagrams/shadow-scroll-blossom-architecture.excalidraw)
+[![Architecture Diagram](../../../../assets/images/diagrams/shadow-scroll-blossom-architecture.svg)](../../../../assets/images/diagrams/shadow-scroll-blossom-architecture.excalidraw)
 
-> **Note:** The architecture diagram is available in Excalidraw format. Click the link above to view/edit it.
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 ```mermaid
 graph TD

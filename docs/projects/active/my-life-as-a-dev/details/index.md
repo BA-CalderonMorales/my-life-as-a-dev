@@ -8,9 +8,9 @@ comments: true
 
 The Docs-as-Code Portfolio is built with a modular architecture that separates concerns and promotes maintainability:
 
-[![Architecture Diagram](../../../../assets/images/diagrams/docs-as-code-architecture.excalidraw)](../../../../assets/images/diagrams/docs-as-code-architecture.excalidraw)
+[![Architecture Diagram](../../../../assets/images/diagrams/docs-as-code-architecture.svg)](../../../../assets/images/diagrams/docs-as-code-architecture.excalidraw)
 
-> **Note:** The architecture diagram is available in Excalidraw format. Click the link above to view/edit it.
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 ```mermaid
 graph TD

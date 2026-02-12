@@ -8,9 +8,9 @@ comments: true
 
 Immersive Awe Canvas is built with modern web technologies to deliver smooth 3D experiences:
 
-[![Architecture Diagram](../../../../assets/images/diagrams/immersive-awe-canvas-architecture.excalidraw)](../../../../assets/images/diagrams/immersive-awe-canvas-architecture.excalidraw)
+[![Architecture Diagram](../../../../assets/images/diagrams/immersive-awe-canvas-architecture.svg)](../../../../assets/images/diagrams/immersive-awe-canvas-architecture.excalidraw)
 
-> **Note:** The architecture diagram is available in Excalidraw format. Click the link above to view/edit it.
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 ```mermaid
 graph TD

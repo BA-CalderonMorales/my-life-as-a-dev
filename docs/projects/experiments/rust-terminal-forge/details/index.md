@@ -6,11 +6,11 @@ comments: true
 
 ## Architecture Overview
 
-Rust Terminal Forge combines the performance of class of Rust with the flexibility of a React frontend:
+Rust Terminal Forge combines the performance of Rust with the flexibility of a React frontend:
 
-[![Architecture Diagram](../../../../assets/images/diagrams/rust-terminal-forge-architecture.excalidraw)](../../../../assets/images/diagrams/rust-terminal-forge-architecture.excalidraw)
+[![Architecture Diagram](../../../../assets/images/diagrams/rust-terminal-forge-architecture.svg)](../../../../assets/images/diagrams/rust-terminal-forge-architecture.excalidraw)
 
-> **Note:** The architecture diagram is available in Excalidraw format. Click the link above to view/edit it.
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 ```mermaid
 graph TD
