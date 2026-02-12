@@ -252,753 +252,704 @@ def generate_shadow_scroll_architecture():
     gen.add_arrow("F", "G", f, g)
     gen.add_arrow("F", "H", f, h)
 
-    gen.save(
-        "docs/assets/images/diagrams/shadow-scroll-blossom-architecture.excalidraw"
-    )
-
-
-def generate_rust_terminal_architecture():
-    gen = ExcalidrawGenerator()
-
-    # A[React Frontend]
-    a = gen.add_rect("A", 100, 200, 140, 60, "React Frontend", bg_color="#e0ffff")
-
-    # B[WebAssembly]
-    b = gen.add_rect("B", 350, 200, 140, 60, "WebAssembly")
-
-    # C[Rust Terminal Engine]
-    c = gen.add_rect("C", 600, 200, 180, 60, "Rust Terminal Engine", bg_color="#ffdab9")
-
-    # D[WebSocket Server]
-    d = gen.add_rect("D", 350, 400, 160, 60, "WebSocket Server", bg_color="#e6e6fa")
-
-    # E[Backend Services]
-    e = gen.add_rect("E", 600, 400, 160, 60, "Backend Services")
-
-    # Edges
-    gen.add_arrow("A", "B", a, b)
-    gen.add_arrow("B", "C", b, c)
-    gen.add_arrow("A", "D", a, d)
-
-    # C <--> D
-    gen.add_arrow("C", "D", c, d)  # Representing double arrow with one for now
-
-    gen.add_arrow("D", "E", d, e)
-
-    gen.save("docs/assets/images/diagrams/rust-terminal-forge-architecture.excalidraw")
-
-
-def generate_mvvm_architecture():
-    gen = ExcalidrawGenerator()
-
-    # View (view.js)
-    view = gen.add_rect(
-        "View",
-        400,
-        100,
-        300,
-        150,
-        "View (view.js)\n- Creates DOM elements\n- Binds event listeners\n- Updates UI based on VM\n- 'Dumb' - no business logic",
-        bg_color="#e0ffff",
-    )
-
-    # ViewModel (view-model.js)
-    vm = gen.add_rect(
-        "ViewModel",
-        400,
-        350,
-        300,
-        150,
-        "ViewModel (view-model.js)\n- Handles user actions\n- Orchestrates API calls\n- Updates Model state\n- Notifies View of changes",
-        bg_color="#fff0f5",
-    )
-
-    # Model (model.js)
-    model = gen.add_rect(
-        "Model",
-        400,
-        600,
-        300,
-        120,
-        "Model (model.js)\n- Holds application state\n- Messages array, loading flag\n- No UI logic, no API calls",
-        bg_color="#f0fff0",
-    )
-
-    # Edges
-    # View -> ViewModel (Events / Callbacks)
-    gen.add_arrow("View", "ViewModel", view, vm)
-
-    # ViewModel -> Model (State Changes)
-    gen.add_arrow("ViewModel", "Model", vm, model)
-
-    gen.save("docs/assets/images/diagrams/chat-widget-mvvm.excalidraw")
-
-
-def generate_chat_data_flow():
-    gen = ExcalidrawGenerator()
-
-    # User clicks send
-    user = gen.add_rect(
-        "User", 400, 50, 150, 50, "User clicks send", bg_color="#f0f8ff"
-    )
-
-    # View.onSend()
-    view_send = gen.add_rect(
-        "ViewSend",
-        400,
-        150,
-        200,
-        60,
-        "View.onSend()\nCaptures input",
-        bg_color="#e0ffff",
-    )
-
-    # ViewModel.handleSend
-    vm_send = gen.add_rect(
-        "VMSend",
-        400,
-        250,
-        250,
-        60,
-        "ViewModel.handleSend\nValidates, rate limits",
-        bg_color="#fff0f5",
-    )
-
-    # Model.addMessage()
-    model_add = gen.add_rect(
-        "ModelAdd",
-        200,
-        350,
-        200,
-        60,
-        "Model.addMessage()\nUpdates state",
-        bg_color="#f0fff0",
-    )
-
-    # View.addMessage()
-    view_add = gen.add_rect(
-        "ViewAdd",
-        600,
-        350,
-        200,
-        60,
-        "View.addMessage()\nUpdates UI",
-        bg_color="#e0ffff",
-    )
-
-    # ChatAPI.send
-    api_send = gen.add_rect(
-        "APISend", 400, 450, 200, 60, "ChatAPI.send\nHTTP POST", bg_color="#ffe4e1"
-    )
-
-    # Response received
-    response = gen.add_rect(
-        "Response", 400, 550, 200, 60, "Response received", bg_color="#fffacd"
-    )
-
-    # Model.addMessage (Response)
-    model_res = gen.add_rect(
-        "ModelRes",
-        200,
-        650,
-        200,
-        60,
-        "Model.addMessage()\nStore response",
-        bg_color="#f0fff0",
-    )
-
-    # View.addMessage (Response)
-    view_res = gen.add_rect(
-        "ViewRes",
-        600,
-        650,
-        200,
-        60,
-        "View.addMessage()\nDisplay response",
-        bg_color="#e0ffff",
-    )
-
-    # Edges
-    gen.add_arrow("User", "ViewSend", user, view_send)
-    gen.add_arrow("ViewSend", "VMSend", view_send, vm_send)
-    gen.add_arrow("VMSend", "ModelAdd", vm_send, model_add)
-    gen.add_arrow("VMSend", "ViewAdd", vm_send, view_add)
-    gen.add_arrow("VMSend", "APISend", vm_send, api_send)
-    gen.add_arrow("APISend", "Response", api_send, response)
-    gen.add_arrow("Response", "ModelRes", response, model_res)
-    gen.add_arrow("Response", "ViewRes", response, view_res)
-
-    gen.save("docs/assets/images/diagrams/chat-widget-data-flow.excalidraw")
-
-
-def generate_interview_pipeline():
-    """Generates the Interview Pipeline diagram."""
-    gen = ExcalidrawGenerator()
-
-    # Title
-    gen.add_rect(
-        "Title",
-        0,
-        -60,
-        800,
-        40,
-        "TYPICAL INTERVIEW PIPELINE",
-        bg_color="transparent",
-        stroke_color="transparent",
-    )
-
-    # Stages
-    stages = [
-        ("SCREENING", "30-45 min", "Phone/\nVideo"),
-        ("TECHNICAL", "45-60 min", "Coding\nRounds\n(1-2)"),
-        ("BEHAVIORAL", "30-45 min", "Team\nFit"),
-        ("ONSITE", "4-6 hours", "Multiple\nRounds"),
-    ]
-
-    descriptions = [
-        "Basic DSA\nQuestions",
-        "Algorithms\nSystem Design",
-        "Experience\nScenarios",
-        "Technical\n+ Cultural",
-    ]
-
-    start_x = 0
-    spacing = 220
-    rects = []
-
-    for i, (title, duration, box_text) in enumerate(stages):
-        x = start_x + (i * spacing)
-
-        # Header
-        gen.add_rect(
-            f"H{i}",
-            x,
-            0,
-            140,
-            25,
-            title,
-            bg_color="transparent",
-            stroke_color="#1971c2",
-        )
-        gen.add_rect(
-            f"D{i}",
-            x,
-            25,
-            140,
-            20,
-            duration,
-            bg_color="transparent",
-            stroke_color="#868e96",
-        )
-
-        # Box
-        rect = gen.add_rect(
-            f"B{i}",
-            x,
-            60,
-            140,
-            100,
-            box_text,
-            bg_color="#e7f5ff",
-            stroke_color="#1971c2",
-        )
-        rects.append(rect)
-
-        # Description
-        gen.add_rect(
-            f"Desc{i}",
-            x,
-            230,
-            140,
-            60,
-            descriptions[i],
-            bg_color="transparent",
-            stroke_color="#495057",
-        )
-
-        # Arrow down to description
-        # No easy arrow without rects, just assuming alignment
-
-    # Arrows between boxes
-    for i in range(len(rects) - 1):
-        gen.add_arrow(f"B{i}", f"B{i + 1}", rects[i], rects[i + 1])
-
-    gen.save("docs/assets/images/diagrams/interview-prep/pipeline.excalidraw")
-
-
-def generate_problem_solving_framework():
-    """Generates the 7-Step Problem Solving Framework diagram."""
-    gen = ExcalidrawGenerator()
-
-    steps = [
-        ("1. UNDERSTAND", 0, 0),
-        ("2. PLAN", 250, 0),
-        ("3. DESIGN", 500, 0),
-        ("4. IMPLEMENT", 750, 0),
-        ("5. TEST", 750, 200),
-        ("6. ANALYZE", 500, 200),
-        ("7. OPTIMIZE", 250, 200),
-    ]
-
-    rects = []
-    # Draw steps
-    for i, (text, x, y) in enumerate(steps):
-        rect = gen.add_rect(
-            f"S{i}",
-            x,
-            y,
-            200,
-            60,
-            text,
-            bg_color="#e6fcf5",
-            stroke_color="#0ca678",
-        )
-        rects.append(rect)
-
-    # Draw Arrows
-    # Forward flow (1->4)
-    for i in range(3):
-        gen.add_arrow(f"S{i}", f"S{i + 1}", rects[i], rects[i + 1])
-
-    # Backward flow (5->7)
-    for i in range(4, 6):
-        gen.add_arrow(f"S{i}", f"S{i + 1}", rects[i], rects[i + 1])
-
-    # Connecting 4 -> 5 (Down)
-    gen.add_arrow("S3", "S4", rects[3], rects[4])
-
-    # Connecting 7 -> 2 (Cycle)
-    gen.add_arrow("S6", "S1", rects[6], rects[1])
-
-    gen.save("docs/assets/images/diagrams/interview-prep/framework.excalidraw")
-
-
-def generate_time_allocation():
-    """Generates the Time Allocation chart."""
-    gen = ExcalidrawGenerator()
-
-    # Title
-    gen.add_rect(
-        "Title",
-        0,
-        0,
-        800,
-        40,
-        "TIME ALLOCATION (45-60 min)",
-        bg_color="transparent",
-        stroke_color="transparent",
-    )
-
-    phases = [
-        ("Understand", 5, "#4dabf7"),
-        ("Plan", 10, "#3bc9db"),
-        ("Code", 25, "#69db7c"),
-        ("Test", 10, "#ffd43b"),
-        ("Optimize", 5, "#ffa94d"),
-    ]
-
-    total_width = 800
-    total_time = sum(p[1] for p in phases)
-    current_x = 0
-    y_bar = 60
-    height = 60
-
-    for i, (name, minutes, color) in enumerate(phases):
-        width = (minutes / total_time) * total_width
-
-        # Bar segment
-        gen.add_rect(
-            f"P{i}",
-            current_x,
-            y_bar,
-            width,
-            height,
-            f"{name}\n({minutes}m)",
-            bg_color=color,
-            stroke_color="#1e1e1e",
-        )
-
-        current_x += width
-
-    gen.save("docs/assets/images/diagrams/interview-prep/time-allocation.excalidraw")
-
-
-def generate_practice_routine():
-    """Generates the Effective Practice Routine diagram."""
-    gen = ExcalidrawGenerator()
-
-    # Title
-    gen.add_rect(
-        "Title",
-        150,
-        0,
-        500,
-        40,
-        "EFFECTIVE PRACTICE SESSION (60-90 min)",
-        bg_color="transparent",
-        stroke_color="transparent",
-    )
-
-    steps = [
-        ("1. Warm-up (10 min)", "Review yesterday's problems"),
-        ("2. New Problem (30-40 min)", "Solve without solution"),
-        ("3. Review Solution (15 min)", "Compare & understand gaps"),
-        ("4. Spaced Repetition (10 min)", "Retry problem from 3-7 days ago"),
-    ]
-
-    start_y = 60
-    rects = []
-
-    for i, (title, desc) in enumerate(steps):
-        y = start_y + (i * 120)
-
-        # Step Box
-        rect = gen.add_rect(
-            f"Step{i}",
-            150,
-            y,
-            500,
-            80,
-            f"{title}\n{desc}",
-            bg_color="#f1f3f5",
-            stroke_color="#495057",
-        )
-        rects.append(rect)
-
-    # Arrows down
-    for i in range(len(rects) - 1):
-        gen.add_arrow(f"Step{i}", f"Step{i + 1}", rects[i], rects[i + 1])
-
-    gen.save("docs/assets/images/diagrams/interview-prep/practice-routine.excalidraw")
-
-
-def generate_system_design_pillars():
-    """Generates the System Design Pillars diagram."""
-    gen = ExcalidrawGenerator()
-
-    # Title
-    gen.add_rect(
-        "Title",
-        0,
-        0,
-        800,
-        40,
-        "SYSTEM DESIGN PILLARS",
-        bg_color="transparent",
-        stroke_color="transparent",
-    )
-
-    pillars = [
-        (
-            "RELIABILITY",
-            "Works correctly\nunder adversity",
-            "- Fault tolerant\n- Redundancy\n- Graceful fail",
-            "#e7f5ff",
-            "#1971c2",
-        ),
-        (
-            "SCALABILITY",
-            "Handles growth\nefficiently",
-            "- Horizontal\n- Vertical\n- Auto-scaling",
-            "#e6fcf5",
-            "#0ca678",
-        ),
-        (
-            "MAINTAINABILITY",
-            "Easy to operate\nand evolve",
-            "- Observability\n- Simplicity\n- Documentation",
-            "#fff9db",
-            "#f59f00",
-        ),
-    ]
-
-    start_x = 50
-    spacing = 250
-
-    for i, (title, desc, details, bg, color) in enumerate(pillars):
-        x = start_x + (i * spacing)
-
-        # Header
-        gen.add_rect(
-            f"H{i}",
-            x,
-            60,
-            200,
-            30,
-            title,
-            bg_color="transparent",
-            stroke_color=color,
-        )
-
-        # Main Box
-        gen.add_rect(f"B{i}", x, 100, 200, 80, desc, bg_color=bg, stroke_color=color)
-
-        # Details Box
-        gen.add_rect(
-            f"D{i}",
-            x,
-            180,
-            200,
-            100,
-            details,
-            bg_color="transparent",
-            stroke_color=color,
-        )
-
-    gen.save("docs/assets/images/diagrams/system-design/pillars.excalidraw")
-
-
-def generate_cap_theorem():
-    """Generates the CAP Theorem diagram."""
-    gen = ExcalidrawGenerator()
-
-    # Triangle coordinates
-    p1 = (400, 100)  # Consistency
-    p2 = (200, 450)  # Availability
-    p3 = (600, 450)  # Partition Tolerance
-
-    # Draw Triangle (Simulated with arrows for now)
-    # Placeholder rects for points to connect
-    r1 = gen.add_rect("P1", p1[0], p1[1], 1, 1, "", stroke_color="transparent")
-    r2 = gen.add_rect("P2", p2[0], p2[1], 1, 1, "", stroke_color="transparent")
-    r3 = gen.add_rect("P3", p3[0], p3[1], 1, 1, "", stroke_color="transparent")
-
-    gen.add_arrow("P1", "P2", r1, r2)
-    gen.add_arrow("P2", "P3", r2, r3)
-    gen.add_arrow("P3", "P1", r3, r1)
-
-    # Labels
-    gen.add_rect(
-        "L1",
-        p1[0] - 100,
-        p1[1] - 40,
-        200,
-        30,
-        "Consistency",
-        bg_color="transparent",
-        stroke_color="transparent",
-    )
-    gen.add_rect(
-        "L2",
-        p2[0] - 120,
-        p2[1] + 10,
-        150,
-        30,
-        "Availability",
-        bg_color="transparent",
-        stroke_color="transparent",
-    )
-    gen.add_rect(
-        "L3",
-        p3[0] - 30,
-        p3[1] + 10,
-        200,
-        30,
-        "Partition Tolerance",
-        bg_color="transparent",
-        stroke_color="transparent",
-    )
-
-    # Zones
-    gen.add_rect(
-        "Z1",
-        230,
-        250,
-        60,
-        30,
-        "CP",
-        bg_color="#fff0f5",
-        stroke_color="transparent",
-    )
-    gen.add_rect(
-        "Z2",
-        510,
-        250,
-        60,
-        30,
-        "CA",
-        bg_color="#e6fcff",
-        stroke_color="transparent",
-    )
-    gen.add_rect(
-        "Z3",
-        370,
-        400,
-        60,
-        30,
-        "AP",
-        bg_color="#f0fff0",
-        stroke_color="transparent",
-    )
-
-    gen.save("docs/assets/images/diagrams/system-design/cap-theorem.excalidraw")
-
-
-def generate_latency_comparison():
-    """Generates the Latency Comparison chart."""
-    gen = ExcalidrawGenerator()
-
-    gen.add_rect(
-        "Title",
-        0,
-        0,
-        800,
-        40,
-        "LATENCY COMPARISON (Log Scale Approximation)",
-        bg_color="transparent",
-        stroke_color="transparent",
-    )
-
-    items = [
-        ("L1 Cache Reference", 0.5, "0.5 ns", "#adb5bd"),
-        ("Mutex Lock/Unlock", 100, "100 ns", "#868e96"),
-        ("Main Memory Reference", 100, "100 ns", "#495057"),
-        ("Send 2KB over 1Gbps", 20000, "20 us", "#74c0fc"),
-        ("Read 1MB from Memory", 250000, "250 us", "#339af0"),
-        ("Datacenter Round Trip", 500000, "500 us", "#1c7ed6"),
-        ("Disk Seek", 10000000, "10 ms", "#fab005"),
-        ("CA to Netherlands Round Trip", 150000000, "150 ms", "#e67700"),
-    ]
-
-    start_y = 60
-
-    # Log scale width calculation
-    import math
-
-    max_val = math.log(150000000)
-
-    for i, (name, val, label, color) in enumerate(items):
-        y = start_y + (i * 40)
-
-        # Avoid log(0)
-        log_val = math.log(val if val > 0 else 1)
-        width = (log_val / max_val) * 500
-
-        # Name
-        gen.add_rect(
-            f"N{i}",
-            0,
-            y,
-            250,
-            30,
-            name,
-            bg_color="transparent",
-            stroke_color="transparent",
-        )
-
-        # Bar
-        gen.add_rect(
-            f"B{i}",
-            260,
-            y,
-            width,
-            30,
-            "",
-            bg_color=color,
-            stroke_color="transparent",
-        )
-
-        # Label
-        gen.add_rect(
-            f"L{i}",
-            270 + width,
-            y,
-            100,
-            30,
-            label,
-            bg_color="transparent",
-            stroke_color="transparent",
-        )
-
-    gen.save("docs/assets/images/diagrams/system-design/latency.excalidraw")
-
-
-def generate_system_design_interview():
-    """Generates the System Design Interview Framework diagram."""
-    gen = ExcalidrawGenerator()
-
-    steps = [
-        (
-            "1. CLARIFY REQUIREMENTS (5 min)",
-            [
-                "Functional requirements",
-                "Non-functional requirements",
-                "Constraints & assumptions",
-            ],
-        ),
-        (
-            "2. ESTIMATE SCALE (5 min)",
-            [
-                "Users: DAU, concurrent",
-                "Storage: size, growth",
-                "Bandwidth: read/write",
-            ],
-        ),
-        (
-            "3. HIGH-LEVEL DESIGN (10-15 min)",
-            ["Core components", "Data flow", "API design"],
-        ),
-        (
-            "4. DEEP DIVE (15-20 min)",
-            ["Data model", "Scaling strategies", "Trade-offs"],
-        ),
-        (
-            "5. WRAP UP (5 min)",
-            ["Bottlenecks", "Future improvements", "Monitoring & alerts"],
-        ),
-    ]
-
-    start_y = 0
-    rects = []
-
-    for i, (title, items) in enumerate(steps):
-        y = start_y + (i * 140)
-
-        # Step Box
-        rect = gen.add_rect(
-            f"S{i}",
-            100,
-            y,
-            600,
-            40,
-            title,
-            bg_color="#e7f5ff",
-            stroke_color="#1971c2",
-        )
-        rects.append(rect)
-
-        # Items
-        for j, item in enumerate(items):
-            gen.add_rect(
-                f"I{i}_{j}",
-                140,
-                y + 50 + (j * 25),
-                500,
-                20,
-                f"- {item}",
-                bg_color="transparent",
-                stroke_color="transparent",
-            )
-
-    # Arrows
-    for i in range(len(rects) - 1):
-        gen.add_arrow(f"S{i}", f"S{i + 1}", rects[i], rects[i + 1])
-
     gen.save("docs/assets/images/diagrams/system-design/interview-framework.excalidraw")
 
 
+def generate_ds_linear():
+    """Generates the Linear Data Structures diagram."""
+    gen = ExcalidrawGenerator()
+
+    # Title
+    gen.add_rect(
+        "Title",
+        0,
+        0,
+        800,
+        40,
+        "LINEAR STRUCTURES",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # Array Visualization
+    # [ 1 | 2 | 3 | 4 | 5 ]
+    start_x = 100
+    y = 80
+    cell_w = 60
+
+    gen.add_rect(
+        "ArrLabel",
+        20,
+        y + 10,
+        80,
+        30,
+        "Array:",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    arr_rects = []
+    for i in range(5):
+        rect = gen.add_rect(
+            f"A{i}",
+            start_x + (i * cell_w),
+            y,
+            cell_w,
+            50,
+            str(i + 1),
+            bg_color="#e7f5ff",
+            stroke_color="#1971c2",
+        )
+        arr_rects.append(rect)
+
+    # Access pointers (simulated with arrows/rects)
+    # P1 -> A0
+    gen.add_rect(
+        "P1",
+        start_x + 30,
+        y + 80,
+        1,
+        1,
+        "",
+        stroke_color="transparent",
+    )
+    gen.add_arrow(
+        "P1",
+        "A0",
+        {"x": start_x + 30, "y": y + 80, "width": 0, "height": 0},
+        arr_rects[0],
+    )
+    gen.add_rect(
+        "L1",
+        start_x,
+        y + 90,
+        60,
+        40,
+        "O(1)\nAccess",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # P2 -> A4
+    gen.add_rect(
+        "P2",
+        start_x + (4 * cell_w) + 30,
+        y + 80,
+        1,
+        1,
+        "",
+        stroke_color="transparent",
+    )
+    gen.add_arrow(
+        "P2",
+        "A4",
+        {"x": start_x + (4 * cell_w) + 30, "y": y + 80, "width": 0, "height": 0},
+        arr_rects[4],
+    )
+    gen.add_rect(
+        "L2",
+        start_x + (4 * cell_w),
+        y + 90,
+        60,
+        40,
+        "O(1)\nAccess",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # Linked List Visualization
+    # [1]->[2]->[3]->[4]->[5]->null
+    y = 200
+    gen.add_rect(
+        "ListLabel",
+        20,
+        y + 15,
+        80,
+        30,
+        "Linked:",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    nodes = []
+    for i in range(5):
+        rect = gen.add_rect(
+            f"N{i}",
+            start_x + (i * 100),
+            y,
+            60,
+            50,
+            str(i + 1),
+            bg_color="#e6fcf5",
+            stroke_color="#0ca678",
+        )
+        nodes.append(rect)
+
+    # Null node
+    null_node = gen.add_rect(
+        "Null",
+        start_x + 500,
+        y + 10,
+        50,
+        30,
+        "null",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # Arrows
+    for i in range(len(nodes) - 1):
+        gen.add_arrow(f"N{i}", f"N{i + 1}", nodes[i], nodes[i + 1])
+    gen.add_arrow(f"N4", "Null", nodes[4], null_node)
+
+    # Head pointer
+    gen.add_rect(
+        "HeadPtr",
+        start_x + 30,
+        y + 80,
+        1,
+        1,
+        "",
+        stroke_color="transparent",
+    )
+    gen.add_arrow(
+        "Head",
+        "N0",
+        {"x": start_x + 30, "y": y + 80, "width": 0, "height": 0},
+        nodes[0],
+    )
+    gen.add_rect(
+        "HeadLabel",
+        start_x,
+        y + 90,
+        60,
+        20,
+        "Head",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    gen.save("docs/assets/images/diagrams/data-structures/linear.excalidraw")
+
+
+def generate_ds_hash_collision():
+    """Generates the Hash Table Collision diagram."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect(
+        "Title",
+        0,
+        0,
+        800,
+        40,
+        "HASH TABLE COLLISIONS (Chaining)",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # Keys
+    k1 = gen.add_rect(
+        "K1", 50, 80, 100, 40, '"apple"', bg_color="#f8f9fa", stroke_color="#adb5bd"
+    )
+    k2 = gen.add_rect(
+        "K2", 50, 140, 100, 40, '"banana"', bg_color="#f8f9fa", stroke_color="#adb5bd"
+    )
+    k3 = gen.add_rect(
+        "K3", 50, 200, 100, 40, '"grape"', bg_color="#f8f9fa", stroke_color="#adb5bd"
+    )
+
+    # Hash Function Box
+    hash_box = gen.add_rect(
+        "Hash",
+        200,
+        60,
+        120,
+        200,
+        "Hash\nFunction\n(key % 5)",
+        bg_color="#e7f5ff",
+        stroke_color="#1971c2",
+    )
+
+    # Buckets
+    buckets_x = 400
+    bucket_rects = []
+    for i in range(5):
+        rect = gen.add_rect(
+            f"Idx{i}",
+            buckets_x,
+            60 + (i * 50),
+            40,
+            40,
+            str(i),
+            bg_color="#f1f3f5",
+            stroke_color="#dee2e6",
+        )
+        bucket_rects.append(rect)
+
+    # Values (Chained)
+    # 1 -> banana
+    v1 = gen.add_rect(
+        "V1",
+        buckets_x + 80,
+        110,
+        140,
+        40,
+        '("banana", 5)',
+        bg_color="#e6fcf5",
+        stroke_color="#0ca678",
+    )
+    gen.add_arrow("Idx1", "V1", bucket_rects[1], v1)
+
+    # 3 -> apple -> grape
+    v3a = gen.add_rect(
+        "V3a",
+        buckets_x + 80,
+        210,
+        140,
+        40,
+        '("apple", 2)',
+        bg_color="#e6fcf5",
+        stroke_color="#0ca678",
+    )
+    gen.add_arrow("Idx3", "V3a", bucket_rects[3], v3a)
+
+    v3b = gen.add_rect(
+        "V3b",
+        buckets_x + 260,
+        210,
+        140,
+        40,
+        '("grape", 8)',
+        bg_color="#ffe3e3",
+        stroke_color="#e03131",
+    )  # Collision color
+    gen.add_arrow("V3a", "V3b", v3a, v3b)
+
+    # Flow Arrows
+    gen.add_arrow("K1", "Hash", k1, hash_box)
+    gen.add_arrow("K2", "Hash", k2, hash_box)
+    gen.add_arrow("K3", "Hash", k3, hash_box)
+
+    gen.add_arrow("Hash", "Idx1", hash_box, bucket_rects[1])
+    gen.add_arrow("Hash", "Idx3", hash_box, bucket_rects[3])
+
+    gen.save("docs/assets/images/diagrams/data-structures/hash-collision.excalidraw")
+
+
+def generate_ds_trees():
+    """Generates the Tree Structures comparison diagram."""
+    gen = ExcalidrawGenerator()
+
+    # BST
+    gen.add_rect(
+        "BSTTitle",
+        150,
+        0,
+        200,
+        30,
+        "Binary Search Tree",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+    gen.add_rect(
+        "BSTRule",
+        150,
+        30,
+        200,
+        20,
+        "Left < Parent < Right",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # BST Nodes
+    bst_nodes = {
+        "8": (250, 80),
+        "3": (150, 150),
+        "10": (350, 150),
+        "1": (100, 220),
+        "6": (200, 220),
+        "14": (400, 220),
+        "4": (170, 290),
+        "7": (230, 290),
+        "13": (370, 290),
+    }
+
+    bst_rects = {}
+    for val, (x, y) in bst_nodes.items():
+        bst_rects[val] = gen.add_rect(
+            f"B{val}",
+            x,
+            y,
+            40,
+            40,
+            val,
+            bg_color="#e7f5ff",
+            stroke_color="#1971c2",
+        )
+
+    # BST Edges (Manual)
+    edges = [
+        ("8", "3"),
+        ("8", "10"),
+        ("3", "1"),
+        ("3", "6"),
+        ("10", "14"),
+        ("6", "4"),
+        ("6", "7"),
+        ("14", "13"),
+    ]
+    for p, c in edges:
+        gen.add_arrow(f"B{p}", f"B{c}", bst_rects[p], bst_rects[c])
+
+    # Heap
+    offset_x = 500
+    gen.add_rect(
+        "HeapTitle",
+        offset_x + 150,
+        0,
+        200,
+        30,
+        "Min Heap",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+    gen.add_rect(
+        "HeapRule",
+        offset_x + 150,
+        30,
+        200,
+        20,
+        "Parent ≤ Children",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    heap_nodes = {
+        "1": (offset_x + 250, 80),
+        "3": (offset_x + 150, 150),
+        "2": (offset_x + 350, 150),
+        "5": (offset_x + 100, 220),
+        "4": (offset_x + 200, 220),
+        "7": (offset_x + 300, 220),
+        "6": (offset_x + 400, 220),
+    }
+
+    heap_rects = {}
+    for val, (x, y) in heap_nodes.items():
+        heap_rects[val] = gen.add_rect(
+            f"H{val}",
+            x,
+            y,
+            40,
+            40,
+            val,
+            bg_color="#fff9db",
+            stroke_color="#f59f00",
+        )
+
+    # Heap Edges
+    h_edges = [
+        ("1", "3"),
+        ("1", "2"),
+        ("3", "5"),
+        ("3", "4"),
+        ("2", "7"),
+        ("2", "6"),
+    ]
+    for p, c in h_edges:
+        gen.add_arrow(f"H{p}", f"H{c}", heap_rects[p], heap_rects[c])
+
+    gen.save("docs/assets/images/diagrams/data-structures/trees.excalidraw")
+
+
+def generate_ds_graphs():
+    """Generates the Graph Representations diagram."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect(
+        "Title",
+        0,
+        0,
+        800,
+        40,
+        "GRAPH REPRESENTATIONS",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # Graph Visual
+    # A -- B
+    # |    |
+    # C -- D
+
+    gx, gy = 50, 100
+    g_nodes = {
+        "A": (gx, gy),
+        "B": (gx + 100, gy),
+        "C": (gx, gy + 100),
+        "D": (gx + 100, gy + 100),
+    }
+
+    g_rects = {}
+    for val, (x, y) in g_nodes.items():
+        g_rects[val] = gen.add_rect(
+            f"G{val}",
+            x,
+            y,
+            40,
+            40,
+            val,
+            bg_color="#e6fcf5",
+            stroke_color="#0ca678",
+        )
+
+    # Edges
+    g_edges = [("A", "B"), ("A", "C"), ("B", "D"), ("C", "D")]
+    for u, v in g_edges:
+        gen.add_arrow(f"G{u}", f"G{v}", g_rects[u], g_rects[v])
+
+    gen.add_rect(
+        "GLabel",
+        gx + 20,
+        gy + 150,
+        100,
+        30,
+        "Graph",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # Adjacency List
+    lx, ly = 300, 100
+    gen.add_rect(
+        "LLabel",
+        lx + 50,
+        ly - 30,
+        150,
+        30,
+        "Adjacency List",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    adj_list = [
+        ("A", "[B, C]"),
+        ("B", "[A, D]"),
+        ("C", "[A, D]"),
+        ("D", "[B, C]"),
+    ]
+
+    for i, (node, neighbors) in enumerate(adj_list):
+        gen.add_rect(
+            f"L{node}",
+            lx,
+            ly + (i * 40),
+            40,
+            40,
+            node,
+            bg_color="#f1f3f5",
+            stroke_color="#adb5bd",
+        )
+        gen.add_rect(
+            f"Ln{node}",
+            lx + 50,
+            ly + (i * 40),
+            120,
+            40,
+            neighbors,
+            bg_color="#ffffff",
+            stroke_color="#adb5bd",
+        )
+
+    # Adjacency Matrix
+    mx, my = 550, 100
+    gen.add_rect(
+        "MLabel",
+        mx + 70,
+        my - 30,
+        150,
+        30,
+        "Adjacency Matrix",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # Matrix Header
+    cols = [" ", "A", "B", "C", "D"]
+    for i, col in enumerate(cols):
+        gen.add_rect(
+            f"MH{i}",
+            mx + (i * 30),
+            my,
+            30,
+            30,
+            col,
+            bg_color="#f8f9fa",
+            stroke_color="#e9ecef",
+        )
+
+    matrix = [
+        ["A", 0, 1, 1, 0],
+        ["B", 1, 0, 0, 1],
+        ["C", 1, 0, 0, 1],
+        ["D", 0, 1, 1, 0],
+    ]
+
+    for r, row in enumerate(matrix):
+        # Row Header
+        gen.add_rect(
+            f"MR{r}",
+            mx,
+            my + 30 + (r * 30),
+            30,
+            30,
+            str(row[0]),
+            bg_color="#f8f9fa",
+            stroke_color="#e9ecef",
+        )
+        # Cells
+        for c, val in enumerate(row[1:]):
+            bg = "#e6fcf5" if val == 1 else "#ffffff"
+            gen.add_rect(
+                f"M{r}{c}",
+                mx + 30 + (c * 30),
+                my + 30 + (r * 30),
+                30,
+                30,
+                str(val),
+                bg_color=bg,
+                stroke_color="#dee2e6",
+            )
+
+    gen.save("docs/assets/images/diagrams/data-structures/graphs.excalidraw")
+
+
+def generate_ds_decision_tree():
+    """Generates the Data Structure Decision Guide diagram."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect(
+        "Title",
+        0,
+        0,
+        800,
+        40,
+        "DATA STRUCTURE DECISION GUIDE",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    decisions = [
+        ("Fast lookups by key?", "HASH TABLE"),
+        ("Sorted order needed?", "BST / SORTED ARRAY"),
+        ("Min/Max quickly?", "HEAP"),
+        ("String prefix match?", "TRIE"),
+        ("LIFO (Stack)?", "STACK"),
+        ("FIFO (Queue)?", "QUEUE"),
+        ("Relationships?", "GRAPH"),
+    ]
+
+    start_y = 60
+
+    for i, (q, ans) in enumerate(decisions):
+        y = start_y + (i * 70)
+
+        # Question
+        gen.add_rect(
+            f"Q{i}",
+            50,
+            y,
+            300,
+            40,
+            q,
+            bg_color="#e7f5ff",
+            stroke_color="#1971c2",
+        )
+
+        # Arrow
+        gen.add_rect(
+            f"Arr{i}",
+            350,
+            y + 20,
+            1,
+            1,
+            "",
+            stroke_color="transparent",
+        )
+        gen.add_rect(
+            f"ArrEnd{i}",
+            450,
+            y + 20,
+            1,
+            1,
+            "",
+            stroke_color="transparent",
+        )
+        # Placeholder arrow logic, assuming simple straight arrow
+
+        # Answer
+        ans_rect = gen.add_rect(
+            f"A{i}",
+            450,
+            y,
+            300,
+            40,
+            ans,
+            bg_color="#e6fcf5",
+            stroke_color="#0ca678",
+        )
+
+        # Draw arrow from Question to Answer
+        # Since I don't have the rect object for Q easily (didn't store it),
+        # I'll just use coordinates for the arrow manually which my generator supports
+        # But wait, my generator's add_arrow expects elements.
+        # I'll modify the loop to store the Q rect.
+        pass  # Reworking loop below
+
+    # Reworked loop for Decision Tree
+    gen = ExcalidrawGenerator()  # Reset
+    gen.add_rect(
+        "Title",
+        0,
+        0,
+        800,
+        40,
+        "DATA STRUCTURE DECISION GUIDE",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    for i, (q, ans) in enumerate(decisions):
+        y = start_y + (i * 70)
+        q_rect = gen.add_rect(
+            f"Q{i}", 50, y, 300, 40, q, bg_color="#e7f5ff", stroke_color="#1971c2"
+        )
+        a_rect = gen.add_rect(
+            f"A{i}", 450, y, 300, 40, ans, bg_color="#e6fcf5", stroke_color="#0ca678"
+        )
+        gen.add_arrow(f"Q{i}", f"A{i}", q_rect, a_rect)
+
+    gen.save("docs/assets/images/diagrams/data-structures/decision-guide.excalidraw")
+
+
 if __name__ == "__main__":
-    generate_docs_architecture()
-    generate_immersive_architecture()
-    generate_shadow_scroll_architecture()
-    generate_rust_terminal_architecture()
-    generate_mvvm_architecture()
-    generate_chat_data_flow()
-    generate_interview_pipeline()
-    generate_problem_solving_framework()
-    generate_time_allocation()
-    generate_practice_routine()
-    generate_system_design_pillars()
-    generate_cap_theorem()
-    generate_latency_comparison()
-    generate_system_design_interview()
+    # generate_docs_architecture()
+    # generate_immersive_architecture()
+    # generate_shadow_scroll_architecture()
+    # generate_rust_terminal_architecture()
+    # generate_mvvm_architecture()
+    # generate_chat_data_flow()
+    # generate_interview_pipeline()
+    # generate_problem_solving_framework()
+    # generate_time_allocation()
+    # generate_practice_routine()
+    # generate_system_design_pillars()
+    # generate_cap_theorem()
+    # generate_latency_comparison()
+    # generate_system_design_interview()
+    generate_ds_linear()
+    generate_ds_hash_collision()
+    generate_ds_trees()
+    generate_ds_graphs()
+    generate_ds_decision_tree()
