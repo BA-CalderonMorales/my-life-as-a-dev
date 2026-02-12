@@ -45,10 +45,28 @@
     return null;
   }
 
+  // Get the current page path relative to the version root
+  function getRelativePath() {
+    const path = window.location.pathname;
+    const parts = path.split('/').filter(Boolean);
+    // Path structure: /repo-name/version/page/subpage
+    // We want page/subpage
+    if (parts.length >= 3) {
+      return parts.slice(2).join('/') + '/';
+    }
+    // Handle edge case where we might be at a file like /repo-name/version/page.html
+    // The split logic above assumes directories mostly, let's refine if needed.
+    // For now, let's stick to the current logic which seems to assume directory-based URLs 
+    // (standard for MkDocs).
+    
+    return '';
+  }
+
   // Create version selector dropdown
   function createVersionSelector(versions) {
     const currentVersion = getCurrentVersion();
     const baseUrl = getBaseUrl();
+    const relativePath = getRelativePath();
 
     // Create container
     const container = document.createElement('div');
@@ -72,7 +90,7 @@
       li.className = 'md-version__item';
 
       const a = document.createElement('a');
-      a.href = baseUrl + v.version + '/';
+      a.href = baseUrl + v.version + '/' + relativePath;
       a.className = 'md-version__link';
 
       let label = v.title || v.version;
