@@ -141,8 +141,8 @@ def generate_docs_architecture():
     gen = ExcalidrawGenerator()
 
     # Nodes
-    # A[MkDocs]
-    a = gen.add_rect("A", 400, 300, 120, 60, "MkDocs", bg_color="#e0ffff")
+    # A[Zensical]
+    a = gen.add_rect("A", 400, 300, 120, 60, "Zensical", bg_color="#e0ffff")
 
     # B[Material Theme] - Below A
     b = gen.add_rect("B", 400, 450, 160, 60, "Material Theme")
@@ -288,8 +288,153 @@ def generate_rust_terminal_architecture():
     gen.save("docs/assets/images/diagrams/rust-terminal-forge-architecture.excalidraw")
 
 
+def generate_mvvm_architecture():
+    gen = ExcalidrawGenerator()
+
+    # View (view.js)
+    view = gen.add_rect(
+        "View",
+        400,
+        100,
+        300,
+        150,
+        "View (view.js)\n- Creates DOM elements\n- Binds event listeners\n- Updates UI based on VM\n- 'Dumb' - no business logic",
+        bg_color="#e0ffff",
+    )
+
+    # ViewModel (view-model.js)
+    vm = gen.add_rect(
+        "ViewModel",
+        400,
+        350,
+        300,
+        150,
+        "ViewModel (view-model.js)\n- Handles user actions\n- Orchestrates API calls\n- Updates Model state\n- Notifies View of changes",
+        bg_color="#fff0f5",
+    )
+
+    # Model (model.js)
+    model = gen.add_rect(
+        "Model",
+        400,
+        600,
+        300,
+        120,
+        "Model (model.js)\n- Holds application state\n- Messages array, loading flag\n- No UI logic, no API calls",
+        bg_color="#f0fff0",
+    )
+
+    # Edges
+    # View -> ViewModel (Events / Callbacks)
+    gen.add_arrow("View", "ViewModel", view, vm)
+
+    # ViewModel -> Model (State Changes)
+    gen.add_arrow("ViewModel", "Model", vm, model)
+
+    gen.save("docs/assets/images/diagrams/chat-widget-mvvm.excalidraw")
+
+
+def generate_chat_data_flow():
+    gen = ExcalidrawGenerator()
+
+    # User clicks send
+    user = gen.add_rect(
+        "User", 400, 50, 150, 50, "User clicks send", bg_color="#f0f8ff"
+    )
+
+    # View.onSend()
+    view_send = gen.add_rect(
+        "ViewSend",
+        400,
+        150,
+        200,
+        60,
+        "View.onSend()\nCaptures input",
+        bg_color="#e0ffff",
+    )
+
+    # ViewModel.handleSend
+    vm_send = gen.add_rect(
+        "VMSend",
+        400,
+        250,
+        250,
+        60,
+        "ViewModel.handleSend\nValidates, rate limits",
+        bg_color="#fff0f5",
+    )
+
+    # Model.addMessage()
+    model_add = gen.add_rect(
+        "ModelAdd",
+        200,
+        350,
+        200,
+        60,
+        "Model.addMessage()\nUpdates state",
+        bg_color="#f0fff0",
+    )
+
+    # View.addMessage()
+    view_add = gen.add_rect(
+        "ViewAdd",
+        600,
+        350,
+        200,
+        60,
+        "View.addMessage()\nUpdates UI",
+        bg_color="#e0ffff",
+    )
+
+    # ChatAPI.send
+    api_send = gen.add_rect(
+        "APISend", 400, 450, 200, 60, "ChatAPI.send\nHTTP POST", bg_color="#ffe4e1"
+    )
+
+    # Response received
+    response = gen.add_rect(
+        "Response", 400, 550, 200, 60, "Response received", bg_color="#fffacd"
+    )
+
+    # Model.addMessage (Response)
+    model_res = gen.add_rect(
+        "ModelRes",
+        200,
+        650,
+        200,
+        60,
+        "Model.addMessage()\nStore response",
+        bg_color="#f0fff0",
+    )
+
+    # View.addMessage (Response)
+    view_res = gen.add_rect(
+        "ViewRes",
+        600,
+        650,
+        200,
+        60,
+        "View.addMessage()\nDisplay response",
+        bg_color="#e0ffff",
+    )
+
+    # Edges
+    gen.add_arrow("User", "ViewSend", user, view_send)
+    gen.add_arrow("ViewSend", "VMSend", view_send, vm_send)
+    gen.add_arrow("VMSend", "ModelAdd", vm_send, model_add)
+    gen.add_arrow("VMSend", "ViewAdd", vm_send, view_add)
+    gen.add_arrow("VMSend", "APISend", vm_send, api_send)
+    gen.add_arrow("APISend", "Response", api_send, response)
+    gen.add_arrow("Response", "ModelRes", response, model_res)
+    gen.add_arrow("Response", "ViewRes", response, view_res)
+
+    gen.save("docs/assets/images/diagrams/chat-widget-data-flow.excalidraw")
+
+
 if __name__ == "__main__":
     generate_docs_architecture()
     generate_immersive_architecture()
     generate_shadow_scroll_architecture()
     generate_rust_terminal_architecture()
+    generate_mvvm_architecture()
+    generate_chat_data_flow()

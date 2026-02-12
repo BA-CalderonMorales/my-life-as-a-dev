@@ -1,0 +1,903 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 321698,
+      "isDeleted": false,
+      "id": "User",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 400,
+      "y": 50,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#f0f8ff",
+      "width": 150,
+      "height": 50,
+      "seed": 424121,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "User-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 193697,
+      "isDeleted": false,
+      "id": "User-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 395.0,
+      "y": 62.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 160,
+      "height": 25,
+      "seed": 121460,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "User clicks send",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "User",
+      "originalText": "User clicks send"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 477250,
+      "isDeleted": false,
+      "id": "ViewSend",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 400,
+      "y": 150,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#e0ffff",
+      "width": 200,
+      "height": 60,
+      "seed": 181983,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "ViewSend-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 505617,
+      "isDeleted": false,
+      "id": "ViewSend-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 360.0,
+      "y": 167.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 280,
+      "height": 25,
+      "seed": 512705,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "View.onSend()\nCaptures input",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "ViewSend",
+      "originalText": "View.onSend()\nCaptures input"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 57267,
+      "isDeleted": false,
+      "id": "VMSend",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 400,
+      "y": 250,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#fff0f5",
+      "width": 250,
+      "height": 60,
+      "seed": 785003,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "VMSend-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 90810,
+      "isDeleted": false,
+      "id": "VMSend-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 310.0,
+      "y": 267.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 430,
+      "height": 25,
+      "seed": 356155,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "ViewModel.handleSend\nValidates, rate limits",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "VMSend",
+      "originalText": "ViewModel.handleSend\nValidates, rate limits"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 456915,
+      "isDeleted": false,
+      "id": "ModelAdd",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 200,
+      "y": 350,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#f0fff0",
+      "width": 200,
+      "height": 60,
+      "seed": 95127,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "ModelAdd-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 225871,
+      "isDeleted": false,
+      "id": "ModelAdd-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 140.0,
+      "y": 367.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 320,
+      "height": 25,
+      "seed": 542742,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "Model.addMessage()\nUpdates state",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "ModelAdd",
+      "originalText": "Model.addMessage()\nUpdates state"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 343007,
+      "isDeleted": false,
+      "id": "ViewAdd",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 600,
+      "y": 350,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#e0ffff",
+      "width": 200,
+      "height": 60,
+      "seed": 125487,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "ViewAdd-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 172077,
+      "isDeleted": false,
+      "id": "ViewAdd-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 560.0,
+      "y": 367.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 280,
+      "height": 25,
+      "seed": 467723,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "View.addMessage()\nUpdates UI",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "ViewAdd",
+      "originalText": "View.addMessage()\nUpdates UI"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 271154,
+      "isDeleted": false,
+      "id": "APISend",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 400,
+      "y": 450,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffe4e1",
+      "width": 200,
+      "height": 60,
+      "seed": 296465,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "APISend-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 237971,
+      "isDeleted": false,
+      "id": "APISend-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 390.0,
+      "y": 467.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 220,
+      "height": 25,
+      "seed": 40106,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "ChatAPI.send\nHTTP POST",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "APISend",
+      "originalText": "ChatAPI.send\nHTTP POST"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 941196,
+      "isDeleted": false,
+      "id": "Response",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 400,
+      "y": 550,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#fffacd",
+      "width": 200,
+      "height": 60,
+      "seed": 56776,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "Response-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 631482,
+      "isDeleted": false,
+      "id": "Response-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 415.0,
+      "y": 567.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 170,
+      "height": 25,
+      "seed": 190396,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "Response received",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "Response",
+      "originalText": "Response received"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 37604,
+      "isDeleted": false,
+      "id": "ModelRes",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 200,
+      "y": 650,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#f0fff0",
+      "width": 200,
+      "height": 60,
+      "seed": 339173,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "ModelRes-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 391299,
+      "isDeleted": false,
+      "id": "ModelRes-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 135.0,
+      "y": 667.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 330,
+      "height": 25,
+      "seed": 718572,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "Model.addMessage()\nStore response",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "ModelRes",
+      "originalText": "Model.addMessage()\nStore response"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 434560,
+      "isDeleted": false,
+      "id": "ViewRes",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 600,
+      "y": 650,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#e0ffff",
+      "width": 200,
+      "height": 60,
+      "seed": 996478,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "ViewRes-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 389732,
+      "isDeleted": false,
+      "id": "ViewRes-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 530.0,
+      "y": 667.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 340,
+      "height": 25,
+      "seed": 549506,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "View.addMessage()\nDisplay response",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "ViewRes",
+      "originalText": "View.addMessage()\nDisplay response"
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 889879,
+      "isDeleted": false,
+      "id": "5e8b5f41-0715-4e38-81e6-2dd5f844a2ed",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 475.0,
+      "y": 75.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 25.0,
+      "height": 105.0,
+      "seed": 129094,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "User",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "ViewSend",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          25.0,
+          105.0
+        ]
+      ]
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 309812,
+      "isDeleted": false,
+      "id": "adf2ad05-d89d-4e4e-8cb7-5a989f9e8713",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 500.0,
+      "y": 180.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 25.0,
+      "height": 100.0,
+      "seed": 587146,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "ViewSend",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "VMSend",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          25.0,
+          100.0
+        ]
+      ]
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 829223,
+      "isDeleted": false,
+      "id": "e58cf35b-6891-46cf-b23b-37cce0fa9af2",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 525.0,
+      "y": 280.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 225.0,
+      "height": 100.0,
+      "seed": 844086,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "VMSend",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "ModelAdd",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -225.0,
+          100.0
+        ]
+      ]
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 30912,
+      "isDeleted": false,
+      "id": "e32836d4-9260-44bd-a9ea-d188d35e4025",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 525.0,
+      "y": 280.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 175.0,
+      "height": 100.0,
+      "seed": 957223,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "VMSend",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "ViewAdd",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          175.0,
+          100.0
+        ]
+      ]
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 808215,
+      "isDeleted": false,
+      "id": "f536e2c3-fb76-4dfe-976a-f16768abee86",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 525.0,
+      "y": 280.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 25.0,
+      "height": 200.0,
+      "seed": 973658,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "VMSend",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "APISend",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -25.0,
+          200.0
+        ]
+      ]
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 444588,
+      "isDeleted": false,
+      "id": "f1788de8-681c-4697-97a2-8b0cc2554a21",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 500.0,
+      "y": 480.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 0.0,
+      "height": 100.0,
+      "seed": 754553,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "APISend",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "Response",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0.0,
+          100.0
+        ]
+      ]
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 858031,
+      "isDeleted": false,
+      "id": "16008dd9-5d8c-4fb2-b813-4806ec4b3396",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 500.0,
+      "y": 580.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 200.0,
+      "height": 100.0,
+      "seed": 813410,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "Response",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "ModelRes",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -200.0,
+          100.0
+        ]
+      ]
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 590850,
+      "isDeleted": false,
+      "id": "9c594aaa-5c4b-478a-af30-e2d7874a5165",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 500.0,
+      "y": 580.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 200.0,
+      "height": 100.0,
+      "seed": 730761,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "Response",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "ViewRes",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          200.0,
+          100.0
+        ]
+      ]
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": 20
+  },
+  "files": {}
+}

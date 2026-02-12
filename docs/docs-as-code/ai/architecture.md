@@ -29,34 +29,9 @@ docs/assets/js/chat-widget/
 
 ## MVVM Pattern
 
-```text
-┌─────────────────────────────────────────────────────────────┐
-│                         View (view.js)                      │
-│  - Creates DOM elements                                     │
-│  - Binds event listeners                                    │
-│  - Updates UI based on ViewModel callbacks                  │
-│  - "Dumb" - no business logic                               │
-└────────────────────────────┬────────────────────────────────┘
-                             │
-                             │ Events / Callbacks
-                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    ViewModel (view-model.js)                │
-│  - Handles user actions (send message, toggle)              │
-│  - Orchestrates API calls                                   │
-│  - Updates Model state                                      │
-│  - Notifies View of changes                                 │
-└────────────────────────────┬────────────────────────────────┘
-                             │
-                             │ State Changes
-                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│                       Model (model.js)                      │
-│  - Holds application state                                  │
-│  - Messages array, loading flag, isOpen state               │
-│  - No UI logic, no API calls                                │
-└─────────────────────────────────────────────────────────────┘
-```
+[![MVVM Architecture Diagram](../../../assets/images/diagrams/chat-widget-mvvm.svg)](../../../assets/images/diagrams/chat-widget-mvvm.excalidraw)
+
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 ### Why MVVM?
 
@@ -331,37 +306,9 @@ const MessageParser = {
 
 ## Data Flow
 
-```text
-User clicks send
-       │
-       ▼
-┌─────────────────┐
-│  View.onSend()  │───► Captures input, calls callback
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────────┐
-│ ViewModel.handleSend│───► Validates, rate limits
-└────────┬────────────┘
-         │
-         ├───► Model.addMessage() ───► Updates state
-         │
-         ├───► View.addMessage() ───► Updates UI
-         │
-         ▼
-┌─────────────────┐
-│   ChatAPI.send  │───► HTTP POST to backend
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────────┐
-│ Response received   │
-└────────┬────────────┘
-         │
-         ├───► Model.addMessage() ───► Store response
-         │
-         └───► View.addMessage() ───► Display response
-```
+[![Chat Widget Data Flow](../../../assets/images/diagrams/chat-widget-data-flow.svg)](../../../assets/images/diagrams/chat-widget-data-flow.excalidraw)
+
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 ---
 
