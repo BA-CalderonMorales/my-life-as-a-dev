@@ -20,16 +20,34 @@ def convert_to_svg(excalidraw_path):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python kroki_convert.py <path_to_excalidraw_file>")
+        print("Usage: python kroki_convert.py <path_to_excalidraw_file_or_directory>")
         sys.exit(1)
 
-    excalidraw_path = sys.argv[1]
-    svg_content = convert_to_svg(excalidraw_path)
+    path = sys.argv[1]
 
-    if svg_content:
-        svg_path = excalidraw_path.replace(".excalidraw", ".svg")
-        with open(svg_path, "w") as f:
-            f.write(svg_content)
-        print(f"Successfully converted {excalidraw_path} to {svg_path}")
+    if os.path.isdir(path):
+        # Process all .excalidraw files in the directory
+        for filename in os.listdir(path):
+            if filename.endswith(".excalidraw"):
+                excalidraw_path = os.path.join(path, filename)
+                svg_content = convert_to_svg(excalidraw_path)
+
+                if svg_content:
+                    svg_path = excalidraw_path.replace(".excalidraw", ".svg")
+                    with open(svg_path, "w") as f:
+                        f.write(svg_content)
+                    print(f"Successfully converted {excalidraw_path} to {svg_path}")
+                else:
+                    print(f"Failed to convert {excalidraw_path}")
     else:
-        sys.exit(1)
+        # Process single file
+        excalidraw_path = path
+        svg_content = convert_to_svg(excalidraw_path)
+
+        if svg_content:
+            svg_path = excalidraw_path.replace(".excalidraw", ".svg")
+            with open(svg_path, "w") as f:
+                f.write(svg_content)
+            print(f"Successfully converted {excalidraw_path} to {svg_path}")
+        else:
+            sys.exit(1)

@@ -61,17 +61,7 @@ Sequential data with defined ordering and position-based access.
 | **Stacks** | LIFO, undo/redo, parentheses matching | Push/Pop O(1) | [LC 20](https://leetcode.com/problems/valid-parentheses/) |
 | **Queues** | FIFO, BFS traversal, scheduling | Enqueue/Dequeue O(1) | [LC 933](https://leetcode.com/problems/number-of-recent-calls/) |
 
-```text
-Array:  [ 1 | 2 | 3 | 4 | 5 ]
-         ↑               ↑
-        O(1)           O(1)
-        access         access
-
-Linked: [1]→[2]→[3]→[4]→[5]→null
-         ↑
-        Head
-        O(1) insert/delete at known position
-```
+[![Linear Structures](../../../assets/images/diagrams/data-structures/linear.svg)](../../../assets/images/diagrams/data-structures/linear.excalidraw)
 
 ---
 
@@ -84,18 +74,7 @@ Key-value mappings and membership testing with constant-time operations.
 | **Hash Tables** | Counting, deduplication, lookups | Get/Set O(1) avg | [LC 1](https://leetcode.com/problems/two-sum/) |
 | **Hash Sets** | Unique elements, membership tests | Add/Contains O(1) avg | [LC 217](https://leetcode.com/problems/contains-duplicate/) |
 
-```text
-Hash Table:
-  Key → Hash Function → Index
-  "apple" → hash("apple") % size → 3
-
-  Buckets:
-  [0] → null
-  [1] → ("banana", 5)
-  [2] → null
-  [3] → ("apple", 2) → ("grape", 8)  ← collision
-  [4] → null
-```
+[![Hash Table Collisions](../../../assets/images/diagrams/data-structures/hash-collision.svg)](../../../assets/images/diagrams/data-structures/hash-collision.excalidraw)
 
 ---
 
@@ -110,18 +89,7 @@ Tree-based structures for ordered access and hierarchical relationships.
 | **Heaps** | Top-k, scheduling, priority queues | Insert/Extract O(log n) | [LC 347](https://leetcode.com/problems/top-k-frequent-elements/) |
 | **Tries** | Prefix matching, autocomplete | O(m) where m=key length | [LC 208](https://leetcode.com/problems/implement-trie-prefix-tree/) |
 
-```text
-Binary Search Tree:        Min Heap:
-        8                      1
-       / \                   /   \
-      3   10                3     2
-     / \    \              / \   / \
-    1   6    14           5   4 7   6
-       / \   /
-      4   7 13
-
-BST: left < parent < right    Heap: parent ≤ children
-```
+[![Tree Structures](../../../assets/images/diagrams/data-structures/trees.svg)](../../../assets/images/diagrams/data-structures/trees.excalidraw)
 
 ---
 
@@ -134,14 +102,7 @@ Model relationships and connections between entities.
 | **Adjacency List** | Sparse graphs, traversals | O(V + E) | [LC 200](https://leetcode.com/problems/number-of-islands/) |
 | **Adjacency Matrix** | Dense graphs, edge lookups | O(V^2) | [LC 547](https://leetcode.com/problems/number-of-provinces/) |
 
-```text
-Graph:  A --- B              Adjacency List:        Adjacency Matrix:
-        |     |              A: [B, C]                  A  B  C  D
-        C --- D              B: [A, D]              A [ 0  1  1  0 ]
-                             C: [A, D]              B [ 1  0  0  1 ]
-                             D: [B, C]              C [ 1  0  0  1 ]
-                                                    D [ 0  1  1  0 ]
-```
+[![Graph Representations](../../../assets/images/diagrams/data-structures/graphs.svg)](../../../assets/images/diagrams/data-structures/graphs.excalidraw)
 
 ---
 
@@ -198,25 +159,4 @@ Master this table for interviews.
 
 ## Decision Guide
 
-```text
-"I need fast lookups by key..."
-  └──▶ HASH TABLE
-
-"I need elements in sorted order..."
-  └──▶ BINARY SEARCH TREE or SORTED ARRAY
-
-"I need the min/max element quickly..."
-  └──▶ HEAP
-
-"I need to match string prefixes..."
-  └──▶ TRIE
-
-"I need LIFO (last-in, first-out)..."
-  └──▶ STACK
-
-"I need FIFO (first-in, first-out)..."
-  └──▶ QUEUE
-
-"I need to model relationships..."
-  └──▶ GRAPH (adjacency list/matrix)
-```
+[![Decision Guide](../../../assets/images/diagrams/data-structures/decision-guide.svg)](../../../assets/images/diagrams/data-structures/decision-guide.excalidraw)
