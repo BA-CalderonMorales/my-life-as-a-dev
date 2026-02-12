@@ -933,6 +933,162 @@ def generate_ds_decision_tree():
     gen.save("docs/assets/images/diagrams/data-structures/decision-guide.excalidraw")
 
 
+def generate_backtracking_tree():
+    """Generates the Backtracking Decision Tree diagram."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect(
+        "Title",
+        0,
+        0,
+        800,
+        40,
+        "BACKTRACKING DECISION TREE (Subsets of [1, 2, 3])",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # Levels
+    # Level 0: []
+    root = gen.add_rect(
+        "Root", 400, 80, 60, 40, "[]", bg_color="#e7f5ff", stroke_color="#1971c2"
+    )
+
+    # Level 1: [1], []
+    l1_left = gen.add_rect(
+        "L1L", 200, 180, 60, 40, "[1]", bg_color="#e6fcf5", stroke_color="#0ca678"
+    )
+    l1_right = gen.add_rect(
+        "L1R", 600, 180, 60, 40, "[]", bg_color="#fff0f5", stroke_color="#e64980"
+    )
+
+    gen.add_arrow("Root", "L1L", root, l1_left)
+    gen.add_arrow("Root", "L1R", root, l1_right)
+
+    # Labels for edges
+    gen.add_rect("Lbl1", 250, 130, 80, 20, "include 1", stroke_color="transparent")
+    gen.add_rect("Lbl2", 470, 130, 80, 20, "exclude 1", stroke_color="transparent")
+
+    # Level 2
+    # From [1]: [1,2], [1]
+    l2_ll = gen.add_rect(
+        "L2LL", 100, 280, 60, 40, "[1,2]", bg_color="#e6fcf5", stroke_color="#0ca678"
+    )
+    l2_lr = gen.add_rect(
+        "L2LR", 300, 280, 60, 40, "[1]", bg_color="#fff0f5", stroke_color="#e64980"
+    )
+
+    gen.add_arrow("L1L", "L2LL", l1_left, l2_ll)
+    gen.add_arrow("L1L", "L2LR", l1_left, l2_lr)
+
+    # From []: [2], []
+    l2_rl = gen.add_rect(
+        "L2RL", 500, 280, 60, 40, "[2]", bg_color="#e6fcf5", stroke_color="#0ca678"
+    )
+    l2_rr = gen.add_rect(
+        "L2RR", 700, 280, 60, 40, "[]", bg_color="#fff0f5", stroke_color="#e64980"
+    )
+
+    gen.add_arrow("L1R", "L2RL", l1_right, l2_rl)
+    gen.add_arrow("L1R", "L2RR", l1_right, l2_rr)
+
+    # Level 3 (Leaves)
+    leaves = [
+        ("[1,2,3]", 50),
+        ("[1,2]", 150),
+        ("[1,3]", 250),
+        ("[1]", 350),
+        ("[2,3]", 450),
+        ("[2]", 550),
+        ("[3]", 650),
+        ("[]", 750),
+    ]
+
+    parents = [l2_ll, l2_ll, l2_lr, l2_lr, l2_rl, l2_rl, l2_rr, l2_rr]
+
+    for i, (label, x) in enumerate(leaves):
+        leaf = gen.add_rect(f"Leaf{i}", x, 380, 80, 40, label)
+        gen.add_arrow(f"P{i}", f"Leaf{i}", parents[i], leaf)
+
+    # Cycle explanation
+    gen.add_rect(
+        "Cycle",
+        200,
+        450,
+        400,
+        40,
+        "CHOOSE → EXPLORE → UNCHOOSE",
+        bg_color="#f8f9fa",
+        stroke_color="#adb5bd",
+    )
+
+    gen.save("docs/assets/images/diagrams/algorithms/backtracking-tree.excalidraw")
+
+
+def generate_backtracking_template():
+    """Generates the Backtracking Template diagram."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect(
+        "Title",
+        0,
+        0,
+        600,
+        40,
+        "BACKTRACKING TEMPLATE",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    steps = [
+        ("1. BASE CASE", "If solution is complete, save it and return"),
+        ("2. ITERATE CHOICES", "For each valid choice at current position:"),
+        ("3. CHOOSE", "Add choice to current solution"),
+        ("4. EXPLORE", "Recursively call with updated state"),
+        ("5. UNCHOOSE", "Remove choice (restore state)"),
+        ("6. PRUNE (Optional)", "Skip invalid paths early"),
+    ]
+
+    for i, (step, desc) in enumerate(steps):
+        y = 60 + (i * 90)
+
+        # Step Box
+        gen.add_rect(
+            f"Step{i}", 50, y, 200, 50, step, bg_color="#e7f5ff", stroke_color="#1971c2"
+        )
+
+        # Description Box (connected)
+        gen.add_rect(
+            f"Desc{i}",
+            300,
+            y,
+            350,
+            50,
+            desc,
+            bg_color="#f8f9fa",
+            stroke_color="#dee2e6",
+        )
+
+        # Arrow connecting them
+        gen.add_arrow(
+            f"Step{i}",
+            f"Desc{i}",
+            {"x": 250, "y": y + 25, "width": 0, "height": 0},
+            {"x": 300, "y": y + 25, "width": 350, "height": 50},
+        )
+
+        # Down arrow to next step (except last)
+        if i < len(steps) - 1:
+            gen.add_arrow(
+                f"Down{i}",
+                f"Step{i + 1}",
+                {"x": 150, "y": y + 50, "width": 0, "height": 0},
+                {"x": 150, "y": y + 90, "width": 200, "height": 50},
+            )
+
+    gen.save("docs/assets/images/diagrams/algorithms/backtracking-template.excalidraw")
+
+
 if __name__ == "__main__":
     # generate_docs_architecture()
     # generate_immersive_architecture()
@@ -948,8 +1104,10 @@ if __name__ == "__main__":
     # generate_cap_theorem()
     # generate_latency_comparison()
     # generate_system_design_interview()
-    generate_ds_linear()
-    generate_ds_hash_collision()
-    generate_ds_trees()
-    generate_ds_graphs()
-    generate_ds_decision_tree()
+    # generate_ds_linear()
+    # generate_ds_hash_collision()
+    # generate_ds_trees()
+    # generate_ds_graphs()
+    # generate_ds_decision_tree()
+    generate_backtracking_tree()
+    generate_backtracking_template()
