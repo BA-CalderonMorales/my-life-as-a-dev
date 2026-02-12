@@ -431,6 +431,247 @@ def generate_chat_data_flow():
     gen.save("docs/assets/images/diagrams/chat-widget-data-flow.excalidraw")
 
 
+def generate_interview_pipeline():
+    """Generates the Interview Pipeline diagram."""
+    gen = ExcalidrawGenerator()
+
+    # Title
+    gen.add_rect(
+        "Title",
+        0,
+        -60,
+        800,
+        40,
+        "TYPICAL INTERVIEW PIPELINE",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # Stages
+    stages = [
+        ("SCREENING", "30-45 min", "Phone/\nVideo"),
+        ("TECHNICAL", "45-60 min", "Coding\nRounds\n(1-2)"),
+        ("BEHAVIORAL", "30-45 min", "Team\nFit"),
+        ("ONSITE", "4-6 hours", "Multiple\nRounds"),
+    ]
+
+    descriptions = [
+        "Basic DSA\nQuestions",
+        "Algorithms\nSystem Design",
+        "Experience\nScenarios",
+        "Technical\n+ Cultural",
+    ]
+
+    start_x = 0
+    spacing = 220
+    rects = []
+
+    for i, (title, duration, box_text) in enumerate(stages):
+        x = start_x + (i * spacing)
+
+        # Header
+        gen.add_rect(
+            f"H{i}",
+            x,
+            0,
+            140,
+            25,
+            title,
+            bg_color="transparent",
+            stroke_color="#1971c2",
+        )
+        gen.add_rect(
+            f"D{i}",
+            x,
+            25,
+            140,
+            20,
+            duration,
+            bg_color="transparent",
+            stroke_color="#868e96",
+        )
+
+        # Box
+        rect = gen.add_rect(
+            f"B{i}",
+            x,
+            60,
+            140,
+            100,
+            box_text,
+            bg_color="#e7f5ff",
+            stroke_color="#1971c2",
+        )
+        rects.append(rect)
+
+        # Description
+        gen.add_rect(
+            f"Desc{i}",
+            x,
+            230,
+            140,
+            60,
+            descriptions[i],
+            bg_color="transparent",
+            stroke_color="#495057",
+        )
+
+        # Arrow down to description
+        # No easy arrow without rects, just assuming alignment
+
+    # Arrows between boxes
+    for i in range(len(rects) - 1):
+        gen.add_arrow(f"B{i}", f"B{i + 1}", rects[i], rects[i + 1])
+
+    gen.save("docs/assets/images/diagrams/interview-prep/pipeline.excalidraw")
+
+
+def generate_problem_solving_framework():
+    """Generates the 7-Step Problem Solving Framework diagram."""
+    gen = ExcalidrawGenerator()
+
+    steps = [
+        ("1. UNDERSTAND", 0, 0),
+        ("2. PLAN", 250, 0),
+        ("3. DESIGN", 500, 0),
+        ("4. IMPLEMENT", 750, 0),
+        ("5. TEST", 750, 200),
+        ("6. ANALYZE", 500, 200),
+        ("7. OPTIMIZE", 250, 200),
+    ]
+
+    rects = []
+    # Draw steps
+    for i, (text, x, y) in enumerate(steps):
+        rect = gen.add_rect(
+            f"S{i}",
+            x,
+            y,
+            200,
+            60,
+            text,
+            bg_color="#e6fcf5",
+            stroke_color="#0ca678",
+        )
+        rects.append(rect)
+
+    # Draw Arrows
+    # Forward flow (1->4)
+    for i in range(3):
+        gen.add_arrow(f"S{i}", f"S{i + 1}", rects[i], rects[i + 1])
+
+    # Backward flow (5->7)
+    for i in range(4, 6):
+        gen.add_arrow(f"S{i}", f"S{i + 1}", rects[i], rects[i + 1])
+
+    # Connecting 4 -> 5 (Down)
+    gen.add_arrow("S3", "S4", rects[3], rects[4])
+
+    # Connecting 7 -> 2 (Cycle)
+    gen.add_arrow("S6", "S1", rects[6], rects[1])
+
+    gen.save("docs/assets/images/diagrams/interview-prep/framework.excalidraw")
+
+
+def generate_time_allocation():
+    """Generates the Time Allocation chart."""
+    gen = ExcalidrawGenerator()
+
+    # Title
+    gen.add_rect(
+        "Title",
+        0,
+        0,
+        800,
+        40,
+        "TIME ALLOCATION (45-60 min)",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    phases = [
+        ("Understand", 5, "#4dabf7"),
+        ("Plan", 10, "#3bc9db"),
+        ("Code", 25, "#69db7c"),
+        ("Test", 10, "#ffd43b"),
+        ("Optimize", 5, "#ffa94d"),
+    ]
+
+    total_width = 800
+    total_time = sum(p[1] for p in phases)
+    current_x = 0
+    y_bar = 60
+    height = 60
+
+    for i, (name, minutes, color) in enumerate(phases):
+        width = (minutes / total_time) * total_width
+
+        # Bar segment
+        gen.add_rect(
+            f"P{i}",
+            current_x,
+            y_bar,
+            width,
+            height,
+            f"{name}\n({minutes}m)",
+            bg_color=color,
+            stroke_color="#1e1e1e",
+        )
+
+        current_x += width
+
+    gen.save("docs/assets/images/diagrams/interview-prep/time-allocation.excalidraw")
+
+
+def generate_practice_routine():
+    """Generates the Effective Practice Routine diagram."""
+    gen = ExcalidrawGenerator()
+
+    # Title
+    gen.add_rect(
+        "Title",
+        150,
+        0,
+        500,
+        40,
+        "EFFECTIVE PRACTICE SESSION (60-90 min)",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    steps = [
+        ("1. Warm-up (10 min)", "Review yesterday's problems"),
+        ("2. New Problem (30-40 min)", "Solve without solution"),
+        ("3. Review Solution (15 min)", "Compare & understand gaps"),
+        ("4. Spaced Repetition (10 min)", "Retry problem from 3-7 days ago"),
+    ]
+
+    start_y = 60
+    rects = []
+
+    for i, (title, desc) in enumerate(steps):
+        y = start_y + (i * 120)
+
+        # Step Box
+        rect = gen.add_rect(
+            f"Step{i}",
+            150,
+            y,
+            500,
+            80,
+            f"{title}\n{desc}",
+            bg_color="#f1f3f5",
+            stroke_color="#495057",
+        )
+        rects.append(rect)
+
+    # Arrows down
+    for i in range(len(rects) - 1):
+        gen.add_arrow(f"Step{i}", f"Step{i + 1}", rects[i], rects[i + 1])
+
+    gen.save("docs/assets/images/diagrams/interview-prep/practice-routine.excalidraw")
+
+
 if __name__ == "__main__":
     generate_docs_architecture()
     generate_immersive_architecture()
@@ -438,3 +679,7 @@ if __name__ == "__main__":
     generate_rust_terminal_architecture()
     generate_mvvm_architecture()
     generate_chat_data_flow()
+    generate_interview_pipeline()
+    generate_problem_solving_framework()
+    generate_time_allocation()
+    generate_practice_routine()
