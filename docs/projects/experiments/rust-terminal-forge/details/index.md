@@ -12,15 +12,6 @@ Rust Terminal Forge combines the performance of Rust with the flexibility of a R
 
 > **Note:** Click the diagram to view/edit the Excalidraw source.
 
-```mermaid
-graph TD
-    A[React Frontend] --> B[WebAssembly]
-    B --> C[Rust Terminal Engine]
-    A --> D[WebSocket Server]
-    C <--> D
-    D --> E[Backend Services]
-```
-
 ## Key Components
 
 ### 1. Core Technologies

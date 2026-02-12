@@ -12,17 +12,6 @@ Shadow Scroll Blossom is built with modern web technologies to deliver smooth, i
 
 > **Note:** Click the diagram to view/edit the Excalidraw source.
 
-```mermaid
-graph TD
-    A[React] --> B[Canvas API]
-    A --> C[Custom Hooks]
-    B --> D[Particle System]
-    C --> E[State Management]
-    A --> F[Vite]
-    F --> G[Build Tooling]
-    F --> H[Hot Module Replacement]
-```
-
 ## Key Components
 
 ### 1. Core Technologies

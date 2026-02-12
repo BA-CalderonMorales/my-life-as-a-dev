@@ -12,17 +12,6 @@ Immersive Awe Canvas is built with modern web technologies to deliver smooth 3D 
 
 > **Note:** Click the diagram to view/edit the Excalidraw source.
 
-```mermaid
-graph TD
-    A[React] --> B[Three.js]
-    A --> C[React Three Fiber]
-    B --> D[3D Rendering]
-    C --> E[React Integration]
-    A --> F[Vite]
-    F --> G[Build Tooling]
-    F --> H[Hot Module Replacement]
-```
-
 ## Key Components
 
 ### 1. Core Technologies
