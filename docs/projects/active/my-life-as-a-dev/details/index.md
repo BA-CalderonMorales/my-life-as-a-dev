@@ -12,17 +12,6 @@ The Docs-as-Code Portfolio is built with a modular architecture that separates c
 
 > **Note:** Click the diagram to view/edit the Excalidraw source.
 
-```mermaid
-graph TD
-    A[MkDocs] --> B[Material Theme]
-    A --> C[Custom Plugins]
-    C --> D[AI Integration]
-    C --> E[Versioning]
-    A --> F[GitHub Actions]
-    F --> G[Automated Deployment]
-    F --> H[Testing]
-```
-
 ## Key Components
 
 ### 1. Documentation Engine
