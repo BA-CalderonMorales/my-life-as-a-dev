@@ -672,6 +672,321 @@ def generate_practice_routine():
     gen.save("docs/assets/images/diagrams/interview-prep/practice-routine.excalidraw")
 
 
+def generate_system_design_pillars():
+    """Generates the System Design Pillars diagram."""
+    gen = ExcalidrawGenerator()
+
+    # Title
+    gen.add_rect(
+        "Title",
+        0,
+        0,
+        800,
+        40,
+        "SYSTEM DESIGN PILLARS",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    pillars = [
+        (
+            "RELIABILITY",
+            "Works correctly\nunder adversity",
+            "- Fault tolerant\n- Redundancy\n- Graceful fail",
+            "#e7f5ff",
+            "#1971c2",
+        ),
+        (
+            "SCALABILITY",
+            "Handles growth\nefficiently",
+            "- Horizontal\n- Vertical\n- Auto-scaling",
+            "#e6fcf5",
+            "#0ca678",
+        ),
+        (
+            "MAINTAINABILITY",
+            "Easy to operate\nand evolve",
+            "- Observability\n- Simplicity\n- Documentation",
+            "#fff9db",
+            "#f59f00",
+        ),
+    ]
+
+    start_x = 50
+    spacing = 250
+
+    for i, (title, desc, details, bg, color) in enumerate(pillars):
+        x = start_x + (i * spacing)
+
+        # Header
+        gen.add_rect(
+            f"H{i}",
+            x,
+            60,
+            200,
+            30,
+            title,
+            bg_color="transparent",
+            stroke_color=color,
+        )
+
+        # Main Box
+        gen.add_rect(f"B{i}", x, 100, 200, 80, desc, bg_color=bg, stroke_color=color)
+
+        # Details Box
+        gen.add_rect(
+            f"D{i}",
+            x,
+            180,
+            200,
+            100,
+            details,
+            bg_color="transparent",
+            stroke_color=color,
+        )
+
+    gen.save("docs/assets/images/diagrams/system-design/pillars.excalidraw")
+
+
+def generate_cap_theorem():
+    """Generates the CAP Theorem diagram."""
+    gen = ExcalidrawGenerator()
+
+    # Triangle coordinates
+    p1 = (400, 100)  # Consistency
+    p2 = (200, 450)  # Availability
+    p3 = (600, 450)  # Partition Tolerance
+
+    # Draw Triangle (Simulated with arrows for now)
+    # Placeholder rects for points to connect
+    r1 = gen.add_rect("P1", p1[0], p1[1], 1, 1, "", stroke_color="transparent")
+    r2 = gen.add_rect("P2", p2[0], p2[1], 1, 1, "", stroke_color="transparent")
+    r3 = gen.add_rect("P3", p3[0], p3[1], 1, 1, "", stroke_color="transparent")
+
+    gen.add_arrow("P1", "P2", r1, r2)
+    gen.add_arrow("P2", "P3", r2, r3)
+    gen.add_arrow("P3", "P1", r3, r1)
+
+    # Labels
+    gen.add_rect(
+        "L1",
+        p1[0] - 100,
+        p1[1] - 40,
+        200,
+        30,
+        "Consistency",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+    gen.add_rect(
+        "L2",
+        p2[0] - 120,
+        p2[1] + 10,
+        150,
+        30,
+        "Availability",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+    gen.add_rect(
+        "L3",
+        p3[0] - 30,
+        p3[1] + 10,
+        200,
+        30,
+        "Partition Tolerance",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    # Zones
+    gen.add_rect(
+        "Z1",
+        230,
+        250,
+        60,
+        30,
+        "CP",
+        bg_color="#fff0f5",
+        stroke_color="transparent",
+    )
+    gen.add_rect(
+        "Z2",
+        510,
+        250,
+        60,
+        30,
+        "CA",
+        bg_color="#e6fcff",
+        stroke_color="transparent",
+    )
+    gen.add_rect(
+        "Z3",
+        370,
+        400,
+        60,
+        30,
+        "AP",
+        bg_color="#f0fff0",
+        stroke_color="transparent",
+    )
+
+    gen.save("docs/assets/images/diagrams/system-design/cap-theorem.excalidraw")
+
+
+def generate_latency_comparison():
+    """Generates the Latency Comparison chart."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect(
+        "Title",
+        0,
+        0,
+        800,
+        40,
+        "LATENCY COMPARISON (Log Scale Approximation)",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    items = [
+        ("L1 Cache Reference", 0.5, "0.5 ns", "#adb5bd"),
+        ("Mutex Lock/Unlock", 100, "100 ns", "#868e96"),
+        ("Main Memory Reference", 100, "100 ns", "#495057"),
+        ("Send 2KB over 1Gbps", 20000, "20 us", "#74c0fc"),
+        ("Read 1MB from Memory", 250000, "250 us", "#339af0"),
+        ("Datacenter Round Trip", 500000, "500 us", "#1c7ed6"),
+        ("Disk Seek", 10000000, "10 ms", "#fab005"),
+        ("CA to Netherlands Round Trip", 150000000, "150 ms", "#e67700"),
+    ]
+
+    start_y = 60
+
+    # Log scale width calculation
+    import math
+
+    max_val = math.log(150000000)
+
+    for i, (name, val, label, color) in enumerate(items):
+        y = start_y + (i * 40)
+
+        # Avoid log(0)
+        log_val = math.log(val if val > 0 else 1)
+        width = (log_val / max_val) * 500
+
+        # Name
+        gen.add_rect(
+            f"N{i}",
+            0,
+            y,
+            250,
+            30,
+            name,
+            bg_color="transparent",
+            stroke_color="transparent",
+        )
+
+        # Bar
+        gen.add_rect(
+            f"B{i}",
+            260,
+            y,
+            width,
+            30,
+            "",
+            bg_color=color,
+            stroke_color="transparent",
+        )
+
+        # Label
+        gen.add_rect(
+            f"L{i}",
+            270 + width,
+            y,
+            100,
+            30,
+            label,
+            bg_color="transparent",
+            stroke_color="transparent",
+        )
+
+    gen.save("docs/assets/images/diagrams/system-design/latency.excalidraw")
+
+
+def generate_system_design_interview():
+    """Generates the System Design Interview Framework diagram."""
+    gen = ExcalidrawGenerator()
+
+    steps = [
+        (
+            "1. CLARIFY REQUIREMENTS (5 min)",
+            [
+                "Functional requirements",
+                "Non-functional requirements",
+                "Constraints & assumptions",
+            ],
+        ),
+        (
+            "2. ESTIMATE SCALE (5 min)",
+            [
+                "Users: DAU, concurrent",
+                "Storage: size, growth",
+                "Bandwidth: read/write",
+            ],
+        ),
+        (
+            "3. HIGH-LEVEL DESIGN (10-15 min)",
+            ["Core components", "Data flow", "API design"],
+        ),
+        (
+            "4. DEEP DIVE (15-20 min)",
+            ["Data model", "Scaling strategies", "Trade-offs"],
+        ),
+        (
+            "5. WRAP UP (5 min)",
+            ["Bottlenecks", "Future improvements", "Monitoring & alerts"],
+        ),
+    ]
+
+    start_y = 0
+    rects = []
+
+    for i, (title, items) in enumerate(steps):
+        y = start_y + (i * 140)
+
+        # Step Box
+        rect = gen.add_rect(
+            f"S{i}",
+            100,
+            y,
+            600,
+            40,
+            title,
+            bg_color="#e7f5ff",
+            stroke_color="#1971c2",
+        )
+        rects.append(rect)
+
+        # Items
+        for j, item in enumerate(items):
+            gen.add_rect(
+                f"I{i}_{j}",
+                140,
+                y + 50 + (j * 25),
+                500,
+                20,
+                f"- {item}",
+                bg_color="transparent",
+                stroke_color="transparent",
+            )
+
+    # Arrows
+    for i in range(len(rects) - 1):
+        gen.add_arrow(f"S{i}", f"S{i + 1}", rects[i], rects[i + 1])
+
+    gen.save("docs/assets/images/diagrams/system-design/interview-framework.excalidraw")
+
+
 if __name__ == "__main__":
     generate_docs_architecture()
     generate_immersive_architecture()
@@ -683,3 +998,7 @@ if __name__ == "__main__":
     generate_problem_solving_framework()
     generate_time_allocation()
     generate_practice_routine()
+    generate_system_design_pillars()
+    generate_cap_theorem()
+    generate_latency_comparison()
+    generate_system_design_interview()
