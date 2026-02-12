@@ -40,21 +40,9 @@ System design is the process of defining the architecture, components, modules, 
 
 Every production system must balance these concerns:
 
-```text
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                           SYSTEM DESIGN PILLARS                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+[![System Design Pillars](../../../assets/images/diagrams/system-design/pillars.svg)](../../../assets/images/diagrams/system-design/pillars.excalidraw)
 
-         RELIABILITY              SCALABILITY             MAINTAINABILITY
-    ┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
-    │ Works correctly │      │ Handles growth  │      │ Easy to operate │
-    │ under adversity │      │ efficiently     │      │ and evolve      │
-    ├─────────────────┤      ├─────────────────┤      ├─────────────────┤
-    │ - Fault tolerant│      │ - Horizontal    │      │ - Observability │
-    │ - Redundancy    │      │ - Vertical      │      │ - Simplicity    │
-    │ - Graceful fail │      │ - Auto-scaling  │      │ - Documentation │
-    └─────────────────┘      └─────────────────┘      └─────────────────┘
-```
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 | Pillar | Definition | Key Practices |
 |--------|------------|---------------|
@@ -70,18 +58,9 @@ Every production system must balance these concerns:
 
 In a distributed data store, you can only guarantee two of the three:
 
-```text
-                          Consistency
-                              /\
-                             /  \
-                            /    \
-                           / CP   \
-                          /________\
-                         /          \
-                        /     AP     \
-               Availability ──────── Partition
-                                     Tolerance
-```
+[![CAP Theorem](../../../assets/images/diagrams/system-design/cap-theorem.svg)](../../../assets/images/diagrams/system-design/cap-theorem.excalidraw)
+
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 | Property | Description |
 |----------|-------------|
@@ -120,22 +99,9 @@ Essential numbers for capacity planning and system design interviews.
 
 ### Latency Numbers
 
-```text
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         LATENCY COMPARISON                                  │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  L1 Cache Reference           ████                           0.5 ns        │
-│  Mutex Lock/Unlock            ████████████████               100 ns        │
-│  Main Memory Reference        ████████████████               100 ns        │
-│  Send 2KB over 1Gbps          ████████████████████████       20 us         │
-│  Read 1MB from Memory         ████████████████████████████   250 us        │
-│  Datacenter Round Trip        █████████████████████████████  500 us        │
-│  Disk Seek                    ██████████████████████████████ 10 ms         │
-│  CA to Netherlands Round Trip ██████████████████████████████ 150 ms        │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+[![Latency Comparison](../../../assets/images/diagrams/system-design/latency.svg)](../../../assets/images/diagrams/system-design/latency.excalidraw)
+
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 | Operation | Latency |
 |-----------|---------|
@@ -152,32 +118,9 @@ Essential numbers for capacity planning and system design interviews.
 
 ## System Design Interview Framework
 
-```text
-1. CLARIFY REQUIREMENTS (5 min)
-   └── Functional requirements
-   └── Non-functional requirements (scale, latency, availability)
-   └── Constraints and assumptions
+[![Interview Framework](../../../assets/images/diagrams/system-design/interview-framework.svg)](../../../assets/images/diagrams/system-design/interview-framework.excalidraw)
 
-2. ESTIMATE SCALE (5 min)
-   └── Users: DAU, peak concurrent users
-   └── Storage: data size, growth rate
-   └── Bandwidth: read/write ratio
-
-3. HIGH-LEVEL DESIGN (10-15 min)
-   └── Core components
-   └── Data flow
-   └── API design
-
-4. DEEP DIVE (15-20 min)
-   └── Data model
-   └── Scaling strategies
-   └── Trade-offs
-
-5. WRAP UP (5 min)
-   └── Bottlenecks
-   └── Future improvements
-   └── Monitoring and alerts
-```
+> **Note:** Click the diagram to view/edit the Excalidraw source.
 
 ---
 
