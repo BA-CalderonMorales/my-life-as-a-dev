@@ -361,6 +361,14 @@ class ChatView {
 
         if (sender === 'bot' && parser) {
             contentDiv.innerHTML = parser.parse(text);
+            
+            // Try to apply syntax highlighting if available
+            // Material for MkDocs typically uses Highlight.js
+            if (window.hljs) {
+                contentDiv.querySelectorAll('pre code').forEach((block) => {
+                    window.hljs.highlightElement(block);
+                });
+            }
         } else {
             contentDiv.textContent = text;
         }

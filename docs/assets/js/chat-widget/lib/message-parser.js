@@ -87,6 +87,10 @@ class MessageParser {
             project: ['portfolio', 'demo', 'opensource', 'github', 'project', 'app',
                 'website', 'tool', 'library', 'framework']
         };
+        // Pattern for code blocks
+        this.patterns.codeBlock = /```([\s\S]*?)```/g;
+        // Pattern for inline code
+        this.patterns.inlineCode = /`([^`]+)`/g;
     }
 
     /**
@@ -106,16 +110,19 @@ class MessageParser {
         this.placeholders = new Map();
         this.placeholderCounter = 0;
 
+        // Step 0: Extract and protect code blocks FIRST (prevents markdown inside code being parsed)
+        let result = this.extractCodeBlocks(text);
+
         // Step 1: Extract and protect markdown links with placeholders
-        let result = this.extractMarkdownLinks(text);
+        result = this.extractMarkdownLinks(result);
 
         // Step 2: Extract and protect hashtags with placeholders
         result = this.extractHashtags(result);
 
-        // Step 3: Escape HTML to prevent XSS
+        // Step 3: Escape HTML to prevent XSS (except for placeholders)
         result = this.escapeHtml(result);
 
-        // Step 4: Parse inline formatting FIRST (bold, italic)
+        // Step 4: Parse inline formatting (bold, italic)
         result = this.parseInlineFormatting(result);
 
         // Step 5: Parse structured content (lists, paragraphs)
@@ -130,11 +137,106 @@ class MessageParser {
         // Step 8: Restore markdown links from placeholders
         result = this.restorePlaceholders(result);
 
+        // Step 9: Restore code blocks (LAST)
+        result = this.restoreCodePlaceholders(result);
+
         return result;
     }
 
     /**
+     * Extract code blocks and inline code, replace with placeholders
+     * @param {string} text - Raw text
+     * @returns {string} - Text with placeholders
+     */
+    extractCodeBlocks(text) {
+        // 1. Block code ```code```
+        let result = text.replace(this.patterns.codeBlock, (match, content) => {
+            let lang = '';
+            let code = content;
+            
+            // Check if content starts with a language identifier followed by a newline
+            // Standard markdown: ```language\ncode```
+            // The regex captures everything inside ```...```, so we look at the start of content
+            const firstLineMatch = content.match(/^([a-zA-Z0-9_+-]+)\n/);
+            
+            if (firstLineMatch) {
+                // It looks like a language identifier
+                lang = firstLineMatch[1];
+                // Remove the language identifier and the newline from the code
+                code = content.substring(firstLineMatch[0].length);
+            } else if (content.startsWith('\n')) {
+                // Handle case where there's just a newline (no language)
+                // ```
+                // code
+                // ```
+                code = content.substring(1);
+            }
+
+            const placeholder = `\x00CODEBLOCK${this.placeholderCounter++}\x00`;
+            // Trim leading/trailing whitespace from code content, but preserve internal formatting
+            // We trim only the very start and end of the block to avoid extra newlines
+            // but we don't use .trim() because it might remove indentation
+            
+            this.placeholders.set(placeholder, { 
+                type: 'code_block', 
+                lang: lang,
+                code: code 
+            });
+            return placeholder;
+        });
+
+        // 2. Inline code `code`
+        result = result.replace(this.patterns.inlineCode, (match, code) => {
+            const placeholder = `\x00INLINECODE${this.placeholderCounter++}\x00`;
+            this.placeholders.set(placeholder, { 
+                type: 'inline_code', 
+                code: code 
+            });
+            return placeholder;
+        });
+
+        return result;
+    }
+
+    /**
+     * Restore code placeholders with styled HTML
+     * @param {string} text - Text with placeholders
+     * @returns {string} - Text with HTML pre/code tags
+     */
+    restoreCodePlaceholders(text) {
+        let result = text;
+        for (const [placeholder, info] of this.placeholders) {
+            if (info.type === 'code_block') {
+                // Escape HTML characters inside the code to display them literally
+                const escapedCode = this.escapeHtmlOnly(info.code);
+                // Add language class if present
+                const langAttr = info.lang ? ` class="language-${info.lang}"` : '';
+                const html = `<pre><code${langAttr}>${escapedCode}</code></pre>`;
+                result = result.split(placeholder).join(html);
+            } else if (info.type === 'inline_code') {
+                const escapedCode = this.escapeHtmlOnly(info.code);
+                const html = `<code>${escapedCode}</code>`;
+                result = result.split(placeholder).join(html);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Helper to escape HTML characters without wrapping in div
+     */
+    escapeHtmlOnly(text) {
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    /**
      * Normalize text for consistent parsing (mirrors Pydantic validator)
+
      * @param {string} text - Raw text
      * @returns {string} - Normalized text
      */
