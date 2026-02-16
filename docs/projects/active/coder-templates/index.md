@@ -47,7 +47,7 @@ comments: true
 
 === "Terraform"
 
-    ```hcl title="main.tf"
+    ```hcl
     resource "coder_agent" "main" {
       os   = "linux"
       arch = "amd64"
@@ -64,6 +64,22 @@ comments: true
       name  = "coder-${data.coder_workspace.me.name}"
       image = docker_image.main.image_id
       env   = ["CODER_AGENT_TOKEN=${coder_agent.main.token}"]
+    }
+    ```
+
+=== "Variables"
+
+    ```hcl
+    variable "project_id" {
+      description = "GCP project ID"
+      type        = string
+      default     = "my-project"
+    }
+
+    variable "region" {
+      description = "Deployment region"
+      type        = string
+      default     = "us-central1"
     }
     ```
 

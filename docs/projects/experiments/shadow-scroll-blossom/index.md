@@ -46,7 +46,7 @@ comments: true
 
 === "Preset Config"
 
-    ```typescript title="src/presets/neonBloom.ts"
+    ```typescript
     import type { ParticlePreset } from '../types';
 
     export const neonBloom: ParticlePreset = {
@@ -62,7 +62,7 @@ comments: true
 
 === "Install"
 
-    ```bash title="terminal"
+    ```bash
     # Clone and start the dev server
     git clone https://github.com/BA-CalderonMorales/shadow-scroll-blossom.git
     cd shadow-scroll-blossom

@@ -48,7 +48,7 @@ comments: true
 
 === "Quick Start"
 
-    ```bash title="terminal-jarvis-quickstart.sh"
+    ```bash
     # No global install required — just run:
     npx terminal-jarvis
 
@@ -59,7 +59,7 @@ comments: true
 
 === "Configuration"
 
-    ```toml title="terminal-jarvis.toml"
+    ```toml
     [settings]
     theme = "tjarvis"          # tjarvis | classic | matrix
     default_tool = "claude"
