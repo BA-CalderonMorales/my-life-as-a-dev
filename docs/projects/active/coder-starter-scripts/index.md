@@ -43,6 +43,34 @@ comments: true
 - Built-in PostgreSQL data reset for Windows plus `.env`-driven configuration flags.
 - Local-only networking to keep evaluation instances secure by default.
 
+## Code Snapshot
+
+=== "Bootstrap"
+
+    ```bash title="start.linux.sh"
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    # Download and verify Coder binary
+    ARCH=$(uname -m)
+    CODER_VERSION="${CODER_VERSION:-latest}"
+    curl -fsSL "https://github.com/coder/coder/releases/${CODER_VERSION}/download/coder_linux_${ARCH}" \
+      -o ./coder && chmod +x ./coder
+
+    # Start the server on localhost
+    ./coder server --address 127.0.0.1:3000
+    ```
+
+=== "Environment"
+
+    ```bash title=".env"
+    # Override defaults for your environment
+    CODER_VERSION=latest
+    CODER_PORT=3000
+    CODER_ACCESS_URL=http://127.0.0.1:3000
+    CODER_PG_CONNECTION_URL=  # leave empty for built-in SQLite
+    ```
+
 ## Core Scenarios
 
 - **Local discovery**: Test new Coder releases on Windows, macOS, or Linux without manual installs.

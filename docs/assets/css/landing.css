@@ -78,9 +78,9 @@
 }
 
 [data-md-color-scheme="slate"] .landing-page section.md-typeset {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(12, 18, 34, 0.85);
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(232, 226, 216, 0.06);
 }
 
 /* ============================================

@@ -44,6 +44,33 @@ comments: true
 - Beautiful T.JARVIS interface with ASCII art, live status dashboard, and theme toggles (T.JARVIS/Classic/Matrix).
 - Update workflow keeps every CLI current via `terminal-jarvis update` and surfaces release notes inline.
 
+## Code Snapshot
+
+=== "Quick Start"
+
+    ```bash title="terminal-jarvis-quickstart.sh"
+    # No global install required — just run:
+    npx terminal-jarvis
+
+    # Or install globally for a persistent binary:
+    npm install -g terminal-jarvis
+    terminal-jarvis
+    ```
+
+=== "Configuration"
+
+    ```toml title="terminal-jarvis.toml"
+    [settings]
+    theme = "tjarvis"          # tjarvis | classic | matrix
+    default_tool = "claude"
+    auto_update = true
+
+    [aliases]
+    code = "claude"
+    chat = "gemini"
+    review = "aider"
+    ```
+
 ## Core Scenarios
 
 - **Daily driver**: Keep multiple AI CLIs ready without memorizing each command set.

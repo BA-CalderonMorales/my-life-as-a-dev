@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-01-24 07:09:24 UTC
+#   Generated: 2026-02-16 02:14:43 UTC
 #
 # ##############################################################################
 
@@ -403,7 +403,7 @@ features = [
 
 [project.theme.font]
 text = "Space Grotesk"
-code = "Fira Code"
+code = "JetBrains Mono"
 
 [project.theme.icon]
 repo = "fontawesome/brands/github"
@@ -438,7 +438,7 @@ distributed = "lucide/network"
 
 [[project.theme.palette]]
 scheme = "slate"
-primary = "teal"
+primary = "indigo"
 accent = "amber"
 
 [project.theme.palette.toggle]
@@ -447,7 +447,7 @@ name = "Switch to light mode"
 
 [[project.theme.palette]]
 scheme = "default"
-primary = "teal"
+primary = "indigo"
 accent = "amber"
 
 [project.theme.palette.toggle]

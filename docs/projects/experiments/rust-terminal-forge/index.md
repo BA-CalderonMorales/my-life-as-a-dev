@@ -43,6 +43,56 @@ comments: true
 - Rust backend enforces command safelists while streaming output efficiently to the browser.
 - Responsive layout keeps touch bars and keyboard shortcuts usable on tablets.
 
+## Code Snapshot
+
+=== "React Terminal"
+
+    ```tsx title="src/components/Terminal.tsx"
+    import { useEffect, useRef } from 'react';
+    import { useWebSocket } from '../hooks/useWebSocket';
+
+    export function Terminal() {
+      const containerRef = useRef<HTMLDivElement>(null);
+      const { send, messages } = useWebSocket('/ws/terminal');
+
+      return (
+        <div ref={containerRef} className="terminal-viewport">
+          {messages.map((msg, i) => (
+            <pre key={i}>{msg.data}</pre>
+          ))}
+          <input
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') send(e.currentTarget.value);
+            }}
+            placeholder="Type a command..."
+          />
+        </div>
+      );
+    }
+    ```
+
+=== "Rust Handler"
+
+    ```rust title="server/src/handler.rs"
+    use axum::extract::ws::{Message, WebSocket};
+    use tokio::process::Command;
+
+    pub async fn handle_command(
+        socket: &mut WebSocket,
+        cmd: &str,
+    ) -> anyhow::Result<()> {
+        let output = Command::new("sh")
+            .arg("-c")
+            .arg(cmd)
+            .output()
+            .await?;
+
+        let text = String::from_utf8_lossy(&output.stdout);
+        socket.send(Message::Text(text.into())).await?;
+        Ok(())
+    }
+    ```
+
 ## Core Scenarios
 
 - **Remote labs**: Offer sandboxed terminals for demos or onboarding labs without exposing SSH.

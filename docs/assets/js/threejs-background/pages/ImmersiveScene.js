@@ -42,27 +42,27 @@ export class ImmersiveScene {
         this.interactiveParticles = null;
         this.auroraVeil = null;
 
-        // Theme colors - Monochrome/Minimalist
+        // Theme colors - Ocean Warmth (Ponyo-inspired)
         this.themes = {
             dark: {
-                gradientTop: 0x000000,      // Pure black
-                gradientBottom: 0x111111,   // Very dark gray
-                accent: 0xffffff,           // White accent
-                particlePrimary: 0x888888,  // Gray particles
-                particleSecondary: 0x444444, // Darker gray
-                waveColor: 0x333333,
-                waveOpacity: 0.22,
-                auroraColor: 0x222222,
+                gradientTop: 0x0c1222,      // Deep navy
+                gradientBottom: 0x1a2332,   // Blue-gray
+                accent: 0xd4a053,           // Warm gold
+                particlePrimary: 0x5fb8a8,  // Soft teal
+                particleSecondary: 0x3b6b9e, // Ocean blue
+                waveColor: 0x3b6b9e,
+                waveOpacity: 0.18,
+                auroraColor: 0x3b6b9e,
             },
             light: {
-                gradientTop: 0xffffff,      // Pure white
-                gradientBottom: 0xf5f5f5,   // Very light gray
-                accent: 0x000000,           // Black accent
-                particlePrimary: 0x333333,  // Dark gray
-                particleSecondary: 0x888888, // Light gray
-                waveColor: 0xcccccc,
-                waveOpacity: 0.14,
-                auroraColor: 0xe0e0e0,
+                gradientTop: 0xfaf8f5,      // Warm cream
+                gradientBottom: 0xf0ece4,   // Warm linen
+                accent: 0xc77b4a,           // Coral
+                particlePrimary: 0x3b6b9e,  // Ocean blue
+                particleSecondary: 0x5fb8a8, // Soft teal
+                waveColor: 0x5fb8a8,
+                waveOpacity: 0.12,
+                auroraColor: 0x5fb8a8,
             }
         };
 

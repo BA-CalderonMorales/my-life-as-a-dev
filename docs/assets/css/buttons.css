@@ -33,7 +33,7 @@
     background: var(--mlad-button-bg) !important;
     color: var(--mlad-button-fg) !important;
     border: none !important;
-    border-radius: 0 !important;
+    border-radius: var(--mlad-radius-sm) !important;
     font-weight: 500;
     text-transform: none;
     letter-spacing: 0;
@@ -51,10 +51,10 @@
 /* Secondary button - Ghost style with light border */
 .md-typeset .md-button:not(.md-button--primary),
 .md-button:not(.md-button--primary) {
-    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(59, 107, 158, 0.25) !important;
     color: var(--md-default-fg-color) !important;
     background: transparent !important;
-    border-radius: 0 !important;
+    border-radius: var(--mlad-radius-sm) !important;
     font-weight: 500;
     text-transform: none;
     letter-spacing: 0;
@@ -63,21 +63,21 @@
 
 [data-md-color-scheme="slate"] .md-typeset .md-button:not(.md-button--primary),
 [data-md-color-scheme="slate"] .md-button:not(.md-button--primary) {
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(212, 160, 83, 0.25) !important;
 }
 
 .md-typeset .md-button:not(.md-button--primary):hover,
 .md-button:not(.md-button--primary):hover {
-    border: 1px solid rgba(0, 0, 0, 0.4) !important;
-    background: rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid rgba(59, 107, 158, 0.4) !important;
+    background: rgba(59, 107, 158, 0.06) !important;
     color: var(--md-default-fg-color) !important;
     text-decoration: underline;
 }
 
 [data-md-color-scheme="slate"] .md-typeset .md-button:not(.md-button--primary):hover,
 [data-md-color-scheme="slate"] .md-button:not(.md-button--primary):hover {
-    border: 1px solid rgba(255, 255, 255, 0.4) !important;
-    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(212, 160, 83, 0.4) !important;
+    background: rgba(212, 160, 83, 0.08) !important;
 }
 
 /* Project link pills */

@@ -63,7 +63,7 @@ features = [
 
 [project.theme.font]
 text = "Space Grotesk"
-code = "Fira Code"
+code = "JetBrains Mono"
 
 
 # ==============================================================================
@@ -112,14 +112,14 @@ distributed = "lucide/network"
 
 [[project.theme.palette]]
 scheme = "slate"
-primary = "teal"
+primary = "indigo"
 accent = "amber"
 toggle.icon = "lucide/sun"
 toggle.name = "Switch to light mode"
 
 [[project.theme.palette]]
 scheme = "default"
-primary = "teal"
+primary = "indigo"
 accent = "amber"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to dark mode"

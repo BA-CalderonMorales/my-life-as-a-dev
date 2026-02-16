@@ -42,6 +42,34 @@ comments: true
 - Theme presets (Neon Bloom, Midnight Bloom, Solar Drift, etc.) map to CSS variables for easy reuse.
 - Built-in telemetry overlay displays fps, particle counts, and CPU cost for tuning.
 
+## Code Snapshot
+
+=== "Preset Config"
+
+    ```typescript title="src/presets/neonBloom.ts"
+    import type { ParticlePreset } from '../types';
+
+    export const neonBloom: ParticlePreset = {
+      name: 'Neon Bloom',
+      particleCount: 200,
+      size: { min: 2, max: 8 },
+      velocity: { x: 0.4, y: -1.2 },
+      colors: ['#ff6ec7', '#7b2ff7', '#00f0ff'],
+      bloom: true,
+      trailLength: 12,
+    };
+    ```
+
+=== "Install"
+
+    ```bash title="terminal"
+    # Clone and start the dev server
+    git clone https://github.com/BA-CalderonMorales/shadow-scroll-blossom.git
+    cd shadow-scroll-blossom
+    pnpm install
+    pnpm dev
+    ```
+
 ## Core Scenarios
 
 - **Marketing hero experiments**: Prototype interactive landings without writing shader code.

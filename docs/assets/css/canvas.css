@@ -47,7 +47,7 @@
     border-radius: 1.25rem;
     padding: clamp(1.25rem, 2vw, 2rem);
     margin: 2.5rem auto;
-    box-shadow: 0 35px 90px rgba(15, 23, 42, 0.18);
+    box-shadow: 0 35px 90px rgba(59, 107, 158, 0.12);
     max-width: 1200px;
     transition: max-width 0.3s ease, padding 0.3s ease;
     /* Prevent pull-to-refresh when interacting with canvas */
@@ -55,7 +55,7 @@
 }
 
 [data-md-color-scheme="slate"] .canvas-stage {
-    box-shadow: 0 35px 120px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 35px 120px rgba(12, 18, 34, 0.55);
 }
 
 .canvas-stage[data-canvas-expanded="true"] {
@@ -134,7 +134,7 @@
     background: var(--md-primary-fg-color);
     border-color: transparent;
     color: #fff;
-    box-shadow: 0 10px 25px rgba(7, 122, 109, 0.25);
+    box-shadow: 0 10px 25px rgba(59, 107, 158, 0.25);
 }
 
 .canvas-stage__actions {
