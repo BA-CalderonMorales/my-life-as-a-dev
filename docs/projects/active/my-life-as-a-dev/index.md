@@ -43,6 +43,36 @@ comments: true
 - mike-backed versioning so each release of the site is reproducible and deployable via `mike deploy`.
 - Opinionated `AGENTS.md` + `.github/skills/` directory that codifies how contributors and AI agents collaborate.
 
+## Code Snapshot
+
+=== "Make Targets"
+
+    ```makefile title="Makefile"
+    .PHONY: setup serve build deploy
+
+    setup:            ## Install dependencies via uv
+    	uv sync --frozen
+
+    serve:            ## Live-reload dev server
+    	uv run zensical serve
+
+    build:            ## Production build + validation
+    	uv run zensical build --strict
+
+    deploy:           ## Deploy versioned docs via mike
+    	uv run mike deploy $(VERSION) --push
+    ```
+
+=== "Zensical Config"
+
+    ```toml title="config/zensical/01-site.toml"
+    [project]
+    site_name = "Brandon's Simplified Life"
+    site_url = "https://ba-calderonmorales.github.io/my-life-as-a-dev/"
+    repo_url = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
+    edit_uri = "edit/main/docs/"
+    ```
+
 ## Core Scenarios
 
 - **Personal knowledge hub**: Publish essays, project docs, and learning tracks with a unified layout.

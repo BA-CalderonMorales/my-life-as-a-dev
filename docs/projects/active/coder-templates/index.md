@@ -43,6 +43,30 @@ comments: true
 - Built-in observability dashboard surfaces CPU, RAM, disk, load, and swap metrics per workspace.
 - Cloud model guides cover Docker Desktop, GCP, AWS, and Azure free-tier friendly setups.
 
+## Code Snapshot
+
+=== "Terraform"
+
+    ```hcl title="main.tf"
+    resource "coder_agent" "main" {
+      os   = "linux"
+      arch = "amd64"
+      dir  = "/home/coder"
+
+      startup_script = <<-EOT
+        # Install Terminal Jarvis on workspace start
+        npm install -g terminal-jarvis
+        terminal-jarvis --version
+      EOT
+    }
+
+    resource "docker_container" "workspace" {
+      name  = "coder-${data.coder_workspace.me.name}"
+      image = docker_image.main.image_id
+      env   = ["CODER_AGENT_TOKEN=${coder_agent.main.token}"]
+    }
+    ```
+
 ## Core Scenarios
 
 - **Local Docker**: Spin up a reproducible environment for Terminal Jarvis with persistent `home` volumes.

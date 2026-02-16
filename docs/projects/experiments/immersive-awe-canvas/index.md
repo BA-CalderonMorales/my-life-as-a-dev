@@ -43,6 +43,39 @@ comments: true
 - Live inspector exposes camera, fog, and particle settings backed by Zustand state snapshots.
 - Framework-driven `agents/` directory keeps repo automation consistent with Docs-as-Code standards.
 
+## Code Snapshot
+
+=== "Scene Component"
+
+    ```tsx title="src/components/AweScene.tsx"
+    import { Canvas } from '@react-three/fiber';
+    import { OrbitControls, Environment } from '@react-three/drei';
+    import { useThemeStore } from '../stores/theme';
+
+    export function AweScene() {
+      const { gradient, fog } = useThemeStore();
+
+      return (
+        <Canvas camera={{ position: [0, 2, 8], fov: 60 }}>
+          <fog attach="fog" args={[fog, 5, 30]} />
+          <Environment preset="sunset" />
+          <OrbitControls enableZoom={false} />
+          {/* Scene children rendered here */}
+        </Canvas>
+      );
+    }
+    ```
+
+=== "Install"
+
+    ```bash title="terminal"
+    # Clone and start the dev server
+    git clone https://github.com/BA-CalderonMorales/immersive-awe-canvas.git
+    cd immersive-awe-canvas
+    pnpm install
+    pnpm dev
+    ```
+
 ## Core Scenarios
 
 - **Creative prototyping**: Quickly concept ambient hero sections or marketing visuals inside a browser.

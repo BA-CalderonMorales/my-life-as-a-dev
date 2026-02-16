@@ -41,6 +41,34 @@ comments: true
 - Works as both a binary and a reusable crate, so you can embed it in your own Rust apps.
 - Built-in help overlay documents every configured shortcut while the screensaver runs.
 
+## Code Snapshot
+
+=== "Run"
+
+    ```bash title="terminal"
+    # Build and run with a config file
+    cargo build --release
+    ./target/release/terminal-screensaver -c demo-config.toml
+    ```
+
+=== "Configuration"
+
+    ```toml title="demo-config.toml"
+    [display]
+    fps = 30
+    color_mode = "truecolor"
+
+    [animation]
+    style = "matrix"        # matrix | rain | waves | stars
+    speed = 1.0
+    density = 0.6
+
+    [[actions]]
+    key = "p"
+    command = "echo 'paused'"
+    description = "Pause animation"
+    ```
+
 ## Core Scenarios
 
 - **Ambient dashboards**: Display branded visuals or subtle motion during pair-programming sessions.

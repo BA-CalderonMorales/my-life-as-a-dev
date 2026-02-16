@@ -4,15 +4,15 @@
    ============================================ */
 
 :root {
-    --nav-surface: rgba(255, 255, 255, 0.9);
-    --nav-surface-strong: rgba(255, 255, 255, 0.96);
-    --nav-border: rgba(0, 0, 0, 0.1);
+    --nav-surface: rgba(250, 248, 245, 0.9);
+    --nav-surface-strong: rgba(250, 248, 245, 0.96);
+    --nav-border: rgba(45, 42, 38, 0.08);
 }
 
 [data-md-color-scheme="slate"] {
-    --nav-surface: rgba(0, 0, 0, 0.78);
-    --nav-surface-strong: rgba(0, 0, 0, 0.9);
-    --nav-border: rgba(255, 255, 255, 0.1);
+    --nav-surface: rgba(12, 18, 34, 0.82);
+    --nav-surface-strong: rgba(12, 18, 34, 0.92);
+    --nav-border: rgba(232, 226, 216, 0.08);
 }
 
 .threejs-bg-container {
