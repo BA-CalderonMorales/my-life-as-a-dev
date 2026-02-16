@@ -30,7 +30,9 @@ extra = {}                             # Note: pymdownx.extra differs from markd
 details = {}
 
 [project.markdown_extensions.pymdownx.superfences]
-custom_fences = [{ name = "mermaid", class = "mermaid" }]
+custom_fences = [
+    { name = "mermaid", class = "mermaid" }
+]
 
 [project.markdown_extensions.pymdownx.tabbed]
 alternate_style = true

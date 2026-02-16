@@ -47,7 +47,7 @@ comments: true
 
 === "Bootstrap"
 
-    ```bash title="start.linux.sh"
+    ```bash
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -63,7 +63,7 @@ comments: true
 
 === "Environment"
 
-    ```bash title=".env"
+    ```bash
     # Override defaults for your environment
     CODER_VERSION=latest
     CODER_PORT=3000

@@ -45,7 +45,7 @@ comments: true
 
 === "Run"
 
-    ```bash title="terminal"
+    ```bash
     # Build and run with a config file
     cargo build --release
     ./target/release/terminal-screensaver -c demo-config.toml
@@ -53,7 +53,7 @@ comments: true
 
 === "Configuration"
 
-    ```toml title="demo-config.toml"
+    ```toml
     [display]
     fps = 30
     color_mode = "truecolor"

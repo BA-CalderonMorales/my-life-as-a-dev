@@ -47,7 +47,7 @@ comments: true
 
 === "Scene Component"
 
-    ```tsx title="src/components/AweScene.tsx"
+    ```tsx
     import { Canvas } from '@react-three/fiber';
     import { OrbitControls, Environment } from '@react-three/drei';
     import { useThemeStore } from '../stores/theme';
@@ -68,7 +68,7 @@ comments: true
 
 === "Install"
 
-    ```bash title="terminal"
+    ```bash
     # Clone and start the dev server
     git clone https://github.com/BA-CalderonMorales/immersive-awe-canvas.git
     cd immersive-awe-canvas

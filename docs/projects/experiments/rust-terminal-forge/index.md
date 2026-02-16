@@ -47,7 +47,7 @@ comments: true
 
 === "React Terminal"
 
-    ```tsx title="src/components/Terminal.tsx"
+    ```tsx
     import { useEffect, useRef } from 'react';
     import { useWebSocket } from '../hooks/useWebSocket';
 
@@ -73,7 +73,7 @@ comments: true
 
 === "Rust Handler"
 
-    ```rust title="server/src/handler.rs"
+    ```rust
     use axum::extract::ws::{Message, WebSocket};
     use tokio::process::Command;
 

@@ -19,10 +19,10 @@ comments: true
 
 !!! info "Project Signal"
 
-	- **Status**: Actively maintained with weekly content drops
-	- **Focus**: Central knowledge base, MkDocs experiments, AI-assisted docs
-	- **Stack**: MkDocs Material, mike, Zensical, custom plugins, uv-managed Python
-	- **Ideal For**: Developers building narrative docs sites with repeatable releases
+    - **Status**: Actively maintained with weekly content drops
+    - **Focus**: Central knowledge base, MkDocs experiments, AI-assisted docs
+    - **Stack**: MkDocs Material, mike, Zensical, custom plugins, uv-managed Python
+    - **Ideal For**: Developers building narrative docs sites with repeatable releases
 
 ## Quick Links
 
@@ -45,32 +45,40 @@ comments: true
 
 ## Code Snapshot
 
-=== "Make Targets"
+=== "Commands"
 
-    ```makefile title="Makefile"
-    .PHONY: setup serve build deploy
+    ```bash
+    # Start dev server (primary)
+    ./doc-cli serve
 
-    setup:            ## Install dependencies via uv
-    	uv sync --frozen
+    # Stop server / free ports
+    ./doc-cli kill
 
-    serve:            ## Live-reload dev server
-    	uv run zensical serve
+    # Build for production
+    ./doc-cli build
 
-    build:            ## Production build + validation
-    	uv run zensical build --strict
+    # Validate config and nav
+    ./doc-cli validate
+    ./doc-cli nav-check
 
-    deploy:           ## Deploy versioned docs via mike
-    	uv run mike deploy $(VERSION) --push
+    # Deploy versioned docs
+    ./doc-cli deploy 0.3.2 --push
     ```
 
-=== "Zensical Config"
+=== "Make Targets"
 
-    ```toml title="config/zensical/01-site.toml"
-    [project]
-    site_name = "Brandon's Simplified Life"
-    site_url = "https://ba-calderonmorales.github.io/my-life-as-a-dev/"
-    repo_url = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
-    edit_uri = "edit/main/docs/"
+    ```bash
+    # Install dependencies via uv
+    make setup
+
+    # Live-reload dev server
+    make serve
+
+    # Production build + validation
+    make build
+
+    # Deploy versioned docs via mike
+    make deploy
     ```
 
 ## Core Scenarios
