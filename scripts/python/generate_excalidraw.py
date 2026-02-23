@@ -1,4 +1,6 @@
 import json
+import math
+import os
 import random
 import uuid
 
@@ -86,12 +88,45 @@ class ExcalidrawGenerator:
 
         return rect
 
+    def _is_point_like(self, el):
+        return el.get("width", 0) <= 1 and el.get("height", 0) <= 1
+
+    def _center(self, el):
+        if self._is_point_like(el):
+            return el["x"], el["y"]
+        return el["x"] + el["width"] / 2, el["y"] + el["height"] / 2
+
+    def _rect_edge_intersection(self, src_center, dst_center, rect):
+        if self._is_point_like(rect):
+            return rect["x"], rect["y"]
+
+        cx = rect["x"] + rect["width"] / 2
+        cy = rect["y"] + rect["height"] / 2
+        dx = dst_center[0] - src_center[0]
+        dy = dst_center[1] - src_center[1]
+
+        if abs(dx) < 1e-9 and abs(dy) < 1e-9:
+            return cx, cy
+
+        half_w = max(rect["width"] / 2, 1e-9)
+        half_h = max(rect["height"] / 2, 1e-9)
+
+        scale = 1.0 / max(abs(dx) / half_w, abs(dy) / half_h)
+        return cx + dx * scale, cy + dy * scale
+
+    def _element_exists(self, element_id):
+        return any(el.get("id") == element_id for el in self.elements)
+
     def add_arrow(self, start_id, end_id, start_el, end_el):
-        # Simple straight arrow for now, calculating center points
-        start_x = start_el["x"] + start_el["width"] / 2
-        start_y = start_el["y"] + start_el["height"] / 2
-        end_x = end_el["x"] + end_el["width"] / 2
-        end_y = end_el["y"] + end_el["height"] / 2
+        start_center = self._center(start_el)
+        end_center = self._center(end_el)
+
+        start_x, start_y = self._rect_edge_intersection(start_center, end_center, start_el)
+        end_x, end_y = self._rect_edge_intersection(end_center, start_center, end_el)
+
+        if math.hypot(end_x - start_x, end_y - start_y) < 2:
+            end_x += 2
+            end_y += 2
 
         arrow_id = str(uuid.uuid4())
 
@@ -117,14 +152,19 @@ class ExcalidrawGenerator:
             "groupIds": [],
             "roundness": {"type": 2},
             "boundElements": [],
-            "startBinding": {"elementId": start_id, "focus": 0, "gap": 1},
-            "endBinding": {"elementId": end_id, "focus": 0, "gap": 1},
             "points": [[0, 0], [end_x - start_x, end_y - start_y]],
         }
+
+        if self._element_exists(start_id):
+            arrow["startBinding"] = {"elementId": start_id, "focus": 0, "gap": 4}
+        if self._element_exists(end_id):
+            arrow["endBinding"] = {"elementId": end_id, "focus": 0, "gap": 4}
+
         self.elements.append(arrow)
         return arrow
 
     def save(self, filename):
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
         data = {
             "type": "excalidraw",
             "version": 2,
@@ -1089,6 +1129,201 @@ def generate_backtracking_template():
     gen.save("docs/assets/images/diagrams/algorithms/backtracking-template.excalidraw")
 
 
+def generate_backtracking_walkthrough():
+    """Generates the Subsets walkthrough tree diagram."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect(
+        "Title",
+        0,
+        0,
+        980,
+        40,
+        "SUBSETS WALKTHROUGH (nums = [1,2,3])",
+        bg_color="transparent",
+        stroke_color="transparent",
+    )
+
+    root = gen.add_rect("N0", 430, 70, 140, 44, "backtrack(0, [])", bg_color="#e7f5ff", stroke_color="#1971c2")
+    n1 = gen.add_rect("N1", 180, 190, 160, 44, "backtrack(1, [1])", bg_color="#e6fcf5", stroke_color="#0ca678")
+    n2 = gen.add_rect("N2", 430, 190, 160, 44, "backtrack(2, [2])", bg_color="#e6fcf5", stroke_color="#0ca678")
+    n3 = gen.add_rect("N3", 680, 190, 160, 44, "backtrack(3, [3])", bg_color="#e6fcf5", stroke_color="#0ca678")
+
+    gen.add_arrow("N0", "N1", root, n1)
+    gen.add_arrow("N0", "N2", root, n2)
+    gen.add_arrow("N0", "N3", root, n3)
+
+    n11 = gen.add_rect("N11", 70, 315, 170, 44, "backtrack(2, [1,2])", bg_color="#fff4e6", stroke_color="#f08c00")
+    n12 = gen.add_rect("N12", 290, 315, 170, 44, "backtrack(3, [1,3])", bg_color="#fff4e6", stroke_color="#f08c00")
+    n21 = gen.add_rect("N21", 430, 315, 170, 44, "backtrack(3, [2,3])", bg_color="#fff4e6", stroke_color="#f08c00")
+    n111 = gen.add_rect("N111", 70, 440, 190, 44, "backtrack(3, [1,2,3])", bg_color="#ffe3e3", stroke_color="#c92a2a")
+
+    gen.add_arrow("N1", "N11", n1, n11)
+    gen.add_arrow("N1", "N12", n1, n12)
+    gen.add_arrow("N2", "N21", n2, n21)
+    gen.add_arrow("N11", "N111", n11, n111)
+
+    gen.add_rect(
+        "Note",
+        610,
+        320,
+        320,
+        160,
+        "Each node appends current subset\nto result.\n\nDFS order:\n[] → [1] → [1,2] → [1,2,3] → [1,3]\n→ [2] → [2,3] → [3]",
+        bg_color="#f8f9fa",
+        stroke_color="#adb5bd",
+    )
+
+    gen.save("docs/assets/images/diagrams/algorithms/backtracking-subsets-walkthrough.excalidraw")
+
+
+def generate_algorithms_selection_guide():
+    """Generates the algorithms pattern selection guide."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect("Title", 0, 0, 1000, 40, "WHICH PATTERN SHOULD I USE?", bg_color="transparent", stroke_color="transparent")
+
+    prompts = [
+        '"Find contiguous subarray/substring..."',
+        '"Find pair/triplet in sorted array..."',
+        '"Detect cycle or find middle..."',
+        '"How many ways..." / "Minimum/Maximum..."',
+        '"Generate all combinations/permutations..."',
+        '"Find minimum/maximum that satisfies..."',
+        '"Find k largest/smallest..."',
+        '"Next greater/smaller element..."',
+        '"Shortest path" / "Connected components..."',
+        '"Prefix matching" / "Autocomplete..."',
+    ]
+    patterns = [
+        "SLIDING WINDOW",
+        "TWO POINTERS",
+        "FAST & SLOW POINTERS",
+        "DYNAMIC PROGRAMMING",
+        "BACKTRACKING",
+        "BINARY SEARCH ON ANSWER",
+        "HEAP / PRIORITY QUEUE",
+        "MONOTONIC STACK",
+        "GRAPH TRAVERSAL (BFS/DFS)",
+        "TRIE",
+    ]
+
+    for i, (prompt, pattern) in enumerate(zip(prompts, patterns)):
+        y = 60 + i * 70
+        q = gen.add_rect(f"Q{i}", 30, y, 420, 42, prompt, bg_color="#f8f9fa", stroke_color="#868e96")
+        p = gen.add_rect(f"P{i}", 610, y, 340, 42, pattern, bg_color="#e7f5ff", stroke_color="#1971c2")
+        gen.add_arrow(f"Q{i}", f"P{i}", q, p)
+
+    gen.save("docs/assets/images/diagrams/algorithms/pattern-selection-guide.excalidraw")
+
+
+def generate_sliding_window_visual_explanation():
+    """Generates fixed/variable sliding window visual explanation."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect("Title", 0, 0, 1100, 40, "SLIDING WINDOW VISUAL EXPLANATION", bg_color="transparent", stroke_color="transparent")
+
+    gen.add_rect("FixedHdr", 30, 60, 320, 36, "FIXED-SIZE WINDOW (k=3)", bg_color="#e7f5ff", stroke_color="#1971c2")
+    arr = gen.add_rect("Arr", 30, 112, 700, 54, "[1 | 3 | 2 | 6 | -1 | 4 | 1 | 8 | 2]", bg_color="#f8f9fa", stroke_color="#adb5bd")
+
+    w1 = gen.add_rect("W1", 40, 196, 220, 42, "Window 1: [1,3,2], sum=6", bg_color="#e6fcf5", stroke_color="#0ca678")
+    w2 = gen.add_rect("W2", 280, 196, 230, 42, "Window 2: [3,2,6], sum=11", bg_color="#fff4e6", stroke_color="#f08c00")
+    w3 = gen.add_rect("W3", 530, 196, 220, 42, "Window 3: [2,6,-1], sum=7", bg_color="#ffe3e3", stroke_color="#c92a2a")
+
+    gen.add_arrow("Arr", "W1", arr, w1)
+    gen.add_arrow("W1", "W2", w1, w2)
+    gen.add_arrow("W2", "W3", w2, w3)
+
+    gen.add_rect("VarHdr", 30, 290, 360, 36, "VARIABLE-SIZE WINDOW", bg_color="#e7f5ff", stroke_color="#1971c2")
+    steps = [
+        'Step 1: "a" → len=1',
+        'Step 2: "ab" → len=2',
+        'Step 3: "abc" → len=3 (max)',
+        'Step 4: "abca" duplicate → contract to "bca"',
+        'Step 5: "bcab" duplicate → contract to "cab"',
+    ]
+
+    prev = None
+    for i, s in enumerate(steps):
+        box = gen.add_rect(f"VS{i}", 30 + i * 210, 345, 200, 52, s, bg_color="#f8f9fa", stroke_color="#adb5bd")
+        if prev is not None:
+            gen.add_arrow(f"VS{i-1}", f"VS{i}", prev, box)
+        prev = box
+
+    gen.save("docs/assets/images/diagrams/algorithms/sliding-window-visual.excalidraw")
+
+
+def generate_sliding_window_core_approach():
+    """Generates sliding window core approach algorithm flow."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect("Title", 0, 0, 820, 40, "SLIDING WINDOW ALGORITHM", bg_color="transparent", stroke_color="transparent")
+
+    blocks = [
+        ("S1", "1. INITIALIZE", "left=0, result, window_state", 300, 70),
+        ("S2", "2. EXPAND", "Add arr[right]", 300, 165),
+        ("S3", "3. CONTRACT", "While invalid: remove arr[left], left++", 300, 260),
+        ("S4", "4. UPDATE RESULT", "result = best(result, window)", 300, 355),
+        ("S5", "5. RETURN", "Return final result", 300, 450),
+    ]
+
+    rects = {}
+    for node_id, title, desc, x, y in blocks:
+        rects[node_id] = gen.add_rect(node_id, x, y, 260, 62, f"{title}\n{desc}", bg_color="#e7f5ff", stroke_color="#1971c2")
+
+    gen.add_arrow("S1", "S2", rects["S1"], rects["S2"])
+    gen.add_arrow("S2", "S3", rects["S2"], rects["S3"])
+    gen.add_arrow("S3", "S4", rects["S3"], rects["S4"])
+    gen.add_arrow("S4", "S5", rects["S4"], rects["S5"])
+    gen.add_arrow("S3", "S2", rects["S3"], rects["S2"])
+
+    gen.add_rect("LoopNote", 585, 255, 210, 70, "Repeat EXPAND/CONTRACT\nuntil right reaches end", bg_color="#f8f9fa", stroke_color="#adb5bd")
+
+    gen.save("docs/assets/images/diagrams/algorithms/sliding-window-core-approach.excalidraw")
+
+
+def generate_two_pointers_visual_explanation():
+    """Generates two pointers visual explanation for core variations."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect("Title", 0, 0, 1120, 40, "TWO POINTERS VISUAL EXPLANATION", bg_color="transparent", stroke_color="transparent")
+
+    a1 = gen.add_rect("A1", 30, 70, 330, 40, "OPPOSITE ENDS", bg_color="#e7f5ff", stroke_color="#1971c2")
+    a1d = gen.add_rect("A1D", 30, 120, 500, 62, "[1,2,3,4,6,8,9], target=10\nleft=1, right=9 → sum=10", bg_color="#f8f9fa", stroke_color="#adb5bd")
+    gen.add_arrow("A1", "A1D", a1, a1d)
+
+    a2 = gen.add_rect("A2", 30, 225, 330, 40, "SAME DIRECTION", bg_color="#e7f5ff", stroke_color="#1971c2")
+    a2d = gen.add_rect("A2D", 30, 275, 500, 62, "[1,1,2,2,2,3]\nslow marks unique slot, fast scans", bg_color="#f8f9fa", stroke_color="#adb5bd")
+    gen.add_arrow("A2", "A2D", a2, a2d)
+
+    a3 = gen.add_rect("A3", 30, 380, 330, 40, "CONVERGING FROM ENDS", bg_color="#e7f5ff", stroke_color="#1971c2")
+    a3d = gen.add_rect("A3D", 30, 430, 650, 62, "Container with Most Water: move shorter wall inward\nto seek larger min-height × width", bg_color="#f8f9fa", stroke_color="#adb5bd")
+    gen.add_arrow("A3", "A3D", a3, a3d)
+
+    gen.save("docs/assets/images/diagrams/algorithms/two-pointers-visual.excalidraw")
+
+
+def generate_two_pointers_walkthrough():
+    """Generates Two Sum II walkthrough state transitions."""
+    gen = ExcalidrawGenerator()
+
+    gen.add_rect("Title", 0, 0, 980, 40, "TWO SUM II WALKTHROUGH", bg_color="transparent", stroke_color="transparent")
+
+    step1 = gen.add_rect("T1", 60, 80, 260, 64, "Step 1\nleft=0 (2), right=3 (15)\nsum=17 > 9", bg_color="#ffe3e3", stroke_color="#c92a2a")
+    step2 = gen.add_rect("T2", 360, 80, 260, 64, "Step 2\nleft=0 (2), right=2 (11)\nsum=13 > 9", bg_color="#fff4e6", stroke_color="#f08c00")
+    step3 = gen.add_rect("T3", 660, 80, 260, 64, "Step 3\nleft=0 (2), right=1 (7)\nsum=9 == target", bg_color="#e6fcf5", stroke_color="#0ca678")
+
+    gen.add_arrow("T1", "T2", step1, step2)
+    gen.add_arrow("T2", "T3", step2, step3)
+
+    arr = gen.add_rect("Arr", 210, 230, 560, 62, "numbers = [2, 7, 11, 15], target = 9", bg_color="#f8f9fa", stroke_color="#adb5bd")
+    res = gen.add_rect("Res", 360, 350, 260, 52, "Result: [1, 2]", bg_color="#e7f5ff", stroke_color="#1971c2")
+    gen.add_arrow("T3", "Res", step3, res)
+    gen.add_arrow("Arr", "T1", arr, step1)
+
+    gen.save("docs/assets/images/diagrams/algorithms/two-pointers-walkthrough.excalidraw")
+
+
 if __name__ == "__main__":
     # generate_docs_architecture()
     # generate_immersive_architecture()
@@ -1111,3 +1346,9 @@ if __name__ == "__main__":
     # generate_ds_decision_tree()
     generate_backtracking_tree()
     generate_backtracking_template()
+    generate_backtracking_walkthrough()
+    generate_algorithms_selection_guide()
+    generate_sliding_window_visual_explanation()
+    generate_sliding_window_core_approach()
+    generate_two_pointers_visual_explanation()
+    generate_two_pointers_walkthrough()
