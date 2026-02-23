@@ -445,6 +445,31 @@ label.md-nav__link[for]:active {
         content: none !important;
         display: none !important;
     }
+
+    /* Keep Material back-to-top bubble away from mobile Ask AI trigger */
+    .md-top,
+    .md-top[data-md-state="hidden"],
+    .md-top[data-md-state="visible"] {
+        bottom: 84px !important;
+        right: 20px !important;
+        left: auto !important;
+        transform: none !important;
+        z-index: 998 !important;
+    }
+}
+
+/* Keep back-to-top control from visually colliding with Ask AI trigger on narrow viewports */
+@media screen and (max-width: 60rem) {
+
+    .md-top,
+    .md-top[data-md-state="hidden"],
+    .md-top[data-md-state="visible"] {
+        bottom: 84px !important;
+        right: 20px !important;
+        left: auto !important;
+        transform: none !important;
+        z-index: 998 !important;
+    }
 }
 
 /* ===========================================
@@ -487,6 +512,7 @@ label.md-nav__link[for]:active {
 @supports (padding: env(safe-area-inset-top)) {
     /* Standalone PWA mode (Android and iOS home screen apps) */
     @media all and (display-mode: standalone) {
+
         /* Fill notch area with header background color */
         body::before {
             content: "";

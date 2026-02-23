@@ -12,11 +12,20 @@ const ChatConfig = {
     MAX_MESSAGE_LENGTH: 500,
     MAX_CONTEXT_LENGTH: 2000,
 
+    hasDebugOverride: function () {
+        try {
+            var params = new URLSearchParams(window.location.search);
+            return params.get('chatDebug') === '1' || localStorage.getItem('chatDebug') === '1';
+        } catch (e) {
+            return false;
+        }
+    },
+
     isDevMode: function () {
         var hostname = window.location.hostname;
-        return hostname === 'localhost' ||
-            hostname === '127.0.0.1' ||
-            hostname.includes('.app.github.dev');
+        return this.hasDebugOverride() ||
+            hostname === 'localhost' ||
+            hostname === '127.0.0.1';
     },
 
     excludedPaths: [],

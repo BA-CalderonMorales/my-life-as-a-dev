@@ -4,6 +4,40 @@ const ChatAPI = {
     sessionId: null,
     lastRequestTime: 0,
 
+    /** Build a stable URL for backend processing (no query/hash fragments). */
+    _getCanonicalPageUrl: function () {
+        return window.location.origin + window.location.pathname;
+    },
+
+    /**
+     * Extract visible main content text and normalize it for backend context.
+     * Avoids noisy sidebar/nav/widget text that can degrade responses.
+     */
+    _getPageContext: function (maxLength) {
+        var root = document.querySelector('article.md-content__inner') ||
+            document.querySelector('.md-content__inner') ||
+            document.querySelector('[data-md-component="content"]') ||
+            document.querySelector('main') ||
+            document.body;
+
+        var clone = root.cloneNode(true);
+        var excluded = clone.querySelectorAll(
+            'script, style, noscript, .share-actions, #ai-chat-trigger, #ai-chat-modal, .ai-chat-toast'
+        );
+        excluded.forEach(function (el) { el.remove(); });
+
+        var text = (clone.textContent || '')
+            .replace(/[\u0000-\u001F\u007F]+/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+
+        if (!text) {
+            text = (document.body.innerText || '').replace(/\s+/g, ' ').trim();
+        }
+
+        return text.substring(0, maxLength);
+    },
+
     /** Fetch with an AbortController timeout. */
     _fetchWithTimeout: function (url, options, timeoutMs) {
         var controller = new AbortController();
@@ -26,8 +60,8 @@ const ChatAPI = {
 
         var payload = JSON.stringify({
             question: message,
-            context: document.body.innerText.substring(0, config.MAX_CONTEXT_LENGTH),
-            page_url: window.location.href,
+            context: this._getPageContext(config.MAX_CONTEXT_LENGTH),
+            page_url: this._getCanonicalPageUrl(),
             session_id: this.sessionId
         });
 
