@@ -30,6 +30,14 @@ const SuggestedPrompts = {
             "Explain this algorithm in simple terms",
             "What's the time/space complexity?"
         ],
+        '/learning/algorithms/arrays/': [
+            "How do array algorithms work?",
+            "What's the time/space complexity?"
+        ],
+        '/learning/algorithms/hash_tables/': [
+            "When should I use a hash table?",
+            "How does collision resolution work?"
+        ],
         '/learning/algorithms/sliding_window/': [
             "When should I use sliding window?",
             "Walk me through this pattern"
@@ -42,9 +50,53 @@ const SuggestedPrompts = {
             "When is two pointers useful?",
             "Compare to other approaches"
         ],
+        '/learning/algorithms/fast_slow_pointers/': [
+            "When do I use fast and slow pointers?",
+            "How does cycle detection work?"
+        ],
         '/learning/algorithms/backtracking/': [
             "How does backtracking work here?",
             "What are the pruning conditions?"
+        ],
+        '/learning/algorithms/binary_search_on_answer/': [
+            "When should I binary search on the answer?",
+            "How do I define the search space?"
+        ],
+        '/learning/algorithms/greedy/': [
+            "How do I know if greedy applies here?",
+            "What is the greedy choice property?"
+        ],
+        '/learning/algorithms/heap_priority_queue/': [
+            "When should I use a heap?",
+            "How does a priority queue work?"
+        ],
+        '/learning/algorithms/monotonic_stack/': [
+            "What problems use a monotonic stack?",
+            "Walk me through this pattern"
+        ],
+        '/learning/algorithms/graph_traversal/': [
+            "When do I use BFS vs DFS?",
+            "How do I detect cycles in a graph?"
+        ],
+        '/learning/algorithms/trie/': [
+            "When should I use a trie?",
+            "How is a trie different from a hash map?"
+        ],
+        '/learning/algorithms/space_complexity/': [
+            "How do I analyze space complexity?",
+            "What are common space trade-offs?"
+        ],
+
+        // Interview Preparation
+        '/learning/interview_preparation/': [
+            "How should I approach interview problems?",
+            "What topics should I focus on?"
+        ],
+
+        // Additional Topics
+        '/learning/additional_topics/': [
+            "What advanced topics are covered here?",
+            "How do these relate to system design?"
         ],
 
         // Data Structures
@@ -144,6 +196,9 @@ const SuggestedPrompts = {
         } else if (pathname === basePath) {
             strippedPath = '/';
         }
+
+        // Strip version prefix if present (e.g., /latest/ or /0.5.3/ or /1.2/)
+        strippedPath = strippedPath.replace(/^\/(latest|[0-9]+(\.[0-9]+)+)\//, '/');
 
         // Normalize path (remove trailing slash for comparison, except for root)
         var normalizedPath = strippedPath;
