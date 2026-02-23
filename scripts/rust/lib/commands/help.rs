@@ -70,6 +70,12 @@ impl Command for HelpCommand {
         println!("    Options:");
         println!("      --push           Push to remote after deploy");
         println!("      --no-push        Skip pushing (default: prompts)");
+        println!("  update [VERSION]     One-shot version update/deploy helper");
+        println!("                       Defaults to alias 'latest' and push enabled");
+        println!("    Options:");
+        println!("      --alias NAME     Alias to assign (default: latest)");
+        println!("      --push, -p       Push to remote after deploy (default)");
+        println!("      --no-push        Build/update without pushing");
         println!("  help                 Show this help message");
 
         println!("\nConfiguration:");
@@ -83,6 +89,7 @@ impl Command for HelpCommand {
         println!("  ./doc-cli build          # Build for production");
         println!("  ./doc-cli deploy         # Interactive versioned deploy");
         println!("  ./doc-cli deploy 0.3.2 --push  # Deploy specific version");
+        println!("  ./doc-cli update 0.4.6 --alias latest --push");
 
         Ok(())
     }

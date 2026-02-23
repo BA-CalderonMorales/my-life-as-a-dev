@@ -16,6 +16,7 @@ pub mod kill;
 pub mod nav_check;
 pub mod serve;
 pub mod startup;
+pub mod update;
 pub mod validate;
 
 /// The Command trait - interface for all CLI commands
@@ -80,6 +81,7 @@ impl CommandRegistry {
             Box::new(nav_check::NavCheckCommand::new(ctx.clone())),
             Box::new(bump_version::BumpVersionCommand::new(ctx.clone())),
             Box::new(deploy::DeployCommand::new(ctx.clone())),
+            Box::new(update::UpdateCommand::new(ctx.clone())),
             Box::new(startup::StartupCommand::new(ctx.clone())),
             Box::new(help::HelpCommand::new()),
         ];
