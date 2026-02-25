@@ -1,0 +1,230 @@
+/* ============================================
+   Code - Mintlify-Inspired Code Blocks
+   Warm accent borders, polished copy button,
+   filename headers, and tabbed code groups
+   ============================================ */
+
+/* ---- Code block container ---- */
+.md-typeset pre {
+    background: var(--md-code-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 6px;
+    position: relative;
+    margin: 1.25rem 0;
+    overflow: hidden;
+}
+
+/* ---- Inline code ---- */
+.md-typeset code {
+    background: var(--md-code-bg-color);
+    border-radius: 4px;
+    padding: 0.15em 0.4em;
+    font-size: 0.82em;
+    font-weight: 500;
+}
+
+/* ---- Code block inner content ---- */
+.md-typeset pre > code {
+    display: block;
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    font-size: 0.8rem;
+    line-height: 1.65;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+/* ---- Light mode ---- */
+[data-md-color-scheme="default"] .md-typeset pre {
+    background: #f8f9fa; /* Lighter background for better contrast */
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-md-color-scheme="default"] .md-typeset code {
+    background: rgba(0, 0, 0, 0.04);
+    color: #24292f;
+}
+
+/* ---- Dark mode ---- */
+[data-md-color-scheme="slate"] .md-typeset pre {
+    background: #161b22; /* GitHub-like dark background */
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-md-color-scheme="slate"] .md-typeset code {
+    background: rgba(110, 118, 129, 0.4);
+    color: #e6edf3;
+}
+
+/* ---- Inline code in paragraphs, lists, tables ---- */
+.md-typeset p code,
+.md-typeset li code,
+.md-typeset td code {
+    padding: 0.15em 0.4em;
+    font-weight: 500;
+}
+
+/* ============================================
+   Copy Button — Always visible, accent on hover
+   ============================================ */
+
+.md-typeset .md-clipboard {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 10;
+    opacity: 0.6;
+    transition: opacity 0.2s ease, color 0.2s ease, background 0.2s ease;
+    color: var(--md-default-fg-color--light);
+    border-radius: 4px;
+    padding: 4px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.md-typeset pre:hover .md-clipboard {
+    opacity: 1;
+}
+
+.md-typeset .md-clipboard:hover {
+    color: var(--md-accent-fg-color);
+    background: var(--md-default-fg-color--lightest);
+}
+
+/* ============================================
+   Filename / Title Header Bar
+   Leverages Material's title="..." on code fences
+   ============================================ */
+
+.md-typeset .highlight > .filename,
+.md-typeset .highlighttable > .filename {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+    background: var(--md-code-bg-color); /* Match code block background */
+    color: var(--md-default-fg-color);
+    opacity: 0.9;
+}
+
+[data-md-color-scheme="default"] .md-typeset .highlight > .filename {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .highlight > .filename {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   Code Annotations
+   ============================================ */
+
+.md-typeset .md-annotation {
+    outline: none; /* Remove default outline */
+}
+
+/* ============================================
+   Line Numbers
+   ============================================ */
+
+.md-typeset .linenums {
+    padding-left: 2.5rem;
+    border-right: 1px solid var(--md-default-fg-color--lightest);
+    margin-right: 0.5rem;
+    opacity: 0.5;
+}
+
+/* ============================================
+   Highlighted Lines — subtle background
+   ============================================ */
+
+.md-typeset .highlight .hll {
+    display: block;
+    margin: 0 -1.25rem;
+    padding: 0 1.25rem;
+    background: var(--md-accent-fg-color--transparent);
+}
+
+[data-md-color-scheme="default"] .md-typeset .highlight .hll {
+    background: rgba(3, 102, 214, 0.1); /* Subtle blue highlight */
+}
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .hll {
+    background: rgba(56, 139, 253, 0.15);
+}
+
+/* ============================================
+   Tabbed Code Blocks
+   Clean, professional tabs
+   ============================================ */
+
+.md-typeset .tabbed-set {
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 1.25rem 0;
+    background: var(--md-code-bg-color);
+}
+
+.md-typeset .tabbed-set > input {
+    /* hide the radio inputs */
+}
+
+.md-typeset .tabbed-labels {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+    background: var(--md-default-bg-color); /* Tab bar background */
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.md-typeset .tabbed-labels > label {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--md-default-fg-color--light);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.md-typeset .tabbed-labels > label:hover {
+    color: var(--md-default-fg-color);
+}
+
+.md-typeset .tabbed-set > input:checked + label,
+.md-typeset .tabbed-labels > label.active {
+    color: var(--md-accent-fg-color);
+    border-bottom-color: var(--md-accent-fg-color);
+    background: transparent; /* Remove background on active */
+}
+
+[data-md-color-scheme="default"] .md-typeset .tabbed-set {
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .tabbed-set {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Remove inner code block styling when inside tabbed sets */
+.md-typeset .tabbed-content pre {
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    background: transparent; /* Let container bg show through */
+}
+
+/* Ensure code blocks inside tabs fit nicely */
+.md-typeset .tabbed-content {
+    background: var(--md-code-bg-color);
+}
+
