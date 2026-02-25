@@ -62,6 +62,17 @@ Foundational articles every engineer should revisit regularly.
 | [The Forest and the Desert](https://apenwarr.ca/log/20201227) | Article | System design trade-offs and simplicity |
 | [Google SRE Workbook](https://sre.google/workbook/table-of-contents/) | Book | Battle-tested reliability patterns |
 | [AWS Builders Library](https://aws.amazon.com/builders-library/) | Articles | Deep dives on distributed systems |
+| [Inside vLLM](https://www.aleksagordic.com/blog/vllm) | Article | Deep technical breakdown of vLLM's inference architecture: paged attention, continuous batching, speculative decoding, and multi-GPU scaling |
+
+---
+
+## Technical Blogs
+
+In-depth, long-form writing from practitioners working at the frontier of ML infrastructure and AI systems.
+
+| Blog | Focus | Why It Matters |
+|------|-------|----------------|
+| [Aleksa Gordic](https://www.aleksagordic.com/blog) | ML infrastructure, GPU kernels, LLM inference, FlashAttention, learning guides | Rigorous technical deep-dives on systems most engineers use but few understand end to end |
 
 ---
 
