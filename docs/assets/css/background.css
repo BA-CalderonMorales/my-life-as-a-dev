@@ -168,6 +168,14 @@
         margin: 0;
     }
 
+    /* Mobile/Tablet: Remove all backdrop-filter to prevent compositor
+       layer caching bugs that break theme switching while scrolled */
+    .md-content__inner {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: var(--md-default-bg-color) !important;
+    }
+
     /* Mobile/Tablet Drawer - Solid background, no blur */
     .md-drawer {
         background: var(--md-default-bg-color) !important;
@@ -197,6 +205,7 @@
         margin: 0;
         background: transparent !important;
         backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
     }
 
     /* Mobile nav links - consistent with rest of app */
