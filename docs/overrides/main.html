@@ -126,6 +126,28 @@
 <!-- Enhanced tooltips for interactive elements -->
 <script src="{{ 'assets/js/enhanced-tooltips.js' | url }}"></script>
 
+<!-- Mobile theme switch repaint forcer -->
+<script>
+(function () {
+  if (!window.matchMedia('(pointer: coarse)').matches) return;
+  var observer = new MutationObserver(function () {
+    // Force compositor layer invalidation after theme attribute change
+    requestAnimationFrame(function () {
+      document.body.style.transform = 'translateZ(0)';
+      requestAnimationFrame(function () {
+        document.body.style.transform = '';
+      });
+    });
+  });
+  if (document.body) {
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['data-md-color-scheme']
+    });
+  }
+})();
+</script>
+
 <!-- Three.js Background Animation -->
 <script type="module" src="{{ 'assets/js/threejs-background/main.js' | url }}"></script>
 

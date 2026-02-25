@@ -255,7 +255,7 @@ export class ImmersiveScene {
     }
 
     detectTheme() {
-        const isDarkMode = document.documentElement.getAttribute('data-md-color-scheme') === 'slate';
+        const isDarkMode = document.body.getAttribute('data-md-color-scheme') === 'slate';
         this.currentTheme = isDarkMode ? 'dark' : 'light';
         this.applyTheme();
     }
@@ -298,10 +298,10 @@ export class ImmersiveScene {
         window.addEventListener('resize', this.handleResize, { passive: true });
         window.addEventListener('mousemove', this.handleMouseMove, { passive: true });
 
-        // Theme observer - only if document element exists
-        if (document.documentElement) {
+        // Theme observer - watch body where Material sets data-md-color-scheme
+        if (document.body) {
             this.themeObserver = new MutationObserver(this.handleThemeChange);
-            this.themeObserver.observe(document.documentElement, {
+            this.themeObserver.observe(document.body, {
                 attributes: true,
                 attributeFilter: ['data-md-color-scheme']
             });

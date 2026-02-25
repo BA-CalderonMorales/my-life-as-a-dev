@@ -96,7 +96,7 @@ export class AmbientParticleScene {
         const colorSecondary = new THREE.Color(this.config.colorSecondary);
 
         // Detect theme
-        const isDarkMode = document.documentElement.getAttribute('data-md-color-scheme') === 'slate';
+        const isDarkMode = document.body.getAttribute('data-md-color-scheme') === 'slate';
 
         for (let i = 0; i < count; i++) {
             const i3 = i * 3;
@@ -213,10 +213,10 @@ export class AmbientParticleScene {
         window.addEventListener('resize', this.handleResize, { passive: true });
         window.addEventListener('mousemove', this.handleMouseMove, { passive: true });
 
-        // Watch for theme changes - only if document element exists
-        if (document.documentElement) {
+        // Watch for theme changes - watch body where Material sets data-md-color-scheme
+        if (document.body) {
             this.themeObserver = new MutationObserver(this.handleThemeChange);
-            this.themeObserver.observe(document.documentElement, {
+            this.themeObserver.observe(document.body, {
                 attributes: true,
                 attributeFilter: ['data-md-color-scheme']
             });
@@ -250,7 +250,7 @@ export class AmbientParticleScene {
     }
 
     handleThemeChange() {
-        const isDarkMode = document.documentElement.getAttribute('data-md-color-scheme') === 'slate';
+        const isDarkMode = document.body.getAttribute('data-md-color-scheme') === 'slate';
 
         if (this.particles && this.particles.material.uniforms) {
             this.particles.material.uniforms.uOpacity.value = isDarkMode ? 0.5 : 0.3;
