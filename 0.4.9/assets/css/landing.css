@@ -1,0 +1,317 @@
+/* ============================================
+   Landing - Home Page Specific Styles
+   Three.js is the hero. Content floats on top.
+   Legibility via contrast + text shadow, not panels.
+   ============================================ */
+
+/* Landing page - Three.js at full presence */
+.landing-page .threejs-bg-container,
+.landing-page .threejs-bg-container.is-ready {
+    opacity: 0.85;
+}
+
+[data-md-color-scheme="slate"] .landing-page .threejs-bg-container,
+[data-md-color-scheme="slate"] .landing-page .threejs-bg-container.is-ready {
+    opacity: 1;
+}
+
+/* Landing page layout - fully transparent, no panels */
+.landing-page .md-main,
+.landing-page .md-main__inner,
+.landing-page .md-content {
+    background: transparent;
+}
+
+.landing-page .md-content__inner {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    border: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* Text legibility over animated background */
+.landing-page .tx-hero,
+.landing-page .tx-container,
+.landing-page section.md-typeset {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+}
+
+/* Light mode: subtle text shadow for contrast against bright animation */
+.landing-page .tx-hero,
+.landing-page .tx-container,
+.landing-page section.md-typeset {
+    color: var(--md-default-fg-color);
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6),
+                 0 0 16px rgba(255, 255, 255, 0.4);
+}
+
+/* Dark mode: glow text shadow for contrast against dark animation */
+[data-md-color-scheme="slate"] .landing-page .tx-hero,
+[data-md-color-scheme="slate"] .landing-page .tx-container,
+[data-md-color-scheme="slate"] .landing-page section.md-typeset {
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7),
+                 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Hero section */
+.landing-page .tx-hero {
+    padding: 3rem 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+/* Content sections - breathing room, no background */
+.landing-page .tx-container,
+.landing-page section.md-typeset {
+    padding: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Cards get a minimal glass treatment so grid cards stay readable */
+.landing-page .grid.cards > ul > li,
+.landing-page .grid > .card {
+    background: rgba(250, 248, 245, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(45, 42, 38, 0.1);
+    text-shadow: none;
+}
+
+[data-md-color-scheme="slate"] .landing-page .grid.cards > ul > li,
+[data-md-color-scheme="slate"] .landing-page .grid > .card {
+    background: rgba(8, 14, 28, 0.9);
+    border-color: rgba(232, 226, 216, 0.22);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Blockquote cards (Working with Me grid) */
+.landing-page .grid > blockquote {
+    background: rgba(250, 248, 245, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(45, 42, 38, 0.08);
+    text-shadow: none;
+}
+
+[data-md-color-scheme="slate"] .landing-page .grid > blockquote {
+    background: rgba(8, 14, 28, 0.88);
+    border-color: rgba(232, 226, 216, 0.2);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.32);
+}
+
+/* Featured Projects + Working with Me: force legible dark-mode text hierarchy */
+[data-md-color-scheme="slate"] .landing-page .grid.cards > ul > li,
+[data-md-color-scheme="slate"] .landing-page .grid.cards > ul > li p,
+[data-md-color-scheme="slate"] .landing-page .grid.cards > ul > li li,
+[data-md-color-scheme="slate"] .landing-page .grid > blockquote,
+[data-md-color-scheme="slate"] .landing-page .grid > blockquote p {
+    color: #e8edf7;
+}
+
+[data-md-color-scheme="slate"] .landing-page .grid.cards > ul > li strong,
+[data-md-color-scheme="slate"] .landing-page .grid > blockquote strong {
+    color: #f6f8ff;
+}
+
+[data-md-color-scheme="slate"] .landing-page .grid.cards > ul > li a,
+[data-md-color-scheme="slate"] .landing-page .grid > blockquote a {
+    color: #9ecbff;
+}
+
+[data-md-color-scheme="slate"] .landing-page .grid.cards > ul > li a:hover,
+[data-md-color-scheme="slate"] .landing-page .grid > blockquote a:hover {
+    color: #c3deff;
+}
+
+/* ---------------------------------------------------------------------------
+   Landing-specific readability fixes for:
+   - Featured Projects
+   - Working with Me
+   --------------------------------------------------------------------------- */
+[data-md-color-scheme="slate"] .landing-page .landing-featured-projects > ul > li,
+[data-md-color-scheme="slate"] .landing-page .landing-working-with-me > blockquote {
+    background: rgba(9, 14, 25, 0.96) !important;
+    border: 1px solid rgba(210, 225, 245, 0.28) !important;
+    color: #ecf3ff !important;
+    text-shadow: none !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-featured-projects > ul > li *,
+[data-md-color-scheme="slate"] .landing-page .landing-working-with-me > blockquote * {
+    color: #eaf2ff !important;
+    text-shadow: none !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-featured-projects > ul > li strong,
+[data-md-color-scheme="slate"] .landing-page .landing-working-with-me > blockquote strong {
+    color: #ffffff !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-featured-projects > ul > li a,
+[data-md-color-scheme="slate"] .landing-page .landing-working-with-me > blockquote a {
+    color: #9fd0ff !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-featured-projects > ul > li a:hover,
+[data-md-color-scheme="slate"] .landing-page .landing-working-with-me > blockquote a:hover {
+    color: #d2e8ff !important;
+}
+
+/* Section-level dark-mode surfaces for guaranteed readability */
+[data-md-color-scheme="slate"] .landing-page .landing-section-featured,
+[data-md-color-scheme="slate"] .landing-page .landing-section-working {
+    background: rgba(7, 12, 22, 0.82) !important;
+    border: 1px solid rgba(210, 225, 245, 0.16) !important;
+    border-radius: 12px;
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35);
+    text-shadow: none !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-section-featured h2,
+[data-md-color-scheme="slate"] .landing-page .landing-section-working h2 {
+    color: #f3f7ff !important;
+    text-shadow: none !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-section-featured .headerlink,
+[data-md-color-scheme="slate"] .landing-page .landing-section-working .headerlink {
+    color: #b8cff0 !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-section-featured,
+[data-md-color-scheme="slate"] .landing-page .landing-section-featured *,
+[data-md-color-scheme="slate"] .landing-page .landing-section-working,
+[data-md-color-scheme="slate"] .landing-page .landing-section-working * {
+    text-shadow: none !important;
+}
+
+/* Landing page admonitions/callouts should stay highly legible in both themes */
+.landing-page .md-typeset .admonition,
+.landing-page .md-typeset details {
+    background: rgba(250, 248, 245, 0.7);
+    border: 1px solid rgba(45, 42, 38, 0.12);
+    text-shadow: none;
+}
+
+.landing-page .md-typeset .admonition-title,
+.landing-page .md-typeset summary {
+    color: var(--md-default-fg-color);
+    font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .landing-page .md-typeset .admonition,
+[data-md-color-scheme="slate"] .landing-page .md-typeset details {
+    background: rgba(12, 18, 34, 0.78);
+    border-color: rgba(232, 226, 216, 0.18);
+}
+
+[data-md-color-scheme="slate"] .landing-page .md-typeset .admonition-title,
+[data-md-color-scheme="slate"] .landing-page .md-typeset summary,
+[data-md-color-scheme="slate"] .landing-page .md-typeset .admonition *,
+[data-md-color-scheme="slate"] .landing-page .md-typeset details * {
+    color: #e8eef7;
+}
+
+/* Buttons need to pop above the background */
+.landing-page .md-button {
+    text-shadow: none;
+    position: relative;
+    z-index: 1;
+}
+
+/* Section headings - stronger contrast */
+.landing-page h1,
+.landing-page h2 {
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.7),
+                 0 0 24px rgba(255, 255, 255, 0.4);
+}
+
+[data-md-color-scheme="slate"] .landing-page h1,
+[data-md-color-scheme="slate"] .landing-page h2 {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8),
+                 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   Mobile Optimizations
+   ============================================ */
+
+@media screen and (max-width: 48rem) {
+
+    .landing-page .threejs-bg-container,
+    .landing-page .threejs-bg-container.is-ready {
+        opacity: 0.7;
+    }
+
+    [data-md-color-scheme="slate"] .landing-page .threejs-bg-container,
+    [data-md-color-scheme="slate"] .landing-page .threejs-bg-container.is-ready {
+        opacity: 0.85;
+    }
+
+    .landing-page .tx-hero {
+        padding: 2rem 1.25rem;
+    }
+
+    .landing-page .tx-container,
+    .landing-page section.md-typeset {
+        padding: 1.5rem 1.25rem;
+    }
+
+    /* Drop blur on cards for mobile compositor performance */
+    .landing-page .grid.cards > ul > li,
+    .landing-page .grid > .card,
+    .landing-page .grid > blockquote {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .landing-page .grid.cards > ul > li,
+    .landing-page .grid > .card {
+        background: rgba(250, 248, 245, 0.75);
+    }
+
+    [data-md-color-scheme="slate"] .landing-page .grid.cards > ul > li,
+    [data-md-color-scheme="slate"] .landing-page .grid > .card {
+        background: rgba(12, 18, 34, 0.75);
+    }
+
+    .landing-page .grid > blockquote {
+        background: rgba(250, 248, 245, 0.7);
+    }
+
+    [data-md-color-scheme="slate"] .landing-page .grid > blockquote {
+        background: rgba(12, 18, 34, 0.7);
+    }
+}
+
+/* Very small mobile screens */
+@media screen and (max-width: 30rem) {
+    .landing-page .threejs-bg-container,
+    .landing-page .threejs-bg-container.is-ready {
+        opacity: 0.6;
+    }
+
+    [data-md-color-scheme="slate"] .landing-page .threejs-bg-container,
+    [data-md-color-scheme="slate"] .landing-page .threejs-bg-container.is-ready {
+        opacity: 0.75;
+    }
+
+    .landing-page .tx-hero {
+        padding: 1.5rem 1rem;
+    }
+
+    .landing-page .tx-container,
+    .landing-page section.md-typeset {
+        padding: 1.25rem 1rem;
+    }
+}
