@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.4.7] - 2026-03-01
+
+### Fixed
+- Enforced dark-mode readability for the landing page "Featured Projects" and "Working with Me" sections using section-scoped styling.
+- Reordered Ask AI modal input actions to reduce accidental taps: more-actions on the left, input in the middle, send on the right.
+
+### Changed
+- Updated docs latest-version pointer from `0.4.5` to `0.4.7` in `versions.json`.
+
 ## [0.4.5] - 2026-02-23
 
 ### Fixed
