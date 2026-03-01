@@ -445,28 +445,16 @@ label.md-nav__link[for]:active {
         content: none !important;
         display: none !important;
     }
-
-    /* Keep Material back-to-top bubble away from mobile Ask AI trigger */
-    .md-top,
-    .md-top[data-md-state="hidden"],
-    .md-top[data-md-state="visible"] {
-        bottom: 84px !important;
-        right: 20px !important;
-        left: auto !important;
-        transform: none !important;
-        z-index: 998 !important;
-    }
 }
 
-/* Keep back-to-top control from visually colliding with Ask AI trigger on narrow viewports */
+/* Keep Material styling, but pin back-to-top to bottom-right on narrow viewports */
 @media screen and (max-width: 60rem) {
-
     .md-top,
     .md-top[data-md-state="hidden"],
     .md-top[data-md-state="visible"] {
-        bottom: 84px !important;
-        right: 20px !important;
+        right: 1rem !important;
         left: auto !important;
+        bottom: calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
         transform: none !important;
         z-index: 998 !important;
     }

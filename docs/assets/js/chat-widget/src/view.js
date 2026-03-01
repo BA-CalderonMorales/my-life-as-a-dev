@@ -22,7 +22,11 @@ class ChatView {
         return `
 <button id="ai-chat-trigger" class="ai-chat-trigger" aria-label="Ask AI Assistant">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    <rect x="4" y="6" width="12" height="12" rx="3"></rect>
+    <circle cx="8.5" cy="12" r="0.9"></circle>
+    <circle cx="12" cy="12" r="0.9"></circle>
+    <path d="M19 4v4M17 6h4"></path>
+    <path d="M18.5 11.5v3M17 13h3"></path>
   </svg>
   <span class="ai-chat-trigger-text">Ask AI</span>
 </button>
@@ -32,7 +36,11 @@ class ChatView {
     <div class="ai-chat-header">
       <div class="ai-chat-header-info">
         <svg class="ai-chat-header-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          <rect x="4" y="6" width="12" height="12" rx="3"></rect>
+          <circle cx="8.5" cy="12" r="0.9"></circle>
+          <circle cx="12" cy="12" r="0.9"></circle>
+          <path d="M19 4v4M17 6h4"></path>
+          <path d="M18.5 11.5v3M17 13h3"></path>
         </svg>
         <span class="ai-chat-header-title">Ask about Brandon's work</span>
       </div>
