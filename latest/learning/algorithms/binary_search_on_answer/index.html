@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon/favicon.ico">
-      <meta name="generator" content="zensical-0.0.23">
+      <meta name="generator" content="zensical-0.0.24">
     
     
       
@@ -36,7 +36,7 @@
       
         
       
-      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.1e989742.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.28978c9b.min.css">
       
         
           
@@ -396,6 +396,56 @@
 
     
     
+<!-- Critical CSS: solid fallback backgrounds before external CSS loads -->
+<style>
+  .md-content__inner {
+    background: rgba(250, 248, 245, 0.9);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(45, 42, 38, 0.08);
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  [data-md-color-scheme="slate"] .md-content__inner {
+    background: rgba(12, 18, 34, 0.82);
+    border-color: rgba(232, 226, 216, 0.08);
+  }
+
+  @media screen and (max-width: 76.25rem) {
+    .md-content__inner {
+      background: var(--md-default-bg-color, #fff) !important;
+    }
+  }
+
+  /* Landing page specific overrides to prevent FOUC */
+  .landing-page .md-content__inner {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Three.js bg: hidden until scene is ready */
+  .threejs-bg-container {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .threejs-bg-container.is-ready {
+    opacity: 0.6;
+  }
+
+  [data-md-color-scheme="slate"] .threejs-bg-container.is-ready {
+    opacity: 0.7;
+  }
+
+  /* Landing page Three.js bg overrides */
+  .landing-page .threejs-bg-container.is-ready {
+    opacity: 0.85;
+  }
+
+  [data-md-color-scheme="slate"] .landing-page .threejs-bg-container.is-ready {
+    opacity: 1;
+  }
+</style>
 <meta name="site_url" content="https://ba-calderonmorales.github.io/my-life-as-a-dev/">
 <link rel="icon" href="../../../assets/images/me-today.png" />
 
@@ -5187,6 +5237,8 @@
       
         
       
+        
+      
     
     
     
@@ -5329,6 +5381,34 @@
     
   
     Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../projects/active/terminal-jarvis/details/releases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Notes
   
 
     
@@ -6686,11 +6766,11 @@
 <strong>LeetCode</strong>: #1011</p>
 <h3 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h3>
 <p>A conveyor belt has packages that must be shipped within D days. Each package has a weight, and you need to find the minimum ship capacity to ship all packages within D days. Packages must be shipped in order.</p>
-<p><strong>Example</strong>:</p>
-<pre><code>Input: weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], days = 5
-Output: 15
-Explanation: Ship with capacity 15 can ship all packages in 5 days
-</code></pre>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Input: weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], days = 5
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Output: 15
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Explanation: Ship with capacity 15 can ship all packages in 5 days
+</code></pre></div></p>
 <h3 id="approach">Approach<a class="headerlink" href="#approach" title="Permanent link">&para;</a></h3>
 <p>Key observations:</p>
 <ul>
@@ -6701,117 +6781,117 @@ Explanation: Ship with capacity 15 can ship all packages in 5 days
 </ul>
 <p>Binary search for the minimum capacity that works.</p>
 <h3 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h3>
-<pre><code class="language-python">def ship_within_days(weights, days):
-    &quot;&quot;&quot;
-    Find minimum ship capacity to ship all packages within days.
-
-    Time Complexity: O(n * log(sum(weights))) - binary search * validation
-    Space Complexity: O(1) - only using pointers
-    &quot;&quot;&quot;
-    def can_ship_with_capacity(capacity):
-        &quot;&quot;&quot;Check if we can ship all packages within days using this capacity.&quot;&quot;&quot;
-        days_needed = 1
-        current_load = 0
-
-        for weight in weights:
-            if current_load + weight &gt; capacity:
-                # Need a new day
-                days_needed += 1
-                current_load = weight
-            else:
-                current_load += weight
-
-        return days_needed &lt;= days
-
-    # Search space: [max single package, sum of all packages]
-    left = max(weights)
-    right = sum(weights)
-
-    # Binary search for minimum capacity
-    while left &lt; right:
-        mid = (left + right) // 2
-
-        if can_ship_with_capacity(mid):
-            # This capacity works, try smaller
-            right = mid
-        else:
-            # This capacity doesn't work, need larger
-            left = mid + 1
-
-    return left
-
-# Test
-weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-days = 5
-print(ship_within_days(weights, days))  # Output: 15
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">ship_within_days</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">days</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="sd">    Find minimum ship capacity to ship all packages within days.</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sd">    Time Complexity: O(n * log(sum(weights))) - binary search * validation</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="sd">    Space Complexity: O(1) - only using pointers</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">can_ship_with_capacity</span><span class="p">(</span><span class="n">capacity</span><span class="p">):</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if we can ship all packages within days using this capacity.&quot;&quot;&quot;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="n">days_needed</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="n">current_load</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="k">for</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">:</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="k">if</span> <span class="n">current_load</span> <span class="o">+</span> <span class="n">weight</span> <span class="o">&gt;</span> <span class="n">capacity</span><span class="p">:</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                <span class="c1"># Need a new day</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>                <span class="n">days_needed</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>                <span class="n">current_load</span> <span class="o">=</span> <span class="n">weight</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>                <span class="n">current_load</span> <span class="o">+=</span> <span class="n">weight</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        <span class="k">return</span> <span class="n">days_needed</span> <span class="o">&lt;=</span> <span class="n">days</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="c1"># Search space: [max single package, sum of all packages]</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    <span class="n">right</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    <span class="c1"># Binary search for minimum capacity</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>        <span class="k">if</span> <span class="n">can_ship_with_capacity</span><span class="p">(</span><span class="n">mid</span><span class="p">):</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>            <span class="c1"># This capacity works, try smaller</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>            <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>            <span class="c1"># This capacity doesn&#39;t work, need larger</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>            <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>    <span class="k">return</span> <span class="n">left</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="c1"># Test</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="n">days</span> <span class="o">=</span> <span class="mi">5</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="nb">print</span><span class="p">(</span><span class="n">ship_within_days</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">days</span><span class="p">))</span>  <span class="c1"># Output: 15</span>
+</code></pre></div>
 <h3 id="step-by-step-walkthrough">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough" title="Permanent link">&para;</a></h3>
-<pre><code>weights = [1,2,3,4,5,6,7,8,9,10], days = 5
-
-Search space: [10 (max weight), 55 (sum of all)]
-
-Iteration 1: mid = (10 + 55) // 2 = 32
-  Can ship with capacity 32?
-    Day 1: 1+2+3+4+5+6+7 = 28
-    Day 2: 8+9+10 = 27
-    Total: 2 days &lt;= 5 days ✓
-  Works! Try smaller: right = 32
-
-Iteration 2: mid = (10 + 32) // 2 = 21
-  Can ship with capacity 21?
-    Day 1: 1+2+3+4+5+6 = 21
-    Day 2: 7+8 = 15
-    Day 3: 9+10 = 19
-    Total: 3 days &lt;= 5 days ✓
-  Works! Try smaller: right = 21
-
-Iteration 3: mid = (10 + 21) // 2 = 15
-  Can ship with capacity 15?
-    Day 1: 1+2+3+4+5 = 15
-    Day 2: 6+7 = 13
-    Day 3: 8 = 8
-    Day 4: 9 = 9
-    Day 5: 10 = 10
-    Total: 5 days &lt;= 5 days ✓
-  Works! Try smaller: right = 15
-
-Iteration 4: mid = (10 + 15) // 2 = 12
-  Can ship with capacity 12?
-    Day 1: 1+2+3+4 = 10
-    Day 2: 5+6 = 11
-    Day 3: 7 = 7
-    Day 4: 8 = 8
-    Day 5: 9 = 9
-    Day 6: 10 = 10
-    Total: 6 days &gt; 5 days ✗
-  Doesn't work! Need larger: left = 13
-
-Iteration 5: mid = (13 + 15) // 2 = 14
-  Can ship with capacity 14?
-    Day 1: 1+2+3+4 = 10
-    Day 2: 5+6 = 11
-    Day 3: 7 = 7
-    Day 4: 8 = 8
-    Day 5: 9 = 9
-    Day 6: 10 = 10
-    Total: 6 days &gt; 5 days ✗
-  Doesn't work! Need larger: left = 15
-
-left = right = 15, exit loop
-
-Result: 15
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>weights = [1,2,3,4,5,6,7,8,9,10], days = 5
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Search space: [10 (max weight), 55 (sum of all)]
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Iteration 1: mid = (10 + 55) // 2 = 32
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  Can ship with capacity 32?
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    Day 1: 1+2+3+4+5+6+7 = 28
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    Day 2: 8+9+10 = 27
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    Total: 2 days &lt;= 5 days ✓
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  Works! Try smaller: right = 32
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>Iteration 2: mid = (10 + 32) // 2 = 21
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  Can ship with capacity 21?
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    Day 1: 1+2+3+4+5+6 = 21
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    Day 2: 7+8 = 15
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    Day 3: 9+10 = 19
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    Total: 3 days &lt;= 5 days ✓
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>  Works! Try smaller: right = 21
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>Iteration 3: mid = (10 + 21) // 2 = 15
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>  Can ship with capacity 15?
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    Day 1: 1+2+3+4+5 = 15
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    Day 2: 6+7 = 13
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    Day 3: 8 = 8
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    Day 4: 9 = 9
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    Day 5: 10 = 10
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    Total: 5 days &lt;= 5 days ✓
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>  Works! Try smaller: right = 15
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>Iteration 4: mid = (10 + 15) // 2 = 12
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>  Can ship with capacity 12?
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>    Day 1: 1+2+3+4 = 10
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    Day 2: 5+6 = 11
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>    Day 3: 7 = 7
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>    Day 4: 8 = 8
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>    Day 5: 9 = 9
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>    Day 6: 10 = 10
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>    Total: 6 days &gt; 5 days ✗
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>  Doesn&#39;t work! Need larger: left = 13
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>Iteration 5: mid = (13 + 15) // 2 = 14
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>  Can ship with capacity 14?
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>    Day 1: 1+2+3+4 = 10
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>    Day 2: 5+6 = 11
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>    Day 3: 7 = 7
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>    Day 4: 8 = 8
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>    Day 5: 9 = 9
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>    Day 6: 10 = 10
+<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>    Total: 6 days &gt; 5 days ✗
+<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a>  Doesn&#39;t work! Need larger: left = 15
+<a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>
+<a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a>left = right = 15, exit loop
+<a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a>
+<a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a>Result: 15
+</code></pre></div>
 <h2 id="problem-2-koko-eating-bananas">Problem 2: Koko Eating Bananas<a class="headerlink" href="#problem-2-koko-eating-bananas" title="Permanent link">&para;</a></h2>
 <p><strong>Difficulty</strong>: Medium<br />
 <strong>LeetCode</strong>: #875</p>
 <h3 id="problem-statement_1">Problem Statement<a class="headerlink" href="#problem-statement_1" title="Permanent link">&para;</a></h3>
 <p>Koko loves bananas. There are N piles of bananas, where pile i has piles[i] bananas. The guards will return in H hours. Koko can decide her eating speed k (bananas per hour). Each hour, she chooses a pile and eats k bananas. If the pile has fewer than k bananas, she eats them all and won't eat more that hour.</p>
 <p>Find the minimum eating speed k so she can eat all bananas within H hours.</p>
-<p><strong>Example</strong>:</p>
-<pre><code>Input: piles = [3, 6, 7, 11], h = 8
-Output: 4
-Explanation: Speed 4 allows eating all bananas in 8 hours
-</code></pre>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Input: piles = [3, 6, 7, 11], h = 8
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Output: 4
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Explanation: Speed 4 allows eating all bananas in 8 hours
+</code></pre></div></p>
 <h3 id="approach_1">Approach<a class="headerlink" href="#approach_1" title="Permanent link">&para;</a></h3>
 <p>Key observations:</p>
 <ul>
@@ -6822,100 +6902,100 @@ Explanation: Speed 4 allows eating all bananas in 8 hours
 </ul>
 <p>Binary search for minimum speed that works.</p>
 <h3 id="solution_1">Solution<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h3>
-<pre><code class="language-python">import math
-
-def min_eating_speed(piles, h):
-    &quot;&quot;&quot;
-    Find minimum eating speed to finish all bananas in h hours.
-
-    Time Complexity: O(n * log(max(piles))) - binary search * validation
-    Space Complexity: O(1) - only using pointers
-    &quot;&quot;&quot;
-    def can_eat_all_with_speed(k):
-        &quot;&quot;&quot;Check if can eat all bananas with speed k in h hours.&quot;&quot;&quot;
-        hours_needed = 0
-        for pile in piles:
-            # Ceiling division: hours to eat this pile
-            hours_needed += math.ceil(pile / k)
-        return hours_needed &lt;= h
-
-    # Search space: [1, max pile size]
-    left = 1
-    right = max(piles)
-
-    # Binary search for minimum speed
-    while left &lt; right:
-        mid = (left + right) // 2
-
-        if can_eat_all_with_speed(mid):
-            # This speed works, try slower
-            right = mid
-        else:
-            # This speed too slow, need faster
-            left = mid + 1
-
-    return left
-
-# Test
-piles = [3, 6, 7, 11]
-h = 8
-print(min_eating_speed(piles, h))  # Output: 4
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">min_eating_speed</span><span class="p">(</span><span class="n">piles</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="sd">    Find minimum eating speed to finish all bananas in h hours.</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="sd">    Time Complexity: O(n * log(max(piles))) - binary search * validation</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="sd">    Space Complexity: O(1) - only using pointers</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">can_eat_all_with_speed</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if can eat all bananas with speed k in h hours.&quot;&quot;&quot;</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="n">hours_needed</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="k">for</span> <span class="n">pile</span> <span class="ow">in</span> <span class="n">piles</span><span class="p">:</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>            <span class="c1"># Ceiling division: hours to eat this pile</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>            <span class="n">hours_needed</span> <span class="o">+=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">pile</span> <span class="o">/</span> <span class="n">k</span><span class="p">)</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        <span class="k">return</span> <span class="n">hours_needed</span> <span class="o">&lt;=</span> <span class="n">h</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="c1"># Search space: [1, max pile size]</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    <span class="n">left</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>    <span class="n">right</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">piles</span><span class="p">)</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>    <span class="c1"># Binary search for minimum speed</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>        <span class="k">if</span> <span class="n">can_eat_all_with_speed</span><span class="p">(</span><span class="n">mid</span><span class="p">):</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>            <span class="c1"># This speed works, try slower</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>            <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>            <span class="c1"># This speed too slow, need faster</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>            <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>    <span class="k">return</span> <span class="n">left</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="c1"># Test</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="n">piles</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="n">h</span> <span class="o">=</span> <span class="mi">8</span>
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="nb">print</span><span class="p">(</span><span class="n">min_eating_speed</span><span class="p">(</span><span class="n">piles</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>  <span class="c1"># Output: 4</span>
+</code></pre></div>
 <h3 id="step-by-step-walkthrough_1">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough_1" title="Permanent link">&para;</a></h3>
-<pre><code>piles = [3, 6, 7, 11], h = 8
-
-Search space: [1, 11 (max pile)]
-
-Iteration 1: mid = (1 + 11) // 2 = 6
-  Can eat with speed 6?
-    Pile 3: ceil(3/6) = 1 hour
-    Pile 6: ceil(6/6) = 1 hour
-    Pile 7: ceil(7/6) = 2 hours
-    Pile 11: ceil(11/6) = 2 hours
-    Total: 6 hours &lt;= 8 hours ✓
-  Works! Try slower: right = 6
-
-Iteration 2: mid = (1 + 6) // 2 = 3
-  Can eat with speed 3?
-    Pile 3: ceil(3/3) = 1 hour
-    Pile 6: ceil(6/3) = 2 hours
-    Pile 7: ceil(7/3) = 3 hours
-    Pile 11: ceil(11/3) = 4 hours
-    Total: 10 hours &gt; 8 hours ✗
-  Doesn't work! Need faster: left = 4
-
-Iteration 3: mid = (4 + 6) // 2 = 5
-  Can eat with speed 5?
-    Pile 3: ceil(3/5) = 1 hour
-    Pile 6: ceil(6/5) = 2 hours
-    Pile 7: ceil(7/5) = 2 hours
-    Pile 11: ceil(11/5) = 3 hours
-    Total: 8 hours &lt;= 8 hours ✓
-  Works! Try slower: right = 5
-
-Iteration 4: mid = (4 + 5) // 2 = 4
-  Can eat with speed 4?
-    Pile 3: ceil(3/4) = 1 hour
-    Pile 6: ceil(6/4) = 2 hours
-    Pile 7: ceil(7/4) = 2 hours
-    Pile 11: ceil(11/4) = 3 hours
-    Total: 8 hours &lt;= 8 hours ✓
-  Works! Try slower: right = 4
-
-left = right = 4, exit loop
-
-Result: 4
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>piles = [3, 6, 7, 11], h = 8
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Search space: [1, 11 (max pile)]
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Iteration 1: mid = (1 + 11) // 2 = 6
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  Can eat with speed 6?
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    Pile 3: ceil(3/6) = 1 hour
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    Pile 6: ceil(6/6) = 1 hour
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    Pile 7: ceil(7/6) = 2 hours
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    Pile 11: ceil(11/6) = 2 hours
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    Total: 6 hours &lt;= 8 hours ✓
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>  Works! Try slower: right = 6
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>Iteration 2: mid = (1 + 6) // 2 = 3
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>  Can eat with speed 3?
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>    Pile 3: ceil(3/3) = 1 hour
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    Pile 6: ceil(6/3) = 2 hours
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>    Pile 7: ceil(7/3) = 3 hours
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>    Pile 11: ceil(11/3) = 4 hours
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>    Total: 10 hours &gt; 8 hours ✗
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>  Doesn&#39;t work! Need faster: left = 4
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>Iteration 3: mid = (4 + 6) // 2 = 5
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>  Can eat with speed 5?
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>    Pile 3: ceil(3/5) = 1 hour
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>    Pile 6: ceil(6/5) = 2 hours
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>    Pile 7: ceil(7/5) = 2 hours
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>    Pile 11: ceil(11/5) = 3 hours
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>    Total: 8 hours &lt;= 8 hours ✓
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>  Works! Try slower: right = 5
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>Iteration 4: mid = (4 + 5) // 2 = 4
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>  Can eat with speed 4?
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>    Pile 3: ceil(3/4) = 1 hour
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>    Pile 6: ceil(6/4) = 2 hours
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>    Pile 7: ceil(7/4) = 2 hours
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>    Pile 11: ceil(11/4) = 3 hours
+<a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>    Total: 8 hours &lt;= 8 hours ✓
+<a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>  Works! Try slower: right = 4
+<a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a>
+<a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>left = right = 4, exit loop
+<a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>
+<a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>Result: 4
+</code></pre></div>
 <h2 id="problem-3-minimum-time-to-complete-trips">Problem 3: Minimum Time to Complete Trips<a class="headerlink" href="#problem-3-minimum-time-to-complete-trips" title="Permanent link">&para;</a></h2>
 <p><strong>Difficulty</strong>: Medium<br />
 <strong>LeetCode</strong>: #2187</p>
 <h3 id="problem-statement_2">Problem Statement<a class="headerlink" href="#problem-statement_2" title="Permanent link">&para;</a></h3>
 <p>You are given an array time where time[i] denotes the time taken by the i-th bus to complete one trip. Each bus can make multiple trips successively. You want to complete totalTrips trips. Return the minimum time required for all buses to complete at least totalTrips trips.</p>
-<p><strong>Example</strong>:</p>
-<pre><code>Input: time = [1, 2, 3], totalTrips = 5
-Output: 3
-Explanation: At time 3, trips: bus1=3, bus2=1, bus3=1, total=5
-</code></pre>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Input: time = [1, 2, 3], totalTrips = 5
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Output: 3
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Explanation: At time 3, trips: bus1=3, bus2=1, bus3=1, total=5
+</code></pre></div></p>
 <h3 id="approach_2">Approach<a class="headerlink" href="#approach_2" title="Permanent link">&para;</a></h3>
 <p>Key observations:</p>
 <ul>
@@ -6926,67 +7006,67 @@ Explanation: At time 3, trips: bus1=3, bus2=1, bus3=1, total=5
 </ul>
 <p>Binary search for minimum time that allows totalTrips.</p>
 <h3 id="solution_2">Solution<a class="headerlink" href="#solution_2" title="Permanent link">&para;</a></h3>
-<pre><code class="language-python">def minimum_time(time, total_trips):
-    &quot;&quot;&quot;
-    Find minimum time to complete total_trips.
-
-    Time Complexity: O(n * log(min(time) * total_trips))
-    Space Complexity: O(1)
-    &quot;&quot;&quot;
-    def trips_possible_in_time(t):
-        &quot;&quot;&quot;Calculate total trips all buses can make in time t.&quot;&quot;&quot;
-        trips = 0
-        for bus_time in time:
-            trips += t // bus_time
-        return trips
-
-    # Search space: [1, min_time * total_trips]
-    left = 1
-    right = min(time) * total_trips
-
-    # Binary search for minimum time
-    while left &lt; right:
-        mid = (left + right) // 2
-
-        if trips_possible_in_time(mid) &gt;= total_trips:
-            # Can complete trips in this time, try less time
-            right = mid
-        else:
-            # Can't complete trips, need more time
-            left = mid + 1
-
-    return left
-
-# Test
-time = [1, 2, 3]
-total_trips = 5
-print(minimum_time(time, total_trips))  # Output: 3
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">minimum_time</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">total_trips</span><span class="p">):</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="sd">    Find minimum time to complete total_trips.</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sd">    Time Complexity: O(n * log(min(time) * total_trips))</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sd">    Space Complexity: O(1)</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">trips_possible_in_time</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate total trips all buses can make in time t.&quot;&quot;&quot;</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="n">trips</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        <span class="k">for</span> <span class="n">bus_time</span> <span class="ow">in</span> <span class="n">time</span><span class="p">:</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>            <span class="n">trips</span> <span class="o">+=</span> <span class="n">t</span> <span class="o">//</span> <span class="n">bus_time</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>        <span class="k">return</span> <span class="n">trips</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    <span class="c1"># Search space: [1, min_time * total_trips]</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="n">left</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>    <span class="n">right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">*</span> <span class="n">total_trips</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>    <span class="c1"># Binary search for minimum time</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>        <span class="k">if</span> <span class="n">trips_possible_in_time</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">total_trips</span><span class="p">:</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>            <span class="c1"># Can complete trips in this time, try less time</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>            <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>            <span class="c1"># Can&#39;t complete trips, need more time</span>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>            <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>    <span class="k">return</span> <span class="n">left</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a><span class="c1"># Test</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="n">time</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="n">total_trips</span> <span class="o">=</span> <span class="mi">5</span>
+<a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a><span class="nb">print</span><span class="p">(</span><span class="n">minimum_time</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">total_trips</span><span class="p">))</span>  <span class="c1"># Output: 3</span>
+</code></pre></div>
 <h3 id="step-by-step-walkthrough_2">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough_2" title="Permanent link">&para;</a></h3>
-<pre><code>time = [1, 2, 3], totalTrips = 5
-
-Search space: [1, 5] (min(time) * totalTrips = 1 * 5)
-
-Iteration 1: mid = (1 + 5) // 2 = 3
-  Trips possible in time 3?
-    Bus 1 (time=1): 3//1 = 3 trips
-    Bus 2 (time=2): 3//2 = 1 trip
-    Bus 3 (time=3): 3//3 = 1 trip
-    Total: 5 trips &gt;= 5 ✓
-  Works! Try less time: right = 3
-
-Iteration 2: mid = (1 + 3) // 2 = 2
-  Trips possible in time 2?
-    Bus 1 (time=1): 2//1 = 2 trips
-    Bus 2 (time=2): 2//2 = 1 trip
-    Bus 3 (time=3): 2//3 = 0 trips
-    Total: 3 trips &lt; 5 ✗
-  Doesn't work! Need more time: left = 3
-
-left = right = 3, exit loop
-
-Result: 3
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>time = [1, 2, 3], totalTrips = 5
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Search space: [1, 5] (min(time) * totalTrips = 1 * 5)
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>Iteration 1: mid = (1 + 5) // 2 = 3
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  Trips possible in time 3?
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    Bus 1 (time=1): 3//1 = 3 trips
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    Bus 2 (time=2): 3//2 = 1 trip
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    Bus 3 (time=3): 3//3 = 1 trip
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    Total: 5 trips &gt;= 5 ✓
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>  Works! Try less time: right = 3
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>Iteration 2: mid = (1 + 3) // 2 = 2
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>  Trips possible in time 2?
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>    Bus 1 (time=1): 2//1 = 2 trips
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>    Bus 2 (time=2): 2//2 = 1 trip
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    Bus 3 (time=3): 2//3 = 0 trips
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>    Total: 3 trips &lt; 5 ✗
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>  Doesn&#39;t work! Need more time: left = 3
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>left = right = 3, exit loop
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>Result: 3
+</code></pre></div>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Transform Problem</strong>: Convert optimization to decision problem ("can we do it with value x?")</li>
@@ -6996,31 +7076,31 @@ Result: 3
 <li><strong>Integer vs Float</strong>: Handle precision appropriately for continuous spaces</li>
 </ol>
 <h2 id="template-pattern">Template Pattern<a class="headerlink" href="#template-pattern" title="Permanent link">&para;</a></h2>
-<pre><code class="language-python">def binary_search_answer(problem_params):
-    def is_feasible(candidate):
-        &quot;&quot;&quot;Check if candidate value satisfies constraints.&quot;&quot;&quot;
-        # Problem-specific validation logic
-        pass
-
-    # Define search space
-    left = minimum_possible_value
-    right = maximum_possible_value
-
-    # Binary search
-    while left &lt; right:
-        mid = (left + right) // 2
-
-        if is_feasible(mid):
-            # mid works, search for better (smaller/larger)
-            right = mid  # for minimum
-            # left = mid + 1  # for maximum
-        else:
-            # mid doesn't work
-            left = mid + 1  # for minimum
-            # right = mid  # for maximum
-
-    return left
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">binary_search_answer</span><span class="p">(</span><span class="n">problem_params</span><span class="p">):</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_feasible</span><span class="p">(</span><span class="n">candidate</span><span class="p">):</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if candidate value satisfies constraints.&quot;&quot;&quot;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>        <span class="c1"># Problem-specific validation logic</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        <span class="k">pass</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="c1"># Define search space</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="n">left</span> <span class="o">=</span> <span class="n">minimum_possible_value</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="n">right</span> <span class="o">=</span> <span class="n">maximum_possible_value</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="c1"># Binary search</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>        <span class="k">if</span> <span class="n">is_feasible</span><span class="p">(</span><span class="n">mid</span><span class="p">):</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>            <span class="c1"># mid works, search for better (smaller/larger)</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>            <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span>  <span class="c1"># for minimum</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>            <span class="c1"># left = mid + 1  # for maximum</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>            <span class="c1"># mid doesn&#39;t work</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>            <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># for minimum</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>            <span class="c1"># right = mid  # for maximum</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>    <span class="k">return</span> <span class="n">left</span>
+</code></pre></div>
 <h2 id="common-applications">Common Applications<a class="headerlink" href="#common-applications" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Capacity/resource allocation problems</li>
@@ -7398,7 +7478,7 @@ Result: 3
     
     
 
-      <script src="../../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.16f8adc2.min.js"></script>
       
         <script src="../../../assets/js/canvas/scene/main.js"></script>
       
@@ -7414,24 +7494,24 @@ Result: 3
 
 <!-- Mobile theme switch repaint forcer -->
 <script>
-(function () {
-  if (!window.matchMedia('(pointer: coarse)').matches) return;
-  var observer = new MutationObserver(function () {
-    // Force compositor layer invalidation after theme attribute change
-    requestAnimationFrame(function () {
-      document.body.style.transform = 'translateZ(0)';
+  (function () {
+    if (!window.matchMedia('(pointer: coarse)').matches) return;
+    var observer = new MutationObserver(function () {
+      // Force compositor layer invalidation after theme attribute change
       requestAnimationFrame(function () {
-        document.body.style.transform = '';
+        document.body.style.transform = 'translateZ(0)';
+        requestAnimationFrame(function () {
+          document.body.style.transform = '';
+        });
       });
     });
-  });
-  if (document.body) {
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ['data-md-color-scheme']
-    });
-  }
-})();
+    if (document.body) {
+      observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['data-md-color-scheme']
+      });
+    }
+  })();
 </script>
 
 <!-- Three.js Background Animation -->

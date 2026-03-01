@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon/favicon.ico">
-      <meta name="generator" content="zensical-0.0.23">
+      <meta name="generator" content="zensical-0.0.24">
     
     
       
@@ -36,7 +36,7 @@
       
         
       
-      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.1e989742.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.28978c9b.min.css">
       
         
           
@@ -396,6 +396,56 @@
 
     
     
+<!-- Critical CSS: solid fallback backgrounds before external CSS loads -->
+<style>
+  .md-content__inner {
+    background: rgba(250, 248, 245, 0.9);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(45, 42, 38, 0.08);
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  [data-md-color-scheme="slate"] .md-content__inner {
+    background: rgba(12, 18, 34, 0.82);
+    border-color: rgba(232, 226, 216, 0.08);
+  }
+
+  @media screen and (max-width: 76.25rem) {
+    .md-content__inner {
+      background: var(--md-default-bg-color, #fff) !important;
+    }
+  }
+
+  /* Landing page specific overrides to prevent FOUC */
+  .landing-page .md-content__inner {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Three.js bg: hidden until scene is ready */
+  .threejs-bg-container {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .threejs-bg-container.is-ready {
+    opacity: 0.6;
+  }
+
+  [data-md-color-scheme="slate"] .threejs-bg-container.is-ready {
+    opacity: 0.7;
+  }
+
+  /* Landing page Three.js bg overrides */
+  .landing-page .threejs-bg-container.is-ready {
+    opacity: 0.85;
+  }
+
+  [data-md-color-scheme="slate"] .landing-page .threejs-bg-container.is-ready {
+    opacity: 1;
+  }
+</style>
 <meta name="site_url" content="https://ba-calderonmorales.github.io/my-life-as-a-dev/">
 <link rel="icon" href="../../assets/images/me-today.png" />
 
@@ -5185,6 +5235,8 @@
       
         
       
+        
+      
     
     
     
@@ -5327,6 +5379,34 @@
     
   
     Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/active/terminal-jarvis/details/releases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Notes
   
 
     
@@ -7073,7 +7153,7 @@
     
     
 
-      <script src="../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      <script src="../../assets/javascripts/bundle.16f8adc2.min.js"></script>
       
         <script src="../../assets/js/canvas/scene/main.js"></script>
       
@@ -7089,24 +7169,24 @@
 
 <!-- Mobile theme switch repaint forcer -->
 <script>
-(function () {
-  if (!window.matchMedia('(pointer: coarse)').matches) return;
-  var observer = new MutationObserver(function () {
-    // Force compositor layer invalidation after theme attribute change
-    requestAnimationFrame(function () {
-      document.body.style.transform = 'translateZ(0)';
+  (function () {
+    if (!window.matchMedia('(pointer: coarse)').matches) return;
+    var observer = new MutationObserver(function () {
+      // Force compositor layer invalidation after theme attribute change
       requestAnimationFrame(function () {
-        document.body.style.transform = '';
+        document.body.style.transform = 'translateZ(0)';
+        requestAnimationFrame(function () {
+          document.body.style.transform = '';
+        });
       });
     });
-  });
-  if (document.body) {
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ['data-md-color-scheme']
-    });
-  }
-})();
+    if (document.body) {
+      observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['data-md-color-scheme']
+      });
+    }
+  })();
 </script>
 
 <!-- Three.js Background Animation -->
