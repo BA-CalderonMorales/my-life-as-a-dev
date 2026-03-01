@@ -17,8 +17,13 @@
 .canvas-page .md-main__inner,
 .canvas-page .md-content__inner {
     min-height: 100vh;
+    min-height: 100dvh;
     background: transparent;
     box-shadow: none;
+    /* Safe area insets for notched devices */
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+    padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 .canvas-placeholder {
@@ -244,7 +249,7 @@
 /* Viewport touch cursor */
 .canvas-stage__viewport {
     cursor: grab;
-    touch-action: none;
+    touch-action: pan-y;
     -webkit-user-select: none;
     user-select: none;
     /* Prevent pull-to-refresh when interacting with canvas */
@@ -280,6 +285,7 @@
 
     .canvas-stage__viewport {
         min-height: clamp(280px, 50vh, 400px);
+        min-height: clamp(280px, 50dvh, 400px);
         border-radius: 0.75rem;
     }
 

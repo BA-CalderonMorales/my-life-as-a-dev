@@ -90,7 +90,9 @@
       li.className = 'md-version__item';
 
       const a = document.createElement('a');
-      a.href = baseUrl + v.version + '/' + relativePath;
+      const targetUrl = baseUrl + v.version + '/' + relativePath;
+      const fallbackUrl = baseUrl + v.version + '/';
+      a.href = targetUrl;
       a.className = 'md-version__link';
 
       let label = v.title || v.version;
@@ -102,6 +104,25 @@
       if (v.version === currentVersion || (v.aliases && v.aliases.includes(currentVersion))) {
         li.classList.add('md-version__item--active');
       }
+
+      // Check if page exists in target version before navigating
+      a.addEventListener('click', function (e) {
+        // Skip check if navigating to version root or same version
+        if (!relativePath || v.version === currentVersion) return;
+
+        e.preventDefault();
+        fetch(targetUrl, { method: 'HEAD' })
+          .then(function (resp) {
+            if (resp.ok) {
+              window.location.href = targetUrl;
+            } else {
+              window.location.href = fallbackUrl;
+            }
+          })
+          .catch(function () {
+            window.location.href = fallbackUrl;
+          });
+      });
 
       li.appendChild(a);
       list.appendChild(li);
