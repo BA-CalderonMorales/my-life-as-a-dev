@@ -168,6 +168,7 @@
     padding: 16px 20px;
     border-top: 1px solid var(--md-default-fg-color--lightest);
     display: flex;
+    align-items: center;
     gap: 10px;
     background: var(--md-default-bg-color);
     flex-shrink: 0;
@@ -175,6 +176,8 @@
 
 #ai-chat-input {
     flex: 1;
+    order: 1;
+    min-width: 0;
     padding: 10px 14px;
     border: 1px solid var(--md-default-fg-color--lighter);
     border-radius: 6px;
@@ -233,7 +236,8 @@
 /* Menu Button (Vertical Ellipsis) */
 .ai-chat-menu-wrapper {
     position: relative;
-    order: 1;
+    order: 0;
+    flex-shrink: 0;
 }
 
 .ai-chat-menu-btn {
