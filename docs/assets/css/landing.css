@@ -133,6 +133,68 @@
     color: #c3deff;
 }
 
+/* ---------------------------------------------------------------------------
+   Landing-specific readability fixes for:
+   - Featured Projects
+   - Working with Me
+   --------------------------------------------------------------------------- */
+[data-md-color-scheme="slate"] .landing-page .landing-featured-projects > ul > li,
+[data-md-color-scheme="slate"] .landing-page .landing-working-with-me > blockquote {
+    background: rgba(9, 14, 25, 0.96) !important;
+    border: 1px solid rgba(210, 225, 245, 0.28) !important;
+    color: #ecf3ff !important;
+    text-shadow: none !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-featured-projects > ul > li *,
+[data-md-color-scheme="slate"] .landing-page .landing-working-with-me > blockquote * {
+    color: #eaf2ff !important;
+    text-shadow: none !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-featured-projects > ul > li strong,
+[data-md-color-scheme="slate"] .landing-page .landing-working-with-me > blockquote strong {
+    color: #ffffff !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-featured-projects > ul > li a,
+[data-md-color-scheme="slate"] .landing-page .landing-working-with-me > blockquote a {
+    color: #9fd0ff !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-featured-projects > ul > li a:hover,
+[data-md-color-scheme="slate"] .landing-page .landing-working-with-me > blockquote a:hover {
+    color: #d2e8ff !important;
+}
+
+/* Section-level dark-mode surfaces for guaranteed readability */
+[data-md-color-scheme="slate"] .landing-page .landing-section-featured,
+[data-md-color-scheme="slate"] .landing-page .landing-section-working {
+    background: rgba(7, 12, 22, 0.82) !important;
+    border: 1px solid rgba(210, 225, 245, 0.16) !important;
+    border-radius: 12px;
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35);
+    text-shadow: none !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-section-featured h2,
+[data-md-color-scheme="slate"] .landing-page .landing-section-working h2 {
+    color: #f3f7ff !important;
+    text-shadow: none !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-section-featured .headerlink,
+[data-md-color-scheme="slate"] .landing-page .landing-section-working .headerlink {
+    color: #b8cff0 !important;
+}
+
+[data-md-color-scheme="slate"] .landing-page .landing-section-featured,
+[data-md-color-scheme="slate"] .landing-page .landing-section-featured *,
+[data-md-color-scheme="slate"] .landing-page .landing-section-working,
+[data-md-color-scheme="slate"] .landing-page .landing-section-working * {
+    text-shadow: none !important;
+}
+
 /* Landing page admonitions/callouts should stay highly legible in both themes */
 .landing-page .md-typeset .admonition,
 .landing-page .md-typeset details {

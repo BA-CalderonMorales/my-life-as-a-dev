@@ -67,11 +67,11 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 </div>
 </section>
 
-<section class="md-typeset" markdown>
+<section class="md-typeset landing-section-featured" markdown>
 
 ## Featured Projects
 
-<div class="grid cards" markdown>
+<div class="grid cards landing-featured-projects" markdown>
 
 -   :material-robot:{ .lg .middle } **Terminal Jarvis**
 
@@ -109,11 +109,11 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 
 </section>
 
-<section class="md-typeset" markdown>
+<section class="md-typeset landing-section-working" markdown>
 
 ## Working with Me
 
-<div class="grid" markdown>
+<div class="grid landing-working-with-me" markdown>
 
 > :material-file-document-check: **Documentation as a product**
 >
