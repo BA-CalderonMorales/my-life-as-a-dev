@@ -1,3 +1,27 @@
+# Next Session: Chat UX + Cloud Run Follow-Up
+
+## What Was Completed
+- Chat widget now prevents horizontal overflow from long responses/code on mobile, tablet, and desktop.
+- Progressive waiting states were added to reduce confusion during slow requests (`Thinking` -> `Reviewing context` -> `Still working` -> `Almost there`).
+- `agent-chat-proxy` Cloud Run service was updated and tuned live.
+- `nvidia-chat-proxy-python` Cloud Run service was runtime-tuned live.
+
+## Important Separation
+- Cloud Run service source changes were made in `/tmp` extracted service copies and deployed to GCP.
+- Those service changes are **not** part of this docs repository commit.
+
+## Follow-Up Tasks (Next Session)
+1. Run visual checks with `agent-browser` on mobile/tablet/desktop for very long URLs, long unbroken tokens, and large code blocks.
+2. Add a small e2e test/assertion to verify no horizontal overflow in chat (`document.documentElement.scrollWidth <= window.innerWidth` while chat is open).
+3. Pull latest deployed source again for both services and persist service-side optimization changes in their canonical repos (if/when available).
+4. Add lightweight service dashboards for:
+   - cache hit rate
+   - fallback rate
+   - p50/p95 latency per revision
+5. Revisit model strategy after observing production traffic:
+   - keep `flash -> pro fallback` if latency is priority
+   - selectively route to `pro` only for complex prompts if quality needs increase
+
 # Next Steps for Diagram Migration
 
 ## Current Status
