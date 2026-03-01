@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-02-16 03:30:55 UTC
+#   Generated: 2026-03-01 20:11:53 UTC
 #
 # ##############################################################################
 
@@ -316,6 +316,7 @@ Details = [
     { Testing = "projects/active/terminal-jarvis/details/testing.md" },
     { Contributions = "projects/active/terminal-jarvis/details/contributions.md" },
     { Roadmap = "projects/active/terminal-jarvis/details/roadmap.md" },
+    { "Release Notes" = "projects/active/terminal-jarvis/details/releases.md" },
     { Limitations = "projects/active/terminal-jarvis/details/limitations.md" },
     { Maintainers = "projects/active/terminal-jarvis/details/maintainers.md" },
 ]

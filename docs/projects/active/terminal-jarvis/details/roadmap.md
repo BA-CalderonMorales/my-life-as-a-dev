@@ -6,7 +6,7 @@ comments: true
 
 Terminal Jarvis aims to become the definitive AI coding orchestration platform - the first unified command center that intelligently coordinates multiple AI tools, prioritizes security-first architecture, and focuses on authentic developer experience.
 
-## Current Focus (v0.0.74)
+## Current Focus (v0.0.78)
 
 - [x] Interactive T.JARVIS Interface with ASCII art
 - [x] Smart tool detection and status reporting
@@ -15,8 +15,11 @@ Terminal Jarvis aims to become the definitive AI coding orchestration platform -
 - [x] Enhanced authentication flows
 - [x] Database integration (libsql) for state persistence
 - [x] Modular architecture with 14 domain modules
-- [ ] Improved wrapper layer stability ([#40](https://github.com/BA-CalderonMorales/terminal-jarvis/issues/40))
+- [x] Improved wrapper layer stability ([#59](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/59), [#61](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/61), [#62](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/62))
 - [ ] Enhanced error handling and recovery
+- [x] Codespaces/NVM npm EACCES install fix shipped in v0.0.78 ([#62](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/62))
+- [x] `cd` command shell-state synchronization in wrappers ([#61](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/61))
+- [x] Command normalization to strip `terminal-jarvis` prefix in wrappers ([#59](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/59))
 
 ## Near-term Goals
 
@@ -224,4 +227,4 @@ Want to help shape the future of Terminal Jarvis?
 
 ---
 
-**Last Updated**: January 2026
+**Last Updated**: February 2026
