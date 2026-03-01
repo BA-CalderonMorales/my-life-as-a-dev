@@ -8,7 +8,7 @@ This document provides a comprehensive technical overview of Terminal Jarvis's a
 
 ## Project Structure
 
-The project follows a domain-based modular architecture designed for maintainability, extensibility, and clear separation of concerns. As of v0.0.74, Terminal Jarvis includes **14 domain modules**:
+The project follows a domain-based modular architecture designed for maintainability, extensibility, and clear separation of concerns. As of v0.0.78, Terminal Jarvis includes **14 domain modules**:
 
 ```
 src/

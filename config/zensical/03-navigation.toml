@@ -215,6 +215,7 @@ nav = [
                     { "Testing" = "projects/active/terminal-jarvis/details/testing.md" },
                     { "Contributions" = "projects/active/terminal-jarvis/details/contributions.md" },
                     { "Roadmap" = "projects/active/terminal-jarvis/details/roadmap.md" },
+                    { "Release Notes" = "projects/active/terminal-jarvis/details/releases.md" },
                     { "Limitations" = "projects/active/terminal-jarvis/details/limitations.md" },
                     { "Maintainers" = "projects/active/terminal-jarvis/details/maintainers.md" },
                 ] },

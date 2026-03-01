@@ -275,7 +275,7 @@ export HTTPS_PROXY=http://proxy.example.com:8080
 
 ## Known Bugs
 
-### Fresh Install Issues in Codespaces/NVM Environments (v0.0.73-v0.0.74)
+### Fresh Install Issues in Codespaces/NVM Environments (v0.0.73-v0.0.74, fixed in v0.0.78)
 
 **Issue**: [#39](https://github.com/BA-CalderonMorales/terminal-jarvis/issues/39) - Fresh installations may fail with npm EACCES permission errors when installing tools like Claude.
 
@@ -288,12 +288,29 @@ npm EACCES: permission denied
 - NVM-installed npm isn't in sudo's PATH
 - Database setup fails to find `config/tools` directory when run outside project root
 
-**Workaround**:
+**Workaround for older versions (< v0.0.78)**:
 1. Use `npx terminal-jarvis` instead of global install
 2. Configure npm to use user-writable directories (see Installation Guide)
 3. Run from within a cloned terminal-jarvis directory for development
 
-**Status**: Being addressed in [#40](https://github.com/BA-CalderonMorales/terminal-jarvis/issues/40)
+**Status**: Fixed in [v0.0.78](https://github.com/BA-CalderonMorales/terminal-jarvis/releases/tag/v0.0.78) via [#62](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/62).
+
+---
+
+### Wrapper Command Parsing and Shell-State Sync (Fixed in v0.0.78)
+
+**Issue**: Wrapper flows could fail when commands included the `terminal-jarvis` prefix or after shell directory changes.
+
+**Symptoms**:
+- Some wrapper commands were interpreted incorrectly unless manually rewritten
+- `cd` commands did not always update shell state before launching tools
+
+**Resolution**:
+- Command normalization now strips `terminal-jarvis` prefixes in wrapper command parsing ([#59](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/59))
+- Shell state now syncs after `cd` before tool execution ([#61](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/61))
+- Qwen command menu persistence was improved in the same release cycle
+
+**Status**: Fixed in [v0.0.78](https://github.com/BA-CalderonMorales/terminal-jarvis/releases/tag/v0.0.78)
 
 ---
 
@@ -360,4 +377,4 @@ Many limitations listed here are being actively addressed. Check the [Roadmap](r
 
 ---
 
-**Last Updated**: January 2026
+**Last Updated**: February 2026

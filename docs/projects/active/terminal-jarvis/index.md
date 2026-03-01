@@ -19,7 +19,7 @@ comments: true
 
 !!! info "Project Signal"
 
-    - **Status**: v0.0.74 (113 ⭐ • 16 forks) — bi-weekly to monthly updates
+    - **Status**: v0.0.78 (120 ⭐ • 16 forks) — latest release published on February 23, 2026
     - **Focus**: Orchestrating multi-vendor AI CLIs with one workflow
     - **Stack**: Rust core (85%), TypeScript wrapper, Shell scripts
     - **Ideal For**: Developers juggling multiple AI assistants across projects
@@ -43,6 +43,7 @@ comments: true
 - Smart authentication system remembers sessions, detects browser logins, and handles headless/CI environments gracefully.
 - Beautiful T.JARVIS interface with ASCII art, live status dashboard, and theme toggles (T.JARVIS/Classic/Matrix).
 - Update workflow keeps every CLI current via `terminal-jarvis update` and surfaces release notes inline.
+- v0.0.78 hardens wrappers with fixes for Codespaces/NVM install permissions, command normalization, shell-state sync after `cd`, and Qwen menu persistence.
 
 ## Code Snapshot
 
@@ -85,3 +86,4 @@ comments: true
 | [Usage](quick_start/usage.md) | Interactive mode, direct commands, keyboard shortcuts, and automation tips |
 | [Configuration](quick_start/configuration.md) | TOML settings, theme customization, and tool overrides |
 | [AI Tools](quick_start/ai-tools.md) | Auth flows, feature matrix, and provider-specific notes |
+| [Release Notes](details/releases.md) | Latest release highlights and upgrade notes |

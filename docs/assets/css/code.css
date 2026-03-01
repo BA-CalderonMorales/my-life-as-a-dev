@@ -28,6 +28,9 @@
     display: block;
     padding: 1rem 1.25rem;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: pre;
+    user-select: text;
     font-size: 0.8rem;
     line-height: 1.65;
     background: transparent;
@@ -74,11 +77,16 @@
     top: 0.5rem;
     right: 0.5rem;
     z-index: 10;
-    opacity: 0.6;
+    opacity: 0.85;
     transition: opacity 0.2s ease, color 0.2s ease, background 0.2s ease;
     color: var(--md-default-fg-color--light);
     border-radius: 4px;
     padding: 4px;
+    min-width: 2rem;
+    min-height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: transparent;
     cursor: pointer;
 }
@@ -228,3 +236,49 @@
     background: var(--md-code-bg-color);
 }
 
+/* Responsive code block sizing for project snapshots on tablet/mobile */
+@media (max-width: 1024px) {
+    .md-typeset pre > code {
+        font-size: 0.76rem;
+        line-height: 1.55;
+        padding: 0.9rem 1rem;
+    }
+
+    .md-typeset .highlight > .filename,
+    .md-typeset .highlighttable > .filename {
+        font-size: 0.7rem;
+        padding: 0.45rem 1rem;
+    }
+
+    .md-typeset .tabbed-labels > label {
+        font-size: 0.74rem;
+        padding: 0.52rem 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .md-typeset pre {
+        margin: 1rem 0;
+        border-radius: 5px;
+    }
+
+    .md-typeset pre > code {
+        font-size: 0.72rem;
+        line-height: 1.5;
+        padding: 0.8rem 0.85rem;
+    }
+
+    .md-typeset .tabbed-labels > label {
+        font-size: 0.68rem;
+        padding: 0.48rem 0.62rem;
+    }
+
+    .md-typeset .md-clipboard {
+        top: 0.35rem;
+        right: 0.35rem;
+        min-width: 1.8rem;
+        min-height: 1.8rem;
+        opacity: 1;
+        background: var(--md-default-bg-color);
+    }
+}
