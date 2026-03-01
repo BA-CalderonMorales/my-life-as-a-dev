@@ -150,12 +150,20 @@ class ChatViewModel {
         // Show loading
         this.model.setLoading(true);
         const loadingId = this.view.showLoading();
+        const loadingTimers = this.startLoadingStatusUpdates(loadingId);
 
         try {
             // Send to API
             // Note: api.js in libs expects global config or internal handling. 
             // We assume api.sendMessage(text) works as is.
             const response = await this.api.sendMessage(text);
+            if (this.logger) {
+                this.logger.log('Routing metadata:', {
+                    agent_used: response.agent_used || null,
+                    model_used: response.model_used || null,
+                    used_fallback: !!response.used_fallback
+                });
+            }
 
             // Update Session
             this.model.setSessionId(response.session_id);
@@ -177,8 +185,40 @@ class ChatViewModel {
             this.view.addMessage(errorMessage, 'bot', this.parser);
             this.model.addMessage(errorMessage, 'bot'); // Log error in model too?
         } finally {
+            this.stopLoadingStatusUpdates(loadingTimers);
             this.model.setLoading(false);
         }
+    }
+
+    startLoadingStatusUpdates(loadingId) {
+        const timers = [];
+
+        timers.push(setTimeout(() => {
+            this.view.updateLoading(loadingId, 'Reviewing context');
+        }, 3000));
+
+        timers.push(setTimeout(() => {
+            this.view.updateLoading(
+                loadingId,
+                'Still working',
+                'This can take a bit for complex prompts.'
+            );
+        }, 8000));
+
+        timers.push(setTimeout(() => {
+            this.view.updateLoading(
+                loadingId,
+                'Almost there',
+                'Large-model responses may take up to 30 seconds.'
+            );
+        }, 15000));
+
+        return timers;
+    }
+
+    stopLoadingStatusUpdates(timers) {
+        if (!timers || !Array.isArray(timers)) return;
+        timers.forEach((id) => clearTimeout(id));
     }
 
     clearChat() {

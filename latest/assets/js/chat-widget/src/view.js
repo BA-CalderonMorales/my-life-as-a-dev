@@ -386,7 +386,7 @@ class ChatView {
         this.elements.messagesDiv.scrollTop = this.elements.messagesDiv.scrollHeight;
     }
 
-    showLoading() {
+    showLoading(initialText = 'Thinking') {
         if (!this.elements.messagesDiv) return null;
 
         const messageDiv = document.createElement('div');
@@ -397,12 +397,13 @@ class ChatView {
         const contentDiv = document.createElement('div');
         contentDiv.className = 'ai-message-content ai-loading-content';
         contentDiv.innerHTML = `
-            <span class="ai-loading-text">Thinking</span>
+            <span class="ai-loading-text">${initialText}</span>
             <span class="ai-loading-dots">
                 <span class="ai-dot"></span>
                 <span class="ai-dot"></span>
                 <span class="ai-dot"></span>
             </span>
+            <span class="ai-loading-subtext"></span>
         `;
 
         messageDiv.appendChild(contentDiv);
@@ -410,6 +411,25 @@ class ChatView {
         this.elements.messagesDiv.scrollTop = this.elements.messagesDiv.scrollHeight;
 
         return messageDiv.id;
+    }
+
+    updateLoading(id, text, subtext = '') {
+        if (!id) return;
+
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        const textEl = el.querySelector('.ai-loading-text');
+        const subtextEl = el.querySelector('.ai-loading-subtext');
+
+        if (textEl && text) {
+            textEl.textContent = text;
+        }
+
+        if (subtextEl) {
+            subtextEl.textContent = subtext;
+            subtextEl.classList.toggle('visible', !!subtext);
+        }
     }
 
     removeLoading(id) {
