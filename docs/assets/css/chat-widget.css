@@ -2,7 +2,7 @@
    AI Chat Widget - Search Modal Inspired Design
    ========================================================================== */
 
-/* Floating Chat Button - Centered on desktop/tablet, bottom-right on mobile */
+/* Floating Chat Button - Centered across breakpoints */
 .ai-chat-trigger {
     position: fixed;
     bottom: 24px;
@@ -209,6 +209,7 @@
     justify-content: center;
     transition: all 0.15s ease;
     flex-shrink: 0;
+    order: 2;
 }
 
 .ai-chat-send-btn svg {
@@ -232,6 +233,7 @@
 /* Menu Button (Vertical Ellipsis) */
 .ai-chat-menu-wrapper {
     position: relative;
+    order: 1;
 }
 
 .ai-chat-menu-btn {
@@ -540,13 +542,13 @@
    Responsive Design
    ========================================================================== */
 
-/* Mobile - Button stays bottom right for thumb access */
+/* Mobile - Keep Ask AI centered to avoid overlap with back-to-top */
 @media (max-width: 768px) {
     .ai-chat-trigger {
         bottom: 20px;
-        left: auto;
-        right: 20px;
-        transform: none;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
         width: 48px;
         height: 48px;
         border-radius: 50%;
@@ -554,7 +556,7 @@
     }
 
     .ai-chat-trigger:active {
-        transform: scale(0.95);
+        transform: translateX(-50%) scale(0.95);
     }
 
     .ai-chat-trigger-text {
@@ -630,6 +632,16 @@
 @media (min-width: 769px) and (max-width: 1024px) {
     .ai-chat-trigger {
         bottom: 24px;
+        font-size: 0.66rem;
+        padding: 0 16px;
+        height: 36px;
+        border-radius: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ai-chat-trigger {
+        font-size: 0.62rem;
     }
 }
 

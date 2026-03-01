@@ -8,7 +8,7 @@ This page tracks recent Terminal Jarvis releases with a focus on user-impacting 
 
 ## Latest Release: v0.0.78
 
-- **Published**: February 23, 2026
+- **Published**: March 1, 2026
 - **GitHub Release**: [v0.0.78](https://github.com/BA-CalderonMorales/terminal-jarvis/releases/tag/v0.0.78)
 - **Crates.io Version**: [0.0.78](https://crates.io/crates/terminal-jarvis)
 

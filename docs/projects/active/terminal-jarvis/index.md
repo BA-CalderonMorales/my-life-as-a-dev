@@ -19,7 +19,7 @@ comments: true
 
 !!! info "Project Signal"
 
-    - **Status**: v0.0.78 (120 ⭐ • 16 forks) — latest release published on February 23, 2026
+    - **Status**: v0.0.78 (120 ⭐ • 16 forks) — latest release published on March 1, 2026
     - **Focus**: Orchestrating multi-vendor AI CLIs with one workflow
     - **Stack**: Rust core (85%), TypeScript wrapper, Shell scripts
     - **Ideal For**: Developers juggling multiple AI assistants across projects

@@ -260,7 +260,7 @@ cargo uninstall terminal-jarvis
 - **Dependencies**: Zero runtime dependencies
 - **Platforms**: Cross-platform support (Windows, macOS, Linux)
 - **Testing**: All tools undergo comprehensive integration testing
-- **Current Version**: `v0.0.78` (latest GitHub release published on February 23, 2026)
+- **Current Version**: `v0.0.78` (latest GitHub release published on March 1, 2026)
 - **Known Issues**: See [Known Limitations](../details/limitations.md) for detailed information
 
 !!! info "Note"
