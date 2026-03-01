@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.4.8] - 2026-03-01
+
+### Fixed
+- Fixed late-loading stylesheet behavior by moving Ask AI and pull-to-refresh CSS into the global head-loaded `extra_css` pipeline.
+- Fixed Ask AI mobile/tablet settings menu clipping by anchoring the options dropdown to the left-side ellipsis control with viewport-safe sizing.
+
 ## [0.4.7] - 2026-03-01
 
 ### Fixed
