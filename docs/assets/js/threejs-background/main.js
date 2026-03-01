@@ -43,6 +43,12 @@ class ThreeJSBackgroundApp {
         if (success) {
             this.isInitialized = true;
             this.hasLoggedWelcome = true;
+
+            // Fade in the background container
+            const container = document.getElementById(this.containerId);
+            if (container) {
+                container.classList.add('is-ready');
+            }
         }
     }
 

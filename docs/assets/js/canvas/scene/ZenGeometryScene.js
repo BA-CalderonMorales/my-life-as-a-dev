@@ -34,6 +34,20 @@ export class ZenGeometryScene {
         this.lastInteraction = 0;
         this.isInteracting = false;
 
+        // Touch state
+        this.isTouching = false;
+        this.isPinching = false;
+        this.touchStartTime = 0;
+        this.touchStartPosition = { x: 0, y: 0 };
+        this.previousTouchPosition = { x: 0, y: 0 };
+        this.pinchStartDistance = 0;
+        this.touchMoved = false;
+        this.touchSensitivity = 0.008;
+
+        // Camera orbit state (driven by touch drag)
+        this.orbitAngle = 0;
+        this.orbitTilt = 0;
+
         // Device detection
         this.isMobile = false;
         this.isTablet = false;
@@ -42,8 +56,11 @@ export class ZenGeometryScene {
         this._handleResize = this._onResize.bind(this);
         this._positionCanvas = this._updateCanvasPosition.bind(this);
         this._handleMouseMove = this._onMouseMove.bind(this);
+        this._handleTouchStart = this._onTouchStart.bind(this);
         this._handleTouchMove = this._onTouchMove.bind(this);
+        this._handleTouchEnd = this._onTouchEnd.bind(this);
         this._handleInteractionEnd = this._onInteractionEnd.bind(this);
+        this._handleOrientationChange = this._onOrientationChange.bind(this);
     }
 
     async init() {
@@ -323,9 +340,16 @@ export class ZenGeometryScene {
 
     _setupInteraction() {
         this.container.addEventListener('mousemove', this._handleMouseMove);
-        this.container.addEventListener('touchmove', this._handleTouchMove, { passive: true });
         this.container.addEventListener('mouseleave', this._handleInteractionEnd);
-        this.container.addEventListener('touchend', this._handleInteractionEnd);
+
+        // Touch events
+        this.container.addEventListener('touchstart', this._handleTouchStart, { passive: false });
+        this.container.addEventListener('touchmove', this._handleTouchMove, { passive: false });
+        this.container.addEventListener('touchend', this._handleTouchEnd, { passive: true });
+        this.container.addEventListener('touchcancel', this._handleTouchEnd, { passive: true });
+
+        // Orientation change for mobile/tablet
+        window.addEventListener('orientationchange', this._handleOrientationChange);
     }
 
     _onMouseMove(event) {
@@ -337,20 +361,128 @@ export class ZenGeometryScene {
         this._updateMouse3D();
     }
 
-    _onTouchMove(event) {
-        if (event.touches.length > 0) {
-            const touch = event.touches[0];
-            const rect = this.container.getBoundingClientRect();
-            this.mouse.x = ((touch.clientX - rect.left) / rect.width) * 2 - 1;
-            this.mouse.y = -((touch.clientY - rect.top) / rect.height) * 2 + 1;
+    // --- Touch handlers ---
+
+    _getTouchDistance(touches) {
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    _onTouchStart(event) {
+        event.preventDefault();
+
+        if (event.touches.length === 1) {
+            this.isTouching = true;
+            this.touchMoved = false;
+            this.touchStartTime = Date.now();
+            this.touchStartPosition.x = event.touches[0].clientX;
+            this.touchStartPosition.y = event.touches[0].clientY;
+            this.previousTouchPosition.x = event.touches[0].clientX;
+            this.previousTouchPosition.y = event.touches[0].clientY;
+
+            this._updateMouseFromTouch(event.touches[0]);
             this.lastInteraction = this.clock.getElapsedTime();
             this.isInteracting = true;
-            this._updateMouse3D();
+        } else if (event.touches.length === 2) {
+            this.isPinching = true;
+            this.isTouching = false;
+            this.pinchStartDistance = this._getTouchDistance(event.touches);
         }
+    }
+
+    _onTouchMove(event) {
+        event.preventDefault();
+
+        if (event.touches.length === 1 && this.isTouching) {
+            const touch = event.touches[0];
+            const deltaX = touch.clientX - this.previousTouchPosition.x;
+            const deltaY = touch.clientY - this.previousTouchPosition.y;
+
+            // Detect movement past threshold
+            const totalDX = touch.clientX - this.touchStartPosition.x;
+            const totalDY = touch.clientY - this.touchStartPosition.y;
+            if (Math.abs(totalDX) > 10 || Math.abs(totalDY) > 10) {
+                this.touchMoved = true;
+            }
+
+            // Orbit camera via touch drag
+            this.orbitAngle += deltaX * this.touchSensitivity;
+            this.orbitTilt = Math.max(-0.5, Math.min(0.5, this.orbitTilt + deltaY * this.touchSensitivity));
+
+            this.previousTouchPosition.x = touch.clientX;
+            this.previousTouchPosition.y = touch.clientY;
+
+            this._updateMouseFromTouch(touch);
+            this.lastInteraction = this.clock.getElapsedTime();
+            this.isInteracting = true;
+
+        } else if (event.touches.length === 2 && this.isPinching) {
+            const currentDistance = this._getTouchDistance(event.touches);
+            const delta = (this.pinchStartDistance - currentDistance) * 0.05;
+
+            // Adjust camera distance via pinch
+            const baseDistance = this.camera.userData.baseDistance;
+            const minDist = baseDistance * 0.5;
+            const maxDist = baseDistance * 1.8;
+            this.camera.userData.baseDistance = Math.max(minDist, Math.min(maxDist, baseDistance + delta));
+
+            this.pinchStartDistance = currentDistance;
+            this.lastInteraction = this.clock.getElapsedTime();
+            this.isInteracting = true;
+        }
+    }
+
+    _onTouchEnd() {
+        // Tap detection
+        if (this.isTouching && !this.touchMoved) {
+            const duration = Date.now() - this.touchStartTime;
+            if (duration < 300) {
+                // Raycast to check if a node was tapped
+                this.raycaster.setFromCamera(this.mouse, this.camera);
+                const intersects = this.raycaster.intersectObjects(this.nodes);
+
+                if (intersects.length > 0) {
+                    // Tap on node: zoom closer
+                    const node = intersects[0].object;
+                    const nodePos = node.position.clone();
+                    const dir = nodePos.clone().normalize();
+                    const zoomDist = this.isMobile ? 8 : 10;
+                    this.camera.userData.baseDistance = zoomDist;
+                    this.orbitAngle = Math.atan2(dir.x, dir.z);
+                    this.orbitTilt = Math.asin(Math.max(-0.5, Math.min(0.5, dir.y / nodePos.length())));
+                } else {
+                    // Tap on empty space: reset
+                    const defaultDist = this.isMobile ? 14 : this.isTablet ? 16 : 20;
+                    this.camera.userData.baseDistance = defaultDist;
+                    this.orbitAngle = 0;
+                    this.orbitTilt = 0;
+                }
+            }
+        }
+
+        this.isTouching = false;
+        this.isPinching = false;
+        this.touchMoved = false;
+        this.isInteracting = false;
+    }
+
+    _updateMouseFromTouch(touch) {
+        const rect = this.container.getBoundingClientRect();
+        this.mouse.x = ((touch.clientX - rect.left) / rect.width) * 2 - 1;
+        this.mouse.y = -((touch.clientY - rect.top) / rect.height) * 2 + 1;
+        this._updateMouse3D();
     }
 
     _onInteractionEnd() {
         this.isInteracting = false;
+    }
+
+    _onOrientationChange() {
+        // Delay resize to let the browser settle after orientation change
+        setTimeout(() => {
+            this._onResize();
+        }, 150);
     }
 
     _updateMouse3D() {
@@ -430,15 +562,17 @@ export class ZenGeometryScene {
             const timeSinceInteraction = elapsed - this.lastInteraction;
             const interactionFade = Math.max(0, 1 - timeSinceInteraction / 2);
 
-            // Slow camera orbit with slight interaction response
+            // Camera orbit: auto-orbit + touch-driven offset
             const camDistance = this.camera.userData.baseDistance;
             const camSpeed = 0.025;
-            let camX = Math.sin(elapsed * camSpeed) * camDistance;
-            let camZ = Math.cos(elapsed * camSpeed) * camDistance;
-            let camY = Math.sin(elapsed * camSpeed * 0.4) * 2.5;
+            const autoAngle = elapsed * camSpeed;
+            const totalAngle = autoAngle + this.orbitAngle;
+            let camX = Math.sin(totalAngle) * camDistance;
+            let camZ = Math.cos(totalAngle) * camDistance;
+            let camY = Math.sin(elapsed * camSpeed * 0.4) * 2.5 + this.orbitTilt * camDistance * 0.3;
 
-            // Subtle camera pull toward interaction point
-            if (this.isInteracting && interactionFade > 0) {
+            // Subtle camera pull toward interaction point (mouse only)
+            if (this.isInteracting && !this.isTouching && !this.isPinching && interactionFade > 0) {
                 camX += this.mouse3D.x * 0.5 * interactionFade;
                 camY += this.mouse3D.y * 0.3 * interactionFade;
             }
@@ -564,11 +698,14 @@ export class ZenGeometryScene {
         window.removeEventListener('resize', this._handleResize);
         window.removeEventListener('resize', this._positionCanvas);
         window.removeEventListener('scroll', this._positionCanvas);
+        window.removeEventListener('orientationchange', this._handleOrientationChange);
 
         this.container.removeEventListener('mousemove', this._handleMouseMove);
-        this.container.removeEventListener('touchmove', this._handleTouchMove);
         this.container.removeEventListener('mouseleave', this._handleInteractionEnd);
-        this.container.removeEventListener('touchend', this._handleInteractionEnd);
+        this.container.removeEventListener('touchstart', this._handleTouchStart);
+        this.container.removeEventListener('touchmove', this._handleTouchMove);
+        this.container.removeEventListener('touchend', this._handleTouchEnd);
+        this.container.removeEventListener('touchcancel', this._handleTouchEnd);
 
         if (this.themeObserver) {
             this.themeObserver.disconnect();
