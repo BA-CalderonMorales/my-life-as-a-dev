@@ -1,0 +1,49 @@
+/* ============================================
+   Cards - Grid Cards and Feature Blocks
+   Card components, blockquotes, and feature highlights
+   ============================================ */
+
+/* Grid card layout */
+.grid.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 0;
+    list-style: none;
+}
+
+.grid.cards>li,
+.grid.cards>ul>li {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--mlad-radius-md);
+    transition: all 0.15s ease;
+}
+
+.grid.cards>li:hover,
+.grid.cards>ul>li:hover {
+    border-color: rgba(59, 107, 158, 0.15);
+    background: transparent;
+    transform: none;
+}
+
+[data-md-color-scheme="slate"] .grid.cards>li:hover,
+[data-md-color-scheme="slate"] .grid.cards>ul>li:hover {
+    border-color: rgba(212, 160, 83, 0.15);
+}
+
+/* Blockquote styling */
+.md-typeset blockquote {
+    border-left: 4px solid var(--md-primary-fg-color);
+    background: var(--md-accent-fg-color--transparent);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.md-typeset blockquote p {
+    margin: 0;
+}
