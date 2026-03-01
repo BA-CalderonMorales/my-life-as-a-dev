@@ -278,13 +278,14 @@
 .ai-chat-menu {
     position: absolute;
     bottom: 100%;
-    right: 0;
+    left: 0;
+    right: auto;
     margin-bottom: 8px;
     background: var(--md-default-bg-color);
     border: 1px solid var(--md-default-fg-color--lightest);
     border-radius: 8px;
     box-shadow: var(--md-shadow-z3);
-    min-width: 120px;
+    min-width: 140px;
     padding: 4px;
     opacity: 0;
     visibility: hidden;
@@ -619,8 +620,10 @@
 
     /* Menu adjustments for mobile */
     .ai-chat-menu {
-        right: 0;
+        left: 0;
+        right: auto;
         min-width: 160px;
+        max-width: min(220px, calc(100vw - 32px));
     }
 
     /* Handle virtual keyboard - use dvh for dynamic viewport height */
@@ -640,6 +643,10 @@
         padding: 0 16px;
         height: 36px;
         border-radius: 18px;
+    }
+
+    .ai-chat-menu {
+        max-width: min(240px, calc(100vw - 48px));
     }
 }
 

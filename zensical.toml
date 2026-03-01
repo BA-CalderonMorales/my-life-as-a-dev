@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-03-01 20:11:53 UTC
+#   Generated: 2026-03-01 20:47:01 UTC
 #
 # ##############################################################################
 
@@ -30,6 +30,8 @@ extra_css = [
     "assets/css/buttons.css",
     "assets/css/code.css",
     "assets/css/share.css",
+    "assets/css/chat-widget.css",
+    "assets/css/pull-to-refresh.css",
     "assets/css/background.css",
     "assets/css/landing.css",
     "assets/css/canvas.css",
