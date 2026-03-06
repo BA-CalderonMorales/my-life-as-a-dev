@@ -12,6 +12,9 @@
 
 .canvas-page .md-main {
     background: transparent;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
 }
 
 .canvas-page .md-main__inner,
@@ -19,12 +22,14 @@
     margin: 0 !important;
     padding: 0 !important;
     max-width: none !important;
+    height: 100%;
+    overflow: hidden;
 }
 
 .canvas-page .md-main__inner,
 .canvas-page .md-content__inner {
-    min-height: 100vh;
-    min-height: 100dvh;
+    min-height: 0;
+    height: 100%;
     background: transparent;
     box-shadow: none;
     margin: 0 !important;
@@ -35,65 +40,34 @@
     padding-left: env(safe-area-inset-left, 0);
     padding-right: env(safe-area-inset-right, 0);
     padding-bottom: env(safe-area-inset-bottom, 0);
+    overflow: hidden;
 }
 
-.canvas-shell {
-    position: relative;
-    z-index: 2;
-    min-height: calc(100vh - var(--md-header-height, 0px));
-    min-height: calc(100dvh - var(--md-header-height, 0px));
-    display: flex;
-    align-items: flex-end;
-    padding: clamp(1rem, 3vw, 2rem);
-    pointer-events: none;
+body.canvas-page {
+    overflow: hidden;
 }
 
-.canvas-shell__panel {
-    max-width: 28rem;
-    padding: 1.1rem 1.25rem 1.25rem;
-    background: var(--mlad-surface-elevated);
-    border: 1px solid var(--mlad-border-strong);
-    border-radius: var(--mlad-radius-lg);
-    box-shadow: var(--mlad-shadow-soft);
-    pointer-events: auto;
+html:has(body.canvas-page) {
+    overflow: hidden;
 }
 
-.canvas-shell__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.25rem 0.55rem;
-    margin-bottom: 0.8rem;
-    border: 1px solid var(--mlad-border-strong);
-    border-radius: var(--mlad-radius-sm);
-    background: var(--mlad-button-secondary-bg);
-    color: var(--md-default-fg-color);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.canvas-shell__panel h2 {
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-}
-
-.canvas-shell__panel .headerlink {
+.canvas-page .md-footer {
     display: none !important;
 }
 
-.canvas-shell__panel p {
-    margin: 0 0 0.9rem;
-    color: var(--md-default-fg-color);
+.canvas-page .md-header {
+    display: none !important;
 }
 
-.canvas-shell__panel p:last-of-type {
-    margin-bottom: 1rem;
+.canvas-page .canvas-shell,
+.canvas-page .canvas-shell__panel,
+.canvas-page .canvas-shell__eyebrow {
+    display: none !important;
 }
 
 .canvas-page #canvas-scene {
     position: fixed;
+    inset: 0;
     left: 0;
     width: 100vw;
     z-index: 1;
@@ -257,15 +231,6 @@
 }
 
 @media screen and (max-width: 48rem) {
-    .canvas-shell {
-        align-items: flex-start;
-        padding-top: 1rem;
-    }
-
-    .canvas-shell__panel {
-        max-width: none;
-    }
-
     .canvas-stage {
         margin: 1.5rem auto;
         padding: 1.25rem;
