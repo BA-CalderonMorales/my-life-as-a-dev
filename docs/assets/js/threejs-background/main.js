@@ -1,96 +1,115 @@
 /**
  * Three.js Background - Main Entry Point
- * 
- * Bruno Simon-inspired immersive background experience
- * Combines multiple visual effects for maximum impact:
- * - Animated gradient background with noise
- * - Flowing wave geometry
- * - Interactive particles with constellation connections
- * - Mouse-responsive camera and effects
- * 
- * Architecture: Follows MVVM, DDD, Vertical Slice patterns
+ * Uses a scene matched to the current page context.
  */
 
 import { DeviceDetector } from './utils/DeviceDetector.js';
-import { ImmersiveScene } from './pages/ImmersiveScene.js';
+import { HomePageScene } from './pages/HomePageScene.js';
+import { SubtlePageScene } from './pages/SubtlePageScene.js';
 
 class ThreeJSBackgroundApp {
     constructor() {
         this.currentScene = null;
+        this.currentSceneKind = null;
         this.deviceDetector = new DeviceDetector();
         this.containerId = 'threejs-bg-container';
         this.isInitialized = false;
-        this.hasLoggedWelcome = false;
     }
 
-    /**
-     * Initialize the Three.js background
-     */
-    async init() {
-        if (this.isInitialized) return;
-
-        if (!this.deviceDetector.shouldEnableThreeJS()) {
-            return;
+    resolveSceneKind() {
+        const explicit = document.body?.getAttribute('data-mlad-scene');
+        if (explicit) {
+            return explicit;
         }
 
-        this.createContainer();
+        const path = window.location.pathname.endsWith('index.html')
+            ? window.location.pathname.slice(0, -'index.html'.length)
+            : window.location.pathname;
 
-        // Use immersive scene with all effects for wow factor
-        this.currentScene = new ImmersiveScene(this.containerId);
-
-        const success = await this.currentScene.init();
-
-        if (success) {
-            this.isInitialized = true;
-            this.hasLoggedWelcome = true;
-
-            // Fade in the background container
-            const container = document.getElementById(this.containerId);
-            if (container) {
-                container.classList.add('is-ready');
-            }
+        if (path.includes('/canvas/')) {
+            return 'none';
         }
+
+        if (/\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/.test(path) || path === '/') {
+            return 'home';
+        }
+
+        return 'page';
     }
 
-    /**
-     * Create the container element for the Three.js canvas
-     */
-    createContainer() {
+    createScene(kind) {
+        if (kind === 'home') {
+            return new HomePageScene(this.containerId);
+        }
+
+        if (kind === 'page') {
+            return new SubtlePageScene(this.containerId);
+        }
+
+        return null;
+    }
+
+    createContainer(kind) {
         let container = document.getElementById(this.containerId);
 
         if (!container) {
             container = document.createElement('div');
             container.id = this.containerId;
             container.className = 'threejs-bg-container';
-
-            // Insert at document.body level to avoid affecting MkDocs layout
-            // The CSS position:fixed ensures it stays behind all content
             document.body.insertBefore(container, document.body.firstChild);
         }
 
+        container.setAttribute('data-scene-kind', kind);
         return container;
     }
 
-    /**
-     * Destroy the current scene and clean up
-     */
+    removeContainer() {
+        const container = document.getElementById(this.containerId);
+        if (container && container.parentNode) {
+            container.parentNode.removeChild(container);
+        }
+    }
+
+    async init() {
+        if (this.isInitialized) return;
+
+        const sceneKind = this.resolveSceneKind();
+        if (sceneKind === 'none' || !this.deviceDetector.shouldEnableThreeJS()) {
+            this.removeContainer();
+            return;
+        }
+
+        const container = this.createContainer(sceneKind);
+        this.currentScene = this.createScene(sceneKind);
+
+        if (!this.currentScene) {
+            this.removeContainer();
+            return;
+        }
+
+        const success = await this.currentScene.init();
+        if (!success) {
+            this.currentScene = null;
+            this.removeContainer();
+            return;
+        }
+
+        this.currentSceneKind = sceneKind;
+        this.isInitialized = true;
+        container.classList.add('is-ready');
+    }
+
     destroy() {
         if (this.currentScene) {
             this.currentScene.destroy();
             this.currentScene = null;
         }
 
-        const container = document.getElementById(this.containerId);
-        if (container && container.parentNode) {
-            container.parentNode.removeChild(container);
-        }
-
+        this.currentSceneKind = null;
         this.isInitialized = false;
+        this.removeContainer();
     }
 
-    /**
-     * Reinitialize for page navigation (MkDocs Material instant loading)
-     */
     async reinit() {
         this.destroy();
         await this.init();
@@ -99,9 +118,6 @@ class ThreeJSBackgroundApp {
 
 let app = null;
 
-/**
- * Initialize the background when DOM is ready
- */
 function initBackground() {
     if (app) {
         app.reinit();

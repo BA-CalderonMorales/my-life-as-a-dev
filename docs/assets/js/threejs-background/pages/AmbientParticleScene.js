@@ -1,9 +1,5 @@
 /**
- * AmbientParticleScene - Bruno Simon inspired ambient background
- * 
- * Creates a full-screen, immersive particle field that subtly flows
- * and responds to the page theme. Designed to complement content
- * without being distracting.
+ * AmbientParticleScene - sparse neutral particle field
  */
 import * as THREE from 'three';
 
@@ -21,17 +17,12 @@ export class AmbientParticleScene {
         this.mousePosition = { x: 0, y: 0 };
         this.targetMousePosition = { x: 0, y: 0 };
 
-        // Configuration based on page type
         this.config = {
-            particleCount: 1500,
-            particleSize: 2,
-            particleOpacity: 0.4,
-            flowSpeed: 0.15,
-            waveAmplitude: 0.3,
-            mouseInfluence: 0.02,
-            colorPrimary: 0xC08752,  // Caramel
-            colorSecondary: 0xF0B089, // Soft copper accent
-            colorBackground: 0x120804  // Deep espresso backdrop
+            particleCount: 900,
+            particleSize: 1.4,
+            particleOpacity: 0.16,
+            colorPrimary: 0x6d6d68,
+            colorSecondary: 0xd6d4ce,
         };
     }
 
@@ -108,13 +99,13 @@ export class AmbientParticleScene {
 
             // Color gradient between primary and secondary
             const mixRatio = Math.random();
-            const color = colorPrimary.clone().lerp(colorSecondary, mixRatio * 0.3);
+            const color = colorPrimary.clone().lerp(colorSecondary, mixRatio * 0.15);
 
             // Adjust brightness for theme
             if (isDarkMode) {
-                color.multiplyScalar(0.8);
+                color.multiplyScalar(0.72);
             } else {
-                color.multiplyScalar(0.5);
+                color.multiplyScalar(0.56);
             }
 
             colors[i3] = color.r;
@@ -138,7 +129,7 @@ export class AmbientParticleScene {
             uniforms: {
                 uTime: { value: 0 },
                 uPixelRatio: { value: Math.min(window.devicePixelRatio, 1.5) },
-                uOpacity: { value: isDarkMode ? 0.5 : 0.3 }
+                uOpacity: { value: isDarkMode ? 0.22 : 0.16 }
             },
             vertexShader: `
                 attribute float size;
@@ -171,7 +162,7 @@ export class AmbientParticleScene {
                     gl_Position = projectedPosition;
                     
                     // Size attenuation based on distance
-                    float sizeAttenuation = (1.0 / -viewPosition.z) * 100.0;
+                    float sizeAttenuation = (1.0 / -viewPosition.z) * 70.0;
                     gl_PointSize = size * sizeAttenuation * uPixelRatio;
                     
                     // Fade based on depth
@@ -197,7 +188,7 @@ export class AmbientParticleScene {
             `,
             transparent: true,
             depthWrite: false,
-            blending: THREE.AdditiveBlending,
+            blending: THREE.NormalBlending,
             vertexColors: true
         });
 

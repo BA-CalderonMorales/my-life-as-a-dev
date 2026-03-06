@@ -31,18 +31,18 @@ export function createCrystalMaterial(color) {
     return new THREE.MeshPhysicalMaterial({
         color: color,
         metalness: 0.0,
-        roughness: 0.02,            // Very smooth for reflections
-        transmission: 0.95,          // High transparency
-        thickness: 2.0,              // Deeper refraction
-        ior: 2.4,                    // Diamond-like refraction index
+        roughness: 0.08,
+        transmission: 0.88,
+        thickness: 1.6,
+        ior: 1.8,
         clearcoat: 1.0,
-        clearcoatRoughness: 0.02,
-        envMapIntensity: 2.0,
+        clearcoatRoughness: 0.08,
+        envMapIntensity: 0.7,
         flatShading: true,
         emissive: 0x000000,
         emissiveIntensity: 0,
         transparent: true,
-        opacity: 0.98,
+        opacity: 0.94,
     });
 }
 

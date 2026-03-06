@@ -4,35 +4,35 @@
 <!-- CRITICAL: Patch console and MutationObserver BEFORE MkDocs Material scripts load -->
 <script>
   (function () {
-    // Patterns to suppress from console (errors)
     var SUPPRESSED_ERROR_PATTERNS = [
       "Failed to execute 'observe' on 'MutationObserver'",
       "parameter 1 is not of type 'Node'"
     ];
-    // Patterns to suppress from console.warn/log (violations)
     var SUPPRESSED_WARN_PATTERNS = [
       '[Violation]',
       'Forced reflow while executing JavaScript',
       'Added non-passive event listener',
       '[giscus] Discussion not found'
     ];
+
     function shouldSuppressError(msg) {
       if (!msg) return false;
-      var s = String(msg);
+      var value = String(msg);
       for (var i = 0; i < SUPPRESSED_ERROR_PATTERNS.length; i++) {
-        if (s.indexOf(SUPPRESSED_ERROR_PATTERNS[i]) !== -1) return true;
+        if (value.indexOf(SUPPRESSED_ERROR_PATTERNS[i]) !== -1) return true;
       }
       return false;
     }
+
     function shouldSuppressWarn(msg) {
       if (!msg) return false;
-      var s = String(msg);
+      var value = String(msg);
       for (var i = 0; i < SUPPRESSED_WARN_PATTERNS.length; i++) {
-        if (s.indexOf(SUPPRESSED_WARN_PATTERNS[i]) !== -1) return true;
+        if (value.indexOf(SUPPRESSED_WARN_PATTERNS[i]) !== -1) return true;
       }
       return false;
     }
-    // Patch console.error
+
     var origError = console.error;
     console.error = function () {
       for (var i = 0; i < arguments.length; i++) {
@@ -41,7 +41,7 @@
       }
       return origError.apply(console, arguments);
     };
-    // Patch console.warn to suppress [Violation] messages
+
     var origWarn = console.warn;
     console.warn = function () {
       for (var i = 0; i < arguments.length; i++) {
@@ -49,7 +49,7 @@
       }
       return origWarn.apply(console, arguments);
     };
-    // Patch console.log to suppress [Violation] messages (Chrome logs some there)
+
     var origLog = console.log;
     console.log = function () {
       for (var i = 0; i < arguments.length; i++) {
@@ -57,7 +57,7 @@
       }
       return origLog.apply(console, arguments);
     };
-    // Patch MutationObserver.observe to handle null targets
+
     var NativeMutationObserver = window.MutationObserver;
     if (NativeMutationObserver) {
       var originalObserve = NativeMutationObserver.prototype.observe;
@@ -69,7 +69,7 @@
         } catch (e) { }
       };
     }
-    // Global error handler to catch async errors
+
     window.addEventListener('error', function (e) {
       if (shouldSuppressError(e.message) || (e.error && shouldSuppressError(e.error.message))) {
         e.preventDefault();
@@ -83,81 +83,47 @@
 {% endblock %}
 
 {% block extrahead %}
-<!-- Critical CSS: solid fallback backgrounds before external CSS loads -->
 <style>
+  :root {
+    --mlad-critical-surface: rgba(248, 247, 242, 0.96);
+    --mlad-critical-border: rgba(21, 21, 21, 0.16);
+  }
+
+  [data-md-color-scheme="slate"] {
+    --mlad-critical-surface: rgba(28, 28, 27, 0.98);
+    --mlad-critical-border: rgba(242, 241, 237, 0.16);
+  }
+
   .md-content__inner {
-    background: rgba(250, 248, 245, 0.9);
-    border-radius: 0.75rem;
-    border: 1px solid rgba(45, 42, 38, 0.08);
-    padding: 1.5rem;
-    margin: 0.5rem;
+    background: var(--mlad-critical-surface);
+    border-radius: 1.1rem;
+    border: 1px solid var(--mlad-critical-border);
+    box-shadow: 8px 8px 0 rgba(21, 21, 21, 0.08);
   }
 
-  [data-md-color-scheme="slate"] .md-content__inner {
-    background: rgba(12, 18, 34, 0.82);
-    border-color: rgba(232, 226, 216, 0.08);
-  }
-
-  @media screen and (max-width: 76.25rem) {
-    .md-content__inner {
-      background: var(--md-default-bg-color, #fff) !important;
-    }
-  }
-
-  /* Landing page specific overrides to prevent FOUC */
-  .landing-page .md-content__inner {
+  .landing-page .md-content__inner,
+  .canvas-page .md-content__inner {
     background: transparent !important;
     border: none !important;
+    box-shadow: none !important;
   }
 
-  /* Three.js bg: hidden until scene is ready */
   .threejs-bg-container {
     opacity: 0;
-    transition: opacity 0.6s ease;
-  }
-
-  .threejs-bg-container.is-ready {
-    opacity: 0.6;
-  }
-
-  [data-md-color-scheme="slate"] .threejs-bg-container.is-ready {
-    opacity: 0.7;
-  }
-
-  /* Landing page Three.js bg overrides */
-  .landing-page .threejs-bg-container.is-ready {
-    opacity: 0.85;
-  }
-
-  [data-md-color-scheme="slate"] .landing-page .threejs-bg-container.is-ready {
-    opacity: 1;
   }
 </style>
 <meta name="site_url" content="{{ config.site_url }}">
 <link rel="icon" href="{{ config.theme.logo | url }}" />
-
-<!-- PWA: Web App Manifest for Android -->
 <link rel="manifest" href="{{ 'manifest.webmanifest' | url }}">
-
-<!-- PWA: iOS/Safari specific meta tags for full-screen home screen app -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="SimplifiedLife">
 <link rel="apple-touch-icon" href="{{ 'assets/images/favicon/icon-192.png' | url }}">
-
-<!-- PWA: Android/Chrome theme color -->
-<meta name="theme-color" content="#0c1222">
-
-<!-- PWA: Microsoft/Windows tile -->
-<meta name="msapplication-TileColor" content="#0c1222">
-
-<!-- PWA: Mobile viewport optimization for standalone mode -->
+<meta name="theme-color" content="#111111">
+<meta name="msapplication-TileColor" content="#111111">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
-
-<!-- Additional patches and polyfills loaded from external file -->
 <script src="{{ 'assets/js/console-patch.js' | url }}"></script>
-<!-- Import map for Three.js ES modules -->
 <script type="importmap">
 {
   "imports": {
@@ -169,18 +135,13 @@
 
 {% block scripts %}
 {{ super() }}
-<!-- Pull-to-Refresh for mobile/tablet -->
 <script src="{{ 'assets/js/pull-to-refresh.js' | url }}"></script>
-
-<!-- Enhanced tooltips for interactive elements -->
 <script src="{{ 'assets/js/enhanced-tooltips.js' | url }}"></script>
 
-<!-- Mobile theme switch repaint forcer -->
 <script>
   (function () {
     if (!window.matchMedia('(pointer: coarse)').matches) return;
     var observer = new MutationObserver(function () {
-      // Force compositor layer invalidation after theme attribute change
       requestAnimationFrame(function () {
         document.body.style.transform = 'translateZ(0)';
         requestAnimationFrame(function () {
@@ -197,31 +158,42 @@
   })();
 </script>
 
-<!-- Three.js Background Animation -->
-<script type="module" src="{{ 'assets/js/threejs-background/main.js' | url }}"></script>
-
-<!-- Page class detection for landing page -->
 <script>
   (function () {
-    const path = window.location.pathname;
-    // Check if this is the home page (ends with /latest/, /0.x.y/, or just the repo root)
-    const isHome = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/.test(path);
-    const isCanvas = path.includes('/canvas/');
+    var HOME_PATTERN = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/;
 
-    if (isHome) {
-      document.body.classList.add('landing-page');
+    function normalizePath(pathname) {
+      return pathname.endsWith('index.html') ? pathname.slice(0, -'index.html'.length) : pathname;
     }
-    if (isCanvas) {
-      document.body.classList.add('canvas-page');
+
+    function updatePageClasses() {
+      if (!document.body) return;
+
+      var path = normalizePath(window.location.pathname);
+      var isCanvas = path.indexOf('/canvas/') !== -1;
+      var isHome = path === '/' || HOME_PATTERN.test(path);
+      var scene = isCanvas ? 'none' : (isHome ? 'home' : 'page');
+
+      document.body.classList.toggle('landing-page', isHome);
+      document.body.classList.toggle('canvas-page', isCanvas);
+      document.body.setAttribute('data-mlad-scene', scene);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updatePageClasses, { once: true });
+    } else {
+      updatePageClasses();
+    }
+
+    if (typeof document$ !== 'undefined') {
+      document$.subscribe(updatePageClasses);
     }
   })();
 </script>
 
-<!-- Canvas Page Three.js Scene (handles instant navigation) -->
+<script type="module" src="{{ 'assets/js/threejs-background/main.js' | url }}"></script>
 <script type="module" src="{{ 'assets/js/canvas/scene/main.js' | url }}"></script>
 
-<!-- AI Chat Widget Styles -->
-<!-- AI Chat Widget Scripts - Load in dependency order -->
 <script src="{{ 'assets/js/chat-widget/lib/config.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/logger.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/message-parser.js' | url }}"></script>

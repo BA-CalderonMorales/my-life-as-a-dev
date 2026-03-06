@@ -17,33 +17,61 @@
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    background: transparent;
-    border: 1px solid transparent;
+    background: var(--mlad-surface-elevated);
+    border: 1px solid var(--mlad-border-strong);
     border-radius: var(--mlad-radius-md);
-    transition: all 0.15s ease;
+    box-shadow: var(--mlad-shadow-soft);
+    transition: transform 0.15s ease, box-shadow 0.15s ease,
+        background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .grid.cards>li:hover,
 .grid.cards>ul>li:hover {
-    border-color: rgba(59, 107, 158, 0.15);
-    background: transparent;
-    transform: none;
+    border-color: var(--md-default-fg-color);
+    background: var(--mlad-surface-strong);
+    box-shadow: var(--mlad-shadow-strong);
+    transform: translate(-2px, -2px);
 }
 
 [data-md-color-scheme="slate"] .grid.cards>li:hover,
 [data-md-color-scheme="slate"] .grid.cards>ul>li:hover {
-    border-color: rgba(212, 160, 83, 0.15);
+    border-color: var(--md-default-fg-color);
 }
 
 /* Blockquote styling */
 .md-typeset blockquote {
-    border-left: 4px solid var(--md-primary-fg-color);
-    background: var(--md-accent-fg-color--transparent);
-    padding: 1rem 1.25rem;
+    position: relative;
+    border: 1px solid var(--mlad-border-strong);
+    background: var(--mlad-surface-elevated);
+    box-shadow: var(--mlad-shadow-soft);
+    padding: 1rem 1.25rem 1rem 1.75rem;
     margin: 1.5rem 0;
-    border-radius: 0 0.5rem 0.5rem 0;
+    border-radius: var(--mlad-radius-md);
+    color: var(--md-default-fg-color);
+}
+
+.md-typeset blockquote::before {
+    content: ">";
+    position: absolute;
+    top: 0.9rem;
+    left: 0.9rem;
+    color: var(--md-default-fg-color);
+    font-family: "Space Mono", "Fira Code", monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
 }
 
 .md-typeset blockquote p {
     margin: 0;
+    color: var(--md-default-fg-color);
+}
+
+.md-typeset blockquote p + p {
+    margin-top: 0.45rem;
+}
+
+.md-typeset blockquote strong,
+.md-typeset blockquote em,
+.md-typeset blockquote a {
+    color: inherit;
 }

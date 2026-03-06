@@ -1,8 +1,5 @@
 /**
- * Lighting System - Prismatic cave lighting
- * 
- * Creates a multi-point lighting setup with colored lights
- * that shimmer and move for dynamic atmosphere.
+ * Lighting System - restrained cave lighting
  */
 import * as THREE from 'three';
 
@@ -26,13 +23,13 @@ export class LightingSystem {
         );
         scene.add(this.ambientLight);
 
-        // Point lights for dramatic prismatic effect
+        // Point lights for restrained depth and edge definition
         themeColors.lights.forEach(lightConfig => {
             const light = new THREE.PointLight(
                 lightConfig.color,
                 lightConfig.intensity,
-                35,  // Distance
-                1.5  // Decay
+                28,
+                1.8
             );
             light.position.set(...lightConfig.pos);
             scene.add(light);
@@ -49,10 +46,9 @@ export class LightingSystem {
     update(elapsed) {
         this.pointLights.forEach((light, i) => {
             const basePos = this.baseLightPositions[i];
-            // Subtle orbital movement
-            light.position.x = basePos[0] + Math.sin(elapsed * 0.5 + i * 1.2) * 0.8;
-            light.position.y = basePos[1] + Math.cos(elapsed * 0.3 + i * 0.8) * 0.5;
-            light.position.z = basePos[2] + Math.sin(elapsed * 0.4 + i * 1.5) * 0.3;
+            light.position.x = basePos[0] + Math.sin(elapsed * 0.35 + i * 1.2) * 0.3;
+            light.position.y = basePos[1] + Math.cos(elapsed * 0.22 + i * 0.8) * 0.2;
+            light.position.z = basePos[2] + Math.sin(elapsed * 0.28 + i * 1.5) * 0.14;
         });
     }
 

@@ -15,15 +15,95 @@
 }
 
 .canvas-page .md-main__inner,
+.canvas-page .md-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+}
+
+.canvas-page .md-main__inner,
 .canvas-page .md-content__inner {
     min-height: 100vh;
     min-height: 100dvh;
     background: transparent;
     box-shadow: none;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    max-width: none !important;
     /* Safe area insets for notched devices */
     padding-left: env(safe-area-inset-left, 0);
     padding-right: env(safe-area-inset-right, 0);
     padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.canvas-shell {
+    position: relative;
+    z-index: 2;
+    min-height: calc(100vh - var(--md-header-height, 0px));
+    min-height: calc(100dvh - var(--md-header-height, 0px));
+    display: flex;
+    align-items: flex-end;
+    padding: clamp(1rem, 3vw, 2rem);
+    pointer-events: none;
+}
+
+.canvas-shell__panel {
+    max-width: 28rem;
+    padding: 1.1rem 1.25rem 1.25rem;
+    background: var(--mlad-surface-elevated);
+    border: 1px solid var(--mlad-border-strong);
+    border-radius: var(--mlad-radius-lg);
+    box-shadow: var(--mlad-shadow-soft);
+    pointer-events: auto;
+}
+
+.canvas-shell__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.55rem;
+    margin-bottom: 0.8rem;
+    border: 1px solid var(--mlad-border-strong);
+    border-radius: var(--mlad-radius-sm);
+    background: var(--mlad-button-secondary-bg);
+    color: var(--md-default-fg-color);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.canvas-shell__panel h2 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.canvas-shell__panel .headerlink {
+    display: none !important;
+}
+
+.canvas-shell__panel p {
+    margin: 0 0 0.9rem;
+    color: var(--md-default-fg-color);
+}
+
+.canvas-shell__panel p:last-of-type {
+    margin-bottom: 1rem;
+}
+
+.canvas-page #canvas-scene {
+    position: fixed;
+    left: 0;
+    width: 100vw;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+.canvas-page #canvas-scene canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .canvas-placeholder {
@@ -47,20 +127,16 @@
 }
 
 .canvas-stage {
-    background: var(--nav-surface, rgba(255, 255, 255, 0.9));
-    border: 1px solid var(--nav-border, rgba(15, 23, 42, 0.08));
-    border-radius: 1.25rem;
+    background: var(--mlad-surface-elevated, rgba(255, 255, 255, 0.95));
+    border: 1px solid var(--mlad-border-strong, rgba(15, 23, 42, 0.18));
+    border-radius: var(--mlad-radius-lg);
     padding: clamp(1.25rem, 2vw, 2rem);
     margin: 2.5rem auto;
-    box-shadow: 0 35px 90px rgba(59, 107, 158, 0.12);
+    box-shadow: var(--mlad-shadow-soft);
     max-width: 1200px;
     transition: max-width 0.3s ease, padding 0.3s ease;
     /* Prevent pull-to-refresh when interacting with canvas */
     overscroll-behavior: contain;
-}
-
-[data-md-color-scheme="slate"] .canvas-stage {
-    box-shadow: 0 35px 120px rgba(12, 18, 34, 0.55);
 }
 
 .canvas-stage[data-canvas-expanded="true"] {
@@ -85,8 +161,8 @@
     min-height: clamp(320px, 55vh, 720px);
     border-radius: 1rem;
     overflow: hidden;
-    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.04), transparent 60%);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: color-mix(in srgb, var(--md-default-bg-color) 88%, var(--md-default-fg-color) 12%);
+    border: 1px solid var(--mlad-border-strong);
     transition: min-height 0.3s ease;
 }
 
@@ -120,11 +196,11 @@
 }
 
 .canvas-mode {
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    background: transparent;
+    border: 1px solid var(--mlad-border-strong);
+    background: var(--mlad-surface-elevated);
     color: var(--md-default-fg-color);
     padding: 0.5rem 1.25rem;
-    border-radius: 999px;
+    border-radius: var(--mlad-radius-md);
     font-size: 0.95rem;
     font-weight: 600;
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
@@ -137,9 +213,9 @@
 
 .canvas-mode.is-active {
     background: var(--md-primary-fg-color);
-    border-color: transparent;
-    color: #fff;
-    box-shadow: 0 10px 25px rgba(59, 107, 158, 0.25);
+    border-color: var(--md-primary-fg-color);
+    color: var(--md-primary-bg-color);
+    box-shadow: var(--mlad-shadow-button);
 }
 
 .canvas-stage__actions {
@@ -181,6 +257,15 @@
 }
 
 @media screen and (max-width: 48rem) {
+    .canvas-shell {
+        align-items: flex-start;
+        padding-top: 1rem;
+    }
+
+    .canvas-shell__panel {
+        max-width: none;
+    }
+
     .canvas-stage {
         margin: 1.5rem auto;
         padding: 1.25rem;
@@ -222,15 +307,16 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.25rem;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(8px);
-    border-radius: 0.75rem;
-    color: #fff;
+    background: var(--mlad-surface-elevated);
+    border: 1px solid var(--mlad-border-strong);
+    border-radius: var(--mlad-radius-md);
+    color: var(--md-default-fg-color);
     font-size: 0.85rem;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
     z-index: 10;
+    box-shadow: var(--mlad-shadow-button);
 }
 
 .canvas-touch-hint.is-visible {

@@ -15,10 +15,9 @@ export class GradientBackground {
         this.material = null;
 
         this.config = {
-            colorTop: options.colorTop || new THREE.Color(0x261108),
-            colorBottom: options.colorBottom || new THREE.Color(0x080302),
-            colorAccent: options.colorAccent || new THREE.Color(0xC08752),
-            animationSpeed: options.animationSpeed || 0.3,
+            colorTop: options.colorTop || new THREE.Color(0xf4f3ee),
+            colorBottom: options.colorBottom || new THREE.Color(0xe4e2dc),
+            colorAccent: options.colorAccent || new THREE.Color(0xc7c4bc),
             waveIntensity: options.waveIntensity || 0.15,
         };
     }
@@ -89,8 +88,8 @@ export class GradientBackground {
                     gradientMix = smoothstep(0.0, 1.0, gradientMix);
                     
                     // Very subtle animated noise for organic feel
-                    float noise1 = snoise(vUv * 2.0 + uTime * 0.05) * uWaveIntensity * 0.6;
-                    float noise2 = snoise(vUv * 4.0 - uTime * 0.08) * uWaveIntensity * 0.3;
+                    float noise1 = snoise(vUv * 2.0 + uTime * 0.05) * uWaveIntensity * 0.45;
+                    float noise2 = snoise(vUv * 4.0 - uTime * 0.08) * uWaveIntensity * 0.2;
                     
                     gradientMix += noise1 + noise2;
                     gradientMix = clamp(gradientMix, 0.0, 1.0);
@@ -98,9 +97,9 @@ export class GradientBackground {
                     // Mix base colors
                     vec3 color = mix(uColorBottom, uColorTop, gradientMix);
                     
-                    // Subtle accent color glow - very soft
+                    // Small tonal accent to keep the field from going flat
                     float accentNoise = snoise(vUv * 1.5 + vec2(uTime * 0.03, 0.0));
-                    float accentMask = smoothstep(0.4, 0.8, accentNoise) * 0.08;
+                    float accentMask = smoothstep(0.48, 0.82, accentNoise) * 0.04;
                     color = mix(color, uColorAccent, accentMask);
                     
                     gl_FragColor = vec4(color, 1.0);

@@ -17,13 +17,12 @@ export class InteractiveParticles {
         this.connections = null;
 
         this.config = {
-            particleCount: options.particleCount || 200,
-            particleSize: options.particleSize || 3,
-            connectionDistance: options.connectionDistance || 15,
-            mouseRadius: options.mouseRadius || 30,
-            mouseStrength: options.mouseStrength || 0.3,
-            colorPrimary: options.colorPrimary || 0xC08752,
-            colorSecondary: options.colorSecondary || 0xF1C184,
+            particleCount: options.particleCount || 120,
+            particleSize: options.particleSize || 2.6,
+            connectionDistance: options.connectionDistance || 12,
+            mouseRadius: options.mouseRadius || 24,
+            colorPrimary: options.colorPrimary || 0x6d6d68,
+            colorSecondary: options.colorSecondary || 0xd2d0ca,
             spread: options.spread || { x: 120, y: 80, z: 50 },
         };
 
@@ -78,7 +77,7 @@ export class InteractiveParticles {
 
             // Color gradient
             const mixRatio = Math.random();
-            const color = colorPrimary.clone().lerp(colorSecondary, mixRatio * 0.4);
+            const color = colorPrimary.clone().lerp(colorSecondary, mixRatio * 0.25);
             colors[i3] = color.r;
             colors[i3 + 1] = color.g;
             colors[i3 + 2] = color.b;
@@ -120,8 +119,8 @@ export class InteractiveParticles {
                     vec3 pos = position;
                     
                     // Gentle floating motion
-                    pos.y += sin(uTime * 0.5 + phase) * 0.5;
-                    pos.x += cos(uTime * 0.3 + phase * 0.5) * 0.3;
+                    pos.y += sin(uTime * 0.4 + phase) * 0.25;
+                    pos.x += cos(uTime * 0.22 + phase * 0.5) * 0.18;
                     
                     // Mouse interaction - repulsion
                     vec3 toMouse = pos - uMouse;
@@ -130,13 +129,13 @@ export class InteractiveParticles {
                     if (distToMouse < uMouseRadius) {
                         float force = 1.0 - (distToMouse / uMouseRadius);
                         force = pow(force, 2.0); // Quadratic falloff
-                        pos += normalize(toMouse) * force * 8.0;
+                        pos += normalize(toMouse) * force * 4.2;
                     }
                     
                     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
                     
                     // Size attenuation
-                    float sizeAttenuation = (300.0 / -mvPosition.z);
+                    float sizeAttenuation = (220.0 / -mvPosition.z);
                     gl_PointSize = size * sizeAttenuation * uPixelRatio;
                     
                     // Distance fade
@@ -150,23 +149,18 @@ export class InteractiveParticles {
                 varying float vAlpha;
                 
                 void main() {
-                    // Soft circular particle with glow
+                    // Soft circular particle
                     float dist = length(gl_PointCoord - vec2(0.5));
-                    
-                    // Core
                     float core = 1.0 - smoothstep(0.0, 0.2, dist);
-                    // Glow
-                    float glow = 1.0 - smoothstep(0.0, 0.5, dist);
-                    glow = pow(glow, 2.0);
-                    
-                    float alpha = (core * 0.8 + glow * 0.4) * vAlpha;
+                    float halo = 1.0 - smoothstep(0.0, 0.45, dist);
+                    float alpha = (core * 0.72 + halo * 0.16) * vAlpha;
                     
                     gl_FragColor = vec4(vColor, alpha);
                 }
             `,
             transparent: true,
             depthWrite: false,
-            blending: THREE.AdditiveBlending,
+            blending: THREE.NormalBlending,
             vertexColors: true,
         });
 
@@ -190,8 +184,8 @@ export class InteractiveParticles {
         const material = new THREE.LineBasicMaterial({
             vertexColors: true,
             transparent: true,
-            opacity: 0.6,
-            blending: THREE.AdditiveBlending,
+            opacity: 0.18,
+            blending: THREE.NormalBlending,
         });
 
         this.connections = new THREE.LineSegments(geometry, material);

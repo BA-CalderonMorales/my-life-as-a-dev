@@ -9,9 +9,9 @@ import * as THREE from 'three';
 export class ParticleSystem {
     constructor(options = {}) {
         this.count = options.count || 1000;
-        this.color = options.color || 0xaaddff;
+        this.color = options.color || 0x7a7a75;
         this.size = options.size || 0.05;
-        this.opacity = options.opacity || 0.7;
+        this.opacity = options.opacity || 0.28;
         this.bounds = options.bounds || { x: 25, y: 20, z: 20 };
         this.attractionRadius = options.attractionRadius || 8;
         this.attractionStrength = options.attractionStrength || 0.025;
@@ -48,7 +48,7 @@ export class ParticleSystem {
             transparent: true,
             opacity: this.opacity,
             sizeAttenuation: true,
-            blending: THREE.AdditiveBlending,
+            blending: THREE.NormalBlending,
         });
 
         this.points = new THREE.Points(this.geometry, this.material);
@@ -90,7 +90,7 @@ export class ParticleSystem {
             vel.z *= 0.98;
 
             // Upward drift
-            vel.y += 0.0003;
+            vel.y += 0.0002;
 
             // Update position
             positions[i3] += vel.x;
