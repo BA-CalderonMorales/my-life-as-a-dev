@@ -101,28 +101,11 @@ export class ZenGeometryScene {
 
     _updateCanvasPosition() {
         const header = document.querySelector('.md-header');
-        const footer = document.querySelector('.md-footer');
         const headerHeight = header ? header.offsetHeight : 0;
-        let footerTop = window.innerHeight;
-
-        if (footer) {
-            const footerRect = footer.getBoundingClientRect();
-            if (footerRect.top < window.innerHeight && footerRect.top > headerHeight) {
-                footerTop = footerRect.top;
-            }
-        }
-
-        // Enforce minimum height for mobile/tablet for better immersion
-        let canvasHeight = footerTop - headerHeight;
-        const minHeight = this.isMobile ? window.innerHeight * 0.85 :
-                          this.isTablet ? window.innerHeight * 0.8 : 0;
-
-        if (minHeight > 0 && canvasHeight < minHeight) {
-            canvasHeight = minHeight;
-        }
+        const viewportHeight = Math.max(window.innerHeight - headerHeight, 0);
 
         this.container.style.top = headerHeight + 'px';
-        this.container.style.height = canvasHeight + 'px';
+        this.container.style.height = viewportHeight + 'px';
     }
 
     _getColors() {
