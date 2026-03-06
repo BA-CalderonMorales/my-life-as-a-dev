@@ -104,6 +104,7 @@ export class ZenGeometryScene {
         const headerHeight = header ? header.offsetHeight : 0;
         const viewportHeight = Math.max(window.innerHeight - headerHeight, 0);
 
+        document.documentElement.style.setProperty('--canvas-header-offset', `${headerHeight}px`);
         this.container.style.top = headerHeight + 'px';
         this.container.style.height = viewportHeight + 'px';
     }
