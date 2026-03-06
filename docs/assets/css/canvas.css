@@ -12,8 +12,8 @@
 
 .canvas-page .md-main {
     background: transparent;
-    height: 100vh;
-    height: 100dvh;
+    height: calc(100vh - var(--canvas-header-offset, 0px));
+    height: calc(100dvh - var(--canvas-header-offset, 0px));
     overflow: hidden;
 }
 
@@ -52,10 +52,6 @@ html:has(body.canvas-page) {
 }
 
 .canvas-page .md-footer {
-    display: none !important;
-}
-
-.canvas-page .md-header {
     display: none !important;
 }
 

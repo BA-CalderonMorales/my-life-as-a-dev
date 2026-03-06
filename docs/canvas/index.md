@@ -6,7 +6,6 @@ tags:
   - JavaScript
   - Experiment
 hide:
-  - navigation
   - toc
   - path
 comments: false
