@@ -13,6 +13,9 @@ class ChatView {
         this._scrollStartTop = 0;
         this._scrollHeight = 0;
         this._clientHeight = 0;
+        this._autoScrollTop = 0;
+        this._userHasScrolled = false;
+        this._revealScrollHandler = null;
     }
 
     /**
@@ -368,15 +371,16 @@ class ChatView {
         contentDiv.className = 'ai-message-content';
 
         if (sender === 'bot' && parser) {
-            contentDiv.innerHTML = parser.parse(text);
-            
-            // Try to apply syntax highlighting if available
-            // Material for MkDocs typically uses Highlight.js
-            if (window.hljs) {
-                contentDiv.querySelectorAll('pre code').forEach((block) => {
-                    window.hljs.highlightElement(block);
-                });
-            }
+            const htmlString = parser.parse(text);
+
+            messageDiv.appendChild(contentDiv);
+            this.elements.messagesDiv.appendChild(messageDiv);
+
+            this._scrollToQuestionContext(messageDiv);
+            this._revealBotMessage(contentDiv, htmlString).then(() => {
+                this._scrollAfterReveal();
+            });
+            return;
         } else {
             contentDiv.textContent = text;
         }
@@ -384,6 +388,113 @@ class ChatView {
         messageDiv.appendChild(contentDiv);
         this.elements.messagesDiv.appendChild(messageDiv);
         this.elements.messagesDiv.scrollTop = this.elements.messagesDiv.scrollHeight;
+    }
+
+    /**
+     * Progressively reveal bot message content block-by-block
+     * @param {HTMLElement} contentDiv - The content container
+     * @param {string} htmlString - Parsed HTML to reveal
+     * @returns {Promise} Resolves when all blocks are visible
+     */
+    _revealBotMessage(contentDiv, htmlString) {
+        return new Promise((resolve) => {
+            const temp = document.createElement('div');
+            temp.innerHTML = htmlString;
+
+            const blocks = Array.from(temp.children);
+
+            // Edge case: no block-level children (plain text or empty)
+            if (blocks.length === 0) {
+                contentDiv.innerHTML = htmlString;
+                if (window.hljs) {
+                    contentDiv.querySelectorAll('pre code').forEach((block) => {
+                        window.hljs.highlightElement(block);
+                    });
+                }
+                resolve();
+                return;
+            }
+
+            // Append all blocks hidden
+            blocks.forEach((block) => {
+                block.classList.add('ai-reveal-block');
+                contentDiv.appendChild(block);
+            });
+
+            // Apply syntax highlighting before reveal
+            if (window.hljs) {
+                contentDiv.querySelectorAll('pre code').forEach((block) => {
+                    window.hljs.highlightElement(block);
+                });
+            }
+
+            // Stagger reveal timing: shorter for brief responses
+            const staggerMs = blocks.length <= 3 ? 80 : 100;
+
+            blocks.forEach((block, i) => {
+                setTimeout(() => {
+                    block.classList.add('ai-reveal-visible');
+
+                    // After last block, mark done and resolve
+                    if (i === blocks.length - 1) {
+                        setTimeout(() => {
+                            contentDiv.classList.add('ai-reveal-done');
+                            resolve();
+                        }, 300); // Wait for transition to finish
+                    }
+                }, i * staggerMs);
+            });
+        });
+    }
+
+    /**
+     * Scroll so the user's question is near the top of the messages area
+     * @param {HTMLElement} botMessageDiv - The bot message being added
+     */
+    _scrollToQuestionContext(botMessageDiv) {
+        const container = this.elements.messagesDiv;
+        if (!container) return;
+
+        this._userHasScrolled = false;
+
+        // Find the preceding user message
+        const userMsg = botMessageDiv.previousElementSibling;
+        if (userMsg && userMsg.classList.contains('ai-message-user')) {
+            const targetTop = userMsg.offsetTop - 12;
+            container.scrollTop = targetTop;
+        }
+
+        this._autoScrollTop = container.scrollTop;
+
+        // Attach scroll listener to detect user interaction
+        if (this._revealScrollHandler) {
+            container.removeEventListener('scroll', this._revealScrollHandler);
+        }
+        this._revealScrollHandler = () => {
+            if (Math.abs(container.scrollTop - this._autoScrollTop) > 30) {
+                this._userHasScrolled = true;
+            }
+        };
+        container.addEventListener('scroll', this._revealScrollHandler);
+    }
+
+    /**
+     * After reveal completes, smooth-scroll to bottom unless user scrolled away
+     */
+    _scrollAfterReveal() {
+        const container = this.elements.messagesDiv;
+        if (!container) return;
+
+        // Remove scroll listener
+        if (this._revealScrollHandler) {
+            container.removeEventListener('scroll', this._revealScrollHandler);
+            this._revealScrollHandler = null;
+        }
+
+        // Respect user's scroll position
+        if (this._userHasScrolled) return;
+
+        container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
     }
 
     showLoading(initialText = 'Thinking') {
