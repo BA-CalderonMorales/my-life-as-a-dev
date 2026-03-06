@@ -12,55 +12,18 @@ hide:
 comments: false
 ---
 
-<style>
-/* ===========================================
-   Canvas Page Scoped Styles
-   These styles ONLY apply to elements on this page
-   =========================================== */
+<section class="canvas-shell" markdown>
+<div class="canvas-shell__panel" markdown>
 
-/* Hide UI elements for clean canvas experience */
-.md-content__button,
-.md-source-file,
-.share-actions,
-.md-content h1:first-of-type {
-    display: none !important;
-}
+<span class="canvas-shell__eyebrow">Canvas</span>
 
-/* Reset content wrappers */
-.md-main__inner {
-    margin: 0 !important;
-    padding: 0 !important;
-    max-width: none !important;
-}
+## Quiet Geometry
 
-.md-content {
-    margin: 0 !important;
-    padding: 0 !important;
-    max-width: none !important;
-    width: 100% !important;
-}
+A monochrome Three.js study tuned to the site-wide brutalist and clay-inspired refresh.
 
-.md-content__inner {
-    margin: 0 !important;
-    padding: 0 !important;
-    max-width: none !important;
-}
+Drag to orbit, scroll or pinch to reframe, and press `Space` to reset the scene.
 
-/* Canvas container - positioned by JavaScript */
-#canvas-scene {
-    position: fixed;
-    left: 0;
-    width: 100vw;
-    z-index: 0;
-    pointer-events: auto;
-}
+[:material-arrow-left: Back Home](../index.md){ .md-button .md-button--primary }
 
-#canvas-scene canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-}
-</style>
-
-<!-- Crystal Cave Scene - initialized by canvas/scene/main.js -->
-<!-- Modular architecture under assets/js/canvas/scene/ -->
+</div>
+</section>

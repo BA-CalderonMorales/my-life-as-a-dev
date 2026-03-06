@@ -7,6 +7,8 @@ import { LightingManager } from '../lighting/LightingManager.js';
 import { GeometryFactory } from '../animation/GeometryFactory.js';
 import { AnimationController } from '../animation/AnimationController.js';
 import { DeviceDetector } from '../utils/DeviceDetector.js';
+import { PAGE_SCENE_OBJECTS } from './SceneObjectModel.js';
+import { buildSceneObject } from './SceneObjectViewModel.js';
 
 export class SubtlePageScene {
     constructor(containerId = 'threejs-bg-container') {
@@ -50,38 +52,10 @@ export class SubtlePageScene {
     }
 
     createObjects() {
-        const sphere1 = this.geometryFactory.createSphere({
-            radius: 1.5,
-            color: 0xC08752,
-            opacity: 0.25,
-            position: { x: 0, y: 0, z: -8 }
+        PAGE_SCENE_OBJECTS.forEach((definition) => {
+            const object = buildSceneObject(this.geometryFactory, definition);
+            this.addObject(object, definition.animation);
         });
-        this.addObject(sphere1, { scrollInfluence: 0.4 });
-
-        const icosa1 = this.geometryFactory.createIcosahedron({
-            radius: 1,
-            color: 0xA96A3A,
-            opacity: 0.2,
-            position: { x: -3, y: 2, z: -10 }
-        });
-        this.addObject(icosa1, { scrollInfluence: 0.3 });
-
-        const octa1 = this.geometryFactory.createOctahedron({
-            radius: 0.8,
-            color: 0xF0B089,
-            opacity: 0.15,
-            position: { x: 3, y: -1, z: -12 }
-        });
-        this.addObject(octa1, { scrollInfluence: 0.5 });
-
-        const ring1 = this.geometryFactory.createWireframeRing({
-            innerRadius: 4,
-            outerRadius: 5,
-            color: 0xC08752,
-            opacity: 0.06,
-            position: { x: 0, y: 0, z: -15 }
-        });
-        this.addObject(ring1, { enableFloat: false, scrollInfluence: 0.2 });
     }
 
     addObject(object, animOptions = {}) {

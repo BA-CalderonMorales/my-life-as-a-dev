@@ -177,15 +177,15 @@
     const style = document.createElement('style');
     style.textContent = `
       .md-version-banner {
-        background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
-        color: white;
+        background: var(--mlad-surface-solid, #f5f4ee);
+        color: var(--md-default-fg-color, #111);
         padding: 0.6rem 1rem;
         text-align: center;
         font-size: 0.85rem;
         position: sticky;
         top: 0;
         z-index: 200;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        border-bottom: 1px solid var(--mlad-border-strong, rgba(0, 0, 0, 0.16));
       }
       .md-version-banner__content {
         display: flex;
@@ -199,7 +199,7 @@
         align-items: center;
       }
       .md-version-banner__link {
-        color: white;
+        color: inherit;
         font-weight: bold;
         text-decoration: underline;
         margin-left: 0.25rem;
@@ -217,21 +217,21 @@
         align-items: center;
         gap: 0.35rem;
         padding: 0.4rem 0.5rem 0.4rem 0.7rem;
-        background: var(--mlad-button-bg, #000);
-        border: none;
-        border-radius: 2rem;
-        color: var(--mlad-button-fg, #fff);
+        background: var(--mlad-surface-elevated, #fff);
+        border: 1px solid var(--mlad-border-strong, rgba(0, 0, 0, 0.16));
+        border-radius: 0.9rem;
+        color: var(--md-default-fg-color, #111);
         cursor: pointer;
         font-size: 0.7rem;
         font-family: inherit;
         font-weight: 600;
         transition: all 0.2s ease;
         white-space: nowrap;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--mlad-shadow-button, 3px 3px 0 rgba(0, 0, 0, 0.12));
       }
       .md-version__current:hover {
-        background: var(--mlad-button-bg-hover, #333);
-        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+        background: var(--mlad-button-secondary-bg, #eceae3);
+        box-shadow: var(--mlad-shadow-button-hover, 5px 5px 0 rgba(0, 0, 0, 0.16));
       }
       .md-version__current svg {
         width: 14px;
@@ -241,7 +241,7 @@
         flex-shrink: 0;
       }
       .md-version--active .md-version__current {
-        background: var(--mlad-button-bg-hover, #333);
+        background: var(--mlad-button-secondary-bg, #eceae3);
       }
       .md-version--active .md-version__current svg {
         transform: rotate(180deg);
@@ -253,15 +253,15 @@
         margin: 0;
         padding: 0.5rem 0;
         background: var(--md-default-bg-color, white);
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        border-radius: 0.9rem;
+        box-shadow: var(--mlad-shadow-soft, 8px 8px 0 rgba(0, 0, 0, 0.08));
         list-style: none;
         min-width: 11rem;
         max-height: 20rem;
         overflow-y: auto;
         display: none;
         z-index: 100;
-        border: 1px solid rgba(0,0,0,0.08);
+        border: 1px solid var(--mlad-border-strong, rgba(0, 0, 0, 0.16));
       }
       .md-version--active .md-version__list {
         display: block;
@@ -275,12 +275,12 @@
         transition: background 0.15s ease;
       }
       .md-version__link:hover {
-        background: var(--md-accent-fg-color--transparent, rgba(0,0,0,0.05));
+        background: var(--mlad-button-secondary-bg, rgba(0, 0, 0, 0.05));
       }
       .md-version__item--active .md-version__link {
         font-weight: 600;
-        color: var(--md-accent-fg-color, #448aff);
-        background: rgba(68, 138, 255, 0.08);
+        color: var(--md-default-fg-color, #111);
+        background: var(--mlad-button-secondary-bg, rgba(0, 0, 0, 0.05));
       }
       /* Responsive: Mobile */
       @media screen and (max-width: 30rem) {

@@ -8,22 +8,18 @@ hide:
   - toc
 ---
 
-<style>
-.md-content__button { display: none; }
-</style>
-
 <section class="tx-hero" markdown>
 <div class="tx-hero__content" markdown>
 <div class="tx-hero__intro" markdown>
 
-# Build systems that ship
+# Build systems that stay readable
 
 </div>
 <div class="tx-hero__details" markdown>
 
-Product-minded engineer focused on **developer tooling**, **distributed systems**, and **docs-as-code** pipelines that remove friction.
+Product-minded engineer focused on **developer tooling**, **docs-as-code**, and **delivery systems** that help teams move without guesswork.
 
-[Get Started](projects/index.md){ .md-button .md-button--primary }
+[Explore Projects](projects/index.md){ .md-button .md-button--primary }
 [View Resume](resume/index.md){ .md-button }
 
 </div>
@@ -41,24 +37,24 @@ Product-minded engineer focused on **developer tooling**, **distributed systems*
 
 <div markdown>
 
-## What I Do
+## What I Build
 
-I partner with teams that want **less ceremony**, **faster delivery**, and **documentation** that people actually trust.
+I work on the layer that makes teams feel faster: the tooling, pipelines, and docs that remove friction before it becomes process.
 
-- :material-cog-outline: **Infrastructure as Code** - Predictable environments from day one
-- :material-file-document-outline: **Docs-as-Code** - Versioned, linted, automated
-- :material-robot-outline: **AI Tooling** - Orchestrate multiple LLM assistants
-- :material-shield-check-outline: **CI/CD Pipelines** - Built for reliability
+- :material-console: **Developer platforms** with predictable setup and useful defaults
+- :material-file-document-edit-outline: **Docs-as-code systems** that ship with the product
+- :material-robot-outline: **AI workflows** with guardrails, observability, and clear handoffs
+- :material-source-branch: **Delivery pipelines** built for repeatability, not drama
 
 </div>
 
 <div markdown>
 
-## Background
+## How I Work
 
-Marine Corps veteran turned engineer. I believe good tooling should feel like a well-maintained vehicle: **responsive**, **quiet**, and **reliable**.
+Marine Corps veteran turned engineer. I value quiet systems, clear ownership, and interfaces that explain themselves on the first pass.
 
-Currently finishing a B.S. in Computer Science while shipping production systems. Based in Omaha, NE. Bilingual (English/Spanish).
+Currently finishing a B.S. in Computer Science while shipping production systems. Based in Omaha, Nebraska. Bilingual in English and Spanish.
 
 [:material-linkedin: Connect on LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe/){ .md-button }
 
@@ -69,7 +65,7 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 
 <section class="md-typeset landing-section-featured" markdown>
 
-## Featured Projects
+## Featured Work
 
 <div class="grid cards landing-featured-projects" markdown>
 
@@ -77,7 +73,7 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 
     ---
 
-    A single CLI that orchestrates Claude Code, Gemini CLI, GPT, and more. Published on NPM and Crates.io.
+    A single CLI for orchestrating Claude Code, Gemini CLI, GPT, and adjacent tooling without changing the team workflow every week.
 
     [:octicons-arrow-right-24: View Project](projects/active/terminal-jarvis/index.md)
 
@@ -85,25 +81,25 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 
     ---
 
-    Templates and automation for self-hosted Coder environments. Cuts onboarding from days to minutes.
+    Self-hosted Coder templates and bootstrap scripts that make a fresh workspace feel consistent on day one.
 
     [:octicons-arrow-right-24: Starter Scripts](https://github.com/BA-CalderonMorales/coder-starter-scripts)
 
--   :material-book-open-variant:{ .lg .middle } **Docs-as-Code Portfolio**
+-   :material-book-open-variant:{ .lg .middle } **Docs-as-Code Platform**
 
     ---
 
-    This site itself. Versioned docs, automated releases, and handcrafted copy.
+    This site as a working system: Zensical builds, versioned docs, release automation, and deliberate information architecture.
 
     [:octicons-arrow-right-24: View Source](https://github.com/BA-CalderonMorales/my-life-as-a-dev)
 
--   :material-palette:{ .lg .middle } **Creative Experiments**
+-   :material-palette:{ .lg .middle } **Interface Experiments**
 
     ---
 
-    WebGL visualizations, particle systems, and browser-based terminal experiments.
+    WebGL studies, visual prototypes, and layout experiments used to test motion, contrast, and interaction quality.
 
-    [:octicons-arrow-right-24: Explore](projects/index.md#experiments)
+    [:octicons-arrow-right-24: Explore Experiments](projects/index.md#experiments)
 
 </div>
 
@@ -111,25 +107,25 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 
 <section class="md-typeset landing-section-working" markdown>
 
-## Working with Me
+## Working Principles
 
 <div class="grid landing-working-with-me" markdown>
 
-> :material-file-document-check: **Documentation as a product**
+> **Documentation should lower hesitation.**
 >
-> I treat docs with the same care as code. Every page is versioned, linted, and written for the next person.
+> I write for the next person who has to ship under time pressure.
 
-> :material-pipe: **Predictable over clever**
+> **Predictable beats clever.**
 >
-> I prefer pipelines that are boring and reliable over ones that are clever and fragile.
+> Reliable pipelines and visible failure modes are worth more than flashy automation.
 
-> :material-lightbulb-on: **Product thinking for infrastructure**
+> **Infrastructure is a product surface.**
 >
-> Teams should know the "why" behind every toggle. I design with intent.
+> Teams deserve sane defaults, readable controls, and change paths that are easy to reason about.
 
-> :material-gesture-tap: **Intuitive interfaces**
+> **Motion should support meaning.**
 >
-> Whether CLI or UI, it should feel right on the first run.
+> I use animation and interface detail to orient people, not to compete with the content.
 
 </div>
 
@@ -139,7 +135,7 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 
 ## Let's Talk
 
-Open to collaboration, consulting, and thoughtful conversations about developer experience.
+Available for collaboration, consulting, and conversations about developer experience, platform work, and documentation systems.
 
 [:material-email: b.dev.c.m@gmail.com](mailto:b.dev.c.m@gmail.com){ .md-button .md-button--primary }
 [:fontawesome-brands-github: GitHub](https://github.com/BA-CalderonMorales){ .md-button }

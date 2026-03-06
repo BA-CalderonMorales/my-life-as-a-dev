@@ -35,12 +35,12 @@ export class CrystalAnimator {
 
             // Scale pulse with hover boost
             const baseScale = 1 + wave * 0.02;
-            const hoverScale = 1 + crystal.userData.glowIntensity * 0.15;
+            const hoverScale = 1 + crystal.userData.glowIntensity * 0.08;
             crystal.scale.setScalar(baseScale * hoverScale);
 
             // Emissive glow
             this.materials[i].emissive = this.glowColor;
-            this.materials[i].emissiveIntensity = crystal.userData.glowIntensity * 0.5;
+            this.materials[i].emissiveIntensity = crystal.userData.glowIntensity * 0.16;
         });
     }
 

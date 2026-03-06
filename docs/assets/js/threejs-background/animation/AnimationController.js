@@ -7,7 +7,7 @@ export class AnimationController {
         this.animatedObjects = [];
         this.scrollOffset = 0;
         this.targetScrollOffset = 0;
-        this.smoothingFactor = 0.05;
+        this.smoothingFactor = 0.028;
     }
     
     /**
@@ -73,8 +73,8 @@ export class AnimationController {
         }
         
         if (enableScrollResponse && userData.originalPosition) {
-            const scrollY = this.scrollOffset * scrollInfluence * 5;
-            const scrollRotation = this.scrollOffset * Math.PI * 0.25 * scrollInfluence;
+            const scrollY = this.scrollOffset * scrollInfluence * 1.75;
+            const scrollRotation = this.scrollOffset * Math.PI * 0.08 * scrollInfluence;
             
             object.position.z = userData.originalPosition.z - scrollY * 0.5;
             

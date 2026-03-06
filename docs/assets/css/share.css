@@ -60,11 +60,11 @@
 
 /* Platform-specific hover colors */
 .share-action--twitter:hover {
-    color: #1DA1F2;
+    color: var(--md-default-fg-color);
 }
 
 .share-action--linkedin:hover {
-    color: #0A66C2;
+    color: var(--md-default-fg-color);
 }
 
 .share-action--copy:hover {
@@ -111,11 +111,11 @@
 
 /* Dark mode adjustments */
 [data-md-color-scheme="slate"] .share-actions {
-    border-top-color: rgba(255, 255, 255, 0.08);
+    border-top-color: var(--mlad-border-strong);
 }
 
 [data-md-color-scheme="slate"] .share-action:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--md-default-fg-color--lightest);
 }
 
 /* Responsive */

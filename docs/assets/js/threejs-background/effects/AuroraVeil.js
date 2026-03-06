@@ -14,15 +14,15 @@ export class AuroraVeil {
         this.veils = [];
 
         this.config = {
-            veilCount: options.veilCount || 2,
-            color: options.color || 0xF1C184,
-            opacity: options.opacity ?? 0.2,
-            speed: options.speed || 0.15,
-            noiseScale: options.noiseScale || 0.12,
-            sway: options.sway || 4,
+            veilCount: options.veilCount || 1,
+            color: options.color || 0xbcbab3,
+            opacity: options.opacity ?? 0.08,
+            speed: options.speed || 0.08,
+            noiseScale: options.noiseScale || 0.08,
+            sway: options.sway || 2.2,
             height: options.height || 140,
-            width: options.width || 60,
-            parallaxStrength: options.parallaxStrength || 2.5,
+            width: options.width || 48,
+            parallaxStrength: options.parallaxStrength || 1.3,
         };
     }
 
@@ -51,12 +51,12 @@ export class AuroraVeil {
             uniforms: {
                 uTime: { value: 0 },
                 uColor: { value: new THREE.Color(this.config.color) },
-                uOpacity: { value: Math.max(this.config.opacity - index * 0.04, 0.05) },
-                uSpeed: { value: this.config.speed + index * 0.05 },
+                uOpacity: { value: Math.max(this.config.opacity - index * 0.03, 0.03) },
+                uSpeed: { value: this.config.speed + index * 0.03 },
                 uNoiseScale: { value: this.config.noiseScale + index * 0.02 },
-                uSway: { value: this.config.sway + index },
+                uSway: { value: this.config.sway + index * 0.5 },
                 uParallax: { value: new THREE.Vector2(0, 0) },
-                uLayerOffset: { value: index * 1.7 },
+                uLayerOffset: { value: index * 1.2 },
             },
             vertexShader: `
                 uniform float uTime;
@@ -99,7 +99,7 @@ export class AuroraVeil {
 
                     transformed.x += (flow - 0.5) * uSway;
                     transformed.x += wave * (uSway * 0.35);
-                    transformed.z += cos((uv.y + uLayerOffset) * 1.5 + uTime * 0.4) * 3.0;
+                    transformed.z += cos((uv.y + uLayerOffset) * 1.5 + uTime * 0.4) * 1.2;
 
                     // Apply slight parallax shift from mouse input
                     transformed.x += uParallax.x;
@@ -119,7 +119,7 @@ export class AuroraVeil {
                     float edgeFade = smoothstep(0.0, 0.15, vUv.x) * smoothstep(1.0, 0.85, vUv.x);
                     float verticalFade = smoothstep(0.05, 0.5, vHeightGradient) * smoothstep(0.95, 0.6, vHeightGradient);
 
-                    vec3 baseColor = mix(uColor * 0.6, uColor, vHeightGradient);
+                    vec3 baseColor = mix(uColor * 0.82, uColor, vHeightGradient);
                     float alpha = uOpacity * edgeFade * verticalFade;
 
                     gl_FragColor = vec4(baseColor, alpha);
@@ -128,11 +128,11 @@ export class AuroraVeil {
             transparent: true,
             depthWrite: false,
             side: THREE.DoubleSide,
-            blending: THREE.AdditiveBlending,
+            blending: THREE.NormalBlending,
         });
 
         const mesh = new THREE.Mesh(geometry, material);
-        mesh.rotation.y = THREE.MathUtils.degToRad(-5 + positionOffset * 6);
+        mesh.rotation.y = THREE.MathUtils.degToRad(-3 + positionOffset * 4);
         mesh.position.set(positionOffset * 12, -10 + index * 3, depth);
 
         return { mesh, material };
@@ -162,7 +162,7 @@ export class AuroraVeil {
     setOpacity(opacity) {
         this.veils.forEach((veil, index) => {
             if (veil.material?.uniforms?.uOpacity) {
-                veil.material.uniforms.uOpacity.value = Math.max(opacity - index * 0.04, 0.04);
+                veil.material.uniforms.uOpacity.value = Math.max(opacity - index * 0.03, 0.03);
             }
         });
     }

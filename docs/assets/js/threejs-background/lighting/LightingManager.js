@@ -86,28 +86,28 @@ export class LightingManager {
      */
     setupHomePageLighting() {
         this.setupAmbientLight({
-            color: 0x303040,
-            intensity: 0.3
+            color: 0xffffff,
+            intensity: 0.56
         });
 
         this.addSpotLight({
-            color: 0xC08752,
-            intensity: 1.2,
-            position: { x: -15, y: 20, z: 15 },
-            penumbra: 0.5
+            color: 0xffffff,
+            intensity: 0.55,
+            position: { x: -14, y: 18, z: 12 },
+            penumbra: 0.45
         });
 
         this.addSpotLight({
-            color: 0xF0B089,
-            intensity: 0.8,
-            position: { x: 15, y: 15, z: 10 },
-            penumbra: 0.4
+            color: 0xb8b8b3,
+            intensity: 0.34,
+            position: { x: 16, y: 12, z: 10 },
+            penumbra: 0.35
         });
 
         this.addPointLight({
-            color: 0xA96A3A,
-            intensity: 0.5,
-            position: { x: 0, y: 10, z: 20 }
+            color: 0x7a7a75,
+            intensity: 0.28,
+            position: { x: 0, y: 10, z: 18 }
         });
     }
 
@@ -116,20 +116,20 @@ export class LightingManager {
      */
     setupSubtleLighting() {
         this.setupAmbientLight({
-            color: 0x404050,
+            color: 0xffffff,
             intensity: 0.5
         });
 
         this.addPointLight({
-            color: 0xC08752,
-            intensity: 0.4,
+            color: 0xffffff,
+            intensity: 0.24,
             position: { x: 0, y: 8, z: 12 },
             distance: 40
         });
 
         this.addPointLight({
-            color: 0xffffff,
-            intensity: 0.3,
+            color: 0x9a9a95,
+            intensity: 0.16,
             position: { x: 5, y: 5, z: 8 },
             distance: 30
         });
@@ -142,7 +142,7 @@ export class LightingManager {
         this.lights.spots.forEach((spot, index) => {
             if (spot.userData.baseIntensity === undefined) return;
             const offset = index * 0.5;
-            const wave = Math.sin(scrollProgress * Math.PI * 2 + offset) * 0.2;
+            const wave = Math.sin(scrollProgress * Math.PI * 2 + offset) * 0.08;
             spot.intensity = spot.userData.baseIntensity + wave;
         });
     }

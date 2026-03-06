@@ -11,7 +11,7 @@
 body {
     font-family: var(--mlad-text-font);
     font-feature-settings: "liga" 1, "ss01" 1;
-    font-variation-settings: "wght" 450;
+    font-variation-settings: "wght" 430;
 }
 
 /* Body text defaults — Mintlify-style restraint */
@@ -70,19 +70,7 @@ body {
     }
 }
 
-/* Hero section text enhancement */
-.tx-hero__content h1 {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+.tx-hero__content h1,
 .tx-hero__content p {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-[data-md-color-scheme="slate"] .tx-hero__content h1 {
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-[data-md-color-scheme="slate"] .tx-hero__content p {
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
 }

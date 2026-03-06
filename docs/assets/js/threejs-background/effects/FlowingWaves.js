@@ -15,12 +15,12 @@ export class FlowingWaves {
         this.group = new THREE.Group();
 
         this.config = {
-            waveCount: options.waveCount || 3,
-            color: options.color || 0xC08752,
-            opacity: options.opacity || 0.4,
-            amplitude: options.amplitude || 2.0,
+            waveCount: options.waveCount || 2,
+            color: options.color || 0x8b8a84,
+            opacity: options.opacity || 0.14,
+            amplitude: options.amplitude || 1.2,
             frequency: options.frequency || 0.5,
-            speed: options.speed || 0.3,
+            speed: options.speed || 0.18,
             width: options.width || 200,
             height: options.height || 30,
         };
@@ -50,9 +50,9 @@ export class FlowingWaves {
                 uTime: { value: 0 },
                 uColor: { value: new THREE.Color(this.config.color) },
                 uOpacity: { value: layerOpacity },
-                uAmplitude: { value: this.config.amplitude + index * 0.5 },
+                uAmplitude: { value: this.config.amplitude + index * 0.3 },
                 uFrequency: { value: this.config.frequency + index * 0.1 },
-                uSpeed: { value: this.config.speed + index * 0.05 },
+                uSpeed: { value: this.config.speed + index * 0.04 },
                 uOffset: { value: layerOffset },
             },
             vertexShader: `
@@ -79,7 +79,7 @@ export class FlowingWaves {
                     pos.z += elevation;
                     
                     // Slight y movement for flow effect
-                    pos.y += sin(pos.x * 0.02 + uTime * 0.2) * 2.0;
+                    pos.y += sin(pos.x * 0.02 + uTime * 0.18) * 0.9;
                     
                     vElevation = elevation;
                     
@@ -101,10 +101,10 @@ export class FlowingWaves {
                     
                     // Color variation based on elevation
                     float colorShift = (vElevation + 3.0) / 6.0;
-                    vec3 color = mix(uColor * 0.7, uColor * 1.3, colorShift);
+                    vec3 color = mix(uColor * 0.9, uColor * 1.06, colorShift);
                     
                     // Subtle shimmer
-                    float shimmer = sin(vUv.x * 50.0 + uTime * 2.0) * 0.05 + 0.95;
+                    float shimmer = sin(vUv.x * 50.0 + uTime * 1.5) * 0.02 + 0.98;
                     
                     float alpha = uOpacity * edgeFade * topFade * shimmer;
                     
@@ -114,7 +114,7 @@ export class FlowingWaves {
             transparent: true,
             side: THREE.DoubleSide,
             depthWrite: false,
-            blending: THREE.AdditiveBlending,
+            blending: THREE.NormalBlending,
         });
 
         const mesh = new THREE.Mesh(geometry, material);

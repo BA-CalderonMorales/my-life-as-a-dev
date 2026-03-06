@@ -48,7 +48,6 @@ export class CrystalCaveScene {
         // Create container
         this.container = document.createElement('div');
         this.container.id = this.containerId;
-        this.container.style.cssText = 'position: fixed; left: 0; width: 100vw; z-index: 1; pointer-events: auto;';
         document.body.appendChild(this.container);
 
         this._updateCanvasPosition();

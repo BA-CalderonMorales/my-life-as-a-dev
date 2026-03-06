@@ -1,7 +1,5 @@
 /* ============================================
-   Code - Mintlify-Inspired Code Blocks
-   Warm accent borders, polished copy button,
-   filename headers, and tabbed code groups
+   Code - Neutral utility surfaces for snippets
    ============================================ */
 
 /* ---- Code block container ---- */
@@ -40,24 +38,24 @@
 
 /* ---- Light mode ---- */
 [data-md-color-scheme="default"] .md-typeset pre {
-    background: #f8f9fa; /* Lighter background for better contrast */
-    border-color: rgba(0, 0, 0, 0.08);
+    background: var(--md-code-bg-color);
+    border-color: var(--mlad-border-strong);
 }
 
 [data-md-color-scheme="default"] .md-typeset code {
-    background: rgba(0, 0, 0, 0.04);
-    color: #24292f;
+    background: rgba(21, 21, 21, 0.06);
+    color: var(--md-code-fg-color);
 }
 
 /* ---- Dark mode ---- */
 [data-md-color-scheme="slate"] .md-typeset pre {
-    background: #161b22; /* GitHub-like dark background */
-    border-color: rgba(255, 255, 255, 0.1);
+    background: var(--md-code-bg-color);
+    border-color: var(--mlad-border-strong);
 }
 
 [data-md-color-scheme="slate"] .md-typeset code {
-    background: rgba(110, 118, 129, 0.4);
-    color: #e6edf3;
+    background: rgba(242, 241, 237, 0.12);
+    color: var(--md-code-fg-color);
 }
 
 /* ---- Inline code in paragraphs, lists, tables ---- */
@@ -121,11 +119,11 @@
 }
 
 [data-md-color-scheme="default"] .md-typeset .highlight > .filename {
-    border-bottom-color: rgba(0, 0, 0, 0.08);
+    border-bottom-color: var(--mlad-border-strong);
 }
 
 [data-md-color-scheme="slate"] .md-typeset .highlight > .filename {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
+    border-bottom-color: var(--mlad-border-strong);
 }
 
 /* ============================================
@@ -159,11 +157,11 @@
 }
 
 [data-md-color-scheme="default"] .md-typeset .highlight .hll {
-    background: rgba(3, 102, 214, 0.1); /* Subtle blue highlight */
+    background: rgba(21, 21, 21, 0.08);
 }
 
 [data-md-color-scheme="slate"] .md-typeset .highlight .hll {
-    background: rgba(56, 139, 253, 0.15);
+    background: rgba(242, 241, 237, 0.1);
 }
 
 /* ============================================
@@ -216,11 +214,11 @@
 }
 
 [data-md-color-scheme="default"] .md-typeset .tabbed-set {
-    border-color: rgba(0, 0, 0, 0.08);
+    border-color: var(--mlad-border-strong);
 }
 
 [data-md-color-scheme="slate"] .md-typeset .tabbed-set {
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--mlad-border-strong);
 }
 
 /* Remove inner code block styling when inside tabbed sets */

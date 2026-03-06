@@ -6,6 +6,11 @@
  * Responsive design with touch/mouse interaction for an organic, alive feel.
  */
 import * as THREE from 'three';
+import {
+    ZEN_CONNECTIONS,
+    ZEN_GEOMETRY_THEMES,
+    ZEN_NODE_DEFINITIONS
+} from './ZenGeometryModel.js';
 
 export class ZenGeometryScene {
     constructor(containerId = 'canvas-scene') {
@@ -68,7 +73,6 @@ export class ZenGeometryScene {
 
         this.container = document.createElement('div');
         this.container.id = this.containerId;
-        this.container.style.cssText = 'position: fixed; left: 0; width: 100vw; z-index: 1; pointer-events: auto;';
         document.body.appendChild(this.container);
 
         this._updateCanvasPosition();
@@ -123,39 +127,16 @@ export class ZenGeometryScene {
 
     _getColors() {
         const scheme = document.body.getAttribute('data-md-color-scheme');
-        const isDark = scheme === 'slate';
-
-        // Dark mode: warm amber/gold tones - like a calm ember, workshop lighting
-        // Light mode: clean grayscale - precise, architectural
-        return isDark ? {
-            background: 0x0a0908,
-            nodeColor: 0xd4a574,
-            lineColor: 0x8b6914,
-            centralColor: 0xe8c496,
-            particleColor: 0xc9a227,
-            glowColor: 0xffa500,
-            ambientLight: 0x2a1a0a,
-            fogColor: 0x0a0908,
-            accentPulse: 0xffb84d,
-        } : {
-            background: 0xfafafa,
-            nodeColor: 0x2a2a2a,
-            lineColor: 0xcccccc,
-            centralColor: 0x1a1a1a,
-            particleColor: 0x888888,
-            glowColor: 0x444444,
-            ambientLight: 0xffffff,
-            fogColor: 0xfafafa,
-            accentPulse: 0x333333,
-        };
+        return scheme === 'slate' ? ZEN_GEOMETRY_THEMES.dark : ZEN_GEOMETRY_THEMES.light;
     }
 
     _setupScene() {
         const colors = this._getColors();
+        const isDark = document.body.getAttribute('data-md-color-scheme') === 'slate';
 
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(colors.background);
-        this.scene.fog = new THREE.FogExp2(colors.fogColor, 0.012);
+        this.scene.fog = new THREE.FogExp2(colors.fogColor, 0.009);
 
         // Adjusted FOV for mobile/tablet - closer view
         const fov = this.isMobile ? 60 : this.isTablet ? 55 : 50;
@@ -175,21 +156,24 @@ export class ZenGeometryScene {
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, this.isMobile ? 1.5 : 2));
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.2;
+        this.renderer.toneMappingExposure = 1.0;
         this.container.appendChild(this.renderer.domElement);
 
-        // Lighting - warm and soft
-        const ambient = new THREE.AmbientLight(colors.ambientLight, 0.5);
+        const ambient = new THREE.AmbientLight(colors.ambientLight, isDark ? 0.46 : 0.7);
         this.scene.add(ambient);
         this.ambientLight = ambient;
 
-        const keyLight = new THREE.DirectionalLight(0xffffff, 0.6);
+        const keyLight = new THREE.DirectionalLight(0xffffff, isDark ? 0.5 : 0.62);
         keyLight.position.set(5, 10, 7);
         this.scene.add(keyLight);
 
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
-        fillLight.position.set(-5, -5, 5);
+        const fillLight = new THREE.DirectionalLight(0xb7b5af, isDark ? 0.18 : 0.22);
+        fillLight.position.set(-6, -4, 4);
         this.scene.add(fillLight);
+
+        const rimLight = new THREE.DirectionalLight(0xffffff, isDark ? 0.16 : 0.12);
+        rimLight.position.set(0, 2, -6);
+        this.scene.add(rimLight);
 
         // Theme observer
         this._setupThemeObserver();
@@ -198,26 +182,27 @@ export class ZenGeometryScene {
     _createGeometry() {
         const colors = this._getColors();
 
-        // Central icosahedron - glass-like presence
+        // Central icosahedron - matte centerpiece
         const icoSize = this.isMobile ? 2.2 : 2.5;
         const icoGeo = new THREE.IcosahedronGeometry(icoSize, 1);
         const icoMat = new THREE.MeshPhysicalMaterial({
             color: colors.centralColor,
-            metalness: 0.1,
-            roughness: 0.15,
-            transmission: 0.9,
-            thickness: 1.5,
-            ior: 1.5,
+            metalness: 0.04,
+            roughness: 0.56,
+            transmission: 0.18,
+            thickness: 0.8,
+            ior: 1.12,
             transparent: true,
-            opacity: 0.7,
+            opacity: 0.94,
+            clearcoat: 0.08,
+            clearcoatRoughness: 0.32,
             emissive: colors.glowColor,
-            emissiveIntensity: 0.05,
+            emissiveIntensity: 0.014,
         });
         this.centralForm = new THREE.Mesh(icoGeo, icoMat);
         this.centralForm.userData = {
-            baseEmissive: 0.05,
-            targetEmissive: 0.05,
-            pulsePhase: 0,
+            baseEmissive: 0.014,
+            targetEmissive: 0.014,
         };
         this.scene.add(this.centralForm);
 
@@ -227,7 +212,7 @@ export class ZenGeometryScene {
             color: colors.lineColor,
             wireframe: true,
             transparent: true,
-            opacity: 0.25,
+            opacity: 0.14,
         });
         const wireframe = new THREE.Mesh(wireGeo, wireMat);
         this.centralForm.add(wireframe);
@@ -235,37 +220,30 @@ export class ZenGeometryScene {
 
         // Orbiting nodes - positioned for mobile visibility
         const nodeScale = this.isMobile ? 0.85 : this.isTablet ? 0.9 : 1;
-        const nodePositions = [
-            { pos: [5 * nodeScale, 2.5 * nodeScale, -1.5], size: 0.3 * nodeScale },
-            { pos: [-4.5 * nodeScale, -3.5 * nodeScale, 1], size: 0.28 * nodeScale },
-            { pos: [3.5 * nodeScale, -4 * nodeScale, 2.5], size: 0.35 * nodeScale },
-            { pos: [-5 * nodeScale, 2 * nodeScale, -2.5], size: 0.28 * nodeScale },
-            { pos: [1.5 * nodeScale, 5 * nodeScale, 1.5], size: 0.24 * nodeScale },
-            { pos: [-2.5 * nodeScale, -1.5 * nodeScale, 4], size: 0.32 * nodeScale },
-            { pos: [4 * nodeScale, 0.5 * nodeScale, 3.5], size: 0.22 * nodeScale },
-        ];
-
-        nodePositions.forEach((config, i) => {
-            const geo = new THREE.OctahedronGeometry(config.size, 0);
+        ZEN_NODE_DEFINITIONS.forEach((config) => {
+            const geo = new THREE.OctahedronGeometry(config.size * nodeScale, 0);
             const mat = new THREE.MeshPhysicalMaterial({
                 color: colors.nodeColor,
-                metalness: 0.2,
-                roughness: 0.25,
+                metalness: 0.02,
+                roughness: 0.72,
                 emissive: colors.glowColor,
-                emissiveIntensity: 0.08,
+                emissiveIntensity: 0.03,
             });
             const node = new THREE.Mesh(geo, mat);
-            node.position.set(...config.pos);
+            const scaledPosition = config.position.map((value, index) =>
+                index < 2 ? value * nodeScale : value
+            );
+            node.position.set(...scaledPosition);
             node.userData = {
-                basePos: new THREE.Vector3(...config.pos),
-                orbitSpeed: 0.08 + Math.random() * 0.08,
-                orbitRadius: 0.25 + Math.random() * 0.4,
+                basePos: new THREE.Vector3(...scaledPosition),
+                orbitSpeed: 0.05 + Math.random() * 0.04,
+                orbitRadius: 0.18 + Math.random() * 0.2,
                 phase: Math.random() * Math.PI * 2,
-                floatSpeed: 0.15 + Math.random() * 0.25,
-                baseEmissive: 0.08,
-                targetEmissive: 0.08,
+                floatSpeed: 0.12 + Math.random() * 0.16,
+                baseEmissive: 0.03,
+                targetEmissive: 0.03,
                 breathePhase: Math.random() * Math.PI * 2,
-                breatheSpeed: 0.3 + Math.random() * 0.4,
+                breatheSpeed: 0.22 + Math.random() * 0.28,
             };
             this.scene.add(node);
             this.nodes.push(node);
@@ -282,16 +260,10 @@ export class ZenGeometryScene {
         const lineMat = new THREE.LineBasicMaterial({
             color: colors.lineColor,
             transparent: true,
-            opacity: 0.12,
+            opacity: 0.08,
         });
 
-        // Connect nodes to center and each other
-        const connectionPairs = [
-            [null, 0], [null, 1], [null, 2],
-            [0, 4], [1, 5], [2, 3], [3, 6], [4, 6],
-        ];
-
-        connectionPairs.forEach(([fromIdx, toIdx]) => {
+        ZEN_CONNECTIONS.forEach(([fromIdx, toIdx]) => {
             const points = [];
             const from = fromIdx === null ? new THREE.Vector3(0, 0, 0) : this.nodes[fromIdx].position;
             const to = this.nodes[toIdx].position;
@@ -299,27 +271,27 @@ export class ZenGeometryScene {
 
             const geo = new THREE.BufferGeometry().setFromPoints(points);
             const line = new THREE.Line(geo, lineMat.clone());
-            line.userData = { fromIdx, toIdx, baseOpacity: 0.12, targetOpacity: 0.12 };
+            line.userData = { fromIdx, toIdx, baseOpacity: 0.08, targetOpacity: 0.08 };
             this.scene.add(line);
             this.connections.push(line);
         });
     }
 
     _createParticles(colors) {
-        const count = this.isMobile ? 25 : 40;
+        const count = this.isMobile ? 18 : 28;
         this.particlePositions = new Float32Array(count * 3);
         this.particleVelocities = [];
 
         for (let i = 0; i < count; i++) {
             const i3 = i * 3;
-            this.particlePositions[i3] = (Math.random() - 0.5) * 50;
-            this.particlePositions[i3 + 1] = (Math.random() - 0.5) * 40;
-            this.particlePositions[i3 + 2] = (Math.random() - 0.5) * 30 - 10;
+            this.particlePositions[i3] = (Math.random() - 0.5) * 36;
+            this.particlePositions[i3 + 1] = (Math.random() - 0.5) * 28;
+            this.particlePositions[i3 + 2] = (Math.random() - 0.5) * 24 - 8;
 
             this.particleVelocities.push({
-                x: (Math.random() - 0.5) * 0.002,
-                y: (Math.random() - 0.5) * 0.002,
-                z: (Math.random() - 0.5) * 0.001,
+                x: (Math.random() - 0.5) * 0.0012,
+                y: (Math.random() - 0.5) * 0.0012,
+                z: (Math.random() - 0.5) * 0.0007,
             });
         }
 
@@ -328,9 +300,9 @@ export class ZenGeometryScene {
 
         const mat = new THREE.PointsMaterial({
             color: colors.particleColor,
-            size: this.isMobile ? 0.1 : 0.08,
+            size: this.isMobile ? 0.09 : 0.07,
             transparent: true,
-            opacity: 0.4,
+            opacity: 0.18,
             sizeAttenuation: true,
         });
 
@@ -560,16 +532,16 @@ export class ZenGeometryScene {
 
             const elapsed = this.clock.getElapsedTime();
             const timeSinceInteraction = elapsed - this.lastInteraction;
-            const interactionFade = Math.max(0, 1 - timeSinceInteraction / 2);
+            const interactionFade = Math.max(0, 1 - timeSinceInteraction / 2.4);
 
             // Camera orbit: auto-orbit + touch-driven offset
             const camDistance = this.camera.userData.baseDistance;
-            const camSpeed = 0.025;
+            const camSpeed = 0.018;
             const autoAngle = elapsed * camSpeed;
             const totalAngle = autoAngle + this.orbitAngle;
             let camX = Math.sin(totalAngle) * camDistance;
             let camZ = Math.cos(totalAngle) * camDistance;
-            let camY = Math.sin(elapsed * camSpeed * 0.4) * 2.5 + this.orbitTilt * camDistance * 0.3;
+            let camY = Math.sin(elapsed * camSpeed * 0.4) * 1.4 + this.orbitTilt * camDistance * 0.24;
 
             // Subtle camera pull toward interaction point (mouse only)
             if (this.isInteracting && !this.isTouching && !this.isPinching && interactionFade > 0) {
@@ -581,15 +553,10 @@ export class ZenGeometryScene {
             this.camera.lookAt(0, 0, 0);
 
             // Central form - gentle rotation with heartbeat pulse
-            this.centralForm.rotation.x = elapsed * 0.04;
-            this.centralForm.rotation.y = elapsed * 0.06;
+            this.centralForm.rotation.x = elapsed * 0.02;
+            this.centralForm.rotation.y = elapsed * 0.03;
 
-            // Heartbeat breathing - two pulses then rest
-            const heartbeatCycle = (elapsed * 0.5) % (Math.PI * 2);
-            const pulse1 = Math.max(0, Math.sin(heartbeatCycle * 2) * 0.5);
-            const pulse2 = Math.max(0, Math.sin((heartbeatCycle - 0.3) * 2) * 0.3);
-            const heartbeat = pulse1 + pulse2;
-            const breathe = 1 + heartbeat * 0.015;
+            const breathe = 1 + Math.sin(elapsed * 0.45) * 0.01;
             this.centralForm.scale.setScalar(breathe);
 
             // Central form responds to interaction
@@ -597,15 +564,15 @@ export class ZenGeometryScene {
             if (this.isInteracting) {
                 const distToCenter = this.mouse3D.length();
                 if (distToCenter < 5) {
-                    centralData.targetEmissive = 0.15 + (1 - distToCenter / 5) * 0.1;
+                    centralData.targetEmissive = 0.05 + (1 - distToCenter / 5) * 0.03;
                 } else {
-                    centralData.targetEmissive = 0.05;
+                    centralData.targetEmissive = 0.014;
                 }
             } else {
-                centralData.targetEmissive = 0.05;
+                centralData.targetEmissive = 0.014;
             }
-            centralData.baseEmissive += (centralData.targetEmissive - centralData.baseEmissive) * 0.05;
-            this.centralForm.material.emissiveIntensity = centralData.baseEmissive + heartbeat * 0.03;
+            centralData.baseEmissive += (centralData.targetEmissive - centralData.baseEmissive) * 0.04;
+            this.centralForm.material.emissiveIntensity = centralData.baseEmissive;
 
             // Animate nodes with individual breathing and interaction response
             this.nodes.forEach((node) => {
@@ -617,23 +584,23 @@ export class ZenGeometryScene {
                 node.position.z = data.basePos.z + Math.sin(elapsed * data.orbitSpeed * 0.7 + data.phase) * data.orbitRadius * 0.3;
 
                 // Individual breathing
-                const nodeBreathe = 1 + Math.sin(elapsed * data.breatheSpeed + data.breathePhase) * 0.08;
+                const nodeBreathe = 1 + Math.sin(elapsed * data.breatheSpeed + data.breathePhase) * 0.05;
                 node.scale.setScalar(nodeBreathe);
 
                 // Gentle rotation
-                node.rotation.x = elapsed * 0.15;
-                node.rotation.y = elapsed * 0.25;
+                node.rotation.x = elapsed * 0.08;
+                node.rotation.y = elapsed * 0.12;
 
                 // Interaction response - glow when cursor is near
                 if (this.isInteracting) {
                     const distToMouse = node.position.distanceTo(this.mouse3D);
-                    if (distToMouse < 4) {
-                        data.targetEmissive = 0.25 + (1 - distToMouse / 4) * 0.3;
+                    if (distToMouse < 3.5) {
+                        data.targetEmissive = 0.07 + (1 - distToMouse / 3.5) * 0.05;
                     } else {
-                        data.targetEmissive = 0.08;
+                        data.targetEmissive = 0.03;
                     }
                 } else {
-                    data.targetEmissive = 0.08;
+                    data.targetEmissive = 0.03;
                 }
                 data.baseEmissive += (data.targetEmissive - data.baseEmissive) * 0.08;
                 node.material.emissiveIntensity = data.baseEmissive;
@@ -660,7 +627,7 @@ export class ZenGeometryScene {
                 const fromEmissive = fromIdx === null ? this.centralForm.userData.baseEmissive : this.nodes[fromIdx].userData.baseEmissive;
                 const toEmissive = this.nodes[toIdx].userData.baseEmissive;
                 const lineGlow = Math.max(fromEmissive, toEmissive);
-                line.userData.targetOpacity = 0.12 + lineGlow * 0.4;
+                line.userData.targetOpacity = 0.08 + lineGlow * 0.18;
                 line.userData.baseOpacity += (line.userData.targetOpacity - line.userData.baseOpacity) * 0.1;
                 line.material.opacity = line.userData.baseOpacity;
             });
@@ -675,10 +642,10 @@ export class ZenGeometryScene {
                 positions[i3 + 1] += vel.y;
                 positions[i3 + 2] += vel.z;
 
-                if (positions[i3] > 25) positions[i3] = -25;
-                if (positions[i3] < -25) positions[i3] = 25;
-                if (positions[i3 + 1] > 20) positions[i3 + 1] = -20;
-                if (positions[i3 + 1] < -20) positions[i3 + 1] = 20;
+                if (positions[i3] > 18) positions[i3] = -18;
+                if (positions[i3] < -18) positions[i3] = 18;
+                if (positions[i3 + 1] > 14) positions[i3 + 1] = -14;
+                if (positions[i3 + 1] < -14) positions[i3 + 1] = 14;
             }
             this.particles.geometry.attributes.position.needsUpdate = true;
 
@@ -715,16 +682,18 @@ export class ZenGeometryScene {
             this.renderer.dispose();
         }
 
-        this.scene.traverse((obj) => {
-            if (obj.geometry) obj.geometry.dispose();
-            if (obj.material) {
-                if (Array.isArray(obj.material)) {
-                    obj.material.forEach(m => m.dispose());
-                } else {
-                    obj.material.dispose();
+        if (this.scene) {
+            this.scene.traverse((obj) => {
+                if (obj.geometry) obj.geometry.dispose();
+                if (obj.material) {
+                    if (Array.isArray(obj.material)) {
+                        obj.material.forEach(m => m.dispose());
+                    } else {
+                        obj.material.dispose();
+                    }
                 }
-            }
-        });
+            });
+        }
 
         if (this.container && this.container.parentElement) {
             this.container.parentElement.removeChild(this.container);

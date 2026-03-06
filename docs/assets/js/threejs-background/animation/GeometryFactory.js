@@ -1,6 +1,5 @@
 /**
- * GeometryFactory - Creates toon-style geometric objects
- * Inspired by Bruno Simon and other creative Three.js portfolios
+ * GeometryFactory - Creates restrained geometric objects
  */
 import * as THREE from 'three';
 
@@ -37,8 +36,8 @@ export class GeometryFactory {
      */
     createToonMaterial(options = {}) {
         const {
-            color = 0xC08752,
-            opacity = 0.7,
+            color = 0x5c5c5c,
+            opacity = 0.5,
             transparent = true
         } = options;
 
@@ -59,8 +58,8 @@ export class GeometryFactory {
         const {
             radius = 1,
             segments = 32,
-            color = 0xC08752,
-            opacity = 0.6,
+            color = 0x5c5c5c,
+            opacity = 0.48,
             position = { x: 0, y: 0, z: 0 }
         } = options;
 
@@ -70,9 +69,9 @@ export class GeometryFactory {
 
         mesh.position.set(position.x, position.y, position.z);
         mesh.userData.originalPosition = { ...position };
-        mesh.userData.rotationSpeed = { x: 0.001, y: 0.002, z: 0 };
-        mesh.userData.floatSpeed = 0.5 + Math.random() * 0.5;
-        mesh.userData.floatAmplitude = 0.3 + Math.random() * 0.3;
+        mesh.userData.rotationSpeed = { x: 0.0003, y: 0.00055, z: 0 };
+        mesh.userData.floatSpeed = 0.16 + Math.random() * 0.14;
+        mesh.userData.floatAmplitude = 0.08 + Math.random() * 0.06;
 
         return mesh;
     }
@@ -84,8 +83,8 @@ export class GeometryFactory {
         const {
             radius = 1,
             detail = 0,
-            color = 0xF0B089,
-            opacity = 0.5,
+            color = 0xbdbdb8,
+            opacity = 0.42,
             position = { x: 0, y: 0, z: 0 }
         } = options;
 
@@ -95,9 +94,9 @@ export class GeometryFactory {
 
         mesh.position.set(position.x, position.y, position.z);
         mesh.userData.originalPosition = { ...position };
-        mesh.userData.rotationSpeed = { x: 0.003, y: 0.002, z: 0.001 };
-        mesh.userData.floatSpeed = 0.4 + Math.random() * 0.4;
-        mesh.userData.floatAmplitude = 0.4 + Math.random() * 0.4;
+        mesh.userData.rotationSpeed = { x: 0.00045, y: 0.00038, z: 0.00022 };
+        mesh.userData.floatSpeed = 0.15 + Math.random() * 0.12;
+        mesh.userData.floatAmplitude = 0.08 + Math.random() * 0.08;
 
         return mesh;
     }
@@ -111,8 +110,8 @@ export class GeometryFactory {
             tube = 0.3,
             radialSegments = 16,
             tubularSegments = 48,
-            color = 0xA96A3A,
-            opacity = 0.4,
+            color = 0x404040,
+            opacity = 0.32,
             position = { x: 0, y: 0, z: 0 }
         } = options;
 
@@ -124,9 +123,9 @@ export class GeometryFactory {
 
         mesh.position.set(position.x, position.y, position.z);
         mesh.userData.originalPosition = { ...position };
-        mesh.userData.rotationSpeed = { x: 0.002, y: 0.003, z: 0.001 };
-        mesh.userData.floatSpeed = 0.3 + Math.random() * 0.3;
-        mesh.userData.floatAmplitude = 0.2 + Math.random() * 0.3;
+        mesh.userData.rotationSpeed = { x: 0.00032, y: 0.00048, z: 0.0002 };
+        mesh.userData.floatSpeed = 0.12 + Math.random() * 0.1;
+        mesh.userData.floatAmplitude = 0.06 + Math.random() * 0.08;
 
         return mesh;
     }
@@ -138,8 +137,8 @@ export class GeometryFactory {
         const {
             radius = 1,
             detail = 0,
-            color = 0x7A4A2F,
-            opacity = 0.5,
+            color = 0x4a4a4a,
+            opacity = 0.4,
             position = { x: 0, y: 0, z: 0 }
         } = options;
 
@@ -149,9 +148,9 @@ export class GeometryFactory {
 
         mesh.position.set(position.x, position.y, position.z);
         mesh.userData.originalPosition = { ...position };
-        mesh.userData.rotationSpeed = { x: 0.002, y: 0.001, z: 0.002 };
-        mesh.userData.floatSpeed = 0.35 + Math.random() * 0.35;
-        mesh.userData.floatAmplitude = 0.25 + Math.random() * 0.35;
+        mesh.userData.rotationSpeed = { x: 0.00034, y: 0.0002, z: 0.00036 };
+        mesh.userData.floatSpeed = 0.14 + Math.random() * 0.12;
+        mesh.userData.floatAmplitude = 0.07 + Math.random() * 0.08;
 
         return mesh;
     }
@@ -164,7 +163,7 @@ export class GeometryFactory {
             innerRadius = 2,
             outerRadius = 3,
             segments = 32,
-            color = 0xC08752,
+            color = 0x8c8c8c,
             opacity = 0.15,
             position = { x: 0, y: 0, z: 0 }
         } = options;
@@ -182,7 +181,7 @@ export class GeometryFactory {
         mesh.position.set(position.x, position.y, position.z);
         mesh.rotation.x = Math.PI * 0.5;
         mesh.userData.originalPosition = { ...position };
-        mesh.userData.rotationSpeed = { x: 0, y: 0.001, z: 0.0005 };
+        mesh.userData.rotationSpeed = { x: 0, y: 0.00018, z: 0.00008 };
 
         return mesh;
     }
