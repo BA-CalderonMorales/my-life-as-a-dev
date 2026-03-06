@@ -58,9 +58,9 @@ class MessageParser {
             bulletLine: /^[\s]*[\*\-]\s+(.+)$/,
             // Numbered list: starts with number followed by . or )
             numberedLine: /^[\s]*(\d+)[\.\)]\s+(.+)$/,
-            // Markdown headers: # to #### followed by space and text
+            // Markdown headers: # to ###### followed by space and text
             // Captures: [1] = number of # signs, [2] = header text
-            headerLine: /^(#{1,4})\s+(.+)$/,
+            headerLine: /^(#{1,6})\s+(.+)$/,
             // Hashtag: # followed by letter, then alphanumeric/underscore (2-31 chars total)
             // Not preceded by / or word char, not followed by word char or /
             hashtag: /(?<![\/\w])#([a-zA-Z][a-zA-Z0-9_]{1,30})(?![a-zA-Z0-9_\/])/g
@@ -490,9 +490,10 @@ class MessageParser {
                     currentList = null;
                     listType = null;
                 }
-                // Convert to styled header (use h4 class styling for all to keep compact)
+                // Convert to styled header with data-level for CSS differentiation
+                const headerLevel = headerMatch[1].length;
                 const headerText = headerMatch[2].trim();
-                result.push(`<p class="ai-chat-content-header">${headerText}</p>`);
+                result.push(`<p class="ai-chat-content-header" data-level="${headerLevel}">${headerText}</p>`);
                 continue;
             }
 
