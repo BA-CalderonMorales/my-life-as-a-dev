@@ -8,6 +8,7 @@ Build, test, and serve the documentation site using Zensical (recommended) or Mk
 - After adding or modifying pages
 - Debugging build errors
 - Previewing changes locally
+- After patching shared UI chrome such as headers, drawers, overlays, dropdowns, or global CSS/JS
 
 ## Quick Commands
 
@@ -21,6 +22,37 @@ make serve
 # Build only (no serve)
 make build
 ```
+
+## Fast Paths
+
+Choose the smallest verification path that still covers the risk of the change:
+
+### Content-only edits
+
+```bash
+make build
+```
+
+### Single-page layout or styling edits
+
+```bash
+make build
+# then preview the touched page locally
+```
+
+### Shared UI / global CSS / header / drawer / overlay / dropdown changes
+
+```bash
+make build
+uv run python -m unittest e2e.quality.test_version_selector_regression -v
+uv run python -m unittest e2e.quality.test_mobile_nav_drawer_blur -v
+```
+
+Then do a browser sanity check on home plus one content page.
+
+### Versioning or production release changes
+
+Use the [Version and Deploy](../version-and-deploy/SKILL.md) skill after the local build/test pass is green.
 
 ### Legacy MkDocs Commands
 
@@ -84,6 +116,42 @@ Zensical features:
 
 If MkDocs hot reload stops working, use `make serve-clean` or see [Hot Reload Troubleshooting](hot-reload-troubleshooting.md).
 
+## Shared UI Patch Workflow
+
+When changing shared UI behavior, do not stop at `make build`. Run a focused regression pass on the shell elements most likely to break across pages.
+
+### 1. Rebuild the shipped assets
+
+```bash
+make build
+```
+
+### 2. Run targeted regression checks first
+
+Prefer the built-asset checks that do not need extra Python test dependencies:
+
+```bash
+# Version selector / header dropdown regressions
+uv run python -m unittest e2e.quality.test_version_selector_regression -v
+
+# Mobile nav drawer / overlay regressions
+uv run python -m unittest e2e.quality.test_mobile_nav_drawer_blur -v
+```
+
+If a browser-backed test is blocked by sandbox restrictions, rerun it with the needed approval instead of skipping it silently.
+
+### 3. Sanity check the shared shell, not just the page you touched
+
+For shared CSS/JS changes, verify at least:
+
+- Home page plus one content page with sidebar navigation
+- Mobile drawer opens with a crisp panel while the backdrop blur stays behind it
+- Header controls remain clickable and are not trapped behind overlays or stacking contexts
+- Version selector dropdown has an opaque background and older versions are clickable
+- A fix on one shared element does not break another shared element in the same header or overlay stack
+
+Use the [Agent Browser](../agent-browser/SKILL.md) skill when browser interaction is required.
+
 ## Using Doc-CLI
 
 The doc-cli provides an interactive menu:
@@ -129,11 +197,20 @@ export PYTHONPATH=$PYTHONPATH:$(pwd)
 make build
 ```
 
+### Browser-Level UI Test Is Blocked
+
+If a regression test or visual check needs a real browser and the sandbox blocks it:
+
+1. Run the build first so `site/` reflects the current patch
+2. Use the agent-browser workflow for interactive checks when available
+3. If the browser still needs permissions outside the sandbox, request escalation and rerun the exact targeted check
+
 ## Checklist
 
 - [ ] Run `make setup` if dependencies changed
 - [ ] Run `make build` to validate
+- [ ] Run targeted regression checks for any shared UI shell changes
 - [ ] Check for ERROR messages
 - [ ] Run `make serve` to preview
-- [ ] Verify navigation works
-- [ ] Check responsive layout
+- [ ] Verify navigation and version selector interactions work
+- [ ] Check responsive layout, especially mobile drawer and header interactions
