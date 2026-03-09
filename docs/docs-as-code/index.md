@@ -8,7 +8,7 @@ comments: true
 
 # Docs-as-Code Platform
 
-This site treats documentation like any other product release: versioned, automated, and written with intent. Everything you see is built with MkDocs Material, backed by mike for versioning, and shipped through GitHub Actions.
+This site treats documentation like release infrastructure. Content lives in Git, builds with Zensical, renders through the Material theme, versions with mike, and ships through GitHub Actions.
 
 ---
 
@@ -20,7 +20,7 @@ This site treats documentation like any other product release: versioned, automa
 
     ---
 
-    Navigation, safety, and maintainability rules.
+    Navigation, maintainability, and content rules that keep the site coherent.
 
     [:octicons-arrow-right-24: Open Principles](principles/index.md)
 
@@ -28,7 +28,7 @@ This site treats documentation like any other product release: versioned, automa
 
     ---
 
-    Preview, version, and deploy steps.
+    Local preview, release flow, and versioning steps.
 
     [:octicons-arrow-right-24: Open Workflow](workflow/index.md)
 
@@ -36,7 +36,7 @@ This site treats documentation like any other product release: versioned, automa
 
     ---
 
-    MkDocs, mike, Actions, doc-cli overview.
+    Zensical, Material, mike, and the supporting CLI workflow.
 
     [:octicons-arrow-right-24: Open Stack](stack/index.md)
 
@@ -44,43 +44,53 @@ This site treats documentation like any other product release: versioned, automa
 
     ---
 
-    Writing conventions and consistency.
+    Writing standards, review habits, and consistency checks.
 
     [:octicons-arrow-right-24: Open Guide](quality/index.md)
 
--   :material-shield-lock-outline:{ .lg .middle } **AI & Security**
+-   :material-robot-outline:{ .lg .middle } **AI Integrations**
 
     ---
 
-    Preconditions before enabling AI features.
+    Chat widget architecture, deployment, and integration constraints.
 
-    [:octicons-arrow-right-24: Open AI Stance](ai_security/index.md)
+    [:octicons-arrow-right-24: Open AI Guides](ai/index.md)
+
+-   :material-shield-lock-outline:{ .lg .middle } **Security Controls**
+
+    ---
+
+    Preconditions, safeguards, and operational boundaries for AI features.
+
+    [:octicons-arrow-right-24: Open Security](security/index.md)
 
 </div>
 
 ---
 
-## Principles that guide the site
+## Operating rules
 
-- Docs live with code. Every page is in Git, peer reviewed, and versioned alongside the tooling that renders it.
-- Pipelines stay readable. Build and deploy steps are short, explicit, and easy to troubleshoot.
-- Navigation mirrors reality. Pages are organized by purpose so readers do not have to guess where to look.
-- Security is deliberate. Nothing experimental ships without a clear plan for authentication, logging, and rate limits.
-
----
-
-## Technology stack
-
-- **MkDocs + Material for MkDocs** for fast, accessible pages with strong navigation.
-- **Mike** to publish versioned documentation without losing history.
-- **GitHub Actions** to build and deploy to GitHub Pages after every meaningful change.
-- **Custom Rust CLI (doc-cli)** to streamline local setup, version bumping, and deployments.
+- Docs stay in the repository with the code they explain.
+- Build and release steps stay short enough to understand without tribal knowledge.
+- Navigation reflects how people actually look for information, not just how files were created.
+- AI features only ship with explicit guardrails for logging, authentication, and abuse handling.
 
 ---
 
-## How the workflow fits together
+## Current toolchain
 
-1. Write or edit Markdown.
-2. Run `make serve` or `doc-cli startup` to view changes locally.
-3. Open a pull request with Conventional Commit history.
-4. GitHub Actions builds the site with mike and deploys to Pages.
+- **Zensical** is the primary build and local development path.
+- **Material for MkDocs** provides the theme, navigation model, and content components.
+- **Mike** preserves versioned releases without overwriting history.
+- **GitHub Actions** builds and deploys published versions to GitHub Pages.
+- **`doc-cli`** wraps common development and release tasks for local use.
+
+---
+
+## Release loop
+
+1. Edit Markdown and supporting assets in `docs/`.
+2. Preview locally with `make serve` or `./doc-cli serve`.
+3. Run `make build` before pushing changes.
+4. Open a pull request with Conventional Commit history.
+5. Publish a version with `./doc-cli deploy` when the change is ready for release.
