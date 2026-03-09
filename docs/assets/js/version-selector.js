@@ -27,7 +27,10 @@
     try {
       const response = await fetch(versionsUrl);
       if (!response.ok) return null;
-      return await response.json();
+      const payload = await response.json();
+      if (Array.isArray(payload)) return payload;
+      if (payload && Array.isArray(payload.versions)) return payload.versions;
+      return null;
     } catch (e) {
       // Silently fail - version selector is optional
       return null;
@@ -72,7 +75,7 @@
     const container = document.createElement('div');
     container.className = 'md-version';
     container.innerHTML = `
-      <button class="md-version__current" aria-label="Select version">
+      <button class="md-version__current" type="button" aria-label="Select version" aria-expanded="false">
         <span class="md-version__label">${currentVersion || 'Version'}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
           <path d="M7 10l5 5 5-5z" fill="currentColor"/>
@@ -92,7 +95,12 @@
       const a = document.createElement('a');
       const targetUrl = baseUrl + v.version + '/' + relativePath;
       const fallbackUrl = baseUrl + v.version + '/';
-      a.href = targetUrl;
+      const isActiveVersion = v.version === currentVersion || (v.aliases && v.aliases.includes(currentVersion));
+
+      // The actual href should always be a valid version landing page so
+      // long-press, open-in-new-tab, and JS failure paths still work.
+      a.href = fallbackUrl;
+      a.dataset.targetUrl = targetUrl;
       a.className = 'md-version__link';
 
       let label = v.title || v.version;
@@ -101,26 +109,29 @@
       }
       a.textContent = label;
 
-      if (v.version === currentVersion || (v.aliases && v.aliases.includes(currentVersion))) {
+      if (isActiveVersion) {
         li.classList.add('md-version__item--active');
+        a.setAttribute('aria-current', 'page');
       }
 
       // Check if page exists in target version before navigating
       a.addEventListener('click', function (e) {
-        // Skip check if navigating to version root or same version
-        if (!relativePath || v.version === currentVersion) return;
+        e.stopPropagation();
+
+        // Always allow same-version navigation to use the real anchor href.
+        if (isActiveVersion || !relativePath) return;
 
         e.preventDefault();
         fetch(targetUrl, { method: 'HEAD' })
           .then(function (resp) {
             if (resp.ok) {
-              window.location.href = targetUrl;
+              window.location.assign(targetUrl);
             } else {
-              window.location.href = fallbackUrl;
+              window.location.assign(fallbackUrl);
             }
           })
           .catch(function () {
-            window.location.href = fallbackUrl;
+            window.location.assign(fallbackUrl);
           });
       });
 
@@ -131,12 +142,21 @@
     // Toggle dropdown
     button.addEventListener('click', (e) => {
       e.stopPropagation();
-      container.classList.toggle('md-version--active');
+      const isOpen = container.classList.toggle('md-version--active');
+      button.setAttribute('aria-expanded', String(isOpen));
     });
 
     // Close on outside click
-    document.addEventListener('click', () => {
+    document.addEventListener('click', (e) => {
+      if (container.contains(e.target)) return;
       container.classList.remove('md-version--active');
+      button.setAttribute('aria-expanded', 'false');
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      container.classList.remove('md-version--active');
+      button.setAttribute('aria-expanded', 'false');
     });
 
     return container;
@@ -211,6 +231,7 @@
         position: relative;
         margin-left: 0.4rem;
         font-size: 0.7rem;
+        z-index: 21;
       }
       .md-version__current {
         display: flex;
@@ -252,7 +273,7 @@
         right: 0;
         margin: 0;
         padding: 0.5rem 0;
-        background: var(--md-default-bg-color, white);
+        background: var(--mlad-surface-solid, var(--md-default-bg-color, white));
         border-radius: 0;
         box-shadow: var(--mlad-shadow-soft, 8px 8px 0 rgba(0, 0, 0, 0.08));
         list-style: none;
@@ -260,19 +281,32 @@
         max-height: 20rem;
         overflow-y: auto;
         display: none;
-        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        z-index: 22;
         border: 1px solid var(--mlad-border-strong, rgba(0, 0, 0, 0.16));
       }
       .md-version--active .md-version__list {
         display: block;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      .md-version__item {
+        position: relative;
+        opacity: 1;
       }
       .md-version__link {
         display: block;
         padding: 0.5rem 1rem;
         color: var(--md-default-fg-color, black);
+        background: transparent;
         text-decoration: none;
         font-size: 0.8rem;
-        transition: background 0.15s ease;
+        opacity: 1;
+        pointer-events: auto;
+        transition: background 0.15s ease, color 0.15s ease;
       }
       .md-version__link:hover {
         background: var(--mlad-button-secondary-bg, rgba(0, 0, 0, 0.05));
