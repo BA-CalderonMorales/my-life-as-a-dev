@@ -62,7 +62,11 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 }
 
 .md-header,
-.md-tabs,
+.md-tabs {
+    position: relative;
+    z-index: 20;
+}
+
 .md-content,
 .md-footer {
     position: relative;
@@ -285,6 +289,39 @@ body:not(.canvas-page) :where(
     .ptr-indicator
 ) {
     border-radius: 0 !important;
+}
+
+.md-version {
+    position: relative;
+    z-index: 21;
+}
+
+.md-version__list {
+    background: var(--mlad-surface-solid) !important;
+    border: 1px solid var(--mlad-border-strong) !important;
+    box-shadow: var(--mlad-shadow-soft) !important;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 22 !important;
+}
+
+.md-version--active .md-version__list {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.md-version__item,
+.md-version__link,
+.md-version__current {
+    position: relative;
+    opacity: 1;
+}
+
+.md-version__link,
+.md-version__current {
+    pointer-events: auto;
 }
 
 body:not(.canvas-page) .ai-chat-trigger,
