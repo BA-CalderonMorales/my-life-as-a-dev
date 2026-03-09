@@ -1,6 +1,6 @@
 ---
 title: Resume - Brandon A. Calderon Morales
-description: A relaxed walkthrough of the work, wins, and lessons that shape how I build.
+description: A readable overview of the work, principles, and platforms that shape how I build.
 comments: false
 hide:
 
@@ -10,63 +10,63 @@ hide:
 
 # Brandon A. Calderon Morales
 
-I am a product-minded engineer who likes quiet pipelines, sharp documentation, and teams that care about the craft. This page is a relaxed tour through what I do rather than a stiff PDF.
+Product-minded engineer focused on developer experience, documentation systems, and delivery workflows that stay understandable under pressure.
 
-## Quick snapshot
+[Email](mailto:b.dev.c.m@gmail.com) | [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe/) | [GitHub](https://github.com/BA-CalderonMorales)
 
-- Omaha, Nebraska (hybrid and remote friendly)
-- Bilingual: English and Spanish
-- Currently wrapping up a B.S. in Computer Science at the University of Nebraska at Omaha
-- Loves building with Rust, TypeScript, C#, Python, SQL, and clean YAML
-- Comfortable shipping across AWS, Azure, and GCP
+## At a glance
 
-## How I work
+- Omaha, Nebraska; hybrid and remote friendly
+- Bilingual in English and Spanish
+- Completing a B.S. in Computer Science at the University of Nebraska at Omaha
+- Ships across Rust, TypeScript, C#, Python, SQL, and infrastructure-as-code workflows
+- Comfortable working in AWS, Azure, and GCP environments
 
-- **Documentation as a product.** I integrate docs-as-code into every repo so onboarding feels welcoming, not brittle.
-- **Pipelines with purpose.** I prefer predictable GitHub Actions and Jenkins workflows over clever tricks that are hard to maintain.
-- **Security woven in.** Fortify, ScanCentral, and good dependency hygiene are table stakes, not afterthoughts.
-- **Coaching by example.** I mentor by pairing, writing calm checklists, and keeping architectural decisions transparent.
+## Principles
 
-## Recent roles
+- **Documentation as part of the product.** I build docs-as-code into the workflow so onboarding and maintenance do not drift apart.
+- **Calm pipelines.** I prefer predictable GitHub Actions, Jenkins, and release routines over clever systems that are hard to debug.
+- **Security built in.** Fortify, ScanCentral, dependency hygiene, and access control are baseline concerns, not cleanup work.
+- **Coaching through clarity.** I mentor by pairing, documenting tradeoffs, and keeping operational steps visible.
 
-### Senior Software Engineer — Fiserv (2024–Present)
+## Experience
 
-- Leading DevOps standardization across 20+ teams and 200+ repositories, moving legacy Jenkins jobs into reliable GitHub Actions.
-- Collaborating with the GitHub Copilot team on agentic workflows that trim the time it takes to ship stories, pull requests, and docs.
-- Serving as Confluence admin while migrating teams to docs-as-code so tribal knowledge stops living in slide decks.
-- Keeping security front and center with Fortify, ScanCentral, and repeatable IaC patterns.
+### Senior Software Engineer - Fiserv (2024-Present)
 
-### Military Trainee — Fiserv (2023–2024)
+- Leading DevOps standardization across 20+ teams and 200+ repositories, moving legacy Jenkins jobs into maintainable GitHub Actions.
+- Partnering with the GitHub Copilot team on agentic workflows that reduce the time it takes to ship stories, pull requests, and documentation.
+- Serving as Confluence admin while guiding teams toward docs-as-code so knowledge lives in versioned systems instead of slide decks.
+- Keeping security requirements practical through Fortify, ScanCentral, and repeatable infrastructure patterns.
 
-- Completed the Military-Affiliated Project Management and Analyst program, translating disciplined military habits into financial technology work.
-- Refined facilitation, conflict resolution, and lightweight process design that keeps teams moving.
+### Military Trainee - Fiserv (2023-2024)
 
-### Web Services Developer — Insight Global (SAIC) (2023)
+- Completed the Military-Affiliated Project Management and Analyst program, translating disciplined execution into financial technology delivery.
+- Strengthened facilitation, conflict resolution, and lightweight process design for cross-functional teams.
 
-- Balanced feature delivery, defect triage, and refactoring for legacy enterprise systems.
-- Advocated for small, testable changes and safer deployment routines.
+### Web Services Developer - Insight Global (SAIC) (2023)
 
-### Software Engineer — Leidos (2021–2023)
+- Delivered features, defect fixes, and refactors for legacy enterprise systems with an emphasis on small, testable changes.
+- Helped stabilize release routines and reduce the operational cost of routine updates.
+
+### Software Engineer - Leidos (2021-2023)
 
 - Shipped frontend features with React and Material UI and automated pipelines with Jenkins and GitLab CI/CD.
 - Built reusable components and containerized services with Docker and Podman to keep environments consistent.
 
-### United States Marine Corps (2014–2019)
+### United States Marine Corps (2014-2019)
 
 - Served as a Legal Chief and Court Reporter, managing operations, training, and documentation under pressure in Spain and North Carolina.
-- Learned how to keep systems calm and organized when the stakes are high.
+- Learned how to keep systems orderly, direct, and dependable when the stakes are high.
 
-## Skills I reach for often
+## Tools I reach for often
 
 - **Languages and frameworks:** Rust, TypeScript/JavaScript, C#, Python, SQL, React, .NET, Three.js, FastAPI
-- **Data and infra:** MSSQL, PostgreSQL, MongoDB, Terraform, Ansible, Docker/Podman
-- **Pipelines and tooling:** GitHub Actions, Jenkins, GitLab CI/CD, Nexus, CyberArk, Splunk, DynaTrace
-- **Security and reliability:** Fortify SCA, OpenText ScanCentral, thoughtful access control and monitoring
+- **Infrastructure and data:** Terraform, Ansible, Docker, Podman, PostgreSQL, MSSQL, MongoDB
+- **Delivery and observability:** GitHub Actions, Jenkins, GitLab CI/CD, Nexus, Splunk, DynaTrace, CyberArk
+- **Security and reliability:** Fortify SCA, OpenText ScanCentral, access control review, dependency management
 
-## Projects worth exploring
+## Selected work
 
-- **Terminal Jarvis:** A single CLI that standardizes how teams interact with multiple AI assistants.
-- **Coder Infrastructure:** Scripts and templates that make self-hosted Coder environments feel plug-and-play.
-- **Docs-as-Code Portfolio:** This site as a living example of professional, versioned documentation.
-
-If you would rather talk through any of this live, send a note to [b.dev.c.m@gmail.com](mailto:b.dev.c.m@gmail.com).
+- **Terminal Jarvis:** CLI orchestration for multiple AI assistants and team workflows.
+- **Coder Infrastructure:** Templates and automation that make self-hosted developer workspaces predictable.
+- **Docs-as-Code Platform:** This site as a living example of versioned documentation, release automation, and information design.
