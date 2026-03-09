@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.5.4] - 2026-03-09
+
+### Fixed
+- Flattened non-canvas UI surfaces to square edges across shared theme elements while preserving the canvas page styling.
+- Restored visible Three.js backgrounds across non-canvas pages by fixing scene layering, increasing background visibility, and strengthening inner-page scene composition.
+
+### Changed
+- Refreshed the site overview copy in `README.md`, `docs/docs-as-code/index.md`, and `docs/resume/index.md`.
+
 ## [0.4.8] - 2026-03-01
 
 ### Fixed
