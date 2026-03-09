@@ -58,7 +58,7 @@
             color: var(--md-default-bg-color, #fff);
             background: var(--md-default-fg-color, #333);
             border: 1px solid var(--mlad-border-strong, rgba(255, 255, 255, 0.16));
-            border-radius: 0.45rem;
+            border-radius: 0;
             box-shadow: var(--mlad-shadow-button, 3px 3px 0 rgba(0, 0, 0, 0.12));
             pointer-events: none;
             opacity: 0;

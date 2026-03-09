@@ -71,6 +71,7 @@ export class SceneManager {
             alpha: this.options.alpha,
             powerPreference: this.options.powerPreference
         });
+        this.renderer.setClearColor(0x000000, 0);
 
         const pixelRatio = this.options.pixelRatio || Math.min(window.devicePixelRatio, 2);
         this.renderer.setPixelRatio(pixelRatio);

@@ -2,6 +2,13 @@
    Canvas - Dedicated showcase surface styling
    ===================================================== */
 
+body.canvas-page {
+    --mlad-radius-sm: 0.45rem;
+    --mlad-radius-md: 0.85rem;
+    --mlad-radius-lg: 1.1rem;
+    --mlad-radius-pill: 999px;
+}
+
 /* Hide UI elements for clean canvas experience */
 .canvas-page .md-content__button,
 .canvas-page .md-source-file,

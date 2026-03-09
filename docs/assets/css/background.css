@@ -5,7 +5,7 @@
 .threejs-bg-container {
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: 0;
     pointer-events: none;
     overflow: hidden;
     opacity: 0;
@@ -16,6 +16,7 @@
     display: block;
     width: 100%;
     height: 100%;
+    filter: saturate(1.02) contrast(1.04);
 }
 
 .threejs-bg-container.is-ready {
@@ -55,8 +56,17 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     background: transparent;
 }
 
+.md-header,
+.md-tabs,
+.md-container,
+.md-main,
+.md-footer {
+    position: relative;
+    z-index: 1;
+}
+
 .md-content__inner {
-    background: var(--mlad-surface-elevated);
+    background: var(--mlad-surface-overlay);
     border: 1px solid var(--mlad-border-strong);
     border-radius: var(--mlad-radius-lg);
     box-shadow: var(--mlad-shadow-soft);
@@ -80,7 +90,7 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 
 .md-sidebar--primary .md-sidebar__inner,
 .md-sidebar--secondary .md-sidebar__inner {
-    background: var(--mlad-surface-solid);
+    background: var(--mlad-surface-overlay);
     border: 1px solid var(--mlad-border-strong);
     border-radius: var(--mlad-radius-md);
     box-shadow: var(--mlad-shadow-soft);
@@ -153,7 +163,7 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 .md-header .md-header__button.md-icon:hover,
 .md-header .md-header__button.md-icon:focus-visible {
     background: var(--mlad-menu-btn-bg-hover);
-    border-radius: 50%;
+    border-radius: 0;
 }
 
 .md-tabs .md-tabs__link:hover,
@@ -219,4 +229,45 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 
 .md-drawer {
     filter: none !important;
+}
+
+body:not(.canvas-page) :where(
+    .md-button,
+    .md-top,
+    .md-content__button,
+    .project-link,
+    .md-content__inner,
+    .md-sidebar__inner,
+    .md-nav__link,
+    .md-search__form,
+    .md-search__input,
+    .md-search__output,
+    .md-search__scrollwrap,
+    .md-search-result__list,
+    .md-search-result__article,
+    .md-source__version,
+    .md-version__current,
+    .md-version__list,
+    .md-typeset pre,
+    .md-typeset code,
+    .md-typeset .md-clipboard,
+    .md-typeset .tabbed-set,
+    .share-action,
+    .share-action__tooltip,
+    .grid.cards > li,
+    .grid.cards > ul > li,
+    .md-typeset blockquote,
+    .tx-hero,
+    .tx-container,
+    .landing-page section.md-typeset,
+    .tx-hero__image img,
+    .custom-tooltip,
+    .ptr-indicator
+) {
+    border-radius: 0 !important;
+}
+
+body:not(.canvas-page) .ai-chat-trigger,
+body:not(.canvas-page) .ai-chat-modal * {
+    border-radius: 0 !important;
 }

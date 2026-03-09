@@ -28,7 +28,7 @@
     max-width: 1200px;
     margin: 0 auto 1.25rem;
     padding: clamp(1.25rem, 3vw, 2.5rem);
-    background: var(--mlad-surface-elevated);
+    background: var(--mlad-surface-overlay);
     border: 1px solid var(--mlad-border-strong);
     border-radius: var(--mlad-radius-lg);
     box-shadow: var(--mlad-shadow-soft);
@@ -53,13 +53,13 @@
 
 .landing-page .tx-hero__image img {
     border: 1px solid var(--mlad-border-strong);
-    background: var(--mlad-surface-elevated);
+    background: var(--mlad-surface-overlay);
 }
 
 .landing-page .grid.cards > li,
 .landing-page .grid.cards > ul > li,
 .landing-page .grid > blockquote {
-    background: var(--mlad-surface-elevated);
+    background: var(--mlad-surface-overlay);
     border: 1px solid var(--mlad-border-strong);
     border-radius: var(--mlad-radius-md);
 }

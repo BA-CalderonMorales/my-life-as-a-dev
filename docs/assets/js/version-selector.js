@@ -219,7 +219,7 @@
         padding: 0.4rem 0.5rem 0.4rem 0.7rem;
         background: var(--mlad-surface-elevated, #fff);
         border: 1px solid var(--mlad-border-strong, rgba(0, 0, 0, 0.16));
-        border-radius: 0.9rem;
+        border-radius: 0;
         color: var(--md-default-fg-color, #111);
         cursor: pointer;
         font-size: 0.7rem;
@@ -253,7 +253,7 @@
         margin: 0;
         padding: 0.5rem 0;
         background: var(--md-default-bg-color, white);
-        border-radius: 0.9rem;
+        border-radius: 0;
         box-shadow: var(--mlad-shadow-soft, 8px 8px 0 rgba(0, 0, 0, 0.08));
         list-style: none;
         min-width: 11rem;

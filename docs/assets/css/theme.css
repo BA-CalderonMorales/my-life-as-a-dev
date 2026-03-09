@@ -14,10 +14,10 @@
     --md-link-color: var(--md-primary-fg-color);
     --md-link-color-hover: var(--md-accent-fg-color);
 
-    --mlad-radius-sm: 0.45rem;
-    --mlad-radius-md: 0.85rem;
-    --mlad-radius-lg: 1.1rem;
-    --mlad-radius-pill: 999px;
+    --mlad-radius-sm: 0;
+    --mlad-radius-md: 0;
+    --mlad-radius-lg: 0;
+    --mlad-radius-pill: 0;
 
     --mlad-spacing-xs: 0.25rem;
     --mlad-spacing-sm: 0.5rem;
@@ -49,7 +49,7 @@
     --mlad-surface-muted: rgba(242, 241, 236, 0.94);
     --mlad-surface-strong: rgba(248, 247, 242, 0.98);
     --mlad-surface-elevated: #ffffff;
-    --mlad-surface-overlay: rgba(255, 255, 255, 0.84);
+    --mlad-surface-overlay: rgba(255, 255, 255, 0.78);
 
     --mlad-border-soft: rgba(21, 21, 21, 0.1);
     --mlad-border-strong: rgba(21, 21, 21, 0.2);
@@ -73,10 +73,10 @@
     --mlad-chat-bg: #151515;
     --mlad-chat-fg: #fbfaf5;
 
-    --mlad-scene-opacity-home: 0.32;
-    --mlad-scene-opacity-page: 0.09;
-    --mlad-scene-opacity-mobile: 0.05;
-    --mlad-scene-opacity-home-mobile: 0.22;
+    --mlad-scene-opacity-home: 0.44;
+    --mlad-scene-opacity-page: 0.2;
+    --mlad-scene-opacity-mobile: 0.12;
+    --mlad-scene-opacity-home-mobile: 0.3;
 }
 
 [data-md-color-scheme="slate"] {
@@ -103,7 +103,7 @@
     --mlad-surface-muted: rgba(23, 23, 22, 0.94);
     --mlad-surface-strong: rgba(28, 28, 27, 0.98);
     --mlad-surface-elevated: #20201f;
-    --mlad-surface-overlay: rgba(23, 23, 22, 0.88);
+    --mlad-surface-overlay: rgba(23, 23, 22, 0.82);
 
     --mlad-border-soft: rgba(242, 241, 237, 0.1);
     --mlad-border-strong: rgba(242, 241, 237, 0.18);
@@ -127,13 +127,15 @@
     --mlad-chat-bg: #f2f1ed;
     --mlad-chat-fg: #111111;
 
-    --mlad-scene-opacity-home: 0.26;
-    --mlad-scene-opacity-page: 0.1;
-    --mlad-scene-opacity-mobile: 0.07;
-    --mlad-scene-opacity-home-mobile: 0.18;
+    --mlad-scene-opacity-home: 0.36;
+    --mlad-scene-opacity-page: 0.18;
+    --mlad-scene-opacity-mobile: 0.1;
+    --mlad-scene-opacity-home-mobile: 0.24;
 }
 
 body {
+    position: relative;
+    isolation: isolate;
     background: var(--md-default-bg-color);
     background-image: linear-gradient(180deg, var(--mlad-body-wash), transparent 22%);
     color: var(--md-default-fg-color);
