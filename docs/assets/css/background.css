@@ -56,10 +56,14 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     background: transparent;
 }
 
+.md-container,
+.md-main {
+    position: relative;
+}
+
 .md-header,
 .md-tabs,
-.md-container,
-.md-main,
+.md-content,
 .md-footer {
     position: relative;
     z-index: 1;
@@ -92,6 +96,8 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 
 .md-sidebar--primary .md-sidebar__inner,
 .md-sidebar--secondary .md-sidebar__inner {
+    position: relative;
+    z-index: 1;
     background: var(--mlad-surface-overlay);
     border: 1px solid var(--mlad-border-strong);
     border-radius: var(--mlad-radius-md);

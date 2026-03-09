@@ -9,7 +9,13 @@ import threading
 import socket
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
-from playwright.sync_api import sync_playwright, Browser, Page
+from typing import Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from playwright.sync_api import Browser, Page
+else:
+    Browser = Any
+    Page = Any
 
 
 # Project paths
@@ -54,6 +60,11 @@ def http_server():
 @pytest.fixture(scope="session")
 def browser():
     """Provide a shared browser instance for all tests."""
+    try:
+        from playwright.sync_api import sync_playwright
+    except ModuleNotFoundError:
+        pytest.skip("Playwright is not installed in this environment")
+
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         yield browser
