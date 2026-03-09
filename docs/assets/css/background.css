@@ -79,6 +79,8 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     padding: 0;
     margin: 0.75rem 0;
     border: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
 }
 
 .md-sidebar--primary .md-sidebar__scrollwrap,
@@ -177,6 +179,18 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 }
 
 @media screen and (max-width: 76.25rem) {
+    .md-sidebar--primary {
+        top: 0 !important;
+        height: 100% !important;
+        margin: 0 !important;
+        background: var(--mlad-surface-solid) !important;
+        border-right: 1px solid var(--mlad-border-soft) !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+    }
+
     .md-content__inner {
         background: var(--mlad-surface-solid) !important;
         border-radius: 0;
