@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.5.6] - 2026-03-09
+
+### Fixed
+- Restored the version selector dropdown so older releases remain visibly clickable instead of falling behind page content or rendering with a washed-out surface.
+- Made version selector entries fall back to each version root by default, while still attempting same-page navigation when that page exists in the selected release.
+
+### Changed
+- Added a shipped-asset regression check for version selector manifest parsing, fallback links, and dropdown layering.
+
 ## [0.5.5] - 2026-03-09
 
 ### Fixed
