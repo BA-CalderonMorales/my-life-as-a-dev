@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.5.5] - 2026-03-09
+
+### Fixed
+- Kept the mobile left-nav drawer above the full-screen overlay so the panel stays crisp while the backdrop behind it remains blurred.
+
+### Changed
+- Added a mobile drawer regression check under `e2e/quality` and hardened the shared Playwright fixture to skip cleanly when Playwright is unavailable locally.
+
 ## [0.5.4] - 2026-03-09
 
 ### Fixed
