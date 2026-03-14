@@ -1,12 +1,20 @@
 /** Chat Widget Configuration */
 
 const ChatConfig = {
-    // NVIDIA Chat Proxy (primary)
-    NVIDIA_API_URL: 'https://nvidia-chat-proxy-python-882389009262.us-central1.run.app/nvidia/chat',
+    // NVIDIA Chat Proxy (current service URL + legacy hostname fallback)
+    NVIDIA_API_URL: 'https://nvidia-chat-proxy-python-dawfbmka6a-uc.a.run.app/nvidia/chat',
+    NVIDIA_API_URLS: [
+        'https://nvidia-chat-proxy-python-dawfbmka6a-uc.a.run.app/nvidia/chat',
+        'https://nvidia-chat-proxy-python-882389009262.us-central1.run.app/nvidia/chat'
+    ],
     NVIDIA_TIMEOUT: 10000,
 
-    // Go/Gemini Cloud Run endpoint (fallback)
-    API_URL: 'https://agent-chat-proxy-882389009262.us-central1.run.app',
+    // Go/Gemini Cloud Run endpoint (current service URL + legacy hostname fallback)
+    API_URL: 'https://agent-chat-proxy-dawfbmka6a-uc.a.run.app',
+    API_URLS: [
+        'https://agent-chat-proxy-dawfbmka6a-uc.a.run.app',
+        'https://agent-chat-proxy-882389009262.us-central1.run.app'
+    ],
 
     MIN_REQUEST_INTERVAL: 1000,
     MAX_MESSAGE_LENGTH: 500,
