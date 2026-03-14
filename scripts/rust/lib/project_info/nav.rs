@@ -2,7 +2,7 @@
 
 use std::fs;
 use std::io;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 /// Checks for markdown files not in navigation.
 pub struct NavChecker {
@@ -40,7 +40,7 @@ impl NavChecker {
         Ok(())
     }
 
-    fn collect_md_files(&self, dir: &PathBuf, base: &PathBuf) -> Vec<String> {
+    fn collect_md_files(&self, dir: &Path, base: &Path) -> Vec<String> {
         let mut files = Vec::new();
 
         if let Ok(entries) = fs::read_dir(dir) {
@@ -78,17 +78,9 @@ impl NavChecker {
         let mut files = Vec::new();
 
         for line in content.lines() {
-            let line = line.trim();
-            if line.contains(".md") {
-                if let Some(start) = line.find('"') {
-                    if let Some(end) = line.rfind('"') {
-                        if end > start {
-                            let path = &line[start + 1..end];
-                            if path.ends_with(".md") {
-                                files.push(path.to_string());
-                            }
-                        }
-                    }
+            for segment in line.split('"').skip(1).step_by(2) {
+                if segment.ends_with(".md") {
+                    files.push(segment.to_string());
                 }
             }
         }
@@ -123,13 +115,18 @@ impl NavChecker {
         println!("\n{}", "=".repeat(60));
 
         if orphaned.is_empty() {
-            println!(" All markdown files are included in navigation!");
+            println!("[ok] All markdown files are included in navigation!");
         } else {
-            println!(" Found {} files not in navigation:", orphaned.len());
+            println!(
+                "[warning] Found {} files not in navigation:",
+                orphaned.len()
+            );
             for file in orphaned {
                 println!("   - {}", file);
             }
-            println!("\n To fix: Add these files to the nav section in zensical.toml");
+            println!(
+                "\n Tip: Add these files to the nav section in config/zensical/03-navigation.toml"
+            );
         }
     }
 }

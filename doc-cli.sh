@@ -7,7 +7,6 @@ set -euo pipefail
 
 # Colors for better UI
 GREEN='\033[0;32m'
-BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
@@ -22,7 +21,6 @@ DOC_CLI_BIN="${RELEASE_DIR}/doc-cli"
 need() { command -v "$1" >/dev/null 2>&1; }
 
 build_rust_tools() {
-  echo -e "\n${YELLOW}Building documentation CLI tools with Cargo...${NC}\n"
   if [ ! -f "${RUST_DIR}/Cargo.toml" ]; then
     echo -e "${RED}Cargo.toml not found at ${RUST_DIR}. Is the repository structure correct?${NC}"
     exit 1
@@ -34,38 +32,43 @@ build_rust_tools() {
     exit 1
   fi
 
-  (cd "${RUST_DIR}" && cargo build --release)
-  echo -e "\n${GREEN}All tools built successfully!${NC}\n"
-  
-  # Copy the built binary to the repo root for convenience (overwrite any existing file/symlink)
   if [ -x "${DOC_CLI_BIN}" ]; then
-    rm -f "${SCRIPT_DIR}/doc-cli"
-    cp "${DOC_CLI_BIN}" "${SCRIPT_DIR}/doc-cli"
-    chmod +x "${SCRIPT_DIR}/doc-cli"
+    echo -e "\n${YELLOW}Rust sources changed, rebuilding doc-cli...${NC}\n"
+  else
+    echo -e "\n${YELLOW}Building doc-cli with Cargo...${NC}\n"
   fi
+
+  (cd "${RUST_DIR}" && cargo build --release --bin doc-cli)
+  echo -e "\n${GREEN}All tools built successfully!${NC}\n"
+}
+
+needs_build() {
+  if [ ! -x "${DOC_CLI_BIN}" ]; then
+    return 0
+  fi
+
+  if find "${RUST_DIR}" \
+    -path "${RUST_DIR}/target" -prune -o \
+    -type f \( -name '*.rs' -o -name 'Cargo.toml' -o -name 'Cargo.lock' \) \
+    -newer "${DOC_CLI_BIN}" \
+    -print -quit | grep -q .; then
+    return 0
+  fi
+
+  return 1
 }
 
 run_doc_cli() {
-  if [ ! -x "${DOC_CLI_BIN}" ]; then
-    echo -e "${RED}Error: doc-cli not found at ${DOC_CLI_BIN}${NC}"
-    echo -e "Attempting to build it now..."
+  if needs_build; then
     build_rust_tools
   fi
 
   if [ ! -x "${DOC_CLI_BIN}" ]; then
-    echo -e "${RED}✗ Failed to build doc-cli at ${DOC_CLI_BIN}${NC}"
+    echo -e "${RED}Failed to build doc-cli at ${DOC_CLI_BIN}${NC}"
     exit 1
   fi
 
-  "${DOC_CLI_BIN}" "$@"
+  exec "${DOC_CLI_BIN}" "$@"
 }
 
-# Main execution
-clear
-echo -e "${BLUE}=====================================${NC}"
-echo -e "${BLUE}       Documentation CLI Tools       ${NC}"
-echo -e "${BLUE}=====================================${NC}\n"
-
-# Build then run
-build_rust_tools
 run_doc_cli "$@"
