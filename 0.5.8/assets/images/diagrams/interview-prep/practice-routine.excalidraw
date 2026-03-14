@@ -1,0 +1,442 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 64002,
+      "isDeleted": false,
+      "id": "Title",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 150,
+      "y": 0,
+      "strokeColor": "transparent",
+      "backgroundColor": "transparent",
+      "width": 500,
+      "height": 40,
+      "seed": 825758,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "Title-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 76360,
+      "isDeleted": false,
+      "id": "Title-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 210.0,
+      "y": 7.5,
+      "strokeColor": "transparent",
+      "backgroundColor": "transparent",
+      "width": 380,
+      "height": 25,
+      "seed": 281112,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "EFFECTIVE PRACTICE SESSION (60-90 min)",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "Title",
+      "originalText": "EFFECTIVE PRACTICE SESSION (60-90 min)"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 226798,
+      "isDeleted": false,
+      "id": "Step0",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 150,
+      "y": 60,
+      "strokeColor": "#495057",
+      "backgroundColor": "#f1f3f5",
+      "width": 500,
+      "height": 80,
+      "seed": 988443,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "Step0-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 946676,
+      "isDeleted": false,
+      "id": "Step0-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 165.0,
+      "y": 87.5,
+      "strokeColor": "#495057",
+      "backgroundColor": "transparent",
+      "width": 470,
+      "height": 25,
+      "seed": 616188,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "1. Warm-up (10 min)\nReview yesterday's problems",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "Step0",
+      "originalText": "1. Warm-up (10 min)\nReview yesterday's problems"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 917830,
+      "isDeleted": false,
+      "id": "Step1",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 150,
+      "y": 180,
+      "strokeColor": "#495057",
+      "backgroundColor": "#f1f3f5",
+      "width": 500,
+      "height": 80,
+      "seed": 627349,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "Step1-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 303110,
+      "isDeleted": false,
+      "id": "Step1-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 155.0,
+      "y": 207.5,
+      "strokeColor": "#495057",
+      "backgroundColor": "transparent",
+      "width": 490,
+      "height": 25,
+      "seed": 229718,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "2. New Problem (30-40 min)\nSolve without solution",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "Step1",
+      "originalText": "2. New Problem (30-40 min)\nSolve without solution"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 248348,
+      "isDeleted": false,
+      "id": "Step2",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 150,
+      "y": 300,
+      "strokeColor": "#495057",
+      "backgroundColor": "#f1f3f5",
+      "width": 500,
+      "height": 80,
+      "seed": 987683,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "Step2-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 374616,
+      "isDeleted": false,
+      "id": "Step2-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 135.0,
+      "y": 327.5,
+      "strokeColor": "#495057",
+      "backgroundColor": "transparent",
+      "width": 530,
+      "height": 25,
+      "seed": 399722,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "3. Review Solution (15 min)\nCompare & understand gaps",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "Step2",
+      "originalText": "3. Review Solution (15 min)\nCompare & understand gaps"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 438334,
+      "isDeleted": false,
+      "id": "Step3",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 150,
+      "y": 420,
+      "strokeColor": "#495057",
+      "backgroundColor": "#f1f3f5",
+      "width": 500,
+      "height": 80,
+      "seed": 279674,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "Step3-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 472899,
+      "isDeleted": false,
+      "id": "Step3-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 95.0,
+      "y": 447.5,
+      "strokeColor": "#495057",
+      "backgroundColor": "transparent",
+      "width": 610,
+      "height": 25,
+      "seed": 875470,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "4. Spaced Repetition (10 min)\nRetry problem from 3-7 days ago",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "Step3",
+      "originalText": "4. Spaced Repetition (10 min)\nRetry problem from 3-7 days ago"
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 795856,
+      "isDeleted": false,
+      "id": "7ad7e9b5-3a18-4aa4-b25b-f4e5cd05d214",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 400.0,
+      "y": 100.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 0.0,
+      "height": 120.0,
+      "seed": 771473,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "Step0",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "Step1",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0.0,
+          120.0
+        ]
+      ]
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 685594,
+      "isDeleted": false,
+      "id": "2aefdc57-1ffc-43c6-afe8-4437f471ad08",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 400.0,
+      "y": 220.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 0.0,
+      "height": 120.0,
+      "seed": 118448,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "Step1",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "Step2",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0.0,
+          120.0
+        ]
+      ]
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 314946,
+      "isDeleted": false,
+      "id": "07d9bee1-e62e-456b-b6c3-becaf1182c99",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 400.0,
+      "y": 340.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 0.0,
+      "height": 120.0,
+      "seed": 666125,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "Step2",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "Step3",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0.0,
+          120.0
+        ]
+      ]
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": 20
+  },
+  "files": {}
+}
