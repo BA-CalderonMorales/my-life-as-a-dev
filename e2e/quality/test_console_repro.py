@@ -59,15 +59,25 @@ def test_console_cleanliness(page: Page, base_url: str):
     if found_errors:
         pytest.fail("\n".join(found_errors))
 
-    # Verify patches are active
-    # We inject a script to check if MutationObserver and WebSocket are patched
+    # Verify patches are active using the behavior the site relies on today.
     patches_active = page.evaluate("""() => {
-        const isMutationObserverPatched = window.MutationObserver.toString().includes('NativeMutationObserver');
-        const isWebSocketPatched = window.WebSocket.toString().includes('NativeWebSocket');
-        return { isMutationObserverPatched, isWebSocketPatched };
+        const observer = new MutationObserver(() => {});
+        let isMutationObserverGuarded = false;
+
+        try {
+            observer.observe(null, { childList: true });
+            isMutationObserverGuarded = true;
+        } catch (error) {
+            isMutationObserverGuarded = false;
+        }
+
+        return {
+            isMutationObserverGuarded,
+            isWebSocketPatched: window.__WebSocketPatched === true,
+        };
     }""")
     
-    if not patches_active['isMutationObserverPatched']:
+    if not patches_active['isMutationObserverGuarded']:
         pytest.fail("MutationObserver patch is NOT active!")
     
     if not patches_active['isWebSocketPatched']:
