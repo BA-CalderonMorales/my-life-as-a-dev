@@ -31,17 +31,17 @@ impl App {
     /// Create a new App instance.
     fn new() -> Self {
         let args: Vec<String> = env::args().collect();
+        let registry = Self::create_registry(&args);
 
         // Handle --help early
         if args.iter().any(|a| a == "--help" || a == "-h") {
             Self::print_header();
-            if let Some(cmd) = Self::create_registry(&args).find("help") {
+            if let Some(cmd) = registry.find("help") {
                 let _ = cmd.execute();
             }
             std::process::exit(0);
         }
 
-        let registry = Self::create_registry(&args);
         App { registry, args }
     }
 
