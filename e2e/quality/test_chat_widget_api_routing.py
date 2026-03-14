@@ -53,6 +53,9 @@ class TestChatWidgetApiRouting:
                         "answer": (
                             "**Routing looks good**\n"
                             "- Primary response path is active\n"
+                            "See [Active projects](/projects/active/)\n"
+                            "LinkedIn: bcalderonmorales-cmoe\n"
+                            "GitHub: BA-CalderonMorales\n"
                             "Explore https://example.com #Python"
                         ),
                         "session_id": "session-nvidia-1",
@@ -69,7 +72,16 @@ class TestChatWidgetApiRouting:
         bot_message = page.locator(".ai-message-bot").last
         expect(bot_message).to_contain_text("Routing looks good")
         expect(bot_message.locator("li")).to_have_count(1)
-        expect(bot_message.locator("a.ai-chat-link").first).to_have_attribute(
+        expect(bot_message.get_by_role("link", name="Active projects")).to_have_attribute(
+            "href", f"{base_url}/projects/active/"
+        )
+        expect(bot_message.get_by_role("link", name="bcalderonmorales-cmoe")).to_have_attribute(
+            "href", "https://www.linkedin.com/in/bcalderonmorales-cmoe/"
+        )
+        expect(bot_message.get_by_role("link", name="BA-CalderonMorales")).to_have_attribute(
+            "href", "https://github.com/BA-CalderonMorales"
+        )
+        expect(bot_message.get_by_role("link", name="example.com")).to_have_attribute(
             "href", "https://example.com"
         )
         expect(bot_message.locator(".ai-chat-hashtag").first).to_have_text("#Python")
