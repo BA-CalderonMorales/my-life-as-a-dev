@@ -46,6 +46,52 @@ const ChatAPI = {
             .finally(function () { clearTimeout(timer); });
     },
 
+    /** Build a de-duplicated list of candidate backend URLs. */
+    _getEndpointCandidates: function (primaryUrl, urlList) {
+        var candidates = [];
+
+        function add(url) {
+            if (url && candidates.indexOf(url) === -1) {
+                candidates.push(url);
+            }
+        }
+
+        add(primaryUrl);
+        if (Array.isArray(urlList)) {
+            urlList.forEach(add);
+        }
+
+        return candidates;
+    },
+
+    /** Try a list of endpoints until one succeeds or all fail. */
+    _tryEndpointCandidates: async function (label, urls, fetchOpts, timeoutMs, logger) {
+        var lastError = null;
+
+        for (var i = 0; i < urls.length; i++) {
+            var url = urls[i];
+
+            try {
+                logger.log('Trying ' + label + ' endpoint:', url);
+                var response = timeoutMs
+                    ? await this._fetchWithTimeout(url, fetchOpts, timeoutMs)
+                    : await fetch(url, fetchOpts);
+
+                if (response.ok) {
+                    return { response: response, url: url, lastError: null };
+                }
+
+                logger.log(label + ' returned ' + response.status + ' from ' + url);
+                lastError = new Error('HTTP ' + response.status);
+            } catch (e) {
+                logger.log(label + ' unavailable (' + e.message + ') at ' + url);
+                lastError = e;
+            }
+        }
+
+        return { response: null, url: null, lastError: lastError };
+    },
+
     sendMessage: async function (message) {
         var config = window.ChatConfig;
         var logger = window.ChatLogger;
@@ -72,27 +118,40 @@ const ChatAPI = {
         };
 
         var response = null;
+        var lastError = null;
 
-        // Try NVIDIA first, fall back to Go/Gemini on any error
-        if (config.NVIDIA_API_URL) {
-            try {
-                logger.log('Trying NVIDIA endpoint:', config.NVIDIA_API_URL);
-                response = await this._fetchWithTimeout(
-                    config.NVIDIA_API_URL, fetchOpts, config.NVIDIA_TIMEOUT
-                );
-                if (!response.ok) {
-                    logger.log('NVIDIA returned', response.status, '- falling back to Go service');
-                    response = null;
-                }
-            } catch (e) {
-                logger.log('NVIDIA unavailable (' + e.message + ') - falling back to Go service');
-                response = null;
-            }
+        // Try NVIDIA candidates first, then fall back to Go/Gemini candidates.
+        var nvidiaCandidates = this._getEndpointCandidates(config.NVIDIA_API_URL, config.NVIDIA_API_URLS);
+        if (nvidiaCandidates.length > 0) {
+            var nvidiaResult = await this._tryEndpointCandidates(
+                'NVIDIA',
+                nvidiaCandidates,
+                fetchOpts,
+                config.NVIDIA_TIMEOUT,
+                logger
+            );
+            response = nvidiaResult.response;
+            lastError = nvidiaResult.lastError;
         }
 
         if (!response) {
-            logger.log('Sending request to:', config.API_URL);
-            response = await fetch(config.API_URL, fetchOpts);
+            var apiCandidates = this._getEndpointCandidates(config.API_URL, config.API_URLS);
+            var apiResult = await this._tryEndpointCandidates(
+                'Go service',
+                apiCandidates,
+                fetchOpts,
+                0,
+                logger
+            );
+            response = apiResult.response;
+            lastError = apiResult.lastError || lastError;
+        }
+
+        if (!response) {
+            if (lastError) {
+                throw lastError;
+            }
+            throw new TypeError('Failed to fetch');
         }
 
         logger.log('Response status:', response.status);

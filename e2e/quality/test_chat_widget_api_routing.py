@@ -16,8 +16,10 @@ from e2e.quality.test_chat_widget import CHAT_SEND_BTN
 from e2e.quality.test_chat_widget import CHAT_TRIGGER
 
 
-NVIDIA_URL = "https://nvidia-chat-proxy-python-882389009262.us-central1.run.app/nvidia/chat"
-FALLBACK_URL = "https://agent-chat-proxy-882389009262.us-central1.run.app"
+CURRENT_NVIDIA_URL = "https://nvidia-chat-proxy-python-dawfbmka6a-uc.a.run.app/nvidia/chat"
+LEGACY_NVIDIA_URL = "https://nvidia-chat-proxy-python-882389009262.us-central1.run.app/nvidia/chat"
+CURRENT_FALLBACK_URL = "https://agent-chat-proxy-dawfbmka6a-uc.a.run.app"
+LEGACY_FALLBACK_URL = "https://agent-chat-proxy-882389009262.us-central1.run.app"
 
 
 def _open_chat(page: Page, base_url: str) -> None:
@@ -59,7 +61,7 @@ class TestChatWidgetApiRouting:
                 ),
             )
 
-        page.route(NVIDIA_URL, handle_nvidia)
+        page.route(CURRENT_NVIDIA_URL, handle_nvidia)
 
         _open_chat(page, base_url)
         _send_message(page, "What can you help with?")
@@ -82,12 +84,20 @@ class TestChatWidgetApiRouting:
         """The widget should fall back to the Go endpoint if NVIDIA returns a non-2xx response."""
         calls = []
 
-        def handle_nvidia(route):
-            calls.append("nvidia")
+        def handle_current_nvidia(route):
+            calls.append("current-nvidia")
             route.fulfill(
                 status=503,
                 content_type="application/json",
                 body=json.dumps({"error": "nvidia unavailable"}),
+            )
+
+        def handle_legacy_nvidia(route):
+            calls.append("legacy-nvidia")
+            route.fulfill(
+                status=503,
+                content_type="application/json",
+                body=json.dumps({"error": "legacy nvidia unavailable"}),
             )
 
         def handle_fallback(route):
@@ -104,8 +114,9 @@ class TestChatWidgetApiRouting:
                 ),
             )
 
-        page.route(NVIDIA_URL, handle_nvidia)
-        page.route(FALLBACK_URL, handle_fallback)
+        page.route(CURRENT_NVIDIA_URL, handle_current_nvidia)
+        page.route(LEGACY_NVIDIA_URL, handle_legacy_nvidia)
+        page.route(CURRENT_FALLBACK_URL, handle_fallback)
 
         _open_chat(page, base_url)
         _send_message(page, "Trigger the backup path")
@@ -113,4 +124,93 @@ class TestChatWidgetApiRouting:
         expect(page.locator(".ai-message-bot").last).to_contain_text(
             "Fallback response rendered successfully."
         )
-        assert calls == ["nvidia", "fallback"]
+        assert calls == ["current-nvidia", "legacy-nvidia", "fallback"]
+
+    def test_legacy_nvidia_host_is_used_when_current_host_fails_network(self, page: Page, base_url: str):
+        """The widget should try the legacy NVIDIA hostname if the current host fails to fetch."""
+        calls = []
+
+        def handle_current_nvidia(route):
+            calls.append("current-nvidia")
+            route.abort("internetdisconnected")
+
+        def handle_legacy_nvidia(route):
+            calls.append("legacy-nvidia")
+            route.fulfill(
+                status=200,
+                content_type="application/json",
+                body=json.dumps(
+                    {
+                        "answer": "Legacy NVIDIA host recovered the request.",
+                        "session_id": "session-nvidia-legacy-1",
+                        "sources": [],
+                    }
+                ),
+            )
+
+        page.route(CURRENT_NVIDIA_URL, handle_current_nvidia)
+        page.route(LEGACY_NVIDIA_URL, handle_legacy_nvidia)
+
+        _open_chat(page, base_url)
+        _send_message(page, "Try the alternate NVIDIA host")
+
+        expect(page.locator(".ai-message-bot").last).to_contain_text(
+            "Legacy NVIDIA host recovered the request."
+        )
+        assert calls == ["current-nvidia", "legacy-nvidia"]
+
+    def test_legacy_go_host_is_used_when_current_fallback_host_fails_network(self, page: Page, base_url: str):
+        """The widget should try the legacy Go hostname if the current fallback host fails to fetch."""
+        calls = []
+
+        def handle_current_nvidia(route):
+            calls.append("current-nvidia")
+            route.fulfill(
+                status=503,
+                content_type="application/json",
+                body=json.dumps({"error": "nvidia unavailable"}),
+            )
+
+        def handle_legacy_nvidia(route):
+            calls.append("legacy-nvidia")
+            route.fulfill(
+                status=503,
+                content_type="application/json",
+                body=json.dumps({"error": "legacy nvidia unavailable"}),
+            )
+
+        def handle_current_fallback(route):
+            calls.append("current-fallback")
+            route.abort("internetdisconnected")
+
+        def handle_legacy_fallback(route):
+            calls.append("legacy-fallback")
+            route.fulfill(
+                status=200,
+                content_type="application/json",
+                body=json.dumps(
+                    {
+                        "answer": "Legacy Go host recovered the request.",
+                        "session_id": "session-go-legacy-1",
+                        "sources": [],
+                    }
+                ),
+            )
+
+        page.route(CURRENT_NVIDIA_URL, handle_current_nvidia)
+        page.route(LEGACY_NVIDIA_URL, handle_legacy_nvidia)
+        page.route(CURRENT_FALLBACK_URL, handle_current_fallback)
+        page.route(LEGACY_FALLBACK_URL, handle_legacy_fallback)
+
+        _open_chat(page, base_url)
+        _send_message(page, "Try the alternate Go host")
+
+        expect(page.locator(".ai-message-bot").last).to_contain_text(
+            "Legacy Go host recovered the request."
+        )
+        assert calls == [
+            "current-nvidia",
+            "legacy-nvidia",
+            "current-fallback",
+            "legacy-fallback",
+        ]
