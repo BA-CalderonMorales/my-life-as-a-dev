@@ -60,7 +60,7 @@ class TestChatWidgetStructure:
     def test_chat_trigger_has_aria_label(self, chat_page: Page):
         """Chat trigger should have accessibility label."""
         trigger = chat_page.locator(CHAT_TRIGGER)
-        expect(trigger).to_have_attribute("aria-label", "Open AI Assistant")
+        expect(trigger).to_have_attribute("aria-label", "Ask AI Assistant")
 
     def test_chat_modal_hidden_by_default(self, chat_page: Page):
         """Chat modal should be hidden initially."""
@@ -81,14 +81,14 @@ class TestChatWidgetStructure:
         expect(chat_page.locator(CHAT_SEND_BTN)).to_be_visible()
         expect(chat_page.locator(CHAT_CLOSE_BTN)).to_be_visible()
 
-    def test_chat_header_shows_online_status(self, chat_page: Page):
-        """Header should display online status indicator."""
+    def test_chat_header_shows_current_title(self, chat_page: Page):
+        """Header should display the current chat title."""
         chat_page.click(CHAT_TRIGGER)
         chat_page.wait_for_selector(f"{CHAT_MODAL}.active")
 
-        status = chat_page.locator(CHAT_STATUS)
-        expect(status).to_be_visible()
-        expect(status).to_have_text("Online")
+        title = chat_page.locator(".ai-chat-header-title")
+        expect(title).to_be_visible()
+        expect(title).to_have_text("Ask about Brandon's work")
 
     def test_welcome_message_displayed(self, chat_page: Page):
         """Initial welcome message should be displayed."""
@@ -237,11 +237,13 @@ class TestChatWidgetStyles:
         display = modal.evaluate("el => getComputedStyle(el).display")
         assert display == "flex"
 
-    def test_container_has_border_radius(self, chat_page: Page):
-        """Container should have rounded corners."""
+    def test_container_has_visible_border(self, chat_page: Page):
+        """Container should preserve its card border styling."""
         chat_page.click(CHAT_TRIGGER)
         chat_page.wait_for_selector(f"{CHAT_MODAL}.active")
 
         container = chat_page.locator(CHAT_CONTAINER)
-        radius = container.evaluate("el => getComputedStyle(el).borderRadius")
-        assert radius != "0px"
+        border_width = container.evaluate("el => getComputedStyle(el).borderTopWidth")
+        border_style = container.evaluate("el => getComputedStyle(el).borderTopStyle")
+        assert border_width != "0px"
+        assert border_style != "none"

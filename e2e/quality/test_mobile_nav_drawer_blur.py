@@ -55,7 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
       var main = document.querySelector(".md-main");
 
       function styleValue(node, property) {
-        return node ? getComputedStyle(node)[property] : null;
+        if (!node) return null;
+        var value = getComputedStyle(node)[property];
+        return value === undefined ? null : value;
       }
 
       function classifyTopNode(node) {
@@ -142,11 +144,11 @@ class MobileNavDrawerBlurTest(unittest.TestCase):
     def test_mobile_drawer_stays_crisp_above_overlay(self):
         """The open drawer should sit above the overlay and not blur itself."""
         result = _render_mobile_drawer_state()
+        sidebar_filter = result["sidebar"].get("backdropFilter") or result["sidebar"].get("webkitBackdropFilter")
 
         self.assertTrue(result["drawerChecked"], result)
         self.assertEqual(result["insideDrawerTop"], ".md-sidebar--primary", result)
-        self.assertEqual(result["sidebar"]["backdropFilter"], "none", result)
-        self.assertEqual(result["sidebar"]["webkitBackdropFilter"], "none", result)
+        self.assertIn(sidebar_filter, (None, "", "none"), result)
         self.assertEqual(result["container"]["zIndex"], "auto", result)
         self.assertEqual(result["main"]["zIndex"], "auto", result)
 

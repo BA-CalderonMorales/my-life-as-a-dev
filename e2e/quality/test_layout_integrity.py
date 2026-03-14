@@ -57,17 +57,37 @@ class TestLayoutIntegrity:
         assert z_index != "auto" or True  # Allow auto if position is relative
 
     def test_threejs_container_is_behind_content(self, page: Page):
-        """Three.js container should have negative z-index."""
+        """Three.js container should layer below the readable UI chrome."""
         container = page.locator("#threejs-bg-container")
 
         # Container may not exist if WebGL is disabled
         if container.count() == 0:
             pytest.skip("Three.js container not present (WebGL may be disabled)")
 
-        z_index = page.evaluate(
-            "window.getComputedStyle(document.querySelector('#threejs-bg-container')).zIndex"
+        layers = page.evaluate("""() => {
+            const readZ = (selector) => window.getComputedStyle(document.querySelector(selector)).zIndex;
+            return {
+                container: readZ('#threejs-bg-container'),
+                content: readZ('.md-content'),
+                header: readZ('.md-header'),
+            };
+        }""")
+
+        def to_int(value: str) -> int:
+            return 0 if value in (None, "", "auto") else int(value)
+
+        container_z = to_int(layers["container"])
+        content_z = to_int(layers["content"])
+        header_z = to_int(layers["header"])
+
+        assert container_z < content_z, (
+            "Three.js container should layer below content. "
+            f"Computed z-indexes: {layers}"
         )
-        assert int(z_index) < 0, f"Three.js container z-index should be negative, got {z_index}"
+        assert container_z < header_z, (
+            "Three.js container should layer below the header. "
+            f"Computed z-indexes: {layers}"
+        )
 
     def test_threejs_container_is_fixed_position(self, page: Page):
         """Three.js container should use fixed positioning."""

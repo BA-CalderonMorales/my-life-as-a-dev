@@ -6,19 +6,16 @@ Philosophy:
 A developer's console is their first impression of your code quality.
 When someone opens DevTools on this portfolio site, they should see:
 
-1. A single, personalized welcome message - professional and intentional
-2. Zero errors from our code - we handle edge cases gracefully
-3. Zero warnings from our code - we write clean, modern code
+1. Zero errors from our code - we handle edge cases gracefully
+2. Zero warnings from our code - we write clean, modern code
+3. No intentional app logs on page load
 4. No debug artifacts - we clean up after ourselves
 
 INTENTIONAL CONSOLE OUTPUT:
 --------------------------
-The ONLY console message we intentionally display is:
-
-    "Welcome to Brandon's Portfolio - Crafted with passion"
-
-This is logged once per page load from main.js and represents our
-deliberate "calling card" to developers who inspect the site.
+The portfolio now keeps the console silent by default. Any console
+output should come from the browser, MkDocs Material, or other known
+third-party integrations rather than our application code.
 
 EXPECTED THIRD-PARTY NOISE (filtered out):
 ------------------------------------------
@@ -43,9 +40,8 @@ from playwright.sync_api import Page, ConsoleMessage
 # Constants
 # =============================================================================
 
-# The one and only console message we intentionally show
+# Legacy welcome signature kept for regression coverage in case it returns.
 WELCOME_MESSAGE_SIGNATURE = "Welcome to Brandon"
-WELCOME_MESSAGE_CONTENT = "Portfolio"
 
 # Patterns that indicate debug code was left in production
 DEBUG_PATTERNS = [
@@ -247,15 +243,15 @@ class TestConsoleOutput:
         )
 
     # -------------------------------------------------------------------------
-    # Welcome Message Tests
+    # Intentional Log Tests
     # -------------------------------------------------------------------------
 
-    def test_welcome_message_exists(self, console_messages: list[ConsoleMessage]):
+    def test_no_intentional_app_logs(self, console_messages: list[ConsoleMessage]):
         """
-        There should be exactly one personalized welcome message.
-        
-        This is our intentional console signature - a professional touch
-        that shows visitors we care about the developer experience.
+        The portfolio should not emit intentional app logs on page load.
+
+        This keeps DevTools focused on actual issues instead of cosmetic
+        branding messages or leftover instrumentation.
         """
         if is_cors_blocked(console_messages):
             pytest.skip(
@@ -263,20 +259,20 @@ class TestConsoleOutput:
                 "Run with HTTP server via DOCS_BASE_URL env var."
             )
 
-        welcome_messages = [msg for msg in console_messages if is_welcome_message(msg)]
-        
-        # Allow 1-2 messages (MkDocs instant loading may cause page reinit)
-        assert 1 <= len(welcome_messages) <= 2, (
-            f"Expected 1-2 welcome messages, found {len(welcome_messages)}.\n"
-            f"The welcome message should appear once per page load.\n"
-            f"Messages found: {[m.text for m in welcome_messages]}"
+        our_logs = [msg for msg in console_messages if is_our_log(msg)]
+
+        assert not our_logs, (
+            "Unexpected console logs found from our code.\n"
+            "The portfolio should keep the console silent by default.\n"
+            "Logs:\n" + "\n".join(format_messages(our_logs))
         )
 
-    def test_welcome_message_content(self, console_messages: list[ConsoleMessage]):
+    def test_legacy_welcome_message_is_not_reintroduced(self, console_messages: list[ConsoleMessage]):
         """
-        The welcome message should contain proper branding.
-        
-        It should mention the portfolio and be welcoming/professional.
+        The previous welcome-banner console log should stay removed.
+
+        Reintroducing it would make the console noisier without improving
+        user-facing behavior.
         """
         if is_cors_blocked(console_messages):
             pytest.skip(
@@ -285,14 +281,9 @@ class TestConsoleOutput:
             )
 
         welcome_messages = [msg for msg in console_messages if is_welcome_message(msg)]
-        
-        if not welcome_messages:
-            pytest.fail("No welcome message found - see test_welcome_message_exists")
-        
-        welcome_text = welcome_messages[0].text
-        assert WELCOME_MESSAGE_CONTENT in welcome_text, (
-            f"Welcome message should mention '{WELCOME_MESSAGE_CONTENT}'.\n"
-            f"Actual message: {welcome_text}"
+        assert not welcome_messages, (
+            "Legacy welcome message should not appear in the console.\n"
+            f"Messages found: {[m.text for m in welcome_messages]}"
         )
 
     # -------------------------------------------------------------------------
@@ -320,10 +311,10 @@ class TestConsoleOutput:
 
     def test_console_is_minimal_and_intentional(self, console_messages: list[ConsoleMessage]):
         """
-        The console should be minimal - only our welcome message should appear.
-        
-        Every console.log is a choice. We choose to show only one message:
-        a personalized welcome that demonstrates attention to detail.
+        The console should be minimal with no application-authored logs.
+
+        Every console.log is a choice. For the current site, we choose to
+        keep the console silent unless a real issue needs attention.
         """
         if is_cors_blocked(console_messages):
             pytest.skip(
@@ -332,20 +323,11 @@ class TestConsoleOutput:
             )
 
         our_logs = [msg for msg in console_messages if is_our_log(msg)]
-        welcome_messages = [msg for msg in our_logs if is_welcome_message(msg)]
-        unexpected_logs = [msg for msg in our_logs if not is_welcome_message(msg)]
-        
-        # Should have welcome message(s)
-        assert 1 <= len(welcome_messages) <= 2, (
-            f"Expected 1-2 welcome messages, found {len(welcome_messages)}.\n"
-            f"All our logs: {format_messages(our_logs)}"
-        )
-        
-        # Should have no other logs
-        assert not unexpected_logs, (
-            f"Unexpected console output found!\n"
-            f"Only the welcome message should appear in the console.\n"
-            f"Unexpected logs:\n" + "\n".join(format_messages(unexpected_logs))
+
+        assert not our_logs, (
+            "Unexpected console output found from our code.\n"
+            "Only browser or third-party noise should remain after filtering.\n"
+            "Unexpected logs:\n" + "\n".join(format_messages(our_logs))
         )
 
     def test_no_stack_traces_visible(self, console_messages: list[ConsoleMessage]):
