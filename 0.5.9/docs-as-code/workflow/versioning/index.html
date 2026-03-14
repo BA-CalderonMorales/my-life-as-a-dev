@@ -6663,35 +6663,35 @@
 <li><strong>Alias.</strong> The <code>latest</code> alias always points to the current release.</li>
 <li><strong>Redirect.</strong> Root and deleted version URLs redirect to <code>latest</code>.</li>
 </ol>
-<pre><code>gh-pages/
-  0.3.1/          # Immutable snapshot
-  0.3.2/          # Immutable snapshot
-  0.3.3/          # Immutable snapshot
-  latest/         # Copy of 0.3.3
-  index.html      # Redirects to latest/
-  404.html        # Redirects deleted versions
-  versions.json   # Version selector data
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gh-pages/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  0.3.1/          # Immutable snapshot
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  0.3.2/          # Immutable snapshot
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  0.3.3/          # Immutable snapshot
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  latest/         # Copy of 0.3.3
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  index.html      # Redirects to latest/
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  404.html        # Redirects deleted versions
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  versions.json   # Version selector data
+</code></pre></div>
 <hr />
 <h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h2>
 <p>Deploy a new version:</p>
-<pre><code class="language-bash">./doc-cli.sh deploy 0.4.0 --push
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./doc-cli.sh<span class="w"> </span>deploy<span class="w"> </span><span class="m">0</span>.4.0<span class="w"> </span>--push
+</code></pre></div>
 <p>Or use the Python script directly:</p>
-<pre><code class="language-bash">uv run python scripts/python/versioned_deploy.py deploy 0.4.0 --alias latest --push
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/python/versioned_deploy.py<span class="w"> </span>deploy<span class="w"> </span><span class="m">0</span>.4.0<span class="w"> </span>--alias<span class="w"> </span>latest<span class="w"> </span>--push
+</code></pre></div>
 <p>List deployed versions:</p>
-<pre><code class="language-bash">uv run python scripts/python/versioned_deploy.py list
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/python/versioned_deploy.py<span class="w"> </span>list
+</code></pre></div>
 <hr />
 <h2 id="version-selector">Version selector<a class="headerlink" href="#version-selector" title="Permanent link">&para;</a></h2>
 <p>The header dropdown reads from <code>versions.json</code>:</p>
-<pre><code class="language-json">[
-  { &quot;version&quot;: &quot;0.3.3&quot;, &quot;title&quot;: &quot;0.3.3&quot;, &quot;aliases&quot;: [&quot;latest&quot;] },
-  { &quot;version&quot;: &quot;0.3.2&quot;, &quot;title&quot;: &quot;0.3.2&quot;, &quot;aliases&quot;: [] },
-  { &quot;version&quot;: &quot;0.3.1&quot;, &quot;title&quot;: &quot;0.3.1&quot;, &quot;aliases&quot;: [] }
-]
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">[</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.3.3&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.3.3&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;aliases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;latest&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.3.2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.3.2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;aliases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.3.1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.3.1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;aliases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">]</span>
+</code></pre></div>
 <p>MkDocs Material displays this automatically when <code>extra.version.provider: mike</code> is set.</p>
 <hr />
 <h2 id="deleted-version-handling">Deleted version handling<a class="headerlink" href="#deleted-version-handling" title="Permanent link">&para;</a></h2>
@@ -6712,15 +6712,15 @@
 </li>
 <li>
 <p><strong>Configure MkDocs.</strong> Add to your <code>mkdocs.yml</code>:
-   <code>yaml
-   extra:
-     version:
-       provider: mike</code></p>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">extra</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">version</span><span class="p">:</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mike</span>
+</code></pre></div></p>
 </li>
 <li>
 <p><strong>Deploy your first version.</strong>
-   <code>bash
-   python versioned_deploy.py deploy 1.0.0 --alias latest --push</code></p>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>versioned_deploy.py<span class="w"> </span>deploy<span class="w"> </span><span class="m">1</span>.0.0<span class="w"> </span>--alias<span class="w"> </span>latest<span class="w"> </span>--push
+</code></pre></div></p>
 </li>
 <li>
 <p><strong>Enable GitHub Pages.</strong> Point it to the <code>gh-pages</code> branch root.</p>

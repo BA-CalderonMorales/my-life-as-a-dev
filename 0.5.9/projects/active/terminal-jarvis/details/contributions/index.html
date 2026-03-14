@@ -7317,15 +7317,15 @@
 <li>Breaking changes (if any)</li>
 </ul>
 <h3 id="2-fork-and-branch">2. Fork and Branch<a class="headerlink" href="#2-fork-and-branch" title="Permanent link">&para;</a></h3>
-<pre><code class="language-bash"># Fork the repository on GitHub, then:
-git clone https://github.com/YOUR_USERNAME/terminal-jarvis.git
-cd terminal-jarvis
-
-# Create a feature branch
-git checkout -b feature/your-feature-name
-# or
-git checkout -b bugfix/issue-description
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Fork the repository on GitHub, then:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/YOUR_USERNAME/terminal-jarvis.git
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">cd</span><span class="w"> </span>terminal-jarvis
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Create a feature branch</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/your-feature-name
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># or</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>bugfix/issue-description
+</code></pre></div>
 <h3 id="3-follow-development-standards">3. Follow Development Standards<a class="headerlink" href="#3-follow-development-standards" title="Permanent link">&para;</a></h3>
 <p><strong>Rust Code</strong>:</p>
 <ul>
@@ -7341,24 +7341,24 @@ git checkout -b bugfix/issue-description
 </ul>
 <p><strong>Commit Messages</strong>:</p>
 <p>Use <a href="https://www.conventionalcommits.org/">Conventional Commits</a>:</p>
-<pre><code>feat: add support for new AI tool
-fix: resolve authentication timeout issue
-docs: update installation instructions
-test: add tests for tool detection
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>feat: add support for new AI tool
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>fix: resolve authentication timeout issue
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>docs: update installation instructions
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>test: add tests for tool detection
+</code></pre></div>
 <h3 id="4-test-your-changes">4. Test Your Changes<a class="headerlink" href="#4-test-your-changes" title="Permanent link">&para;</a></h3>
-<pre><code class="language-bash"># Run all tests
-cargo test
-
-# Check code formatting
-cargo fmt --all
-
-# Run linting
-cargo clippy --all-targets --all-features -- -D warnings
-
-# Test NPM package (if applicable)
-cd npm/terminal-jarvis &amp;&amp; npm run build
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Run all tests</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>cargo<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Check code formatting</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>cargo<span class="w"> </span>fmt<span class="w"> </span>--all
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Run linting</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>cargo<span class="w"> </span>clippy<span class="w"> </span>--all-targets<span class="w"> </span>--all-features<span class="w"> </span>--<span class="w"> </span>-D<span class="w"> </span>warnings
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Test NPM package (if applicable)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="nb">cd</span><span class="w"> </span>npm/terminal-jarvis<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
+</code></pre></div>
 <h3 id="5-create-pull-request">5. Create Pull Request<a class="headerlink" href="#5-create-pull-request" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Use the provided PR template</li>
@@ -7377,14 +7377,14 @@ cd npm/terminal-jarvis &amp;&amp; npm run build
 </ul>
 <h3 id="local-setup">Local Setup<a class="headerlink" href="#local-setup" title="Permanent link">&para;</a></h3>
 <p>Install Rust:</p>
-<pre><code class="language-bash">curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>--proto<span class="w"> </span><span class="s1">&#39;=https&#39;</span><span class="w"> </span>--tlsv1.2<span class="w"> </span>-sSf<span class="w"> </span>https://sh.rustup.rs<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+</code></pre></div>
 <p>Install Node.js 20+ using nvm or your preferred method.</p>
 <p>Clone and build:</p>
-<pre><code class="language-bash">git clone https://github.com/BA-CalderonMorales/terminal-jarvis.git
-cd terminal-jarvis
-cargo build
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/BA-CalderonMorales/terminal-jarvis.git
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">cd</span><span class="w"> </span>terminal-jarvis
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>cargo<span class="w"> </span>build
+</code></pre></div>
 <h2 id="code-quality-rules">Code Quality Rules<a class="headerlink" href="#code-quality-rules" title="Permanent link">&para;</a></h2>
 <h3 id="test-driven-development">Test-Driven Development<a class="headerlink" href="#test-driven-development" title="Permanent link">&para;</a></h3>
 <p>When fixing bugs:</p>
@@ -7402,42 +7402,42 @@ cargo build
 <li>Add comments for complex logic only</li>
 </ul>
 <h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
-<pre><code class="language-rust">// Good: Descriptive error messages
-.context(&quot;Failed to install tool: NPM not available&quot;)?
-
-// Bad: Generic errors
-.unwrap()
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// Good: Descriptive error messages</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p">.</span><span class="n">context</span><span class="p">(</span><span class="s">&quot;Failed to install tool: NPM not available&quot;</span><span class="p">)</span><span class="o">?</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">// Bad: Generic errors</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">.</span><span class="n">unwrap</span><span class="p">()</span>
+</code></pre></div>
 <h2 id="adding-new-ai-tools">Adding New AI Tools<a class="headerlink" href="#adding-new-ai-tools" title="Permanent link">&para;</a></h2>
 <p>Want to add a new tool? Here's how:</p>
 <ol>
 <li><strong>Create tool configuration</strong> in <code>config/tools/</code>:</li>
 </ol>
-<pre><code class="language-toml">[tool]
-display_name = &quot;New Tool&quot;
-config_key = &quot;newtool&quot;
-description = &quot;Description of the tool&quot;
-cli_command = &quot;newtool&quot;
-requires_npm = true
-status = &quot;testing&quot;
-
-[tool.install]
-command = &quot;npm&quot;
-args = [&quot;install&quot;, &quot;-g&quot;, &quot;newtool-package&quot;]
-verify_command = &quot;newtool --version&quot;
-
-[tool.auth]
-env_vars = [&quot;NEWTOOL_API_KEY&quot;]
-setup_url = &quot;https://newtool.com/setup&quot;
-auth_instructions = &quot;Get your API key from...&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">[tool]</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;New Tool&quot;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">config_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;newtool&quot;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Description of the tool&quot;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">cli_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;newtool&quot;</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">requires_npm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;testing&quot;</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="k">[tool.install]</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;npm&quot;</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;install&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;newtool-package&quot;</span><span class="p">]</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="n">verify_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;newtool --version&quot;</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="k">[tool.auth]</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="n">env_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;NEWTOOL_API_KEY&quot;</span><span class="p">]</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="n">setup_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://newtool.com/setup&quot;</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="n">auth_instructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Get your API key from...&quot;</span>
+</code></pre></div>
 <ol>
 <li><strong>Test the integration</strong>:</li>
 </ol>
-<pre><code class="language-bash">terminal-jarvis list
-terminal-jarvis info newtool
-terminal-jarvis install newtool
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>terminal-jarvis<span class="w"> </span>list
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>terminal-jarvis<span class="w"> </span>info<span class="w"> </span>newtool
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>terminal-jarvis<span class="w"> </span>install<span class="w"> </span>newtool
+</code></pre></div>
 <ol>
 <li>
 <p><strong>Add tests</strong> to <code>test-core-functionality.sh</code></p>
@@ -7470,34 +7470,34 @@ terminal-jarvis install newtool
 </ul>
 <h2 id="pull-request-template">Pull Request Template<a class="headerlink" href="#pull-request-template" title="Permanent link">&para;</a></h2>
 <p>When creating a PR, include:</p>
-<pre><code class="language-markdown">## Type of Change
-
-- [ ] Documentation update
-- [ ] Feature addition
-- [ ] Bug fix
-- [ ] Performance improvement
-- [ ] Refactoring
-- [ ] Test addition
-
-## Description
-
-[Clear description of what changed and why]
-
-## Discord Discussion
-
-Link: [Discord thread URL]
-
-## Testing Performed
-
-- [ ] Local testing completed
-- [ ] All tests pass (`cargo test`)
-- [ ] Code formatted (`cargo fmt`)
-- [ ] Linting passes (`cargo clippy`)
-
-## Breaking Changes
-
-[List any breaking changes, or state &quot;None&quot;]
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gu">## Type of Change</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">- [ ]</span> Documentation update
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">- [ ]</span> Feature addition
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="k">- [ ]</span> Bug fix
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="k">- [ ]</span> Performance improvement
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="k">- [ ]</span> Refactoring
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="k">- [ ]</span> Test addition
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="gu">## Description</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>[Clear description of what changed and why]
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="gu">## Discord Discussion</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>Link: [Discord thread URL]
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="gu">## Testing Performed</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="k">- [ ]</span> Local testing completed
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="k">- [ ]</span> All tests pass (<span class="sb">`cargo test`</span>)
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="k">- [ ]</span> Code formatted (<span class="sb">`cargo fmt`</span>)
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="k">- [ ]</span> Linting passes (<span class="sb">`cargo clippy`</span>)
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a><span class="gu">## Breaking Changes</span>
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>[List any breaking changes, or state &quot;None&quot;]
+</code></pre></div>
 <h2 id="effective-contribution-tips">Effective Contribution Tips<a class="headerlink" href="#effective-contribution-tips" title="Permanent link">&para;</a></h2>
 <h3 id="start-small">Start Small<a class="headerlink" href="#start-small" title="Permanent link">&para;</a></h3>
 <ul>

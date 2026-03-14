@@ -6518,17 +6518,17 @@
 <hr />
 <h2 id="the-8-fallacies">The 8 Fallacies<a class="headerlink" href="#the-8-fallacies" title="Permanent link">&para;</a></h2>
 <p>Beliefs that new engineers often hold, which lead to failure in distributed systems:</p>
-<pre><code class="language-text">┌─────────────────────────────────────────────────────────────────────────────┐
-│                    THE 8 FALLACIES OF DISTRIBUTED COMPUTING                 │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  1. The network is reliable.            5. Topology doesn't change.         │
-│  2. Latency is zero.                    6. There is one administrator.      │
-│  3. Bandwidth is infinite.              7. Transport cost is zero.          │
-│  4. The network is secure.              8. The network is homogeneous.      │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                    THE 8 FALLACIES OF DISTRIBUTED COMPUTING                 │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────────────────────────────────────────┤
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│                                                                             │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  1. The network is reliable.            5. Topology doesn&#39;t change.         │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  2. Latency is zero.                    6. There is one administrator.      │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  3. Bandwidth is infinite.              7. Transport cost is zero.          │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  4. The network is secure.              8. The network is homogeneous.      │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│                                                                             │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>└─────────────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -6585,19 +6585,19 @@
 </div>
 <h3 id="logical-clocks">Logical Clocks<a class="headerlink" href="#logical-clocks" title="Permanent link">&para;</a></h3>
 <p>Capture causal relationships (happened-before), not physical time.</p>
-<pre><code class="language-text">                    Process A          Process B          Process C
-                        │                  │                  │
-                        │    Event A1      │                  │
-                        ●─────────────────&gt;●  Event B1        │
-                        │                  │                  │
-                        │                  ●─────────────────&gt;●  Event C1
-                        │                  │                  │
-                        │  Event A2        ●                  │
-                        ●&lt;─────────────────│  Event B2        │
-                        │                  │                  │
-
-Lamport Timestamps: A1=1, B1=2, C1=3, B2=4, A2=5
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>                    Process A          Process B          Process C
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>                        │                  │                  │
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>                        │    Event A1      │                  │
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>                        ●─────────────────&gt;●  Event B1        │
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                        │                  │                  │
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                        │                  ●─────────────────&gt;●  Event C1
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>                        │                  │                  │
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>                        │  Event A2        ●                  │
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>                        ●&lt;─────────────────│  Event B2        │
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>                        │                  │                  │
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>Lamport Timestamps: A1=1, B1=2, C1=3, B2=4, A2=5
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -6627,41 +6627,41 @@ Lamport Timestamps: A1=1, B1=2, C1=3, B2=4, A2=5
 <hr />
 <h2 id="consistency-models">Consistency Models<a class="headerlink" href="#consistency-models" title="Permanent link">&para;</a></h2>
 <p>From strongest to weakest guarantees:</p>
-<pre><code class="language-text">STRONGEST
-    │
-    ▼
-┌───────────────────────────────────────┐
-│        STRICT CONSISTENCY              │  Impossible in practice
-│  Instant global replication            │  (speed of light)
-└───────────────────────────────────────┘
-    │
-    ▼
-┌───────────────────────────────────────┐
-│        LINEARIZABILITY                 │  Operations appear instantaneous
-│  &quot;Strong consistency&quot;                  │  Once written, all reads see it
-└───────────────────────────────────────┘
-    │
-    ▼
-┌───────────────────────────────────────┐
-│        SEQUENTIAL CONSISTENCY          │  Same-process ops in order
-│                                        │  Global order consistent
-└───────────────────────────────────────┘
-    │
-    ▼
-┌───────────────────────────────────────┐
-│        CAUSAL CONSISTENCY              │  Causally related ops in order
-│                                        │  Concurrent ops may differ
-└───────────────────────────────────────┘
-    │
-    ▼
-┌───────────────────────────────────────┐
-│        EVENTUAL CONSISTENCY            │  Eventually all reads return
-│  &quot;BASE model&quot;                          │  latest value (DNS, email)
-└───────────────────────────────────────┘
-    │
-    ▼
-WEAKEST
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>STRONGEST
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    │
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    ▼
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>┌───────────────────────────────────────┐
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│        STRICT CONSISTENCY              │  Impossible in practice
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│  Instant global replication            │  (speed of light)
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>└───────────────────────────────────────┘
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    │
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    ▼
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>┌───────────────────────────────────────┐
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│        LINEARIZABILITY                 │  Operations appear instantaneous
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>│  &quot;Strong consistency&quot;                  │  Once written, all reads see it
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>└───────────────────────────────────────┘
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    │
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    ▼
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>┌───────────────────────────────────────┐
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>│        SEQUENTIAL CONSISTENCY          │  Same-process ops in order
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>│                                        │  Global order consistent
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>└───────────────────────────────────────┘
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    │
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    ▼
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>┌───────────────────────────────────────┐
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>│        CAUSAL CONSISTENCY              │  Causally related ops in order
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>│                                        │  Concurrent ops may differ
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>└───────────────────────────────────────┘
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    │
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    ▼
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>┌───────────────────────────────────────┐
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>│        EVENTUAL CONSISTENCY            │  Eventually all reads return
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>│  &quot;BASE model&quot;                          │  latest value (DNS, email)
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>└───────────────────────────────────────┘
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>    │
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    ▼
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>WEAKEST
+</code></pre></div>
 <table>
 <thead>
 <tr>

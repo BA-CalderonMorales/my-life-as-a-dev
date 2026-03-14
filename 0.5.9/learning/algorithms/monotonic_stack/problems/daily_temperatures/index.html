@@ -6594,12 +6594,12 @@
 <strong>LeetCode</strong>: <a href="https://leetcode.com/problems/daily-temperatures/">#739</a></p>
 <h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
 <p>Given an array of daily temperatures, return an array where each element tells you how many days until a warmer temperature. If no warmer day exists, use 0.</p>
-<p><strong>Example</strong>:</p>
-<pre><code>Input: temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
-Output: [1, 1, 4, 2, 1, 1, 0, 0]
-Explanation: Day 0: next warmer is day 1 (1 day later)
-             Day 2: next warmer is day 6 (4 days later)
-</code></pre>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Input: temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Output: [1, 1, 4, 2, 1, 1, 0, 0]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Explanation: Day 0: next warmer is day 1 (1 day later)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>             Day 2: next warmer is day 6 (4 days later)
+</code></pre></div></p>
 <h2 id="approach">Approach<a class="headerlink" href="#approach" title="Permanent link">&para;</a></h2>
 <p>Use monotonically decreasing stack:</p>
 <ul>
@@ -6609,95 +6609,95 @@ Explanation: Day 0: next warmer is day 1 (1 day later)
 </ul>
 <p>Maintain decreasing order: only pop when warmer found.</p>
 <h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
-<pre><code class="language-python">def daily_temperatures(temperatures):
-    &quot;&quot;&quot;
-    Find days until warmer temperature using monotonic stack.
-
-    Time Complexity: O(n) - each element pushed and popped at most once
-    Space Complexity: O(n) - stack can hold all elements
-    &quot;&quot;&quot;
-    n = len(temperatures)
-    answer = [0] * n
-    stack = []  # Store indices
-
-    for i in range(n):
-        # Pop all cooler days
-        while stack and temperatures[i] &gt; temperatures[stack[-1]]:
-            prev_day = stack.pop()
-            answer[prev_day] = i - prev_day
-
-        # Add current day
-        stack.append(i)
-
-    return answer
-
-# Test
-temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
-print(daily_temperatures(temperatures))
-# Output: [1, 1, 4, 2, 1, 1, 0, 0]
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">daily_temperatures</span><span class="p">(</span><span class="n">temperatures</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="sd">    Find days until warmer temperature using monotonic stack.</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sd">    Time Complexity: O(n) - each element pushed and popped at most once</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="sd">    Space Complexity: O(n) - stack can hold all elements</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">temperatures</span><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">answer</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Store indices</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="c1"># Pop all cooler days</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="k">while</span> <span class="n">stack</span> <span class="ow">and</span> <span class="n">temperatures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">temperatures</span><span class="p">[</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]:</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>            <span class="n">prev_day</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>            <span class="n">answer</span><span class="p">[</span><span class="n">prev_day</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">prev_day</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="c1"># Add current day</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    <span class="k">return</span> <span class="n">answer</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="c1"># Test</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="n">temperatures</span> <span class="o">=</span> <span class="p">[</span><span class="mi">73</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">73</span><span class="p">]</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="nb">print</span><span class="p">(</span><span class="n">daily_temperatures</span><span class="p">(</span><span class="n">temperatures</span><span class="p">))</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="c1"># Output: [1, 1, 4, 2, 1, 1, 0, 0]</span>
+</code></pre></div>
 <h2 id="step-by-step-walkthrough">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough" title="Permanent link">&para;</a></h2>
-<pre><code>temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
-
-i=0, temp=73:
-  stack empty, push 0
-  stack = [0]
-  answer = [0, 0, 0, 0, 0, 0, 0, 0]
-
-i=1, temp=74:
-  74 &gt; 73 (stack[0]), pop 0
-  answer[0] = 1 - 0 = 1
-  push 1
-  stack = [1]
-  answer = [1, 0, 0, 0, 0, 0, 0, 0]
-
-i=2, temp=75:
-  75 &gt; 74 (stack[1]), pop 1
-  answer[1] = 2 - 1 = 1
-  push 2
-  stack = [2]
-  answer = [1, 1, 0, 0, 0, 0, 0, 0]
-
-i=3, temp=71:
-  71 &lt; 75, no pop
-  push 3
-  stack = [2, 3]
-  answer = [1, 1, 0, 0, 0, 0, 0, 0]
-
-i=4, temp=69:
-  69 &lt; 71, no pop
-  push 4
-  stack = [2, 3, 4]
-  answer = [1, 1, 0, 0, 0, 0, 0, 0]
-
-i=5, temp=72:
-  72 &gt; 69 (stack[4]), pop 4
-  answer[4] = 5 - 4 = 1
-  72 &gt; 71 (stack[3]), pop 3
-  answer[3] = 5 - 3 = 2
-  72 &lt; 75, no more pops
-  push 5
-  stack = [2, 5]
-  answer = [1, 1, 0, 2, 1, 0, 0, 0]
-
-i=6, temp=76:
-  76 &gt; 72 (stack[5]), pop 5
-  answer[5] = 6 - 5 = 1
-  76 &gt; 75 (stack[2]), pop 2
-  answer[2] = 6 - 2 = 4
-  push 6
-  stack = [6]
-  answer = [1, 1, 4, 2, 1, 1, 0, 0]
-
-i=7, temp=73:
-  73 &lt; 76, no pop
-  push 7
-  stack = [6, 7]
-  answer = [1, 1, 4, 2, 1, 1, 0, 0]
-
-Final: indices 6, 7 remain in stack (no warmer day)
-Result: [1, 1, 4, 2, 1, 1, 0, 0]
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>i=0, temp=73:
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  stack empty, push 0
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  stack = [0]
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  answer = [0, 0, 0, 0, 0, 0, 0, 0]
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>i=1, temp=74:
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  74 &gt; 73 (stack[0]), pop 0
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  answer[0] = 1 - 0 = 1
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  push 1
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  stack = [1]
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  answer = [1, 0, 0, 0, 0, 0, 0, 0]
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>i=2, temp=75:
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>  75 &gt; 74 (stack[1]), pop 1
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>  answer[1] = 2 - 1 = 1
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>  push 2
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>  stack = [2]
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>  answer = [1, 1, 0, 0, 0, 0, 0, 0]
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>i=3, temp=71:
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>  71 &lt; 75, no pop
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>  push 3
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>  stack = [2, 3]
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>  answer = [1, 1, 0, 0, 0, 0, 0, 0]
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>i=4, temp=69:
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>  69 &lt; 71, no pop
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>  push 4
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>  stack = [2, 3, 4]
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>  answer = [1, 1, 0, 0, 0, 0, 0, 0]
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>i=5, temp=72:
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>  72 &gt; 69 (stack[4]), pop 4
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>  answer[4] = 5 - 4 = 1
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>  72 &gt; 71 (stack[3]), pop 3
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>  answer[3] = 5 - 3 = 2
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>  72 &lt; 75, no more pops
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>  push 5
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>  stack = [2, 5]
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>  answer = [1, 1, 0, 2, 1, 0, 0, 0]
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>i=6, temp=76:
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>  76 &gt; 72 (stack[5]), pop 5
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>  answer[5] = 6 - 5 = 1
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>  76 &gt; 75 (stack[2]), pop 2
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>  answer[2] = 6 - 2 = 4
+<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>  push 6
+<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a>  stack = [6]
+<a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>  answer = [1, 1, 4, 2, 1, 1, 0, 0]
+<a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a>
+<a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a>i=7, temp=73:
+<a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a>  73 &lt; 76, no pop
+<a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a>  push 7
+<a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a>  stack = [6, 7]
+<a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a>  answer = [1, 1, 4, 2, 1, 1, 0, 0]
+<a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a>
+<a id="__codelineno-2-59" name="__codelineno-2-59" href="#__codelineno-2-59"></a>Final: indices 6, 7 remain in stack (no warmer day)
+<a id="__codelineno-2-60" name="__codelineno-2-60" href="#__codelineno-2-60"></a>Result: [1, 1, 4, 2, 1, 1, 0, 0]
+</code></pre></div>
 <h2 id="personal-notes">Personal Notes<a class="headerlink" href="#personal-notes" title="Permanent link">&para;</a></h2>
 <p><em>Add your own notes, insights, and variations here as you practice this problem.</em></p>
 

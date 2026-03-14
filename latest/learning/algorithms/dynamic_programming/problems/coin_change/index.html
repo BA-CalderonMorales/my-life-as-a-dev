@@ -6594,11 +6594,11 @@
 <strong>LeetCode</strong>: <a href="https://leetcode.com/problems/coin-change/">#322</a></p>
 <h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
 <p>You are given an array of coin denominations and a target amount. Find the minimum number of coins needed to make up that amount. If impossible, return -1.</p>
-<p><strong>Example</strong>:</p>
-<pre><code>Input: coins = [1, 2, 5], amount = 11
-Output: 3
-Explanation: 11 = 5 + 5 + 1 (3 coins)
-</code></pre>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Input: coins = [1, 2, 5], amount = 11
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Output: 3
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Explanation: 11 = 5 + 5 + 1 (3 coins)
+</code></pre></div></p>
 <h2 id="approach">Approach<a class="headerlink" href="#approach" title="Permanent link">&para;</a></h2>
 <p>For each amount, try using each coin and take the minimum:</p>
 <ul>
@@ -6607,97 +6607,97 @@ Explanation: 11 = 5 + 5 + 1 (3 coins)
 </ul>
 <p><strong>Recurrence</strong>: <code>dp[amount] = 1 + min(dp[amount - coin] for each coin)</code></p>
 <h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
-<pre><code class="language-python">def coin_change(coins, amount):
-    &quot;&quot;&quot;
-    Find minimum number of coins to make amount.
-
-    Time Complexity: O(amount * len(coins)) - fill dp array
-    Space Complexity: O(amount) - dp array
-    &quot;&quot;&quot;
-    # Initialize dp array with impossible value
-    dp = [float('inf')] * (amount + 1)
-    dp[0] = 0  # Base case: 0 coins for amount 0
-
-    # Build up solutions for amounts 1 to target
-    for current_amount in range(1, amount + 1):
-        # Try each coin
-        for coin in coins:
-            if coin &lt;= current_amount:
-                # Use this coin + min coins for remaining amount
-                dp[current_amount] = min(
-                    dp[current_amount],
-                    1 + dp[current_amount - coin]
-                )
-
-    # Return result or -1 if impossible
-    return dp[amount] if dp[amount] != float('inf') else -1
-
-# Alternative: Top-down with memoization
-def coin_change_memo(coins, amount, memo=None):
-    &quot;&quot;&quot;Top-down DP approach.&quot;&quot;&quot;
-    if memo is None:
-        memo = {}
-
-    # Base cases
-    if amount == 0:
-        return 0
-    if amount &lt; 0:
-        return -1
-
-    if amount in memo:
-        return memo[amount]
-
-    # Try each coin
-    min_coins = float('inf')
-    for coin in coins:
-        result = coin_change_memo(coins, amount - coin, memo)
-        if result &gt;= 0:  # Valid solution found
-            min_coins = min(min_coins, 1 + result)
-
-    # Store result
-    memo[amount] = min_coins if min_coins != float('inf') else -1
-    return memo[amount]
-
-# Test
-coins = [1, 2, 5]
-amount = 11
-print(coin_change(coins, amount))       # Output: 3
-print(coin_change_memo(coins, amount))  # Output: 3
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">coin_change</span><span class="p">(</span><span class="n">coins</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="sd">    Find minimum number of coins to make amount.</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sd">    Time Complexity: O(amount * len(coins)) - fill dp array</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="sd">    Space Complexity: O(amount) - dp array</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="c1"># Initialize dp array with impossible value</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)]</span> <span class="o">*</span> <span class="p">(</span><span class="n">amount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Base case: 0 coins for amount 0</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="c1"># Build up solutions for amounts 1 to target</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="k">for</span> <span class="n">current_amount</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">amount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="c1"># Try each coin</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="k">for</span> <span class="n">coin</span> <span class="ow">in</span> <span class="n">coins</span><span class="p">:</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>            <span class="k">if</span> <span class="n">coin</span> <span class="o">&lt;=</span> <span class="n">current_amount</span><span class="p">:</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>                <span class="c1"># Use this coin + min coins for remaining amount</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>                <span class="n">dp</span><span class="p">[</span><span class="n">current_amount</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>                    <span class="n">dp</span><span class="p">[</span><span class="n">current_amount</span><span class="p">],</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>                    <span class="mi">1</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">current_amount</span> <span class="o">-</span> <span class="n">coin</span><span class="p">]</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>                <span class="p">)</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="c1"># Return result or -1 if impossible</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">amount</span><span class="p">]</span> <span class="k">if</span> <span class="n">dp</span><span class="p">[</span><span class="n">amount</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="c1"># Alternative: Top-down with memoization</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="k">def</span><span class="w"> </span><span class="nf">coin_change_memo</span><span class="p">(</span><span class="n">coins</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">memo</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Top-down DP approach.&quot;&quot;&quot;</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>    <span class="k">if</span> <span class="n">memo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>        <span class="n">memo</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    <span class="c1"># Base cases</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    <span class="k">if</span> <span class="n">amount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        <span class="k">return</span> <span class="mi">0</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>    <span class="k">if</span> <span class="n">amount</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>    <span class="k">if</span> <span class="n">amount</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>        <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">amount</span><span class="p">]</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>    <span class="c1"># Try each coin</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>    <span class="n">min_coins</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>    <span class="k">for</span> <span class="n">coin</span> <span class="ow">in</span> <span class="n">coins</span><span class="p">:</span>
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>        <span class="n">result</span> <span class="o">=</span> <span class="n">coin_change_memo</span><span class="p">(</span><span class="n">coins</span><span class="p">,</span> <span class="n">amount</span> <span class="o">-</span> <span class="n">coin</span><span class="p">,</span> <span class="n">memo</span><span class="p">)</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>        <span class="k">if</span> <span class="n">result</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Valid solution found</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>            <span class="n">min_coins</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">min_coins</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">result</span><span class="p">)</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>
+<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>    <span class="c1"># Store result</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a>    <span class="n">memo</span><span class="p">[</span><span class="n">amount</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_coins</span> <span class="k">if</span> <span class="n">min_coins</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a>    <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">amount</span><span class="p">]</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a>
+<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a><span class="c1"># Test</span>
+<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a><span class="n">coins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a><span class="n">amount</span> <span class="o">=</span> <span class="mi">11</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a><span class="nb">print</span><span class="p">(</span><span class="n">coin_change</span><span class="p">(</span><span class="n">coins</span><span class="p">,</span> <span class="n">amount</span><span class="p">))</span>       <span class="c1"># Output: 3</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a><span class="nb">print</span><span class="p">(</span><span class="n">coin_change_memo</span><span class="p">(</span><span class="n">coins</span><span class="p">,</span> <span class="n">amount</span><span class="p">))</span>  <span class="c1"># Output: 3</span>
+</code></pre></div>
 <h2 id="step-by-step-walkthrough">Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough" title="Permanent link">&para;</a></h2>
-<pre><code>coins = [1, 2, 5], amount = 11
-
-Initialize: dp = [0, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf]
-
-Amount 1:
-  Try coin 1: dp[1] = min(inf, 1 + dp[0]) = min(inf, 1) = 1
-
-Amount 2:
-  Try coin 1: dp[2] = min(inf, 1 + dp[1]) = min(inf, 2) = 2
-  Try coin 2: dp[2] = min(2, 1 + dp[0]) = min(2, 1) = 1
-
-Amount 3:
-  Try coin 1: dp[3] = min(inf, 1 + dp[2]) = min(inf, 2) = 2
-  Try coin 2: dp[3] = min(2, 1 + dp[1]) = min(2, 2) = 2
-
-Amount 4:
-  Try coin 1: dp[4] = min(inf, 1 + dp[3]) = 3
-  Try coin 2: dp[4] = min(3, 1 + dp[2]) = min(3, 2) = 2
-
-Amount 5:
-  Try coin 1: dp[5] = min(inf, 1 + dp[4]) = 3
-  Try coin 2: dp[5] = min(3, 1 + dp[3]) = 3
-  Try coin 5: dp[5] = min(3, 1 + dp[0]) = min(3, 1) = 1
-
-Continue building...
-
-Amount 11:
-  Try coin 1: dp[11] = min(?, 1 + dp[10]) = min(?, 1 + 2) = 3
-  Try coin 2: dp[11] = min(3, 1 + dp[9]) = min(3, 1 + 3) = 3
-  Try coin 5: dp[11] = min(3, 1 + dp[6]) = min(3, 1 + 2) = 3
-
-Result: 3 (using 5 + 5 + 1)
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>coins = [1, 2, 5], amount = 11
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Initialize: dp = [0, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf]
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Amount 1:
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  Try coin 1: dp[1] = min(inf, 1 + dp[0]) = min(inf, 1) = 1
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>Amount 2:
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  Try coin 1: dp[2] = min(inf, 1 + dp[1]) = min(inf, 2) = 2
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  Try coin 2: dp[2] = min(2, 1 + dp[0]) = min(2, 1) = 1
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>Amount 3:
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  Try coin 1: dp[3] = min(inf, 1 + dp[2]) = min(inf, 2) = 2
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>  Try coin 2: dp[3] = min(2, 1 + dp[1]) = min(2, 2) = 2
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>Amount 4:
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>  Try coin 1: dp[4] = min(inf, 1 + dp[3]) = 3
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>  Try coin 2: dp[4] = min(3, 1 + dp[2]) = min(3, 2) = 2
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>Amount 5:
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>  Try coin 1: dp[5] = min(inf, 1 + dp[4]) = 3
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>  Try coin 2: dp[5] = min(3, 1 + dp[3]) = 3
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>  Try coin 5: dp[5] = min(3, 1 + dp[0]) = min(3, 1) = 1
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>Continue building...
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>Amount 11:
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>  Try coin 1: dp[11] = min(?, 1 + dp[10]) = min(?, 1 + 2) = 3
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>  Try coin 2: dp[11] = min(3, 1 + dp[9]) = min(3, 1 + 3) = 3
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>  Try coin 5: dp[11] = min(3, 1 + dp[6]) = min(3, 1 + 2) = 3
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>Result: 3 (using 5 + 5 + 1)
+</code></pre></div>
 <h2 id="personal-notes">Personal Notes<a class="headerlink" href="#personal-notes" title="Permanent link">&para;</a></h2>
 <p><em>Add your own notes, insights, and variations here as you practice this problem.</em></p>
 

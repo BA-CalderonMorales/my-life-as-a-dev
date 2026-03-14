@@ -5584,6 +5584,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#core-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Scenarios
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Map
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6451,6 +6473,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#core-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Scenarios
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Map
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6588,26 +6632,26 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Bootstrap</label><label for="__tabbed_1_2">Environment</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>```bash</p>
-<h1 id="usrbinenv-bash">!/usr/bin/env bash<a class="headerlink" href="#usrbinenv-bash" title="Permanent link">&para;</a></h1>
-<p>set -euo pipefail</p>
-<h1 id="download-and-verify-coder-binary">Download and verify Coder binary<a class="headerlink" href="#download-and-verify-coder-binary" title="Permanent link">&para;</a></h1>
-<p>ARCH=$(uname -m)
-CODER_VERSION="${CODER_VERSION:-latest}"
-curl -fsSL "https://github.com/coder/coder/releases/${CODER_VERSION}/download/coder_linux_${ARCH}" \
-  -o ./coder &amp;&amp; chmod +x ./coder</p>
-<h1 id="start-the-server-on-localhost">Start the server on localhost<a class="headerlink" href="#start-the-server-on-localhost" title="Permanent link">&para;</a></h1>
-<p>./coder server --address 127.0.0.1:3000
-```</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="ch">#!/usr/bin/env bash</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Download and verify Coder binary</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nv">ARCH</span><span class="o">=</span><span class="k">$(</span>uname<span class="w"> </span>-m<span class="k">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nv">CODER_VERSION</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CODER_VERSION</span><span class="k">:-</span><span class="nv">latest</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span><span class="s2">&quot;https://github.com/coder/coder/releases/</span><span class="si">${</span><span class="nv">CODER_VERSION</span><span class="si">}</span><span class="s2">/download/coder_linux_</span><span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>-o<span class="w"> </span>./coder<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>./coder
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Start the server on localhost</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>./coder<span class="w"> </span>server<span class="w"> </span>--address<span class="w"> </span><span class="m">127</span>.0.0.1:3000
+</code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>```bash</p>
-<h1 id="override-defaults-for-your-environment">Override defaults for your environment<a class="headerlink" href="#override-defaults-for-your-environment" title="Permanent link">&para;</a></h1>
-<p>CODER_VERSION=latest
-CODER_PORT=3000
-CODER_ACCESS_URL=http://127.0.0.1:3000
-CODER_PG_CONNECTION_URL=  # leave empty for built-in SQLite
-```</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Override defaults for your environment</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">CODER_VERSION</span><span class="o">=</span>latest
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nv">CODER_PORT</span><span class="o">=</span><span class="m">3000</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nv">CODER_ACCESS_URL</span><span class="o">=</span>http://127.0.0.1:3000
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nv">CODER_PG_CONNECTION_URL</span><span class="o">=</span><span class="w">  </span><span class="c1"># leave empty for built-in SQLite</span>
+</code></pre></div>
 </div>
 </div>
 </div>
