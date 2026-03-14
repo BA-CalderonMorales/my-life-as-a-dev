@@ -1,109 +1,63 @@
-# My Life As A Dev
+# Brandon's Simplified Life
 
 [![Build status](https://img.shields.io/github/actions/workflow/status/BA-CalderonMorales/my-life-as-a-dev/github_pages.yml?branch=main&label=build)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions)
 [![License](https://img.shields.io/github/license/BA-CalderonMorales/my-life-as-a-dev)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/blob/main/LICENSE)
-[![Documentation](https://img.shields.io/badge/docs-live-blue)](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
+[![Live site](https://img.shields.io/badge/site-live-1f9d8b)](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
 
-A versioned documentation hub for projects, learning notes, and platform experiments. The site is built with Zensical, themed with Material for MkDocs, and released to GitHub Pages with mike.
+The repository behind a versioned docs-and-project hub for developer tooling, learning notes, platform experiments, and docs-as-code workflows. It doubles as a working reference for Zensical builds, Rust CLI automation, versioned releases, image optimization, and the site AI assistant.
 
 ![Site Preview](docs/assets/images/homepage-screenshot.png)
 
-<p align="center">
-  <a href="https://ba-calderonmorales.github.io/my-life-as-a-dev/"><strong>Explore the Documentation</strong></a>
-</p>
+## Explore
 
-## Quick Links
+- [Live Documentation](https://ba-calderonmorales.github.io/my-life-as-a-dev/) for the published site
+- [Docs-as-Code](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/) for build, workflow, AI, and security notes
+- [Learning](https://ba-calderonmorales.github.io/my-life-as-a-dev/learning/) for algorithms, data structures, interview prep, and cloud AI notes
+- [Projects](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/) for active tools, experiments, and implementation details
+- [Resume](https://ba-calderonmorales.github.io/my-life-as-a-dev/resume/) for the current profile and experience summary
 
-- [Live Documentation](https://ba-calderonmorales.github.io/my-life-as-a-dev/) - Browse the published site
-- [Docs-as-Code Platform](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/) - Workflow, stack, AI, and security guides
-- [Learning Section](https://ba-calderonmorales.github.io/my-life-as-a-dev/learning/) - Algorithms, data structures, and interview prep
-- [Projects](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/) - Active work, experiments, and supporting notes
+## What Lives Here
 
-## Stack
+- `docs/` contains the published content, landing pages, project docs, and learning material
+- `config/zensical/` is the editable source of truth for site configuration
+- `zensical.toml` is generated from the modular config before serve and build
+- `scripts/rust/` contains `doc-cli`, the Rust tool used for local workflows and release tasks
+- `scripts/python/` contains deploy helpers, config merge tooling, and image optimization code
+- `e2e/` and `tests/` cover shared UI behavior and plugin logic
 
-- **Zensical** for primary local development and production builds
-- **Material for MkDocs** for navigation, theme components, and content rendering
-- **Mike** for versioned documentation releases
-- **Rust `doc-cli`** for local serve, build, and deploy workflows
-- **GitHub Actions** for CI and GitHub Pages deployment
+## Run It Locally
 
-## Local Development
-
-### Prerequisites
-
-- Python 3.10+
-- [uv](https://docs.astral.sh/uv/)
-- Rust and Cargo if you want to rebuild `doc-cli`
-
-### Setup
+Prerequisites: Python 3.10+, [`uv`](https://docs.astral.sh/uv/), and Rust/Cargo only if you want to rebuild `doc-cli`.
 
 ```bash
 git clone https://github.com/BA-CalderonMorales/my-life-as-a-dev.git
 cd my-life-as-a-dev
 uv venv .venv
 make setup
+make serve
 ```
 
-### Common Commands
+Open `http://localhost:8001/my-life-as-a-dev/`.
+
+Useful commands:
 
 ```bash
-make serve        # Start Zensical on port 8001
-make build        # Production build
-./doc-cli serve   # CLI wrapper for local serving
-./doc-cli build   # CLI wrapper for builds
-./doc-cli.sh      # Interactive menu
+make build
+./doc-cli.sh
 ```
 
-The local site is served at `http://localhost:8001/my-life-as-a-dev/`.
+`make build` validates the site output. `./doc-cli.sh` rebuilds and launches the Rust CLI wrapper when you want the interactive menu or release tooling.
 
-## Versioned Release Workflow
+## Validate And Release
 
 ```bash
-./doc-cli deploy
-./doc-cli deploy 0.3.2 --push
+make build
+./doc-cli help
+./doc-cli validate
+./doc-cli nav-check
+./doc-cli update <version> --alias latest --push
 ```
-
-Notes:
-
-- `config/zensical/*.toml` is auto-merged into `zensical.toml` during serve and build commands.
-- Run `make build` before committing documentation changes.
-- Use Conventional Commits for release-friendly history.
-
-## Repository Layout
-
-```text
-my-life-as-a-dev/
-|-- docs/                  # Documentation content and assets
-|-- config/zensical/       # Modular Zensical configuration
-|-- zensical.toml          # Generated Zensical configuration
-|-- scripts/rust/          # Rust CLI source (doc-cli)
-|-- scripts/python/        # Python helper scripts
-|-- e2e/                   # End-to-end tests
-|-- tests/                 # Unit tests
-`-- site/                  # Built static site (gitignored)
-```
-
-## AI Chat Widget
-
-The site includes a docs assistant interface with a browser-side widget and a Cloud Run proxy backend.
-
-- Frontend: JavaScript MVVM structure with DOM injection, rate limiting, and XSS protections
-- Backend: Go proxy plus Google ADK flows on Google Cloud Run
-- Security: CORS validation, prompt-injection handling, and Secret Manager-backed configuration
-
-Related documentation:
-
-- [AI Overview](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/ai/)
-- [AI Architecture](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/ai/architecture/)
-- [Chat Widget Security](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/security/chat-security/)
-
-## Contributing
-
-1. Create a branch for your change.
-2. Make the update.
-3. Run `make build`.
-4. Submit a pull request.
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License. See [LICENSE](LICENSE).
