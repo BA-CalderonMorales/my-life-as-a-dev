@@ -15,6 +15,7 @@ The repository behind a versioned docs-and-project hub for developer tooling, le
 - [Learning](https://ba-calderonmorales.github.io/my-life-as-a-dev/learning/) for algorithms, data structures, interview prep, and cloud AI notes
 - [Projects](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/) for active tools, experiments, and implementation details
 - [Resume](https://ba-calderonmorales.github.io/my-life-as-a-dev/resume/) for the current profile and experience summary
+- [Kimi Cheat Sheet](https://github.com/BA-CalderonMorales/kimi-cheat-sheet) and [Codex Cheat Sheet](https://github.com/BA-CalderonMorales/codex-cheat-sheet) for AI CLI quick references
 
 ## What Lives Here
 
