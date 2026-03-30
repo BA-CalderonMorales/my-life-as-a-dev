@@ -8,6 +8,14 @@ The repository behind a versioned docs-and-project hub for developer tooling, le
 
 ![Site Preview](docs/assets/images/homepage-screenshot.png)
 
+## Table of Contents
+
+- [Explore](#explore)
+- [What Lives Here](#what-lives-here)
+- [Run It Locally](#run-it-locally)
+- [Validate And Release](#validate-and-release)
+- [License](#license)
+
 ## Explore
 
 - [Live Documentation](https://ba-calderonmorales.github.io/my-life-as-a-dev/) for the published site
