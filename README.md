@@ -16,6 +16,9 @@ The repository behind a versioned docs-and-project hub for developer tooling, le
 - [Validate And Release](#validate-and-release)
 - [License](#license)
 
+
+> *Note: If these links do not respond in the GitHub Mobile app, try viewing in a browser. This is a known platform limitation.*
+
 ## Explore
 
 - [Live Documentation](https://ba-calderonmorales.github.io/my-life-as-a-dev/) for the published site
