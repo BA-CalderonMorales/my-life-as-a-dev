@@ -6,20 +6,20 @@ comments: true
 
 This page tracks recent Terminal Jarvis releases with a focus on user-impacting changes.
 
-## Latest Release: v0.0.78
+## Latest Release: v0.0.79
 
-- **Published**: March 1, 2026
-- **GitHub Release**: [v0.0.78](https://github.com/BA-CalderonMorales/terminal-jarvis/releases/tag/v0.0.78)
-- **Crates.io Version**: [0.0.78](https://crates.io/crates/terminal-jarvis)
+- **Published**: March 30, 2026
+- **GitHub Release**: [v0.0.79](https://github.com/BA-CalderonMorales/terminal-jarvis/releases/tag/v0.0.79)
+- **Crates.io Version**: [0.0.79](https://crates.io/crates/terminal-jarvis)
 
 ### Highlights
 
-- Fixed fresh-install permission problems in Codespaces/NVM npm environments ([#62](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/62))
-- Improved shell-state handling by syncing current directory after `cd` ([#61](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/61))
-- Normalized wrapper command parsing by stripping `terminal-jarvis` prefix when present ([#59](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/59))
-- Improved Qwen wrapper UX by keeping command menu visibility during command flow
+- Introduced docs drift prevention system to keep documentation synchronized with releases
+- Added `verify-docs.sh` script for automated version consistency validation
+- Created agent-driven release skill with cross-repo synchronization workflow
+- Fixed Homebrew formula version drift (URLs now correctly point to v0.0.79)
 
-### Supported Tool Wrappers Updated in v0.0.78
+### Supported Tool Wrappers Updated in v0.0.79
 
 - `amp`
 - `claude`
@@ -33,7 +33,42 @@ This page tracks recent Terminal Jarvis releases with a focus on user-impacting 
 
 ### Upgrade Recommendation
 
-If you are on versions older than `v0.0.78`, upgrade to pick up installation reliability fixes and wrapper behavior improvements:
+If you are on versions older than `v0.0.79`, upgrade to pick up the latest documentation and workflow improvements:
+
+```bash
+npm update -g terminal-jarvis
+```
+
+---
+
+## Previous Releases
+
+### v0.0.78
+
+- **Published**: March 1, 2026
+- **GitHub Release**: [v0.0.78](https://github.com/BA-CalderonMorales/terminal-jarvis/releases/tag/v0.0.78)
+- **Crates.io Version**: [0.0.78](https://crates.io/crates/terminal-jarvis)
+
+#### Highlights
+
+- Fixed fresh-install permission problems in Codespaces/NVM npm environments ([#62](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/62))
+- Improved shell-state handling by syncing current directory after `cd` ([#61](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/61))
+- Normalized wrapper command parsing by stripping `terminal-jarvis` prefix when present ([#59](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/59))
+- Improved Qwen wrapper UX by keeping command menu visibility during command flow
+
+#### Supported Tool Wrappers
+
+- `amp`
+- `claude`
+- `codex`
+- `crush`
+- `gemini`
+- `goose`
+- `llxprt`
+- `opencode`
+- `qwen`
+
+#### Upgrade Recommendation
 
 ```bash
 npm update -g terminal-jarvis
