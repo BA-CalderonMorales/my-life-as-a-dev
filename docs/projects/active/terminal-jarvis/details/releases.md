@@ -6,20 +6,20 @@ comments: true
 
 This page tracks recent Terminal Jarvis releases with a focus on user-impacting changes.
 
-## Latest Release: v0.0.79
+## Latest Release: v0.0.80
 
-- **Published**: March 30, 2026
-- **GitHub Release**: [v0.0.79](https://github.com/BA-CalderonMorales/terminal-jarvis/releases/tag/v0.0.79)
-- **Crates.io Version**: [0.0.79](https://crates.io/crates/terminal-jarvis)
+- **Published**: March 31, 2026
+- **GitHub Release**: [v0.0.80](https://github.com/BA-CalderonMorales/terminal-jarvis/releases/tag/v0.0.80)
+- **Crates.io Version**: [0.0.80](https://crates.io/crates/terminal-jarvis)
 
 ### Highlights
 
-- Introduced docs drift prevention system to keep documentation synchronized with releases
-- Added `verify-docs.sh` script for automated version consistency validation
-- Created agent-driven release skill with cross-repo synchronization workflow
-- Fixed Homebrew formula version drift (URLs now correctly point to v0.0.79)
+- Added TypeScript type definitions (`index.d.ts`) for NPM wrapper package
+- Introduced coverage reporting in CI workflow via cargo-tarpaulin
+- Added documentation and coverage badges to README
+- Fixed rustdoc warnings for cleaner API documentation
 
-### Supported Tool Wrappers Updated in v0.0.79
+### Supported Tool Wrappers Updated in v0.0.80
 
 - `amp`
 - `claude`
@@ -33,7 +33,7 @@ This page tracks recent Terminal Jarvis releases with a focus on user-impacting 
 
 ### Upgrade Recommendation
 
-If you are on versions older than `v0.0.79`, upgrade to pick up the latest documentation and workflow improvements:
+If you are on versions older than `v0.0.80`, upgrade to pick up the latest quality improvements:
 
 ```bash
 npm update -g terminal-jarvis
@@ -42,6 +42,19 @@ npm update -g terminal-jarvis
 ---
 
 ## Previous Releases
+
+### v0.0.79
+
+- **Published**: March 30, 2026
+- **GitHub Release**: [v0.0.79](https://github.com/BA-CalderonMorales/terminal-jarvis/releases/tag/v0.0.79)
+- **Crates.io Version**: [0.0.79](https://crates.io/crates/terminal-jarvis)
+
+#### Highlights
+
+- Introduced docs drift prevention system to keep documentation synchronized with releases
+- Added `verify-docs.sh` script for automated version consistency validation
+- Created agent-driven release skill with cross-repo synchronization workflow
+- Fixed Homebrew formula version drift
 
 ### v0.0.78
 

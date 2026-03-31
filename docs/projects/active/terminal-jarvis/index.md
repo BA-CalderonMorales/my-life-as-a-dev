@@ -19,7 +19,7 @@ comments: true
 
 !!! info "Project Signal"
 
-    - **Status**: v0.0.79 (123 ⭐ • 16 forks) — latest release published on March 30, 2026
+    - **Status**: v0.0.80 (123 ⭐ • 16 forks) — latest release published on March 31, 2026
     - **Focus**: Orchestrating multi-vendor AI CLIs with one workflow
     - **Stack**: Rust core (85%), TypeScript wrapper, Shell scripts
     - **Ideal For**: Developers juggling multiple AI assistants across projects
@@ -43,6 +43,7 @@ comments: true
 - Smart authentication system remembers sessions, detects browser logins, and handles headless/CI environments gracefully.
 - Beautiful T.JARVIS interface with ASCII art, live status dashboard, and theme toggles (T.JARVIS/Classic/Matrix).
 - Update workflow keeps every CLI current via `terminal-jarvis update` and surfaces release notes inline.
+- v0.0.80 adds TypeScript type definitions, coverage reporting, and quality badges for improved Socket.dev score.
 - v0.0.79 introduces docs drift prevention system with automated validation and cross-repo synchronization.
 - v0.0.78 hardens wrappers with fixes for Codespaces/NVM install permissions, command normalization, shell-state sync after `cd`, and Qwen menu persistence.
 
