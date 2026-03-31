@@ -1,0 +1,279 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 548176,
+      "isDeleted": false,
+      "id": "View",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 400,
+      "y": 100,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#e0ffff",
+      "width": 300,
+      "height": 150,
+      "seed": 866136,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "View-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 933691,
+      "isDeleted": false,
+      "id": "View-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": -25.0,
+      "y": 162.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 1150,
+      "height": 25,
+      "seed": 549636,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "View (view.js)\n- Creates DOM elements\n- Binds event listeners\n- Updates UI based on VM\n- 'Dumb' - no business logic",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "View",
+      "originalText": "View (view.js)\n- Creates DOM elements\n- Binds event listeners\n- Updates UI based on VM\n- 'Dumb' - no business logic"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 764798,
+      "isDeleted": false,
+      "id": "ViewModel",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 400,
+      "y": 350,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#fff0f5",
+      "width": 300,
+      "height": 150,
+      "seed": 327591,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "ViewModel-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 665878,
+      "isDeleted": false,
+      "id": "ViewModel-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": -60.0,
+      "y": 412.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 1220,
+      "height": 25,
+      "seed": 299228,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "ViewModel (view-model.js)\n- Handles user actions\n- Orchestrates API calls\n- Updates Model state\n- Notifies View of changes",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "ViewModel",
+      "originalText": "ViewModel (view-model.js)\n- Handles user actions\n- Orchestrates API calls\n- Updates Model state\n- Notifies View of changes"
+    },
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 542354,
+      "isDeleted": false,
+      "id": "Model",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 400,
+      "y": 600,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#f0fff0",
+      "width": 300,
+      "height": 120,
+      "seed": 572887,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "Model-text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "version": 1,
+      "versionNonce": 550055,
+      "isDeleted": false,
+      "id": "Model-text",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 45.0,
+      "y": 647.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 1010,
+      "height": 25,
+      "seed": 675705,
+      "groupIds": [],
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "Model (model.js)\n- Holds application state\n- Messages array, loading flag\n- No UI logic, no API calls",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "Model",
+      "originalText": "Model (model.js)\n- Holds application state\n- Messages array, loading flag\n- No UI logic, no API calls"
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 345777,
+      "isDeleted": false,
+      "id": "1793811d-b922-4518-9afe-16c926fecc03",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 550.0,
+      "y": 175.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 0.0,
+      "height": 250.0,
+      "seed": 497273,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "View",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "ViewModel",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0.0,
+          250.0
+        ]
+      ]
+    },
+    {
+      "type": "arrow",
+      "version": 1,
+      "versionNonce": 69341,
+      "isDeleted": false,
+      "id": "72c99da1-dbe9-4a11-8fc9-010fec0253ba",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 550.0,
+      "y": 425.0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 0.0,
+      "height": 235.0,
+      "seed": 525349,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "startBinding": {
+        "elementId": "ViewModel",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "Model",
+        "focus": 0,
+        "gap": 1
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0.0,
+          235.0
+        ]
+      ]
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": 20
+  },
+  "files": {}
+}
