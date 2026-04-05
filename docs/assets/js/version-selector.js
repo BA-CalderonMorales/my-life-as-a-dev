@@ -414,36 +414,45 @@
       console.log('[VersionSelector] Attempting insert - header:', !!header, 'existing:', !!existingSelector);
 
       if (header && !existingSelector) {
-        // Try multiple insertion points
+        // Try multiple insertion strategies
+        
+        // Strategy 1: Insert before source (preferred - puts it before GitHub link)
         const source = header.querySelector('.md-header__source');
-        const title = header.querySelector('.md-header__title');
-        const ellipsis = header.querySelector('.md-header__ellipsis');
-        
-        console.log('[VersionSelector] Found - source:', !!source, 'title:', !!title, 'ellipsis:', !!ellipsis);
-        
-        let insertBeforeElement = null;
-        
-        // Priority: source (end of header) > title (beginning)
         if (source) {
-          insertBeforeElement = source;
-        } else if (title) {
-          insertBeforeElement = title;
-        } else if (ellipsis) {
-          insertBeforeElement = ellipsis.parentNode;
-        }
-        
-        if (insertBeforeElement) {
           try {
             const selector = createVersionSelector(versions);
-            insertBeforeElement.parentNode.insertBefore(selector, insertBeforeElement);
-            console.log('[VersionSelector] Successfully inserted!');
+            header.insertBefore(selector, source);
+            console.log('[VersionSelector] Successfully inserted before source!');
             return true;
           } catch (e) {
-            console.error('[VersionSelector] Insert failed:', e);
+            console.error('[VersionSelector] Insert before source failed:', e);
           }
-        } else {
-          console.log('[VersionSelector] No suitable insertion point found');
         }
+        
+        // Strategy 2: Insert before title
+        const title = header.querySelector('.md-header__title');
+        if (title) {
+          try {
+            const selector = createVersionSelector(versions);
+            header.insertBefore(selector, title);
+            console.log('[VersionSelector] Successfully inserted before title!');
+            return true;
+          } catch (e) {
+            console.error('[VersionSelector] Insert before title failed:', e);
+          }
+        }
+        
+        // Strategy 3: Append to end of header
+        try {
+          const selector = createVersionSelector(versions);
+          header.appendChild(selector);
+          console.log('[VersionSelector] Successfully appended to header!');
+          return true;
+        } catch (e) {
+          console.error('[VersionSelector] Append to header failed:', e);
+        }
+        
+        console.log('[VersionSelector] All insertion strategies failed');
       }
       return false;
     }
@@ -476,10 +485,24 @@
     // Fallback: try once more after a short delay
     setTimeout(() => {
       if (!document.querySelector('.md-version')) {
-        console.log('[VersionSelector] Fallback attempt...');
+        console.log('[VersionSelector] Fallback attempt (500ms)...');
         insertSelector();
       }
     }, 500);
+    
+    // Ultimate fallback: try after 2 seconds with force
+    setTimeout(() => {
+      if (!document.querySelector('.md-version')) {
+        console.log('[VersionSelector] ULTIMATE fallback (2000ms)...');
+        const header = document.querySelector('.md-header__inner');
+        if (header) {
+          const selector = createVersionSelector(versions);
+          selector.style.cssText = 'position: relative; z-index: 100; display: inline-block; margin-left: 0.5rem;';
+          header.appendChild(selector);
+          console.log('[VersionSelector] Force-appended to header');
+        }
+      }
+    }, 2000);
   }
 
   // Run when DOM is ready
