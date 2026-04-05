@@ -204,7 +204,11 @@
 <script src="{{ 'assets/js/chat-widget/src/view.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/src/view-model.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/src/main.js' | url }}"></script>
-<script src="{{ 'assets/js/version-selector.js' | url }}"></script>
+{% endblock %}
+
+{% block header %}
+{{ super() }}
+{% include "partials/version-selector.html" %}
 {% endblock %}
 
 {% block classes %}
