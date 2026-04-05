@@ -1,0 +1,112 @@
+/* ============================================
+   Landing - Focused surfaces over the animated background
+   ============================================ */
+
+.landing-page .md-content__button {
+    display: none;
+}
+
+.landing-page .md-main,
+.landing-page .md-main__inner,
+.landing-page .md-content {
+    background: transparent;
+}
+
+.landing-page .md-content__inner {
+    background: transparent;
+    padding: 0 0 2rem;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.landing-page .tx-hero,
+.landing-page .tx-container,
+.landing-page section.md-typeset {
+    max-width: 1200px;
+    margin: 0 auto 1.25rem;
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    background: var(--mlad-surface-overlay);
+    border: 1px solid var(--mlad-border-strong);
+    border-radius: var(--mlad-radius-lg);
+    box-shadow: var(--mlad-shadow-soft);
+}
+
+.landing-page .tx-hero {
+    margin-top: 0.75rem;
+    gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.landing-page .tx-hero__content {
+    gap: 1.25rem;
+}
+
+.landing-page .tx-hero__details {
+    max-width: var(--mlad-reading-width);
+}
+
+.landing-page .tx-hero__image picture {
+    display: block;
+}
+
+.landing-page .tx-hero__image img {
+    border: 1px solid var(--mlad-border-strong);
+    background: var(--mlad-surface-overlay);
+}
+
+.landing-page .grid.cards > li,
+.landing-page .grid.cards > ul > li,
+.landing-page .grid > blockquote {
+    background: var(--mlad-surface-overlay);
+    border: 1px solid var(--mlad-border-strong);
+    border-radius: var(--mlad-radius-md);
+}
+
+.landing-page .grid.cards > li:hover,
+.landing-page .grid.cards > ul > li:hover {
+    border-color: var(--md-default-fg-color);
+    background: var(--mlad-surface-strong);
+}
+
+.landing-page .grid > blockquote {
+    margin: 0;
+}
+
+.landing-page .grid > blockquote p,
+.landing-page .grid.cards > li p,
+.landing-page .grid.cards > ul > li p,
+.landing-page .grid.cards > li li,
+.landing-page .grid.cards > ul > li li {
+    color: var(--md-default-fg-color);
+}
+
+.landing-page .landing-working-with-me {
+    display: grid;
+    gap: 1rem;
+}
+
+.landing-page .landing-working-with-me > blockquote {
+    height: 100%;
+}
+
+.landing-page h1,
+.landing-page h2,
+.landing-page .tx-hero__content h1,
+.landing-page .tx-hero__content p {
+    text-shadow: none;
+}
+
+.landing-page .md-typeset > p:last-child,
+.landing-page .tx-hero__details > p:last-child {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 60rem) {
+    .landing-page .tx-hero,
+    .landing-page .tx-container,
+    .landing-page section.md-typeset {
+        padding: 1.25rem;
+    }
+}
