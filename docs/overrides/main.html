@@ -236,10 +236,7 @@
     const path = window.location.pathname;
     const parts = path.split('/').filter(Boolean);
     const baseUrl = parts.length >= 1 ? '/' + parts[0] + '/' : '/';
-    const currentVersion = parts.length >= 2 ? parts[1] : 'latest';
-    
-    const label = container.querySelector('.md-version__label');
-    if (label) label.textContent = currentVersion;
+    const urlVersion = parts.length >= 2 ? parts[1] : 'latest';
     
     fetch(baseUrl + 'versions.json')
       .then(r => r.json())
@@ -248,6 +245,21 @@
           list.innerHTML = '<li class="md-version__item"><span class="md-version__link">No versions</span></li>';
           return;
         }
+        
+        // Find the actual version number (resolve alias like 'latest' to real version)
+        let displayVersion = urlVersion;
+        let currentVersion = urlVersion;
+        for (const v of versions) {
+          if (v.version === urlVersion || (v.aliases && v.aliases.includes(urlVersion))) {
+            displayVersion = v.version; // Always show the actual version number
+            currentVersion = v.version;
+            break;
+          }
+        }
+        
+        // Update label with actual version number (not 'latest')
+        const label = container.querySelector('.md-version__label');
+        if (label) label.textContent = displayVersion;
         
         const html = versions.map(v => {
           const isActive = v.version === currentVersion || (v.aliases && v.aliases.includes(currentVersion));
@@ -262,6 +274,9 @@
       })
       .catch(e => {
         console.error('Version selector error:', e);
+        // Fallback: show URL version on error
+        const label = container.querySelector('.md-version__label');
+        if (label) label.textContent = urlVersion;
         list.innerHTML = '<li class="md-version__item"><span class="md-version__link">Error</span></li>';
       });
   }
