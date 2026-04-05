@@ -506,11 +506,35 @@
   }
 
   // Run when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+  function runInit() {
+    console.log('[VersionSelector] DOM ready, running init...');
+    init().catch(e => {
+      console.error('[VersionSelector] Init failed:', e);
+    });
   }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runInit);
+  } else {
+    runInit();
+  }
+  
+  // Nuclear option: try again after 3 seconds no matter what
+  setTimeout(() => {
+    console.log('[VersionSelector] NUCLEAR OPTION - force creating selector');
+    const header = document.querySelector('.md-header__inner');
+    if (header && !document.querySelector('.md-version')) {
+      fetchVersions().then(versions => {
+        if (versions && versions.length > 0) {
+          console.log('[VersionSelector] Nuclear: versions loaded, creating selector');
+          const selector = createVersionSelector(versions);
+          selector.style.cssText = 'position: relative !important; z-index: 9999 !important; display: inline-block !important; margin-left: 10px !important; background: red !important; padding: 5px !important;';
+          header.appendChild(selector);
+          console.log('[VersionSelector] NUCLEAR: Selector should be visible now!');
+        }
+      });
+    }
+  }, 3000);
   
   // Global error handler
   window.addEventListener('error', (e) => {
