@@ -303,6 +303,8 @@ body:not(.canvas-page) :where(
     margin-left: 0.4rem;
     font-size: 0.7rem;
     z-index: 150;
+    flex-shrink: 0;
+    max-width: 100%;
 }
 
 /* Current version button */
@@ -396,10 +398,28 @@ body:not(.canvas-page) :where(
     top: 0;
     z-index: 100;
     overflow: visible !important;
+    max-width: 100vw;
+}
+
+/* Constrain header title to prevent overflow */
+.md-header__title {
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+.md-header__ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .md-header__inner {
     overflow: visible !important;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    max-width: 100%;
 }
 
 /* Mobile responsive */
