@@ -139,7 +139,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # Deploy using mike (Zensical's native versioning)
-          mike deploy --push --update-aliases "$NEXT_VERSION" latest
+          # First deploy the new version
+          mike deploy --push "$NEXT_VERSION"
+          # Update the 'latest' alias to point to this version
+          mike alias --push "$NEXT_VERSION" latest
           # Set default version to latest
           mike set-default --push latest
 
@@ -197,7 +200,10 @@ jobs:
       - name: Deploy version ${{ inputs.version }} with mike
         run: |
           # Deploy using mike (Zensical's native versioning)
-          mike deploy --push --update-aliases "${{ inputs.version }}" latest
+          # First deploy the new version
+          mike deploy --push "${{ inputs.version }}"
+          # Update the 'latest' alias to point to this version
+          mike alias --push "${{ inputs.version }}" latest
           # Set default version to latest
           mike set-default --push latest
 
