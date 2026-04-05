@@ -382,14 +382,21 @@
 
   // Initialize
   async function init() {
+    console.log('[VersionSelector] Initializing...');
+    
     const versions = await fetchVersions();
+    console.log('[VersionSelector] Versions fetched:', versions ? versions.length : 0);
+    
     if (!versions || !Array.isArray(versions) || versions.length === 0) {
+      console.log('[VersionSelector] No versions found, aborting');
       return;  // No versions, don't show selector
     }
 
     addStyles();
+    console.log('[VersionSelector] Styles added');
 
     const currentVersion = getCurrentVersion();
+    console.log('[VersionSelector] Current version:', currentVersion);
 
     // Show banner if not on latest version
     if (!isLatestVersion(versions, currentVersion)) {
@@ -399,33 +406,80 @@
       }
     }
 
-    // Wait for header to be available
-    const observer = new MutationObserver((mutations, obs) => {
+    // Function to insert the selector
+    function insertSelector() {
       const header = document.querySelector('.md-header__inner');
       const existingSelector = document.querySelector('.md-version');
+      
+      console.log('[VersionSelector] Attempting insert - header:', !!header, 'existing:', !!existingSelector);
 
       if (header && !existingSelector) {
-        const nav = header.querySelector('.md-header__source') || header.querySelector('.md-header__title');
-        if (nav) {
-          const selector = createVersionSelector(versions);
-          nav.parentNode.insertBefore(selector, nav);
-          obs.disconnect();
+        // Try multiple insertion points
+        const source = header.querySelector('.md-header__source');
+        const title = header.querySelector('.md-header__title');
+        const ellipsis = header.querySelector('.md-header__ellipsis');
+        
+        console.log('[VersionSelector] Found - source:', !!source, 'title:', !!title, 'ellipsis:', !!ellipsis);
+        
+        let insertBeforeElement = null;
+        
+        // Priority: source (end of header) > title (beginning)
+        if (source) {
+          insertBeforeElement = source;
+        } else if (title) {
+          insertBeforeElement = title;
+        } else if (ellipsis) {
+          insertBeforeElement = ellipsis.parentNode;
         }
+        
+        if (insertBeforeElement) {
+          try {
+            const selector = createVersionSelector(versions);
+            insertBeforeElement.parentNode.insertBefore(selector, insertBeforeElement);
+            console.log('[VersionSelector] Successfully inserted!');
+            return true;
+          } catch (e) {
+            console.error('[VersionSelector] Insert failed:', e);
+          }
+        } else {
+          console.log('[VersionSelector] No suitable insertion point found');
+        }
+      }
+      return false;
+    }
+
+    // Try immediately first
+    if (insertSelector()) {
+      return;  // Success, no need for observer
+    }
+
+    // Wait for header to be available via MutationObserver
+    console.log('[VersionSelector] Setting up MutationObserver...');
+    let attempts = 0;
+    const maxAttempts = 50;  // 5 seconds max
+    
+    const observer = new MutationObserver((mutations, obs) => {
+      attempts++;
+      if (attempts > maxAttempts) {
+        console.log('[VersionSelector] Max attempts reached, giving up');
+        obs.disconnect();
+        return;
+      }
+      
+      if (insertSelector()) {
+        obs.disconnect();
       }
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
-
-    // Also try immediately
-    const header = document.querySelector('.md-header__inner');
-    if (header) {
-      const nav = header.querySelector('.md-header__source') || header.querySelector('.md-header__title');
-      if (nav && !document.querySelector('.md-version')) {
-        const selector = createVersionSelector(versions);
-        nav.parentNode.insertBefore(selector, nav);
-        observer.disconnect();
+    
+    // Fallback: try once more after a short delay
+    setTimeout(() => {
+      if (!document.querySelector('.md-version')) {
+        console.log('[VersionSelector] Fallback attempt...');
+        insertSelector();
       }
-    }
+    }, 500);
   }
 
   // Run when DOM is ready
