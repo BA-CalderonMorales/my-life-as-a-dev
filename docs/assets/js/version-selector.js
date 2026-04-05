@@ -511,4 +511,17 @@
   } else {
     init();
   }
+  
+  // Global error handler
+  window.addEventListener('error', (e) => {
+    console.error('[VersionSelector] Global error:', e.message, e.filename, e.lineno);
+  });
+  
+  // Expose test function for manual debugging
+  window.testVersionSelector = function() {
+    console.log('[VersionSelector] Manual test triggered');
+    console.log('[VersionSelector] Header found:', !!document.querySelector('.md-header__inner'));
+    console.log('[VersionSelector] Existing selector:', !!document.querySelector('.md-version'));
+    init();
+  };
 })();
