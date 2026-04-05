@@ -291,9 +291,13 @@ body:not(.canvas-page) :where(
     border-radius: 0 !important;
 }
 
+/* ============================================
+   VERSION SELECTOR - Enhanced z-index layering
+   ============================================ */
+
 .md-version {
     position: relative;
-    z-index: 21;
+    z-index: 100;
 }
 
 .md-version__list {
@@ -303,7 +307,7 @@ body:not(.canvas-page) :where(
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    z-index: 22 !important;
+    z-index: 101 !important;
 }
 
 .md-version--active .md-version__list {
@@ -322,6 +326,54 @@ body:not(.canvas-page) :where(
 .md-version__link,
 .md-version__current {
     pointer-events: auto;
+}
+
+/* Ensure version selector is above sticky TOC */
+.md-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* TOC sidebar - ensure it stays below header elements */
+.md-sidebar--secondary {
+    z-index: 50;
+}
+
+/* Sticky TOC that appears on scroll - must be below version selector */
+.md-sidebar--secondary .md-sidebar__inner {
+    z-index: 51;
+}
+
+/* Mobile: ensure drawer and overlay don't block version selector */
+@media screen and (max-width: 76.25rem) {
+    .md-version {
+        z-index: 200;
+    }
+    
+    .md-version__list {
+        z-index: 201 !important;
+    }
+    
+    .md-header {
+        z-index: 150;
+    }
+}
+
+/* Samsung/Android WebView fixes for touch handling */
+@supports (-webkit-touch-callout: none) {
+    .md-version__current,
+    .md-version__link {
+        /* Ensure touch events work properly on mobile WebView */
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .md-version__list {
+        /* Fix for Samsung devices where dropdown might not appear */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+    }
 }
 
 body:not(.canvas-page) .ai-chat-trigger,
