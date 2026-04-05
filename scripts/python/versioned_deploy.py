@@ -7,7 +7,7 @@ which doesn't have native mike integration. It:
 1. Builds the site with Zensical
 2. Deploys to a versioned directory on gh-pages
 3. Updates versions.json for the version selector
-4. Uses shared assets to reduce deployment size
+4. Prunes old versions to limit deployment size
 
 Usage:
     python versioned_deploy.py deploy <version> [--alias latest] [--push]
@@ -25,9 +25,6 @@ from pathlib import Path
 
 # Maximum number of versions to keep
 MAX_VERSIONS = 15
-
-# Directories to share across all versions (heavy assets)
-SHARED_ASSET_DIRS = ['assets', 'assets/js', 'assets/css', 'assets/images', 'assets/javascripts']
 
 
 def run_command(cmd: list[str], check: bool = True) -> subprocess.CompletedProcess:
@@ -54,7 +51,7 @@ def save_versions_json(gh_pages_dir: Path, versions: list) -> None:
 
 def build_site() -> bool:
     """Build the site with Zensical."""
-    print("\n[1/5] Building site with Zensical...")
+    print("\n[1/4] Building site with Zensical...")
     try:
         result = run_command(["zensical", "build"])
         print("  Build completed successfully!")
@@ -66,7 +63,7 @@ def build_site() -> bool:
 
 def checkout_gh_pages(temp_dir: Path, remote: str = "origin", branch: str = "gh-pages") -> bool:
     """Checkout gh-pages branch to temp directory."""
-    print(f"\n[2/5] Checking out {branch} branch...")
+    print(f"\n[2/4] Checking out {branch} branch...")
 
     # Check if branch exists remotely
     result = run_command(["git", "ls-remote", "--heads", remote, branch], check=False)
@@ -87,53 +84,6 @@ def checkout_gh_pages(temp_dir: Path, remote: str = "origin", branch: str = "gh-
         temp_dir.mkdir(parents=True, exist_ok=True)
 
     return True
-
-
-def sync_shared_assets(gh_pages_dir: Path, site_dir: Path) -> None:
-    """Sync shared assets to the root assets directory."""
-    print("\n  Syncing shared assets...")
-    
-    assets_dir = gh_pages_dir / "assets"
-    site_assets = site_dir / "assets"
-    
-    if not site_assets.exists():
-        print("  Warning: No assets directory in site build")
-        return
-    
-    # Create or update shared assets directory
-    if assets_dir.exists():
-        shutil.rmtree(assets_dir)
-    
-    # Copy assets to shared location
-    shutil.copytree(site_assets, assets_dir)
-    print(f"  Shared assets updated at: {assets_dir}")
-
-
-def copy_version_content(version_dir: Path, site_dir: Path, shared_assets_root: str = "..") -> None:
-    """Copy only content files to version directory, referencing shared assets."""
-    print(f"  Copying content to: {version_dir}")
-    
-    # Create version directory
-    if version_dir.exists():
-        shutil.rmtree(version_dir)
-    version_dir.mkdir(parents=True)
-    
-    # Copy everything except assets
-    for item in site_dir.iterdir():
-        if item.name == "assets":
-            # Create a redirect/placeholder that points to shared assets
-            assets_placeholder = version_dir / "assets"
-            assets_placeholder.mkdir()
-            # Create a simple .gitkeep or redirect file
-            (assets_placeholder / ".redirect").write_text(
-                f"Assets are shared. Use {shared_assets_root}/assets/ for actual assets."
-            )
-        elif item.is_dir():
-            shutil.copytree(item, version_dir / item.name)
-        else:
-            shutil.copy2(item, version_dir / item.name)
-    
-    print(f"  Content copied (assets referenced from shared location)")
 
 
 def prune_old_versions(gh_pages_dir: Path, versions: list, max_versions: int = MAX_VERSIONS) -> list:
@@ -184,7 +134,7 @@ def deploy_version(
         return False
 
     # Work directly with gh-pages branch
-    print(f"\n[2/5] Setting up {branch} branch...")
+    print(f"\n[2/4] Setting up {branch} branch...")
 
     # Fetch gh-pages if it exists
     result = run_command(["git", "fetch", remote, branch], check=False)
@@ -208,18 +158,16 @@ def deploy_version(
         run_command(["git", "checkout", "--orphan", branch])
         os.chdir("..")
 
-    print(f"\n[3/5] Deploying version {version}...")
+    print(f"\n[3/4] Deploying version {version}...")
 
-    # Sync shared assets first
-    sync_shared_assets(gh_pages_dir, site_dir)
-
-    print(f"\n[4/5] Copying version content...")
-    
-    # Copy site to version directory (content only, shared assets)
+    # Copy site to version directory (FULL copy with assets)
     version_dir = gh_pages_dir / version
-    copy_version_content(version_dir, site_dir)
+    if version_dir.exists():
+        shutil.rmtree(version_dir)
+    shutil.copytree(site_dir, version_dir)
+    print(f"  Copied full site to: {version_dir}")
 
-    # Handle aliases (symlinks or copies)
+    # Handle aliases (full copies for GitHub Pages compatibility)
     aliases = aliases or []
     for alias in aliases:
         alias_dir = gh_pages_dir / alias
@@ -228,9 +176,9 @@ def deploy_version(
                 alias_dir.unlink()
             else:
                 shutil.rmtree(alias_dir)
-        # Use copy instead of symlink for GitHub Pages compatibility
-        # But reference shared assets properly
-        copy_version_content(alias_dir, version_dir, shared_assets_root=".")
+        # Full copy for GitHub Pages compatibility
+        shutil.copytree(version_dir, alias_dir)
+        print(f"  Created alias: {alias}")
 
     # Update versions.json
     versions = get_versions_json(gh_pages_dir)
@@ -325,7 +273,7 @@ def deploy_version(
     # Add .nojekyll
     (gh_pages_dir / ".nojekyll").touch()
 
-    print(f"\n[5/5] Committing changes...")
+    print(f"\n[4/4] Committing changes...")
 
     # Commit changes
     os.chdir(gh_pages_dir)
