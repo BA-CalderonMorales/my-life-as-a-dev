@@ -29,6 +29,5 @@ extra_css = [
 extra_javascript = [
     # Canvas page Three.js scene (must load globally for instant navigation)
     "assets/js/canvas/scene/main.js",
-    # Version selector for documentation versioning
-    "assets/js/version-selector.js",
+    # NOTE: version-selector.js is loaded in main.html template
 ]
