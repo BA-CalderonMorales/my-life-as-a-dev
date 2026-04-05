@@ -111,6 +111,25 @@
   .threejs-bg-container {
     opacity: 0;
   }
+
+  /* Ensure version selector is always visible */
+  .md-version {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .md-version__current {
+    display: flex !important;
+    visibility: visible !important;
+  }
+  
+  /* Ensure AI chat trigger is always visible */
+  .ai-chat-trigger {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
 </style>
 <meta name="site_url" content="{{ config.site_url }}">
 <link rel="icon" href="{{ config.theme.logo | url }}" />
