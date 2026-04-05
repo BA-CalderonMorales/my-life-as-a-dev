@@ -1,10 +1,10 @@
 <header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header.title') }}">
+  <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" title="{{ config.site_name | e }}" class="md-header__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
       {% include "partials/logo.html" %}
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      {% include "partials/icon.html" ~ " menu" %}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -24,20 +24,12 @@
         </div>
       </div>
     </div>
-    {% if config.theme.palette %}
-      {% if not config.theme.palette is mapping %}
-        {% include "partials/palette.html" %}
-      {% endif %}
-    {% endif %}
-    {% if not config.theme.features is containing("navigation.tabs.sticky") %}
-      {% include "partials/source.html" %}
-    {% endif %}
+    {% include "partials/palette.html" ignore missing %}
+    {% include "partials/source.html" ignore missing %}
     
     {# Custom version selector - placed inside header nav #}
     {% include "partials/version-selector-inline.html" %}
     
   </nav>
-  {% if config.theme.features is containing("navigation.tabs.sticky") %}
-    {% include "partials/tabs.html" %}
-  {% endif %}
+  {% include "partials/tabs.html" ignore missing %}
 </header>

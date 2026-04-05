@@ -6,7 +6,6 @@
     </svg>
   </button>
   <ul class="md-version__list" id="md-version-list">
-    <!-- Populated by JavaScript from versions.json -->
     <li class="md-version__item md-version__loading">
       <span class="md-version__link">Loading...</span>
     </li>
@@ -27,7 +26,6 @@
     const baseUrl = parts.length >= 1 ? '/' + parts[0] + '/' : '/';
     const currentVersion = parts.length >= 2 ? parts[1] : 'latest';
     
-    // Update label
     const label = container.querySelector('.md-version__label');
     if (label) label.textContent = currentVersion;
     
@@ -77,25 +75,12 @@
     });
   }
   
-  // Move version selector into header nav (before md-header__source)
-  function repositionSelector() {
-    const selector = document.getElementById('md-version-selector');
-    const header = document.querySelector('.md-header__inner');
-    const source = document.querySelector('.md-header__source');
-    
-    if (selector && header && source) {
-      header.insertBefore(selector, source);
-    }
-  }
-  
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-      repositionSelector();
       loadVersions();
       initToggle();
     });
   } else {
-    repositionSelector();
     loadVersions();
     initToggle();
   }
