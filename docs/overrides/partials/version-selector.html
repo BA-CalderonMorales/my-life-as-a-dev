@@ -77,12 +77,25 @@
     });
   }
   
+  // Move version selector into header nav (before md-header__source)
+  function repositionSelector() {
+    const selector = document.getElementById('md-version-selector');
+    const header = document.querySelector('.md-header__inner');
+    const source = document.querySelector('.md-header__source');
+    
+    if (selector && header && source) {
+      header.insertBefore(selector, source);
+    }
+  }
+  
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
+      repositionSelector();
       loadVersions();
       initToggle();
     });
   } else {
+    repositionSelector();
     loadVersions();
     initToggle();
   }
