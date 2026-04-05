@@ -457,8 +457,8 @@ accent = "amber"
 icon = "lucide/moon"
 name = "Switch to dark mode"
 
-[project.extra.version]
-provider = "mike"
+# [project.extra.version]
+# provider = "mike"
 
 [project.extra.tags]
 Python = "python"
