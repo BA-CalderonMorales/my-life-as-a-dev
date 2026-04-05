@@ -1,0 +1,24 @@
+{#-
+Override of base.html to inject MutationObserver patch BEFORE any other scripts.
+This is necessary because MkDocs Material's dynamic loaders run before extrahead block.
+-#}
+<script>
+    // CRITICAL: Patch MutationObserver IMMEDIATELY before any other code runs
+    // This fixes: TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.
+    (function () {
+        var NativeMutationObserver = window.MutationObserver;
+        if (NativeMutationObserver) {
+            var originalObserve = NativeMutationObserver.prototype.observe;
+            NativeMutationObserver.prototype.observe = function (target, options) {
+                try {
+                    if (target && target.nodeType) {
+                        return originalObserve.call(this, target, options);
+                    }
+                } catch (e) {
+                    // Silently ignore MutationObserver errors
+                }
+            };
+        }
+    })();
+    // Original MkDocs scope setup
+    __md_scope = new URL("{{ config.extra.scope | d(base_url, true) }}", location), __md_hash = e => [...e].reduce(((e, t) => (e << 5) - e + t.charCodeAt(0)), 0), __md_get = (e, t = localStorage, a = __md_scope) => JSON.parse(t.getItem(a.pathname + "." + e)), __md_set = (e, t, a = localStorage, _ = __md_scope) => { try { a.setItem(_.pathname + "." + e, JSON.stringify(t)) } catch (e) { } }, document.documentElement.setAttribute("data-platform", navigator.platform)</script>
