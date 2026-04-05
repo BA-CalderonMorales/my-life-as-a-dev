@@ -112,26 +112,16 @@
     opacity: 0;
   }
 
-  /* Ensure version selector is always visible but constrained */
+  /* Ensure version selector is always visible */
   .md-version {
     display: inline-flex !important;
     visibility: visible !important;
     opacity: 1 !important;
-    flex-shrink: 1;
-    min-width: 0;
   }
   
   .md-version__current {
     display: flex !important;
     visibility: visible !important;
-    min-width: 0;
-    overflow: hidden;
-  }
-  
-  /* Prevent horizontal overflow on mobile */
-  html, body {
-    max-width: 100%;
-    overflow-x: hidden;
   }
   
   /* Ensure AI chat trigger is always visible */
