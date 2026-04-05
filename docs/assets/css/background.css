@@ -303,7 +303,8 @@ body:not(.canvas-page) :where(
     margin-left: 0.4rem;
     font-size: 0.7rem;
     z-index: 150;
-    flex-shrink: 0;
+    flex-shrink: 1;
+    min-width: 0;
     max-width: 100%;
 }
 
@@ -324,6 +325,8 @@ body:not(.canvas-page) :where(
     transition: all 0.2s ease;
     white-space: nowrap;
     box-shadow: var(--mlad-shadow-button, 3px 3px 0 rgba(0, 0, 0, 0.12));
+    min-width: 0;
+    overflow: hidden;
 }
 
 .md-version__current:hover {
@@ -398,7 +401,9 @@ body:not(.canvas-page) :where(
     top: 0;
     z-index: 100;
     overflow: visible !important;
-    max-width: 100vw;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Constrain header title to prevent overflow */
@@ -406,6 +411,7 @@ body:not(.canvas-page) :where(
     min-width: 0;
     flex: 1 1 auto;
     overflow: hidden;
+    max-width: 100%;
 }
 
 .md-header__ellipsis {
@@ -415,11 +421,19 @@ body:not(.canvas-page) :where(
 }
 
 .md-header__inner {
-    overflow: visible !important;
+    overflow: hidden !important;
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
     max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Prevent horizontal scroll on body */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* Mobile responsive */
@@ -447,6 +461,24 @@ body:not(.canvas-page) :where(
     .md-version__link {
         padding: 0.5rem 0.75rem;
         font-size: 0.75rem;
+    }
+}
+
+/* Very small screens - hide version selector label but keep button */
+@media screen and (max-width: 22rem) {
+    .md-version__label {
+        display: none;
+    }
+    
+    .md-version__current {
+        padding: 0.35rem;
+    }
+}
+
+/* Extra small screens - completely hide version selector */
+@media screen and (max-width: 20rem) {
+    .md-version {
+        display: none !important;
     }
 }
 
