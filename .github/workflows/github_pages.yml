@@ -68,7 +68,10 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
-        run: uv pip install --system -r requirements.txt
+        run: |
+          uv pip install --system -r requirements.txt
+          # Install Zensical's mike fork for versioning support
+          uv pip install --system git+https://github.com/squidfunk/mike.git
 
       - name: Run e2e structure checks
         if: github.event_name == 'pull_request'
@@ -128,18 +131,17 @@ jobs:
           echo "version=${NEXT}" >> $GITHUB_OUTPUT
           echo "Suggested next version: ${NEXT}"
 
-      - name: Auto-deploy to gh-pages
+      - name: Auto-deploy to gh-pages with mike
         if: github.event_name == 'push'
         env:
           NEXT_VERSION: ${{ steps.suggest.outputs.version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          python scripts/python/versioned_deploy.py deploy \
-            "$NEXT_VERSION" \
-            --alias latest \
-            --push \
-            --no-build
+          # Deploy using mike (Zensical's native versioning)
+          mike deploy --push --update-aliases "$NEXT_VERSION" latest
+          # Set default version to latest
+          mike set-default --push latest
 
       - name: Build summary (push)
         if: github.event_name == 'push'
@@ -179,7 +181,10 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
-        run: uv pip install --system -r requirements.txt
+        run: |
+          uv pip install --system -r requirements.txt
+          # Install Zensical's mike fork for versioning support
+          uv pip install --system git+https://github.com/squidfunk/mike.git
 
       - name: Build site
         run: zensical build
@@ -189,13 +194,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Deploy version ${{ inputs.version }}
+      - name: Deploy version ${{ inputs.version }} with mike
         run: |
-          python scripts/python/versioned_deploy.py deploy \
-            "${{ inputs.version }}" \
-            --alias latest \
-            --push \
-            --no-build
+          # Deploy using mike (Zensical's native versioning)
+          mike deploy --push --update-aliases "${{ inputs.version }}" latest
+          # Set default version to latest
+          mike set-default --push latest
 
       - name: Deployment summary
         run: |
