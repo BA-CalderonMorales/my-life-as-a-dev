@@ -482,6 +482,7 @@
       </div>
     
     
+
       
 
   
@@ -701,6 +702,99 @@
   
 </header>
     
+
+<div class="md-version" id="md-version-selector" data-current-version="latest">
+  <button class="md-version__current" type="button" aria-label="Select version" aria-expanded="false">
+    <span class="md-version__label">Version</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+      <path d="M7 10l5 5 5-5z" fill="currentColor"/>
+    </svg>
+  </button>
+  <ul class="md-version__list" id="md-version-list">
+    <!-- Populated by JavaScript from versions.json -->
+    <li class="md-version__item md-version__loading">
+      <span class="md-version__link">Loading...</span>
+    </li>
+  </ul>
+</div>
+
+<script>
+(function() {
+  'use strict';
+  
+  function loadVersions() {
+    const container = document.getElementById('md-version-selector');
+    const list = document.getElementById('md-version-list');
+    if (!container || !list) return;
+    
+    const path = window.location.pathname;
+    const parts = path.split('/').filter(Boolean);
+    const baseUrl = parts.length >= 1 ? '/' + parts[0] + '/' : '/';
+    const currentVersion = parts.length >= 2 ? parts[1] : 'latest';
+    
+    // Update label
+    const label = container.querySelector('.md-version__label');
+    if (label) label.textContent = currentVersion;
+    
+    fetch(baseUrl + 'versions.json')
+      .then(r => r.json())
+      .then(versions => {
+        if (!Array.isArray(versions) || versions.length === 0) {
+          list.innerHTML = '<li class="md-version__item"><span class="md-version__link">No versions</span></li>';
+          return;
+        }
+        
+        const html = versions.map(v => {
+          const isActive = v.version === currentVersion || (v.aliases && v.aliases.includes(currentVersion));
+          const aliasText = v.aliases && v.aliases.length > 0 ? ' (' + v.aliases.join(', ') + ')' : '';
+          const url = baseUrl + v.version + '/';
+          return '<li class="md-version__item' + (isActive ? ' md-version__item--active' : '') + '">' +
+            '<a href="' + url + '" class="md-version__link">' + v.version + aliasText + '</a>' +
+          '</li>';
+        }).join('');
+        
+        list.innerHTML = html;
+      })
+      .catch(e => {
+        console.error('Version selector error:', e);
+        list.innerHTML = '<li class="md-version__item"><span class="md-version__link">Error</span></li>';
+      });
+  }
+  
+  function initToggle() {
+    const container = document.getElementById('md-version-selector');
+    if (!container) return;
+    
+    const button = container.querySelector('.md-version__current');
+    if (!button) return;
+    
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isOpen = container.classList.toggle('md-version--active');
+      button.setAttribute('aria-expanded', String(isOpen));
+    });
+    
+    document.addEventListener('click', function(e) {
+      if (!container.contains(e.target)) {
+        container.classList.remove('md-version--active');
+        button.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      loadVersions();
+      initToggle();
+    });
+  } else {
+    loadVersions();
+    initToggle();
+  }
+})();
+</script>
+
+
     <div class="md-container" data-md-component="container">
       
       
@@ -6995,7 +7089,6 @@
 <script src="../../../../assets/js/chat-widget/src/view.js"></script>
 <script src="../../../../assets/js/chat-widget/src/view-model.js"></script>
 <script src="../../../../assets/js/chat-widget/src/main.js"></script>
-<script src="../../../../assets/js/version-selector.js"></script>
 
   </body>
 </html>
