@@ -46,3 +46,6 @@ scripts/rust/target/
 
 # Misc
 *.log
+
+# Temporary files folder - never commit
+tmp/

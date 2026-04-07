@@ -1,47 +1,17 @@
-# AGENTS.md
+# AGENTS.md - My Life as a Dev
 
-Guidelines for AI assistants working on this repository. Detailed skills are in [.github/skills/](.github/skills/).
+## Quick Reference
 
-## Overview
-
-This is an MkDocs Material documentation hub using Zensical as the primary static site generator. Key tools: `zensical`, `mkdocs`, `mike`, `doc-cli` (Rust).
+- **Generator**: Zensical (MkDocs Material-based)
+- **Serve**: `make serve`
+- **Build**: `make build`
+- **CLI**: `doc-cli`
 
 ## Critical Rules
 
-### ALWAYS use `uv` for Python package management
-
-**This is mandatory.** Never use `pip` directly. Always use `uv`:
-
-```bash
-# Installing packages
-uv pip install <package>
-uv pip install -r requirements.txt
-
-# Listing packages
-uv pip list
-
-# Running Python commands through uv
-uv run python <script.py>
-uv run mkdocs serve
-uv run zensical serve
-```
-
-The project uses a virtual environment at `.venv/`. All Python tools (zensical, mkdocs, etc.) are installed there.
-
-### ALWAYS use `agent-browser` for browser automation
-
-**Never use Playwright MCP tools.** Use the agent-browser CLI at `/tmp/agent-browser`:
-
-```bash
-cd /tmp/agent-browser
-./bin/agent-browser open "http://localhost:8001/my-life-as-a-dev/"
-./bin/agent-browser snapshot    # Get page structure
-./bin/agent-browser eval "..."  # Run JavaScript
-./bin/agent-browser console     # Check for errors
-./bin/agent-browser close
-```
-
-See [Agent Browser Skill](.github/skills/agent-browser/SKILL.md) for full usage.
+- **ALWAYS use `uv`** for Python - never `pip` directly
+- **ALWAYS use `agent-browser`** for browser automation - never Playwright MCP
+- **No emojis** in commits, docs, or comments
 
 ## Quick Commands
 
@@ -52,79 +22,40 @@ make build    # Build site with Zensical
 doc-cli       # Interactive CLI (uses .venv automatically)
 ```
 
-## Skills Index
+## Agent Browser
 
-### Documentation
-
-| Skill | When to Use |
-|-------|-------------|
-| [Add Documentation Page](.github/skills/add-documentation-page/SKILL.md) | Adding any new page to the site |
-| [Add Algorithm Problem](.github/skills/add-algorithm-problem/SKILL.md) | Adding practice problems to algorithm topics |
-| [Add Algorithm Pattern](.github/skills/add-algorithm-pattern/SKILL.md) | Creating new algorithm pattern sections |
-| [Add Project Documentation](.github/skills/add-project-documentation/SKILL.md) | Documenting new projects |
-| [Update Navigation](.github/skills/update-navigation/SKILL.md) | Modifying mkdocs.yml nav structure |
-| [Verify Navigation](.github/skills/verify-navigation/SKILL.md) | Check for missing nav entries before committing |
-| [Refactor Large Pages](.github/skills/refactor-large-pages/SKILL.md) | Breaking up pages with embedded content |
-| [Markdown Formatting](.github/skills/markdown-formatting/SKILL.md) | Formatting standards and patterns |
-
-### Development
-
-| Skill | When to Use |
-|-------|-------------|
-| [Build and Test](.github/skills/build-and-test/SKILL.md) | Building, serving, and validating docs |
-| [Hot Reload Troubleshooting](.github/skills/hot-reload-troubleshooting/SKILL.md) | Fixing dev server hot reload issues |
-| [Doc-CLI Usage](.github/skills/doc-cli-usage/SKILL.md) | Using the Rust CLI tool |
-| [Testing](.github/skills/testing/SKILL.md) | Running Python and Rust tests |
-| [Code Standards](.github/skills/code-standards/SKILL.md) | Python and Rust code style |
-
-### Testing & Debugging
-
-| Skill | When to Use |
-|-------|-------------|
-| [Agent Browser](.github/skills/agent-browser/SKILL.md) | Headless browser automation for visual testing |
-| [Fix Console Errors](.github/skills/fix-console-errors/SKILL.md) | Debug browser console errors |
-
-### Workflow
-
-| Skill | When to Use |
-|-------|-------------|
-| [Git Workflow](.github/skills/git-workflow/SKILL.md) | Commits, branches, and PRs |
-| [Encode Fix Intent](.github/skills/encode-fix-intent/SKILL.md) | Replace noisy comments with clearly named fix wrappers |
-| [Version and Deploy](.github/skills/version-and-deploy/SKILL.md) | Releasing new versions |
-
-### Security
-
-| Skill | When to Use |
-|-------|-------------|
-| [AI Security](.github/skills/ai-security/SKILL.md) | Working with AI features (disabled in prod) |
-
-### Cloud Services
-
-| Skill | When to Use |
-|-------|-------------|
-| [Update Agent Flows](.github/skills/update-agent-flows/SKILL.md) | Adding/modifying ADK agents for chat widget |
-| [Retrieve Cloud Source](.github/skills/retrieve-cloud-source/SKILL.md) | Fetching cloud resources |
+```bash
+cd /tmp/agent-browser
+./bin/agent-browser open "http://localhost:8001/my-life-as-a-dev/"
+./bin/agent-browser snapshot
+./bin/agent-browser eval "..."
+./bin/agent-browser console
+./bin/agent-browser close
+```
 
 ## Core Rules
 
-1. **ALWAYS use `uv`** for Python package management - never use `pip` directly
-2. **No emojis** in commits, docs, or comments
-3. **Conventional Commits**: `feat:`, `fix:`, `docs:`, `chore:`
-4. **Always verify**: Run `make build` before committing
-5. **Update nav**: ALL new pages must be added to `.nav.yml` - including problem sub-pages
-6. **Check build output**: Look for "not included in nav" warnings - fix them before committing
-7. **Test changes**: Use `make serve` to preview
-8. **Use zensical.toml** as the primary configuration (not mkdocs.yml)
-9. **No output truncation**: Show full command output - only truncate if explicitly asked
-10. **Leverage code-simplifier**: Use the code-simplifier agent for incremental commits to maintain code quality and consistency
+1. ALWAYS use `uv` for Python package management
+2. No emojis in commits, docs, or comments
+3. Conventional Commits: `feat:`, `fix:`, `docs:`, `chore:`
+4. Always verify: Run `make build` before committing
+5. Update nav: ALL new pages must be added to `.nav.yml`
+6. Check build output: Fix "not included in nav" warnings
+7. Test changes: Use `make serve` to preview
+8. Use `zensical.toml` as primary config (not mkdocs.yml)
+9. No output truncation: Show full command output
 
-## Working with AI Assistants
+## Skills
 
-- Think before editing; ask clarifying questions
-- Keep changes small; follow existing patterns
-- Test locally before considering work complete
-- Reference skills for detailed procedures
+See `.github/skills/` for detailed procedures:
+- `add-documentation-page/` - Adding new pages
+- `add-algorithm-problem/` - Adding algorithm problems
+- `build-and-test/` - Building and validating
+- `agent-browser/` - Browser automation
+- `git-workflow/` - Commits and PRs
 
----
+## Working Rules
 
-For detailed procedures, see the skills in [.github/skills/](.github/skills/).
+- Stop and explain before major architectural changes
+- One change per commit, commit before starting next
+- Do not bundle unrelated work into the same commit
