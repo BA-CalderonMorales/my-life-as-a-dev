@@ -35,4 +35,4 @@ tomli-w>=1.0.0
 
 # Image Optimization Plugin
 # Required for build-time image optimization (WebP conversion, responsive sizes)
-Pillow>=10.0.0
+Pillow>=12.2.0
