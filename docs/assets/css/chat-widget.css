@@ -1,6 +1,6 @@
 /* ==========================================================================
-   AI Chat Widget - Monumental Minimalism
-   Quiet, precise, stone-tablet interactions
+   AI Chat Widget — High Contrast Minimalism
+   Quiet, precise, flat interactions
    ========================================================================== */
 
 /* Floating Chat Button - Sharp rectangle, centered */
@@ -901,7 +901,7 @@
 }
 
 [data-md-color-scheme="default"] .ai-message-content code {
-    background: rgba(26, 24, 20, 0.05);
+    background: rgba(10, 10, 10, 0.05);
     color: var(--md-code-fg-color, inherit);
 }
 
@@ -911,7 +911,7 @@
 }
 
 [data-md-color-scheme="slate"] .ai-message-content code {
-    background: rgba(232, 228, 220, 0.08);
+    background: rgba(250, 250, 250, 0.08);
     color: var(--md-code-fg-color, inherit);
 }
 

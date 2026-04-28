@@ -265,7 +265,8 @@ label.md-nav__link[for]:active {
 }
 
 /* ============================================
-   Mobile Nav Drawer — Solid & Clean
+   Mobile Nav Drawer — Critical Fix
+   Solid, hierarchical, no transparency.
    ============================================ */
 
 .md-nav--primary .md-nav__title,
@@ -292,7 +293,7 @@ label.md-nav__link[for]:active {
     margin: 0;
 }
 
-/* Mobile drawer: solid surface, generous spacing, clean typography */
+/* Mobile drawer: solid surface, clear hierarchy, touch targets */
 @media screen and (max-width: 76.1875em) {
     .md-nav--primary,
     .md-nav--primary .md-nav,
@@ -320,16 +321,12 @@ label.md-nav__link[for]:active {
         background-color: transparent !important;
     }
 
-    .md-nav--primary .md-nav__link {
-        font-size: 0.95rem !important;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
-
     /* Drawer container */
     .md-drawer {
         background: var(--mlad-surface-solid) !important;
         border-right: 1px solid var(--mlad-border-soft) !important;
+        width: 280px;
+        max-width: 85vw;
     }
 
     .md-drawer__content,
@@ -338,22 +335,56 @@ label.md-nav__link[for]:active {
         background: transparent !important;
     }
 
+    /* Drawer header (title area) */
     .md-nav--primary .md-nav__title {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.08em;
         color: var(--md-default-fg-color--light);
-        padding: var(--mlad-space-md) var(--mlad-space-md) var(--mlad-space-sm);
+        padding: 1.25rem 1.25rem 0.75rem;
+        border-bottom: 1px solid var(--mlad-border-soft);
+        margin-bottom: 0.5rem;
     }
 
-    .md-nav--primary .md-nav__list {
-        padding: 0 var(--mlad-space-md);
+    /* Nav links */
+    .md-nav--primary .md-nav__link {
+        font-size: 0.95rem !important;
+        padding: 0.65rem 1.25rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Section labels (level 0) */
+    .md-nav[data-md-level="0"] > .md-nav__list > .md-nav__item > .md-nav__link {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--md-default-fg-color--light);
+        padding-top: 0.75rem;
+        padding-bottom: 0.35rem;
+    }
+
+    /* Active state */
+    .md-nav__item--active > .md-nav__link {
+        color: var(--md-accent-fg-color) !important;
+        font-weight: 600 !important;
+        background: transparent !important;
+    }
+
+    /* Nested items indentation */
+    .md-nav[data-md-level="2"] > .md-nav__list,
+    .md-nav[data-md-level="3"] > .md-nav__list {
+        border-left: 2px solid var(--mlad-border-soft);
+        margin-left: 1.25rem;
+        padding-left: 0.75rem;
     }
 
     /* Overlay */
     [data-md-toggle="drawer"]:checked ~ .md-overlay {
-        background-color: rgba(0, 0, 0, 0.35) !important;
+        background-color: rgba(0, 0, 0, 0.5) !important;
     }
 }
 

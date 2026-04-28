@@ -33,14 +33,14 @@
     margin-right: 0;
 }
 
-/* Primary button */
+/* Primary button — solid black/white, no radius */
 .md-typeset .md-button.md-button--primary,
 .md-content__inner .md-button.md-button--primary,
 .tx-hero__content .md-button.md-button--primary,
 .md-button.md-button--primary {
-    background: var(--md-accent-fg-color) !important;
-    background-color: var(--md-accent-fg-color) !important;
-    color: var(--md-default-bg-color) !important;
+    background: var(--mlad-button-bg) !important;
+    background-color: var(--mlad-button-bg) !important;
+    color: var(--mlad-button-fg) !important;
     border-color: transparent !important;
     box-shadow: none;
 }
@@ -53,17 +53,17 @@
 .tx-hero__content .md-button.md-button--primary:focus-visible,
 .md-button.md-button--primary:hover,
 .md-button.md-button--primary:focus-visible {
-    background: var(--md-accent-fg-color--light) !important;
-    background-color: var(--md-accent-fg-color--light) !important;
+    background: var(--mlad-button-bg) !important;
+    background-color: var(--mlad-button-bg) !important;
     border-color: transparent !important;
     box-shadow: none;
     transform: none;
-    opacity: 0.92;
+    opacity: 0.85;
 }
 
 .md-typeset .md-button.md-button--primary:active,
 .md-button.md-button--primary:active {
-    opacity: 0.85;
+    opacity: 0.7;
     transform: none;
 }
 
@@ -80,15 +80,16 @@
 .md-typeset .md-button:not(.md-button--primary):focus-visible,
 .md-button:not(.md-button--primary):hover,
 .md-button:not(.md-button--primary):focus-visible {
-    background: var(--mlad-surface-solid) !important;
+    background: transparent !important;
     border-color: var(--mlad-border-strong) !important;
     color: var(--md-default-fg-color) !important;
     box-shadow: none;
     transform: none;
+    opacity: 0.85;
 }
 
 .md-button:not(.md-button--primary):active {
-    opacity: 0.85;
+    opacity: 0.7;
     transform: none;
 }
 
