@@ -134,6 +134,38 @@
     border-bottom-color: var(--mlad-border-strong);
 }
 
+/* Hamburger — animated to X */
+.mlad-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+}
+
+.mlad-hamburger__line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+[data-md-toggle="drawer"]:checked ~ .md-header .mlad-hamburger__line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+[data-md-toggle="drawer"]:checked ~ .md-header .mlad-hamburger__line:nth-child(2) {
+    opacity: 0;
+}
+
+[data-md-toggle="drawer"]:checked ~ .md-header .mlad-hamburger__line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
 .md-header .md-header__button.md-icon,
 .md-tabs .md-tabs__link,
 .md-tabs .md-tabs__item {

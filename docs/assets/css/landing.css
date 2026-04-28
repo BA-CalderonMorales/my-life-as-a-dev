@@ -204,6 +204,53 @@
     margin-top: var(--mlad-space-xs);
 }
 
+/* ============================================
+   Now — Current Focus
+   ============================================ */
+
+.mlad-now {
+    max-width: 1100px;
+    margin: 0 auto var(--mlad-space-lg);
+    padding: var(--mlad-space-xl) var(--mlad-space-md);
+}
+
+.mlad-now h2 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--md-default-fg-color--light);
+    margin-bottom: var(--mlad-space-md);
+    padding-bottom: var(--mlad-space-sm);
+    border-bottom: 1px solid var(--mlad-border-soft);
+}
+
+.mlad-now ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--mlad-space-sm);
+}
+
+.mlad-now li {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--md-default-fg-color);
+}
+
+.mlad-now li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 2px;
+    background: var(--md-accent-fg-color);
+}
+
 /* Mobile landing */
 @media screen and (max-width: 60rem) {
     .landing-page .tx-hero,

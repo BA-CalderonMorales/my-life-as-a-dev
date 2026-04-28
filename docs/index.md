@@ -32,6 +32,16 @@ Product-minded engineer focused on **developer tooling**, **docs-as-code**, and 
 </div>
 </section>
 
+<section class="md-typeset mlad-now" markdown>
+
+## Currently
+
+- Finishing a B.S. in Computer Science while shipping production systems at Fiserv.
+- Standardizing DevOps across 20+ teams: GitHub Actions, docs-as-code, and agentic AI workflows.
+- Building Terminal Jarvis — a unified CLI for orchestrating multiple AI coding assistants.
+
+</section>
+
 <section class="md-typeset mlad-marquee" aria-hidden="true" markdown>
 <div class="mlad-marquee__track">
 <span class="mlad-marquee__text">Developer Tooling</span>
