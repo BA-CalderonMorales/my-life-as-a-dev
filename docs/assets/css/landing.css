@@ -60,6 +60,35 @@
     box-shadow: none;
 }
 
+.mlad-hero-scroll {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--mlad-space-md);
+}
+
+.mlad-hero-scroll__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: var(--md-default-fg-color--light);
+    border: 1px solid var(--mlad-border-soft);
+    text-decoration: none;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+.mlad-hero-scroll__link:hover {
+    color: var(--md-accent-fg-color);
+    border-color: var(--md-accent-fg-color);
+}
+
+@keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+}
+
 .landing-page .grid.cards > li,
 .landing-page .grid.cards > ul > li,
 .landing-page .grid > blockquote {

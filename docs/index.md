@@ -25,6 +25,11 @@ Product-minded engineer focused on **developer tooling**, **docs-as-code**, and 
 </div>
 </div>
 <div class="tx-hero__image">
+<div class="mlad-hero-scroll" aria-hidden="true">
+<a href="#main-content" class="mlad-hero-scroll__link">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+</a>
+</div>
 <picture>
 <source srcset="assets/images/me-today-cropped.gif" type="image/gif">
 <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" draggable="false">
