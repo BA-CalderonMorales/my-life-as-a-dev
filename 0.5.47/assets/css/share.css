@@ -1,0 +1,120 @@
+/* ============================================
+   Share - Quiet Actions
+   ============================================ */
+
+.share-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--mlad-space-sm);
+    padding: var(--mlad-space-md) 0;
+    margin-top: var(--mlad-space-xl);
+    border-top: 1px solid var(--mlad-border-soft);
+}
+
+.share-actions__label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--md-default-fg-color--lighter);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.share-actions__buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.share-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: var(--md-default-fg-color--light);
+    cursor: pointer;
+    transition: color var(--mlad-duration-fast) var(--mlad-ease-standard),
+        background var(--mlad-duration-fast) var(--mlad-ease-standard);
+    text-decoration: none;
+    position: relative;
+}
+
+.share-action:hover {
+    background: var(--mlad-surface-solid);
+    color: var(--md-default-fg-color);
+}
+
+.share-action:focus-visible {
+    outline: 2px solid var(--md-accent-fg-color);
+    outline-offset: 2px;
+}
+
+.share-action svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Platform-specific hover colors - subdued */
+.share-action--twitter:hover,
+.share-action--linkedin:hover,
+.share-action--copy:hover,
+.share-action--native:hover {
+    color: var(--md-default-fg-color);
+}
+
+/* Tooltip - minimal */
+.share-action__tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-0.25rem);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--md-default-bg-color);
+    background: var(--md-default-fg-color);
+    border-radius: 0;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--mlad-duration-fast) var(--mlad-ease-standard),
+        transform var(--mlad-duration-fast) var(--mlad-ease-standard),
+        visibility var(--mlad-duration-fast);
+    pointer-events: none;
+}
+
+.share-action__tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: var(--md-default-fg-color);
+}
+
+.share-action--copied .share-action__tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .share-actions {
+    border-top-color: var(--mlad-border-soft);
+}
+
+[data-md-color-scheme="slate"] .share-action:hover {
+    background: var(--mlad-surface-solid);
+}
+
+/* Responsive */
+@media screen and (max-width: 44.9375rem) {
+    .share-actions {
+        flex-wrap: wrap;
+    }
+}
