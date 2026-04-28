@@ -1,12 +1,11 @@
 /* ============================================
-   Cards - Tonal Elevation
-   Surfaces shift, not boxes stacked
+   Cards — Whitespace Separation
+   No boxes. Just content and space.
    ============================================ */
 
-/* Grid card layout */
 .grid.cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: var(--mlad-space-lg);
     padding: 0;
     list-style: none;
@@ -16,54 +15,57 @@
 .grid.cards>ul>li {
     display: flex;
     flex-direction: column;
-    padding: var(--mlad-space-lg);
-    background: var(--mlad-surface-solid);
+    padding: var(--mlad-space-md) 0;
+    background: transparent;
     border: none;
-    border-radius: var(--mlad-radius-md);
+    border-top: 1px solid var(--mlad-border-soft);
+    border-radius: 0;
     box-shadow: none;
-    transition: transform var(--mlad-duration-base) var(--mlad-ease-standard),
-        background-color var(--mlad-duration-base) var(--mlad-ease-standard),
-        box-shadow var(--mlad-duration-base) var(--mlad-ease-standard);
+    transition: color var(--mlad-duration-fast) var(--mlad-ease-standard);
 }
 
 .grid.cards>li:hover,
 .grid.cards>ul>li:hover {
-    background: var(--mlad-surface-elevated);
-    box-shadow: var(--mlad-shadow-soft);
-    transform: translateY(-2px);
+    background: transparent;
+    box-shadow: none;
+    transform: none;
 }
 
-[data-md-color-scheme="slate"] .grid.cards>li:hover,
-[data-md-color-scheme="slate"] .grid.cards>ul>li:hover {
-    background: var(--mlad-surface-elevated);
+.grid.cards>li h3,
+.grid.cards>li h4,
+.grid.cards>ul>li h3,
+.grid.cards>ul>li h4 {
+    margin-top: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
 }
 
-/* Blockquote styling - quiet monument */
+/* Blockquote — minimal left rule */
 .md-typeset blockquote {
     position: relative;
     border: none;
-    background: var(--mlad-surface-solid);
+    background: transparent;
     box-shadow: none;
-    padding: var(--mlad-space-md) var(--mlad-space-md) var(--mlad-space-md) var(--mlad-space-lg);
+    padding: var(--mlad-space-sm) var(--mlad-space-sm) var(--mlad-space-sm) var(--mlad-space-md);
     margin: var(--mlad-space-lg) 0;
-    border-radius: var(--mlad-radius-md);
-    color: var(--md-default-fg-color);
+    border-radius: 0;
+    color: var(--md-default-fg-color--light);
 }
 
 .md-typeset blockquote::before {
     content: "";
     position: absolute;
-    top: var(--mlad-space-md);
-    left: var(--mlad-space-sm);
+    top: 0;
+    left: 0;
     width: 2px;
-    height: calc(100% - var(--mlad-space-lg));
+    height: 100%;
     background: var(--md-accent-fg-color);
-    opacity: 0.4;
+    opacity: 0.35;
 }
 
 .md-typeset blockquote p {
     margin: 0;
-    color: var(--md-default-fg-color);
+    color: inherit;
     font-style: italic;
 }
 

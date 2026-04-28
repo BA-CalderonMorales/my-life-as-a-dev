@@ -1,6 +1,6 @@
 /* ============================================
-   Landing - Monumental Scale
-   Content breathes over the animated background
+   Landing — Content Floats
+   No glass boxes. Sections breathe through whitespace.
    ============================================ */
 
 .landing-page .md-content__button {
@@ -26,20 +26,20 @@
 .landing-page .tx-hero,
 .landing-page .tx-container,
 .landing-page section.md-typeset {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto var(--mlad-space-lg);
-    padding: clamp(3rem, 6vw, 5rem);
-    background: var(--mlad-surface-overlay);
-    -webkit-backdrop-filter: blur(var(--mlad-backdrop-blur)) saturate(1.1);
-    backdrop-filter: blur(var(--mlad-backdrop-blur)) saturate(1.1);
+    padding: var(--mlad-space-xl) var(--mlad-space-md);
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     border: none;
-    border-radius: var(--mlad-radius-lg);
+    border-radius: 0;
     box-shadow: none;
 }
 
 .landing-page .tx-hero {
-    margin-top: var(--mlad-space-sm);
-    gap: clamp(2rem, 4vw, 4rem);
+    margin-top: 0;
+    gap: var(--mlad-space-lg);
 }
 
 .landing-page .tx-hero__content {
@@ -63,17 +63,18 @@
 .landing-page .grid.cards > li,
 .landing-page .grid.cards > ul > li,
 .landing-page .grid > blockquote {
-    background: var(--mlad-surface-overlay);
-    -webkit-backdrop-filter: blur(var(--mlad-backdrop-blur)) saturate(1.1);
-    backdrop-filter: blur(var(--mlad-backdrop-blur)) saturate(1.1);
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     border: none;
-    border-radius: var(--mlad-radius-md);
+    border-top: 1px solid var(--mlad-border-soft);
+    border-radius: 0;
 }
 
 .landing-page .grid.cards > li:hover,
 .landing-page .grid.cards > ul > li:hover {
-    background: var(--mlad-surface-elevated);
-    border-color: transparent;
+    background: transparent;
+    border-color: var(--mlad-border-soft);
 }
 
 .landing-page .grid > blockquote {
@@ -114,9 +115,9 @@
     .landing-page .tx-hero,
     .landing-page .tx-container,
     .landing-page section.md-typeset {
-        padding: var(--mlad-space-lg);
-        margin-left: var(--mlad-space-xs);
-        margin-right: var(--mlad-space-xs);
+        padding: var(--mlad-space-lg) var(--mlad-space-md);
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .landing-page .tx-hero {

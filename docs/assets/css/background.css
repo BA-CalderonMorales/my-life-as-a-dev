@@ -1,54 +1,11 @@
 /* ============================================
-   Background - Scene Integration
-   Content floats over the world, not boxed inside it
+   Background — Solid Surfaces
+   No blur, no glass, no scene.
+   Content sits directly on the page.
    ============================================ */
 
 .threejs-bg-container {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-    opacity: 0;
-    transition: opacity 800ms var(--mlad-ease-standard);
-}
-
-.threejs-bg-container canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-    filter: saturate(1.02) contrast(1.04);
-}
-
-.threejs-bg-container.is-ready {
-    opacity: var(--mlad-scene-opacity-page);
-}
-
-body[data-mlad-scene="home"] .threejs-bg-container.is-ready,
-.landing-page .threejs-bg-container.is-ready {
-    opacity: var(--mlad-scene-opacity-home);
-}
-
-body[data-mlad-scene="none"] .threejs-bg-container,
-.canvas-page .threejs-bg-container {
-    opacity: 0 !important;
-}
-
-@media screen and (max-width: 48rem) {
-    .threejs-bg-container.is-ready {
-        opacity: var(--mlad-scene-opacity-mobile);
-    }
-
-    body[data-mlad-scene="home"] .threejs-bg-container.is-ready,
-    .landing-page .threejs-bg-container.is-ready {
-        opacity: var(--mlad-scene-opacity-home-mobile);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .threejs-bg-container {
-        display: none;
-    }
+    display: none !important;
 }
 
 .md-main,
@@ -74,23 +31,23 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     z-index: 1;
 }
 
-/* Content inner - frosted glass over the scene */
+/* Content inner — flat, no glass */
 .md-content__inner {
-    background: var(--mlad-surface-overlay);
-    -webkit-backdrop-filter: blur(var(--mlad-backdrop-blur)) saturate(1.1);
-    backdrop-filter: blur(var(--mlad-backdrop-blur)) saturate(1.1);
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     border: none;
-    border-radius: var(--mlad-radius-lg);
+    border-radius: 0;
     box-shadow: none;
-    padding: clamp(1.5rem, 2.5vw, 2rem);
-    margin: var(--mlad-space-sm) var(--mlad-space-xs) var(--mlad-space-md);
+    padding: var(--mlad-space-md) var(--mlad-space-sm) var(--mlad-space-lg);
+    margin: 0;
 }
 
-/* Sidebars - frosted glass */
+/* Sidebars — flat */
 .md-sidebar--primary,
 .md-sidebar--secondary {
     padding: 0;
-    margin: var(--mlad-space-sm) 0;
+    margin: 0;
     border: none;
 }
 
@@ -105,11 +62,11 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 .md-sidebar--secondary .md-sidebar__inner {
     position: relative;
     z-index: 1;
-    background: var(--mlad-surface-overlay);
-    -webkit-backdrop-filter: blur(var(--mlad-backdrop-blur)) saturate(1.1);
-    backdrop-filter: blur(var(--mlad-backdrop-blur)) saturate(1.1);
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     border: none;
-    border-radius: var(--mlad-radius-md);
+    border-radius: 0;
     box-shadow: none;
     padding: var(--mlad-space-sm) var(--mlad-space-md) var(--mlad-space-md);
 }
@@ -134,8 +91,8 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 
 .md-sidebar--primary .md-nav__link,
 .md-sidebar--secondary .md-nav__link {
-    border-radius: var(--mlad-radius-sm);
-    padding: 0.35rem 0.5rem;
+    border-radius: 0;
+    padding: 0.3rem 0.4rem;
     transition: color var(--mlad-duration-fast) var(--mlad-ease-standard);
 }
 
@@ -158,14 +115,14 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     font-weight: 500;
 }
 
-/* Header - translucent, floating */
+/* Header — solid, no blur */
 .md-header,
 .md-tabs {
     background: var(--mlad-header-bg);
-    -webkit-backdrop-filter: blur(var(--mlad-backdrop-blur)) saturate(1.1);
-    backdrop-filter: blur(var(--mlad-backdrop-blur)) saturate(1.1);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     color: var(--mlad-header-fg);
-    border-bottom: none;
+    border-bottom: 1px solid var(--mlad-border-soft);
 }
 
 .md-header {
@@ -180,7 +137,7 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 
 .md-header .md-header__button.md-icon:hover,
 .md-header .md-header__button.md-icon:focus-visible {
-    background: var(--mlad-menu-btn-bg-hover);
+    background: var(--mlad-surface-muted);
     border-radius: 0;
 }
 
@@ -189,20 +146,20 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     color: var(--md-accent-fg-color);
 }
 
-/* Footer - tonal separation, no border */
+/* Footer — solid surface */
 .md-footer {
     background: var(--mlad-surface-solid);
-    border-top: none;
+    border-top: 1px solid var(--mlad-border-soft);
 }
 
-/* Mobile overrides - solid surfaces, no blur for performance */
+/* Mobile overrides — solid surfaces */
 @media screen and (max-width: 76.25rem) {
     .md-sidebar--primary {
         top: 0 !important;
         height: 100% !important;
         margin: 0 !important;
         background: var(--mlad-surface-solid) !important;
-        border-right: none !important;
+        border-right: 1px solid var(--mlad-border-soft) !important;
         border-radius: 0 !important;
         box-shadow: none !important;
         -webkit-backdrop-filter: none !important;
@@ -210,7 +167,7 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     }
 
     .md-content__inner {
-        background: var(--mlad-surface-solid) !important;
+        background: transparent !important;
         -webkit-backdrop-filter: none !important;
         backdrop-filter: none !important;
         border-radius: 0;
@@ -236,7 +193,7 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 
     .md-drawer {
         background: var(--mlad-surface-solid) !important;
-        border-right: none !important;
+        border-right: 1px solid var(--mlad-border-soft) !important;
         opacity: 1 !important;
     }
 
@@ -247,7 +204,7 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     }
 
     [data-md-toggle="drawer"]:checked ~ .md-overlay {
-        background-color: rgba(0, 0, 0, 0.45) !important;
+        background-color: rgba(0, 0, 0, 0.35) !important;
     }
 }
 
@@ -259,7 +216,7 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 [data-md-toggle="drawer"]:checked ~ .md-overlay {
     pointer-events: auto !important;
     filter: none !important;
-    background-color: rgba(0, 0, 0, 0.45) !important;
+    background-color: rgba(0, 0, 0, 0.35) !important;
 }
 
 .md-drawer {
@@ -286,8 +243,8 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.4rem 0.6rem;
-    background: var(--mlad-surface-elevated);
+    padding: 0.35rem 0.5rem;
+    background: var(--mlad-surface-muted);
     border: 1px solid var(--mlad-border-soft);
     border-radius: 0;
     color: var(--md-default-fg-color);
@@ -301,7 +258,7 @@ body[data-mlad-scene="none"] .threejs-bg-container,
 }
 
 .md-version__current:hover {
-    background: var(--mlad-surface-strong);
+    background: var(--mlad-surface-solid);
     border-color: var(--mlad-border-strong);
     box-shadow: none;
 }
@@ -328,7 +285,7 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     background: var(--mlad-surface-solid) !important;
     border: 1px solid var(--mlad-border-soft) !important;
     border-radius: 0;
-    box-shadow: var(--mlad-shadow-soft) !important;
+    box-shadow: none !important;
     list-style: none;
     opacity: 0;
     visibility: hidden;
@@ -425,7 +382,7 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     }
 
     .md-version__current {
-        padding: 0.35rem;
+        padding: 0.3rem;
     }
 }
 
@@ -435,9 +392,9 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     }
 
     .md-version__current {
-        padding: 0.35rem 0.4rem 0.35rem 0.6rem;
+        padding: 0.3rem 0.35rem 0.3rem 0.5rem;
         font-size: 0.7rem;
-        gap: 0.25rem;
+        gap: 0.2rem;
     }
 
     .md-version__current svg {
@@ -464,7 +421,7 @@ body[data-mlad-scene="none"] .threejs-bg-container,
     }
 }
 
-/* AI chat trigger - sharp, no radius override nuke */
+/* AI chat trigger — sharp, no radius */
 body:not(.canvas-page) .ai-chat-trigger,
 body:not(.canvas-page) .ai-chat-modal * {
     border-radius: 0 !important;
