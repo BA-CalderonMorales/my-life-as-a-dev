@@ -1,0 +1,78 @@
+/* ============================================
+   Cards - Tonal Elevation
+   Surfaces shift, not boxes stacked
+   ============================================ */
+
+/* Grid card layout */
+.grid.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--mlad-space-lg);
+    padding: 0;
+    list-style: none;
+}
+
+.grid.cards>li,
+.grid.cards>ul>li {
+    display: flex;
+    flex-direction: column;
+    padding: var(--mlad-space-lg);
+    background: var(--mlad-surface-solid);
+    border: none;
+    border-radius: var(--mlad-radius-md);
+    box-shadow: none;
+    transition: transform var(--mlad-duration-base) var(--mlad-ease-standard),
+        background-color var(--mlad-duration-base) var(--mlad-ease-standard),
+        box-shadow var(--mlad-duration-base) var(--mlad-ease-standard);
+}
+
+.grid.cards>li:hover,
+.grid.cards>ul>li:hover {
+    background: var(--mlad-surface-elevated);
+    box-shadow: var(--mlad-shadow-soft);
+    transform: translateY(-2px);
+}
+
+[data-md-color-scheme="slate"] .grid.cards>li:hover,
+[data-md-color-scheme="slate"] .grid.cards>ul>li:hover {
+    background: var(--mlad-surface-elevated);
+}
+
+/* Blockquote styling - quiet monument */
+.md-typeset blockquote {
+    position: relative;
+    border: none;
+    background: var(--mlad-surface-solid);
+    box-shadow: none;
+    padding: var(--mlad-space-md) var(--mlad-space-md) var(--mlad-space-md) var(--mlad-space-lg);
+    margin: var(--mlad-space-lg) 0;
+    border-radius: var(--mlad-radius-md);
+    color: var(--md-default-fg-color);
+}
+
+.md-typeset blockquote::before {
+    content: "";
+    position: absolute;
+    top: var(--mlad-space-md);
+    left: var(--mlad-space-sm);
+    width: 2px;
+    height: calc(100% - var(--mlad-space-lg));
+    background: var(--md-accent-fg-color);
+    opacity: 0.4;
+}
+
+.md-typeset blockquote p {
+    margin: 0;
+    color: var(--md-default-fg-color);
+    font-style: italic;
+}
+
+.md-typeset blockquote p + p {
+    margin-top: var(--mlad-space-sm);
+}
+
+.md-typeset blockquote strong,
+.md-typeset blockquote em,
+.md-typeset blockquote a {
+    color: inherit;
+}

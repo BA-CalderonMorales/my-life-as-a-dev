@@ -1,0 +1,161 @@
+/* ============================================
+   Buttons - Stone Tablets
+   Subtle response, no mechanical snap
+   ============================================ */
+
+.md-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid transparent;
+    border-radius: var(--mlad-radius-md);
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+    transition: background-color var(--mlad-duration-fast) var(--mlad-ease-standard),
+        border-color var(--mlad-duration-fast) var(--mlad-ease-standard),
+        color var(--mlad-duration-fast) var(--mlad-ease-standard),
+        box-shadow var(--mlad-duration-fast) var(--mlad-ease-standard),
+        transform var(--mlad-duration-fast) var(--mlad-ease-standard);
+}
+
+.md-typeset .md-button,
+.md-content__inner .md-button,
+.tx-hero__content .md-button {
+    margin: 0.25rem 0.5rem 0.25rem 0;
+}
+
+.md-typeset .md-button:last-child,
+.tx-hero__content .md-button:last-child {
+    margin-right: 0;
+}
+
+/* Primary button - aged bronze / candlelight gold */
+.md-typeset .md-button.md-button--primary,
+.md-content__inner .md-button.md-button--primary,
+.tx-hero__content .md-button.md-button--primary,
+.md-button.md-button--primary {
+    background: var(--md-accent-fg-color) !important;
+    background-color: var(--md-accent-fg-color) !important;
+    color: var(--md-default-bg-color) !important;
+    border-color: transparent !important;
+    box-shadow: none;
+}
+
+.md-typeset .md-button.md-button--primary:hover,
+.md-typeset .md-button.md-button--primary:focus-visible,
+.md-content__inner .md-button.md-button--primary:hover,
+.md-content__inner .md-button.md-button--primary:focus-visible,
+.tx-hero__content .md-button.md-button--primary:hover,
+.tx-hero__content .md-button.md-button--primary:focus-visible,
+.md-button.md-button--primary:hover,
+.md-button.md-button--primary:focus-visible {
+    background: var(--md-accent-fg-color--light) !important;
+    background-color: var(--md-accent-fg-color--light) !important;
+    border-color: transparent !important;
+    box-shadow: var(--mlad-shadow-button-hover);
+    transform: scale(1.02);
+}
+
+.md-typeset .md-button.md-button--primary:active,
+.md-button.md-button--primary:active {
+    transform: scale(0.98);
+}
+
+/* Secondary button - transparent with hairline */
+.md-typeset .md-button:not(.md-button--primary),
+.md-button:not(.md-button--primary) {
+    background: transparent !important;
+    color: var(--md-default-fg-color) !important;
+    border-color: var(--mlad-border-soft) !important;
+    box-shadow: none;
+}
+
+.md-typeset .md-button:not(.md-button--primary):hover,
+.md-typeset .md-button:not(.md-button--primary):focus-visible,
+.md-button:not(.md-button--primary):hover,
+.md-button:not(.md-button--primary):focus-visible {
+    background: var(--mlad-surface-solid) !important;
+    border-color: var(--mlad-border-strong) !important;
+    color: var(--md-default-fg-color) !important;
+    box-shadow: var(--mlad-shadow-button-hover);
+    transform: scale(1.02);
+}
+
+.md-button:not(.md-button--primary):active {
+    transform: scale(0.98);
+}
+
+/* Project link - subtle inline action */
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--mlad-radius-md);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--md-link-color);
+    background: transparent;
+    border: 1px solid var(--mlad-border-soft);
+    box-shadow: none;
+    transition: background-color var(--mlad-duration-fast) var(--mlad-ease-standard),
+        color var(--mlad-duration-fast) var(--mlad-ease-standard),
+        border-color var(--mlad-duration-fast) var(--mlad-ease-standard);
+}
+
+.project-link:hover,
+.project-link:focus-visible {
+    background: var(--mlad-surface-solid);
+    color: var(--md-accent-fg-color);
+    border-color: var(--mlad-border-strong);
+}
+
+.project-link svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Content buttons (edit, view source) */
+.md-content__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.8rem;
+    margin: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--md-default-fg-color--light);
+    background: transparent;
+    border: 1px solid var(--mlad-border-soft);
+    border-radius: var(--mlad-radius-md);
+    box-shadow: none;
+    transition: background-color var(--mlad-duration-fast) var(--mlad-ease-standard),
+        border-color var(--mlad-duration-fast) var(--mlad-ease-standard),
+        color var(--mlad-duration-fast) var(--mlad-ease-standard);
+    cursor: pointer;
+}
+
+.md-content__button:hover,
+.md-content__button:focus-visible {
+    color: var(--md-default-fg-color);
+    border-color: var(--mlad-border-strong);
+    background: var(--mlad-surface-solid);
+    box-shadow: none;
+}
+
+.md-content__button svg {
+    width: 14px;
+    height: 14px;
+}
+
+.md-content__inner > .md-content__button {
+    float: right;
+    margin-top: 0.5rem;
+}
