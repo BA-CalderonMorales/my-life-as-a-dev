@@ -133,6 +133,35 @@ This site treats documentation like release infrastructure. Content lives in Git
 
 ---
 
+## Recent Changes
+
+<div class="mlad-changelog" markdown>
+
+<div class="mlad-changelog__entry" markdown>
+<div class="mlad-changelog__date">2026-04-28</div>
+<div class="mlad-changelog__content" markdown>
+**High Contrast Minimalism V3** — Complete visual refresh: pure black/white palette, scroll-driven vines, animated 404, editorial timeline resume, and awwwards-level motion design.
+</div>
+</div>
+
+<div class="mlad-changelog__entry" markdown>
+<div class="mlad-changelog__date">2026-04-06</div>
+<div class="mlad-changelog__content" markdown>
+**Elemental Ink V2** — Migrated from monumental minimalism to ATLA-inspired earth tones: teal accents, warm surfaces, flat hierarchy.
+</div>
+</div>
+
+<div class="mlad-changelog__entry" markdown>
+<div class="mlad-changelog__date">2026-03-01</div>
+<div class="mlad-changelog__content" markdown>
+**Zensical Migration** — Merged modular TOML config, added version selector, image optimizer with LQIP, and automated deployment pipeline.
+</div>
+</div>
+
+</div>
+
+---
+
 ## Release loop
 
 1. Edit Markdown and supporting assets in `docs/`.
