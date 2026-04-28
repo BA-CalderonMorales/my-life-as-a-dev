@@ -1,10 +1,60 @@
 [
   {
-    "version": "0.5.38",
-    "title": "0.5.38",
+    "version": "0.5.48",
+    "title": "0.5.48",
     "aliases": [
       "latest"
     ]
+  },
+  {
+    "version": "0.5.47",
+    "title": "0.5.47",
+    "aliases": []
+  },
+  {
+    "version": "0.5.46",
+    "title": "0.5.46",
+    "aliases": []
+  },
+  {
+    "version": "0.5.45",
+    "title": "0.5.45",
+    "aliases": []
+  },
+  {
+    "version": "0.5.44",
+    "title": "0.5.44",
+    "aliases": []
+  },
+  {
+    "version": "0.5.43",
+    "title": "0.5.43",
+    "aliases": []
+  },
+  {
+    "version": "0.5.42",
+    "title": "0.5.42",
+    "aliases": []
+  },
+  {
+    "version": "0.5.41",
+    "title": "0.5.41",
+    "aliases": []
+  },
+  {
+    "version": "0.5.40",
+    "title": "0.5.40",
+    "aliases": []
+  },
+  {
+    "version": "0.5.39",
+    "title": "0.5.39",
+    "aliases": []
+  },
+  {
+    "version": "0.5.38",
+    "title": "0.5.38",
+    "aliases": []
   },
   {
     "version": "0.5.37",
@@ -19,76 +69,6 @@
   {
     "version": "0.5.35",
     "title": "0.5.35",
-    "aliases": []
-  },
-  {
-    "version": "0.5.34",
-    "title": "0.5.34",
-    "aliases": []
-  },
-  {
-    "version": "0.5.33",
-    "title": "0.5.33",
-    "aliases": []
-  },
-  {
-    "version": "0.5.32",
-    "title": "0.5.32",
-    "aliases": []
-  },
-  {
-    "version": "0.5.31",
-    "title": "0.5.31",
-    "aliases": []
-  },
-  {
-    "version": "0.5.30",
-    "title": "0.5.30",
-    "aliases": []
-  },
-  {
-    "version": "0.5.29",
-    "title": "0.5.29",
-    "aliases": []
-  },
-  {
-    "version": "0.5.28",
-    "title": "0.5.28",
-    "aliases": []
-  },
-  {
-    "version": "0.5.27",
-    "title": "0.5.27",
-    "aliases": []
-  },
-  {
-    "version": "0.5.26",
-    "title": "0.5.26",
-    "aliases": []
-  },
-  {
-    "version": "0.5.25",
-    "title": "0.5.25",
-    "aliases": []
-  },
-  {
-    "version": "0.5.24",
-    "title": "0.5.24",
-    "aliases": []
-  },
-  {
-    "version": "0.5.23",
-    "title": "0.5.23",
-    "aliases": []
-  },
-  {
-    "version": "0.5.22",
-    "title": "0.5.22",
-    "aliases": []
-  },
-  {
-    "version": "0.5.21",
-    "title": "0.5.21",
     "aliases": []
   }
 ]
