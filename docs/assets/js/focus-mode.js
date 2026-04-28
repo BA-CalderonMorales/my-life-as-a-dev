@@ -6,10 +6,29 @@
   'use strict';
 
   var isFocusMode = false;
+  var badge = null;
+
+  function createBadge() {
+    var el = document.createElement('div');
+    el.className = 'mlad-focus-badge';
+    el.textContent = 'Focus mode — press f to exit';
+    el.setAttribute('role', 'status');
+    el.addEventListener('click', function () {
+      toggle();
+    });
+    document.body.appendChild(el);
+    return el;
+  }
 
   function toggle() {
     isFocusMode = !isFocusMode;
     document.body.classList.toggle('mlad-focus-mode', isFocusMode);
+    if (isFocusMode) {
+      if (!badge) badge = createBadge();
+      badge.classList.add('is-visible');
+    } else if (badge) {
+      badge.classList.remove('is-visible');
+    }
   }
 
   function isTyping() {

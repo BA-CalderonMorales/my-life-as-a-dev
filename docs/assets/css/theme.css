@@ -238,6 +238,35 @@ img[loading="lazy"].is-loaded {
     margin: 0 auto;
 }
 
+.mlad-focus-badge {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    z-index: 10003;
+    background: var(--mlad-surface-solid);
+    border: 1px solid var(--mlad-border-soft);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--md-default-fg-color--light);
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mlad-focus-badge.is-visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mlad-focus-badge:hover {
+    border-color: var(--md-accent-fg-color);
+    color: var(--md-accent-fg-color);
+}
+
 /* Version banner for outdated docs */
 .mlad-version-banner {
     background: var(--mlad-surface-solid);
