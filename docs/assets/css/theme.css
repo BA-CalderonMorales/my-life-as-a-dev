@@ -133,6 +133,19 @@ body {
     text-decoration-color: var(--md-accent-fg-color);
 }
 
+.mlad-scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--md-accent-fg-color);
+    transform-origin: left;
+    transform: scaleX(0);
+    z-index: 10000;
+    pointer-events: none;
+}
+
 .md-typeset strong,
 .md-typeset b {
     color: inherit;
@@ -144,6 +157,89 @@ body {
     border: none;
     border-radius: 0;
     box-shadow: none;
+}
+
+/* ============================================
+   Custom Footer
+   ============================================ */
+
+.mdlad-footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--mlad-space-md);
+    padding: var(--mlad-space-xl) var(--mlad-space-md);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.mdlad-footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.mdlad-footer__name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--md-default-fg-color);
+}
+
+.mdlad-footer__tagline {
+    font-size: 0.8rem;
+    color: var(--md-default-fg-color--light);
+    max-width: 40ch;
+    line-height: 1.5;
+}
+
+.mdlad-footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--mlad-space-md);
+}
+
+.mdlad-footer__links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--md-default-fg-color--light);
+    border-bottom: 1px solid transparent;
+    transition: color var(--mlad-duration-fast) var(--mlad-ease-standard),
+        border-color var(--mlad-duration-fast) var(--mlad-ease-standard);
+}
+
+.mdlad-footer__links a:hover {
+    color: var(--md-accent-fg-color);
+    border-bottom-color: var(--md-accent-fg-color);
+}
+
+.mdlad-footer__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--mlad-space-sm);
+    padding: var(--mlad-space-md);
+    border-top: 1px solid var(--mlad-border-soft);
+    max-width: 1100px;
+    margin: 0 auto;
+    font-size: 0.75rem;
+    color: var(--md-default-fg-color--lighter);
+}
+
+.mdlad-footer__divider {
+    width: 3px;
+    height: 3px;
+    background: var(--mlad-border-strong);
+    display: inline-block;
+    transform: rotate(45deg);
+}
+
+@media screen and (max-width: 48rem) {
+    .mdlad-footer-content {
+        flex-direction: column;
+        gap: var(--mlad-space-md);
+    }
 }
 
 .mlad-page-transition {

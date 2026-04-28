@@ -35,5 +35,7 @@ extra_javascript = [
     "assets/js/canvas/scene/main.js",
     # Scroll-driven vine animations and section bloom (landing page only)
     "assets/js/scroll-vines.js",
+    # Scroll progress bar (content pages)
+    "assets/js/scroll-progress.js",
     # NOTE: Zensical's native version selector is used (via mike + modern theme)
 ]
