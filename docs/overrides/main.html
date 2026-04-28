@@ -126,6 +126,26 @@
 <meta name="twitter:title" content="{% if page.meta and page.meta.title %}{{ page.meta.title }}{% else %}{{ page.title }}{% endif %}">
 <meta name="twitter:description" content="{% if page.meta and page.meta.description %}{{ page.meta.description }}{% else %}{{ config.site_description }}{% endif %}">
 <meta name="twitter:image" content="{{ config.site_url }}assets/images/homepage-screenshot.png">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ config.site_name }}",
+  "url": "{{ config.site_url }}",
+  "description": "{{ config.site_description }}",
+  "author": {
+    "@type": "Person",
+    "name": "Brandon A. Calderon Morales",
+    "url": "https://www.linkedin.com/in/bcalderonmorales-cmoe/",
+    "sameAs": [
+      "https://github.com/BA-CalderonMorales",
+      "https://www.linkedin.com/in/bcalderonmorales-cmoe/"
+    ]
+  }
+}
+</script>
 <script src="{{ 'assets/js/console-patch.js' | url }}"></script>
 <script type="importmap">
 {

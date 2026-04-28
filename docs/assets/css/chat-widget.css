@@ -26,6 +26,12 @@
     font-size: 0.7rem;
     font-weight: 500;
     font-family: var(--md-text-font-family);
+    animation: chat-pulse 2s ease-in-out 3s 1;
+}
+
+@keyframes chat-pulse {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.03); }
 }
 
 .ai-chat-trigger:hover {
