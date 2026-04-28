@@ -65,16 +65,47 @@
 
   var modal = createModal();
 
+  var focusableSelectors = 'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])';
+  var lastFocused = null;
+
+  function getFocusable(el) {
+    return Array.from(el.querySelectorAll(focusableSelectors)).filter(function (e) {
+      return !e.disabled && e.offsetParent !== null;
+    });
+  }
+
+  function trapFocus(e) {
+    var focusable = getFocusable(modal);
+    if (!focusable.length) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
   function openModal() {
     isModalOpen = true;
+    lastFocused = document.activeElement;
     modal.setAttribute('aria-hidden', 'false');
     modal.classList.add('is-open');
+    var focusable = getFocusable(modal);
+    if (focusable.length) focusable[0].focus();
+    modal.addEventListener('keydown', trapFocus);
   }
 
   function closeModal() {
     isModalOpen = false;
     modal.setAttribute('aria-hidden', 'true');
     modal.classList.remove('is-open');
+    modal.removeEventListener('keydown', trapFocus);
+    if (lastFocused) lastFocused.focus();
   }
 
   function focusSearch() {
