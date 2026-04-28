@@ -517,6 +517,79 @@
     opacity: 0.85;
 }
 
+/* ============================================
+   Stack Diagram — Docs-as-Code Pipeline
+   ============================================ */
+
+.mlad-stack {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    max-width: 900px;
+    margin: var(--mlad-space-xl) auto;
+    padding: 0 var(--mlad-space-md);
+    flex-wrap: wrap;
+}
+
+.mlad-stack__node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--mlad-space-xs);
+    padding: var(--mlad-space-md);
+    border: 1px solid var(--mlad-border-soft);
+    background: var(--mlad-surface-solid);
+    min-width: 120px;
+    text-align: center;
+    position: relative;
+    transition: border-color 0.2s ease;
+}
+
+.mlad-stack__node:hover {
+    border-color: var(--md-accent-fg-color);
+}
+
+.mlad-stack__node-icon {
+    font-size: 1.25rem;
+    color: var(--md-accent-fg-color);
+}
+
+.mlad-stack__node-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--md-default-fg-color);
+}
+
+.mlad-stack__node-desc {
+    font-size: 0.7rem;
+    color: var(--md-default-fg-color--light);
+    line-height: 1.4;
+}
+
+.mlad-stack__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    color: var(--mlad-border-strong);
+    font-size: 0.9rem;
+}
+
+@media screen and (max-width: 60rem) {
+    .mlad-stack {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .mlad-stack__arrow {
+        transform: rotate(90deg);
+        height: 2rem;
+        width: auto;
+        padding: var(--mlad-space-xs) 0;
+    }
+}
+
 /* AI chat trigger — sharp, no radius */
 body:not(.canvas-page) .ai-chat-trigger,
 body:not(.canvas-page) .ai-chat-modal * {

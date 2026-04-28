@@ -68,6 +68,52 @@ This site treats documentation like release infrastructure. Content lives in Git
 
 ---
 
+## The Pipeline
+
+<div class="mlad-stack" markdown>
+
+<div class="mlad-stack__node" markdown>
+<div class="mlad-stack__node-icon">:material-file-document-outline:</div>
+<div class="mlad-stack__node-label">Markdown</div>
+<div class="mlad-stack__node-desc">Content + metadata</div>
+</div>
+
+<div class="mlad-stack__arrow" aria-hidden="true">→</div>
+
+<div class="mlad-stack__node" markdown>
+<div class="mlad-stack__node-icon">:material-cog-outline:</div>
+<div class="mlad-stack__node-label">Zensical</div>
+<div class="mlad-stack__node-desc">Config merge + build</div>
+</div>
+
+<div class="mlad-stack__arrow" aria-hidden="true">→</div>
+
+<div class="mlad-stack__node" markdown>
+<div class="mlad-stack__node-icon">:material-palette-outline:</div>
+<div class="mlad-stack__node-label">MkDocs</div>
+<div class="mlad-stack__node-desc">Render + theme</div>
+</div>
+
+<div class="mlad-stack__arrow" aria-hidden="true">→</div>
+
+<div class="mlad-stack__node" markdown>
+<div class="mlad-stack__node-icon">:material-robot-outline:</div>
+<div class="mlad-stack__node-label">GitHub Actions</div>
+<div class="mlad-stack__node-desc">CI + deploy</div>
+</div>
+
+<div class="mlad-stack__arrow" aria-hidden="true">→</div>
+
+<div class="mlad-stack__node" markdown>
+<div class="mlad-stack__node-icon">:material-earth:</div>
+<div class="mlad-stack__node-label">GitHub Pages</div>
+<div class="mlad-stack__node-desc">Hosted site</div>
+</div>
+
+</div>
+
+---
+
 ## Operating rules
 
 - Docs stay in the repository with the code they explain.
