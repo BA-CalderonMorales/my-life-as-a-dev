@@ -1,10 +1,15 @@
 [
   {
-    "version": "0.5.47",
-    "title": "0.5.47",
+    "version": "0.5.48",
+    "title": "0.5.48",
     "aliases": [
       "latest"
     ]
+  },
+  {
+    "version": "0.5.47",
+    "title": "0.5.47",
+    "aliases": []
   },
   {
     "version": "0.5.46",
@@ -69,11 +74,6 @@
   {
     "version": "0.5.34",
     "title": "0.5.34",
-    "aliases": []
-  },
-  {
-    "version": "0.5.33",
-    "title": "0.5.33",
     "aliases": []
   }
 ]
