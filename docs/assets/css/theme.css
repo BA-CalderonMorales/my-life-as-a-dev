@@ -491,6 +491,30 @@ img[loading="lazy"].is-loaded {
     white-space: nowrap;
 }
 
+.mdlad-footer__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.mdlad-footer__status:hover {
+    color: var(--md-accent-fg-color);
+}
+
+.mdlad-footer__status-dot {
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    display: inline-block;
+}
+
+[data-md-color-scheme="slate"] .mdlad-footer__status-dot {
+    background: #4ade80;
+}
+
 @media screen and (max-width: 48rem) {
     .mdlad-footer-content {
         flex-direction: column;
