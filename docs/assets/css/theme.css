@@ -152,6 +152,23 @@ body {
     text-decoration-color: var(--md-accent-fg-color);
 }
 
+/* Link hover sweep — subtle background fill from left */
+.mdlad-link-sweep {
+    position: relative;
+    text-decoration: none !important;
+    background-image: linear-gradient(to right, var(--md-accent-fg-color--transparent) 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right;
+    transition: background-position 0.25s ease-out, color 0.15s ease;
+    padding: 0.1em 0.2em;
+    margin: -0.1em -0.2em;
+}
+
+.mdlad-link-sweep:hover {
+    background-position: left;
+    color: var(--md-accent-fg-color) !important;
+}
+
 .mlad-scroll-progress {
     position: fixed;
     top: 0;

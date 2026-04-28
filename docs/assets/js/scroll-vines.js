@@ -183,7 +183,29 @@
   }
 
   // =====================================================
-  // 4. STATS COUNTER
+  // 4. HERO PARALLAX
+  // =====================================================
+
+  function initHeroParallax() {
+    const heroImg = document.querySelector('.tx-hero__image img');
+    if (!heroImg) return;
+
+    let raf = null;
+    function onScroll() {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const scrollTop = window.scrollY || window.pageYOffset;
+        const offset = scrollTop * 0.15;
+        heroImg.style.transform = 'translateY(' + offset + 'px)';
+        raf = null;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // =====================================================
+  // 5. STATS COUNTER
   // =====================================================
 
   function initStatsCounter() {
@@ -231,6 +253,7 @@
     initScrollFallback(svg);
     initBloom();
     initCursorGlow();
+    initHeroParallax();
     initStatsCounter();
 
     let resizeDebounce;
