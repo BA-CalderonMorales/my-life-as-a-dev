@@ -526,6 +526,28 @@ img[loading="lazy"].is-loaded {
     }
 }
 
+.mlad-skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10002;
+    background: var(--md-default-bg-color);
+    color: var(--md-default-fg-color);
+    border: 1px solid var(--mlad-border-soft);
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.mlad-skip-link:focus {
+    top: 0.5rem;
+    outline: 2px solid var(--md-accent-fg-color);
+    outline-offset: 2px;
+}
+
 .mlad-page-transition {
     position: fixed;
     inset: 0;
