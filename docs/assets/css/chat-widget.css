@@ -14,7 +14,7 @@
     background: var(--mlad-chat-bg);
     color: var(--mlad-chat-fg);
     border: none;
-    box-shadow: var(--mlad-shadow-button);
+    box-shadow: none;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -31,12 +31,12 @@
 .ai-chat-trigger:hover {
     background: var(--mlad-button-bg-hover);
     color: var(--mlad-chat-fg);
-    box-shadow: var(--mlad-shadow-button-hover);
-    transform: translateX(-50%) scale(1.02);
+    box-shadow: none;
+    transform: translateX(-50%);
 }
 
 .ai-chat-trigger:active {
-    transform: translateX(-50%) scale(0.98);
+    transform: translateX(-50%);
 }
 
 .ai-chat-trigger svg {
@@ -55,8 +55,8 @@
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.35);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     display: none;
     align-items: flex-start;
     justify-content: center;
@@ -76,7 +76,7 @@
     background: var(--mlad-surface-solid);
     border: 1px solid var(--mlad-border-soft);
     border-radius: 0;
-    box-shadow: var(--mlad-shadow-strong);
+    box-shadow: none;
     width: 100%;
     max-width: 560px;
     max-height: calc(100vh - 96px);
@@ -288,7 +288,7 @@
     background: var(--mlad-surface-elevated);
     border: 1px solid var(--mlad-border-soft);
     border-radius: 0;
-    box-shadow: var(--mlad-shadow-soft);
+    box-shadow: none;
     min-width: 140px;
     padding: 4px;
     opacity: 0;
@@ -675,7 +675,7 @@
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
     .ai-chat-trigger {
-        box-shadow: var(--mlad-shadow-button);
+        box-shadow: none;
     }
 
     .ai-message-bot .ai-message-content {
@@ -692,7 +692,7 @@
 }
 
 [data-md-color-scheme="slate"] .ai-chat-trigger {
-    box-shadow: var(--mlad-shadow-button);
+    box-shadow: none;
 }
 
 [data-md-color-scheme="slate"] .ai-message-bot .ai-message-content {
@@ -702,7 +702,7 @@
 [data-md-color-scheme="slate"] .ai-chat-menu {
     background: var(--mlad-surface-elevated);
     border-color: var(--mlad-border-soft);
-    box-shadow: var(--mlad-shadow-soft);
+    box-shadow: none;
 }
 
 [data-md-color-scheme="slate"] .ai-chat-menu-btn {
@@ -726,7 +726,7 @@
     border-radius: 0;
     font-size: 0.8rem;
     font-weight: 500;
-    box-shadow: var(--mlad-shadow-button);
+    box-shadow: none;
     opacity: 0;
     transition: opacity var(--mlad-duration-base) var(--mlad-ease-standard),
         transform var(--mlad-duration-base) var(--mlad-ease-standard);

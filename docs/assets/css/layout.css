@@ -1,15 +1,14 @@
 /* ============================================
-   Layout - Classical Proportion
-   Space as structure, not decoration
+   Layout — Quiet Structure
+   Space as structure. No decoration.
    ============================================ */
 
-/* Hero section - generous, monumental */
 .tx-hero {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    padding: clamp(5rem, 10vw, 10rem) 0;
-    gap: clamp(2rem, 4vw, 4rem);
+    padding: var(--mlad-space-xl) 0;
+    gap: var(--mlad-space-lg);
 }
 
 .tx-hero__intro {
@@ -30,46 +29,43 @@
 }
 
 .tx-hero__content {
-    flex: 1 1 500px;
+    flex: 1 1 400px;
     max-width: 600px;
-    padding: 0 2rem;
+    padding: 0 1rem;
     display: flex;
     flex-direction: column;
-    gap: var(--mlad-space-lg);
+    gap: var(--mlad-space-md);
 }
 
 .tx-hero__image {
-    flex: 1 1 350px;
+    flex: 1 1 300px;
     display: flex;
     justify-content: center;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 .tx-hero__image img {
-    width: min(420px, 100%);
+    width: min(360px, 100%);
     height: auto;
     border: none;
-    border-radius: var(--mlad-radius-lg);
+    border-radius: 0;
     box-shadow: none;
     object-fit: cover;
 }
 
-/* Main content container */
 .tx-container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: var(--mlad-space-xl) var(--mlad-space-md);
 }
 
-/* Two column layout */
 .tx-columns {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--mlad-space-xl);
-    margin: var(--mlad-space-xl) 0;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--mlad-space-lg);
+    margin: var(--mlad-space-lg) 0;
 }
 
-/* Responsive adjustments */
 @media screen and (max-width: 76.25rem) {
     .tx-hero__content {
         padding: 0 var(--mlad-space-md);
@@ -80,8 +76,8 @@
     .tx-hero {
         flex-direction: column;
         text-align: center;
-        padding: clamp(3rem, 8vw, 5rem) 0;
-        gap: var(--mlad-space-lg);
+        padding: var(--mlad-space-lg) 0;
+        gap: var(--mlad-space-md);
     }
 
     .tx-hero__content {
@@ -89,7 +85,7 @@
         order: 1;
         display: flex;
         flex-direction: column;
-        gap: var(--mlad-space-md);
+        gap: var(--mlad-space-sm);
         align-items: center;
     }
 
@@ -114,7 +110,7 @@
     }
 
     .tx-hero__image img {
-        width: min(340px, 90vw);
+        width: min(300px, 80vw);
         margin-inline: auto;
     }
 }
@@ -134,14 +130,12 @@
 }
 
 /* ============================================
-   Navigation Sidebar - Quiet Hierarchy
-   Whitespace and weight, not borders
+   Navigation Sidebar — Flat Hierarchy
    ============================================ */
 
-/* Top-level sections */
 .md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item {
-    padding-top: var(--mlad-space-sm);
-    padding-bottom: var(--mlad-space-sm);
+    padding-top: var(--mlad-space-xs);
+    padding-bottom: var(--mlad-space-xs);
     border-bottom: none;
     margin-bottom: 0;
 }
@@ -150,28 +144,26 @@
     border-bottom: none;
 }
 
-/* Top-level section titles - quiet authority */
 .md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item>.md-nav__link,
 .md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
     font-weight: 500;
     font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     color: var(--md-default-fg-color--light);
 }
 
-/* Level 1 - major subsections */
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item {
     padding-left: 0;
     border-left: none;
     margin-bottom: 0;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
 }
 
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item:last-child {
     margin-bottom: 0;
-    padding-bottom: 0.25rem;
+    padding-bottom: 0.2rem;
 }
 
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item:hover {
@@ -185,21 +177,20 @@
     color: var(--md-default-fg-color);
 }
 
-/* Level 2+ - deeper nesting, quieter */
 .md-nav[data-md-level="2"]>.md-nav__list,
 .md-nav[data-md-level="3"]>.md-nav__list,
 .md-nav[data-md-level="4"]>.md-nav__list {
     border-left: none;
-    margin-left: 0.75rem;
-    padding-left: 0.75rem;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
 }
 
 .md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item,
 .md-nav[data-md-level="3"]>.md-nav__list>.md-nav__item,
 .md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item {
     margin-bottom: 0;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
 }
 
 .md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item>.md-nav__link,
@@ -216,14 +207,12 @@
     color: var(--md-default-fg-color--lighter);
 }
 
-/* Nav link text */
 .md-nav__link {
     white-space: normal;
     max-width: 100%;
     transition: color var(--mlad-duration-fast) var(--mlad-ease-standard);
 }
 
-/* Active and hover states - color only, no background */
 .md-nav__link:hover {
     color: var(--md-accent-fg-color) !important;
     background: transparent !important;
@@ -275,7 +264,10 @@ label.md-nav__link[for]:active {
     background-color: transparent !important;
 }
 
-/* Mobile nav drawer */
+/* ============================================
+   Mobile Nav Drawer — Solid & Clean
+   ============================================ */
+
 .md-nav--primary .md-nav__title,
 .md-nav--primary .md-nav__item,
 .md-nav--primary .md-nav__item--active,
@@ -300,6 +292,7 @@ label.md-nav__link[for]:active {
     margin: 0;
 }
 
+/* Mobile drawer: solid surface, generous spacing, clean typography */
 @media screen and (max-width: 76.1875em) {
     .md-nav--primary,
     .md-nav--primary .md-nav,
@@ -328,7 +321,39 @@ label.md-nav__link[for]:active {
     }
 
     .md-nav--primary .md-nav__link {
-        font-size: 0.9rem !important;
+        font-size: 0.95rem !important;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    /* Drawer container */
+    .md-drawer {
+        background: var(--mlad-surface-solid) !important;
+        border-right: 1px solid var(--mlad-border-soft) !important;
+    }
+
+    .md-drawer__content,
+    .md-nav--primary,
+    .md-sidebar--primary .md-sidebar__scrollwrap {
+        background: transparent !important;
+    }
+
+    .md-nav--primary .md-nav__title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--md-default-fg-color--light);
+        padding: var(--mlad-space-md) var(--mlad-space-md) var(--mlad-space-sm);
+    }
+
+    .md-nav--primary .md-nav__list {
+        padding: 0 var(--mlad-space-md);
+    }
+
+    /* Overlay */
+    [data-md-toggle="drawer"]:checked ~ .md-overlay {
+        background-color: rgba(0, 0, 0, 0.35) !important;
     }
 }
 

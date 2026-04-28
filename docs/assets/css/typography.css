@@ -1,6 +1,6 @@
 /* ============================================
-   Typography - Monumental Scale
-   Cathedral hierarchy through size and weight
+   Typography — Human Scale
+   Readable, balanced, quiet hierarchy.
    ============================================ */
 
 :root {
@@ -12,41 +12,38 @@ body {
     font-feature-settings: "liga" 1, "ss01" 1;
 }
 
-/* Body text - generous and open */
 .md-typeset {
     font-family: var(--mlad-text-font);
     font-size: 1rem;
-    line-height: 1.75;
-    letter-spacing: -0.01em;
+    line-height: 1.7;
+    letter-spacing: 0;
 }
 
-/* Headings - monumental scale, airy weight */
 .md-typeset h1 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0;
     margin-top: 0;
 }
 
 .md-typeset h2 {
-    font-size: clamp(1.5rem, 3vw, 2.25rem);
-    font-weight: 400;
-    line-height: 1.25;
-    letter-spacing: -0.01em;
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.3;
     margin-top: var(--mlad-space-xl);
 }
 
 .md-typeset h3 {
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: 1.15rem;
+    font-weight: 600;
     line-height: 1.35;
     margin-top: var(--mlad-space-lg);
 }
 
 .md-typeset h4 {
-    font-size: 1.1rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
     line-height: 1.4;
 }
 
@@ -59,22 +56,20 @@ body {
     text-transform: uppercase;
 }
 
-/* Hero-specific H1 - even more monumental */
 .tx-hero__content h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
 }
 
 .tx-hero__content p {
     text-shadow: none;
-    font-size: 1.1rem;
-    line-height: 1.7;
+    font-size: 1.05rem;
+    line-height: 1.65;
     color: var(--md-default-fg-color--light);
 }
 
-/* Paragraph spacing */
 .md-typeset p {
     margin-bottom: var(--mlad-space-md);
 }
@@ -83,7 +78,6 @@ body {
     margin-bottom: 0;
 }
 
-/* Lists - generous spacing */
 .md-typeset ul,
 .md-typeset ol {
     margin: var(--mlad-space-md) 0;
@@ -91,37 +85,25 @@ body {
 }
 
 .md-typeset li {
-    margin-bottom: 0.5rem;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 76.25rem) {
-    .md-typeset {
-        font-size: 0.95rem;
-        line-height: 1.7;
-    }
-
-    .tx-hero__content h1 {
-        font-size: clamp(2rem, 6vw, 3rem);
-    }
+    margin-bottom: 0.4rem;
 }
 
 @media screen and (max-width: 48rem) {
     .md-typeset {
         font-size: 0.95rem;
-        line-height: 1.7;
+        line-height: 1.65;
     }
 
     .md-typeset h1 {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
     }
 
     .md-typeset h2 {
-        font-size: 1.4rem;
+        font-size: 1.25rem;
     }
 
     .tx-hero__content h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 
     .tx-hero__content p {

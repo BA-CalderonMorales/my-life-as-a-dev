@@ -1,6 +1,6 @@
 /* ============================================
-   Buttons - Stone Tablets
-   Subtle response, no mechanical snap
+   Buttons — Flat Actions
+   No transforms, no shadows, no radius.
    ============================================ */
 
 .md-button {
@@ -9,9 +9,9 @@
     justify-content: center;
     gap: 0.5rem;
     min-height: 2.75rem;
-    padding: 0.75rem 1.5rem;
+    padding: 0.65rem 1.25rem;
     border: 1px solid transparent;
-    border-radius: var(--mlad-radius-md);
+    border-radius: 0;
     font-size: 0.9rem;
     font-weight: 500;
     line-height: 1.2;
@@ -19,8 +19,7 @@
     transition: background-color var(--mlad-duration-fast) var(--mlad-ease-standard),
         border-color var(--mlad-duration-fast) var(--mlad-ease-standard),
         color var(--mlad-duration-fast) var(--mlad-ease-standard),
-        box-shadow var(--mlad-duration-fast) var(--mlad-ease-standard),
-        transform var(--mlad-duration-fast) var(--mlad-ease-standard);
+        opacity var(--mlad-duration-fast) var(--mlad-ease-standard);
 }
 
 .md-typeset .md-button,
@@ -34,7 +33,7 @@
     margin-right: 0;
 }
 
-/* Primary button - aged bronze / candlelight gold */
+/* Primary button */
 .md-typeset .md-button.md-button--primary,
 .md-content__inner .md-button.md-button--primary,
 .tx-hero__content .md-button.md-button--primary,
@@ -57,16 +56,18 @@
     background: var(--md-accent-fg-color--light) !important;
     background-color: var(--md-accent-fg-color--light) !important;
     border-color: transparent !important;
-    box-shadow: var(--mlad-shadow-button-hover);
-    transform: scale(1.02);
+    box-shadow: none;
+    transform: none;
+    opacity: 0.92;
 }
 
 .md-typeset .md-button.md-button--primary:active,
 .md-button.md-button--primary:active {
-    transform: scale(0.98);
+    opacity: 0.85;
+    transform: none;
 }
 
-/* Secondary button - transparent with hairline */
+/* Secondary button */
 .md-typeset .md-button:not(.md-button--primary),
 .md-button:not(.md-button--primary) {
     background: transparent !important;
@@ -82,21 +83,22 @@
     background: var(--mlad-surface-solid) !important;
     border-color: var(--mlad-border-strong) !important;
     color: var(--md-default-fg-color) !important;
-    box-shadow: var(--mlad-shadow-button-hover);
-    transform: scale(1.02);
+    box-shadow: none;
+    transform: none;
 }
 
 .md-button:not(.md-button--primary):active {
-    transform: scale(0.98);
+    opacity: 0.85;
+    transform: none;
 }
 
-/* Project link - subtle inline action */
+/* Project link */
 .project-link {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: var(--mlad-radius-md);
+    padding: 0.35rem 0.7rem;
+    border-radius: 0;
     font-size: 0.8rem;
     font-weight: 500;
     text-decoration: none;
@@ -126,7 +128,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.45rem 0.8rem;
+    padding: 0.4rem 0.7rem;
     margin: 0.25rem;
     font-size: 0.75rem;
     font-weight: 500;
@@ -134,7 +136,7 @@
     color: var(--md-default-fg-color--light);
     background: transparent;
     border: 1px solid var(--mlad-border-soft);
-    border-radius: var(--mlad-radius-md);
+    border-radius: 0;
     box-shadow: none;
     transition: background-color var(--mlad-duration-fast) var(--mlad-ease-standard),
         border-color var(--mlad-duration-fast) var(--mlad-ease-standard),
