@@ -24,10 +24,14 @@ extra_css = [
     "assets/css/background.css",
     "assets/css/landing.css",
     "assets/css/canvas.css",
+    "assets/css/scroll-vines.css",
+    "assets/css/404.css",
 ]
 
 extra_javascript = [
     # Canvas page Three.js scene (must load globally for instant navigation)
     "assets/js/canvas/scene/main.js",
+    # Scroll-driven vine animations and section bloom (landing page only)
+    "assets/js/scroll-vines.js",
     # NOTE: Zensical's native version selector is used (via mike + modern theme)
 ]

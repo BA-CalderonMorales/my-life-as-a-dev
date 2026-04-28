@@ -32,6 +32,47 @@ Product-minded engineer focused on **developer tooling**, **docs-as-code**, and 
 </div>
 </section>
 
+<section class="md-typeset mlad-marquee" aria-hidden="true" markdown>
+<div class="mlad-marquee__track">
+<span class="mlad-marquee__text">Developer Tooling</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Docs-as-Code</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Delivery Systems</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Rust</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Python</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">TypeScript</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Terminal Jarvis</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Zensical</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">AI Workflows</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Developer Tooling</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Docs-as-Code</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Delivery Systems</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Rust</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Python</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">TypeScript</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Terminal Jarvis</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">Zensical</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+<span class="mlad-marquee__text">AI Workflows</span>
+<span class="mlad-marquee__dot" aria-hidden="true"></span>
+</div>
+</section>
+
 <section class="tx-container" markdown>
 <div class="tx-columns" markdown>
 
@@ -58,6 +99,32 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 
 [:material-linkedin: Connect on LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe/){ .md-button }
 
+</div>
+
+</div>
+</section>
+
+<section class="md-typeset mlad-stats" markdown>
+<div class="mlad-stats__grid" markdown>
+
+<div class="mlad-stats__item" markdown>
+<div class="mlad-stats__number" data-count="15">0</div>
+<div class="mlad-stats__label">Open Source Repos</div>
+</div>
+
+<div class="mlad-stats__item" markdown>
+<div class="mlad-stats__number" data-count="5">0</div>
+<div class="mlad-stats__label">Active Projects</div>
+</div>
+
+<div class="mlad-stats__item" markdown>
+<div class="mlad-stats__number" data-count="1000">0</div>
+<div class="mlad-stats__label">Commits Shipped</div>
+</div>
+
+<div class="mlad-stats__item" markdown>
+<div class="mlad-stats__number" data-count="24">0</div>
+<div class="mlad-stats__label">Always Building</div>
 </div>
 
 </div>
