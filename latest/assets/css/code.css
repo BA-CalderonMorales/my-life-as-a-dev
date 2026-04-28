@@ -91,12 +91,6 @@
     background: var(--md-default-fg-color--lightest);
 }
 
-.md-typeset .md-clipboard.md-clipboard--active,
-.md-typeset .md-clipboard.md-clipboard--success {
-    color: var(--md-accent-fg-color);
-    background: var(--md-accent-fg-color--transparent);
-}
-
 .md-typeset .highlight > .filename,
 .md-typeset .highlighttable > .filename {
     display: flex;
