@@ -1,0 +1,149 @@
+/* ============================================
+   Cards — Whitespace Separation
+   No boxes. Just content and space.
+   ============================================ */
+
+.grid.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--mlad-space-lg);
+    padding: 0;
+    list-style: none;
+}
+
+.grid.cards>li,
+.grid.cards>ul>li {
+    display: flex;
+    flex-direction: column;
+    padding: var(--mlad-space-md) 0;
+    background: transparent;
+    border: none;
+    border-top: 1px solid var(--mlad-border-soft);
+    border-radius: 0;
+    box-shadow: none;
+    transition: color var(--mlad-duration-fast) var(--mlad-ease-standard);
+}
+
+.grid.cards>li:hover,
+.grid.cards>ul>li:hover {
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+}
+
+.grid.cards>li h3,
+.grid.cards>li h4,
+.grid.cards>ul>li h3,
+.grid.cards>ul>li h4 {
+    margin-top: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+/* Blockquote — minimal left rule */
+.md-typeset blockquote {
+    position: relative;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: var(--mlad-space-sm) var(--mlad-space-sm) var(--mlad-space-sm) var(--mlad-space-md);
+    margin: var(--mlad-space-lg) 0;
+    border-radius: 0;
+    color: var(--md-default-fg-color--light);
+}
+
+.md-typeset blockquote::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--md-accent-fg-color);
+    opacity: 0.35;
+}
+
+.md-typeset blockquote p {
+    margin: 0;
+    color: inherit;
+    font-style: italic;
+}
+
+.md-typeset blockquote p + p {
+    margin-top: var(--mlad-space-sm);
+}
+
+.md-typeset blockquote strong,
+.md-typeset blockquote em,
+.md-typeset blockquote a {
+    color: inherit;
+}
+
+/* Admonition — flat, editorial */
+.md-typeset .admonition {
+    background: var(--mlad-surface-solid);
+    border: none;
+    border-left: 2px solid var(--md-accent-fg-color);
+    border-radius: 0;
+    box-shadow: none;
+    padding: var(--mlad-space-md) var(--mlad-space-md) var(--mlad-space-md) calc(var(--mlad-space-md) - 2px);
+    margin: var(--mlad-space-lg) 0;
+}
+
+.md-typeset .admonition-title {
+    background: transparent !important;
+    border: none;
+    border-radius: 0;
+    padding: 0 0 var(--mlad-space-xs) 0;
+    margin: 0 0 var(--mlad-space-xs) 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--md-default-fg-color);
+}
+
+.md-typeset .admonition-title::before {
+    display: none;
+}
+
+.md-typeset .admonition p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--md-default-fg-color--light);
+    margin: 0;
+}
+
+.md-typeset .admonition p + p {
+    margin-top: var(--mlad-space-sm);
+}
+
+/* Table — clean, readable */
+.md-typeset table {
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.md-typeset table th {
+    background: var(--mlad-surface-solid);
+    border-bottom: 1px solid var(--mlad-border-strong);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.75rem;
+    padding: 0.6rem 1rem;
+}
+
+.md-typeset table td {
+    border-bottom: 1px solid var(--mlad-border-soft);
+    padding: 0.6rem 1rem;
+}
+
+.md-typeset table tr {
+    transition: background-color 0.15s ease;
+}
+
+.md-typeset table tbody tr:hover {
+    background: var(--mlad-surface-muted);
+}
