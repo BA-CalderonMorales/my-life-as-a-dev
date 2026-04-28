@@ -1,29 +1,29 @@
 /* ============================================
-   Layout - Containers and Grid System
-   Page structure, columns, and spacing
+   Layout - Classical Proportion
+   Space as structure, not decoration
    ============================================ */
 
-/* Hero section layout */
+/* Hero section - generous, monumental */
 .tx-hero {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    padding: 4rem 0;
+    padding: clamp(5rem, 10vw, 10rem) 0;
+    gap: clamp(2rem, 4vw, 4rem);
 }
 
 .tx-hero__intro {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: var(--mlad-space-sm);
 }
 
 .tx-hero__details {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: var(--mlad-space-md);
     align-items: flex-start;
 }
-
 
 .tx-hero__details .md-button {
     align-self: flex-start;
@@ -35,7 +35,7 @@
     padding: 0 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: var(--mlad-space-lg);
 }
 
 .tx-hero__image {
@@ -48,9 +48,9 @@
 .tx-hero__image img {
     width: min(420px, 100%);
     height: auto;
-    border: 1px solid var(--mlad-border-strong);
+    border: none;
     border-radius: var(--mlad-radius-lg);
-    box-shadow: var(--mlad-shadow-soft);
+    box-shadow: none;
     object-fit: cover;
 }
 
@@ -58,21 +58,21 @@
 .tx-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: var(--mlad-space-xl) var(--mlad-space-md);
 }
 
 /* Two column layout */
 .tx-columns {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
+    gap: var(--mlad-space-xl);
+    margin: var(--mlad-space-xl) 0;
 }
 
 /* Responsive adjustments */
 @media screen and (max-width: 76.25rem) {
     .tx-hero__content {
-        padding: 0 1rem;
+        padding: 0 var(--mlad-space-md);
     }
 }
 
@@ -80,8 +80,8 @@
     .tx-hero {
         flex-direction: column;
         text-align: center;
-        padding: 2.5rem 0 2rem;
-        gap: 1.5rem;
+        padding: clamp(3rem, 8vw, 5rem) 0;
+        gap: var(--mlad-space-lg);
     }
 
     .tx-hero__content {
@@ -89,7 +89,7 @@
         order: 1;
         display: flex;
         flex-direction: column;
-        gap: 1.25rem;
+        gap: var(--mlad-space-md);
         align-items: center;
     }
 
@@ -110,7 +110,7 @@
 
     .tx-hero__image {
         order: 2;
-        padding: 0 1.25rem;
+        padding: 0 var(--mlad-space-md);
     }
 
     .tx-hero__image img {
@@ -121,7 +121,7 @@
 
 @media screen and (max-width: 37.5rem) {
     .tx-hero__image {
-        padding: 1rem 0.5rem 0;
+        padding: var(--mlad-space-sm) 0 0;
     }
 
     .tx-hero__details .md-button {
@@ -130,25 +130,19 @@
 
     .tx-hero__image img {
         width: 100%;
-        border-radius: 1rem;
     }
 }
 
 /* ============================================
-   Navigation Sidebar Enhancements
-   Visual grouping and section dividers
+   Navigation Sidebar - Quiet Hierarchy
+   Whitespace and weight, not borders
    ============================================ */
 
-/* ===========================================
-   TOP-LEVEL SECTIONS (Home, Learning, Docs-as-Code, Projects, Resume)
-   These need clear horizontal separators between them
-   =========================================== */
-
-/* Primary nav container at level 0 */
+/* Top-level sections */
 .md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--mlad-border-strong);
+    padding-top: var(--mlad-space-sm);
+    padding-bottom: var(--mlad-space-sm);
+    border-bottom: none;
     margin-bottom: 0;
 }
 
@@ -156,73 +150,61 @@
     border-bottom: none;
 }
 
-/* Top-level section titles - make them stand out */
+/* Top-level section titles - quiet authority */
 .md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item>.md-nav__link,
 .md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
-    font-weight: 700;
-    font-size: 0.9rem;
+    font-weight: 500;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--md-default-fg-color);
+    letter-spacing: 0.08em;
+    color: var(--md-default-fg-color--light);
 }
 
-/* ===========================================
-   LEVEL 1 - Major subsections within a domain
-   (e.g., Algorithms, Data Structures under Learning)
-   =========================================== */
-
+/* Level 1 - major subsections */
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item {
-    padding-left: 0.5rem;
-    border-left: 3px solid transparent;
+    padding-left: 0;
+    border-left: none;
     margin-bottom: 0;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
 }
 
-/* Ensure last item has same spacing as others */
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item:last-child {
     margin-bottom: 0;
-    padding-bottom: 0.2rem;
+    padding-bottom: 0.25rem;
 }
 
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item:hover {
-    border-left-color: var(--md-default-fg-color);
+    border-left-color: transparent;
 }
 
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item>.md-nav__link,
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
-    font-weight: 600;
-    font-size: 0.85rem;
+    font-weight: 400;
+    font-size: 0.9rem;
     color: var(--md-default-fg-color);
 }
 
-/* ===========================================
-   LEVEL 2+ - Deeper nested items (patterns, problems)
-   Remove the stacking left borders - use indentation only
-   =========================================== */
-
-/* Remove left border for deeper levels - it stacks and looks bad */
+/* Level 2+ - deeper nesting, quieter */
 .md-nav[data-md-level="2"]>.md-nav__list,
 .md-nav[data-md-level="3"]>.md-nav__list,
 .md-nav[data-md-level="4"]>.md-nav__list {
     border-left: none;
     margin-left: 0.75rem;
-    padding-left: 0.5rem;
+    padding-left: 0.75rem;
 }
 
-/* Consistent spacing for level 2+ items */
 .md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item,
 .md-nav[data-md-level="3"]>.md-nav__list>.md-nav__item,
 .md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item {
     margin-bottom: 0;
-    padding-top: 0.15rem;
-    padding-bottom: 0.15rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
 }
 
-/* Smaller font and lighter color for deeper nesting */
 .md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item>.md-nav__link,
 .md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--md-default-fg-color--light);
 }
 
@@ -230,100 +212,37 @@
 .md-nav[data-md-level="3"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link,
 .md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item>.md-nav__link,
 .md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: var(--md-default-fg-color--lighter);
 }
 
-/* ===========================================
-   NAV LINK TEXT OVERFLOW - Horizontal scroll for long names
-   =========================================== */
-
-/* Allow horizontal scrolling for deeply nested items */
+/* Nav link text */
 .md-nav__link {
-    /* white-space: nowrap; - Removed for interactions safety */
-    /* overflow-x: auto; - Removed as it blocks clicks on some mobile browsers */
-    /* overflow-y: hidden; */
-    /* text-overflow: clip; */
     white-space: normal;
-    /* Wrap text instead */
     max-width: 100%;
-    /* scrollbar-width: thin; */
-    /* scrollbar-color: var(--md-default-fg-color--lighter) transparent; */
+    transition: color var(--mlad-duration-fast) var(--mlad-ease-standard);
 }
 
-
-/* Webkit scrollbar styling for nav links */
-.md-nav__link::-webkit-scrollbar {
-    height: 3px;
-}
-
-.md-nav__link::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.md-nav__link::-webkit-scrollbar-thumb {
-    background: var(--md-default-fg-color--lighter);
-    border-radius: 3px;
-}
-
-.md-nav__link::-webkit-scrollbar-thumb:hover {
-    background: var(--md-default-fg-color--light);
-}
-
-/* ===========================================
-   NESTED ITEM INDICATORS
-   Make expandable sections visually distinct
-   =========================================== */
-
-.md-nav__item--nested>.md-nav__container>.md-nav__link,
-.md-nav__item--nested>.md-nav__link {
-    font-weight: 600 !important;
-}
-
-/* Expand/collapse icon styling */
-.md-nav__icon {
-    color: var(--md-default-fg-color--lighter);
-}
-
-.md-nav__item--nested:hover>.md-nav__container .md-nav__icon,
-.md-nav__item--nested:hover>label .md-nav__icon {
-    color: var(--md-accent-fg-color);
-}
-
-/* ===========================================
-   ACTIVE AND HOVER STATES
-   =========================================== */
-
-/* Hover state for all nav links */
+/* Active and hover states - color only, no background */
 .md-nav__link:hover {
     color: var(--md-accent-fg-color) !important;
+    background: transparent !important;
 }
 
-/* Currently active page */
 .md-nav__item--active>.md-nav__link {
     color: var(--md-accent-fg-color) !important;
-    font-weight: 700 !important;
+    font-weight: 500 !important;
+    background: transparent !important;
 }
 
-/* Active parent sections */
 .md-nav__item--active>.md-nav__container>.md-nav__link {
     color: var(--md-accent-fg-color) !important;
-}
-
-/* ===========================================
-   REMOVE DEFAULT BACKGROUNDS
-   Override MkDocs Material default backgrounds
-   These selectors must match or exceed Material's specificity
-   =========================================== */
-
-/* Override Material's active link background */
-.md-nav--primary .md-nav__item .md-nav__link--active,
-.md-nav--primary .md-nav__link--active {
     background: transparent !important;
-    background-color: transparent !important;
 }
 
-/* Override Material's hover/focus backgrounds */
+/* Remove all default backgrounds */
+.md-nav--primary .md-nav__item .md-nav__link--active,
+.md-nav--primary .md-nav__link--active,
 .md-nav--primary .md-nav__link[for]:focus,
 .md-nav--primary .md-nav__link[for]:hover,
 .md-nav--primary .md-nav__link[href]:focus,
@@ -336,7 +255,6 @@
     background-color: transparent !important;
 }
 
-/* Remove all nav backgrounds comprehensively */
 .md-nav__item,
 .md-nav__link,
 .md-nav__item--active,
@@ -344,13 +262,11 @@
 .md-nav__container,
 .md-nav--primary .md-nav__link,
 .md-nav--secondary .md-nav__link,
-/* Target label elements which Material uses for toggle functionality */
 .md-nav label,
 .md-nav label.md-nav__link,
 .md-nav__item label,
 .md-nav__item--nested>label,
 .md-nav__item--nested>label.md-nav__link,
-/* Focus and active states on labels */
 label.md-nav__link:focus,
 label.md-nav__link:active,
 label.md-nav__link[for]:focus,
@@ -359,12 +275,7 @@ label.md-nav__link[for]:active {
     background-color: transparent !important;
 }
 
-/* ===========================================
-   MOBILE NAV DRAWER FIXES
-   Override drawer-specific background styles
-   =========================================== */
-
-/* Mobile drawer - remove all backgrounds on nav items */
+/* Mobile nav drawer */
 .md-nav--primary .md-nav__title,
 .md-nav--primary .md-nav__item,
 .md-nav--primary .md-nav__item--active,
@@ -376,7 +287,6 @@ label.md-nav__link[for]:active {
     background-color: transparent !important;
 }
 
-/* Remove the expanded section background in mobile drawer */
 .md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav,
 .md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link,
 .md-nav--primary .md-nav__item--active>.md-nav {
@@ -384,21 +294,13 @@ label.md-nav__link[for]:active {
     background-color: transparent !important;
 }
 
-/* Ensure consistent nav item sizing - no varying heights */
 .md-nav--primary .md-nav__item,
 .md-nav--lifted .md-nav__item {
     min-height: auto;
     margin: 0;
 }
 
-/* ===========================================
-   MOBILE-SPECIFIC OVERRIDES
-   Target mobile drawer at smaller breakpoints
-   =========================================== */
-
 @media screen and (max-width: 76.1875em) {
-
-    /* Force transparent backgrounds on ALL mobile nav elements including labels */
     .md-nav--primary,
     .md-nav--primary .md-nav,
     .md-nav--primary .md-nav__item,
@@ -415,7 +317,6 @@ label.md-nav__link[for]:active {
     .md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link,
     .md-nav__item--active,
     .md-nav__item--nested,
-    /* Label elements for toggle functionality */
     .md-nav--primary label,
     .md-nav--primary label.md-nav__link,
     .md-nav--lifted label,
@@ -426,13 +327,12 @@ label.md-nav__link[for]:active {
         background-color: transparent !important;
     }
 
-    /* Consistent link sizing for mobile readability */
     .md-nav--primary .md-nav__link {
-        font-size: 0.85rem !important;
+        font-size: 0.9rem !important;
     }
 }
 
-/* Disable native tooltips on touch/mobile devices */
+/* Disable native tooltips on touch */
 @media (hover: none) and (pointer: coarse) {
     [title] {
         position: relative;
@@ -444,45 +344,42 @@ label.md-nav__link[for]:active {
     }
 }
 
-/* Keep Material styling, but pin back-to-top to bottom-right on narrow viewports */
+/* Back-to-top positioning */
 @media screen and (max-width: 60rem) {
     .md-top,
     .md-top[data-md-state="hidden"],
     .md-top[data-md-state="visible"] {
-        right: 1rem !important;
+        right: var(--mlad-space-md) !important;
         left: auto !important;
-        bottom: calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
+        bottom: calc(var(--mlad-space-md) + env(safe-area-inset-bottom, 0px)) !important;
         transform: none !important;
         z-index: 998 !important;
     }
 }
 
-/* ===========================================
-   TABLE OF CONTENTS (Right Sidebar)
-   Fix active link colors for dark mode
-   =========================================== */
+/* ============================================
+   Table of Contents (Right Sidebar)
+   ============================================ */
 
-/* TOC active link - ensure it uses theme accent color */
 .md-nav--secondary .md-nav__link--active,
 .md-nav--secondary .md-nav__item--active>.md-nav__link {
     color: var(--md-accent-fg-color) !important;
-    font-weight: 600;
+    font-weight: 500;
 }
 
-/* Dark mode specific TOC styling */
 [data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link--active,
 [data-md-color-scheme="slate"] .md-nav--secondary .md-nav__item--active>.md-nav__link {
     color: var(--md-accent-fg-color) !important;
 }
 
-/* TOC hover state */
 .md-nav--secondary .md-nav__link:hover {
     color: var(--md-accent-fg-color) !important;
+    background: transparent !important;
 }
 
-/* TOC normal links - use lighter color for better contrast */
 .md-nav--secondary .md-nav__link {
     color: var(--md-default-fg-color--light);
+    transition: color var(--mlad-duration-fast) var(--mlad-ease-standard);
 }
 
 [data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link {
@@ -491,14 +388,10 @@ label.md-nav__link[for]:active {
 
 /* ============================================
    PWA Safe Area Support
-   Handles notches and home indicators on mobile
    ============================================ */
 
 @supports (padding: env(safe-area-inset-top)) {
-    /* Standalone PWA mode (Android and iOS home screen apps) */
     @media all and (display-mode: standalone) {
-
-        /* Fill notch area with header background color */
         body::before {
             content: "";
             position: fixed;
@@ -510,7 +403,6 @@ label.md-nav__link[for]:active {
             z-index: 100;
         }
 
-        /* Header padding pushes content below notch */
         .md-header {
             padding-top: env(safe-area-inset-top);
         }
@@ -531,18 +423,15 @@ label.md-nav__link[for]:active {
             padding-bottom: env(safe-area-inset-bottom);
         }
 
-        /* Mobile drawer safe area */
         .md-drawer {
             padding-top: env(safe-area-inset-top);
             padding-left: env(safe-area-inset-left);
         }
 
-        /* Search modal - must be above body::before (z-index: 100) */
         .md-search {
             z-index: 101;
         }
 
-        /* Search modal inner container (full-screen on mobile) */
         .md-search__inner {
             padding-top: env(safe-area-inset-top);
             padding-bottom: env(safe-area-inset-bottom);
@@ -550,12 +439,10 @@ label.md-nav__link[for]:active {
             padding-right: env(safe-area-inset-right);
         }
 
-        /* Search form safe area */
         .md-search__form {
             margin-top: env(safe-area-inset-top);
         }
 
-        /* Ensure search output has safe area padding */
         .md-search__output {
             padding-left: env(safe-area-inset-left);
             padding-right: env(safe-area-inset-right);
@@ -563,7 +450,6 @@ label.md-nav__link[for]:active {
         }
     }
 
-    /* Fullscreen mode */
     @media all and (display-mode: fullscreen) {
         body::before {
             content: "";
@@ -589,12 +475,10 @@ label.md-nav__link[for]:active {
             padding-left: env(safe-area-inset-left);
         }
 
-        /* Search modal - must be above body::before (z-index: 100) */
         .md-search {
             z-index: 101;
         }
 
-        /* Search modal inner container (full-screen on mobile) */
         .md-search__inner {
             padding-top: env(safe-area-inset-top);
             padding-bottom: env(safe-area-inset-bottom);
@@ -602,12 +486,10 @@ label.md-nav__link[for]:active {
             padding-right: env(safe-area-inset-right);
         }
 
-        /* Search form safe area */
         .md-search__form {
             margin-top: env(safe-area-inset-top);
         }
 
-        /* Ensure search output has safe area padding */
         .md-search__output {
             padding-left: env(safe-area-inset-left);
             padding-right: env(safe-area-inset-right);

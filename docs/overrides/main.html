@@ -84,46 +84,18 @@
 
 {% block extrahead %}
 <style>
-  :root {
-    --mlad-critical-surface: rgba(248, 247, 242, 0.78);
-    --mlad-critical-border: rgba(21, 21, 21, 0.16);
-  }
-
-  [data-md-color-scheme="slate"] {
-    --mlad-critical-surface: rgba(28, 28, 27, 0.82);
-    --mlad-critical-border: rgba(242, 241, 237, 0.16);
-  }
-
-  .md-content__inner {
-    background: var(--mlad-critical-surface);
-    border-radius: 0;
-    border: 1px solid var(--mlad-critical-border);
-    box-shadow: 8px 8px 0 rgba(21, 21, 21, 0.08);
-  }
-
-  .landing-page .md-content__inner,
-  .canvas-page .md-content__inner {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  .threejs-bg-container {
-    opacity: 0;
-  }
-
   /* Ensure version selector is always visible */
   .md-version {
     display: inline-flex !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
-  
+
   .md-version__current {
     display: flex !important;
     visibility: visible !important;
   }
-  
+
   /* Ensure AI chat trigger is always visible */
   .ai-chat-trigger {
     display: flex !important;
@@ -138,8 +110,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="SimplifiedLife">
 <link rel="apple-touch-icon" href="{{ 'assets/images/favicon/icon-192.png' | url }}">
-<meta name="theme-color" content="#111111">
-<meta name="msapplication-TileColor" content="#111111">
+<meta name="theme-color" content="#0d0c0a">
+<meta name="msapplication-TileColor" content="#0d0c0a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
 <script src="{{ 'assets/js/console-patch.js' | url }}"></script>
