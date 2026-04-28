@@ -232,6 +232,12 @@
         background: var(--mlad-surface-solid) !important;
         border-right: 1px solid var(--mlad-border-soft) !important;
         opacity: 1 !important;
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    [data-md-toggle="drawer"]:checked ~ .md-drawer {
+        transform: translateX(0);
     }
 
     .md-drawer__content,

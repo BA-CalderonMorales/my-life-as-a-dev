@@ -202,6 +202,23 @@ img[loading="lazy"].is-loaded {
     color: var(--md-accent-fg-color) !important;
 }
 
+/* Version banner for outdated docs */
+.mlad-version-banner {
+    background: var(--mlad-surface-solid);
+    border: 1px solid var(--mlad-border-soft);
+    border-left: 2px solid var(--md-accent-fg-color);
+    padding: var(--mlad-space-sm) var(--mlad-space-md);
+    margin-bottom: var(--mlad-space-lg);
+    font-size: 0.85rem;
+    color: var(--md-default-fg-color--light);
+}
+
+.mlad-version-banner a {
+    color: var(--md-accent-fg-color);
+    text-decoration: underline;
+    text-decoration-color: var(--md-accent-fg-color);
+}
+
 /* ============================================
    Keyboard Shortcuts Modal
    ============================================ */
