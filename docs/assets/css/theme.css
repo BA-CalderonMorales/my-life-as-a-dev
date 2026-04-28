@@ -105,6 +105,7 @@ body {
     isolation: isolate;
     background: var(--md-default-bg-color);
     color: var(--md-default-fg-color);
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Subtle film grain in dark mode — cinematic, remotion-like */
