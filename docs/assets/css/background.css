@@ -189,6 +189,25 @@
     border-top: 1px solid var(--mlad-border-soft);
 }
 
+/* Subtle geometric pattern for content page headers */
+.md-content__inner > h1:first-child {
+    position: relative;
+}
+
+.md-content__inner > h1:first-child::before {
+    content: "";
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+    width: 80px;
+    height: 80px;
+    background-image: radial-gradient(circle, var(--mlad-border-soft) 1px, transparent 1px);
+    background-size: 8px 8px;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+}
+
 /* Mobile overrides — solid surfaces */
 @media screen and (max-width: 76.25rem) {
     .md-sidebar--primary {
