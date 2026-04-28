@@ -186,6 +186,48 @@
 <!-- <script type="module" src="{{ 'assets/js/threejs-background/main.js' | url }}"></script> -->
 <script type="module" src="{{ 'assets/js/canvas/scene/main.js' | url }}"></script>
 
+<!-- Page transition overlay -->
+<script>
+(function () {
+  'use strict';
+
+  var overlay = document.createElement('div');
+  overlay.className = 'mlad-page-transition';
+  overlay.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(overlay);
+
+  function fadeIn() {
+    overlay.style.opacity = '1';
+  }
+
+  function fadeOut() {
+    overlay.style.opacity = '0';
+  }
+
+  // Hook into MkDocs Material instant navigation
+  if (typeof document$ !== 'undefined') {
+    document$.subscribe(function () {
+      fadeOut();
+    });
+  }
+
+  // Fallback for regular navigation
+  window.addEventListener('pageshow', fadeOut);
+
+  // Trigger fade on link clicks
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('a');
+    if (!el) return;
+    var href = el.getAttribute('href') || '';
+    // Only internal links
+    if (href.indexOf('http') === 0 && el.hostname !== location.hostname) return;
+    if (href.indexOf('#') === 0) return;
+    if (el.getAttribute('download')) return;
+    fadeIn();
+  });
+})();
+</script>
+
 <script src="{{ 'assets/js/chat-widget/lib/config.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/logger.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/message-parser.js' | url }}"></script>
@@ -330,7 +372,9 @@
 {% block classes %}
 {% set is_home = page and (page.url == '' or page.url == 'index/' or (page.file and page.file.src_uri == 'index.md')) %}
 {% set is_canvas = page and page.file and page.file.src_uri == 'canvas/index.md' %}
-{{ super() }}{% if is_home %} landing-page{% endif %}{% if is_canvas %} canvas-page{% endif %}
+{% set is_resume = page and page.file and page.file.src_uri == 'resume/index.md' %}
+{% set is_projects = page and page.file and page.file.src_uri == 'projects/index.md' %}
+{{ super() }}{% if is_home %} landing-page{% endif %}{% if is_canvas %} canvas-page{% endif %}{% if is_resume %} resume-page{% endif %}{% if is_projects %} projects-page{% endif %}
 {% endblock %}
 
 {% block content %}

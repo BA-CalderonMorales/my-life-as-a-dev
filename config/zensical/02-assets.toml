@@ -26,6 +26,8 @@ extra_css = [
     "assets/css/canvas.css",
     "assets/css/scroll-vines.css",
     "assets/css/404.css",
+    "assets/css/resume.css",
+    "assets/css/projects.css",
 ]
 
 extra_javascript = [

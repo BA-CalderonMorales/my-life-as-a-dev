@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-04-28 08:27:35 UTC
+#   Generated: 2026-04-28 08:53:22 UTC
 #
 # ##############################################################################
 
@@ -37,6 +37,8 @@ extra_css = [
     "assets/css/canvas.css",
     "assets/css/scroll-vines.css",
     "assets/css/404.css",
+    "assets/css/resume.css",
+    "assets/css/projects.css",
 ]
 extra_javascript = [
     "assets/js/canvas/scene/main.js",

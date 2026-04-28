@@ -146,6 +146,16 @@ body {
     box-shadow: none;
 }
 
+.mlad-page-transition {
+    position: fixed;
+    inset: 0;
+    background: var(--md-default-bg-color);
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -154,5 +164,8 @@ body {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+    .mlad-page-transition {
+        display: none !important;
     }
 }
