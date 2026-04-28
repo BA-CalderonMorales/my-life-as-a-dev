@@ -557,6 +557,32 @@
     opacity: 0.85;
 }
 
+.md-top::after {
+    content: "Top";
+    position: absolute;
+    right: calc(100% + 0.5rem);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--md-default-fg-color--light);
+    background: var(--mlad-surface-solid);
+    border: 1px solid var(--mlad-border-soft);
+    padding: 0.25rem 0.5rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+}
+
+.md-top:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* ============================================
    Stack Diagram — Docs-as-Code Pipeline
    ============================================ */

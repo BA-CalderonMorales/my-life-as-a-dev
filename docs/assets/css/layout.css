@@ -417,6 +417,18 @@ label.md-nav__link[for]:active {
     position: relative;
 }
 
+/* Active TOC item indicator */
+.md-nav--secondary .md-nav__item--active::before {
+    content: "";
+    position: absolute;
+    left: -0.5rem;
+    top: 0.25rem;
+    bottom: 0.25rem;
+    width: 2px;
+    background: var(--md-accent-fg-color);
+    opacity: 0.5;
+}
+
 /* Indent guide for nested TOC items */
 .md-nav--secondary .md-nav__item .md-nav__item {
     padding-left: 0.75rem;
