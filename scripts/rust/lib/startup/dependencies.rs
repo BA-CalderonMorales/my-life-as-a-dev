@@ -53,7 +53,53 @@ impl Dependencies {
     }
 
     fn install_with_uv(&self, requirements_path: &PathBuf) -> bool {
-        let venv_dir = self.project_root.join(".venv");
+        let mut venv_dir = self.project_root.join(".venv");
+
+        // On WSL with project on /mnt/c, venv operations are extremely slow.
+        // Use a native Linux filesystem for the venv and symlink it.
+        let is_wsl_mnt = self.project_root.to_string_lossy().starts_with("/mnt/");
+        let native_venv = if is_wsl_mnt {
+            let home = env::var("HOME").unwrap_or_else(|_| "/tmp".to_string());
+            let project_name = self.project_root.file_name()
+                .and_then(|n| n.to_str())
+                .unwrap_or("project");
+            Some(PathBuf::from(home).join(".venvs").join(project_name))
+        } else {
+            None
+        };
+
+        // Ensure native venv parent dir exists
+        if let Some(ref native) = native_venv {
+            if let Some(parent) = native.parent() {
+                let _ = std::fs::create_dir_all(parent);
+            }
+        }
+
+        // If .venv exists but is not a symlink (or points to wrong place) on WSL, migrate it
+        if is_wsl_mnt && venv_dir.exists() && !venv_dir.is_symlink() {
+            println!("Migrating .venv to native Linux filesystem for performance...");
+            let _ = std::fs::rename(&venv_dir, native_venv.as_ref().unwrap().with_extension("old"));
+        }
+
+        // Create symlink if using native venv
+        if let Some(ref native) = native_venv {
+            if !venv_dir.exists() {
+                if native.exists() {
+                    // Reuse existing native venv
+                    let _ = std::os::unix::fs::symlink(native, &venv_dir);
+                }
+            } else if venv_dir.is_symlink() {
+                // Verify symlink target is the native venv
+                if let Ok(target) = std::fs::read_link(&venv_dir) {
+                    if target != *native {
+                        let _ = std::fs::remove_file(&venv_dir);
+                        let _ = std::os::unix::fs::symlink(native, &venv_dir);
+                    }
+                }
+            }
+            venv_dir = native.clone();
+        }
+
         let venv_bin = self.venv_bin_dir(&venv_dir);
 
         // Create venv if missing
@@ -61,10 +107,24 @@ impl Dependencies {
             println!("Creating virtual environment with uv...");
             let status = Command::new("uv")
                 .current_dir(&self.project_root)
-                .args(&["venv", ".venv"])
+                .args(&["venv", venv_dir.to_str().unwrap()])
                 .status();
             if !matches!(status, Ok(s) if s.success()) {
-                return false;
+                // Fallback to python3 -m venv
+                let status2 = Command::new("python3")
+                    .args(&["-m", "venv", venv_dir.to_str().unwrap()])
+                    .status();
+                if !matches!(status2, Ok(s) if s.success()) {
+                    return false;
+                }
+            }
+        }
+
+        // Create symlink back to project if using native venv
+        if is_wsl_mnt {
+            let project_venv = self.project_root.join(".venv");
+            if !project_venv.exists() {
+                let _ = std::os::unix::fs::symlink(&venv_dir, &project_venv);
             }
         }
 
@@ -85,13 +145,8 @@ impl Dependencies {
         ]);
 
         // On WSL /mnt/c, hardlinks fail; skip straight to copies
-        if env::var("UV_LINK_MODE").is_err() {
-            let cwd = env::current_dir().unwrap_or_default();
-            if cwd.to_string_lossy().starts_with("/mnt/")
-                || self.project_root.to_string_lossy().starts_with("/mnt/")
-            {
-                cmd.env("UV_LINK_MODE", "copy");
-            }
+        if env::var("UV_LINK_MODE").is_err() && is_wsl_mnt {
+            cmd.env("UV_LINK_MODE", "copy");
         }
 
         if venv_bin.exists() {
