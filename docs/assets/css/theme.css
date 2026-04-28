@@ -219,6 +219,16 @@ img[loading="lazy"].is-loaded {
     text-decoration-color: var(--md-accent-fg-color);
 }
 
+/* Reading time indicator */
+.mlad-reading-time {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--md-default-fg-color--light);
+    margin-top: var(--mlad-space-xs);
+    letter-spacing: 0.02em;
+}
+
 /* ============================================
    Keyboard Shortcuts Modal
    ============================================ */

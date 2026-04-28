@@ -41,5 +41,7 @@ extra_javascript = [
     "assets/js/image-fade.js",
     # Keyboard shortcuts modal
     "assets/js/keyboard-shortcuts.js",
+    # Reading time estimate
+    "assets/js/reading-time.js",
     # NOTE: Zensical's native version selector is used (via mike + modern theme)
 ]
