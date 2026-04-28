@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-04-28 09:33:58 UTC
+#   Generated: 2026-04-28 09:52:35 UTC
 #
 # ##############################################################################
 
@@ -45,6 +45,7 @@ extra_javascript = [
     "assets/js/scroll-vines.js",
     "assets/js/scroll-progress.js",
     "assets/js/image-fade.js",
+    "assets/js/keyboard-shortcuts.js",
 ]
 
 [[project.nav]]

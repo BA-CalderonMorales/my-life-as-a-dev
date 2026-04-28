@@ -39,5 +39,7 @@ extra_javascript = [
     "assets/js/scroll-progress.js",
     # Lazy image fade-in
     "assets/js/image-fade.js",
+    # Keyboard shortcuts modal
+    "assets/js/keyboard-shortcuts.js",
     # NOTE: Zensical's native version selector is used (via mike + modern theme)
 ]
