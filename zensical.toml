@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-04-28 10:07:06 UTC
+#   Generated: 2026-04-28 10:11:25 UTC
 #
 # ##############################################################################
 
@@ -47,6 +47,7 @@ extra_javascript = [
     "assets/js/image-fade.js",
     "assets/js/keyboard-shortcuts.js",
     "assets/js/reading-time.js",
+    "assets/js/anchor-links.js",
 ]
 
 [[project.nav]]

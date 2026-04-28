@@ -229,6 +229,48 @@ img[loading="lazy"].is-loaded {
     letter-spacing: 0.02em;
 }
 
+/* Anchor link icons on headings */
+.md-content__inner h2,
+.md-content__inner h3,
+.md-content__inner h4 {
+    position: relative;
+}
+
+.mlad-anchor-link {
+    position: absolute;
+    left: -1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--md-default-fg-color--lighter);
+    opacity: 0;
+    transition: opacity 0.15s ease, color 0.15s ease;
+    text-decoration: none !important;
+}
+
+.md-content__inner h2:hover .mlad-anchor-link,
+.md-content__inner h3:hover .mlad-anchor-link,
+.md-content__inner h4:hover .mlad-anchor-link {
+    opacity: 1;
+}
+
+.mlad-anchor-link:hover {
+    color: var(--md-accent-fg-color);
+}
+
+@media screen and (max-width: 60rem) {
+    .mlad-anchor-link {
+        position: static;
+        transform: none;
+        margin-left: 0.35rem;
+        opacity: 0.5;
+    }
+}
+
 /* ============================================
    Keyboard Shortcuts Modal
    ============================================ */
@@ -488,9 +530,10 @@ img[loading="lazy"].is-loaded {
    Print Styles
    ============================================ */
 
-/* Smooth scroll */
+/* Smooth scroll with header offset */
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 4rem;
 }
 
 /* Page load fade-in */

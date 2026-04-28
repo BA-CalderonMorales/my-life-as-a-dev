@@ -43,5 +43,7 @@ extra_javascript = [
     "assets/js/keyboard-shortcuts.js",
     # Reading time estimate
     "assets/js/reading-time.js",
+    # Copy anchor link on heading hover
+    "assets/js/anchor-links.js",
     # NOTE: Zensical's native version selector is used (via mike + modern theme)
 ]
