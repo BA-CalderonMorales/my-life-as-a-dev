@@ -114,6 +114,7 @@
   function initBloom() {
     const selectors = [
       '.landing-page .tx-hero',
+      '.landing-page .mlad-now',
       '.landing-page .tx-container',
       '.landing-page section.md-typeset'
     ];
