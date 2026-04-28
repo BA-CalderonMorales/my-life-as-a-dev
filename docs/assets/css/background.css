@@ -183,6 +183,21 @@
     color: var(--md-accent-fg-color);
 }
 
+.md-tabs .md-tabs__link--active {
+    position: relative;
+}
+
+.md-tabs .md-tabs__link--active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--md-accent-fg-color);
+    opacity: 0.5;
+}
+
 /* Footer — solid surface */
 .md-footer {
     background: var(--mlad-surface-solid);
