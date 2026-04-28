@@ -1,13 +1,13 @@
 /* ============================================
-   Cards - Grid Cards and Feature Blocks
-   Card components, blockquotes, and feature highlights
+   Cards - Tonal Elevation
+   Surfaces shift, not boxes stacked
    ============================================ */
 
 /* Grid card layout */
 .grid.cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    gap: var(--mlad-space-lg);
     padding: 0;
     list-style: none;
 }
@@ -16,58 +16,59 @@
 .grid.cards>ul>li {
     display: flex;
     flex-direction: column;
-    padding: 1.5rem;
-    background: var(--mlad-surface-elevated);
-    border: 1px solid var(--mlad-border-strong);
+    padding: var(--mlad-space-lg);
+    background: var(--mlad-surface-solid);
+    border: none;
     border-radius: var(--mlad-radius-md);
-    box-shadow: var(--mlad-shadow-soft);
-    transition: transform 0.15s ease, box-shadow 0.15s ease,
-        background-color 0.15s ease, border-color 0.15s ease;
+    box-shadow: none;
+    transition: transform var(--mlad-duration-base) var(--mlad-ease-standard),
+        background-color var(--mlad-duration-base) var(--mlad-ease-standard),
+        box-shadow var(--mlad-duration-base) var(--mlad-ease-standard);
 }
 
 .grid.cards>li:hover,
 .grid.cards>ul>li:hover {
-    border-color: var(--md-default-fg-color);
-    background: var(--mlad-surface-strong);
-    box-shadow: var(--mlad-shadow-strong);
-    transform: translate(-2px, -2px);
+    background: var(--mlad-surface-elevated);
+    box-shadow: var(--mlad-shadow-soft);
+    transform: translateY(-2px);
 }
 
 [data-md-color-scheme="slate"] .grid.cards>li:hover,
 [data-md-color-scheme="slate"] .grid.cards>ul>li:hover {
-    border-color: var(--md-default-fg-color);
+    background: var(--mlad-surface-elevated);
 }
 
-/* Blockquote styling */
+/* Blockquote styling - quiet monument */
 .md-typeset blockquote {
     position: relative;
-    border: 1px solid var(--mlad-border-strong);
-    background: var(--mlad-surface-elevated);
-    box-shadow: var(--mlad-shadow-soft);
-    padding: 1rem 1.25rem 1rem 1.75rem;
-    margin: 1.5rem 0;
+    border: none;
+    background: var(--mlad-surface-solid);
+    box-shadow: none;
+    padding: var(--mlad-space-md) var(--mlad-space-md) var(--mlad-space-md) var(--mlad-space-lg);
+    margin: var(--mlad-space-lg) 0;
     border-radius: var(--mlad-radius-md);
     color: var(--md-default-fg-color);
 }
 
 .md-typeset blockquote::before {
-    content: ">";
+    content: "";
     position: absolute;
-    top: 0.9rem;
-    left: 0.9rem;
-    color: var(--md-default-fg-color);
-    font-family: "Space Mono", "Fira Code", monospace;
-    font-size: 0.95rem;
-    font-weight: 700;
+    top: var(--mlad-space-md);
+    left: var(--mlad-space-sm);
+    width: 2px;
+    height: calc(100% - var(--mlad-space-lg));
+    background: var(--md-accent-fg-color);
+    opacity: 0.4;
 }
 
 .md-typeset blockquote p {
     margin: 0;
     color: var(--md-default-fg-color);
+    font-style: italic;
 }
 
 .md-typeset blockquote p + p {
-    margin-top: 0.45rem;
+    margin-top: var(--mlad-space-sm);
 }
 
 .md-typeset blockquote strong,

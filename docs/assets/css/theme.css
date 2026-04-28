@@ -1,15 +1,15 @@
 /* ============================================
-   Theme - Accessible Design Tokens
-   Shared palette, surfaces, and motion defaults
+   Theme - Monumental Minimalism Design Tokens
+   Classical proportion, material warmth, quiet grandeur
    ============================================ */
 
 :root {
-    --md-primary-fg-color: #141414;
-    --md-primary-fg-color--light: #3b3b3b;
-    --md-primary-fg-color--dark: #000000;
-    --md-accent-fg-color: #686868;
-    --md-accent-fg-color--light: #8d8d8d;
-    --md-accent-fg-color--transparent: rgba(20, 20, 20, 0.08);
+    --md-primary-fg-color: #1a1814;
+    --md-primary-fg-color--light: #3d3a34;
+    --md-primary-fg-color--dark: #0d0c0a;
+    --md-accent-fg-color: #a67c52;
+    --md-accent-fg-color--light: #8a6542;
+    --md-accent-fg-color--transparent: rgba(166, 124, 82, 0.12);
 
     --md-link-color: var(--md-primary-fg-color);
     --md-link-color-hover: var(--md-accent-fg-color);
@@ -19,131 +19,133 @@
     --mlad-radius-lg: 0;
     --mlad-radius-pill: 0;
 
-    --mlad-spacing-xs: 0.25rem;
-    --mlad-spacing-sm: 0.5rem;
-    --mlad-spacing-md: 1rem;
-    --mlad-spacing-lg: 1.5rem;
-    --mlad-spacing-xl: 2.5rem;
+    --mlad-space-xs: 0.5rem;
+    --mlad-space-sm: 1rem;
+    --mlad-space-md: 1.75rem;
+    --mlad-space-lg: 3rem;
+    --mlad-space-xl: 5rem;
+    --mlad-space-2xl: 8rem;
+    --mlad-space-3xl: 12rem;
 
-    --mlad-duration-fast: 140ms;
-    --mlad-duration-base: 220ms;
-    --mlad-duration-slow: 360ms;
-    --mlad-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --mlad-duration-fast: 200ms;
+    --mlad-duration-base: 300ms;
+    --mlad-duration-slow: 500ms;
+    --mlad-ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
 
-    --mlad-backdrop-blur: 0px;
+    --mlad-backdrop-blur: 16px;
     --mlad-reading-width: 72ch;
 }
 
 [data-md-color-scheme="default"] {
-    --md-default-bg-color: #efeee9;
-    --md-default-fg-color: #151515;
-    --md-default-fg-color--light: #4c4c49;
-    --md-default-fg-color--lighter: #71716b;
-    --md-default-fg-color--lightest: rgba(21, 21, 21, 0.1);
+    --md-default-bg-color: #f7f5f0;
+    --md-default-fg-color: #1a1814;
+    --md-default-fg-color--light: #5c5850;
+    --md-default-fg-color--lighter: #8a857a;
+    --md-default-fg-color--lightest: rgba(26, 24, 20, 0.08);
 
-    --md-code-bg-color: #e5e3dd;
-    --md-code-fg-color: #151515;
-    --md-primary-bg-color: #fbfaf5;
+    --md-code-bg-color: #ebe7de;
+    --md-code-fg-color: #1a1814;
+    --md-primary-bg-color: #f7f5f0;
 
-    --mlad-surface-solid: #f5f4ee;
-    --mlad-surface-muted: rgba(242, 241, 236, 0.94);
-    --mlad-surface-strong: rgba(248, 247, 242, 0.98);
+    --mlad-surface-solid: #f0ece4;
+    --mlad-surface-muted: #ebe7de;
+    --mlad-surface-strong: #f7f5f0;
     --mlad-surface-elevated: #ffffff;
-    --mlad-surface-overlay: rgba(255, 255, 255, 0.78);
+    --mlad-surface-overlay: rgba(247, 245, 240, 0.85);
 
-    --mlad-border-soft: rgba(21, 21, 21, 0.1);
-    --mlad-border-strong: rgba(21, 21, 21, 0.2);
-    --mlad-shadow-soft: 8px 8px 0 rgba(21, 21, 21, 0.08);
-    --mlad-shadow-strong: 12px 12px 0 rgba(21, 21, 21, 0.12);
-    --mlad-shadow-button: 3px 3px 0 rgba(21, 21, 21, 0.14);
-    --mlad-shadow-button-hover: 5px 5px 0 rgba(21, 21, 21, 0.18);
-    --mlad-muted-fg: #5b5b56;
-    --mlad-body-wash: rgba(21, 21, 21, 0.03);
+    --mlad-border-soft: rgba(26, 24, 20, 0.06);
+    --mlad-border-strong: rgba(26, 24, 20, 0.10);
+    --mlad-shadow-soft: 0 4px 24px rgba(26, 24, 20, 0.04);
+    --mlad-shadow-strong: 0 8px 32px rgba(26, 24, 20, 0.06);
+    --mlad-shadow-button: 0 2px 8px rgba(26, 24, 20, 0.06);
+    --mlad-shadow-button-hover: 0 4px 16px rgba(26, 24, 20, 0.08);
+    --mlad-muted-fg: #8a857a;
+    --mlad-body-wash: rgba(26, 24, 20, 0.02);
 
-    --mlad-button-bg: #151515;
-    --mlad-button-fg: #fbfaf5;
-    --mlad-button-border: rgba(21, 21, 21, 0.2);
-    --mlad-button-bg-hover: #303030;
-    --mlad-button-secondary-bg: #eceae3;
+    --mlad-button-bg: #1a1814;
+    --mlad-button-fg: #f7f5f0;
+    --mlad-button-border: rgba(26, 24, 20, 0.10);
+    --mlad-button-bg-hover: #2d2a24;
+    --mlad-button-secondary-bg: #f0ece4;
 
-    --mlad-header-bg: rgba(245, 244, 238, 0.96);
-    --mlad-header-fg: #151515;
-    --mlad-menu-btn-bg-hover: rgba(21, 21, 21, 0.06);
+    --mlad-header-bg: rgba(247, 245, 240, 0.90);
+    --mlad-header-fg: #1a1814;
+    --mlad-menu-btn-bg-hover: rgba(26, 24, 20, 0.04);
 
-    --mlad-chat-bg: #151515;
-    --mlad-chat-fg: #fbfaf5;
+    --mlad-chat-bg: #1a1814;
+    --mlad-chat-fg: #f7f5f0;
 
-    --mlad-scene-opacity-home: 0.44;
-    --mlad-scene-opacity-page: 0.2;
-    --mlad-scene-opacity-mobile: 0.12;
-    --mlad-scene-opacity-home-mobile: 0.3;
+    --mlad-scene-opacity-home: 0.55;
+    --mlad-scene-opacity-page: 0.28;
+    --mlad-scene-opacity-mobile: 0.18;
+    --mlad-scene-opacity-home-mobile: 0.35;
 }
 
 [data-md-color-scheme="slate"] {
-    --md-default-bg-color: #0e0e0d;
-    --md-default-fg-color: #f2f1ed;
-    --md-default-fg-color--light: #d2d0ca;
-    --md-default-fg-color--lighter: #a6a49f;
-    --md-default-fg-color--lightest: rgba(242, 241, 237, 0.12);
+    --md-default-bg-color: #0d0c0a;
+    --md-default-fg-color: #e8e4dc;
+    --md-default-fg-color--light: #a39e94;
+    --md-default-fg-color--lighter: #6b665e;
+    --md-default-fg-color--lightest: rgba(232, 228, 220, 0.10);
 
-    --md-code-bg-color: #171716;
-    --md-code-fg-color: #f2f1ed;
+    --md-code-bg-color: #161513;
+    --md-code-fg-color: #e8e4dc;
 
-    --md-primary-fg-color: #f2f1ed;
-    --md-primary-fg-color--light: #ffffff;
-    --md-primary-fg-color--dark: #d8d6d0;
-    --md-primary-bg-color: #111111;
-    --md-accent-fg-color: #c0beb7;
-    --md-accent-fg-color--light: #e1dfd8;
-    --md-accent-fg-color--transparent: rgba(242, 241, 237, 0.12);
-    --md-link-color: #f2f1ed;
-    --md-link-color-hover: #d2d0ca;
+    --md-primary-fg-color: #e8e4dc;
+    --md-primary-fg-color--light: #f5f1e9;
+    --md-primary-fg-color--dark: #c4c0b8;
+    --md-primary-bg-color: #0d0c0a;
+    --md-accent-fg-color: #c9a96e;
+    --md-accent-fg-color--light: #d4b87d;
+    --md-accent-fg-color--transparent: rgba(201, 169, 110, 0.15);
+    --md-link-color: #e8e4dc;
+    --md-link-color-hover: #c9a96e;
 
-    --mlad-surface-solid: #171716;
-    --mlad-surface-muted: rgba(23, 23, 22, 0.94);
-    --mlad-surface-strong: rgba(28, 28, 27, 0.98);
-    --mlad-surface-elevated: #20201f;
-    --mlad-surface-overlay: rgba(23, 23, 22, 0.82);
+    --mlad-surface-solid: #141312;
+    --mlad-surface-muted: #161513;
+    --mlad-surface-strong: #1c1b19;
+    --mlad-surface-elevated: #242320;
+    --mlad-surface-overlay: rgba(13, 12, 10, 0.82);
 
-    --mlad-border-soft: rgba(242, 241, 237, 0.1);
-    --mlad-border-strong: rgba(242, 241, 237, 0.18);
-    --mlad-shadow-soft: 8px 8px 0 rgba(0, 0, 0, 0.38);
-    --mlad-shadow-strong: 12px 12px 0 rgba(0, 0, 0, 0.5);
-    --mlad-shadow-button: 3px 3px 0 rgba(0, 0, 0, 0.48);
-    --mlad-shadow-button-hover: 5px 5px 0 rgba(0, 0, 0, 0.58);
-    --mlad-muted-fg: #b7b5af;
-    --mlad-body-wash: rgba(242, 241, 237, 0.025);
+    --mlad-border-soft: rgba(232, 228, 220, 0.06);
+    --mlad-border-strong: rgba(232, 228, 220, 0.10);
+    --mlad-shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.18);
+    --mlad-shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.24);
+    --mlad-shadow-button: 0 2px 8px rgba(0, 0, 0, 0.20);
+    --mlad-shadow-button-hover: 0 4px 16px rgba(0, 0, 0, 0.28);
+    --mlad-muted-fg: #a39e94;
+    --mlad-body-wash: rgba(232, 228, 220, 0.015);
 
-    --mlad-button-bg: #f2f1ed;
-    --mlad-button-fg: #111111;
-    --mlad-button-border: rgba(242, 241, 237, 0.2);
-    --mlad-button-bg-hover: #dddad3;
-    --mlad-button-secondary-bg: #232321;
+    --mlad-button-bg: #e8e4dc;
+    --mlad-button-fg: #0d0c0a;
+    --mlad-button-border: rgba(232, 228, 220, 0.12);
+    --mlad-button-bg-hover: #d4cfc6;
+    --mlad-button-secondary-bg: #1c1b19;
 
-    --mlad-header-bg: rgba(14, 14, 13, 0.96);
-    --mlad-header-fg: #f2f1ed;
-    --mlad-menu-btn-bg-hover: rgba(242, 241, 237, 0.08);
+    --mlad-header-bg: rgba(13, 12, 10, 0.90);
+    --mlad-header-fg: #e8e4dc;
+    --mlad-menu-btn-bg-hover: rgba(232, 228, 220, 0.05);
 
-    --mlad-chat-bg: #f2f1ed;
-    --mlad-chat-fg: #111111;
+    --mlad-chat-bg: #e8e4dc;
+    --mlad-chat-fg: #0d0c0a;
 
-    --mlad-scene-opacity-home: 0.36;
-    --mlad-scene-opacity-page: 0.18;
-    --mlad-scene-opacity-mobile: 0.1;
-    --mlad-scene-opacity-home-mobile: 0.24;
+    --mlad-scene-opacity-home: 0.55;
+    --mlad-scene-opacity-page: 0.28;
+    --mlad-scene-opacity-mobile: 0.18;
+    --mlad-scene-opacity-home-mobile: 0.35;
 }
 
 body {
     position: relative;
     isolation: isolate;
     background: var(--md-default-bg-color);
-    background-image: linear-gradient(180deg, var(--mlad-body-wash), transparent 22%);
+    background-image: linear-gradient(180deg, var(--mlad-body-wash), transparent 30%);
     color: var(--md-default-fg-color);
 }
 
 :focus-visible {
-    outline: 3px solid var(--md-accent-fg-color);
-    outline-offset: 3px;
+    outline: 2px solid var(--md-accent-fg-color);
+    outline-offset: 2px;
 }
 
 ::selection {
@@ -155,27 +157,31 @@ body {
     color: var(--md-link-color);
     text-decoration: underline;
     text-decoration-thickness: 1px;
-    text-underline-offset: 0.18em;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--mlad-border-strong);
     transition: color var(--mlad-duration-fast) var(--mlad-ease-standard),
+        text-decoration-color var(--mlad-duration-fast) var(--mlad-ease-standard),
         opacity var(--mlad-duration-fast) var(--mlad-ease-standard);
 }
 
 .md-typeset a:not(.md-button):hover,
 .md-typeset a:not(.md-button):focus-visible {
     color: var(--md-link-color-hover);
-    opacity: 0.95;
+    text-decoration-color: var(--md-accent-fg-color);
+    opacity: 1;
 }
 
 .md-typeset strong,
 .md-typeset b {
     color: inherit;
+    font-weight: 600;
 }
 
 .surface-card {
-    background: var(--mlad-surface-muted);
-    border: 1px solid var(--mlad-border-strong);
+    background: var(--mlad-surface-solid);
+    border: none;
     border-radius: var(--mlad-radius-lg);
-    box-shadow: var(--mlad-shadow-soft);
+    box-shadow: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
