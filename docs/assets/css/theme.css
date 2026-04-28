@@ -203,6 +203,41 @@ img[loading="lazy"].is-loaded {
     color: var(--md-accent-fg-color) !important;
 }
 
+/* Focus mode — hide distractions */
+.mlad-focus-mode .md-sidebar,
+.mlad-focus-mode .md-footer,
+.mlad-focus-mode .share-actions,
+.mlad-focus-mode .ai-chat-trigger,
+.mlad-focus-mode .mlad-scroll-progress,
+.mlad-focus-mode .md-top {
+    display: none !important;
+}
+
+.mlad-focus-mode .md-content {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 72ch;
+}
+
+.mlad-focus-mode .md-header {
+    position: relative;
+}
+
+.mlad-focus-mode .md-header__title,
+.mlad-focus-mode .md-tabs,
+.mlad-focus-mode .md-source,
+.mlad-focus-mode .md-version {
+    display: none !important;
+}
+
+.mlad-focus-mode .md-header__inner {
+    justify-content: center;
+}
+
+.mlad-focus-mode .md-header__button.md-logo {
+    margin: 0 auto;
+}
+
 /* Version banner for outdated docs */
 .mlad-version-banner {
     background: var(--mlad-surface-solid);

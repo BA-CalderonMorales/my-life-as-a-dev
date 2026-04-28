@@ -14,6 +14,7 @@
     { key: '/', desc: 'Focus search' },
     { key: 's', desc: 'Focus search' },
     { key: 't', desc: 'Toggle theme' },
+    { key: 'f', desc: 'Toggle focus mode' },
     { key: 'g h', desc: 'Go to Home' },
     { key: 'g p', desc: 'Go to Projects' },
     { key: 'g l', desc: 'Go to Learning' },
