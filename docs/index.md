@@ -225,6 +225,28 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 
 </section>
 
+<section class="md-typeset mlad-type-specimen" markdown>
+
+## Type
+
+<div class="mlad-type-showcase" markdown>
+
+<div class="mlad-type-face" markdown>
+<div class="mlad-type-face__sample" style="font-family: 'Space Grotesk', sans-serif;">Aa</div>
+<div class="mlad-type-face__name">Space Grotesk</div>
+<div class="mlad-type-face__desc">Headings, body text, and editorial voice. Humanist grotesque with quiet confidence.</div>
+</div>
+
+<div class="mlad-type-face" markdown>
+<div class="mlad-type-face__sample" style="font-family: 'JetBrains Mono', monospace;">Aa</div>
+<div class="mlad-type-face__name">JetBrains Mono</div>
+<div class="mlad-type-face__desc">Code, data, and technical detail. Increased letter spacing for readability at small sizes.</div>
+</div>
+
+</div>
+
+</section>
+
 <section class="md-typeset" markdown>
 
 ## Let's Talk

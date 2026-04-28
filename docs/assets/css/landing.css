@@ -296,6 +296,60 @@
     color: var(--md-accent-fg-color);
 }
 
+/* ============================================
+   Type Specimen — Font Showcase
+   ============================================ */
+
+.mlad-type-specimen {
+    max-width: 1100px;
+    margin: 0 auto var(--mlad-space-lg);
+    padding: var(--mlad-space-xl) var(--mlad-space-md);
+}
+
+.mlad-type-specimen h2 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--md-default-fg-color--light);
+    margin-bottom: var(--mlad-space-md);
+    padding-bottom: var(--mlad-space-sm);
+    border-bottom: 1px solid var(--mlad-border-soft);
+}
+
+.mlad-type-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--mlad-space-lg);
+}
+
+.mlad-type-face {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mlad-space-xs);
+}
+
+.mlad-type-face__sample {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--md-default-fg-color);
+    letter-spacing: -0.03em;
+}
+
+.mlad-type-face__name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--md-default-fg-color);
+}
+
+.mlad-type-face__desc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--md-default-fg-color--light);
+    max-width: 40ch;
+}
+
 /* Mobile landing */
 @media screen and (max-width: 60rem) {
     .landing-page .tx-hero,
