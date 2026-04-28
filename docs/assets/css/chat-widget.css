@@ -452,7 +452,7 @@
     width: 4px;
     height: 4px;
     background: var(--md-default-fg-color--light);
-    border-radius: 50%;
+    border-radius: 0;
     animation: dotPulse 1.4s ease-in-out infinite;
 }
 
@@ -518,7 +518,7 @@
     width: 4px;
     height: 4px;
     background: var(--md-accent-fg-color);
-    border-radius: 50%;
+    border-radius: 0;
 }
 
 /* Paragraphs in messages */

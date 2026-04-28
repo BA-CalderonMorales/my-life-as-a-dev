@@ -29,7 +29,7 @@
     width: 40px;
     height: 40px;
     border: 1px solid var(--mlad-button-border, rgba(0, 0, 0, 0.2));
-    border-radius: 14px;
+    border-radius: 0;
     background: var(--mlad-button-bg, #000000);
     display: flex;
     align-items: center;

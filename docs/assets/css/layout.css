@@ -266,7 +266,7 @@ label.md-nav__link[for]:active {
 
 /* ============================================
    Mobile Nav Drawer — Critical Fix
-   Solid, hierarchical, no transparency.
+   Solid, hierarchical, no transparency, sharp edges.
    ============================================ */
 
 .md-nav--primary .md-nav__title,
@@ -294,7 +294,8 @@ label.md-nav__link[for]:active {
 }
 
 /* Mobile drawer: solid surface, clear hierarchy, touch targets */
-@media screen and (max-width: 76.1875em) {
+@media screen and (max-width: 76.234375em) {
+    /* Strip all backgrounds from nav system */
     .md-nav--primary,
     .md-nav--primary .md-nav,
     .md-nav--primary .md-nav__item,
@@ -321,18 +322,10 @@ label.md-nav__link[for]:active {
         background-color: transparent !important;
     }
 
-    /* Drawer container */
-    .md-drawer {
-        background: var(--mlad-surface-solid) !important;
-        border-right: 1px solid var(--mlad-border-soft) !important;
-        width: 280px;
-        max-width: 85vw;
-    }
-
-    .md-drawer__content,
-    .md-nav--primary,
-    .md-sidebar--primary .md-sidebar__scrollwrap {
-        background: transparent !important;
+    /* Remove Material's default margins on primary nav */
+    .md-nav--primary {
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     /* Drawer header (title area) */
@@ -347,13 +340,40 @@ label.md-nav__link[for]:active {
         margin-bottom: 0.5rem;
     }
 
-    /* Nav links */
-    .md-nav--primary .md-nav__link {
+    /* Nav links — aggressive override of Material defaults */
+    .md-nav--primary .md-nav__link,
+    .md-nav--primary .md-nav__link[href],
+    .md-nav--primary .md-nav__link[for] {
         font-size: 0.95rem !important;
-        padding: 0.65rem 1.25rem;
+        padding: 0.65rem 1.25rem !important;
         min-height: 44px;
         display: flex;
         align-items: center;
+        border-radius: 0 !important;
+    }
+
+    /* Kill ALL hover backgrounds inside mobile drawer */
+    .md-nav--primary .md-nav__link:hover,
+    .md-nav--primary .md-nav__link:focus-visible,
+    .md-nav--primary .md-nav__link[href]:hover,
+    .md-nav--primary .md-nav__link[href]:focus-visible,
+    .md-nav--primary .md-nav__link[for]:hover,
+    .md-nav--primary .md-nav__link[for]:focus-visible,
+    .md-nav--primary .md-nav__link--active:hover,
+    .md-nav--primary .md-nav__item--active .md-nav__link:hover {
+        background: transparent !important;
+        background-color: transparent !important;
+        color: var(--md-accent-fg-color) !important;
+    }
+
+    /* Kill active background tint */
+    .md-nav--primary .md-nav__link--active,
+    .md-nav--primary .md-nav__item--active>.md-nav__link,
+    .md-nav--primary .md-nav__item--active>.md-nav__container>.md-nav__link {
+        color: var(--md-accent-fg-color) !important;
+        font-weight: 600 !important;
+        background: transparent !important;
+        background-color: transparent !important;
     }
 
     /* Section labels (level 0) */
@@ -365,13 +385,6 @@ label.md-nav__link[for]:active {
         color: var(--md-default-fg-color--light);
         padding-top: 0.75rem;
         padding-bottom: 0.35rem;
-    }
-
-    /* Active state */
-    .md-nav__item--active > .md-nav__link {
-        color: var(--md-accent-fg-color) !important;
-        font-weight: 600 !important;
-        background: transparent !important;
     }
 
     /* Nested items indentation */
