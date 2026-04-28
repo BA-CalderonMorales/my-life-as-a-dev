@@ -1,2 +1,0 @@
-[mkdocs.plugins]
-image-optimizer = scripts.python.plugins.image_optimizer:ImageOptimizerPlugin
