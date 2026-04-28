@@ -251,6 +251,51 @@
     background: var(--md-accent-fg-color);
 }
 
+/* ============================================
+   Built With — Tech Stack Badges
+   ============================================ */
+
+.mlad-built-with {
+    max-width: 1100px;
+    margin: 0 auto var(--mlad-space-lg);
+    padding: var(--mlad-space-xl) var(--mlad-space-md);
+}
+
+.mlad-built-with h2 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--md-default-fg-color--light);
+    margin-bottom: var(--mlad-space-md);
+    padding-bottom: var(--mlad-space-sm);
+    border-bottom: 1px solid var(--mlad-border-soft);
+}
+
+.mlad-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--mlad-space-sm);
+}
+
+.mlad-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--mlad-border-soft);
+    color: var(--md-default-fg-color--light);
+    background: transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.mlad-badge:hover {
+    border-color: var(--md-accent-fg-color);
+    color: var(--md-accent-fg-color);
+}
+
 /* Mobile landing */
 @media screen and (max-width: 60rem) {
     .landing-page .tx-hero,

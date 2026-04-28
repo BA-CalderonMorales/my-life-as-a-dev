@@ -208,6 +208,23 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 
 </section>
 
+<section class="md-typeset mlad-built-with" markdown>
+
+## Built With
+
+<div class="mlad-badges" markdown>
+
+<span class="mlad-badge">Rust</span>
+<span class="mlad-badge">Python</span>
+<span class="mlad-badge">TypeScript</span>
+<span class="mlad-badge">Zensical</span>
+<span class="mlad-badge">MkDocs</span>
+<span class="mlad-badge">GitHub Actions</span>
+
+</div>
+
+</section>
+
 <section class="md-typeset" markdown>
 
 ## Let's Talk
