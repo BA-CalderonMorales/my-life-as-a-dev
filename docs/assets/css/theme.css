@@ -334,3 +334,62 @@ img[loading="lazy"].is-loaded {
         display: none !important;
     }
 }
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+@media print {
+    .md-header,
+    .md-tabs,
+    .md-sidebar,
+    .md-footer,
+    .md-top,
+    .ai-chat-trigger,
+    .mlad-scroll-progress,
+    .mlad-vine-container,
+    .mlad-cursor-glow,
+    .mlad-marquee,
+    .md-content__button,
+    .share-widget {
+        display: none !important;
+    }
+
+    .md-content {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .md-content__inner {
+        padding: 0 !important;
+    }
+
+    body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    .md-typeset a {
+        text-decoration: underline !important;
+        color: #000 !important;
+    }
+
+    .mlad-timeline__entry {
+        page-break-inside: avoid;
+    }
+
+    .mlad-resume-hero h1 {
+        font-size: 2rem !important;
+    }
+}
