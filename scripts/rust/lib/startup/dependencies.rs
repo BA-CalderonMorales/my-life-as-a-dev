@@ -68,6 +68,13 @@ impl Dependencies {
             }
         }
 
+        // Clear stale lock files left behind by killed uv processes
+        let lock_file = venv_dir.join(".lock");
+        if lock_file.exists() {
+            println!("Clearing stale uv lock file...");
+            let _ = std::fs::remove_file(&lock_file);
+        }
+
         println!("Installing dependencies with uv pip...");
         let mut cmd = Command::new("uv");
         cmd.current_dir(&self.project_root).args(&[
@@ -76,6 +83,16 @@ impl Dependencies {
             "-r",
             requirements_path.to_str().unwrap(),
         ]);
+
+        // On WSL /mnt/c, hardlinks fail; skip straight to copies
+        if env::var("UV_LINK_MODE").is_err() {
+            let cwd = env::current_dir().unwrap_or_default();
+            if cwd.to_string_lossy().starts_with("/mnt/")
+                || self.project_root.to_string_lossy().starts_with("/mnt/")
+            {
+                cmd.env("UV_LINK_MODE", "copy");
+            }
+        }
 
         if venv_bin.exists() {
             let mut new_path = env::var("PATH").unwrap_or_default();

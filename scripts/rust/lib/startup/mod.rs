@@ -79,9 +79,18 @@ impl Startup {
 
     /// Main execution method.
     pub fn run(&self) -> std::io::Result<()> {
+        self.run_with_local(false)
+    }
+
+    /// Run setup in local mode (skips Codespaces check).
+    pub fn run_local(&self) -> std::io::Result<()> {
+        self.run_with_local(true)
+    }
+
+    fn run_with_local(&self, force_local: bool) -> std::io::Result<()> {
         println!("==== Starting setup for my-life-as-a-dev project ====");
 
-        let is_local = env::args().any(|arg| arg == "--local");
+        let is_local = env::args().any(|arg| arg == "--local") || force_local;
 
         if !Environment::is_codespaces() && !is_local {
             Environment::show_local_dev_instructions();

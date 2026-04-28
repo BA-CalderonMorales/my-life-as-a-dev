@@ -32,7 +32,7 @@ impl Environment {
         println!("\nStart the development server with:");
         println!("  mkdocs serve");
         println!("\n Are you trying to run this locally? Remember to use:");
-        println!("  ./doc-cli startup --local");
+        println!("  ./doc-cli setup --local");
         println!("\nOptions:");
         println!("  --clean    Use full rebuilds (slower but reliable when hot reload misbehaves)");
         println!();
