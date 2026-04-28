@@ -228,6 +228,24 @@
 })();
 </script>
 
+<!-- Header scroll state -->
+<script>
+(function () {
+  'use strict';
+
+  var header = document.querySelector('.md-header');
+  if (!header) return;
+
+  function onScroll() {
+    var scrolled = (window.scrollY || window.pageYOffset) > 4;
+    header.classList.toggle('is-scrolled', scrolled);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
 <script src="{{ 'assets/js/chat-widget/lib/config.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/logger.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/message-parser.js' | url }}"></script>
