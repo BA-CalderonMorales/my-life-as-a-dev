@@ -37,5 +37,7 @@ extra_javascript = [
     "assets/js/scroll-vines.js",
     # Scroll progress bar (content pages)
     "assets/js/scroll-progress.js",
+    # Lazy image fade-in
+    "assets/js/image-fade.js",
     # NOTE: Zensical's native version selector is used (via mike + modern theme)
 ]

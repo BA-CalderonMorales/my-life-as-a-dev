@@ -135,6 +135,39 @@ body {
     background: var(--md-accent-fg-color--transparent);
 }
 
+/* Custom scrollbar — thin, minimal */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--mlad-border-strong) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--mlad-border-strong);
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--md-accent-fg-color);
+}
+
+/* Lazy image fade-in */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+img[loading="lazy"].is-loaded {
+    opacity: 1;
+}
+
 .md-typeset a:not(.md-button),
 .md-typeset a:not(.md-button):visited {
     color: var(--md-link-color);
