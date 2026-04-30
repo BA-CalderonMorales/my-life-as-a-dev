@@ -1,0 +1,31 @@
+{#-
+  Custom back-to-top control.
+  MkDocs Material renders localized text inside this button by default; this
+  override keeps the accessible name while making the animated SVG the only
+  visible content.
+-#}
+{% import "partials/language.html" as lang with context %}
+<button
+  type="button"
+  class="md-top md-icon"
+  data-md-component="top"
+  aria-label="{{ lang.t('top') }}"
+  title="{{ lang.t('top') }}"
+  hidden
+>
+  <svg
+    class="mlad-top-icon"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    focusable="false"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 17V7" />
+    <path d="M7.5 11.5 12 7l4.5 4.5" />
+  </svg>
+</button>

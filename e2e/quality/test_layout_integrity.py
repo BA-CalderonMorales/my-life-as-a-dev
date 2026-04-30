@@ -43,6 +43,17 @@ class TestLayoutIntegrity:
         content = page.locator(".md-content")
         expect(content).to_be_visible()
 
+    def test_back_to_top_uses_icon_only_markup(self, page: Page):
+        """Back-to-top control should render the custom SVG without visible text."""
+        top_button = page.locator(".md-top")
+        expect(top_button).to_have_count(1)
+        expect(top_button.locator("svg.mlad-top-icon")).to_have_count(1)
+
+        visible_text = page.evaluate(
+            "() => document.querySelector('.md-top').innerText.trim()"
+        )
+        assert visible_text == "", "Back-to-top text should not be visible in the button"
+
     def test_content_is_readable(self, page: Page):
         """Content text should have proper z-index above background."""
         # Check that content inner is above the background
