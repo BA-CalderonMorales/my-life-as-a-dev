@@ -1,22 +1,22 @@
 /* ============================================
-   Projects — Curated Showcase
-   Editorial grid with subtle motion on interaction.
+   Projects — AETHER Curated Showcase
+   Editorial grid with subtle motion.
    ============================================ */
 
 .projects-page .md-content__inner {
-    padding-top: var(--mlad-space-xl);
+    padding-top: var(--space-6);
 }
 
 /* Section headers */
 .projects-page h2 {
-    font-size: 1.25rem;
+    font-size: var(--text-caption);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--md-default-fg-color--light);
-    margin: var(--mlad-space-xl) 0 var(--mlad-space-lg);
-    padding-bottom: var(--mlad-space-sm);
-    border-bottom: 1px solid var(--mlad-border-soft);
+    letter-spacing: var(--tracking-caption);
+    color: var(--slate);
+    margin: var(--space-6) 0 var(--space-5);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--stone);
 }
 
 /* Status tag */
@@ -24,15 +24,17 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    font-size: 0.65rem;
+    font-size: var(--text-micro);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.2rem 0.5rem;
-    border: 1px solid var(--mlad-border-soft);
-    color: var(--md-default-fg-color--light);
+    letter-spacing: var(--tracking-micro);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--stone);
+    border-radius: var(--radius-pill);
+    color: var(--slate);
     line-height: 1;
-    margin-bottom: var(--mlad-space-xs);
+    margin-bottom: var(--space-2);
+    background: transparent;
 }
 
 .mlad-status--active::before {
@@ -41,54 +43,58 @@
     height: 5px;
     background: #22c55e;
     display: inline-block;
+    border-radius: 50%;
 }
 
 .mlad-status--experiment::before {
     content: "";
     width: 5px;
     height: 5px;
-    background: var(--md-accent-fg-color);
+    background: var(--accent);
     display: inline-block;
+    border-radius: 50%;
 }
 
 [data-md-color-scheme="slate"] .mlad-status--active::before {
     background: #4ade80;
 }
 
-/* Card hover lift — consistent with landing featured cards */
+/* Card hover lift */
 .projects-page .grid.cards > li {
-    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-                border-color 0.25s ease;
+    transition: transform var(--dur-smooth) var(--ease-smooth),
+                border-color var(--dur-swift) var(--ease-swift),
+                box-shadow var(--dur-swift) var(--ease-swift);
     position: relative;
 }
 
 .projects-page .grid.cards > li:hover {
     transform: translateY(-3px);
-    border-color: var(--md-accent-fg-color) !important;
+    border-color: var(--accent) !important;
+    box-shadow: var(--shadow-medium);
 }
 
 .projects-page .grid.cards > li:hover .mlad-status {
-    border-color: var(--mlad-border-strong);
+    border-color: var(--slate);
 }
 
 /* External link row */
 .mlad-project-links {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--mlad-space-sm);
-    margin-top: var(--mlad-space-sm);
-    font-size: 0.8rem;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+    font-size: var(--text-caption);
 }
 
 .mlad-project-links a {
-    color: var(--md-default-fg-color--light);
+    color: var(--slate);
     text-decoration: none;
-    border-bottom: 1px solid var(--mlad-border-soft);
-    transition: color var(--mlad-duration-fast) var(--mlad-ease-standard),
-                border-color var(--mlad-duration-fast) var(--mlad-ease-standard);
+    border-bottom: 1px solid var(--stone);
+    transition: color var(--dur-swift) var(--ease-swift),
+                border-color var(--dur-swift) var(--ease-swift);
 }
 
 .mlad-project-links a:hover {
-    color: var(--md-accent-fg-color);
-    border-color: var(--md-accent-fg-color);
+    color: var(--accent);
+    border-color: var(--accent);
 }

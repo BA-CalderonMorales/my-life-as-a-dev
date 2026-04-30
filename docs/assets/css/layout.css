@@ -1,26 +1,26 @@
 /* ============================================
-   Layout — Quiet Structure
-   Space as structure. No decoration.
+   Layout — AETHER Grid of Breath
+   Space as structure. Generous whitespace.
    ============================================ */
 
 .tx-hero {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    padding: var(--mlad-space-xl) 0;
-    gap: var(--mlad-space-lg);
+    padding: var(--space-6) 0;
+    gap: var(--space-5);
 }
 
 .tx-hero__intro {
     display: flex;
     flex-direction: column;
-    gap: var(--mlad-space-sm);
+    gap: var(--space-3);
 }
 
 .tx-hero__details {
     display: flex;
     flex-direction: column;
-    gap: var(--mlad-space-md);
+    gap: var(--space-4);
     align-items: flex-start;
 }
 
@@ -34,7 +34,7 @@
     padding: 0 1rem;
     display: flex;
     flex-direction: column;
-    gap: var(--mlad-space-md);
+    gap: var(--space-4);
 }
 
 .tx-hero__image {
@@ -48,27 +48,27 @@
     width: min(360px, 100%);
     height: auto;
     border: none;
-    border-radius: 0;
+    border-radius: var(--radius-sharp);
     box-shadow: none;
     object-fit: cover;
 }
 
 .tx-container {
-    max-width: 1100px;
+    max-width: var(--container-max);
     margin: 0 auto;
-    padding: var(--mlad-space-xl) var(--mlad-space-md);
+    padding: var(--space-6) var(--space-4);
 }
 
 .tx-columns {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--mlad-space-lg);
-    margin: var(--mlad-space-lg) 0;
+    gap: var(--space-5);
+    margin: var(--space-5) 0;
 }
 
 @media screen and (max-width: 76.25rem) {
     .tx-hero__content {
-        padding: 0 var(--mlad-space-md);
+        padding: 0 var(--space-4);
     }
 }
 
@@ -76,8 +76,8 @@
     .tx-hero {
         flex-direction: column;
         text-align: center;
-        padding: var(--mlad-space-lg) 0;
-        gap: var(--mlad-space-md);
+        padding: var(--space-5) 0;
+        gap: var(--space-4);
     }
 
     .tx-hero__content {
@@ -85,7 +85,7 @@
         order: 1;
         display: flex;
         flex-direction: column;
-        gap: var(--mlad-space-sm);
+        gap: var(--space-3);
         align-items: center;
     }
 
@@ -106,7 +106,7 @@
 
     .tx-hero__image {
         order: 2;
-        padding: 0 var(--mlad-space-md);
+        padding: 0 var(--space-4);
     }
 
     .tx-hero__image img {
@@ -117,7 +117,7 @@
 
 @media screen and (max-width: 37.5rem) {
     .tx-hero__image {
-        padding: var(--mlad-space-sm) 0 0;
+        padding: var(--space-3) 0 0;
     }
 
     .tx-hero__details .md-button {
@@ -134,8 +134,8 @@
    ============================================ */
 
 .md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item {
-    padding-top: var(--mlad-space-xs);
-    padding-bottom: var(--mlad-space-xs);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
     border-bottom: none;
     margin-bottom: 0;
 }
@@ -147,10 +147,10 @@
 .md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item>.md-nav__link,
 .md-nav[data-md-level="0"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
     font-weight: 500;
-    font-size: 0.8rem;
+    font-size: var(--text-caption);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--md-default-fg-color--light);
+    letter-spacing: var(--tracking-caption);
+    color: var(--slate);
 }
 
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item {
@@ -174,7 +174,7 @@
 .md-nav[data-md-level="1"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
     font-weight: 400;
     font-size: 0.9rem;
-    color: var(--md-default-fg-color);
+    color: var(--ink);
 }
 
 .md-nav[data-md-level="2"]>.md-nav__list,
@@ -196,7 +196,7 @@
 .md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item>.md-nav__link,
 .md-nav[data-md-level="2"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
     font-size: 0.85rem;
-    color: var(--md-default-fg-color--light);
+    color: var(--slate);
 }
 
 .md-nav[data-md-level="3"]>.md-nav__list>.md-nav__item>.md-nav__link,
@@ -204,28 +204,28 @@
 .md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item>.md-nav__link,
 .md-nav[data-md-level="4"]>.md-nav__list>.md-nav__item>.md-nav__container>.md-nav__link {
     font-size: 0.8rem;
-    color: var(--md-default-fg-color--lighter);
+    color: var(--slate);
 }
 
 .md-nav__link {
     white-space: normal;
     max-width: 100%;
-    transition: color var(--mlad-duration-fast) var(--mlad-ease-standard);
+    transition: color var(--dur-swift) var(--ease-swift);
 }
 
 .md-nav__link:hover {
-    color: var(--md-accent-fg-color) !important;
+    color: var(--accent) !important;
     background: transparent !important;
 }
 
 .md-nav__item--active>.md-nav__link {
-    color: var(--md-accent-fg-color) !important;
+    color: var(--accent) !important;
     font-weight: 500 !important;
     background: transparent !important;
 }
 
 .md-nav__item--active>.md-nav__container>.md-nav__link {
-    color: var(--md-accent-fg-color) !important;
+    color: var(--accent) !important;
     background: transparent !important;
 }
 
@@ -328,8 +328,8 @@ label.md-nav__link[for]:active {
 
     /* Drawer container */
     .md-drawer {
-        background: var(--mlad-surface-solid) !important;
-        border-right: 1px solid var(--mlad-border-soft) !important;
+        background: var(--surface-raised) !important;
+        border-right: 1px solid var(--stone) !important;
     }
 
     .md-drawer__content,
@@ -339,16 +339,16 @@ label.md-nav__link[for]:active {
     }
 
     .md-nav--primary .md-nav__title {
-        font-size: 0.85rem;
+        font-size: var(--text-caption);
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: var(--md-default-fg-color--light);
-        padding: var(--mlad-space-md) var(--mlad-space-md) var(--mlad-space-sm);
+        letter-spacing: var(--tracking-caption);
+        color: var(--slate);
+        padding: var(--space-4) var(--space-4) var(--space-3);
     }
 
     .md-nav--primary .md-nav__list {
-        padding: 0 var(--mlad-space-md);
+        padding: 0 var(--space-4);
     }
 
     /* Overlay */
@@ -374,9 +374,9 @@ label.md-nav__link[for]:active {
     .md-top,
     .md-top[data-md-state="hidden"],
     .md-top[data-md-state="visible"] {
-        right: var(--mlad-space-md) !important;
+        right: var(--space-4) !important;
         left: auto !important;
-        bottom: calc(var(--mlad-space-md) + env(safe-area-inset-bottom, 0px)) !important;
+        bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px)) !important;
         transform: none !important;
         z-index: 998 !important;
     }
@@ -388,29 +388,29 @@ label.md-nav__link[for]:active {
 
 .md-nav--secondary .md-nav__link--active,
 .md-nav--secondary .md-nav__item--active>.md-nav__link {
-    color: var(--md-accent-fg-color) !important;
+    color: var(--accent) !important;
     font-weight: 500;
 }
 
 [data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link--active,
 [data-md-color-scheme="slate"] .md-nav--secondary .md-nav__item--active>.md-nav__link {
-    color: var(--md-accent-fg-color) !important;
+    color: var(--accent) !important;
 }
 
 .md-nav--secondary .md-nav__link:hover {
-    color: var(--md-accent-fg-color) !important;
+    color: var(--accent) !important;
     background: transparent !important;
 }
 
 .md-nav--secondary .md-nav__link {
-    color: var(--md-default-fg-color--light);
-    transition: color var(--mlad-duration-fast) var(--mlad-ease-standard);
+    color: var(--slate);
+    transition: color var(--dur-swift) var(--ease-swift);
     font-size: 0.8rem;
     padding: 0.3rem 0;
 }
 
 [data-md-color-scheme="slate"] .md-nav--secondary .md-nav__link {
-    color: var(--md-default-fg-color--light);
+    color: var(--slate);
 }
 
 .md-nav--secondary .md-nav__item {
@@ -425,14 +425,15 @@ label.md-nav__link[for]:active {
     top: 0.25rem;
     bottom: 0.25rem;
     width: 2px;
-    background: var(--md-accent-fg-color);
+    background: var(--accent);
     opacity: 0.5;
+    border-radius: 1px;
 }
 
 /* Indent guide for nested TOC items */
 .md-nav--secondary .md-nav__item .md-nav__item {
     padding-left: 0.75rem;
-    border-left: 1px solid var(--mlad-border-soft);
+    border-left: 1px solid var(--stone);
     margin-left: 0.25rem;
 }
 
@@ -449,7 +450,7 @@ label.md-nav__link[for]:active {
             left: 0;
             right: 0;
             height: env(safe-area-inset-top);
-            background: var(--mlad-header-bg, var(--md-default-bg-color));
+            background: var(--mlad-header-bg, var(--canvas));
             z-index: 100;
         }
 
@@ -508,7 +509,7 @@ label.md-nav__link[for]:active {
             left: 0;
             right: 0;
             height: env(safe-area-inset-top);
-            background: var(--mlad-header-bg, var(--md-default-bg-color));
+            background: var(--mlad-header-bg, var(--canvas));
             z-index: 100;
         }
 

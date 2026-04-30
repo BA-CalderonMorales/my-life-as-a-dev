@@ -213,6 +213,13 @@
     const stats = document.querySelectorAll('.mlad-stats__number[data-count]');
     if (!stats.length) return;
 
+    stats.forEach((el) => {
+      const target = parseInt(el.getAttribute('data-count'), 10);
+      if (target) el.textContent = target.toLocaleString();
+    });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const duration = 1200;
     const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
 
@@ -230,7 +237,7 @@
             const elapsed = now - start;
             const progress = Math.min(1, elapsed / duration);
             const eased = easeOutQuart(progress);
-            const current = Math.round(eased * target);
+            const current = Math.max(1, Math.round(eased * target));
             el.textContent = current.toLocaleString();
             if (progress < 1) requestAnimationFrame(tick);
           }

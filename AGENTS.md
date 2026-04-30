@@ -5,12 +5,14 @@
 - **Generator**: Zensical (MkDocs Material-based)
 - **Serve**: `make serve`
 - **Build**: `make build`
+- **Viewport Check**: `make viewport-check`
 - **CLI**: `doc-cli`
 
 ## Critical Rules
 
 - **ALWAYS use `uv`** for Python - never `pip` directly
-- **ALWAYS use `agent-browser`** for browser automation - never Playwright MCP
+- **ALWAYS use repo Playwright tests through `uv`** for browser automation - never Playwright MCP
+- **Do not use `agent-browser`** unless explicitly requested; prefer `make viewport-check`, `make screenshots`, and `make accessibility-check`
 - **No emojis** in commits, docs, or comments
 
 ## Quick Commands
@@ -19,18 +21,18 @@
 make setup    # Install dependencies (uses uv)
 make serve    # Start Zensical dev server
 make build    # Build site with Zensical
+make viewport-check  # Run Playwright responsive layout checks
+make screenshots     # Capture Playwright screenshots across viewports
 doc-cli       # Interactive CLI (uses .venv automatically)
 ```
 
-## Agent Browser
+## Browser Automation
 
 ```bash
-cd /tmp/agent-browser
-./bin/agent-browser open "http://localhost:8001/my-life-as-a-dev/"
-./bin/agent-browser snapshot
-./bin/agent-browser eval "..."
-./bin/agent-browser console
-./bin/agent-browser close
+make browser-install       # Install Playwright Chromium
+make viewport-check        # Validate responsive layout
+make screenshots           # Capture mobile/tablet/desktop screenshots
+make accessibility-check   # Run axe-backed accessibility checks
 ```
 
 ## Core Rules
@@ -44,6 +46,7 @@ cd /tmp/agent-browser
 7. Test changes: Use `make serve` to preview
 8. Use `zensical.toml` as primary config (not mkdocs.yml)
 9. No output truncation: Show full command output
+10. Browser automation uses repo Playwright tests via `uv`, not Playwright MCP
 
 ## Skills
 
@@ -51,7 +54,7 @@ See `.github/skills/` for detailed procedures:
 - `add-documentation-page/` - Adding new pages
 - `add-algorithm-problem/` - Adding algorithm problems
 - `build-and-test/` - Building and validating
-- `agent-browser/` - Browser automation
+- `browser-automation/` - Browser automation with Playwright through uv
 - `git-workflow/` - Commits and PRs
 
 ## Working Rules

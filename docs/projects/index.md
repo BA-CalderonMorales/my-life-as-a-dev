@@ -77,9 +77,7 @@ Exploratory projects and creative sandboxes. Stability not guaranteed.
 
     Interactive 3D experiments with WebGL and responsive theming.
 
-    <div class="mlad-project-links" markdown>
     [:octicons-arrow-right-24: Docs](experiments/immersive-awe-canvas/index.md) · [:octicons-mark-github-16: GitHub](https://github.com/BA-CalderonMorales/immersive-awe-canvas) · [:octicons-globe-16: QA](https://ba-calderonmorales.github.io/immersive-awe-canvas)
-    </div>
 
 -   :material-flower:{ .lg .middle } **Shadow Scroll Blossom**
 
@@ -89,9 +87,7 @@ Exploratory projects and creative sandboxes. Stability not guaranteed.
 
     Particle effects and generative art for mobile and desktop.
 
-    <div class="mlad-project-links" markdown>
     [:octicons-arrow-right-24: Docs](experiments/shadow-scroll-blossom/index.md) · [:octicons-mark-github-16: GitHub](https://github.com/BA-CalderonMorales/shadow-scroll-blossom) · [:octicons-globe-16: Live](https://shadow-scroll-blossom.lovable.app/)
-    </div>
 
 -   :material-console-line:{ .lg .middle } **Rust Terminal Forge**
 
@@ -101,8 +97,6 @@ Exploratory projects and creative sandboxes. Stability not guaranteed.
 
     Browser-based terminal emulator pairing React/TypeScript with Rust.
 
-    <div class="mlad-project-links" markdown>
     [:octicons-arrow-right-24: Docs](experiments/rust-terminal-forge/index.md) · [:octicons-mark-github-16: GitHub](https://github.com/BA-CalderonMorales/rust-terminal-forge) · [:octicons-globe-16: Live](https://rust-terminal-forge.lovable.app/)
-    </div>
 
 </div>

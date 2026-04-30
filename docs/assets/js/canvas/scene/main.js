@@ -10,8 +10,13 @@
 
     let sceneInstance = null;
 
+    function normalizePath(pathname) {
+        return pathname.endsWith('index.html') ? pathname.slice(0, -'index.html'.length) : pathname;
+    }
+
     function isCanvasPage() {
-        return window.location.pathname.includes('/canvas/');
+        const path = normalizePath(window.location.pathname);
+        return path.includes('/canvas/zen-geometry/');
     }
 
     async function initScene() {

@@ -60,7 +60,9 @@ impl Dependencies {
         let is_wsl_mnt = self.project_root.to_string_lossy().starts_with("/mnt/");
         let native_venv = if is_wsl_mnt {
             let home = env::var("HOME").unwrap_or_else(|_| "/tmp".to_string());
-            let project_name = self.project_root.file_name()
+            let project_name = self
+                .project_root
+                .file_name()
                 .and_then(|n| n.to_str())
                 .unwrap_or("project");
             Some(PathBuf::from(home).join(".venvs").join(project_name))
@@ -78,7 +80,10 @@ impl Dependencies {
         // If .venv exists but is not a symlink (or points to wrong place) on WSL, migrate it
         if is_wsl_mnt && venv_dir.exists() && !venv_dir.is_symlink() {
             println!("Migrating .venv to native Linux filesystem for performance...");
-            let _ = std::fs::rename(&venv_dir, native_venv.as_ref().unwrap().with_extension("old"));
+            let _ = std::fs::rename(
+                &venv_dir,
+                native_venv.as_ref().unwrap().with_extension("old"),
+            );
         }
 
         // Create symlink if using native venv
@@ -105,10 +110,12 @@ impl Dependencies {
         // Create venv if missing
         if !venv_dir.exists() {
             println!("Creating virtual environment with uv...");
-            let status = Command::new("uv")
+            let mut uv_venv = Command::new("uv");
+            uv_venv
                 .current_dir(&self.project_root)
-                .args(&["venv", venv_dir.to_str().unwrap()])
-                .status();
+                .args(&["venv", venv_dir.to_str().unwrap()]);
+            Self::configure_uv_environment(&mut uv_venv, is_wsl_mnt);
+            let status = uv_venv.status();
             if !matches!(status, Ok(s) if s.success()) {
                 // Fallback to python3 -m venv
                 let status2 = Command::new("python3")
@@ -148,6 +155,7 @@ impl Dependencies {
         if env::var("UV_LINK_MODE").is_err() && is_wsl_mnt {
             cmd.env("UV_LINK_MODE", "copy");
         }
+        Self::configure_uv_environment(&mut cmd, is_wsl_mnt);
 
         if venv_bin.exists() {
             let mut new_path = env::var("PATH").unwrap_or_default();
@@ -157,6 +165,16 @@ impl Dependencies {
         }
 
         matches!(cmd.status(), Ok(s) if s.success())
+    }
+
+    fn configure_uv_environment(cmd: &mut Command, is_wsl_mnt: bool) {
+        if env::var("UV_CACHE_DIR").is_err() && is_wsl_mnt {
+            cmd.env("UV_CACHE_DIR", "/tmp/uv-cache");
+        }
+
+        if env::var("UV_LINK_MODE").is_err() && is_wsl_mnt {
+            cmd.env("UV_LINK_MODE", "copy");
+        }
     }
 
     fn install_with_pip(&self, requirements_path: &PathBuf) {

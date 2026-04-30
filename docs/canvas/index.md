@@ -1,62 +1,65 @@
 ---
 title: Canvas
-description: Full-screen Three.js showcase for background experiments and generative studies.
+description: Interactive Three.js scene gallery for generative studies and LLM-assisted visual experiments.
 tags:
   - WebGL
   - JavaScript
   - Experiment
-hide:
-  - toc
-  - path
 comments: false
 ---
 
 # Canvas
 
-A full-screen space for generative experiments. Each scene is built with Three.js and responds to the site's theme — light or dark, calm or curious.
+Interactive studies live here as example pages, following the same useful pattern MapLibre uses for WebGL-heavy demos: the index stays quick to scan, and each scene page owns its live surface, controls, and implementation notes.
 
----
+<div class="canvas-example-toolbar" markdown>
 
-## Current Scene
+<span class="mlad-status mlad-status--active">Examples</span>
+<span class="mlad-status">Three.js</span>
+<span class="mlad-status">Zensical</span>
+<span class="mlad-status">Theme-aware</span>
 
-The canvas below runs a crystal cave simulation: procedural geometry, orbital camera, and particle atmospheres that shift with the page theme. Click and drag to explore. Scroll to zoom.
+</div>
 
----
+<div class="grid cards canvas-gallery" markdown>
 
-## Experiments
+-   :material-vector-triangle:{ .lg .middle } **Zen Geometry**
 
-<div class="grid cards" markdown>
+    ---
+
+    A live Three.js network scene built around calm motion, responsive theming, and touch-friendly exploration.
+
+    [:octicons-arrow-right-24: Open Scene](zen-geometry/index.md)
 
 -   :material-cube-outline:{ .lg .middle } **Crystal Cave**
 
     ---
 
-    Procedural crystal formations with orbital camera and particle effects. Theme-responsive lighting.
+    Procedural formations, orbital camera movement, and theme-aware lighting. Planned as the next dedicated scene page.
 
-    [:octicons-arrow-right-24: View Live](#){ .md-button }
-
--   :material-weather-windy:{ .lg .middle } **Zen Geometry**
-
-    ---
-
-    Minimal geometric studies with smooth camera transitions and ambient motion.
-
-    [:octicons-arrow-right-24: View Live](#){ .md-button }
+    <span class="mlad-status mlad-status--experiment">Coming Soon</span>
 
 -   :material-flare:{ .lg .middle } **Particle Flow**
 
     ---
 
-    Flowing particle systems driven by noise fields and scroll velocity.
+    A future playground for field-driven motion, scroll velocity, and pointer-responsive particle systems.
 
-    [:octicons-arrow-right-24: View Live](#){ .md-button }
+    <span class="mlad-status mlad-status--experiment">Coming Soon</span>
 
 </div>
 
----
+## What Belongs Here
 
-## Notes
+- Scenes should be opt-in, not loaded by browsing the main Canvas tab.
+- Each scene gets a short purpose, direct controls, and a fallback for reduced motion or unsupported WebGL.
+- The tab stays consistent with the rest of the site; the individual scene pages are where the experience can become immersive.
 
-- Canvas scenes load on this page only to preserve performance elsewhere.
-- All scenes respect `prefers-reduced-motion` and fall back to static frames.
-- Built with Three.js r160 and vanilla JavaScript. No React, no bundler.
+## Example Shape
+
+Each scene page should answer four questions without making readers hunt:
+
+- What does this scene demonstrate?
+- How do I interact with it?
+- Which browser or performance constraints matter?
+- Where is the relevant implementation?

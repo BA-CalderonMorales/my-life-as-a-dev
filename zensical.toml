@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-04-28 12:25:14 UTC
+#   Generated: 2026-04-30 02:41:58 UTC
 #
 # ##############################################################################
 
@@ -23,6 +23,9 @@ repo_url = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
 repo_name = "BA-CalderonMorales/my-life-as-a-dev"
 edit_uri = "edit/main/docs/"
 extra_css = [
+    "assets/css/lumen/lumen-tokens.css",
+    "assets/css/lumen/lumen-components.css",
+    "assets/css/lumen/lumen-material.css",
     "assets/css/theme.css",
     "assets/css/typography.css",
     "assets/css/layout.css",
@@ -47,7 +50,6 @@ extra_javascript = [
     "assets/js/image-fade.js",
     "assets/js/keyboard-shortcuts.js",
     "assets/js/reading-time.js",
-    "assets/js/anchor-links.js",
     "assets/js/focus-mode.js",
 ]
 
@@ -378,6 +380,7 @@ Overview = "projects/experiments/index.md"
 [[project.nav]]
 Canvas = [
     { Overview = "canvas/index.md" },
+    { "Zen Geometry" = "canvas/zen-geometry/index.md" },
 ]
 
 [[project.nav]]
@@ -415,7 +418,7 @@ features = [
 ]
 
 [project.theme.font]
-text = "Space Grotesk"
+text = "Inter"
 code = "JetBrains Mono"
 
 [project.theme.icon]

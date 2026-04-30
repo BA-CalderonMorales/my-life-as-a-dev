@@ -110,8 +110,13 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="SimplifiedLife">
 <link rel="apple-touch-icon" href="{{ 'assets/images/favicon/icon-192.png' | url }}">
-<meta name="theme-color" content="#0a0a0a">
-<meta name="msapplication-TileColor" content="#0a0a0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-TileColor" content="#FAFAF8">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
 
@@ -481,7 +486,7 @@
 
 {% block classes %}
 {% set is_home = page and (page.url == '' or page.url == 'index/' or (page.file and page.file.src_uri == 'index.md')) %}
-{% set is_canvas = page and page.file and page.file.src_uri == 'canvas/index.md' %}
+{% set is_canvas = page and page.file and page.file.src_uri and page.file.src_uri.startswith('canvas/') %}
 {% set is_resume = page and page.file and page.file.src_uri == 'resume/index.md' %}
 {% set is_projects = page and page.file and page.file.src_uri == 'projects/index.md' %}
 {{ super() }}{% if is_home %} landing-page{% endif %}{% if is_canvas %} canvas-page{% endif %}{% if is_resume %} resume-page{% endif %}{% if is_projects %} projects-page{% endif %}

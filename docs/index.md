@@ -25,16 +25,34 @@ Product-minded engineer focused on **developer tooling**, **docs-as-code**, and 
 </div>
 </div>
 <div class="tx-hero__image">
-<div class="mlad-hero-scroll" aria-hidden="true">
-<a href="#main-content" class="mlad-hero-scroll__link">
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-</a>
-</div>
 <picture>
 <source srcset="assets/images/me-today-cropped.gif" type="image/gif">
 <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" draggable="false">
 </picture>
 </div>
+</section>
+
+<section class="md-typeset aether-showcase" markdown>
+
+<div class="aether-showcase__panel" markdown>
+<p class="aether-showcase__kicker">Operating System</p>
+
+## Calm tools for high-pressure teams
+
+I build documentation and delivery systems that make the next action obvious: setup paths, release loops, quality gates, and agent handoffs that are easy to inspect.
+
+</div>
+
+<div class="aether-showcase__panel" markdown>
+
+<ul class="aether-showcase__list">
+<li><strong>Readable by default</strong><span>Clear structure before clever automation.</span></li>
+<li><strong>Built for handoff</strong><span>Every workflow leaves context for the next maintainer.</span></li>
+<li><strong>Low-maintenance design</strong><span>Reusable Zensical primitives instead of page-by-page styling.</span></li>
+</ul>
+
+</div>
+
 </section>
 
 <section class="md-typeset mlad-now" markdown>
@@ -123,22 +141,22 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 <div class="mlad-stats__grid" markdown>
 
 <div class="mlad-stats__item" markdown>
-<div class="mlad-stats__number" data-count="15">0</div>
+<div class="mlad-stats__number" data-count="15">15</div>
 <div class="mlad-stats__label">Open Source Repos</div>
 </div>
 
 <div class="mlad-stats__item" markdown>
-<div class="mlad-stats__number" data-count="5">0</div>
+<div class="mlad-stats__number" data-count="5">5</div>
 <div class="mlad-stats__label">Active Projects</div>
 </div>
 
 <div class="mlad-stats__item" markdown>
-<div class="mlad-stats__number" data-count="1000">0</div>
+<div class="mlad-stats__number" data-count="1000">1,000</div>
 <div class="mlad-stats__label">Commits Shipped</div>
 </div>
 
 <div class="mlad-stats__item" markdown>
-<div class="mlad-stats__number" data-count="24">0</div>
+<div class="mlad-stats__number" data-count="24">24</div>
 <div class="mlad-stats__label">Always Building</div>
 </div>
 
@@ -225,28 +243,6 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 <span class="mlad-badge">Zensical</span>
 <span class="mlad-badge">MkDocs</span>
 <span class="mlad-badge">GitHub Actions</span>
-
-</div>
-
-</section>
-
-<section class="md-typeset mlad-type-specimen" markdown>
-
-## Type
-
-<div class="mlad-type-showcase" markdown>
-
-<div class="mlad-type-face" markdown>
-<div class="mlad-type-face__sample" style="font-family: 'Space Grotesk', sans-serif;">Aa</div>
-<div class="mlad-type-face__name">Space Grotesk</div>
-<div class="mlad-type-face__desc">Headings, body text, and editorial voice. Humanist grotesque with quiet confidence.</div>
-</div>
-
-<div class="mlad-type-face" markdown>
-<div class="mlad-type-face__sample" style="font-family: 'JetBrains Mono', monospace;">Aa</div>
-<div class="mlad-type-face__name">JetBrains Mono</div>
-<div class="mlad-type-face__desc">Code, data, and technical detail. Increased letter spacing for readability at small sizes.</div>
-</div>
 
 </div>
 

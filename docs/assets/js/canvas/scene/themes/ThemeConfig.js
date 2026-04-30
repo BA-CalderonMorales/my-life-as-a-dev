@@ -61,8 +61,19 @@ export const themes = {
  * Get current theme based on MkDocs Material color scheme
  */
 export function getCurrentTheme() {
-    const scheme = document.body.getAttribute('data-md-color-scheme');
-    return scheme === 'slate' ? 'dark' : 'light';
+    const scheme = document.body?.getAttribute('data-md-color-scheme');
+    if (scheme) {
+        return scheme === 'slate' ? 'dark' : 'light';
+    }
+
+    try {
+        const paletteObj = JSON.parse(localStorage.getItem('__md_param') || '{}').palette;
+        if (paletteObj && paletteObj.color && paletteObj.color.scheme) {
+            return paletteObj.color.scheme === 'slate' ? 'dark' : 'light';
+        }
+    } catch(e) {}
+    
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
 /**

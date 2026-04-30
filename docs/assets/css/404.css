@@ -10,7 +10,7 @@
     justify-content: center;
     min-height: 70vh;
     text-align: center;
-    padding: var(--mlad-space-xl) var(--mlad-space-md);
+    padding: var(--space-6) var(--space-4);
     position: relative;
     overflow: hidden;
 }
@@ -23,7 +23,7 @@
     font-size: clamp(8rem, 25vw, 18rem);
     font-weight: 600;
     line-height: 1;
-    color: var(--md-default-fg-color);
+    color: var(--ink);
     opacity: 0.04;
     pointer-events: none;
     user-select: none;
@@ -41,14 +41,14 @@
     font-size: clamp(1.5rem, 4vw, 2.25rem);
     font-weight: 600;
     line-height: 1.2;
-    margin-bottom: var(--mlad-space-sm);
+    margin-bottom: var(--space-3);
 }
 
 .mlad-404__body {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: var(--md-default-fg-color--light);
-    margin-bottom: var(--mlad-space-lg);
+    color: var(--slate);
+    margin-bottom: var(--space-5);
 }
 
 .mlad-404__typewriter {
@@ -62,7 +62,7 @@
     display: inline-block;
     width: 2px;
     height: 1em;
-    background: var(--md-accent-fg-color);
+    background: var(--accent);
     margin-left: 0.15em;
     vertical-align: text-bottom;
     animation: cursor-blink 1.1s step-end infinite;
@@ -99,7 +99,7 @@
 
 .mlad-404__vine path {
     fill: none;
-    stroke: var(--md-accent-fg-color);
+    stroke: var(--accent);
     stroke-width: 1.5px;
     stroke-linecap: round;
     stroke-dasharray: 200;

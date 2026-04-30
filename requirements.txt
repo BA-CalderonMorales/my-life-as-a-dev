@@ -33,6 +33,12 @@ pydantic>=2
 # Config tooling
 tomli-w>=1.0.0
 
+# Browser testing
+pytest>=8.0.0
+pytest-playwright>=0.5.0
+playwright>=1.48.0
+axe-playwright-python>=0.1.5
+
 # Image Optimization Plugin
 # Required for build-time image optimization (WebP conversion, responsive sizes)
 Pillow>=12.2.0

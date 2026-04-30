@@ -1,75 +1,77 @@
 /* ============================================
-   Resume — Editorial Timeline
-   High-contrast minimalism. Space as structure.
+   Resume — AETHER Editorial Timeline
+   Museum-grade spacing and typography.
    ============================================ */
 
 .resume-page .md-content__inner {
-    padding-top: var(--mlad-space-xl);
+    padding-top: var(--space-6);
 }
 
 /* Hero */
 .mlad-resume-hero {
-    max-width: 1100px;
-    margin: 0 auto var(--mlad-space-xl);
-    padding: 0 var(--mlad-space-md);
+    max-width: var(--container-max);
+    margin: 0 auto var(--space-6);
+    padding: 0 var(--space-4);
 }
 
 .mlad-resume-hero h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: var(--mlad-space-sm);
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    line-height: var(--leading-h1);
+    letter-spacing: var(--tracking-h1);
+    margin-bottom: var(--space-3);
+    color: var(--ink);
 }
 
 .mlad-resume-hero__subtitle {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--md-default-fg-color--light);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--slate);
     max-width: 65ch;
-    margin-bottom: var(--mlad-space-md);
+    margin-bottom: var(--space-4);
 }
 
 .mlad-resume-hero__links {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--mlad-space-sm);
+    gap: var(--space-3);
 }
 
 .mlad-resume-hero__links a {
-    font-size: 0.85rem;
+    font-size: var(--text-caption);
     font-weight: 500;
     text-decoration: none;
-    color: var(--md-default-fg-color);
-    border-bottom: 1px solid var(--mlad-border-soft);
+    color: var(--ink);
+    border-bottom: 1px solid var(--stone);
     padding-bottom: 2px;
-    transition: border-color var(--mlad-duration-fast) var(--mlad-ease-standard),
-        color var(--mlad-duration-fast) var(--mlad-ease-standard);
+    transition: border-color var(--dur-swift) var(--ease-swift),
+        color var(--dur-swift) var(--ease-swift);
 }
 
 .mlad-resume-hero__links a:hover {
-    color: var(--md-accent-fg-color);
-    border-color: var(--md-accent-fg-color);
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
 /* Section titles */
 .mlad-resume-section-title {
-    font-size: 0.75rem;
+    font-size: var(--text-micro);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--md-default-fg-color--light);
-    margin: var(--mlad-space-xl) 0 var(--mlad-space-lg);
-    padding-bottom: var(--mlad-space-sm);
-    border-bottom: 1px solid var(--mlad-border-soft);
+    letter-spacing: var(--tracking-micro);
+    color: var(--slate);
+    margin: var(--space-6) 0 var(--space-5);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--stone);
 }
 
 /* Timeline */
 .mlad-timeline {
     position: relative;
-    max-width: 1100px;
+    max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 var(--mlad-space-md);
+    padding: 0 var(--space-4);
 }
 
 .mlad-timeline::before {
@@ -77,17 +79,17 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: calc(120px + var(--mlad-space-md));
+    left: calc(120px + var(--space-4));
     width: 1px;
-    background: var(--mlad-border-soft);
+    background: var(--stone);
 }
 
 .mlad-timeline__entry {
     position: relative;
     display: grid;
     grid-template-columns: 120px 1fr;
-    gap: var(--mlad-space-lg);
-    padding-bottom: var(--mlad-space-xl);
+    gap: var(--space-5);
+    padding-bottom: var(--space-6);
 }
 
 .mlad-timeline__entry:last-child {
@@ -95,22 +97,22 @@
 }
 
 .mlad-timeline__date {
-    font-size: 0.75rem;
+    font-size: var(--text-caption);
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--md-default-fg-color--light);
+    letter-spacing: var(--tracking-caption);
+    color: var(--slate);
     text-align: right;
     padding-top: 0.35rem;
 }
 
 .mlad-timeline__node {
     position: absolute;
-    left: calc(120px + var(--mlad-space-md));
+    left: calc(120px + var(--space-4));
     top: 0.5rem;
     width: 5px;
     height: 5px;
-    background: var(--md-accent-fg-color);
+    background: var(--accent);
     transform: translateX(-50%) rotate(45deg);
 }
 
@@ -118,21 +120,21 @@
     font-size: 1.1rem;
     font-weight: 600;
     line-height: 1.3;
-    margin: 0 0 var(--mlad-space-xs);
-    color: var(--md-default-fg-color);
+    margin: 0 0 var(--space-2);
+    color: var(--ink);
 }
 
 .mlad-timeline__content p,
 .mlad-timeline__content ul {
     font-size: 0.95rem;
     line-height: 1.65;
-    color: var(--md-default-fg-color--light);
+    color: var(--slate);
     margin: 0;
 }
 
 .mlad-timeline__content ul {
     padding-left: 1.25rem;
-    margin-top: var(--mlad-space-xs);
+    margin-top: var(--space-2);
 }
 
 .mlad-timeline__content li {
@@ -147,25 +149,25 @@
 .mlad-skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: var(--mlad-space-lg);
-    max-width: 1100px;
+    gap: var(--space-5);
+    max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 var(--mlad-space-md);
+    padding: 0 var(--space-4);
 }
 
 .mlad-skills-group h4 {
-    font-size: 0.8rem;
+    font-size: var(--text-caption);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--md-default-fg-color--light);
-    margin-bottom: var(--mlad-space-sm);
+    letter-spacing: var(--tracking-caption);
+    color: var(--slate);
+    margin-bottom: var(--space-3);
 }
 
 .mlad-skills-group p {
     font-size: 0.95rem;
     line-height: 1.6;
-    color: var(--md-default-fg-color);
+    color: var(--ink);
     margin: 0;
 }
 
@@ -173,35 +175,36 @@
 .mlad-work-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--mlad-space-lg);
-    max-width: 1100px;
+    gap: var(--space-5);
+    max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 var(--mlad-space-md);
+    padding: 0 var(--space-4);
 }
 
 .mlad-work-item {
-    border-top: 1px solid var(--mlad-border-soft);
-    padding-top: var(--mlad-space-md);
+    border-top: 1px solid var(--stone);
+    padding-top: var(--space-4);
 }
 
 .mlad-work-item h4 {
     font-size: 1rem;
     font-weight: 600;
-    margin: 0 0 var(--mlad-space-xs);
+    margin: 0 0 var(--space-2);
+    color: var(--ink);
 }
 
 .mlad-work-item p {
     font-size: 0.9rem;
     line-height: 1.55;
-    color: var(--md-default-fg-color--light);
+    color: var(--slate);
     margin: 0;
 }
 
 /* At a glance */
 .mlad-glance {
-    max-width: 1100px;
+    max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 var(--mlad-space-md);
+    padding: 0 var(--space-4);
 }
 
 .mlad-glance ul {
@@ -210,7 +213,7 @@
     margin: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--mlad-space-sm) var(--mlad-space-lg);
+    gap: var(--space-3) var(--space-5);
 }
 
 .mlad-glance li {
@@ -218,7 +221,7 @@
     padding-left: 1rem;
     font-size: 0.95rem;
     line-height: 1.6;
-    color: var(--md-default-fg-color--light);
+    color: var(--slate);
 }
 
 .mlad-glance li::before {
@@ -228,35 +231,35 @@
     top: 0.55em;
     width: 4px;
     height: 4px;
-    background: var(--md-accent-fg-color);
+    background: var(--accent);
     transform: rotate(45deg);
 }
 
 /* Mobile */
 @media screen and (max-width: 60rem) {
     .mlad-timeline::before {
-        left: var(--mlad-space-md);
+        left: var(--space-4);
     }
 
     .mlad-timeline__entry {
         grid-template-columns: 1fr;
-        gap: var(--mlad-space-xs);
-        padding-left: calc(var(--mlad-space-md) * 2 + 8px);
+        gap: var(--space-2);
+        padding-left: calc(var(--space-4) * 2 + 8px);
     }
 
     .mlad-timeline__date {
         text-align: left;
-        font-size: 0.7rem;
+        font-size: var(--text-micro);
         padding-top: 0;
-        color: var(--md-default-fg-color--lighter);
+        color: var(--slate);
     }
 
     .mlad-timeline__node {
-        left: var(--mlad-space-md);
+        left: var(--space-4);
         top: 0.25rem;
     }
 
     .mlad-resume-hero h1 {
-        font-size: 1.75rem;
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
     }
 }

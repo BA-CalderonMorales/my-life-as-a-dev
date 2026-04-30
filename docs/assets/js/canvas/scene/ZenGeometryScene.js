@@ -56,6 +56,7 @@ export class ZenGeometryScene {
         // Device detection
         this.isMobile = false;
         this.isTablet = false;
+        this.isEmbedded = false;
 
         // Bound handlers
         this._handleResize = this._onResize.bind(this);
@@ -71,9 +72,14 @@ export class ZenGeometryScene {
     async init() {
         this._detectDevice();
 
-        this.container = document.createElement('div');
-        this.container.id = this.containerId;
-        document.body.appendChild(this.container);
+        this.container = document.getElementById(this.containerId);
+        this.isEmbedded = Boolean(this.container);
+
+        if (!this.container) {
+            this.container = document.createElement('div');
+            this.container.id = this.containerId;
+            document.body.appendChild(this.container);
+        }
 
         this._updateCanvasPosition();
         window.addEventListener('resize', this._positionCanvas);
@@ -100,6 +106,12 @@ export class ZenGeometryScene {
     }
 
     _updateCanvasPosition() {
+        if (this.isEmbedded) {
+            this.container.style.top = '';
+            this.container.style.height = '';
+            return;
+        }
+
         const header = document.querySelector('.md-header');
         const headerHeight = header ? header.offsetHeight : 0;
         const viewportHeight = Math.max(window.innerHeight - headerHeight, 0);
@@ -679,7 +691,7 @@ export class ZenGeometryScene {
             });
         }
 
-        if (this.container && this.container.parentElement) {
+        if (this.container && this.container.parentElement && !this.isEmbedded) {
             this.container.parentElement.removeChild(this.container);
         }
     }

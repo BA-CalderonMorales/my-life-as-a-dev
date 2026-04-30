@@ -1,28 +1,29 @@
 /* ============================================
-   Code — Carved Stone
-   Functional borders only. No decoration.
+   Code — AETHER Carved Stone
+   Functional borders only. Warm tonal surfaces.
    ============================================ */
 
 .md-typeset pre {
     background: var(--md-code-bg-color);
-    border: 1px solid var(--mlad-border-soft);
-    border-radius: 0;
+    border: 1px solid var(--stone);
+    border-radius: var(--radius-soft);
     position: relative;
-    margin: var(--mlad-space-md) 0;
+    margin: var(--space-4) 0;
     overflow: hidden;
 }
 
 .md-typeset code {
     background: var(--md-code-bg-color);
-    border-radius: 0;
+    border-radius: var(--radius-soft);
     padding: 0.15em 0.4em;
     font-size: 0.85em;
     font-weight: 500;
+    font-family: var(--font-mono);
 }
 
 .md-typeset pre > code {
     display: block;
-    padding: var(--mlad-space-md);
+    padding: var(--space-4);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     white-space: pre;
@@ -32,11 +33,12 @@
     background: transparent;
     border: none;
     border-radius: 0;
+    font-family: var(--font-mono);
 }
 
 [data-md-color-scheme="default"] .md-typeset pre {
     background: var(--md-code-bg-color);
-    border-color: var(--mlad-border-soft);
+    border-color: var(--stone);
 }
 
 [data-md-color-scheme="default"] .md-typeset code {
@@ -46,7 +48,7 @@
 
 [data-md-color-scheme="slate"] .md-typeset pre {
     background: var(--md-code-bg-color);
-    border-color: var(--mlad-border-soft);
+    border-color: var(--stone);
 }
 
 [data-md-color-scheme="slate"] .md-typeset code {
@@ -67,11 +69,11 @@
     right: 0.5rem;
     z-index: 10;
     opacity: 0.5;
-    transition: opacity var(--mlad-duration-fast) var(--mlad-ease-standard),
-        color var(--mlad-duration-fast) var(--mlad-ease-standard),
-        background var(--mlad-duration-fast) var(--mlad-ease-standard);
-    color: var(--md-default-fg-color--light);
-    border-radius: 0;
+    transition: opacity var(--dur-swift) var(--ease-swift),
+        color var(--dur-swift) var(--ease-swift),
+        background var(--dur-swift) var(--ease-swift);
+    color: var(--slate);
+    border-radius: var(--radius-soft);
     padding: 4px;
     min-width: 2rem;
     min-height: 2rem;
@@ -87,34 +89,35 @@
 }
 
 .md-typeset .md-clipboard:hover {
-    color: var(--md-accent-fg-color);
-    background: var(--md-default-fg-color--lightest);
+    color: var(--accent);
+    background: rgba(196, 30, 58, 0.08);
 }
 
 .md-typeset .md-clipboard.md-clipboard--active,
 .md-typeset .md-clipboard.md-clipboard--success {
-    color: var(--md-accent-fg-color);
-    background: var(--md-accent-fg-color--transparent);
+    color: var(--accent);
+    background: rgba(196, 30, 58, 0.12);
 }
 
 .md-typeset .highlight > .filename,
 .md-typeset .highlighttable > .filename {
     display: flex;
     align-items: center;
-    padding: 0.5rem var(--mlad-space-md);
-    font-size: 0.75rem;
+    padding: 0.5rem var(--space-4);
+    font-size: var(--text-caption);
     font-weight: 500;
-    letter-spacing: 0.02em;
+    letter-spacing: var(--tracking-caption);
     text-transform: none;
-    border-bottom: 1px solid var(--mlad-border-soft);
+    border-bottom: 1px solid var(--stone);
     background: var(--md-code-bg-color);
-    color: var(--md-default-fg-color);
+    color: var(--ink);
     opacity: 0.8;
+    font-family: var(--font-mono);
 }
 
 [data-md-color-scheme="default"] .md-typeset .highlight > .filename,
 [data-md-color-scheme="slate"] .md-typeset .highlight > .filename {
-    border-bottom-color: var(--mlad-border-soft);
+    border-bottom-color: var(--stone);
 }
 
 .md-typeset .md-annotation {
@@ -123,31 +126,31 @@
 
 .md-typeset .linenums {
     padding-left: 2.5rem;
-    border-right: 1px solid var(--md-default-fg-color--lightest);
+    border-right: 1px solid var(--stone);
     margin-right: 0.5rem;
     opacity: 0.4;
 }
 
 .md-typeset .highlight .hll {
     display: block;
-    margin: 0 calc(-1 * var(--mlad-space-md));
-    padding: 0 var(--mlad-space-md);
-    background: var(--md-accent-fg-color--transparent);
+    margin: 0 calc(-1 * var(--space-4));
+    padding: 0 var(--space-4);
+    background: rgba(196, 30, 58, 0.08);
 }
 
 [data-md-color-scheme="default"] .md-typeset .highlight .hll {
-    background: rgba(10, 10, 10, 0.05);
+    background: rgba(10, 10, 10, 0.04);
 }
 
 [data-md-color-scheme="slate"] .md-typeset .highlight .hll {
-    background: rgba(250, 250, 250, 0.06);
+    background: rgba(250, 250, 250, 0.04);
 }
 
 .md-typeset .tabbed-set {
-    border: 1px solid var(--mlad-border-soft);
-    border-radius: 0;
+    border: 1px solid var(--stone);
+    border-radius: var(--radius-soft);
     overflow: hidden;
-    margin: var(--mlad-space-md) 0;
+    margin: var(--space-4) 0;
     background: var(--md-code-bg-color);
 }
 
@@ -158,39 +161,39 @@
 .md-typeset .tabbed-labels {
     display: flex;
     gap: 0;
-    border-bottom: 1px solid var(--mlad-border-soft);
-    background: var(--md-default-bg-color);
+    border-bottom: 1px solid var(--stone);
+    background: var(--canvas);
     overflow-x: auto;
     scrollbar-width: none;
 }
 
 .md-typeset .tabbed-labels > label {
-    padding: 0.6rem var(--mlad-space-sm);
+    padding: 0.6rem var(--space-3);
     font-size: 0.85rem;
     font-weight: 500;
-    color: var(--md-default-fg-color--light);
+    color: var(--slate);
     cursor: pointer;
     border-bottom: 2px solid transparent;
-    transition: color var(--mlad-duration-fast) var(--mlad-ease-standard),
-        border-color var(--mlad-duration-fast) var(--mlad-ease-standard);
+    transition: color var(--dur-swift) var(--ease-swift),
+        border-color var(--dur-swift) var(--ease-swift);
     white-space: nowrap;
     flex-shrink: 0;
 }
 
 .md-typeset .tabbed-labels > label:hover {
-    color: var(--md-default-fg-color);
+    color: var(--ink);
 }
 
 .md-typeset .tabbed-set > input:checked + label,
 .md-typeset .tabbed-labels > label.active {
-    color: var(--md-accent-fg-color);
-    border-bottom-color: var(--md-accent-fg-color);
+    color: var(--accent);
+    border-bottom-color: var(--accent);
     background: transparent;
 }
 
 [data-md-color-scheme="default"] .md-typeset .tabbed-set,
 [data-md-color-scheme="slate"] .md-typeset .tabbed-set {
-    border-color: var(--mlad-border-soft);
+    border-color: var(--stone);
 }
 
 .md-typeset .tabbed-content pre {
@@ -208,35 +211,35 @@
     .md-typeset pre > code {
         font-size: 0.8rem;
         line-height: 1.55;
-        padding: var(--mlad-space-sm);
+        padding: var(--space-3);
     }
 
     .md-typeset .highlight > .filename,
     .md-typeset .highlighttable > .filename {
         font-size: 0.7rem;
-        padding: 0.4rem var(--mlad-space-sm);
+        padding: 0.4rem var(--space-3);
     }
 
     .md-typeset .tabbed-labels > label {
         font-size: 0.78rem;
-        padding: 0.5rem var(--mlad-space-sm);
+        padding: 0.5rem var(--space-3);
     }
 }
 
 @media (max-width: 768px) {
     .md-typeset pre {
-        margin: var(--mlad-space-sm) 0;
+        margin: var(--space-3) 0;
     }
 
     .md-typeset pre > code {
         font-size: 0.75rem;
         line-height: 1.5;
-        padding: var(--mlad-space-sm);
+        padding: var(--space-3);
     }
 
     .md-typeset .tabbed-labels > label {
         font-size: 0.72rem;
-        padding: 0.45rem var(--mlad-space-xs);
+        padding: 0.45rem var(--space-2);
     }
 
     .md-typeset .md-clipboard {
@@ -245,6 +248,6 @@
         min-width: 1.8rem;
         min-height: 1.8rem;
         opacity: 0.7;
-        background: var(--md-default-bg-color);
+        background: var(--canvas);
     }
 }

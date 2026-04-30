@@ -7,6 +7,11 @@
 
 [project]
 extra_css = [
+    # Lumen Design System - production site tokens and components
+    "assets/css/lumen/lumen-tokens.css",
+    "assets/css/lumen/lumen-components.css",
+    "assets/css/lumen/lumen-material.css",
+
     # Base theming
     "assets/css/theme.css",
     "assets/css/typography.css",
@@ -43,8 +48,6 @@ extra_javascript = [
     "assets/js/keyboard-shortcuts.js",
     # Reading time estimate
     "assets/js/reading-time.js",
-    # Copy anchor link on heading hover
-    "assets/js/anchor-links.js",
     # Focus mode toggle (press 'f')
     "assets/js/focus-mode.js",
     # NOTE: Zensical's native version selector is used (via mike + modern theme)
