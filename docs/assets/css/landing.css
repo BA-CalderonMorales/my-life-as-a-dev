@@ -20,9 +20,11 @@
     );
 }
 
-.landing-page .md-sidebar--primary,
-.landing-page .md-sidebar--secondary {
-    display: none !important;
+@media screen and (min-width: 76.25rem) {
+    .landing-page .md-sidebar--primary,
+    .landing-page .md-sidebar--secondary {
+        display: none !important;
+    }
 }
 
 .landing-page .md-main__inner,

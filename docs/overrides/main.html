@@ -448,7 +448,13 @@
 {% block header %}
 <a href="#main-content" class="mlad-skip-link">Skip to content</a>
 
-<header class="md-header md-header--shadow" data-md-component="header">
+{% set header_class = "md-header" %}
+{% if "navigation.tabs.sticky" in features %}
+  {% set header_class = header_class ~ " md-header--shadow md-header--lifted" %}
+{% elif "navigation.tabs" not in features %}
+  {% set header_class = header_class ~ " md-header--shadow" %}
+{% endif %}
+<header class="{{ header_class }}" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" title="{{ config.site_name | e }}" class="md-header__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
       {% include "partials/logo.html" %}

@@ -10,9 +10,11 @@
     );
 }
 
-.resume-page .md-sidebar--primary,
-.resume-page .md-sidebar--secondary {
-    display: none !important;
+@media screen and (min-width: 76.25rem) {
+    .resume-page .md-sidebar--primary,
+    .resume-page .md-sidebar--secondary {
+        display: none !important;
+    }
 }
 
 .resume-page .md-content__inner {
