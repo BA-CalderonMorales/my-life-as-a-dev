@@ -1,0 +1,177 @@
+/* ============================================
+   Cards — AETHER Surfaces
+   Raised surfaces with soft radius and honest borders.
+   ============================================ */
+
+.grid.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-5);
+    padding: 0;
+    list-style: none;
+}
+
+.grid.cards>li,
+.grid.cards>ul>li {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-4) var(--space-4);
+    background: var(--surface-raised);
+    border: 1px solid var(--stone);
+    border-radius: var(--radius-soft);
+    box-shadow: var(--shadow-subtle);
+    transition: border-color var(--dur-swift) var(--ease-swift),
+                box-shadow var(--dur-swift) var(--ease-swift),
+                transform var(--dur-swift) var(--ease-swift);
+}
+
+.grid.cards>li:hover,
+.grid.cards>ul>li:hover {
+    background: var(--surface-raised);
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
+    border-color: var(--slate);
+}
+
+.grid.cards>li h3,
+.grid.cards>li h4,
+.grid.cards>ul>li h3,
+.grid.cards>ul>li h4 {
+    margin-top: 0;
+    font-size: var(--text-h3);
+    font-weight: 500;
+    color: var(--ink);
+}
+
+/* Blockquote — AETHER left rule */
+.md-typeset blockquote {
+    position: relative;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: var(--space-3) var(--space-3) var(--space-3) var(--space-5);
+    margin: var(--space-5) 0;
+    border-radius: 0;
+    color: var(--slate);
+}
+
+.md-typeset blockquote::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    opacity: 1;
+    border-radius: 2px;
+}
+
+.md-typeset blockquote p {
+    margin: 0;
+    color: inherit;
+    font-style: italic;
+}
+
+body[data-md-color-scheme] .tx-hero blockquote p,
+body[data-md-color-scheme] .landing-page blockquote p {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    line-height: var(--leading-h2);
+}
+
+.md-typeset blockquote p + p {
+    margin-top: var(--space-3);
+}
+
+.md-typeset blockquote strong,
+.md-typeset blockquote em,
+.md-typeset blockquote a {
+    color: inherit;
+}
+
+.md-typeset blockquote cite {
+    font-family: var(--font-body);
+    font-size: var(--text-caption);
+    color: var(--slate);
+    font-style: normal;
+}
+
+.md-typeset blockquote cite::before {
+    content: '— ';
+}
+
+/* Admonition — AETHER flat, editorial */
+.md-typeset .admonition {
+    background: var(--surface-raised);
+    border: none;
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-soft);
+    box-shadow: var(--shadow-subtle);
+    padding: var(--space-4) var(--space-4) var(--space-4) calc(var(--space-4) - 3px);
+    margin: var(--space-5) 0;
+}
+
+.md-typeset .admonition-title {
+    background: transparent !important;
+    border: none;
+    border-radius: 0;
+    padding: 0 0 var(--space-2) 0;
+    margin: 0 0 var(--space-2) 0;
+    font-size: var(--text-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caption);
+    color: var(--ink);
+}
+
+.md-typeset .admonition-title::before {
+    display: none;
+}
+
+.md-typeset .admonition p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--slate);
+    margin: 0;
+}
+
+.md-typeset .admonition p + p {
+    margin-top: var(--space-3);
+}
+
+/* Table — AETHER clean, readable */
+.md-typeset table {
+    border-collapse: collapse;
+    font-size: var(--text-body);
+    line-height: 1.5;
+    width: 100%;
+}
+
+.md-typeset table th {
+    background: var(--surface-raised);
+    border-bottom: 1px solid var(--stone);
+    font-family: var(--font-mono);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-micro);
+    font-size: var(--text-micro);
+    padding: var(--space-3) var(--space-4);
+    color: var(--slate);
+    text-align: left;
+}
+
+.md-typeset table td {
+    border-bottom: 1px solid var(--stone);
+    padding: var(--space-3) var(--space-4);
+    color: var(--ink);
+    transition: background var(--dur-swift) var(--ease-swift);
+}
+
+.md-typeset table tr {
+    transition: background-color var(--dur-instant) var(--ease-instant);
+}
+
+.md-typeset table tbody tr:hover {
+    background: var(--surface-raised);
+}

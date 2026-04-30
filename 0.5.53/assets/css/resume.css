@@ -1,0 +1,313 @@
+/* ============================================
+   Resume — AETHER Editorial Timeline
+   Museum-grade spacing and typography.
+   ============================================ */
+
+.resume-page {
+    --resume-shell-width: min(
+        calc(100% - (var(--space-4) * 2)),
+        var(--container-max)
+    );
+}
+
+.resume-page .md-sidebar--primary,
+.resume-page .md-sidebar--secondary {
+    display: none !important;
+}
+
+.resume-page .md-content__inner {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding-top: var(--space-6);
+}
+
+.resume-page .md-main__inner,
+.resume-page .md-content {
+    width: 100%;
+    max-width: none;
+}
+
+.resume-page .md-content {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* Hero */
+.mlad-resume-hero {
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
+    margin: 0 auto var(--space-6);
+    padding: 0;
+}
+
+.mlad-resume-hero h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    line-height: var(--leading-h1);
+    letter-spacing: var(--tracking-h1);
+    margin-bottom: var(--space-3);
+    color: var(--ink);
+}
+
+.mlad-resume-hero__subtitle {
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--slate);
+    max-width: 65ch;
+    margin-bottom: var(--space-4);
+}
+
+.mlad-resume-hero__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+.mlad-resume-hero__links a {
+    font-size: var(--text-caption);
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--stone);
+    padding-bottom: 2px;
+    transition: border-color var(--dur-swift) var(--ease-swift),
+        color var(--dur-swift) var(--ease-swift);
+}
+
+.mlad-resume-hero__links a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Section titles */
+.mlad-resume-section-title {
+    position: relative;
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    font-size: var(--text-micro);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-micro);
+    color: var(--slate);
+    margin: var(--space-6) auto var(--space-4);
+    padding-left: 0.9rem;
+}
+
+.mlad-resume-section-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.45em;
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    transform: rotate(45deg);
+}
+
+/* Timeline */
+.mlad-timeline {
+    position: relative;
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.mlad-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 120px;
+    width: 1px;
+    background: var(--stone);
+}
+
+.mlad-timeline__entry {
+    position: relative;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: var(--space-5);
+    padding-bottom: var(--space-6);
+}
+
+.mlad-timeline__entry:last-child {
+    padding-bottom: 0;
+}
+
+.mlad-timeline__date {
+    font-size: var(--text-caption);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caption);
+    color: var(--slate);
+    text-align: right;
+    padding-top: 0.35rem;
+}
+
+.mlad-timeline__node {
+    position: absolute;
+    left: 120px;
+    top: 0.5rem;
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.mlad-timeline__content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 var(--space-2);
+    color: var(--ink);
+}
+
+.mlad-timeline__content p,
+.mlad-timeline__content ul {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--slate);
+    margin: 0;
+}
+
+.mlad-timeline__content ul {
+    padding-left: 1.25rem;
+    margin-top: var(--space-2);
+}
+
+.mlad-timeline__content li {
+    margin-bottom: 0.35rem;
+}
+
+.mlad-timeline__content li:last-child {
+    margin-bottom: 0;
+}
+
+/* Skills grid */
+.mlad-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-5);
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.mlad-skills-group h4 {
+    font-size: var(--text-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caption);
+    color: var(--slate);
+    margin-bottom: var(--space-3);
+}
+
+.mlad-skills-group p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0;
+}
+
+/* Selected work mini-cards */
+.mlad-work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-5);
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.mlad-work-item {
+    padding-top: 0;
+}
+
+.mlad-work-item h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 var(--space-2);
+    color: var(--ink);
+}
+
+.mlad-work-item p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--slate);
+    margin: 0;
+}
+
+/* At a glance */
+.mlad-glance {
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.mlad-glance ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-3) var(--space-5);
+}
+
+.mlad-glance li {
+    position: relative;
+    padding-left: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--slate);
+}
+
+.mlad-glance li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    transform: rotate(45deg);
+}
+
+/* Mobile */
+@media screen and (max-width: 60rem) {
+    .mlad-timeline::before {
+        left: var(--space-4);
+    }
+
+    .mlad-timeline__entry {
+        grid-template-columns: 1fr;
+        gap: var(--space-2);
+        padding-left: calc(var(--space-4) * 2 + 8px);
+    }
+
+    .mlad-timeline__date {
+        text-align: left;
+        font-size: var(--text-micro);
+        padding-top: 0;
+        color: var(--slate);
+    }
+
+    .mlad-timeline__node {
+        left: var(--space-4);
+        top: 0.25rem;
+    }
+
+    .mlad-resume-hero h1 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+    }
+}
