@@ -1,0 +1,222 @@
+/* ============================================
+   Scroll Vines — Organic scroll-driven detail
+   Inspired by Detroit Paris (awwwards SOTD)
+   ============================================
+   Principles:
+   - Decorative only: pointer-events: none
+   - Respects prefers-reduced-motion
+   - Falls back to IntersectionObserver where
+     CSS scroll-timeline is unsupported
+   - Never competes with text for attention
+   ============================================ */
+
+:root {
+  --mlad-vine-opacity: 0.11;
+  --mlad-vine-width: 1.5px;
+  --mlad-bloom-distance: 20px;
+  --mlad-bloom-duration: var(--dur-smooth);
+  --mlad-bloom-stagger: 80ms;
+  --mlad-cursor-glow-size: 500px;
+  --mlad-cursor-glow-opacity: 0.035;
+}
+
+/* Hide vines entirely on non-landing pages */
+body:not(.landing-page) .mlad-vine-container,
+body:not(.landing-page) .mlad-cursor-glow {
+  display: none !important;
+}
+
+/* Reduced motion: strip all decorative motion */
+@media (prefers-reduced-motion: reduce) {
+  .mlad-vine-container,
+  .mlad-cursor-glow {
+    display: none !important;
+  }
+  .mlad-bloom {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
+/* ============================================
+   1. VINE CONTAINER & SVG
+   ============================================ */
+
+.mlad-vine-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.mlad-vine-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.mlad-vine-svg path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: var(--mlad-vine-width);
+  stroke-linecap: round;
+  opacity: var(--mlad-vine-opacity);
+  vector-effect: non-scaling-stroke;
+}
+
+/* ============================================
+   2. SCROLL-DRIVEN DRAW (native)
+   Chrome/Edge 115+, Firefox 110+, Safari 17.4+
+   ============================================ */
+
+@supports (animation-timeline: scroll()) {
+  .mlad-vine-svg path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: vine-draw linear both;
+    animation-timeline: scroll(root block);
+  }
+
+  /* Staggered ranges so tendrils appear sequentially */
+  .mlad-vine-svg path:nth-child(1) { animation-range: 2% 22%; }
+  .mlad-vine-svg path:nth-child(2) { animation-range: 18% 38%; }
+  .mlad-vine-svg path:nth-child(3) { animation-range: 34% 54%; }
+  .mlad-vine-svg path:nth-child(4) { animation-range: 50% 70%; }
+  .mlad-vine-svg path:nth-child(5) { animation-range: 66% 86%; }
+  .mlad-vine-svg path:nth-child(6) { animation-range: 80% 98%; }
+}
+
+@keyframes vine-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ============================================
+   3. SECTION BLOOM — unfurl on entry
+   ============================================ */
+
+.mlad-bloom {
+  opacity: 0;
+  transform: translateY(var(--mlad-bloom-distance));
+  clip-path: inset(0 0 100% 0);
+  transition:
+    opacity var(--mlad-bloom-duration) cubic-bezier(0.22, 1, 0.36, 1),
+    transform var(--mlad-bloom-duration) cubic-bezier(0.22, 1, 0.36, 1),
+    clip-path var(--mlad-bloom-duration) cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mlad-bloom.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  clip-path: inset(0 0 0% 0);
+}
+
+/* Stagger direct children for cascade effect */
+.mlad-bloom.is-visible > * {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: bloom-child 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.mlad-bloom.is-visible > *:nth-child(1) { animation-delay: calc(var(--mlad-bloom-stagger) * 1); }
+.mlad-bloom.is-visible > *:nth-child(2) { animation-delay: calc(var(--mlad-bloom-stagger) * 2); }
+.mlad-bloom.is-visible > *:nth-child(3) { animation-delay: calc(var(--mlad-bloom-stagger) * 3); }
+.mlad-bloom.is-visible > *:nth-child(4) { animation-delay: calc(var(--mlad-bloom-stagger) * 4); }
+.mlad-bloom.is-visible > *:nth-child(5) { animation-delay: calc(var(--mlad-bloom-stagger) * 5); }
+.mlad-bloom.is-visible > *:nth-child(6) { animation-delay: calc(var(--mlad-bloom-stagger) * 6); }
+
+@keyframes bloom-child {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   4. CURSOR GLOW — subtle reading light
+   Dark mode only, desktop only
+   ============================================ */
+
+.mlad-cursor-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    var(--mlad-cursor-glow-size) circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
+    rgba(196, 30, 58, var(--mlad-cursor-glow-opacity)),
+    transparent 50%
+  );
+}
+
+[data-md-color-scheme="slate"] .mlad-cursor-glow {
+  opacity: 1;
+}
+
+/* Disable on touch devices */
+@media (pointer: coarse) {
+  .mlad-cursor-glow {
+    display: none !important;
+  }
+}
+
+/* ============================================
+   5. PRINCIPLE CARDS — left border draw
+   ============================================ */
+
+.landing-working-with-me > blockquote {
+  position: relative;
+  border-left: 2px solid var(--stone);
+  padding-left: var(--space-4);
+  transition: border-color 0.5s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.landing-working-with-me > blockquote.is-visible {
+  border-color: var(--accent);
+}
+
+.landing-working-with-me > blockquote:hover {
+  transform: translateX(4px);
+}
+
+/* ============================================
+   6. TYPOGRAPHY SCALE BOOST
+   Sharper contrast, editorial presence
+   ============================================ */
+
+.tx-hero__content h1 {
+  font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.tx-hero__details {
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  line-height: 1.6;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Slightly more breathing room between sections */
+.landing-page section.md-typeset {
+  margin-bottom: var(--space-6);
+}
+
+/* Featured project cards — soft lift on hover */
+.landing-featured-projects > li {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.25s ease;
+}
+
+.landing-featured-projects > li:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent) !important;
+}
