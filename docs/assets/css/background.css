@@ -543,24 +543,27 @@
     color: var(--accent);
 }
 
-/* Back-to-top — soft radius */
+/* Back-to-top — animated SVG stroke */
 .md-top {
     right: 24px;
     bottom: 24px;
     z-index: 1000;
-    background: var(--accent) !important;
-    color: var(--canvas) !important;
-    border-radius: var(--radius-soft) !important;
-    box-shadow: var(--shadow-medium) !important;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    background: var(--surface-floating) !important;
+    color: var(--accent) !important;
+    border: 1px solid color-mix(in srgb, var(--accent) 36%, transparent);
+    border-radius: 50% !important;
+    box-shadow: var(--shadow-subtle) !important;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     transition: transform var(--dur-swift) var(--ease-swift),
+                color var(--dur-swift) var(--ease-swift),
+                border-color var(--dur-swift) var(--ease-swift),
                 box-shadow var(--dur-swift) var(--ease-swift);
-    animation: mlad-top-float 2.4s ease-in-out infinite;
 }
 
 @media screen and (min-width: 769px) {
@@ -577,53 +580,56 @@
 }
 
 .md-top svg {
-    fill: currentColor;
+    width: 1.35rem;
+    height: 1.35rem;
+    fill: none;
+    stroke: currentColor;
+    overflow: visible;
+}
+
+.md-top svg circle,
+.md-top svg path {
+    stroke-dasharray: 64;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+}
+
+.md-top svg circle {
+    animation: mlad-top-orbit 3.2s linear infinite;
+}
+
+.md-top svg path {
+    stroke-dasharray: 28;
+    animation: mlad-top-arrow 1.6s ease-in-out infinite;
 }
 
 .md-top:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-strong);
-    animation-play-state: paused;
+    color: var(--accent-hover) !important;
+    border-color: color-mix(in srgb, var(--accent) 62%, transparent);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: var(--shadow-medium) !important;
 }
 
-.md-top::after {
-    content: "";
-    position: absolute;
-    inset: 0.45rem;
-    border: 1px solid currentColor;
-    border-radius: var(--radius-soft);
-    opacity: 0.22;
-    transform: scale(0.82);
-    animation: mlad-top-ring 2.4s ease-in-out infinite;
+@keyframes mlad-top-orbit {
+    to {
+        stroke-dashoffset: -128;
+    }
 }
 
-.md-top:hover::after {
-    opacity: 0.34;
-}
-
-@keyframes mlad-top-float {
+@keyframes mlad-top-arrow {
     0%, 100% {
-        transform: translateY(0);
+        transform: translateY(1px);
+        stroke-dashoffset: 0;
     }
-    50% {
-        transform: translateY(-3px);
-    }
-}
-
-@keyframes mlad-top-ring {
-    0%, 100% {
-        opacity: 0.16;
-        transform: scale(0.78);
-    }
-    50% {
-        opacity: 0.34;
-        transform: scale(1);
+    45% {
+        transform: translateY(-2px);
+        stroke-dashoffset: 7;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .md-top,
-    .md-top::after {
+    .md-top svg circle,
+    .md-top svg path {
         animation: none;
     }
 }

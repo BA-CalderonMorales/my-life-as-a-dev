@@ -3,15 +3,43 @@
    Museum-grade spacing and typography.
    ============================================ */
 
+.resume-page {
+    --resume-shell-width: min(
+        calc(100% - (var(--space-4) * 2)),
+        var(--container-max)
+    );
+}
+
+.resume-page .md-sidebar--primary,
+.resume-page .md-sidebar--secondary {
+    display: none !important;
+}
+
 .resume-page .md-content__inner {
+    width: 100%;
+    max-width: none;
+    margin: 0;
     padding-top: var(--space-6);
+}
+
+.resume-page .md-main__inner,
+.resume-page .md-content {
+    width: 100%;
+    max-width: none;
+}
+
+.resume-page .md-content {
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 /* Hero */
 .mlad-resume-hero {
-    max-width: var(--container-max);
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
     margin: 0 auto var(--space-6);
-    padding: 0 var(--space-4);
+    padding: 0;
 }
 
 .mlad-resume-hero h1 {
@@ -56,22 +84,37 @@
 
 /* Section titles */
 .mlad-resume-section-title {
+    position: relative;
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
     font-size: var(--text-micro);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: var(--tracking-micro);
     color: var(--slate);
-    margin: var(--space-6) 0 var(--space-5);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--stone);
+    margin: var(--space-6) auto var(--space-4);
+    padding-left: 0.9rem;
+}
+
+.mlad-resume-section-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.45em;
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    transform: rotate(45deg);
 }
 
 /* Timeline */
 .mlad-timeline {
     position: relative;
-    max-width: var(--container-max);
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
     margin: 0 auto;
-    padding: 0 var(--space-4);
+    padding: 0;
 }
 
 .mlad-timeline::before {
@@ -79,7 +122,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: calc(120px + var(--space-4));
+    left: 120px;
     width: 1px;
     background: var(--stone);
 }
@@ -108,7 +151,7 @@
 
 .mlad-timeline__node {
     position: absolute;
-    left: calc(120px + var(--space-4));
+    left: 120px;
     top: 0.5rem;
     width: 5px;
     height: 5px;
@@ -150,9 +193,11 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: var(--space-5);
-    max-width: var(--container-max);
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
     margin: 0 auto;
-    padding: 0 var(--space-4);
+    padding: 0;
 }
 
 .mlad-skills-group h4 {
@@ -176,14 +221,15 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: var(--space-5);
-    max-width: var(--container-max);
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
     margin: 0 auto;
-    padding: 0 var(--space-4);
+    padding: 0;
 }
 
 .mlad-work-item {
-    border-top: 1px solid var(--stone);
-    padding-top: var(--space-4);
+    padding-top: 0;
 }
 
 .mlad-work-item h4 {
@@ -202,9 +248,11 @@
 
 /* At a glance */
 .mlad-glance {
-    max-width: var(--container-max);
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
     margin: 0 auto;
-    padding: 0 var(--space-4);
+    padding: 0;
 }
 
 .mlad-glance ul {

@@ -189,6 +189,7 @@
 <script>
   (function () {
     var HOME_PATTERN = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/;
+    var RESUME_PATTERN = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?resume\/$/;
 
     function normalizePath(pathname) {
       return pathname.endsWith('index.html') ? pathname.slice(0, -'index.html'.length) : pathname;
@@ -200,9 +201,11 @@
       var path = normalizePath(window.location.pathname);
       var isCanvas = path.indexOf('/canvas/') !== -1;
       var isHome = path === '/' || HOME_PATTERN.test(path);
+      var isResume = path === '/resume/' || RESUME_PATTERN.test(path);
       var scene = isCanvas ? 'none' : (isHome ? 'home' : 'page');
 
       document.body.classList.toggle('landing-page', isHome);
+      document.body.classList.toggle('resume-page', isResume);
       document.body.classList.toggle('canvas-page', isCanvas);
       document.body.setAttribute('data-mlad-scene', scene);
     }
