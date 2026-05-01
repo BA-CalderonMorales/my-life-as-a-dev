@@ -321,9 +321,9 @@ label.md-nav__link[for]:active {
     }
 
     .md-nav--primary .md-nav__link {
-        font-size: 0.95rem !important;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
+        font-size: 0.85rem !important;
+        padding-top: 0.4rem;
+        padding-bottom: 0.4rem;
     }
 
     .md-nav--primary,
