@@ -19,7 +19,7 @@
   --glass-border: rgba(0, 0, 0, 0.06);
 
   /* ── Typography ── */
-  --font-display: "DM Serif Display", "Newsreader", Georgia, "Times New Roman", serif;
+  --font-display: "Outfit", "Inter", "Suisse Int'l", system-ui, -apple-system, sans-serif;
   --font-body: "Inter", "Soehne", "Suisse Int'l", system-ui, -apple-system, sans-serif;
   --font-mono: "SF Mono", "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
 
@@ -42,13 +42,13 @@
   --leading-micro: 1.3;
 
   /* ── Letter Spacing ── */
-  --tracking-hero: -0.03em;
-  --tracking-h1: -0.02em;
-  --tracking-h2: -0.01em;
-  --tracking-h3: 0em;
-  --tracking-body: 0.01em;
-  --tracking-caption: 0.02em;
-  --tracking-micro: 0.04em;
+  --tracking-hero: -0.035em;
+  --tracking-h1: -0.025em;
+  --tracking-h2: -0.015em;
+  --tracking-h3: -0.01em;
+  --tracking-body: 0;
+  --tracking-caption: 0.01em;
+  --tracking-micro: 0.03em;
 
   /* ── Spacing (4px base) ── */
   --space-1: 4px;

@@ -1,10 +1,10 @@
 /* ============================================
-   Typography — AETHER Editorial
-   Dual-type strategy: Serif for voice, Sans for function.
+   Typography — AETHER Modern Gallery
+   Modern, sleek, museum-like minimal strategy: Grotesque for voice, Sans for function.
    ============================================ */
 
-/* Load DM Serif Display for headings via Google Fonts fallback */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;450;500;600&display=swap');
+/* Load Outfit for modern museum headings via Google Fonts fallback */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;450;500;600&display=swap');
 
 :root {
     --mlad-text-font: var(--font-body);

@@ -21,7 +21,7 @@
   --surface-floating: var(--glass);
   --surface-inset: #e9e6dc;
 
-  --font-display: "Inter", "Soehne", "Suisse Int'l", system-ui, -apple-system, sans-serif;
+  --font-display: "Outfit", "Inter", "Suisse Int'l", system-ui, -apple-system, sans-serif;
   --font-body: "Inter", "Soehne", "Suisse Int'l", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", "Cascadia Code", monospace;
 
@@ -41,10 +41,10 @@
   --leading-caption: 1.45;
   --leading-micro: 1.35;
 
-  --tracking-hero: 0;
-  --tracking-h1: 0;
-  --tracking-h2: 0;
-  --tracking-h3: 0;
+  --tracking-hero: -0.035em;
+  --tracking-h1: -0.025em;
+  --tracking-h2: -0.015em;
+  --tracking-h3: -0.01em;
   --tracking-body: 0;
   --tracking-caption: 0;
   --tracking-micro: 0;
