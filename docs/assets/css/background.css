@@ -553,6 +553,9 @@
 /* Back-to-top — animated SVG stroke */
 .md-top {
     --mlad-top-left-inset: clamp(2rem, 3vw, 3rem);
+    --mlad-top-hidden-offset: 0.65rem;
+    --mlad-top-fade-duration: 220ms;
+    --mlad-top-lift-duration: 340ms;
     right: auto;
     left: var(--mlad-top-left-inset);
     bottom: 24px;
@@ -573,8 +576,10 @@
     overflow: hidden;
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--dur-smooth) var(--ease-smooth),
-                transform var(--dur-smooth) var(--ease-smooth),
+    transform: translateY(var(--mlad-top-hidden-offset)) !important;
+    will-change: opacity, transform;
+    transition: opacity var(--mlad-top-fade-duration) var(--ease-swift),
+                transform var(--mlad-top-lift-duration) var(--ease-swift),
                 color var(--dur-swift) var(--ease-swift),
                 border-color var(--dur-swift) var(--ease-swift),
                 box-shadow var(--dur-swift) var(--ease-swift);
@@ -592,7 +597,7 @@
     display: flex;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(0.4rem) !important;
+    transform: translateY(var(--mlad-top-hidden-offset)) !important;
 }
 
 @media screen and (min-width: 769px) {
