@@ -367,10 +367,9 @@ label.md-nav__link[for]:active {
     .md-top,
     .md-top[data-md-state="hidden"],
     .md-top[data-md-state="visible"] {
-        right: var(--space-4) !important;
-        left: auto !important;
+        right: auto !important;
+        left: var(--mlad-top-left-inset, clamp(2rem, 3vw, 3rem)) !important;
         bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px)) !important;
-        transform: none !important;
         z-index: 998 !important;
     }
 }

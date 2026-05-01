@@ -19,10 +19,6 @@
     z-index: 1;
 }
 
-.landing-page .md-footer {
-    display: none;
-}
-
 /* Content inner — flat, no glass */
 .md-content__inner {
     background: transparent;
@@ -556,12 +552,16 @@
 
 /* Back-to-top — animated SVG stroke */
 .md-top {
-    right: 24px;
+    --mlad-top-left-inset: clamp(2rem, 3vw, 3rem);
+    right: auto;
+    left: var(--mlad-top-left-inset);
     bottom: 24px;
     z-index: 1000;
     width: 2.75rem;
     height: 2.75rem;
     padding: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     background: var(--surface-floating) !important;
     color: var(--accent) !important;
     border: 1px solid color-mix(in srgb, var(--accent) 36%, transparent);
@@ -571,10 +571,28 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transition: transform var(--dur-swift) var(--ease-swift),
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-smooth) var(--ease-smooth),
+                transform var(--dur-smooth) var(--ease-smooth),
                 color var(--dur-swift) var(--ease-swift),
                 border-color var(--dur-swift) var(--ease-swift),
                 box-shadow var(--dur-swift) var(--ease-swift);
+}
+
+.md-top:not([hidden]),
+.md-top[data-md-state="visible"] {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) !important;
+}
+
+.md-top[hidden],
+.md-top[data-md-state="hidden"] {
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0.4rem) !important;
 }
 
 @media screen and (min-width: 769px) {
@@ -586,7 +604,7 @@
 @media screen and (max-width: 768px) {
     .md-top {
         right: auto;
-        left: 16px;
+        left: var(--mlad-top-left-inset);
         bottom: 20px;
     }
 }
@@ -606,7 +624,7 @@
     .md-top[data-md-state="hidden"],
     .md-top[data-md-state="visible"] {
         right: auto !important;
-        left: var(--space-4) !important;
+        left: var(--mlad-top-left-inset) !important;
         bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px)) !important;
     }
 
@@ -707,11 +725,18 @@
     animation: mlad-top-arrow 1.6s ease-in-out infinite;
 }
 
-.md-top:hover {
+.md-top:hover,
+.md-top:focus-visible {
     color: var(--accent-hover) !important;
     border-color: color-mix(in srgb, var(--accent) 62%, transparent);
-    transform: translateY(-2px) scale(1.03);
+    transform: translateY(0) !important;
     box-shadow: var(--shadow-medium) !important;
+}
+
+.md-top:hover svg path,
+.md-top:focus-visible svg path {
+    animation: none;
+    transform: none;
 }
 
 @keyframes mlad-top-orbit {
