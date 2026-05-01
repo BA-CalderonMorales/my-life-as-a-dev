@@ -820,8 +820,7 @@
         z-index: 1;
     }
 
-    .md-sidebar-button,
-    .md-sidebar--secondary .md-nav__title[for="__toc"] {
+    .md-sidebar-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -846,13 +845,34 @@
     }
 
     .md-sidebar--secondary .md-nav__title[for="__toc"] {
-        position: relative;
-        right: auto;
-        bottom: auto;
-        z-index: 1;
+        position: absolute;
+        top: 0.25rem;
+        right: 0.25rem;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
         margin: 0;
+        font-size: 0;
+        line-height: 1;
         text-transform: none;
         letter-spacing: 0;
+        color: var(--slate);
+        background: transparent;
+        border: none;
+        border-radius: var(--radius-pill);
+        box-shadow: none;
+        cursor: pointer;
+        transition: color var(--dur-swift) var(--ease-swift),
+                    background var(--dur-swift) var(--ease-swift);
+    }
+
+    .md-sidebar--secondary .md-nav {
+        position: relative;
+        padding-top: var(--space-4);
     }
 
     .md-sidebar--secondary .md-sidebar__inner {
@@ -860,7 +880,7 @@
         bottom: calc(100% + var(--space-3));
         width: min(18rem, calc(100vw - (var(--space-4) * 2)));
         max-height: min(60vh, 28rem);
-        padding: var(--space-2) 0;
+        padding: 0 0 var(--space-2) 0;
         background: var(--surface-raised) !important;
         border: 1px solid var(--stone);
         border-radius: var(--radius-soft);
@@ -877,30 +897,36 @@
         display: none;
     }
 
-    .md-sidebar-button::before,
+    .md-sidebar-button::before {
+        content: "";
+        width: 1.3rem;
+        height: 1.3rem;
+        background: currentColor;
+        -webkit-mask: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>') no-repeat center / contain;
+        mask: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>') no-repeat center / contain;
+    }
+
     .md-sidebar--secondary .md-nav__title[for="__toc"]::before {
         content: "";
         width: 1.2rem;
         height: 1.2rem;
         background: currentColor;
-        -webkit-mask:
-            linear-gradient(#000 0 0) 0 0 / 100% 2px no-repeat,
-            linear-gradient(#000 0 0) 0 50% / 100% 2px no-repeat,
-            linear-gradient(#000 0 0) 0 100% / 72% 2px no-repeat;
-        mask:
-            linear-gradient(#000 0 0) 0 0 / 100% 2px no-repeat,
-            linear-gradient(#000 0 0) 0 50% / 100% 2px no-repeat,
-            linear-gradient(#000 0 0) 0 100% / 72% 2px no-repeat;
+        -webkit-mask: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>') no-repeat center / contain;
+        mask: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>') no-repeat center / contain;
     }
 
     .md-sidebar-button:hover,
-    .md-sidebar-button:focus-visible,
-    .md-sidebar--secondary .md-nav__title[for="__toc"]:hover,
-    .md-sidebar--secondary .md-nav__title[for="__toc"]:focus-visible {
+    .md-sidebar-button:focus-visible {
         color: var(--accent-hover);
         border-color: color-mix(in srgb, var(--accent) 62%, transparent);
         box-shadow: var(--shadow-medium);
         transform: translateY(-2px) scale(1.03);
+    }
+
+    .md-sidebar--secondary .md-nav__title[for="__toc"]:hover,
+    .md-sidebar--secondary .md-nav__title[for="__toc"]:focus-visible {
+        color: var(--accent);
+        background: rgba(128, 128, 128, 0.1);
     }
 }
 
