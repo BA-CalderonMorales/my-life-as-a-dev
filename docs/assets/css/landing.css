@@ -204,63 +204,25 @@
     margin-bottom: 0;
 }
 
-/* ============================================
-   Marquee — Infinite Scroll Talents
-   ============================================ */
-
-.mlad-marquee {
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: var(--space-4) 0 !important;
-    border-top: 1px solid var(--stone);
-    border-bottom: 1px solid var(--stone);
-    overflow: hidden;
-    position: relative;
+.landing-section-contact {
+    text-align: center;
 }
 
-.mlad-marquee__track {
+.landing-section-contact > p {
+    max-width: 62ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.landing-section-contact > p:last-child {
     display: flex;
-    align-items: center;
-    gap: var(--space-5);
-    width: max-content;
-    animation: marquee-scroll 30s linear infinite;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
 }
 
-.mlad-marquee__text {
-    font-size: var(--text-micro);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-micro);
-    color: var(--slate);
-    opacity: 0.5;
-    white-space: nowrap;
-}
-
-.mlad-marquee__dot {
-    width: 3px;
-    height: 3px;
-    background: var(--accent);
-    opacity: 0.4;
-    flex-shrink: 0;
-    border-radius: 50%;
-}
-
-@keyframes marquee-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .mlad-marquee__track {
-        animation: none;
-        justify-content: center;
-        flex-wrap: wrap;
-        width: auto;
-        gap: var(--space-3);
-    }
-    .mlad-marquee__dot {
-        display: none;
-    }
+.landing-section-contact .md-button {
+    margin: 0;
 }
 
 /* ============================================
@@ -346,55 +308,6 @@
 }
 
 /* ============================================
-   Built With — Tech Stack Badges
-   ============================================ */
-
-.mlad-built-with {
-    max-width: var(--container-max);
-    margin: 0 auto var(--space-5);
-    padding: var(--space-6) var(--space-4);
-}
-
-.mlad-built-with h2 {
-    font-size: var(--text-micro);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-micro);
-    color: var(--slate);
-    margin-bottom: var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--stone);
-}
-
-.mlad-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-}
-
-.mlad-badge {
-    display: inline-flex;
-    align-items: center;
-    font-size: var(--text-caption);
-    font-weight: 500;
-    letter-spacing: var(--tracking-caption);
-    padding: var(--space-2) var(--space-3);
-    border: 1px solid var(--stone);
-    border-radius: var(--radius-pill);
-    color: var(--slate);
-    background: transparent;
-    transition: border-color var(--dur-swift) var(--ease-swift),
-                color var(--dur-swift) var(--ease-swift),
-                background var(--dur-swift) var(--ease-swift);
-}
-
-.mlad-badge:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(196, 30, 58, 0.05);
-}
-
-/* ============================================
    Type Specimen — Font Showcase
    ============================================ */
 
@@ -454,12 +367,14 @@
     .landing-page .tx-hero {
         grid-template-columns: 1fr;
         min-height: auto;
+        text-align: center;
     }
 
     .landing-page .tx-hero,
     .landing-page .tx-container,
     .landing-page section.md-typeset {
         padding: var(--space-5) 0;
+        text-align: center;
     }
 
     .landing-page .tx-hero {
@@ -469,6 +384,18 @@
     .landing-page .tx-hero__content,
     .landing-page .tx-hero__details {
         max-width: 100%;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .landing-page .tx-hero__details p:last-child {
+        justify-content: center;
+    }
+
+    .landing-page .tx-hero__details .md-button {
+        align-self: center;
     }
 
     .landing-page .tx-hero__image {
@@ -482,6 +409,50 @@
     .mlad-stats__grid {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--space-4);
+    }
+
+    .landing-page .grid.cards > li,
+    .landing-page .grid.cards > ul > li,
+    .landing-page .grid > blockquote,
+    .mlad-now,
+    .mlad-type-specimen {
+        text-align: center;
+    }
+
+    .mlad-now ul {
+        justify-content: center;
+    }
+
+    .mlad-now li {
+        padding-left: 0;
+    }
+
+    .mlad-now li::before {
+        display: none;
+    }
+
+    .mlad-type-face {
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 76.25rem) {
+    .landing-section-contact {
+        width: min(calc(100% - (var(--space-4) * 2)), 44rem);
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .landing-section-contact > * {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .landing-section-contact > p:last-child {
+        align-items: center;
+        justify-content: center;
     }
 }
 

@@ -287,26 +287,84 @@
 
 /* Mobile */
 @media screen and (max-width: 60rem) {
+    .resume-page .md-content__inner,
+    .mlad-resume-hero,
+    .mlad-resume-section-title,
+    .mlad-timeline,
+    .mlad-skills-grid,
+    .mlad-work-grid,
+    .mlad-glance {
+        text-align: center;
+    }
+
+    .mlad-resume-hero__subtitle {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mlad-resume-hero__links {
+        justify-content: center;
+    }
+
+    .mlad-resume-section-title {
+        padding-left: 0;
+    }
+
+    .mlad-resume-section-title::before {
+        left: 50%;
+        top: -0.9rem;
+        transform: translateX(-50%) rotate(45deg);
+    }
+
     .mlad-timeline::before {
-        left: var(--space-4);
+        display: none;
     }
 
     .mlad-timeline__entry {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         grid-template-columns: 1fr;
         gap: var(--space-2);
-        padding-left: calc(var(--space-4) * 2 + 8px);
+        padding-left: 0;
+        text-align: center;
     }
 
     .mlad-timeline__date {
-        text-align: left;
+        text-align: center;
         font-size: var(--text-micro);
         padding-top: 0;
         color: var(--slate);
     }
 
     .mlad-timeline__node {
-        left: var(--space-4);
-        top: 0.25rem;
+        position: static;
+        margin: 0 auto var(--space-2);
+        transform: rotate(45deg);
+    }
+
+    .mlad-timeline__content,
+    .mlad-skills-group,
+    .mlad-work-item {
+        text-align: center;
+    }
+
+    .mlad-timeline__content ul,
+    .mlad-glance ul {
+        display: inline-grid;
+        justify-items: center;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .mlad-timeline__content li,
+    .mlad-glance li {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .mlad-glance li::before {
+        display: none;
     }
 
     .mlad-resume-hero h1 {

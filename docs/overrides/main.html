@@ -311,7 +311,8 @@
     var currentVersion = parts[1];
     if (currentVersion === 'latest') return;
 
-    fetch(baseUrl + 'versions.json')
+    var versionsUrl = window.mladVersionsUrl || "{{ 'versions.json' | url }}";
+    fetch(versionsUrl)
       .then(function (r) { return r.json(); })
       .then(function (versions) {
         if (!Array.isArray(versions) || versions.length === 0) return;
@@ -342,7 +343,11 @@
 })();
 </script>
 
-<script src="{{ 'assets/js/chat-widget/lib/config.js' | url }}"></script>
+  <script>
+  window.mladVersionsUrl = "{{ 'versions.json' | url }}";
+  </script>
+
+  <script src="{{ 'assets/js/chat-widget/lib/config.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/logger.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/message-parser.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/response-transformer.js' | url }}"></script>
@@ -367,7 +372,8 @@
     const baseUrl = parts.length >= 1 ? '/' + parts[0] + '/' : '/';
     const urlVersion = parts.length >= 2 ? parts[1] : 'latest';
     
-    fetch(baseUrl + 'versions.json')
+    const versionsUrl = window.mladVersionsUrl || "{{ 'versions.json' | url }}";
+      fetch(versionsUrl)
       .then(r => r.json())
       .then(versions => {
         if (!Array.isArray(versions) || versions.length === 0) {

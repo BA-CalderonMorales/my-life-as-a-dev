@@ -29,7 +29,8 @@
     const label = container.querySelector('.md-version__label');
     if (label) label.textContent = currentVersion;
     
-    fetch(baseUrl + 'versions.json')
+    const versionsUrl = "{{ 'versions.json' | url }}";
+    fetch(versionsUrl)
       .then(r => r.json())
       .then(versions => {
         if (!Array.isArray(versions) || versions.length === 0) {

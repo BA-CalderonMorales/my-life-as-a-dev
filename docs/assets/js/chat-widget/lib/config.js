@@ -30,10 +30,8 @@ const ChatConfig = {
     },
 
     isDevMode: function () {
-        var hostname = window.location.hostname;
-        return this.hasDebugOverride() ||
-            hostname === 'localhost' ||
-            hostname === '127.0.0.1';
+        // Enforce debug override to prevent debug logs leaking in any production or pseudo-production environments
+        return this.hasDebugOverride();
     },
 
     excludedPaths: [],

@@ -1,27 +1,6 @@
 <footer class="md-footer">
-  {% if page.previous_page or page.next_page %}
-  <nav class="md-footer__inner md-grid mdlad-footer-nav" aria-label="Footer navigation">
-    {% if page.previous_page %}
-    <a href="{{ page.previous_page.url | url }}" class="mdlad-footer-nav__link mdlad-footer-nav__link--prev">
-      <span class="mdlad-footer-nav__label">Previous</span>
-      <span class="mdlad-footer-nav__title">{{ page.previous_page.title }}</span>
-    </a>
-    {% endif %}
-    {% if page.next_page %}
-    <a href="{{ page.next_page.url | url }}" class="mdlad-footer-nav__link mdlad-footer-nav__link--next">
-      <span class="mdlad-footer-nav__label">Next</span>
-      <span class="mdlad-footer-nav__title">{{ page.next_page.title }}</span>
-    </a>
-    {% endif %}
-  </nav>
-  {% endif %}
-
   <div class="md-footer__inner md-grid">
     <div class="mdlad-footer-content">
-      <div class="mdlad-footer__brand">
-        <span class="mdlad-footer__name">Brandon's Simplified Life</span>
-        <span class="mdlad-footer__tagline">Built with Zensical, Space Grotesk, and high contrast minimalism.</span>
-      </div>
       <div class="mdlad-footer__links">
         <a href="{{ config.repo_url }}" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/bcalderonmorales-cmoe/" target="_blank" rel="noopener">LinkedIn</a>
@@ -30,13 +9,6 @@
     </div>
     <div class="mdlad-footer__meta">
       <span class="mdlad-footer__copy">{{ config.copyright }}</span>
-      <span class="mdlad-footer__divider" aria-hidden="true"></span>
-      <span class="mdlad-footer__built">Shipped from Omaha, Nebraska</span>
-      <span class="mdlad-footer__divider" aria-hidden="true"></span>
-      <a href="https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions" target="_blank" rel="noopener" class="mdlad-footer__status">
-        <span class="mdlad-footer__status-dot" aria-hidden="true"></span>
-        All systems operational
-      </a>
     </div>
   </div>
 </footer>

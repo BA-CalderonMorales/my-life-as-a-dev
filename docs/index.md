@@ -65,47 +65,6 @@ I build documentation and delivery systems that make the next action obvious: se
 
 </section>
 
-<section class="md-typeset mlad-marquee" aria-hidden="true" markdown>
-<div class="mlad-marquee__track">
-<span class="mlad-marquee__text">Developer Tooling</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Docs-as-Code</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Delivery Systems</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Rust</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Python</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">TypeScript</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Terminal Jarvis</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Zensical</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">AI Workflows</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Developer Tooling</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Docs-as-Code</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Delivery Systems</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Rust</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Python</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">TypeScript</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Terminal Jarvis</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">Zensical</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-<span class="mlad-marquee__text">AI Workflows</span>
-<span class="mlad-marquee__dot" aria-hidden="true"></span>
-</div>
-</section>
-
 <section class="tx-container" markdown>
 <div class="tx-columns" markdown>
 
@@ -231,24 +190,7 @@ Currently finishing a B.S. in Computer Science while shipping production systems
 
 </section>
 
-<section class="md-typeset mlad-built-with" markdown>
-
-## Built With
-
-<div class="mlad-badges" markdown>
-
-<span class="mlad-badge">Rust</span>
-<span class="mlad-badge">Python</span>
-<span class="mlad-badge">TypeScript</span>
-<span class="mlad-badge">Zensical</span>
-<span class="mlad-badge">MkDocs</span>
-<span class="mlad-badge">GitHub Actions</span>
-
-</div>
-
-</section>
-
-<section class="md-typeset" markdown>
+<section class="md-typeset landing-section-contact" markdown>
 
 ## Let's Talk
 
