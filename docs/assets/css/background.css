@@ -878,7 +878,7 @@
     .md-sidebar--secondary .md-sidebar__inner {
         right: 0;
         bottom: calc(100% + var(--space-3));
-        width: min(18rem, calc(100vw - (var(--space-4) * 2)));
+        width: min(15rem, calc(100vw - (var(--space-4) * 2)));
         max-height: min(60vh, 28rem);
         padding: 0 0 var(--space-2) 0;
         background: var(--surface-raised) !important;
