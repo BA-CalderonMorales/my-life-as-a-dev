@@ -25,7 +25,7 @@ export class NeonGeodeScene {
 
     async init() {
         this.container = document.getElementById(this.containerId);
-        const isEmbedded = Boolean(this.container);
+        this.isEmbedded = Boolean(this.container);
         if (!this.container) {
             this.container = document.createElement('div');
             this.container.id = this.containerId;
@@ -158,6 +158,11 @@ export class NeonGeodeScene {
     }
 
     _updateCanvasPosition() {
+        if (this.isEmbedded) {
+            this.container.style.top = '';
+            this.container.style.height = '';
+            return;
+        }
         const header = document.querySelector('.md-header');
         const headerHeight = header ? header.offsetHeight : 0;
         const viewportHeight = Math.max(window.innerHeight - headerHeight, 0);

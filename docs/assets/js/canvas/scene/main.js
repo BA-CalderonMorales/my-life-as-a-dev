@@ -9,6 +9,7 @@
     'use strict';
 
     let sceneInstance = null;
+    let currentSceneType = null;
 
     function normalizePath(pathname) {
         return pathname.endsWith('index.html') ? pathname.slice(0, -'index.html'.length) : pathname;
@@ -85,14 +86,28 @@
     }
 
     function checkPage() {
-        if (getSceneType()) {
-            if (!sceneInstance) {
-                initScene();
-            }
-        } else {
+        const sceneType = getSceneType();
+
+        if (!sceneType) {
+            // Not a canvas page - clean up if needed
             if (sceneInstance) {
                 cleanup();
             }
+            currentSceneType = null;
+            return;
+        }
+
+        // We're on a canvas page
+        if (sceneType !== currentSceneType) {
+            // Scene type changed - clean up old and init new
+            if (sceneInstance) {
+                cleanup();
+            }
+            currentSceneType = sceneType;
+            initScene();
+        } else if (!sceneInstance) {
+            // Same scene type but no instance (e.g., after cleanup)
+            initScene();
         }
     }
 
@@ -108,7 +123,8 @@
     setInterval(() => {
         if (window.location.pathname !== lastPathname) {
             lastPathname = window.location.pathname;
-            checkPage();
+            // Delay to let MkDocs finish DOM swap
+            setTimeout(checkPage, 150);
         }
     }, 100);
 

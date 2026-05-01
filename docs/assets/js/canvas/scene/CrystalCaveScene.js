@@ -45,10 +45,14 @@ export class CrystalCaveScene {
      * Initialize the scene
      */
     async init() {
-        // Create container
-        this.container = document.createElement('div');
-        this.container.id = this.containerId;
-        document.body.appendChild(this.container);
+        // Use existing container if available, otherwise create one
+        this.container = document.getElementById(this.containerId);
+        this.isEmbedded = Boolean(this.container);
+        if (!this.container) {
+            this.container = document.createElement('div');
+            this.container.id = this.containerId;
+            document.body.appendChild(this.container);
+        }
 
         this._updateCanvasPosition();
         window.addEventListener('resize', this._positionCanvas);
@@ -71,6 +75,12 @@ export class CrystalCaveScene {
      * Position canvas between header and footer
      */
     _updateCanvasPosition() {
+        if (this.isEmbedded) {
+            this.container.style.top = '';
+            this.container.style.height = '';
+            return;
+        }
+
         const header = document.querySelector('.md-header');
         const footer = document.querySelector('.md-footer');
 
