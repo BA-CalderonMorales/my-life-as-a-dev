@@ -1,6 +1,6 @@
 ---
 title: Origami Unfolding
-description: A Zen Geometry variation demonstrating origami unfolding dynamics.
+description: Folded planar structures open, collapse, and reassemble with paper-like architectural rhythm.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Origami Unfolding
 
-A breathtaking exploration of zen geometry extending into origami unfolding.
+Folded planar structures open, collapse, and reassemble with paper-like architectural rhythm.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of zen geometry extending into origami unfolding.
 
 ## Live Example
 
-Interact with the environment to witness origami unfolding in real-time.
+Watch planar forms crease, pivot, and recompose into layered geometric structures.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness origami unfolding in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Origami Unfolding
-- Foundation extension of Zen Geometry
+- Procedural folded-plane motion
+- Scroll-aware structural transformation
 
 </div>
 

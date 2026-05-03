@@ -1,6 +1,6 @@
 ---
 title: The Loom
-description: A Zen Geometry variation demonstrating the loom dynamics.
+description: Procedural threads weave, tension, separate, and stitch back together under direct interaction.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # The Loom
 
-A breathtaking exploration of zen geometry extending into the loom.
+Procedural threads weave, tension, separate, and stitch back together under direct interaction.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of zen geometry extending into the loom.
 
 ## Live Example
 
-Interact with the environment to witness the loom in real-time.
+Pull against a woven field as threads bend, recover, and reveal tension through motion.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness the loom in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for The Loom
-- Foundation extension of Zen Geometry
+- Thread-field deformation
+- Pointer-driven woven tension
 
 </div>
 

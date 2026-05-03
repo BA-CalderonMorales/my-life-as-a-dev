@@ -1,6 +1,6 @@
 ---
 title: Synaptic Flash
-description: A Zen Geometry variation demonstrating synaptic flash dynamics.
+description: Branching pathways fire in sequence across a charged network, turning cognition into light and timing.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Synaptic Flash
 
-A breathtaking exploration of zen geometry extending into synaptic flash.
+Branching pathways fire in sequence across a charged network, turning cognition into light and timing.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of zen geometry extending into synaptic flash.
 
 ## Live Example
 
-Interact with the environment to witness synaptic flash in real-time.
+Follow electrical pulses as they propagate through a branching network of active pathways.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness synaptic flash in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Synaptic Flash
-- Foundation extension of Zen Geometry
+- Propagating network pulses
+- Timing-driven emissive signaling
 
 </div>
 

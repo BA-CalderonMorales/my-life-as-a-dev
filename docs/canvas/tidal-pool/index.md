@@ -1,6 +1,6 @@
 ---
 title: Tidal Pool
-description: A Particle Flow variation demonstrating tidal pool dynamics.
+description: Shallow water particles form a living surface of rings, ripples, and cursor-driven disturbance.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Tidal Pool
 
-A breathtaking exploration of particle flow extending into tidal pool.
+Shallow water particles form a living surface of rings, ripples, and cursor-driven disturbance.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of particle flow extending into tidal pool.
 
 ## Live Example
 
-Interact with the environment to witness tidal pool in real-time.
+Disturb the surface and watch overlapping ripples pass through a macro-scale pool.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness tidal pool in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Tidal Pool
-- Foundation extension of Particle Flow
+- Layered ripple interference
+- Pointer-reactive water surface
 
 </div>
 

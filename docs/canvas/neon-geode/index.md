@@ -1,6 +1,6 @@
 ---
 title: Neon Geode
-description: A Crystal Cave variation demonstrating neon geode dynamics.
+description: An electric mineral chamber where saturated color and mirror-dark stone produce a glowing geode interior.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Neon Geode
 
-A breathtaking exploration of crystal cave extending into neon geode.
+An electric mineral chamber where saturated color and mirror-dark stone produce a glowing geode interior.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of crystal cave extending into neon geode.
 
 ## Live Example
 
-Interact with the environment to witness neon geode in real-time.
+Orbit through radiant mineral growths, glossy voids, and intense emissive color.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness neon geode in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Neon Geode
-- Foundation extension of Crystal Cave
+- Emissive mineral lighting
+- Reflective chamber composition
 
 </div>
 

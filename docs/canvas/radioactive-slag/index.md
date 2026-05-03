@@ -1,6 +1,6 @@
 ---
 title: Radioactive Slag
-description: A Crystal Cave variation demonstrating radioactive slag dynamics.
+description: Industrial mineral forms pulse with hazardous green light across metallic cave walls.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Radioactive Slag
 
-A breathtaking exploration of crystal cave extending into radioactive slag.
+Industrial mineral forms pulse with hazardous green light across metallic cave walls.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of crystal cave extending into radioactive slag.
 
 ## Live Example
 
-Interact with the environment to witness radioactive slag in real-time.
+Enter a hostile mineral chamber where toxic emissive pulses make the cave feel unstable.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness radioactive slag in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Radioactive Slag
-- Foundation extension of Crystal Cave
+- Aggressive emissive pulsing
+- Metallic cave lighting
 
 </div>
 

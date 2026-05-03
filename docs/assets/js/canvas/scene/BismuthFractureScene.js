@@ -15,10 +15,12 @@ export class BismuthFractureScene {
         this.renderer = null;
         this.animationId = null;
         this.isDestroyed = false;
+        this.createdContainer = false;
         this.clock = new THREE.Clock();
 
         this.stacks = [];
         this._boundUpdatePosition = this._updateCanvasPosition.bind(this);
+        this._boundResize = this._onResize.bind(this);
     }
 
     async init() {
@@ -28,9 +30,10 @@ export class BismuthFractureScene {
             this.container = document.createElement('div');
             this.container.id = this.containerId;
             document.body.appendChild(this.container);
+            this.createdContainer = true;
         }
         this._updateCanvasPosition();
-        window.addEventListener('resize', this._boundUpdatePosition);
+        window.addEventListener('resize', this._boundResize);
         window.addEventListener('scroll', this._boundUpdatePosition);
 
         const isMobile = window.innerWidth < 768;
@@ -161,10 +164,23 @@ export class BismuthFractureScene {
         this.container.style.height = viewportHeight + 'px';
     }
 
+    _onResize() {
+        this._updateCanvasPosition();
+        if (!this.camera || !this.renderer || !this.container) return;
+
+        const width = this.container.clientWidth;
+        const height = this.container.clientHeight;
+        if (!width || !height) return;
+
+        this.camera.aspect = width / height;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(width, height);
+    }
+
     destroy() {
         this.isDestroyed = true;
         if (this.animationId) cancelAnimationFrame(this.animationId);
-        window.removeEventListener('resize', this._boundUpdatePosition);
+        window.removeEventListener('resize', this._boundResize);
         window.removeEventListener('scroll', this._boundUpdatePosition);
 
         this.stacks.forEach((stack) => {
@@ -174,8 +190,13 @@ export class BismuthFractureScene {
             });
         });
 
-        if (this.renderer) this.renderer.dispose();
-        if (this.container && this.container.parentElement) {
+        if (this.renderer) {
+            this.renderer.dispose();
+            if (this.renderer.domElement && this.renderer.domElement.parentElement) {
+                this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+            }
+        }
+        if (this.createdContainer && this.container && this.container.parentElement) {
             this.container.parentElement.removeChild(this.container);
         }
     }

@@ -1,6 +1,6 @@
 ---
 title: String Theory
-description: A Zen Geometry variation demonstrating string theory dynamics.
+description: Curving filaments wrap the camera in dimensional space, bending the viewport into a moving tunnel.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # String Theory
 
-A breathtaking exploration of zen geometry extending into string theory.
+Curving filaments wrap the camera in dimensional space, bending the viewport into a moving tunnel.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of zen geometry extending into string theory.
 
 ## Live Example
 
-Interact with the environment to witness string theory in real-time.
+Travel through non-intersecting filament paths that bend space around the camera.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness string theory in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for String Theory
-- Foundation extension of Zen Geometry
+- Dimensional filament motion
+- Camera-wrapping spatial composition
 
 </div>
 

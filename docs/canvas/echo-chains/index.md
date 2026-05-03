@@ -1,6 +1,6 @@
 ---
 title: Echo Chains
-description: A Zen Geometry variation demonstrating echo chains dynamics.
+description: Linked nodes emit expanding ripples that make invisible resonance feel visible.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Echo Chains
 
-A breathtaking exploration of zen geometry extending into echo chains.
+Linked nodes emit expanding ripples that make invisible resonance feel visible.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of zen geometry extending into echo chains.
 
 ## Live Example
 
-Interact with the environment to witness echo chains in real-time.
+Trigger connected pulses that ripple across a responsive network.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness echo chains in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Echo Chains
-- Foundation extension of Zen Geometry
+- Ripple-based network signaling
+- Resonance-inspired geometry
 
 </div>
 

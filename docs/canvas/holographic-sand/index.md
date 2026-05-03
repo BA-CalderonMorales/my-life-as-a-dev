@@ -1,6 +1,6 @@
 ---
 title: Holographic Sand
-description: A Particle Flow variation demonstrating holographic sand dynamics.
+description: Fine particles gather into temporary forms, then dissolve back into a luminous field.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Holographic Sand
 
-A breathtaking exploration of particle flow extending into holographic sand.
+Fine particles gather into temporary forms, then dissolve back into a luminous field.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of particle flow extending into holographic sand.
 
 ## Live Example
 
-Interact with the environment to witness holographic sand in real-time.
+Tap the field to make drifting particles assemble into brief holographic objects.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness holographic sand in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Holographic Sand
-- Foundation extension of Particle Flow
+- Temporary particle formations
+- Gesture-triggered shape assembly
 
 </div>
 

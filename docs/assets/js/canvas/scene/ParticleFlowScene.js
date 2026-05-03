@@ -16,6 +16,14 @@ export class ParticleFlowScene {
         this.interactionPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
         this.isInteracting = false;
         this.isMobile = window.innerWidth < 768;
+        this.isEmbedded = false;
+        this.createdContainer = false;
+
+        this._handleResize = this._onResize.bind(this);
+        this._handleCanvasPosition = this._updateCanvasPosition.bind(this);
+        this._handleMouseMove = this._onPointerMove.bind(this);
+        this._handleTouchMove = this._onTouchMove.bind(this);
+        this._handleInteractionEnd = this._onInteractionEnd.bind(this);
     }
 
     async init() {
@@ -25,16 +33,17 @@ export class ParticleFlowScene {
             this.container = document.createElement('div');
             this.container.id = this.containerId;
             document.body.appendChild(this.container);
+            this.createdContainer = true;
         }
         this._updateCanvasPosition();
-        window.addEventListener('resize', this._updateCanvasPosition.bind(this));
-        window.addEventListener('scroll', this._updateCanvasPosition.bind(this));
+        window.addEventListener('resize', this._handleCanvasPosition);
+        window.addEventListener('scroll', this._handleCanvasPosition);
 
         this._setupScene();
         this._createParticles();
         this._setupInteraction();
         this._startRenderLoop();
-        window.addEventListener('resize', this._onResize.bind(this));
+        window.addEventListener('resize', this._handleResize);
         return true;
     }
 
@@ -73,17 +82,39 @@ export class ParticleFlowScene {
     }
 
     _setupInteraction() {
-        this.container.addEventListener('mousemove', (e) => {
-            const rect = this.container.getBoundingClientRect();
-            this.mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-            this.mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-            this.isInteracting = true;
-            this.raycaster.setFromCamera(this.mouse, this.camera);
-            const intersect = new THREE.Vector3();
-            this.raycaster.ray.intersectPlane(this.interactionPlane, intersect);
-            if (intersect) this.mouse3D.copy(intersect);
-        });
-        this.container.addEventListener('mouseleave', () => { this.isInteracting = false; });
+        this.container.addEventListener('mousemove', this._handleMouseMove);
+        this.container.addEventListener('mouseleave', this._handleInteractionEnd);
+        this.container.addEventListener('touchmove', this._handleTouchMove, { passive: false });
+        this.container.addEventListener('touchend', this._handleInteractionEnd);
+        this.container.addEventListener('touchcancel', this._handleInteractionEnd);
+    }
+
+    _onPointerMove(e) {
+        this._setPointerPosition(e.clientX, e.clientY);
+    }
+
+    _onTouchMove(e) {
+        if (!e.touches.length) return;
+        e.preventDefault();
+        this._setPointerPosition(e.touches[0].clientX, e.touches[0].clientY);
+    }
+
+    _setPointerPosition(clientX, clientY) {
+        const rect = this.container.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+
+        this.mouse.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+        this.mouse.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+        this.isInteracting = true;
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+
+        const intersect = new THREE.Vector3();
+        this.raycaster.ray.intersectPlane(this.interactionPlane, intersect);
+        if (intersect) this.mouse3D.copy(intersect);
+    }
+
+    _onInteractionEnd() {
+        this.isInteracting = false;
     }
 
     _onResize() {
@@ -122,8 +153,40 @@ export class ParticleFlowScene {
     destroy() {
         this.isDestroyed = true;
         if (this.animationId) cancelAnimationFrame(this.animationId);
-        if (this.renderer) this.renderer.dispose();
-        if (this.container && this.container.parentElement) {
+
+        window.removeEventListener('resize', this._handleResize);
+        window.removeEventListener('resize', this._handleCanvasPosition);
+        window.removeEventListener('scroll', this._handleCanvasPosition);
+
+        if (this.container) {
+            this.container.removeEventListener('mousemove', this._handleMouseMove);
+            this.container.removeEventListener('mouseleave', this._handleInteractionEnd);
+            this.container.removeEventListener('touchmove', this._handleTouchMove);
+            this.container.removeEventListener('touchend', this._handleInteractionEnd);
+            this.container.removeEventListener('touchcancel', this._handleInteractionEnd);
+        }
+
+        if (this.scene) {
+            this.scene.traverse((obj) => {
+                if (obj.geometry) obj.geometry.dispose();
+                if (obj.material) {
+                    if (Array.isArray(obj.material)) {
+                        obj.material.forEach((material) => material.dispose());
+                    } else {
+                        obj.material.dispose();
+                    }
+                }
+            });
+        }
+
+        if (this.renderer) {
+            this.renderer.dispose();
+            if (this.renderer.domElement && this.renderer.domElement.parentElement) {
+                this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+            }
+        }
+
+        if (this.createdContainer && this.container && this.container.parentElement) {
             this.container.parentElement.removeChild(this.container);
         }
     }

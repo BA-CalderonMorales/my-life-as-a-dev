@@ -1,6 +1,6 @@
 ---
 title: Obsidian Shards
-description: A Crystal Cave variation demonstrating obsidian shards dynamics.
+description: Black monoliths suspend in a reflective void, revealing their edges through glints and absence.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Obsidian Shards
 
-A breathtaking exploration of crystal cave extending into obsidian shards.
+Black monoliths suspend in a reflective void, revealing their edges through glints and absence.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of crystal cave extending into obsidian shards.
 
 ## Live Example
 
-Interact with the environment to witness obsidian shards in real-time.
+Orbit dark reflective shards that appear and vanish as light catches their edges.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness obsidian shards in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Obsidian Shards
-- Foundation extension of Crystal Cave
+- Low-key reflective geometry
+- Suspended monolith composition
 
 </div>
 

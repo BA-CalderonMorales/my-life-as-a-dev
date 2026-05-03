@@ -1,6 +1,6 @@
 ---
 title: Bismuth Fracture
-description: A Crystal Cave variation demonstrating bismuth fracture dynamics.
+description: Iridescent metallic terraces fracture into stepped forms that shift color while rotating.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Bismuth Fracture
 
-A breathtaking exploration of crystal cave extending into bismuth fracture.
+Iridescent metallic terraces fracture into stepped forms that shift color while rotating.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of crystal cave extending into bismuth fracture.
 
 ## Live Example
 
-Interact with the environment to witness bismuth fracture in real-time.
+Inspect stepped metallic formations as color bands travel across fractured geometry.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness bismuth fracture in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Bismuth Fracture
-- Foundation extension of Crystal Cave
+- Iridescent stepped geometry
+- Metallic fracture composition
 
 </div>
 

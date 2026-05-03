@@ -1,6 +1,6 @@
 ---
 title: Glacial Caverns
-description: A Crystal Cave variation demonstrating glacial caverns dynamics.
+description: A cold refractive chamber where translucent ice forms scatter light through haze and depth.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Glacial Caverns
 
-A breathtaking exploration of crystal cave extending into glacial caverns.
+A cold refractive chamber where translucent ice forms scatter light through haze and depth.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of crystal cave extending into glacial caverns.
 
 ## Live Example
 
-Interact with the environment to witness glacial caverns in real-time.
+Move through translucent ice, deep blue fog, and refracted highlights.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness glacial caverns in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Glacial Caverns
-- Foundation extension of Crystal Cave
+- Translucent ice-like materials
+- Depth-heavy atmospheric lighting
 
 </div>
 

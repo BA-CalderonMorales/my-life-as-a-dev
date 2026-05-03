@@ -1,6 +1,6 @@
 ---
 title: Digital Rain
-description: A Particle Flow variation demonstrating digital rain dynamics.
+description: Volumetric streams descend through 3D space, splash into depth, and turn terminal rain into sculpture.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Digital Rain
 
-A breathtaking exploration of particle flow extending into digital rain.
+Volumetric streams descend through 3D space, splash into depth, and turn terminal rain into sculpture.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of particle flow extending into digital rain.
 
 ## Live Example
 
-Interact with the environment to witness digital rain in real-time.
+Move through descending streams as data-like motion gathers, falls, and disperses.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness digital rain in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Digital Rain
-- Foundation extension of Particle Flow
+- Volumetric rain motion
+- Depth-aware particle splashes
 
 </div>
 

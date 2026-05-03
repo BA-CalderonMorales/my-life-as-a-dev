@@ -1,6 +1,6 @@
 ---
 title: Solar Flare
-description: A Particle Flow variation demonstrating solar flare dynamics.
+description: A volatile radiant core throws heated particles outward through turbulence and color.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Solar Flare
 
-A breathtaking exploration of particle flow extending into solar flare.
+A volatile radiant core throws heated particles outward through turbulence and color.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of particle flow extending into solar flare.
 
 ## Live Example
 
-Interact with the environment to witness solar flare in real-time.
+Steer coronal motion as heat, speed, and color surge from a central eruption.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness solar flare in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Solar Flare
-- Foundation extension of Particle Flow
+- Heat-coded particle velocity
+- High-energy radial turbulence
 
 </div>
 

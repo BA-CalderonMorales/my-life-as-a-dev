@@ -1,6 +1,6 @@
 ---
 title: Quantum Lattice
-description: A Zen Geometry variation demonstrating quantum lattice dynamics.
+description: A suspended cubic field where points phase, snap, and reconnect like visible quantum instrumentation.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Quantum Lattice
 
-A breathtaking exploration of zen geometry extending into quantum lattice.
+A suspended cubic field where points phase, snap, and reconnect like visible quantum instrumentation.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of zen geometry extending into quantum lattice.
 
 ## Live Example
 
-Interact with the environment to witness quantum lattice in real-time.
+Move through a precise field of pulsing coordinates, jittering links, and orbital camera motion.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness quantum lattice in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Quantum Lattice
-- Foundation extension of Zen Geometry
+- Phase-driven lattice motion
+- Dense 3D connection topology
 
 </div>
 

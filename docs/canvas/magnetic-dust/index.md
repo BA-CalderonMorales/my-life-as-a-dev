@@ -1,6 +1,6 @@
 ---
 title: Magnetic Dust
-description: A Particle Flow variation demonstrating magnetic dust dynamics.
+description: Heavy metallic particles reveal invisible magnetic pressure as they drift, pull, and align.
 tags:
   - WebGL
   - JavaScript
@@ -13,7 +13,7 @@ comments: false
 
 # Magnetic Dust
 
-A breathtaking exploration of particle flow extending into magnetic dust.
+Heavy metallic particles reveal invisible magnetic pressure as they drift, pull, and align.
 
 <section class="canvas-example-shell" markdown>
 
@@ -23,7 +23,7 @@ A breathtaking exploration of particle flow extending into magnetic dust.
 
 ## Live Example
 
-Interact with the environment to witness magnetic dust in real-time.
+Guide a field of iron-like particles as invisible attraction becomes visible motion.
 
 </div>
 
@@ -43,8 +43,8 @@ Interact with the environment to witness magnetic dust in real-time.
 **Demonstrates**
 
 - High-performance WebGL aesthetics
-- Concept exploration for Magnetic Dust
-- Foundation extension of Particle Flow
+- Pointer-reactive magnetic attraction
+- High-viscosity particle motion
 
 </div>
 
