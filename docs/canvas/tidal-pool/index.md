@@ -13,13 +13,19 @@ comments: false
 
 # Tidal Pool
 
-Shallow water particles form a living surface of rings, ripples, and cursor-driven disturbance.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Tidal Pool scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Shallow water particles form a living surface of rings, ripples, and cursor-driven disturbance.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Disturb the surface and watch overlapping ripples pass through a macro-scale poo
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Tidal Pool scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

@@ -13,13 +13,19 @@ comments: false
 
 # Neon Geode
 
-An electric mineral chamber where saturated color and mirror-dark stone produce a glowing geode interior.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Neon Geode scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+An electric mineral chamber where saturated color and mirror-dark stone produce a glowing geode interior.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Orbit through radiant mineral growths, glossy voids, and intense emissive color.
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Neon Geode scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

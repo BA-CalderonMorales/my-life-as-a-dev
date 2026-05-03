@@ -13,13 +13,19 @@ comments: false
 
 # Obsidian Shards
 
-Black monoliths suspend in a reflective void, revealing their edges through glints and absence.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Obsidian Shards scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Black monoliths suspend in a reflective void, revealing their edges through glints and absence.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Orbit dark reflective shards that appear and vanish as light catches their edges
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Obsidian Shards scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

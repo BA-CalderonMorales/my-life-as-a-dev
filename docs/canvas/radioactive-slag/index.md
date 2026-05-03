@@ -13,13 +13,19 @@ comments: false
 
 # Radioactive Slag
 
-Industrial mineral forms pulse with hazardous green light across metallic cave walls.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Radioactive Slag scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Industrial mineral forms pulse with hazardous green light across metallic cave walls.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Enter a hostile mineral chamber where toxic emissive pulses make the cave feel u
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Radioactive Slag scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

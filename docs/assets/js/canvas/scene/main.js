@@ -167,6 +167,86 @@
         return document.getElementById('canvas-scene');
     }
 
+    function getSceneIndex(definition) {
+        return SCENE_REGISTRY.findIndex((scene) => scene.slug === definition.slug);
+    }
+
+    function getCanvasBasePath() {
+        const path = normalizePath(window.location.pathname);
+        const canvasIndex = path.indexOf('/canvas/');
+        return canvasIndex > -1 ? path.slice(0, canvasIndex) : '';
+    }
+
+    function getSceneHref(scene) {
+        return `${getCanvasBasePath()}${scene.path}`;
+    }
+
+    function getNeighborScene(definition, offset) {
+        const index = getSceneIndex(definition);
+        if (index < 0) return null;
+
+        const nextIndex = (index + offset + SCENE_REGISTRY.length) % SCENE_REGISTRY.length;
+        return SCENE_REGISTRY[nextIndex];
+    }
+
+    function createSequenceButton(targetScene, direction) {
+        const link = document.createElement('a');
+        const directionLabel = direction === 'prev' ? 'Previous' : 'Next';
+
+        link.className = `canvas-sequence-button canvas-sequence-button--${direction}`;
+        link.href = getSceneHref(targetScene);
+        link.rel = direction;
+        link.setAttribute('aria-label', `${directionLabel} canvas: ${targetScene.title}`);
+
+        const kicker = document.createElement('span');
+        kicker.className = 'canvas-sequence-button__kicker';
+        kicker.textContent = directionLabel;
+
+        const title = document.createElement('span');
+        title.className = 'canvas-sequence-button__title';
+        title.textContent = targetScene.title;
+
+        link.append(kicker, title);
+        return link;
+    }
+
+    function ensureSceneNavigation(definition) {
+        const viewport = getViewport();
+        if (!viewport) return;
+
+        let stage = viewport.closest('.canvas-example-stage');
+        if (!stage && viewport.parentElement) {
+            stage = document.createElement('div');
+            stage.className = 'canvas-example-stage';
+            viewport.parentElement.insertBefore(stage, viewport);
+            stage.appendChild(viewport);
+        }
+        if (!stage) return;
+
+        let nav = stage.querySelector('.canvas-sequence-nav');
+        if (!nav) {
+            nav = document.createElement('nav');
+            nav.className = 'canvas-sequence-nav';
+            nav.setAttribute('aria-label', 'Canvas example navigation');
+            stage.appendChild(nav);
+        }
+
+        const previous = getNeighborScene(definition, -1);
+        const next = getNeighborScene(definition, 1);
+        if (!previous || !next) return;
+
+        nav.replaceChildren(
+            createSequenceButton(previous, 'prev'),
+            createSequenceButton(next, 'next')
+        );
+    }
+
+    function clearSceneNavigation(viewport) {
+        const stage = viewport.closest('.canvas-example-stage');
+        const nav = stage ? stage.querySelector('.canvas-sequence-nav') : null;
+        if (nav) nav.remove();
+    }
+
     function setViewportState(definition, state) {
         const viewport = getViewport();
         if (!viewport) return;
@@ -177,12 +257,14 @@
         viewport.classList.toggle('is-loading', state === 'loading');
         viewport.classList.toggle('is-ready', state === 'ready');
         viewport.classList.toggle('has-error', state === 'error');
+        ensureSceneNavigation(definition);
     }
 
     function clearViewportState() {
         const viewport = getViewport();
         if (!viewport) return;
 
+        clearSceneNavigation(viewport);
         delete viewport.dataset.canvasScene;
         viewport.classList.remove('is-loading', 'is-ready', 'has-error');
     }

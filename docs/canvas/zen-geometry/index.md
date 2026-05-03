@@ -13,13 +13,19 @@ comments: false
 
 # Zen Geometry
 
-This scene turns system architecture into a playable spatial sketch: nodes, connections, and subtle motion that respond to pointer and touch input. It is loaded only on this page, keeping the Canvas index fast and predictable.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Zen Geometry scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+This scene turns system architecture into a playable spatial sketch: nodes, connections, and subtle motion that respond to pointer and touch input. It is loaded only on this page, keeping the Canvas index fast and predictable.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Move the pointer to pull the structure, drag on touch screens to orbit, and swit
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Zen Geometry scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

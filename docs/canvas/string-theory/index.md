@@ -13,13 +13,19 @@ comments: false
 
 # String Theory
 
-Curving filaments wrap the camera in dimensional space, bending the viewport into a moving tunnel.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js String Theory scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Curving filaments wrap the camera in dimensional space, bending the viewport into a moving tunnel.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Travel through non-intersecting filament paths that bend space around the camera
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js String Theory scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

@@ -13,13 +13,19 @@ comments: false
 
 # Quantum Lattice
 
-A suspended cubic field where points phase, snap, and reconnect like visible quantum instrumentation.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Quantum Lattice scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+A suspended cubic field where points phase, snap, and reconnect like visible quantum instrumentation.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Move through a precise field of pulsing coordinates, jittering links, and orbita
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Quantum Lattice scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

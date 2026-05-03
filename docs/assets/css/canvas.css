@@ -27,8 +27,14 @@ body.canvas-page {
 .canvas-example-shell {
     display: grid;
     gap: var(--space-4);
-    max-width: min(100%, 76rem);
+    max-width: min(100%, 88rem);
     margin: var(--space-5) auto;
+}
+
+.canvas-example-stage {
+    position: relative;
+    display: grid;
+    gap: var(--space-3);
 }
 
 .canvas-example-header,
@@ -36,7 +42,7 @@ body.canvas-page {
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
     gap: var(--space-4);
-    align-items: end;
+    align-items: start;
 }
 
 .canvas-example-header h2 {
@@ -46,6 +52,74 @@ body.canvas-page {
 .canvas-example-actions {
     display: flex;
     justify-content: flex-end;
+}
+
+.canvas-sequence-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+    width: min(100%, 48rem);
+    margin: 0 auto;
+}
+
+.canvas-sequence-button {
+    display: flex;
+    min-height: 4.5rem;
+    padding: var(--space-3) var(--space-4);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--space-1);
+    color: var(--md-default-fg-color);
+    text-align: left;
+    text-decoration: none;
+    background: color-mix(in srgb, var(--surface-raised) 84%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--stone));
+    border-radius: var(--radius-soft);
+    box-shadow: var(--shadow-subtle);
+    backdrop-filter: blur(16px);
+    transition:
+        transform var(--dur-smooth) var(--ease-smooth),
+        border-color var(--dur-smooth) var(--ease-smooth),
+        box-shadow var(--dur-smooth) var(--ease-smooth);
+}
+
+.canvas-sequence-button:hover,
+.canvas-sequence-button:focus-visible {
+    color: var(--md-default-fg-color);
+    border-color: color-mix(in srgb, var(--accent) 58%, var(--stone));
+    box-shadow: var(--shadow-medium);
+}
+
+.canvas-sequence-button:hover {
+    transform: translateY(-2px);
+}
+
+.canvas-sequence-button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+.canvas-sequence-button--next {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.canvas-sequence-button__kicker {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.15;
+    text-transform: uppercase;
+}
+
+.canvas-sequence-button__title {
+    max-width: 100%;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    opacity: 0.78;
 }
 
 .canvas-scene-viewport {
@@ -295,8 +369,25 @@ body.canvas-page {
         grid-template-columns: 1fr;
     }
 
+    .canvas-example-stage {
+        gap: var(--space-2);
+    }
+
     .canvas-example-actions {
         justify-content: flex-start;
+    }
+
+    .canvas-sequence-nav {
+        gap: var(--space-2);
+    }
+
+    .canvas-sequence-button {
+        min-height: 4rem;
+        padding: var(--space-2);
+    }
+
+    .canvas-sequence-button:hover {
+        transform: translateY(-1px);
     }
 
     .canvas-scene-viewport {

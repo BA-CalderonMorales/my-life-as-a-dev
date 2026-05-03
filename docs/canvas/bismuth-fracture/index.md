@@ -13,13 +13,19 @@ comments: false
 
 # Bismuth Fracture
 
-Iridescent metallic terraces fracture into stepped forms that shift color while rotating.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Bismuth Fracture scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Iridescent metallic terraces fracture into stepped forms that shift color while rotating.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Inspect stepped metallic formations as color bands travel across fractured geome
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Bismuth Fracture scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

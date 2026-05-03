@@ -13,13 +13,19 @@ comments: false
 
 # Solar Flare
 
-A volatile radiant core throws heated particles outward through turbulence and color.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Solar Flare scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+A volatile radiant core throws heated particles outward through turbulence and color.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Steer coronal motion as heat, speed, and color surge from a central eruption.
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Solar Flare scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

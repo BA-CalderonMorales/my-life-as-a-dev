@@ -13,13 +13,19 @@ comments: false
 
 # Holographic Sand
 
-Fine particles gather into temporary forms, then dissolve back into a luminous field.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Holographic Sand scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Fine particles gather into temporary forms, then dissolve back into a luminous field.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Tap the field to make drifting particles assemble into brief holographic objects
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Holographic Sand scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

@@ -13,13 +13,19 @@ comments: false
 
 # Glacial Caverns
 
-A cold refractive chamber where translucent ice forms scatter light through haze and depth.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Glacial Caverns scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+A cold refractive chamber where translucent ice forms scatter light through haze and depth.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Move through translucent ice, deep blue fog, and refracted highlights.
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Glacial Caverns scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

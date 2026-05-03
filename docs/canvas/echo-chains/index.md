@@ -13,13 +13,19 @@ comments: false
 
 # Echo Chains
 
-Linked nodes emit expanding ripples that make invisible resonance feel visible.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Echo Chains scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Linked nodes emit expanding ripples that make invisible resonance feel visible.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Trigger connected pulses that ripple across a responsive network.
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Echo Chains scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

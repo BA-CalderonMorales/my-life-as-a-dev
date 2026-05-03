@@ -13,13 +13,19 @@ comments: false
 
 # Crystal Cave
 
-Procedural crystalline formations exploring mineral aesthetics, orbiting cameras, and deeply atmospheric theme-aware lighting.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Crystal Cave scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Procedural crystalline formations exploring mineral aesthetics, orbiting cameras, and deeply atmospheric theme-aware lighting.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Explore the glowing formations. Lighting interacts with the scene properties to 
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Crystal Cave scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

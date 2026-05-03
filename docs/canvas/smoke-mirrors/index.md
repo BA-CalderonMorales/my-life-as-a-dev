@@ -13,13 +13,19 @@ comments: false
 
 # Smoke & Mirrors
 
-Dense vapor parts around the cursor to expose reflective geometry hidden inside the cloud.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Smoke & Mirrors scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Dense vapor parts around the cursor to expose reflective geometry hidden inside the cloud.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Sweep through volumetric haze to uncover mirrored structures beneath it.
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Smoke & Mirrors scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

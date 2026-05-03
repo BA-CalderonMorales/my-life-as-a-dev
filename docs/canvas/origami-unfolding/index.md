@@ -13,13 +13,19 @@ comments: false
 
 # Origami Unfolding
 
-Folded planar structures open, collapse, and reassemble with paper-like architectural rhythm.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Origami Unfolding scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Folded planar structures open, collapse, and reassemble with paper-like architectural rhythm.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Watch planar forms crease, pivot, and recompose into layered geometric structure
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Origami Unfolding scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

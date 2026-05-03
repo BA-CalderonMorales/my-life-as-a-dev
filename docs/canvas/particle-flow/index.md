@@ -13,13 +13,19 @@ comments: false
 
 # Particle Flow
 
-A playground for mathematical flows and kinetic interactions. Particles follow vector fields and react to scroll velocity and pointer movements.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Particle Flow scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+A playground for mathematical flows and kinetic interactions. Particles follow vector fields and react to scroll velocity and pointer movements.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Move the pointer across the screen or scroll rapidly to disturb the flowing part
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Particle Flow scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

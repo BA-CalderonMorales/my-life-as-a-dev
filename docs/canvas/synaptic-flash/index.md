@@ -13,13 +13,19 @@ comments: false
 
 # Synaptic Flash
 
-Branching pathways fire in sequence across a charged network, turning cognition into light and timing.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Synaptic Flash scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Branching pathways fire in sequence across a charged network, turning cognition into light and timing.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Follow electrical pulses as they propagate through a branching network of active
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Synaptic Flash scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

@@ -13,13 +13,19 @@ comments: false
 
 # Magnetic Dust
 
-Heavy metallic particles reveal invisible magnetic pressure as they drift, pull, and align.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Magnetic Dust scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Heavy metallic particles reveal invisible magnetic pressure as they drift, pull, and align.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Guide a field of iron-like particles as invisible attraction becomes visible mot
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Magnetic Dust scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

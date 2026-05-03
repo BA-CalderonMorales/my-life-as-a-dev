@@ -13,13 +13,19 @@ comments: false
 
 # The Loom
 
-Procedural threads weave, tension, separate, and stitch back together under direct interaction.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js The Loom scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Procedural threads weave, tension, separate, and stitch back together under direct interaction.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Pull against a woven field as threads bend, recover, and reveal tension through 
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js The Loom scene"></div>
 
 <div class="canvas-example-meta" markdown>
 

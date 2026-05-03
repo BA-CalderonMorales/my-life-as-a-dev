@@ -13,13 +13,19 @@ comments: false
 
 # Digital Rain
 
-Volumetric streams descend through 3D space, splash into depth, and turn terminal rain into sculpture.
-
 <section class="canvas-example-shell" markdown>
+
+<div class="canvas-example-stage" markdown>
+
+<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Digital Rain scene"></div>
+
+</div>
 
 <div class="canvas-example-header" markdown>
 
 <div markdown>
+
+Volumetric streams descend through 3D space, splash into depth, and turn terminal rain into sculpture.
 
 ## Live Example
 
@@ -33,8 +39,6 @@ Move through descending streams as data-like motion gathers, falls, and disperse
 
 </div>
 </div>
-
-<div id="canvas-scene" class="canvas-scene-viewport" role="img" aria-label="Interactive Three.js Digital Rain scene"></div>
 
 <div class="canvas-example-meta" markdown>
 
