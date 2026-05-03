@@ -59,21 +59,21 @@ export class HomePageScene {
         this.loomField = new LoomField({
             colors,
             isMobile,
-            horizontalCount: isMobile ? 16 : isTablet ? 24 : 34,
-            verticalCount: isMobile ? 12 : isTablet ? 18 : 24,
-            spacing: isMobile ? 0.82 : 0.68,
-            segments: isMobile ? 36 : 68,
+            horizontalCount: isMobile ? 20 : isTablet ? 30 : 44,
+            verticalCount: isMobile ? 16 : isTablet ? 24 : 34,
+            spacing: isMobile ? 0.9 : 0.74,
+            segments: isMobile ? 42 : 84,
             primaryOpacity: colors.primaryOpacity,
             secondaryOpacity: colors.secondaryOpacity,
-            waveDepth: isMobile ? 0.28 : 0.36,
-            bendDepth: isMobile ? 1.2 : 2.1,
-            influenceRadius: isMobile ? 3.8 : 5.8,
+            waveDepth: isMobile ? 0.34 : 0.48,
+            bendDepth: isMobile ? 1.45 : 2.65,
+            influenceRadius: isMobile ? 4.2 : 6.8,
         });
 
         this.loomGroup = this.loomField.create();
-        this.loomGroup.position.set(isMobile ? 0 : 4.8, isMobile ? 0.6 : 0.2, -8);
-        this.loomGroup.rotation.set(isMobile ? -0.18 : -0.34, isMobile ? 0 : 0.16, isMobile ? 0 : -0.08);
-        this.loomGroup.scale.setScalar(isMobile ? 1.55 : 1.85);
+        this.loomGroup.position.set(isMobile ? 0 : 1.2, isMobile ? 0.45 : 0.05, -10);
+        this.loomGroup.rotation.set(isMobile ? -0.22 : -0.36, isMobile ? 0 : 0.08, isMobile ? 0 : -0.06);
+        this.loomGroup.scale.setScalar(isMobile ? 1.9 : 2.75);
         this.sceneManager.addToScene(this.loomGroup);
     }
 
@@ -98,8 +98,8 @@ export class HomePageScene {
         return {
             lineColor: isDark ? 0xf7f5ef : 0x111111,
             nodeColor: isDark ? 0x8fb8ff : 0x2e5bff,
-            primaryOpacity: isDark ? 0.16 : 0.14,
-            secondaryOpacity: isDark ? 0.18 : 0.12,
+            primaryOpacity: isDark ? 0.22 : 0.2,
+            secondaryOpacity: isDark ? 0.24 : 0.18,
         };
     }
 
@@ -112,9 +112,9 @@ export class HomePageScene {
             const interactionFade = Math.max(0, 1 - pointerAge / 1600);
             const isInteracting = interactionFade > 0.02;
 
-            this.loomGroup.rotation.x = (isMobile ? -0.18 : -0.34) + scrollProgress * 0.18;
-            this.loomGroup.rotation.y = (isMobile ? 0 : 0.16) + this.pointer.x * 0.045;
-            this.loomGroup.position.y = (isMobile ? 0.6 : 0.2) - scrollProgress * 1.2;
+            this.loomGroup.rotation.x = (isMobile ? -0.22 : -0.36) + scrollProgress * 0.2;
+            this.loomGroup.rotation.y = (isMobile ? 0 : 0.08) + this.pointer.x * 0.052;
+            this.loomGroup.position.y = (isMobile ? 0.45 : 0.05) - scrollProgress * 1.65;
 
             this.loomField.update({
                 elapsed: time,
@@ -140,7 +140,7 @@ export class HomePageScene {
 
         this.pointer.x = (clientX / width) * 2 - 1;
         this.pointer.y = -(clientY / height) * 2 + 1;
-        this.pointerWorld.set(this.pointer.x * 7.5, this.pointer.y * 5.2, 0);
+        this.pointerWorld.set(this.pointer.x * 9.2, this.pointer.y * 6.4, 0);
         this.lastPointerMove = performance.now();
     }
 
