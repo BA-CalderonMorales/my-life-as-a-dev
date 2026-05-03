@@ -11,4 +11,15 @@ permissions:
 
 jobs:
   security:
-    uses: BA-CalderonMorales/.github/.github/workflows/security-scan.yml@2ac88022e38caaaff37f13c2ffbbc62720c9e280
+    name: Gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan for secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
