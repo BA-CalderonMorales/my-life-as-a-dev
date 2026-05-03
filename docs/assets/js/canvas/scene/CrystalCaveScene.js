@@ -170,11 +170,6 @@ export class CrystalCaveScene {
         );
         this.interactionManager.attach();
 
-        // Show touch hint on mobile
-        if (this.interactionManager.getIsMobile()) {
-            this._showTouchHint();
-        }
-
         // Crystal animation
         this.crystalAnimator = new CrystalAnimator(
             this.crystals,
@@ -263,47 +258,6 @@ export class CrystalCaveScene {
         };
 
         animate();
-    }
-
-    /**
-     * Show touch hint overlay for mobile users
-     */
-    _showTouchHint() {
-        // Check if already shown this session
-        if (sessionStorage.getItem('canvas-touch-hint-shown')) {
-            return;
-        }
-
-        const hint = document.createElement('div');
-        hint.className = 'canvas-touch-hint';
-        hint.innerHTML = `
-            <span class="canvas-touch-hint__icon">&#128072;</span>
-            <span class="canvas-touch-hint__text">
-                Drag to orbit<br>
-                Pinch to zoom<br>
-                Tap crystal to focus
-            </span>
-        `;
-        this.container.appendChild(hint);
-
-        // Show after a brief delay
-        setTimeout(() => {
-            hint.classList.add('is-visible');
-        }, 500);
-
-        // Hide after 4 seconds
-        setTimeout(() => {
-            hint.classList.remove('is-visible');
-            sessionStorage.setItem('canvas-touch-hint-shown', 'true');
-        }, 4500);
-
-        // Hide on first touch
-        const hideOnTouch = () => {
-            hint.classList.remove('is-visible');
-            sessionStorage.setItem('canvas-touch-hint-shown', 'true');
-            this.container.removeEventListener('touchstart', hideOnTouch);
-        };
-        this.container.addEventListener('touchstart', hideOnTouch, { once: true });
     }
 
     /**
