@@ -44,6 +44,7 @@ extra_css = [
     "assets/css/projects.css",
 ]
 extra_javascript = [
+    "assets/js/home-loom-background.js",
     "assets/js/canvas/scene/main.js",
     "assets/js/scroll-vines.js",
     "assets/js/scroll-progress.js",

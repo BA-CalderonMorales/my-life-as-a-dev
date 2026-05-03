@@ -4,7 +4,30 @@
    ============================================ */
 
 .threejs-bg-container {
-    display: none !important;
+    display: none;
+}
+
+.landing-page .threejs-bg-container[data-scene-kind="home"] {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-smooth) var(--ease-smooth);
+    z-index: 0;
+}
+
+.landing-page .threejs-bg-container[data-scene-kind="home"].is-ready {
+    opacity: 1;
+}
+
+.landing-page .threejs-bg-container[data-scene-kind="home"] canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .md-main,
