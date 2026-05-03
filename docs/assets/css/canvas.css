@@ -57,7 +57,50 @@ body.canvas-page {
     border: 1px solid var(--stone);
     border-radius: var(--radius-soft);
     box-shadow: var(--shadow-medium);
+    cursor: crosshair;
     touch-action: none;
+}
+
+.canvas-scene-viewport::before,
+.canvas-scene-viewport::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--dur-smooth) var(--ease-smooth);
+    z-index: 1;
+}
+
+.canvas-scene-viewport::before {
+    background:
+        linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 18%, transparent), transparent),
+        radial-gradient(circle at 50% 50%, transparent 0 52%, color-mix(in srgb, var(--ink) 10%, transparent) 100%);
+    mix-blend-mode: screen;
+    transform: translateX(-100%);
+}
+
+.canvas-scene-viewport::after {
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    box-shadow: inset 0 0 4rem color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.canvas-scene-viewport.is-loading::before {
+    opacity: 0.8;
+    animation: canvas-scanline 1.2s var(--ease-smooth) infinite;
+}
+
+.canvas-scene-viewport.is-ready::after {
+    opacity: 1;
+}
+
+.canvas-scene-viewport.has-error {
+    border-color: var(--danger, #b42318);
+}
+
+.canvas-scene-viewport:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
 }
 
 .canvas-scene-viewport canvas {
@@ -66,6 +109,12 @@ body.canvas-page {
     width: 100% !important;
     height: 100% !important;
     display: block;
+    opacity: 0;
+    transition: opacity var(--dur-smooth) var(--ease-smooth);
+}
+
+.canvas-scene-viewport.is-ready canvas {
+    opacity: 1;
 }
 
 .canvas-example-meta {
@@ -74,6 +123,16 @@ body.canvas-page {
     background: var(--surface-raised);
     border: 1px solid var(--stone);
     border-radius: var(--radius-soft);
+}
+
+@keyframes canvas-scanline {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
 }
 
 .canvas-example-meta p:first-child {

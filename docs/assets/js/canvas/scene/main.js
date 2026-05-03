@@ -8,72 +8,217 @@
 (function () {
     'use strict';
 
+    const SCENE_REGISTRY = [
+        {
+            slug: 'zen-geometry',
+            path: '/canvas/zen-geometry/',
+            title: 'The Calm Network',
+            modulePath: './ZenGeometryScene.js',
+            exportName: 'ZenGeometryScene',
+        },
+        {
+            slug: 'crystal-cave',
+            path: '/canvas/crystal-cave/',
+            title: 'Amethyst Vault',
+            modulePath: './CrystalCaveScene.js',
+            exportName: 'CrystalCaveScene',
+        },
+        {
+            slug: 'particle-flow',
+            path: '/canvas/particle-flow/',
+            title: 'Kinetic Ocean',
+            modulePath: './ParticleFlowScene.js',
+            exportName: 'ParticleFlowScene',
+        },
+        {
+            slug: 'quantum-lattice',
+            path: '/canvas/quantum-lattice/',
+            title: 'Quantum Lattice',
+            modulePath: './QuantumLatticeScene.js',
+            exportName: 'QuantumLatticeScene',
+        },
+        {
+            slug: 'neon-geode',
+            path: '/canvas/neon-geode/',
+            title: 'Neon Geode',
+            modulePath: './NeonGeodeScene.js',
+            exportName: 'NeonGeodeScene',
+        },
+        {
+            slug: 'magnetic-dust',
+            path: '/canvas/magnetic-dust/',
+            title: 'Magnetic Dust',
+            modulePath: './MagneticDustScene.js',
+            exportName: 'MagneticDustScene',
+        },
+        {
+            slug: 'origami-unfolding',
+            path: '/canvas/origami-unfolding/',
+            title: 'Origami Unfolding',
+            modulePath: './OrigamiUnfoldingScene.js',
+            exportName: 'OrigamiUnfoldingScene',
+        },
+        {
+            slug: 'glacial-caverns',
+            path: '/canvas/glacial-caverns/',
+            title: 'Glacial Caverns',
+            modulePath: './GlacialCavernsScene.js',
+            exportName: 'GlacialCavernsScene',
+        },
+        {
+            slug: 'solar-flare',
+            path: '/canvas/solar-flare/',
+            title: 'Solar Flare',
+            modulePath: './SolarFlareScene.js',
+            exportName: 'SolarFlareScene',
+        },
+        {
+            slug: 'string-theory',
+            path: '/canvas/string-theory/',
+            title: 'String Theory',
+            modulePath: './StringTheoryScene.js',
+            exportName: 'StringTheoryScene',
+        },
+        {
+            slug: 'bismuth-fracture',
+            path: '/canvas/bismuth-fracture/',
+            title: 'Bismuth Fracture',
+            modulePath: './BismuthFractureScene.js',
+            exportName: 'BismuthFractureScene',
+        },
+        {
+            slug: 'digital-rain',
+            path: '/canvas/digital-rain/',
+            title: 'Digital Rain',
+            modulePath: './DigitalRainScene.js',
+            exportName: 'DigitalRainScene',
+        },
+        {
+            slug: 'echo-chains',
+            path: '/canvas/echo-chains/',
+            title: 'Echo Chains',
+            modulePath: './EchoChainsScene.js',
+            exportName: 'EchoChainsScene',
+        },
+        {
+            slug: 'obsidian-shards',
+            path: '/canvas/obsidian-shards/',
+            title: 'Obsidian Shards',
+            modulePath: './ObsidianShardsScene.js',
+            exportName: 'ObsidianShardsScene',
+        },
+        {
+            slug: 'smoke-mirrors',
+            path: '/canvas/smoke-mirrors/',
+            title: 'Smoke & Mirrors',
+            modulePath: './SmokeMirrorsScene.js',
+            exportName: 'SmokeMirrorsScene',
+        },
+        {
+            slug: 'the-loom',
+            path: '/canvas/the-loom/',
+            title: 'The Loom',
+            modulePath: './TheLoomScene.js',
+            exportName: 'TheLoomScene',
+        },
+        {
+            slug: 'radioactive-slag',
+            path: '/canvas/radioactive-slag/',
+            title: 'Radioactive Slag',
+            modulePath: './RadioactiveSlagScene.js',
+            exportName: 'RadioactiveSlagScene',
+        },
+        {
+            slug: 'tidal-pool',
+            path: '/canvas/tidal-pool/',
+            title: 'Tidal Pool',
+            modulePath: './TidalPoolScene.js',
+            exportName: 'TidalPoolScene',
+        },
+        {
+            slug: 'synaptic-flash',
+            path: '/canvas/synaptic-flash/',
+            title: 'Synaptic Flash',
+            modulePath: './SynapticFlashScene.js',
+            exportName: 'SynapticFlashScene',
+        },
+        {
+            slug: 'holographic-sand',
+            path: '/canvas/holographic-sand/',
+            title: 'Holographic Sand',
+            modulePath: './HolographicSandScene.js',
+            exportName: 'HolographicSandScene',
+        },
+    ];
+
     let sceneInstance = null;
-    let currentSceneType = null;
+    let currentSceneSlug = null;
 
     function normalizePath(pathname) {
         return pathname.endsWith('index.html') ? pathname.slice(0, -'index.html'.length) : pathname;
     }
 
-    function getSceneType() {
+    function getSceneDefinition() {
         const path = normalizePath(window.location.pathname);
-        if (path.includes('/canvas/zen-geometry/')) return 'zen-geometry';
-        if (path.includes('/canvas/crystal-cave/')) return 'crystal-cave';
-        if (path.includes('/canvas/particle-flow/')) return 'particle-flow';
-        if (path.includes('/canvas/quantum-lattice/')) return 'quantum-lattice';
-        if (path.includes('/canvas/neon-geode/')) return 'neon-geode';
-        if (path.includes('/canvas/magnetic-dust/')) return 'magnetic-dust';
-        if (path.includes('/canvas/origami-unfolding/')) return 'origami-unfolding';
-        if (path.includes('/canvas/glacial-caverns/')) return 'glacial-caverns';
-        if (path.includes('/canvas/solar-flare/')) return 'solar-flare';
-        if (path.includes('/canvas/string-theory/')) return 'string-theory';
-        if (path.includes('/canvas/bismuth-fracture/')) return 'bismuth-fracture';
-        if (path.includes('/canvas/digital-rain/')) return 'digital-rain';
-        if (path.includes('/canvas/echo-chains/')) return 'echo-chains';
-        if (path.includes('/canvas/obsidian-shards/')) return 'obsidian-shards';
-        if (path.includes('/canvas/smoke-mirrors/')) return 'smoke-mirrors';
-        if (path.includes('/canvas/the-loom/')) return 'the-loom';
-        if (path.includes('/canvas/radioactive-slag/')) return 'radioactive-slag';
-        if (path.includes('/canvas/tidal-pool/')) return 'tidal-pool';
-        if (path.includes('/canvas/synaptic-flash/')) return 'synaptic-flash';
-        if (path.includes('/canvas/holographic-sand/')) return 'holographic-sand';
-        return null;
+        return SCENE_REGISTRY.find((scene) => path.includes(scene.path)) || null;
+    }
+
+    function getViewport() {
+        return document.getElementById('canvas-scene');
+    }
+
+    function setViewportState(definition, state) {
+        const viewport = getViewport();
+        if (!viewport) return;
+
+        viewport.dataset.canvasScene = definition.slug;
+        viewport.tabIndex = 0;
+        viewport.setAttribute('aria-label', `Interactive Three.js ${definition.title} scene`);
+        viewport.classList.toggle('is-loading', state === 'loading');
+        viewport.classList.toggle('is-ready', state === 'ready');
+        viewport.classList.toggle('has-error', state === 'error');
+    }
+
+    function clearViewportState() {
+        const viewport = getViewport();
+        if (!viewport) return;
+
+        delete viewport.dataset.canvasScene;
+        viewport.classList.remove('is-loading', 'is-ready', 'has-error');
+    }
+
+    async function createScene(definition) {
+        const sceneModule = await import(definition.modulePath);
+        const SceneClass = sceneModule[definition.exportName];
+
+        if (!SceneClass) {
+            throw new Error(`Scene export not found: ${definition.exportName}`);
+        }
+
+        return new SceneClass();
     }
 
     async function initScene() {
-        const sceneType = getSceneType();
-        if (!sceneType) return;
+        const definition = getSceneDefinition();
+        if (!definition) return;
         if (sceneInstance) return;
 
-        try {
-            if (sceneType === 'zen-geometry') { const { ZenGeometryScene } = await import('./ZenGeometryScene.js'); sceneInstance = new ZenGeometryScene(); }
-            else if (sceneType === 'crystal-cave') { const { CrystalCaveScene } = await import('./CrystalCaveScene.js'); sceneInstance = new CrystalCaveScene(); }
-            else if (sceneType === 'particle-flow') { try { const { ParticleFlowScene } = await import('./ParticleFlowScene.js'); sceneInstance = new ParticleFlowScene(); } catch { return; } }
-            else if (sceneType === 'quantum-lattice') { const { QuantumLatticeScene } = await import('./QuantumLatticeScene.js'); sceneInstance = new QuantumLatticeScene(); }
-            else if (sceneType === 'neon-geode') { const { NeonGeodeScene } = await import('./NeonGeodeScene.js'); sceneInstance = new NeonGeodeScene(); }
-            else if (sceneType === 'magnetic-dust') { const { MagneticDustScene } = await import('./MagneticDustScene.js'); sceneInstance = new MagneticDustScene(); }
-            else if (sceneType === 'origami-unfolding') { const { OrigamiUnfoldingScene } = await import('./OrigamiUnfoldingScene.js'); sceneInstance = new OrigamiUnfoldingScene(); }
-            else if (sceneType === 'glacial-caverns') { const { GlacialCavernsScene } = await import('./GlacialCavernsScene.js'); sceneInstance = new GlacialCavernsScene(); }
-            else if (sceneType === 'solar-flare') { const { SolarFlareScene } = await import('./SolarFlareScene.js'); sceneInstance = new SolarFlareScene(); }
-            else if (sceneType === 'string-theory') { const { StringTheoryScene } = await import('./StringTheoryScene.js'); sceneInstance = new StringTheoryScene(); }
-            else if (sceneType === 'bismuth-fracture') { const { BismuthFractureScene } = await import('./BismuthFractureScene.js'); sceneInstance = new BismuthFractureScene(); }
-            else if (sceneType === 'digital-rain') { const { DigitalRainScene } = await import('./DigitalRainScene.js'); sceneInstance = new DigitalRainScene(); }
-            else if (sceneType === 'echo-chains') { const { EchoChainsScene } = await import('./EchoChainsScene.js'); sceneInstance = new EchoChainsScene(); }
-            else if (sceneType === 'obsidian-shards') { const { ObsidianShardsScene } = await import('./ObsidianShardsScene.js'); sceneInstance = new ObsidianShardsScene(); }
-            else if (sceneType === 'smoke-mirrors') { const { SmokeMirrorsScene } = await import('./SmokeMirrorsScene.js'); sceneInstance = new SmokeMirrorsScene(); }
-            else if (sceneType === 'the-loom') { const { TheLoomScene } = await import('./TheLoomScene.js'); sceneInstance = new TheLoomScene(); }
-            else if (sceneType === 'radioactive-slag') { const { RadioactiveSlagScene } = await import('./RadioactiveSlagScene.js'); sceneInstance = new RadioactiveSlagScene(); }
-            else if (sceneType === 'tidal-pool') { const { TidalPoolScene } = await import('./TidalPoolScene.js'); sceneInstance = new TidalPoolScene(); }
-            else if (sceneType === 'synaptic-flash') { const { SynapticFlashScene } = await import('./SynapticFlashScene.js'); sceneInstance = new SynapticFlashScene(); }
-            else if (sceneType === 'holographic-sand') { const { HolographicSandScene } = await import('./HolographicSandScene.js'); sceneInstance = new HolographicSandScene(); }
+        setViewportState(definition, 'loading');
 
+        try {
+            sceneInstance = await createScene(definition);
             const success = await sceneInstance.init();
 
             if (!success) {
+                setViewportState(definition, 'error');
                 sceneInstance = null;
+                return;
             }
+
+            setViewportState(definition, 'ready');
         } catch (err) {
             console.error('Failed to load Scene:', err);
+            setViewportState(definition, 'error');
             sceneInstance = null;
         }
     }
@@ -83,30 +228,27 @@
             if(typeof sceneInstance.destroy === 'function') sceneInstance.destroy();
             sceneInstance = null;
         }
+        clearViewportState();
     }
 
     function checkPage() {
-        const sceneType = getSceneType();
+        const definition = getSceneDefinition();
 
-        if (!sceneType) {
-            // Not a canvas page - clean up if needed
+        if (!definition) {
             if (sceneInstance) {
                 cleanup();
             }
-            currentSceneType = null;
+            currentSceneSlug = null;
             return;
         }
 
-        // We're on a canvas page
-        if (sceneType !== currentSceneType) {
-            // Scene type changed - clean up old and init new
+        if (definition.slug !== currentSceneSlug) {
             if (sceneInstance) {
                 cleanup();
             }
-            currentSceneType = sceneType;
+            currentSceneSlug = definition.slug;
             initScene();
         } else if (!sceneInstance) {
-            // Same scene type but no instance (e.g., after cleanup)
             initScene();
         }
     }
