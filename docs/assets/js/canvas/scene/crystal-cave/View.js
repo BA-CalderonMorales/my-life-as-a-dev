@@ -1,128 +1,75 @@
 /**
- * Crystal Cave View - Three.js Rendering
+ * Crystal Cave View - Passive Three.js Stage
+ * 
+ * Solely responsible for rendering html to a particular location
+ * and providing the Three.js primitives. Contains ZERO logic.
  */
 import * as THREE from 'three';
-import { OrbitCamera } from '../camera/OrbitCamera.js';
-import { LightingSystem } from '../lighting/LightingSystem.js';
-import { ParticleSystem } from '../particles/ParticleSystem.js';
-import { createCrystals } from '../crystals/CrystalFactory.js';
-import { CrystalAnimator } from '../animation/CrystalAnimator.js';
-import { ThemeTransition } from '../themes/ThemeTransition.js';
 
 export class View {
-    constructor(container, config) {
+    constructor(container) {
         this.container = container;
-        this.config = config;
         this.scene = null;
+        this.camera = null;
         this.renderer = null;
-        this.orbitCamera = null;
-        this.lightingSystem = null;
-        this.particleSystem = null;
-        this.crystalAnimator = null;
-        this.themeTransition = null;
-        
-        this.crystals = [];
-        this.materials = [];
+        this.canvas = null;
     }
 
-    init(colors) {
+    /**
+     * Set up the Three.js stage with minimal boilerplate.
+     */
+    init(colors, perf) {
+        const { clientWidth: w, clientHeight: h } = this.container;
+
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(colors.background);
         this.scene.fog = new THREE.Fog(colors.fogColor, colors.fogNear, colors.fogFar);
 
-        this.orbitCamera = new OrbitCamera({ radius: this.config.defaultRadius });
-        this.orbitCamera.create(this.container.clientWidth / this.container.clientHeight);
-
-        const isMobile = this.orbitCamera.isMobile;
-        const perf = isMobile ? this.config.performance.mobile : this.config.performance.desktop;
-
+        this.camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 100);
+        
         this.renderer = new THREE.WebGLRenderer({
             antialias: perf.antialias,
             alpha: false,
             powerPreference: perf.powerPreference
         });
-        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+        this.renderer.setSize(w, h);
         this.renderer.setPixelRatio(perf.pixelRatio);
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = colors.toneMappingExposure;
-        this.container.appendChild(this.renderer.domElement);
-
-        this._createComponents(colors, isMobile);
+        
+        this.canvas = this.renderer.domElement;
+        this.container.appendChild(this.canvas);
     }
 
-    _createComponents(colors, isMobile) {
-        const crystalGroup = new THREE.Group();
-        this.scene.add(crystalGroup);
-
-        const { crystals, materials } = createCrystals(crystalGroup, colors.crystalColors);
-        this.crystals = crystals;
-        this.materials = materials;
-
-        const perf = isMobile ? this.config.performance.mobile : this.config.performance.desktop;
-        
-        this.particleSystem = new ParticleSystem({
-            count: perf.particleCount,
-            color: colors.particleColor,
-            size: isMobile ? colors.particleSize * 1.2 : colors.particleSize,
-            opacity: colors.particleOpacity,
-        });
-        this.scene.add(this.particleSystem.create());
-
-        this.lightingSystem = new LightingSystem();
-        this.lightingSystem.create(this.scene, colors);
-
-        this.crystalAnimator = new CrystalAnimator(
-            this.crystals,
-            this.materials,
-            colors.glowColor
-        );
-
-        this.themeTransition = new ThemeTransition({
-            scene: this.scene,
-            renderer: this.renderer,
-            materials: this.materials,
-            particleSystem: this.particleSystem,
-            lightingSystem: this.lightingSystem,
-            crystalAnimator: this.crystalAnimator,
-        });
+    /**
+     * Simple declarative additions to the scene.
+     */
+    addToScene(object) {
+        this.scene.add(object);
     }
 
     onResize() {
-        const width = this.container.clientWidth;
-        const height = this.container.clientHeight;
-        this.orbitCamera.resize(width, height);
-        this.renderer.setSize(width, height);
+        const { clientWidth: w, clientHeight: h } = this.container;
+        this.camera.aspect = w / h;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(w, h);
     }
 
-    render(elapsed, viewModel) {
-        this.orbitCamera.update(elapsed);
-        
-        this.crystalAnimator.update(
-            elapsed,
-            (crystal) => viewModel.interactionManager.isCrystalActive(crystal)
-        );
-
-        this.particleSystem.update(viewModel.interactionManager.getMouse3D());
-        this.lightingSystem.update(elapsed);
-        
-        this.renderer.render(this.scene, this.orbitCamera.camera);
-    }
-
-    transitionTheme(fromColors, toColors) {
-        if (this.themeTransition) {
-            this.themeTransition.transition(fromColors, toColors);
-        }
+    render() {
+        this.renderer.render(this.scene, this.camera);
     }
 
     dispose() {
-        if (this.renderer) {
-            this.renderer.dispose();
-            if (this.renderer.domElement && this.renderer.domElement.parentElement) {
-                this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+        this.renderer.dispose();
+        this.scene.traverse(obj => {
+            if (obj.geometry) obj.geometry.dispose();
+            if (obj.material) {
+                if (Array.isArray(obj.material)) obj.material.forEach(m => m.dispose());
+                else obj.material.dispose();
             }
+        });
+        if (this.canvas && this.canvas.parentElement) {
+            this.canvas.parentElement.removeChild(this.canvas);
         }
-        if (this.particleSystem) this.particleSystem.dispose();
-        this.crystals.forEach(c => c.geometry && c.geometry.dispose());
-        this.materials.forEach(m => m.dispose());
     }
 }
