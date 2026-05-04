@@ -1,60 +1,83 @@
+/**
+ * Bismuth Fracture ViewModel - Core Behavioral Logic
+ *
+ * This file contains ALL logic: stack generation, fractal scaling math,
+ * rotation updates, and matrix orchestrations.
+ */
 import * as THREE from 'three';
+import { BISMUTH_CONFIG } from './Model.js';
 
 export class ViewModel {
-    constructor(view, stackConfigs) {
+    constructor(view, isMobile) {
         this.view = view;
-        this.stackConfigs = stackConfigs;
-        this.clock = new THREE.Clock();
+        this.config = BISMUTH_CONFIG;
+        this.isMobile = isMobile;
 
-        this.matrix = new THREE.Matrix4();
-        this.color = new THREE.Color();
+        this.stackConfigs = [];
+        this.totalInstances = 0;
+        
+        // Reusable objects for matrix math (Behavioral Efficiency)
         this.dummy = new THREE.Object3D();
+        this.color = new THREE.Color();
+    }
+
+    init() {
+        const stackCount = this.isMobile ? this.config.mobile.stackCount : this.config.desktop.stackCount;
+        const phys = this.config.physics;
+
+        // Behavior: Generate randomized fractal stack configurations
+        for (let s = 0; s < stackCount; s++) {
+            const steps = this.config.stepsMin + Math.floor(Math.random() * (this.config.stepsMax - this.config.stepsMin + 1));
+            const baseSize = phys.baseSizeMin + Math.random() * (phys.baseSizeMax - phys.baseSizeMin);
+            const stackHue = (s / stackCount) % 1.0;
+            const angle = (s / stackCount) * Math.PI * 2 + Math.random() * 0.5;
+            const dist = phys.distMin + Math.random() * (phys.distMax - phys.distMin);
+            const rotSpeed = (Math.random() - 0.5) * phys.rotSpeedMax;
+            
+            this.stackConfigs.push({ 
+                steps, baseSize, stackHue, angle, dist, rotSpeed, 
+                currentRot: Math.random() * Math.PI * 2 
+            });
+            this.totalInstances += steps;
+        }
+
+        // Push structural requirements to passive View
+        this.view.addInstancedMesh(this.totalInstances);
     }
 
     update() {
-        const elapsed = this.clock.getElapsedTime();
-        this._updateCamera(elapsed);
-        this._updateInstances(elapsed);
-        this.view.render();
-    }
+        if (!this.view.instancedMesh) return;
 
-    _updateCamera(elapsed) {
-        const radius = 14;
-        this.view.camera.position.x = Math.sin(elapsed * 0.07) * radius;
-        this.view.camera.position.z = Math.cos(elapsed * 0.07) * radius;
-        this.view.camera.lookAt(0, 1.5, 0);
-    }
-
-    _updateInstances(elapsed) {
         let instanceIdx = 0;
+        const dt = 0.016;
+
         this.stackConfigs.forEach((stack) => {
             stack.currentRot += stack.rotSpeed;
 
-            for (let step = 0; step < stack.steps; step++) {
-                const stepScale = 1.0 - (step / stack.steps) * 0.7;
-                const w = stack.baseSize * stepScale;
-                const h = 0.2; // Fixed height for simplicity in instance scaling
-                const d = stack.baseSize * stepScale;
-
-                this.dummy.scale.set(w, h, d);
+            for (let i = 0; i < stack.steps; i++) {
+                const t = i / stack.steps;
+                const size = stack.baseSize * Math.pow(0.85, i);
                 
-                const angle = stack.angle;
-                const dist = stack.dist;
+                // Behavior: Archimedean spiral / fractal placement
+                const localAngle = stack.currentRot + i * 0.4;
+                const radius = stack.dist + Math.sin(i * 0.5) * 0.5;
+                
                 this.dummy.position.set(
-                    Math.cos(angle) * dist,
-                    -2 + step * 0.25,
-                    Math.sin(angle) * dist
+                    Math.cos(stack.angle) * radius + Math.cos(localAngle) * (i * 0.2),
+                    i * size * 0.8 - 4,
+                    Math.sin(stack.angle) * radius + Math.sin(localAngle) * (i * 0.2)
                 );
-                
-                this.dummy.rotation.y = stack.currentRot + step * 0.15;
-                this.dummy.updateMatrix();
 
+                this.dummy.rotation.set(localAngle, stack.angle, i * 0.1);
+                this.dummy.scale.setScalar(size);
+                this.dummy.updateMatrix();
+                
                 this.view.instancedMesh.setMatrixAt(instanceIdx, this.dummy.matrix);
 
-                const hue = (stack.stackHue + step * 0.08) % 1.0;
-                this.color.setHSL(hue, 0.8, 0.5);
+                // Behavior: Color gradient per stack
+                this.color.setHSL(stack.stackHue, 0.4, 0.3 + (1 - t) * 0.4);
                 this.view.instancedMesh.setColorAt(instanceIdx, this.color);
-
+                
                 instanceIdx++;
             }
         });
@@ -63,5 +86,7 @@ export class ViewModel {
         if (this.view.instancedMesh.instanceColor) {
             this.view.instancedMesh.instanceColor.needsUpdate = true;
         }
+
+        this.view.render();
     }
 }
