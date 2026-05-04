@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Digital Rain ViewModel Tests
  */

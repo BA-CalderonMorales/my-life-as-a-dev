@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Solar Flare ViewModel Tests
  */

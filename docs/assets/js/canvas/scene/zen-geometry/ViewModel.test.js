@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Zen Geometry ViewModel Tests
  */

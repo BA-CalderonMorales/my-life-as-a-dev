@@ -13,7 +13,7 @@ export class ViewModel {
         this.config = OBSIDIAN_CONFIG;
         this.isMobile = isMobile;
 
-        const perf = isMobile ? this.config.mobile : this.config.desktop;
+        const perf = isMobile ? this.config.performance.mobile : this.config.performance.desktop;
         this.count = perf.shardCount;
 
         this.shardStates = [];

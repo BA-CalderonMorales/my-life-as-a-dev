@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Tidal Pool ViewModel Tests
  */

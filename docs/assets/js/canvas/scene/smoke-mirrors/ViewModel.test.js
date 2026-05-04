@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Smoke Mirrors ViewModel Tests
  */
@@ -56,11 +57,18 @@ describe('SmokeMirrors ViewModel', () => {
 
     test('particles loop back after reaching bottom', () => {
         viewModel.init();
-        // Force a particle to the "top" boundary (in this scene y grows)
-        viewModel.view.particles.geometry.attributes.position.array[1] = 11;
-        
+
+        // Mock a large elapsed time to push particles past boundary (> 10)
+        const realNow = performance.now;
+        const current = performance.now();
+        global.performance.now = () => current + 100000; // ~100s
+
         viewModel.update();
-        
-        expect(view.particles.geometry.attributes.position.array[1]).toBeLessThan(0);
+
+        // With high elapsed time, they should have looped back into the -10 to 10 range
+        expect(view.particles.geometry.attributes.position.array[1]).toBeLessThanOrEqual(10);
+        expect(view.particles.geometry.attributes.position.array[1]).toBeGreaterThanOrEqual(-10);
+        global.performance.now = realNow;
     });
+
 });

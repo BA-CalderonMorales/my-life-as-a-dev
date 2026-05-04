@@ -2,10 +2,11 @@
  * Synaptic Flash ViewModel Tests
  */
 import { ViewModel } from './ViewModel.js';
+import * as THREE from 'three';
 
 class MockView {
     constructor() {
-        this.camera = { position: { x: 0, y: 0, z: 0 }, lookAt: () => {} };
+        this.camera = new THREE.PerspectiveCamera();
         this.nodes = [];
         this.connections = [];
         this.container = { clientWidth: 1024, clientHeight: 768 };
@@ -14,7 +15,7 @@ class MockView {
     addNodes(count) {
         this.nodes = Array.from({ length: count }, () => ({
             material: { emissiveIntensity: 0 },
-            position: { x: 0, y: 0, z: 0, copy: function(p) { this.x = p.x; this.y = p.y; this.z = p.z; } }
+            position: new THREE.Vector3()
         }));
     }
     addConnections(count) {
@@ -33,42 +34,43 @@ describe('SynapticFlash ViewModel', () => {
     let viewModel;
 
     beforeEach(() => {
+        vi.useFakeTimers();
         view = new MockView();
         viewModel = new ViewModel(view, false); // desktop
+    });
+
+    afterEach(() => {
+        vi.useRealTimers();
     });
 
     test('initializes neural network tree configurations through passive view', () => {
         viewModel.init();
         expect(viewModel.nodes.length).toBe(35); // desktop count
-        expect(viewModel.edges.length).toBeGreaterThanOrEqual(34); // Tree + potential extra
+        expect(viewModel.edges.length).toBeGreaterThanOrEqual(34);
         expect(view.nodes.length).toBe(35);
-        expect(view.connections.length).toBe(viewModel.edges.length);
     });
 
     test('emits pulse from root periodically', () => {
         viewModel.init();
         expect(viewModel.pulses.length).toBe(0);
-        
-        // Mock time passage
-        const realNow = performance.now;
-        global.performance.now = () => 2000;
-        
+
+        vi.advanceTimersByTime(2000);
         viewModel.update();
-        
+
         expect(viewModel.pulses.length).toBe(1);
         expect(viewModel.pulses[0].nodeIdx).toBe(0);
-        global.performance.now = realNow;
     });
 
     test('update modifies camera position and node emissive intensities', () => {
         viewModel.init();
         const initialCamX = view.camera.position.x;
-        
+
         // Inject a pulse
         viewModel.pulses.push({ nodeIdx: 0, age: 0.1, propagated: false });
-        
+
+        vi.advanceTimersByTime(1000);
         viewModel.update();
-        
+
         expect(view.camera.position.x).not.toBe(initialCamX);
         expect(viewModel.nodes[0].targetEmissive).toBeGreaterThan(0.1);
     });

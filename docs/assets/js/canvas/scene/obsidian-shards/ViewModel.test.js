@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Obsidian Shards ViewModel Tests
  */

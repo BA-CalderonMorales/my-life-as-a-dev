@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Neon Geode ViewModel Tests
  */

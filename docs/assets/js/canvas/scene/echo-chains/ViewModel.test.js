@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Echo Chains ViewModel Tests
  */

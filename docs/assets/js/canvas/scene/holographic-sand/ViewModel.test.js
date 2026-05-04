@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Holographic Sand ViewModel Tests
  */

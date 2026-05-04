@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Magnetic Dust ViewModel Tests
  */

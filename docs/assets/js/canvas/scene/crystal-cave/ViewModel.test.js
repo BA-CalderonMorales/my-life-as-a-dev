@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Crystal Cave ViewModel Tests
  */
@@ -5,7 +6,12 @@ import { ViewModel } from './ViewModel.js';
 
 class MockView {
     constructor() {
-        this.container = { clientWidth: 1024, clientHeight: 768 };
+        this.container = { 
+            clientWidth: 1024, 
+            clientHeight: 768,
+            addEventListener: () => {},
+            removeEventListener: () => {}
+        };
         this.scene = { add: () => {}, background: { set: () => {} }, fog: { color: { set: () => {} } } };
         this.camera = {};
         this.renderer = { toneMapping: 0, toneMappingExposure: 0 };
@@ -30,7 +36,12 @@ describe('CrystalCave ViewModel', () => {
         glowColor: 0xffffff,
         particleColor: 0xffffff,
         particleSize: 0.1,
-        particleOpacity: 0.5
+        particleOpacity: 0.5,
+        ambientColor: 0x111111,
+        ambientIntensity: 0.2,
+        lights: [
+            { color: 0xffffff, intensity: 1.0, pos: [0, 0, 0] }
+        ]
     };
 
     beforeEach(() => {

@@ -2,13 +2,15 @@
  * Obsidian Shards Model - Configuration
  */
 export const OBSIDIAN_CONFIG = {
-    mobile: {
-        shardCount: 15,
-        camDist: 14
-    },
-    desktop: {
-        shardCount: 40,
-        camDist: 18
+    performance: {
+        mobile: {
+            shardCount: 15,
+            camDist: 14
+        },
+        desktop: {
+            shardCount: 40,
+            camDist: 18
+        }
     },
     physics: {
         driftSpeed: 0.12,

@@ -1,3 +1,4 @@
+import * as THREE from "three";
 /**
  * Particle Flow ViewModel Tests
  */
