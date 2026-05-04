@@ -545,6 +545,11 @@
     box-shadow: none;
 }
 
+.md-version__current::after {
+    content: none !important;
+    display: none !important;
+}
+
 .md-version__current svg {
     width: 14px;
     height: 14px;
@@ -604,6 +609,26 @@
     font-weight: 500;
     color: var(--accent);
     background: transparent;
+}
+
+.md-version__alias {
+    color: var(--muted);
+    font-size: 0.78rem;
+}
+
+.mlad-version-banner {
+    margin: 0 0 var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    color: var(--ink);
+    background: var(--surface-raised);
+    border: 1px solid var(--stone);
+    border-radius: var(--radius-soft);
+    box-shadow: var(--shadow-soft);
+}
+
+.mlad-version-banner a {
+    color: var(--accent);
+    font-weight: 600;
 }
 
 /* Header layout */

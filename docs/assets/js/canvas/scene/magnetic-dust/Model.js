@@ -1,6 +1,8 @@
 /**
  * Magnetic Dust Model - Configuration
  */
+import { themes } from '../themes/ThemeConfig.js';
+
 export const MAGNETIC_DUST_CONFIG = {
     performance: {
         mobile: {
@@ -21,9 +23,15 @@ export const MAGNETIC_DUST_CONFIG = {
         magnetForce: 0.025,
         noiseAmount: 0.005
     },
-    colors: {
-        dust: 0xaaaaaa,
-        background: 0x0a0a0a
+    themes: {
+        dark: {
+            ...themes.dark,
+            dust: 0xaaaaaa
+        },
+        light: {
+            ...themes.light,
+            dust: 0x333333
+        }
     },
     bounds: {
         x: 15,
@@ -31,3 +39,8 @@ export const MAGNETIC_DUST_CONFIG = {
         z: 5
     }
 };
+
+export function getColors() {
+    const scheme = document.body?.getAttribute('data-md-color-scheme');
+    return scheme === 'slate' ? MAGNETIC_DUST_CONFIG.themes.dark : MAGNETIC_DUST_CONFIG.themes.light;
+}

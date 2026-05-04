@@ -4,6 +4,9 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    include: ['docs/assets/js/canvas/scene/**/*.test.js'],
+    include: [
+      'docs/assets/js/canvas/scene/**/*.test.js',
+      'docs/assets/js/version-selector/**/*.test.js',
+    ],
   },
 });

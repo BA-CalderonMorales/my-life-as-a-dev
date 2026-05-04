@@ -1,12 +1,16 @@
 /**
  * Bismuth Fracture Model - Configuration
  */
+import { themes } from '../themes/ThemeConfig.js';
+
 export const BISMUTH_CONFIG = {
-    mobile: {
-        stackCount: 6,
-    },
-    desktop: {
-        stackCount: 12,
+    performance: {
+        mobile: {
+            stackCount: 6,
+        },
+        desktop: {
+            stackCount: 12,
+        }
     },
     stepsMin: 5,
     stepsMax: 12,
@@ -17,9 +21,21 @@ export const BISMUTH_CONFIG = {
         distMax: 8,
         rotSpeedMax: 0.004
     },
-    colors: {
-        background: 0x080808,
-        ambient: 0x333333,
-        directional: 0xffffff
+    themes: {
+        dark: {
+            ...themes.dark,
+            ambient: 0x333333,
+            directional: 0xffffff
+        },
+        light: {
+            ...themes.light,
+            ambient: 0xcccccc,
+            directional: 0x444444
+        }
     }
 };
+
+export function getColors() {
+    const scheme = document.body?.getAttribute('data-md-color-scheme');
+    return scheme === 'slate' ? BISMUTH_CONFIG.themes.dark : BISMUTH_CONFIG.themes.light;
+}

@@ -1,16 +1,20 @@
 /**
  * Neon Geode Model - Configuration
  */
+import { themes } from '../themes/ThemeConfig.js';
+
 export const NEON_GEODE_CONFIG = {
-    mobile: {
-        crystalCount: 15,
-        sparkleCount: 400,
-        camDist: 11
-    },
-    desktop: {
-        crystalCount: 38,
-        sparkleCount: 1200,
-        camDist: 10.5
+    performance: {
+        mobile: {
+            crystalCount: 15,
+            sparkleCount: 400,
+            camDist: 11
+        },
+        desktop: {
+            crystalCount: 38,
+            sparkleCount: 1200,
+            camDist: 10.5
+        }
     },
     physics: {
         orbitSpeed: 0.012,
@@ -22,9 +26,21 @@ export const NEON_GEODE_CONFIG = {
         { position: [4, 5, 2], color: 0x00f6ff, intensity: 2.2 },
         { position: [-6, -2, -3], color: 0x130018, intensity: 1.8 }
     ],
-    colors: {
-        background: 0x04030a,
-        floor: 0x08070d,
-        core: 0x00f6ff
+    themes: {
+        dark: {
+            ...themes.dark,
+            floor: 0x08070d,
+            core: 0x00f6ff
+        },
+        light: {
+            ...themes.light,
+            floor: 0xeeeeee,
+            core: 0x008888
+        }
     }
 };
+
+export function getColors() {
+    const scheme = document.body?.getAttribute('data-md-color-scheme');
+    return scheme === 'slate' ? NEON_GEODE_CONFIG.themes.dark : NEON_GEODE_CONFIG.themes.light;
+}
