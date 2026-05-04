@@ -1,7 +1,6 @@
 /**
  * Synaptic Flash Scene - Orchestrator
  */
-import { SYNAPTIC_FLASH_CONFIG, getColors } from './synaptic-flash/Model.js';
 import { View } from './synaptic-flash/View.js';
 import { ViewModel } from './synaptic-flash/ViewModel.js';
 
@@ -26,42 +25,29 @@ export class SynapticFlashScene {
         }
 
         const isMobile = window.innerWidth < 768;
-        const perf = isMobile ? SYNAPTIC_FLASH_CONFIG.performance.mobile : SYNAPTIC_FLASH_CONFIG.performance.desktop;
-        const colors = getColors();
 
         this.view = new View(this.container, isMobile);
-        this.view.init(SYNAPTIC_FLASH_CONFIG, colors);
-
-        this.viewModel = new ViewModel(this.view, perf.nodeCount);
-        const { positions, edges } = this.viewModel.init();
+        this.viewModel = new ViewModel(this.view, isMobile);
         
-        this.view.createNodes(positions, perf.sphereSize, colors);
-        this.view.createConnections(edges, colors.lineColor, SYNAPTIC_FLASH_CONFIG.colors.lineOpacity);
-
-        this._startRenderLoop();
-        this._setupThemeObserver();
-
-        window.addEventListener('resize', this._boundResize);
-        return true;
+        try {
+            this.viewModel.init();
+            this._startRenderLoop();
+            this._setupThemeObserver();
+            window.addEventListener('resize', this._boundResize);
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize SynapticFlashScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _onResize() {
-        if (this.view) this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
     }
 
     _setupThemeObserver() {
-        this.themeObserver = new MutationObserver(() => {
-            const colors = getColors();
-            if (this.view) {
-                this.view.scene.background.setHex(colors.background);
-                this.view.nodes.forEach(n => {
-                    n.material.color.setHex(colors.nodeColor);
-                    n.material.emissive.setHex(colors.glowColor);
-                });
-                this.view.connections.forEach(c => c.material.color.setHex(colors.lineColor));
-            }
-        });
-        this.themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-md-color-scheme'] });
+        // grayscale for now
     }
 
     _startRenderLoop() {
@@ -77,7 +63,7 @@ export class SynapticFlashScene {
         this.isDestroyed = true;
         if (this.animationId) cancelAnimationFrame(this.animationId);
         window.removeEventListener('resize', this._boundResize);
-        if (this.themeObserver) this.themeObserver.disconnect();
-        if (this.view) this.view.dispose();
+
+        if (this.viewModel) this.viewModel.dispose();
     }
 }

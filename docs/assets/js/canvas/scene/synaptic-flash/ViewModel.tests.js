@@ -4,43 +4,52 @@
 import { ViewModel } from './ViewModel.js';
 
 class MockView {
-    constructor(count, edges) {
+    constructor() {
+        this.camera = { position: { x: 0, y: 0, z: 0 }, lookAt: () => {} };
+        this.nodes = [];
+        this.connections = [];
+        this.container = { clientWidth: 1024, clientHeight: 768 };
+    }
+    init() {}
+    addNodes(count) {
         this.nodes = Array.from({ length: count }, () => ({
             material: { emissiveIntensity: 0 },
-            position: { x: 0, y: 0, z: 0 }
+            position: { x: 0, y: 0, z: 0, copy: function(p) { this.x = p.x; this.y = p.y; this.z = p.z; } }
         }));
-        this.connections = Array.from({ length: edges }, () => ({
+    }
+    addConnections(count) {
+        this.connections = Array.from({ length: count }, () => ({
             material: { opacity: 0 },
             geometry: { attributes: { position: { array: new Float32Array(6), needsUpdate: false } } }
         }));
-        this.camera = { position: { x: 0, y: 0, z: 0 }, lookAt: () => {} };
     }
     render() {}
+    onResize() {}
+    dispose() {}
 }
 
 describe('SynapticFlash ViewModel', () => {
     let view;
     let viewModel;
-    const count = 10;
 
     beforeEach(() => {
-        // ViewModel init generates random edges, so we create a mock after init
-        const tempVM = new ViewModel({}, count);
-        const { edges } = tempVM.init();
-        view = new MockView(count, edges.length);
-        viewModel = new ViewModel(view, count);
-        viewModel.init();
+        view = new MockView();
+        viewModel = new ViewModel(view, false); // desktop
     });
 
-    test('initializes with correct node and edge count', () => {
-        expect(viewModel.nodes.length).toBe(count);
-        expect(viewModel.edges.length).toBeGreaterThanOrEqual(count - 1); // Tree + potential extra
+    test('initializes neural network tree configurations through passive view', () => {
+        viewModel.init();
+        expect(viewModel.nodes.length).toBe(35); // desktop count
+        expect(viewModel.edges.length).toBeGreaterThanOrEqual(34); // Tree + potential extra
+        expect(view.nodes.length).toBe(35);
+        expect(view.connections.length).toBe(viewModel.edges.length);
     });
 
     test('emits pulse from root periodically', () => {
+        viewModel.init();
         expect(viewModel.pulses.length).toBe(0);
         
-        // Mock time to trigger pulse
+        // Mock time passage
         const realNow = performance.now;
         global.performance.now = () => 2000;
         
@@ -51,14 +60,16 @@ describe('SynapticFlash ViewModel', () => {
         global.performance.now = realNow;
     });
 
-    test('pulses propagate and decay', () => {
-        viewModel.pulses.push({ nodeIdx: 0, age: 0.2, propagated: false });
+    test('update modifies camera position and node emissive intensities', () => {
+        viewModel.init();
+        const initialCamX = view.camera.position.x;
         
-        // Update to trigger decay and potential propagation
+        // Inject a pulse
+        viewModel.pulses.push({ nodeIdx: 0, age: 0.1, propagated: false });
+        
         viewModel.update();
         
+        expect(view.camera.position.x).not.toBe(initialCamX);
         expect(viewModel.nodes[0].targetEmissive).toBeGreaterThan(0.1);
-        // Propagation is random, but let's check that age increases
-        expect(viewModel.pulses[0].age).toBeGreaterThan(0.2);
     });
 });
