@@ -1,7 +1,6 @@
 /**
  * Solar Flare Scene - Orchestrator
  */
-import { SOLAR_FLARE_CONFIG } from './solar-flare/Model.js';
 import { View } from './solar-flare/View.js';
 import { ViewModel } from './solar-flare/ViewModel.js';
 
@@ -26,22 +25,24 @@ export class SolarFlareScene {
         }
 
         const isMobile = window.innerWidth < 768;
-        const perf = isMobile ? SOLAR_FLARE_CONFIG.performance.mobile : SOLAR_FLARE_CONFIG.performance.desktop;
 
         this.view = new View(this.container, isMobile);
-        this.view.init(SOLAR_FLARE_CONFIG);
-        this.view.createParticles(perf.particleCount, perf.size);
-
-        this.viewModel = new ViewModel(this.view, perf.particleCount);
-        this.viewModel.init(true);
-
-        this._startRenderLoop();
-        window.addEventListener('resize', this._boundResize);
-        return true;
+        this.viewModel = new ViewModel(this.view, isMobile);
+        
+        try {
+            this.viewModel.init();
+            this._startRenderLoop();
+            window.addEventListener('resize', this._boundResize);
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize SolarFlareScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _onResize() {
-        if (this.view) this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
     }
 
     _startRenderLoop() {
@@ -57,6 +58,7 @@ export class SolarFlareScene {
         this.isDestroyed = true;
         if (this.animationId) cancelAnimationFrame(this.animationId);
         window.removeEventListener('resize', this._boundResize);
-        if (this.view) this.view.dispose();
+
+        if (this.viewModel) this.viewModel.dispose();
     }
 }

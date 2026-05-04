@@ -1,5 +1,7 @@
 /**
- * Solar Flare View - Passive Three.js Layer
+ * Solar Flare View - Passive Three.js Stage
+ * 
+ * ZERO logic. Only handles object instantiation and rendering.
  */
 import * as THREE from 'three';
 
@@ -10,31 +12,30 @@ export class View {
         this.scene = null;
         this.camera = null;
         this.renderer = null;
+
+        // Passive refs
         this.particles = null;
         this.sun = null;
         this.sunGlow = null;
     }
 
-    init(config) {
-        this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(config.colors.background);
-        this.scene.fog = new THREE.FogExp2(config.colors.background, 0.008);
+    init(colors, perf) {
+        const { clientWidth: w, clientHeight: h } = this.container;
 
-        const aspect = this.container.clientWidth / this.container.clientHeight;
-        this.camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 100);
+        this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(colors.background);
+        this.scene.fog = new THREE.FogExp2(colors.background, 0.008);
+
+        this.camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 100);
         this.camera.position.z = 15;
 
-        const perf = this.isMobile ? config.performance.mobile : config.performance.desktop;
-
         this.renderer = new THREE.WebGLRenderer({ antialias: !this.isMobile });
-        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+        this.renderer.setSize(w, h);
         this.renderer.setPixelRatio(perf.pixelRatio);
         this.container.appendChild(this.renderer.domElement);
-
-        this._createSun(config.colors);
     }
 
-    _createSun(colors) {
+    addSun(colors) {
         const sunGeo = new THREE.SphereGeometry(1.2, 32, 32);
         const sunMat = new THREE.MeshBasicMaterial({ color: colors.sun });
         this.sun = new THREE.Mesh(sunGeo, sunMat);
@@ -52,13 +53,10 @@ export class View {
         this.scene.add(this.sunGlow);
     }
 
-    createParticles(count, size) {
+    addParticles(positions, colors, size) {
         const geo = new THREE.BufferGeometry();
-        const pos = new Float32Array(count * 3);
-        const col = new Float32Array(count * 3);
-        
-        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-        geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
         const mat = new THREE.PointsMaterial({
             size: size,
@@ -72,12 +70,10 @@ export class View {
 
         this.particles = new THREE.Points(geo, mat);
         this.scene.add(this.particles);
-        return { positions: pos, colors: col };
     }
 
     onResize() {
-        const w = this.container.clientWidth;
-        const h = this.container.clientHeight;
+        const { clientWidth: w, clientHeight: h } = this.container;
         this.camera.aspect = w / h;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(w, h);
@@ -89,11 +85,11 @@ export class View {
 
     dispose() {
         this.renderer.dispose();
-        this.particles.geometry.dispose();
-        this.particles.material.dispose();
-        this.sun.geometry.dispose();
-        this.sun.material.dispose();
-        this.sunGlow.geometry.dispose();
-        this.sunGlow.material.dispose();
+        if (this.particles) { this.particles.geometry.dispose(); this.particles.material.dispose(); }
+        if (this.sun) { this.sun.geometry.dispose(); this.sun.material.dispose(); }
+        if (this.sunGlow) { this.sunGlow.geometry.dispose(); this.sunGlow.material.dispose(); }
+        if (this.renderer.domElement.parentElement) {
+            this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+        }
     }
 }

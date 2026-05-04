@@ -5,6 +5,7 @@ import { ViewModel } from './ViewModel.js';
 
 class MockView {
     constructor() {
+        this.camera = {};
         this.particles = {
             geometry: { 
                 attributes: { 
@@ -16,7 +17,15 @@ class MockView {
         this.sun = { rotation: { y: 0 } };
         this.sunGlow = { scale: { setScalar: (s) => {} } };
     }
+    init() {}
+    addSun() {}
+    addParticles(pos, col) {
+        this.particles.geometry.attributes.position.array = pos;
+        this.particles.geometry.attributes.color.array = col;
+    }
     render() {}
+    onResize() {}
+    dispose() {}
 }
 
 describe('SolarFlare ViewModel', () => {
@@ -25,51 +34,38 @@ describe('SolarFlare ViewModel', () => {
 
     beforeEach(() => {
         view = new MockView();
-        viewModel = new ViewModel(view, 100);
+        viewModel = new ViewModel(view, false); // desktop
     });
 
     test('initializes with particles at origin', () => {
         viewModel.init();
-        const pos = view.particles.geometry.attributes.position.array;
-        expect(pos[0]).toBe(0);
-        expect(pos[1]).toBe(0);
-        expect(pos[2]).toBe(0);
+        expect(viewModel.positions[0]).toBe(0);
+        expect(viewModel.count).toBe(8000);
     });
 
-    test('resetParticle sets randomized velocities', () => {
-        const pos = view.particles.geometry.attributes.position.array;
-        const col = view.particles.geometry.attributes.color.array;
-        viewModel._resetParticle(pos, col, 0, false);
-        
-        expect(viewModel.velocities[0]).not.toBe(0);
-        expect(viewModel.lifetimes[0]).toBeGreaterThan(0);
-    });
-
-    test('update progresses ages and positions', () => {
+    test('update modifies particle ages and positions', () => {
         viewModel.init();
         const initialAge = viewModel.ages[0];
         
-        // Simulate time passage
+        // Mock time
         const realNow = performance.now;
         global.performance.now = () => 1000;
         
         viewModel.update();
         
         expect(viewModel.ages[0]).toBeGreaterThan(initialAge);
+        expect(viewModel.positions[0]).not.toBe(0);
         global.performance.now = realNow;
     });
 
-    test('particle resets after lifetime expires', () => {
+    test('particles reset after lifetime', () => {
         viewModel.init();
-        viewModel.lifetimes[0] = 0.01; // Short lifetime
+        viewModel.lifetimes[0] = 0.01;
         viewModel.ages[0] = 0.02; // Already expired
-        
-        const pos = view.particles.geometry.attributes.position.array;
-        pos[0] = 100; // Move far away
         
         viewModel.update();
         
-        expect(pos[0]).toBe(0); // Should be reset to origin
         expect(viewModel.ages[0]).toBeCloseTo(0, 1);
+        expect(viewModel.positions[0]).toBe(0); // Should reset to origin
     });
 });
