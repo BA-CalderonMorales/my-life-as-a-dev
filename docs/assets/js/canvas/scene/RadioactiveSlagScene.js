@@ -1,9 +1,6 @@
 /**
  * Radioactive Slag Scene - Orchestrator
- *
- * Adheres to SOLID, KISS, and MVVM principles.
  */
-import { RADIOACTIVE_CONFIG } from './radioactive-slag/Model.js';
 import { View } from './radioactive-slag/View.js';
 import { ViewModel } from './radioactive-slag/ViewModel.js';
 
@@ -28,21 +25,24 @@ export class RadioactiveSlagScene {
         }
 
         const isMobile = window.innerWidth < 768;
-        const config = isMobile ? RADIOACTIVE_CONFIG.mobile : RADIOACTIVE_CONFIG.desktop;
 
         this.view = new View(this.container, isMobile);
-        this.view.createLights(config.lightCount);
-        this.view.createRocks(config.rockCount);
-
-        this.viewModel = new ViewModel(this.view);
-
-        this._startRenderLoop();
-        window.addEventListener('resize', this._boundResize);
-        return true;
+        this.viewModel = new ViewModel(this.view, isMobile);
+        
+        try {
+            this.viewModel.init();
+            this._startRenderLoop();
+            window.addEventListener('resize', this._boundResize);
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize RadioactiveSlagScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _onResize() {
-        this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
     }
 
     _startRenderLoop() {
@@ -59,6 +59,6 @@ export class RadioactiveSlagScene {
         if (this.animationId) cancelAnimationFrame(this.animationId);
         window.removeEventListener('resize', this._boundResize);
 
-        if (this.view) this.view.dispose();
+        if (this.viewModel) this.viewModel.dispose();
     }
 }
