@@ -1,19 +1,34 @@
 /**
- * String Theory ViewModel - Core Logic and Tunnel Physics
+ * String Theory ViewModel - Core Behavioral Logic
+ * 
+ * Orchestrates string midpoint drifting, orbital rotations,
+ * and tunnel camera physics.
  */
 import * as THREE from 'three';
-import { STRING_THEORY_CONFIG } from './Model.js';
+import { STRING_THEORY_CONFIG, getColors } from './Model.js';
 
 export class ViewModel {
-    constructor(view, count, length) {
+    constructor(view, isMobile) {
         this.view = view;
-        this.count = count;
-        this.length = length;
+        this.config = STRING_THEORY_CONFIG;
+        this.isMobile = isMobile;
+
+        const perf = isMobile ? this.config.performance.mobile : this.config.performance.desktop;
+        this.count = perf.stringCount;
+        this.length = perf.stringLength;
+
         this.stringData = [];
         this.startTime = performance.now();
     }
 
     init() {
+        const colors = getColors();
+        const perf = this.isMobile ? this.config.performance.mobile : this.config.performance.desktop;
+
+        this.view.init(colors, perf);
+        this.view.addStrings(this.count, colors.lineColor, this.config.colors.opacity);
+
+        // Behavior: Generate randomized string initial states
         for (let i = 0; i < this.count; i++) {
             const dir = new THREE.Vector3(
                 Math.random() - 0.5,
@@ -27,7 +42,7 @@ export class ViewModel {
                 midpoint: mid,
                 direction: dir,
                 rotationAxis: new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize(),
-                rotationSpeed: STRING_THEORY_CONFIG.physics.rotationBase + Math.random() * STRING_THEORY_CONFIG.physics.rotationVariance,
+                rotationSpeed: this.config.physics.rotationBase + Math.random() * this.config.physics.rotationVariance,
                 halfLength: this.length * 0.5,
                 phase: Math.random() * Math.PI * 2
             });
@@ -37,6 +52,7 @@ export class ViewModel {
     update() {
         const elapsed = (performance.now() - this.startTime) / 1000;
         
+        // Behavior: Orchestrate string movements and rotations
         this.view.strings.forEach((str, i) => {
             const data = this.stringData[i];
             const t = elapsed * data.rotationSpeed + data.phase;
@@ -58,7 +74,7 @@ export class ViewModel {
             str.geometry.attributes.position.needsUpdate = true;
         });
 
-        // Creative touch: Tunnel camera orbit
+        // Behavior: Tunnel camera orbit logic
         const cam = this.view.camera;
         const radius = 15;
         cam.position.x = Math.sin(elapsed * 0.12) * radius;
@@ -67,5 +83,13 @@ export class ViewModel {
         cam.lookAt(0, 0, 0);
 
         this.view.render();
+    }
+
+    onResize() {
+        this.view.onResize();
+    }
+
+    dispose() {
+        this.view.dispose();
     }
 }

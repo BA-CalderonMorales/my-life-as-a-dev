@@ -4,50 +4,59 @@
 import { ViewModel } from './ViewModel.js';
 
 class MockView {
-    constructor(count) {
+    constructor() {
+        this.camera = { position: { x: 0, y: 0, z: 0 }, lookAt: () => {} };
+        this.strings = [];
+        this.container = { clientWidth: 1024, clientHeight: 768 };
+    }
+    init() {}
+    addStrings(count) {
         this.strings = Array.from({ length: count }, () => ({
             geometry: { attributes: { position: { array: new Float32Array(6), needsUpdate: false } } }
         }));
-        this.camera = { position: { x: 0, y: 0, z: 0 }, lookAt: () => {} };
     }
     render() {}
+    onResize() {}
+    dispose() {}
 }
 
 describe('StringTheory ViewModel', () => {
     let view;
     let viewModel;
-    const count = 50;
-    const length = 20;
 
     beforeEach(() => {
-        view = new MockView(count);
-        viewModel = new ViewModel(view, count, length);
+        view = new MockView();
+        viewModel = new ViewModel(view, false); // desktop
     });
 
-    test('initializes with correct string data count', () => {
+    test('initializes string data configurations through passive view', () => {
         viewModel.init();
-        expect(viewModel.stringData.length).toBe(count);
+        expect(viewModel.stringData.length).toBe(220); // desktop count
+        expect(view.strings.length).toBe(220);
     });
 
-    test('string midpoints are within expected range', () => {
+    test('update modifies string positions and camera orbit', () => {
         viewModel.init();
-        viewModel.stringData.forEach(data => {
-            expect(data.midpoint.length()).toBeGreaterThan(length * 0.5);
-        });
-    });
-
-    test('update modifies string positions and camera', () => {
-        viewModel.init();
-        const firstPos = view.strings[0].geometry.attributes.position.array;
-        const initialX = firstPos[0];
+        const initialCamX = view.camera.position.x;
+        const initialStringX = view.strings[0].geometry.attributes.position.array[0];
         
+        // Mock time
         const realNow = performance.now;
         global.performance.now = () => 1000;
         
         viewModel.update();
         
-        expect(view.strings[0].geometry.attributes.position.array[0]).not.toBe(initialX);
-        expect(view.camera.position.x).not.toBe(0);
+        expect(view.camera.position.x).not.toBe(initialCamX);
+        expect(view.strings[0].geometry.attributes.position.array[0]).not.toBe(initialStringX);
         global.performance.now = realNow;
+    });
+
+    test('strings have midpoints within expected length bounds', () => {
+        viewModel.init();
+        viewModel.stringData.forEach(data => {
+            // Half length for desktop is 13
+            expect(data.halfLength).toBe(13);
+            expect(data.midpoint.length()).toBeGreaterThanOrEqual(13);
+        });
     });
 });

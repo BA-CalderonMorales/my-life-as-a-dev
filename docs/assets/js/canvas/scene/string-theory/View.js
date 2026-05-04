@@ -1,5 +1,7 @@
 /**
- * String Theory View - Passive Three.js Layer
+ * String Theory View - Passive Three.js Stage
+ * 
+ * ZERO logic. Only handles object instantiation and rendering.
  */
 import * as THREE from 'three';
 
@@ -10,30 +12,31 @@ export class View {
         this.scene = null;
         this.camera = null;
         this.renderer = null;
+
+        // Passive refs
         this.strings = [];
     }
 
-    init(config, colors) {
+    init(colors, perf) {
+        const { clientWidth: w, clientHeight: h } = this.container;
+
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(colors.background);
         this.scene.fog = new THREE.FogExp2(colors.background, this.isMobile ? 0.018 : 0.014);
 
-        const aspect = this.container.clientWidth / this.container.clientHeight;
-        this.camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 100);
+        this.camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 100);
         this.camera.position.z = 15;
 
-        const perf = this.isMobile ? config.performance.mobile : config.performance.desktop;
-
         this.renderer = new THREE.WebGLRenderer({ antialias: !this.isMobile });
-        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+        this.renderer.setSize(w, h);
         this.renderer.setPixelRatio(perf.pixelRatio);
         this.container.appendChild(this.renderer.domElement);
     }
 
-    createStrings(count, length, color, opacity) {
+    addStrings(count, color, opacity) {
         for (let i = 0; i < count; i++) {
             const geo = new THREE.BufferGeometry();
-            const pos = new Float32Array(6); // 2 points * 3 coords
+            const pos = new Float32Array(6); 
             geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
             geo.attributes.position.setUsage(THREE.DynamicDrawUsage);
 
@@ -49,8 +52,7 @@ export class View {
     }
 
     onResize() {
-        const w = this.container.clientWidth;
-        const h = this.container.clientHeight;
+        const { clientWidth: w, clientHeight: h } = this.container;
         this.camera.aspect = w / h;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(w, h);
@@ -66,5 +68,8 @@ export class View {
             s.geometry.dispose();
             s.material.dispose();
         });
+        if (this.renderer.domElement.parentElement) {
+            this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+        }
     }
 }

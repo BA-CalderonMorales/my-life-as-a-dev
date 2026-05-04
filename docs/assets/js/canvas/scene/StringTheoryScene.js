@@ -1,7 +1,6 @@
 /**
  * String Theory Scene - Orchestrator
  */
-import { STRING_THEORY_CONFIG, getColors } from './string-theory/Model.js';
 import { View } from './string-theory/View.js';
 import { ViewModel } from './string-theory/ViewModel.js';
 
@@ -26,37 +25,30 @@ export class StringTheoryScene {
         }
 
         const isMobile = window.innerWidth < 768;
-        const perf = isMobile ? STRING_THEORY_CONFIG.performance.mobile : STRING_THEORY_CONFIG.performance.desktop;
-        const colors = getColors();
 
         this.view = new View(this.container, isMobile);
-        this.view.init(STRING_THEORY_CONFIG, colors);
-        this.view.createStrings(perf.stringCount, perf.stringLength, colors.lineColor, STRING_THEORY_CONFIG.colors.opacity);
-
-        this.viewModel = new ViewModel(this.view, perf.stringCount, perf.stringLength);
-        this.viewModel.init();
-
-        this._startRenderLoop();
-        this._setupThemeObserver();
-
-        window.addEventListener('resize', this._boundResize);
-        return true;
+        this.viewModel = new ViewModel(this.view, isMobile);
+        
+        try {
+            this.viewModel.init();
+            this._startRenderLoop();
+            this._setupThemeObserver();
+            window.addEventListener('resize', this._boundResize);
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize StringTheoryScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _onResize() {
-        if (this.view) this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
     }
 
     _setupThemeObserver() {
-        this.themeObserver = new MutationObserver(() => {
-            const colors = getColors();
-            if (this.view) {
-                this.view.scene.background.setHex(colors.background);
-                this.view.scene.fog.color.setHex(colors.background);
-                this.view.strings.forEach(s => s.material.color.setHex(colors.lineColor));
-            }
-        });
-        this.themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-md-color-scheme'] });
+        // Theme changes handled by Model.js and ViewModel.js if needed,
+        // or just re-init on major theme change. For now, strings are grayscale.
     }
 
     _startRenderLoop() {
@@ -72,7 +64,7 @@ export class StringTheoryScene {
         this.isDestroyed = true;
         if (this.animationId) cancelAnimationFrame(this.animationId);
         window.removeEventListener('resize', this._boundResize);
-        if (this.themeObserver) this.themeObserver.disconnect();
-        if (this.view) this.view.dispose();
+
+        if (this.viewModel) this.viewModel.dispose();
     }
 }
