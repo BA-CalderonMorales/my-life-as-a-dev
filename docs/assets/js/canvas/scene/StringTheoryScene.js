@@ -1,120 +1,78 @@
-import * as THREE from 'three';
-import { ZenGeometryScene } from './ZenGeometryScene.js';
+/**
+ * String Theory Scene - Orchestrator
+ */
+import { STRING_THEORY_CONFIG, getColors } from './string-theory/Model.js';
+import { View } from './string-theory/View.js';
+import { ViewModel } from './string-theory/ViewModel.js';
 
-export class StringTheoryScene extends ZenGeometryScene {
+export class StringTheoryScene {
     constructor(containerId = 'canvas-scene') {
-        super(containerId);
+        this.containerId = containerId;
+        this.container = null;
+        this.view = null;
+        this.viewModel = null;
+        this.animationId = null;
+        this.isDestroyed = false;
+
+        this._boundResize = this._onResize.bind(this);
     }
 
-    _createGeometry() {
-        const colors = this._getColors();
-
-        this.strings = [];
-
-        const count = this.isMobile ? 120 : 200;
-        const length = this.isMobile ? 18 : 24;
-
-        for (let i = 0; i < count; i++) {
-            const dir = new THREE.Vector3(
-                Math.random() - 0.5,
-                Math.random() - 0.5,
-                Math.random() - 0.5
-            ).normalize();
-
-            const mid = dir.clone().multiplyScalar(length * 0.5 + Math.random() * 8);
-            const half = dir.clone().multiplyScalar(length * 0.5);
-            const p1 = mid.clone().sub(half);
-            const p2 = mid.clone().add(half);
-
-            const geo = new THREE.BufferGeometry().setFromPoints([p1, p2]);
-            const mat = new THREE.LineBasicMaterial({
-                color: colors.lineColor,
-                transparent: true,
-                opacity: 0.15,
-            });
-            const line = new THREE.Line(geo, mat);
-
-            line.userData = {
-                midpoint: mid.clone(),
-                direction: dir.clone(),
-                rotationAxis: new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize(),
-                rotationSpeed: 0.05 + Math.random() * 0.15,
-                halfLength: length * 0.5,
-                phase: Math.random() * Math.PI * 2,
-            };
-
-            this.scene.add(line);
-            this.strings.push(line);
+    async init() {
+        this.container = document.getElementById(this.containerId);
+        if (!this.container) {
+            this.container = document.createElement('div');
+            this.container.id = this.containerId;
+            document.body.appendChild(this.container);
         }
 
-        // Subtle fog
-        const fogDensity = this.isMobile ? 0.018 : 0.014;
-        this.scene.fog.density = fogDensity;
+        const isMobile = window.innerWidth < 768;
+        const perf = isMobile ? STRING_THEORY_CONFIG.performance.mobile : STRING_THEORY_CONFIG.performance.desktop;
+        const colors = getColors();
+
+        this.view = new View(this.container, isMobile);
+        this.view.init(STRING_THEORY_CONFIG, colors);
+        this.view.createStrings(perf.stringCount, perf.stringLength, colors.lineColor, STRING_THEORY_CONFIG.colors.opacity);
+
+        this.viewModel = new ViewModel(this.view, perf.stringCount, perf.stringLength);
+        this.viewModel.init();
+
+        this._startRenderLoop();
+        this._setupThemeObserver();
+
+        window.addEventListener('resize', this._boundResize);
+        return true;
     }
 
-    _updateTheme() {
-        const colors = this._getColors();
-        this.scene.background.setHex(colors.background);
-        this.scene.fog.color.setHex(colors.fogColor);
-        this.ambientLight.color.setHex(colors.ambientLight);
+    _onResize() {
+        if (this.view) this.view.onResize();
+    }
 
-        this.strings.forEach(str => {
-            str.material.color.setHex(colors.lineColor);
+    _setupThemeObserver() {
+        this.themeObserver = new MutationObserver(() => {
+            const colors = getColors();
+            if (this.view) {
+                this.view.scene.background.setHex(colors.background);
+                this.view.scene.fog.color.setHex(colors.background);
+                this.view.strings.forEach(s => s.material.color.setHex(colors.lineColor));
+            }
         });
+        this.themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-md-color-scheme'] });
     }
 
     _startRenderLoop() {
         const animate = () => {
             if (this.isDestroyed) return;
             this.animationId = requestAnimationFrame(animate);
-
-            const elapsed = this.clock.getElapsedTime();
-
-            // Fixed-distance camera orbit for tunnel effect
-            const camDistance = this.camera.userData.baseDistance;
-            const camSpeed = 0.012;
-            const autoAngle = elapsed * camSpeed;
-            const totalAngle = autoAngle + this.orbitAngle;
-            let camX = Math.sin(totalAngle) * camDistance;
-            let camZ = Math.cos(totalAngle) * camDistance;
-            let camY = Math.sin(elapsed * camSpeed * 0.3) * 2 + this.orbitTilt * camDistance * 0.3;
-
-            this.camera.position.set(camX, camY, camZ);
-            this.camera.lookAt(0, 0, 0);
-
-            // Slowly drift strings through space for wormhole feel
-            const driftSpeed = 2.0;
-
-            this.strings.forEach((str) => {
-                const data = str.userData;
-                const t = elapsed * data.rotationSpeed + data.phase;
-
-                // Rotate around midpoint
-                const rotQuat = new THREE.Quaternion().setFromAxisAngle(data.rotationAxis, t);
-                const dir = data.direction.clone().applyQuaternion(rotQuat);
-
-                // Drift midpoint toward camera plane to create passing effect
-                const driftedMid = data.midpoint.clone();
-                driftedMid.z += Math.sin(elapsed * 0.2 + data.phase) * 4;
-                driftedMid.x += Math.cos(elapsed * 0.15 + data.phase) * 2;
-
-                const half = dir.clone().multiplyScalar(data.halfLength);
-                const p1 = driftedMid.clone().sub(half);
-                const p2 = driftedMid.clone().add(half);
-
-                const positions = str.geometry.attributes.position.array;
-                positions[0] = p1.x;
-                positions[1] = p1.y;
-                positions[2] = p1.z;
-                positions[3] = p2.x;
-                positions[4] = p2.y;
-                positions[5] = p2.z;
-                str.geometry.attributes.position.needsUpdate = true;
-            });
-
-            this.renderer.render(this.scene, this.camera);
+            this.viewModel.update();
         };
-
         animate();
+    }
+
+    destroy() {
+        this.isDestroyed = true;
+        if (this.animationId) cancelAnimationFrame(this.animationId);
+        window.removeEventListener('resize', this._boundResize);
+        if (this.themeObserver) this.themeObserver.disconnect();
+        if (this.view) this.view.dispose();
     }
 }
