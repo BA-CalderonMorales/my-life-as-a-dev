@@ -36,6 +36,17 @@ describe('ZenGeometry ViewModel', () => {
         viewModel = new ViewModel(view, false); // desktop
     });
 
+    test('is console-clean', () => {
+        const errorSpy = vi.spyOn(console, 'error');
+        const warnSpy = vi.spyOn(console, 'warn');
+        
+        viewModel.init();
+        viewModel.update();
+        
+        expect(errorSpy).not.toHaveBeenCalled();
+        expect(warnSpy).not.toHaveBeenCalled();
+    });
+
     test('initializes with correct node definitions', () => {
         viewModel.init();
         expect(viewModel.nodeStates.length).toBe(5); // ZEN_NODE_DEFINITIONS

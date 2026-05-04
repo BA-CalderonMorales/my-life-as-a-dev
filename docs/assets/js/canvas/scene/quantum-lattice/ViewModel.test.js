@@ -39,6 +39,17 @@ describe('QuantumLattice ViewModel', () => {
         viewModel = new ViewModel(view, false, false); // desktop
     });
 
+    test('is console-clean', () => {
+        const errorSpy = vi.spyOn(console, 'error');
+        const warnSpy = vi.spyOn(console, 'warn');
+        
+        viewModel.init(colors);
+        viewModel.update();
+        
+        expect(errorSpy).not.toHaveBeenCalled();
+        expect(warnSpy).not.toHaveBeenCalled();
+    });
+
     test('initializes with correct node count', () => {
         viewModel.init(colors);
         // gridSize for desktop is 7 -> 7^3 = 343

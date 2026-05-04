@@ -30,6 +30,17 @@ describe('StringTheory ViewModel', () => {
         viewModel = new ViewModel(view, false); // desktop
     });
 
+    test('is console-clean', () => {
+        const errorSpy = vi.spyOn(console, 'error');
+        const warnSpy = vi.spyOn(console, 'warn');
+        
+        viewModel.init();
+        viewModel.update();
+        
+        expect(errorSpy).not.toHaveBeenCalled();
+        expect(warnSpy).not.toHaveBeenCalled();
+    });
+
     test('initializes string data configurations through passive view', () => {
         viewModel.init();
         expect(viewModel.stringData.length).toBe(220); // desktop count

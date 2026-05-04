@@ -43,6 +43,17 @@ describe('SynapticFlash ViewModel', () => {
         vi.useRealTimers();
     });
 
+    test('is console-clean', () => {
+        const errorSpy = vi.spyOn(console, 'error');
+        const warnSpy = vi.spyOn(console, 'warn');
+        
+        viewModel.init();
+        viewModel.update();
+        
+        expect(errorSpy).not.toHaveBeenCalled();
+        expect(warnSpy).not.toHaveBeenCalled();
+    });
+
     test('initializes neural network tree configurations through passive view', () => {
         viewModel.init();
         expect(viewModel.nodes.length).toBe(35); // desktop count

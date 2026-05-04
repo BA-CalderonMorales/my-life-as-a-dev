@@ -41,6 +41,17 @@ describe('RadioactiveSlag ViewModel', () => {
         viewModel = new ViewModel(view, false); // desktop
     });
 
+    test('is console-clean', () => {
+        const errorSpy = vi.spyOn(console, 'error');
+        const warnSpy = vi.spyOn(console, 'warn');
+        
+        viewModel.init();
+        viewModel.update();
+        
+        expect(errorSpy).not.toHaveBeenCalled();
+        expect(warnSpy).not.toHaveBeenCalled();
+    });
+
     test('initializes lights and rocks', () => {
         viewModel.init();
         expect(view.lights.length).toBe(8); // RADIOACTIVE_CONFIG.desktop.lightCount

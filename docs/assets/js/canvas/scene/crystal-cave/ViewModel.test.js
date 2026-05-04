@@ -49,6 +49,17 @@ describe('CrystalCave ViewModel', () => {
         viewModel = new ViewModel(view, false); // desktop
     });
 
+    test('is console-clean', () => {
+        const errorSpy = vi.spyOn(console, 'error');
+        const warnSpy = vi.spyOn(console, 'warn');
+        
+        viewModel.init(colors);
+        viewModel.update();
+        
+        expect(errorSpy).not.toHaveBeenCalled();
+        expect(warnSpy).not.toHaveBeenCalled();
+    });
+
     test('initializes all sub-systems', () => {
         viewModel.init(colors);
         expect(viewModel.orbitCamera).not.toBeNull();

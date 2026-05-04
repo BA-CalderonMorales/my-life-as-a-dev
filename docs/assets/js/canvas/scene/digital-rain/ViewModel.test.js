@@ -33,6 +33,17 @@ describe('DigitalRain ViewModel', () => {
         viewModel = new ViewModel(view, false); // desktop
     });
 
+    test('is console-clean', () => {
+        const errorSpy = vi.spyOn(console, 'error');
+        const warnSpy = vi.spyOn(console, 'warn');
+        
+        viewModel.init();
+        viewModel.update();
+        
+        expect(errorSpy).not.toHaveBeenCalled();
+        expect(warnSpy).not.toHaveBeenCalled();
+    });
+
     test('initializes with correct particle count', () => {
         viewModel.init();
         expect(viewModel.count).toBe(1500); // 50 cols * 30 particles

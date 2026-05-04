@@ -37,6 +37,17 @@ describe('OrigamiUnfolding ViewModel', () => {
         viewModel = new ViewModel(view, false); // desktop
     });
 
+    test('is console-clean', () => {
+        const errorSpy = vi.spyOn(console, 'error');
+        const warnSpy = vi.spyOn(console, 'warn');
+        
+        viewModel.init({ line: 0xffffff });
+        viewModel.update();
+        
+        expect(errorSpy).not.toHaveBeenCalled();
+        expect(warnSpy).not.toHaveBeenCalled();
+    });
+
     test('initializes planes and finds connection pairs', () => {
         viewModel.init({ line: 0xffffff });
         expect(viewModel.planeConfigs.length).toBe(planeCount);
