@@ -1,17 +1,21 @@
 /**
- * Quantum Lattice ViewModel - Core Logic and Physics
+ * Quantum Lattice ViewModel - Core Behavioral Logic
+ * 
+ * Orchestrates lattice generation, snap physics, and line orchestration.
  */
 import * as THREE from 'three';
 import { QUANTUM_LATTICE_CONFIG } from './Model.js';
 
 export class ViewModel {
-    constructor(view, gridSize, spacing, colors) {
+    constructor(view, isMobile, isTablet) {
         this.view = view;
-        this.gridSize = gridSize;
-        this.spacing = spacing;
-        this.colors = colors;
+        this.config = QUANTUM_LATTICE_CONFIG;
+        this.isMobile = isMobile;
+        this.isTablet = isTablet;
+
+        this.perf = isMobile ? this.config.performance.mobile : (isTablet ? this.config.performance.tablet : this.config.performance.desktop);
+        this.count = this.perf.gridSize ** 3;
         
-        this.count = gridSize * gridSize * gridSize;
         this.basePositions = new Float32Array(this.count * 3);
         this.currentPositions = new Float32Array(this.count * 3);
         this.phases = new Float32Array(this.count);
@@ -21,49 +25,56 @@ export class ViewModel {
         this.edges = [];
         this.matrixObject = new THREE.Object3D();
         this.startTime = performance.now();
+        this.colors = null;
     }
 
-    init() {
-        const offset = ((this.gridSize - 1) * this.spacing) / 2;
+    init(colors) {
+        this.colors = colors;
+        this.view.init(colors, this.config);
+        this.view.addInstancedNodes(this.count, this.perf.octaSize, colors);
+
+        const spacing = this.perf.spacing;
+        const size = this.perf.gridSize;
+        const offset = ((size - 1) * spacing) / 2;
         let index = 0;
 
-        for (let x = 0; x < this.gridSize; x++) {
-            for (let y = 0; y < this.gridSize; y++) {
-                for (let z = 0; z < this.gridSize; z++) {
+        // Behavior: Generate lattice structure and edge map
+        for (let x = 0; x < size; x++) {
+            for (let y = 0; y < size; y++) {
+                for (let z = 0; z < size; z++) {
                     const idx = index * 3;
-                    const bx = x * this.spacing - offset;
-                    const by = y * this.spacing - offset;
-                    const bz = z * this.spacing - offset;
-
-                    this.basePositions[idx] = bx;
-                    this.basePositions[idx + 1] = by;
-                    this.basePositions[idx + 2] = bz;
+                    this.basePositions[idx] = x * spacing - offset;
+                    this.basePositions[idx + 1] = y * spacing - offset;
+                    this.basePositions[idx + 2] = z * spacing - offset;
                     
                     this.phases[index] = Math.random() * Math.PI * 2;
-                    this.speeds[index] = QUANTUM_LATTICE_CONFIG.physics.speedRange[0] + 
-                                       Math.random() * (QUANTUM_LATTICE_CONFIG.physics.speedRange[1] - QUANTUM_LATTICE_CONFIG.physics.speedRange[0]);
-                    this.amplitudes[index] = QUANTUM_LATTICE_CONFIG.physics.ampRange[0] + 
-                                           Math.random() * (QUANTUM_LATTICE_CONFIG.physics.ampRange[1] - QUANTUM_LATTICE_CONFIG.physics.ampRange[0]);
+                    this.speeds[index] = this.config.physics.speedRange[0] + 
+                                       Math.random() * (this.config.physics.speedRange[1] - this.config.physics.speedRange[0]);
+                    this.amplitudes[index] = this.config.physics.ampRange[0] + 
+                                           Math.random() * (this.config.physics.ampRange[1] - this.config.physics.ampRange[0]);
                     
-                    // Create edges
-                    if (x + 1 < this.gridSize) this.edges.push(index, this._indexFor(x + 1, y, z));
-                    if (y + 1 < this.gridSize) this.edges.push(index, this._indexFor(x, y + 1, z));
-                    if (z + 1 < this.gridSize) this.edges.push(index, this._indexFor(x, y, z + 1));
+                    if (x + 1 < size) this.edges.push(index, this._indexFor(x + 1, y, z));
+                    if (y + 1 < size) this.edges.push(index, this._indexFor(x, y + 1, z));
+                    if (z + 1 < size) this.edges.push(index, this._indexFor(x, y, z + 1));
                     
                     index++;
                 }
             }
         }
+
+        this.view.addLines(this.edges.length / 2, colors.lineColor, colors.lineOpacity);
     }
 
     _indexFor(x, y, z) {
-        return x * this.gridSize * this.gridSize + y * this.gridSize + z;
+        const size = this.perf.gridSize;
+        return x * size * size + y * size + z;
     }
 
     update() {
         const elapsed = (performance.now() - this.startTime) / 1000;
-        const cfg = QUANTUM_LATTICE_CONFIG.physics;
+        const cfg = this.config.physics;
 
+        // Behavior: "Snap" physics movement
         for (let i = 0; i < this.count; i++) {
             const idx = i * 3;
             const t = elapsed * this.speeds[i] + this.phases[i];
@@ -82,7 +93,7 @@ export class ViewModel {
         this.view.nodes.instanceMatrix.needsUpdate = true;
         this._updateLines();
         
-        // Creative touch: Emissive pulse
+        // Behavior: Emissive pulse sync
         this.view.nodes.material.emissiveIntensity = this.colors.emissiveBase + Math.sin(elapsed * 2) * 0.05;
 
         this.view.render();
@@ -102,5 +113,13 @@ export class ViewModel {
             linePos[writeIdx++] = this.currentPositions[to + 2];
         }
         this.view.lines.geometry.attributes.position.needsUpdate = true;
+    }
+
+    onResize() {
+        this.view.onResize();
+    }
+
+    dispose() {
+        this.view.dispose();
     }
 }

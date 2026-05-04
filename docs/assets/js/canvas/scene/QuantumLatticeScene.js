@@ -1,7 +1,7 @@
 /**
  * Quantum Lattice Scene - Orchestrator
  */
-import { QUANTUM_LATTICE_CONFIG, getColors } from './quantum-lattice/Model.js';
+import { getColors } from './quantum-lattice/Model.js';
 import { View } from './quantum-lattice/View.js';
 import { ViewModel } from './quantum-lattice/ViewModel.js';
 
@@ -28,30 +28,27 @@ export class QuantumLatticeScene {
         const width = window.innerWidth;
         const isMobile = width < 768;
         const isTablet = width >= 768 && width < 1024;
-        const perf = isMobile ? QUANTUM_LATTICE_CONFIG.performance.mobile : (isTablet ? QUANTUM_LATTICE_CONFIG.performance.tablet : QUANTUM_LATTICE_CONFIG.performance.desktop);
         const colors = getColors();
 
-        this.view = new View(this.container, isMobile, isTablet);
-        this.view.init(colors, QUANTUM_LATTICE_CONFIG);
-        this.view.createLattice(perf.gridSize, perf.octaSize, perf.gridSize**3, colors);
+        this.view = new View(this.container, isMobile);
+        this.viewModel = new ViewModel(this.view, isMobile, isTablet);
+        
+        try {
+            this.viewModel.init(colors);
+            this._startRenderLoop();
+            this._setupThemeObserver();
 
-        this.viewModel = new ViewModel(this.view, perf.gridSize, perf.spacing, colors);
-        this.viewModel.init();
-
-        this._setupInteraction();
-        this._startRenderLoop();
-        this._setupThemeObserver();
-
-        window.addEventListener('resize', this._handleResize);
-        return true;
-    }
-
-    _setupInteraction() {
-        // Lattice specific interaction could go here
+            window.addEventListener('resize', this._handleResize);
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize QuantumLatticeScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _onResize() {
-        if (this.view) this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
     }
 
     _setupThemeObserver() {
@@ -77,6 +74,7 @@ export class QuantumLatticeScene {
         if (this.animationId) cancelAnimationFrame(this.animationId);
         window.removeEventListener('resize', this._handleResize);
         if (this.themeObserver) this.themeObserver.disconnect();
-        if (this.view) this.view.dispose();
+        
+        if (this.viewModel) this.viewModel.dispose();
     }
 }

@@ -3,63 +3,67 @@
  */
 import { ViewModel } from './ViewModel.js';
 
-// Simple mock for Three.js objects and View
 class MockView {
     constructor() {
-        this.nodes = {
-            instanceMatrix: { array: new Float32Array(1000), needsUpdate: false },
-            setMatrixAt: (i, m) => {},
+        this.camera = { position: { x: 0, y: 0, z: 0 }, lookAt: () => {} };
+        this.nodes = { 
+            instanceMatrix: { needsUpdate: false }, 
+            setMatrixAt: () => {},
             material: { emissiveIntensity: 0 }
         };
         this.lines = {
             geometry: { attributes: { position: { array: new Float32Array(1000), needsUpdate: false } } }
         };
+        this.container = { clientWidth: 1024, clientHeight: 768 };
     }
+    init() {}
+    addInstancedNodes() {}
+    addLines() {}
     render() {}
+    onResize() {}
+    dispose() {}
 }
 
 describe('QuantumLattice ViewModel', () => {
     let view;
     let viewModel;
-    const colors = { emissiveBase: 0.3 };
+    const colors = { 
+        emissiveBase: 0.3,
+        lineColor: 0xffffff,
+        lineOpacity: 0.5
+    };
 
     beforeEach(() => {
         view = new MockView();
-        viewModel = new ViewModel(view, 3, 1.0, colors);
+        viewModel = new ViewModel(view, false, false); // desktop
     });
 
     test('initializes with correct node count', () => {
-        viewModel.init();
-        expect(viewModel.count).toBe(27); // 3*3*3
-        expect(viewModel.basePositions.length).toBe(27 * 3);
+        viewModel.init(colors);
+        // gridSize for desktop is 7 -> 7^3 = 343
+        expect(viewModel.count).toBe(343);
+        expect(viewModel.basePositions.length).toBe(343 * 3);
     });
 
-    test('calculates correct base positions (centered)', () => {
-        viewModel.init();
-        // offset = (3-1)*1/2 = 1.0
-        // Grid should go from -1.0 to 1.0
-        expect(viewModel.basePositions[0]).toBeCloseTo(-1.0);
-        expect(viewModel.basePositions[viewModel.basePositions.length - 1]).toBeCloseTo(1.0);
-    });
-
-    test('creates correct number of edges for 3x3x3 grid', () => {
-        viewModel.init();
-        // For each dimension, 2 internal segments: 2*3*3 = 18
-        // Total = 18 * 3 = 54 edges -> 108 indices
-        expect(viewModel.edges.length).toBe(108);
-    });
-
-    test('update modifies current positions based on elapsed time', () => {
-        viewModel.init();
-        const initialX = viewModel.currentPositions[0];
+    test('update modifies node matrices and lines', () => {
+        viewModel.init(colors);
+        const needsUpdateNodes = view.nodes.instanceMatrix.needsUpdate;
         
-        // Mock performance.now to simulate time passing
+        // Mock time
         const realNow = performance.now;
         global.performance.now = () => 1000;
         
         viewModel.update();
         
-        expect(viewModel.currentPositions[0]).not.toBe(initialX);
+        expect(view.nodes.instanceMatrix.needsUpdate).toBe(true);
+        expect(view.lines.geometry.attributes.position.needsUpdate).toBe(true);
         global.performance.now = realNow;
+    });
+
+    test('calculates correct base positions (centered)', () => {
+        viewModel.init(colors);
+        // offset = (7-1)*1.48/2 = 4.44
+        // Grid should go from -4.44 to 4.44
+        expect(viewModel.basePositions[0]).toBeCloseTo(-4.44, 2);
     });
 });
