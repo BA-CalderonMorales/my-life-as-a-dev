@@ -1,19 +1,36 @@
+/**
+ * Particle Flow Model - Configuration
+ */
+import { themes } from '../themes/ThemeConfig.js';
+
 export const PARTICLE_FLOW_CONFIG = {
-    desktop: {
-        count: 9000,
-        size: 0.055,
+    performance: {
+        mobile: {
+            particleCount: 2000,
+            pixelRatio: 1.5,
+            size: 0.12
+        },
+        desktop: {
+            particleCount: 8000,
+            pixelRatio: 2,
+            size: 0.08
+        }
     },
-    mobile: {
-        count: 3600,
-        size: 0.075,
+    physics: {
+        fieldScale: 0.08,
+        driftSpeed: 0.1,
+        noiseAmount: 0.015,
+        pushRadiusSq: 16,
+        pushForce: 0.08
+    },
+    colors: {
+        background: 0x050505,
+        particle: 0x888888,
+        accent: 0x44aaff
     }
 };
 
-export const getColors = () => {
-    const isDark = document.body.getAttribute('data-md-color-scheme') === 'slate';
-    return {
-        background: isDark ? 0x0e0e0d : 0xefeee9,
-        particle: isDark ? 0xb9b6af : 0x5f5f5a,
-        accent: isDark ? 0xffffff : 0x1c1c1c,
-    };
-};
+export function getColors() {
+    const scheme = document.body?.getAttribute('data-md-color-scheme');
+    return scheme === 'slate' ? themes.dark : themes.light;
+}
