@@ -1,9 +1,6 @@
 /**
  * Neon Geode Scene - Orchestrator
- *
- * Adheres to SOLID, KISS, and MVVM principles.
  */
-import { NEON_GEODE_CONFIG } from './neon-geode/Model.js';
 import { View } from './neon-geode/View.js';
 import { ViewModel } from './neon-geode/ViewModel.js';
 
@@ -28,22 +25,29 @@ export class NeonGeodeScene {
         }
 
         const isMobile = window.innerWidth < 768;
-        const config = isMobile ? NEON_GEODE_CONFIG.mobile : NEON_GEODE_CONFIG.desktop;
 
         this.view = new View(this.container, isMobile);
-        this.view.createEnvironment(NEON_GEODE_CONFIG.lights);
-        this.view.createGeode(config.crystalCount, NEON_GEODE_CONFIG.palette);
-        const sparkleVelocities = this.view.createSparkles(isMobile ? 320 : 720, NEON_GEODE_CONFIG.palette);
-
-        this.viewModel = new ViewModel(this.view, sparkleVelocities);
-
-        this._startRenderLoop();
-        window.addEventListener('resize', this._boundResize);
-        return true;
+        this.viewModel = new ViewModel(this.view, isMobile);
+        
+        try {
+            this.viewModel.init();
+            this._startRenderLoop();
+            this._setupThemeObserver();
+            window.addEventListener('resize', this._boundResize);
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize NeonGeodeScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _onResize() {
-        this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
+    }
+
+    _setupThemeObserver() {
+        // grayscale/neon palette stays for now
     }
 
     _startRenderLoop() {
@@ -60,6 +64,6 @@ export class NeonGeodeScene {
         if (this.animationId) cancelAnimationFrame(this.animationId);
         window.removeEventListener('resize', this._boundResize);
 
-        if (this.view) this.view.dispose();
+        if (this.viewModel) this.viewModel.dispose();
     }
 }

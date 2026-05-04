@@ -1,14 +1,30 @@
+/**
+ * Neon Geode Model - Configuration
+ */
 export const NEON_GEODE_CONFIG = {
-    palette: [0xff1ab3, 0x00f6ff, 0x9c3cff, 0x35ffcf],
-    desktop: {
-        crystalCount: 34,
-    },
     mobile: {
-        crystalCount: 18,
+        crystalCount: 15,
+        sparkleCount: 400,
+        camDist: 11
     },
-    lights: [
-        { color: 0xff1ab3, position: [-3.4, 2.4, 2.8], intensity: 2.7 },
-        { color: 0x00f6ff, position: [3.2, 1.8, 3.1], intensity: 2.5 },
-        { color: 0x9c3cff, position: [0, 4.4, -2.2], intensity: 2.2 },
-    ]
+    desktop: {
+        crystalCount: 38,
+        sparkleCount: 1200,
+        camDist: 10.5
+    },
+    physics: {
+        orbitSpeed: 0.012,
+        pulseSpeedRange: [0.75, 2.0],
+        sparkleSpeed: [0.003, 0.009]
+    },
+    palette: [0x00f6ff, 0x1d2c6c, 0xb7ffff, 0x47a7ff, 0x130018],
+    lightConfigs: [
+        { position: [4, 5, 2], color: 0x00f6ff, intensity: 2.2 },
+        { position: [-6, -2, -3], color: 0x130018, intensity: 1.8 }
+    ],
+    colors: {
+        background: 0x04030a,
+        floor: 0x08070d,
+        core: 0x00f6ff
+    }
 };
