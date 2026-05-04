@@ -1,125 +1,65 @@
-import * as THREE from 'three';
-import { ParticleFlowScene } from './ParticleFlowScene.js';
+/**
+ * Digital Rain Scene - Orchestrator
+ *
+ * Coordinates the Lifecycle between the passive View and the logical ViewModel.
+ */
+import { DIGITAL_RAIN_CONFIG } from './digital-rain/Model.js';
+import { View } from './digital-rain/View.js';
+import { ViewModel } from './digital-rain/ViewModel.js';
 
-export class DigitalRainScene extends ParticleFlowScene {
+export class DigitalRainScene {
     constructor(containerId = 'canvas-scene') {
-        super(containerId);
+        this.containerId = containerId;
+        this.container = null;
+        this.view = null;
+        this.viewModel = null;
+        this.animationId = null;
+        this.isDestroyed = false;
+
+        this._boundResize = this._onResize.bind(this);
     }
 
-    _createParticles() {
-        const columns = 50;
-        const particlesPerColumn = this.isMobile ? 20 : 30;
-        const count = columns * particlesPerColumn;
-        const geometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(count * 3);
-        const colors = new Float32Array(count * 3);
-        const columnIndices = new Int32Array(count);
-        const speeds = new Float32Array(count);
-        const flashes = new Float32Array(count);
-
-        const columnWidth = 30 / columns;
-
-        for (let col = 0; col < columns; col++) {
-            const x = (col - columns / 2) * columnWidth + (Math.random() - 0.5) * columnWidth * 0.5;
-            for (let row = 0; row < particlesPerColumn; row++) {
-                const i = col * particlesPerColumn + row;
-                const idx = i * 3;
-                positions[idx] = x;
-                positions[idx + 1] = 10 - (row / particlesPerColumn) * 20 + Math.random() * 2;
-                positions[idx + 2] = (Math.random() - 0.5) * 5;
-                columnIndices[i] = col;
-                speeds[i] = 3 + Math.random() * 4;
-                flashes[i] = 0;
-
-                // Green gradient
-                const brightness = 0.3 + Math.random() * 0.5;
-                colors[idx] = 0;
-                colors[idx + 1] = brightness;
-                colors[idx + 2] = 0;
-            }
+    async init() {
+        this.container = document.getElementById(this.containerId);
+        if (!this.container) {
+            this.container = document.createElement('div');
+            this.container.id = this.containerId;
+            document.body.appendChild(this.container);
         }
 
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        const isMobile = window.innerWidth < 768;
+        
+        // 1. Create passive View
+        this.view = new View(this.container, isMobile);
+        this.view.init(DIGITAL_RAIN_CONFIG.colors);
 
-        const material = new THREE.PointsMaterial({
-            size: 0.15,
-            sizeAttenuation: true,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.85,
-            blending: THREE.AdditiveBlending,
-        });
+        // 2. Create logical ViewModel and inject View
+        this.viewModel = new ViewModel(this.view, isMobile);
+        this.viewModel.init();
 
-        this.particles = new THREE.Points(geometry, material);
-        this.scene.add(this.particles);
+        this._startRenderLoop();
+        window.addEventListener('resize', this._boundResize);
+        return true;
+    }
 
-        // Floor reflection plane
-        const planeGeo = new THREE.PlaneGeometry(40, 40);
-        const planeMat = new THREE.MeshBasicMaterial({
-            color: 0x003300,
-            transparent: true,
-            opacity: 0.15,
-            side: THREE.DoubleSide,
-        });
-        this.floor = new THREE.Mesh(planeGeo, planeMat);
-        this.floor.rotation.x = -Math.PI / 2;
-        this.floor.position.y = -12;
-        this.scene.add(this.floor);
-
-        this.columnIndices = columnIndices;
-        this.particleSpeeds = speeds;
-        this.particleFlashes = flashes;
-        this.particlesPerColumn = particlesPerColumn;
-        this.columns = columns;
-
-        this.scene.background = new THREE.Color(0x020202);
-        this.scene.fog = new THREE.FogExp2(0x020202, 0.01);
-
-        // Camera looks slightly upward
-        this.camera.position.set(0, -5, 25);
-        this.camera.lookAt(0, 2, 0);
+    _onResize() {
+        if (this.view) this.view.onResize();
     }
 
     _startRenderLoop() {
         const animate = () => {
             if (this.isDestroyed) return;
             this.animationId = requestAnimationFrame(animate);
-
-            const positions = this.particles.geometry.attributes.position.array;
-            const colors = this.particles.geometry.attributes.color.array;
-            const count = positions.length / 3;
-            const dt = 0.016;
-
-            for (let i = 0; i < count; i++) {
-                const idx = i * 3;
-                positions[idx + 1] -= this.particleSpeeds[i] * dt;
-
-                // Flash decay
-                if (this.particleFlashes[i] > 0) {
-                    this.particleFlashes[i] -= dt * 2;
-                }
-
-                // Reset when below bottom
-                if (positions[idx + 1] < -12) {
-                    positions[idx + 1] = 12;
-                    this.particleFlashes[i] = 1.0;
-                }
-
-                // Color: flash bright green, then fade to dark green
-                const flash = Math.max(0, this.particleFlashes[i]);
-                const baseGreen = 0.1 + (Math.sin(positions[idx + 1] * 0.5) + 1) * 0.15;
-                const green = Math.min(1.0, baseGreen + flash);
-                colors[idx] = 0;
-                colors[idx + 1] = green;
-                colors[idx + 2] = flash * 0.2;
-            }
-
-            this.particles.geometry.attributes.position.needsUpdate = true;
-            this.particles.geometry.attributes.color.needsUpdate = true;
-
-            this.renderer.render(this.scene, this.camera);
+            this.viewModel.update();
         };
         animate();
+    }
+
+    destroy() {
+        this.isDestroyed = true;
+        if (this.animationId) cancelAnimationFrame(this.animationId);
+        window.removeEventListener('resize', this._boundResize);
+
+        if (this.view) this.view.dispose();
     }
 }
