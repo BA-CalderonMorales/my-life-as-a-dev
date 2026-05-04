@@ -1,9 +1,6 @@
 /**
  * Holographic Sand Scene - Orchestrator
- *
- * Adheres to SOLID, KISS, and MVVM principles.
  */
-import { HOLOGRAPHIC_SAND_CONFIG } from './holographic-sand/Model.js';
 import { View } from './holographic-sand/View.js';
 import { ViewModel } from './holographic-sand/ViewModel.js';
 
@@ -29,16 +26,20 @@ export class HolographicSandScene {
         }
 
         const isMobile = window.innerWidth < 768;
+
         this.view = new View(this.container, isMobile);
-        this.view.init(HOLOGRAPHIC_SAND_CONFIG);
-
-        this.viewModel = new ViewModel(this.view);
-        this.viewModel.init();
-
-        this._startRenderLoop();
-        this._setupListeners();
+        this.viewModel = new ViewModel(this.view, isMobile);
         
-        return true;
+        try {
+            this.viewModel.init();
+            this._setupListeners();
+            this._startRenderLoop();
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize HolographicSandScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _setupListeners() {
@@ -52,7 +53,7 @@ export class HolographicSandScene {
     }
 
     _onResize() {
-        if (this.view) this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
     }
 
     _startRenderLoop() {
@@ -74,6 +75,6 @@ export class HolographicSandScene {
             this.container.removeEventListener('touchstart', this._boundInteraction);
         }
 
-        if (this.view) this.view.dispose();
+        if (this.viewModel) this.viewModel.dispose();
     }
 }

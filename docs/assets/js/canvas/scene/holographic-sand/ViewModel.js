@@ -1,48 +1,65 @@
 /**
- * Holographic Sand ViewModel - Interaction and Physics
+ * Holographic Sand ViewModel - Core Behavioral Logic
  */
 import * as THREE from 'three';
 import { HOLOGRAPHIC_SAND_CONFIG } from './Model.js';
 
 export class ViewModel {
-    constructor(view) {
+    constructor(view, isMobile) {
         this.view = view;
-        this.state = HOLOGRAPHIC_SAND_CONFIG.states.DRIFTING;
+        this.config = HOLOGRAPHIC_SAND_CONFIG;
+        this.isMobile = isMobile;
+
+        this.state = this.config.states.DRIFTING;
         this.timer = 0;
         this.progress = 0;
         this.targetShape = 'tetrahedron';
         
-        this.count = 0;
-        this.randomPositions = null;
-        this.targetPositions = null;
-        this.velocities = null;
+        const perf = isMobile ? this.config.performance.mobile : this.config.performance.desktop;
+        this.count = perf.particleCount;
+        this.particleSize = perf.size;
+
+        this.positions = new Float32Array(this.count * 3);
+        this.randomPositions = new Float32Array(this.count * 3);
+        this.targetPositions = new Float32Array(this.count * 3);
+        this.velocities = new Float32Array(this.count * 3);
         
-        this.mouse = new THREE.Vector2(0, 0);
-        this.raycaster = new THREE.Raycaster();
+        this.startTime = performance.now();
     }
 
     init() {
-        const positions = this.view.particles.geometry.attributes.position.array;
-        this.count = positions.length / 3;
-        
-        this.randomPositions = new Float32Array(positions);
-        this.targetPositions = new Float32Array(positions);
-        this.velocities = new Float32Array(this.count * 3);
-        
-        for (let i = 0; i < this.count * 3; i++) {
-            this.velocities[i] = (Math.random() - 0.5) * 0.02;
+        // Behavior: Initial random positioning
+        for (let i = 0; i < this.count; i++) {
+            const idx = i * 3;
+            const x = (Math.random() - 0.5) * 20;
+            const y = (Math.random() - 0.5) * 14;
+            const z = (Math.random() - 0.5) * 10;
+            this.positions[idx] = x;
+            this.positions[idx+1] = y;
+            this.positions[idx+2] = z;
+            this.randomPositions[idx] = x;
+            this.randomPositions[idx+1] = y;
+            this.randomPositions[idx+2] = z;
+            
+            this.velocities[idx] = (Math.random() - 0.5) * 0.02;
+            this.velocities[idx+1] = (Math.random() - 0.5) * 0.02;
+            this.velocities[idx+2] = (Math.random() - 0.5) * 0.02;
         }
+
+        this.view.init(this.config, this.isMobile ? this.config.performance.mobile : this.config.performance.desktop);
+        this.view.addParticles(this.positions, this.config.colors, this.particleSize);
+        this.view.addGrid(this.config.colors);
     }
 
     triggerFormation() {
-        if (this.state !== HOLOGRAPHIC_SAND_CONFIG.states.DRIFTING && 
-            this.state !== HOLOGRAPHIC_SAND_CONFIG.states.RETURNING) return;
+        if (this.state !== this.config.states.DRIFTING && 
+            this.state !== this.config.states.RETURNING) return;
             
-        const shapes = HOLOGRAPHIC_SAND_CONFIG.shapes;
+        const shapes = this.config.shapes;
         this.targetShape = shapes[Math.floor(Math.random() * shapes.length)];
         this._generateShapePositions(this.targetShape);
         
-        this.state = HOLOGRAPHIC_SAND_CONFIG.states.FORMING;
+        this.state = this.config.states.FORMING;
         this.progress = 0;
         this.timer = 0;
     }
@@ -82,10 +99,8 @@ export class ViewModel {
             const r = 3.5;
             for (let i = 0; i < this.count; i++) {
                 const idx = i * 3;
-                const u = Math.random();
-                const v = Math.random();
-                const theta = 2 * Math.PI * u;
-                const phi = Math.acos(2 * v - 1);
+                const theta = 2 * Math.PI * Math.random();
+                const phi = Math.acos(2 * Math.random() - 1);
                 pos[idx] = r * Math.sin(phi) * Math.cos(theta);
                 pos[idx+1] = r * Math.sin(phi) * Math.sin(theta);
                 pos[idx+2] = r * Math.cos(phi);
@@ -106,15 +121,14 @@ export class ViewModel {
 
     update() {
         const dt = 0.016;
-        const positions = this.view.particles.geometry.attributes.position.array;
-        const states = HOLOGRAPHIC_SAND_CONFIG.states;
+        const states = this.config.states;
 
         if (this.state === states.FORMING) {
-            this.progress += dt * HOLOGRAPHIC_SAND_CONFIG.timings.formSpeed;
+            this.progress += dt * this.config.timings.formSpeed;
             if (this.progress >= 1) { this.progress = 1; this.state = states.HOLDING; this.timer = 0; }
         } else if (this.state === states.HOLDING) {
             this.timer += dt;
-            if (this.timer >= HOLOGRAPHIC_SAND_CONFIG.timings.hold) { this.state = states.RETURNING; }
+            if (this.timer >= this.config.timings.hold) { this.state = states.RETURNING; }
         } else if (this.state === states.RETURNING) {
             this.progress -= dt * 0.5;
             if (this.progress <= 0) { this.progress = 0; this.state = states.DRIFTING; }
@@ -126,20 +140,13 @@ export class ViewModel {
         for (let i = 0; i < this.count; i++) {
             const idx = i * 3;
             if (this.state === states.DRIFTING) {
-                this.velocities[idx] += (Math.random() - 0.5) * 0.002;
-                this.velocities[idx+1] += (Math.random() - 0.5) * 0.002;
-                this.velocities[idx+2] += (Math.random() - 0.5) * 0.002;
-                this.velocities[idx] *= 0.98;
-                this.velocities[idx+1] *= 0.98;
-                this.velocities[idx+2] *= 0.98;
+                this.positions[idx] += this.velocities[idx];
+                this.positions[idx+1] += this.velocities[idx+1];
+                this.positions[idx+2] += this.velocities[idx+2];
                 
-                positions[idx] += this.velocities[idx];
-                positions[idx+1] += this.velocities[idx+1];
-                positions[idx+2] += this.velocities[idx+2];
-                
-                if (Math.abs(positions[idx]) > 15) this.velocities[idx] *= -1;
-                if (Math.abs(positions[idx+1]) > 10) this.velocities[idx+1] *= -1;
-                if (Math.abs(positions[idx+2]) > 8) this.velocities[idx+2] *= -1;
+                if (Math.abs(this.positions[idx]) > 15) this.velocities[idx] *= -1;
+                if (Math.abs(this.positions[idx+1]) > 10) this.velocities[idx+1] *= -1;
+                if (Math.abs(this.positions[idx+2]) > 8) this.velocities[idx+2] *= -1;
             } else {
                 const rx = this.randomPositions[idx];
                 const ry = this.randomPositions[idx+1];
@@ -148,13 +155,21 @@ export class ViewModel {
                 const ty = this.targetPositions[idx+1];
                 const tz = this.targetPositions[idx+2];
                 
-                positions[idx] = rx + (tx - rx) * ease;
-                positions[idx+1] = ry + (ty - ry) * ease;
-                positions[idx+2] = rz + (tz - rz) * ease;
+                this.positions[idx] = rx + (tx - rx) * ease;
+                this.positions[idx+1] = ry + (ty - ry) * ease;
+                this.positions[idx+2] = rz + (tz - rz) * ease;
             }
         }
 
         this.view.particles.geometry.attributes.position.needsUpdate = true;
         this.view.render();
+    }
+
+    onResize() {
+        this.view.onResize();
+    }
+
+    dispose() {
+        this.view.dispose();
     }
 }

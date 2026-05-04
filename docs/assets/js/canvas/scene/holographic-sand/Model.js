@@ -1,5 +1,5 @@
 /**
- * Holographic Sand Model - Configuration and Constants
+ * Holographic Sand Model - Configuration
  */
 export const HOLOGRAPHIC_SAND_CONFIG = {
     performance: {
