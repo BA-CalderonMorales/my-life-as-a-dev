@@ -1,12 +1,28 @@
+/**
+ * Obsidian Shards Model - Configuration
+ */
 export const OBSIDIAN_CONFIG = {
-    desktop: {
-        count: 15,
-    },
     mobile: {
-        count: 8,
+        shardCount: 15,
+        camDist: 14
     },
-    lightColors: [0xff3333, 0x3333ff, 0xffffff, 0xff3333, 0x3333ff],
+    desktop: {
+        shardCount: 40,
+        camDist: 18
+    },
+    physics: {
+        driftSpeed: 0.12,
+        rotSpeedMax: 0.4
+    },
+    colors: {
+        background: 0x111111,
+        ambient: 0x222222,
+        obsidian: 0x050505,
+        lights: [0x4444ff, 0xff44ff, 0x44ffff]
+    },
     lightPositions: [
-        [8, 6, 6], [-8, 4, 5], [0, 8, 0], [6, -2, -6], [-5, 3, -7]
+        [5, 5, 5],
+        [-5, -5, -5],
+        [0, 8, -2]
     ]
 };

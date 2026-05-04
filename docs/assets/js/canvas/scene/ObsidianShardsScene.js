@@ -1,10 +1,6 @@
 /**
  * Obsidian Shards Scene - Orchestrator
- *
- * Adheres to SOLID, KISS, and MVVM principles.
- * Uses InstancedMesh for performance.
  */
-import { OBSIDIAN_CONFIG } from './obsidian-shards/Model.js';
 import { View } from './obsidian-shards/View.js';
 import { ViewModel } from './obsidian-shards/ViewModel.js';
 
@@ -29,24 +25,29 @@ export class ObsidianShardsScene {
         }
 
         const isMobile = window.innerWidth < 768;
-        const config = isMobile ? OBSIDIAN_CONFIG.mobile : OBSIDIAN_CONFIG.desktop;
 
         this.view = new View(this.container, isMobile);
-        const shardConfigs = this.view.createShards(
-            OBSIDIAN_CONFIG.lightColors,
-            OBSIDIAN_CONFIG.lightPositions,
-            config.count
-        );
-
-        this.viewModel = new ViewModel(this.view, shardConfigs);
-
-        this._startRenderLoop();
-        window.addEventListener('resize', this._boundResize);
-        return true;
+        this.viewModel = new ViewModel(this.view, isMobile);
+        
+        try {
+            this.viewModel.init();
+            this._startRenderLoop();
+            this._setupThemeObserver();
+            window.addEventListener('resize', this._boundResize);
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize ObsidianShardsScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _onResize() {
-        this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
+    }
+
+    _setupThemeObserver() {
+        // static palette stays for now
     }
 
     _startRenderLoop() {
@@ -63,6 +64,6 @@ export class ObsidianShardsScene {
         if (this.animationId) cancelAnimationFrame(this.animationId);
         window.removeEventListener('resize', this._boundResize);
 
-        if (this.view) this.view.dispose();
+        if (this.viewModel) this.viewModel.dispose();
     }
 }

@@ -1,57 +1,65 @@
+/**
+ * Obsidian Shards View - Passive Three.js Stage
+ * 
+ * ZERO logic. Only handles object instantiation and rendering.
+ */
 import * as THREE from 'three';
 
 export class View {
     constructor(container, isMobile) {
         this.container = container;
         this.isMobile = isMobile;
-
         this.scene = null;
         this.camera = null;
         this.renderer = null;
-        this.instancedMesh = null;
 
-        this.init();
+        // Passive refs
+        this.instancedMesh = null;
     }
 
-    init() {
-        const width = this.container.clientWidth;
-        const height = this.container.clientHeight;
+    init(colors, perf) {
+        const { clientWidth: w, clientHeight: h } = this.container;
 
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0x111111);
-        this.scene.fog = new THREE.FogExp2(0x111111, 0.015);
+        this.scene.background = new THREE.Color(colors.background);
+        this.scene.fog = new THREE.FogExp2(colors.background, 0.015);
 
-        this.camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 100);
-        this.camera.position.set(0, 3, 16);
+        this.camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 100);
+        this.camera.position.set(0, 3, perf.camDist);
 
         this.renderer = new THREE.WebGLRenderer({
             antialias: !this.isMobile,
             alpha: false,
             powerPreference: this.isMobile ? 'low-power' : 'high-performance'
         });
-        this.renderer.setSize(width, height);
+        this.renderer.setSize(w, h);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, this.isMobile ? 1.5 : 2));
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.0;
         this.container.appendChild(this.renderer.domElement);
 
-        const grid = new THREE.GridHelper(40, 40, 0x222222, 0x222222);
+        this._createEnvironment(colors);
+    }
+
+    _createEnvironment(colors) {
+        const grid = new THREE.GridHelper(40, 40, colors.ambient, colors.ambient);
         grid.position.y = -4;
         this.scene.add(grid);
 
-        this.scene.add(new THREE.AmbientLight(0x222222, 0.4));
+        this.scene.add(new THREE.AmbientLight(colors.ambient, 0.4));
     }
 
-    createShards(lightColors, lightPositions, count) {
-        lightPositions.forEach((pos, i) => {
-            const pl = new THREE.PointLight(lightColors[i], 2, 20);
+    addPointLights(positions, colors) {
+        positions.forEach((pos, i) => {
+            const pl = new THREE.PointLight(colors[i % colors.length], 2, 20);
             pl.position.set(...pos);
             this.scene.add(pl);
         });
+    }
 
+    addInstancedShards(count, colors) {
         const boxGeo = new THREE.BoxGeometry(1, 1, 1);
         const boxMat = new THREE.MeshPhysicalMaterial({
-            color: 0x050505,
+            color: colors.obsidian,
             metalness: 1.0,
             roughness: 0.0,
             clearcoat: 1.0,
@@ -59,46 +67,15 @@ export class View {
         });
 
         this.instancedMesh = new THREE.InstancedMesh(boxGeo, boxMat, count);
+        this.instancedMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
         this.scene.add(this.instancedMesh);
-
-        const shardConfigs = [];
-        for (let i = 0; i < count; i++) {
-            const scale = {
-                w: 0.3 + Math.random() * 0.4,
-                h: 3 + Math.random() * 5,
-                d: 0.2 + Math.random() * 0.3,
-            };
-            const angle = Math.random() * Math.PI * 2;
-            const dist = 2 + Math.random() * 7;
-            const initialPos = new THREE.Vector3(
-                Math.cos(angle) * dist,
-                (Math.random() - 0.5) * 4,
-                Math.sin(angle) * dist
-            );
-            const rot = new THREE.Euler(
-                Math.random() * 0.4,
-                Math.random() * Math.PI * 2,
-                Math.random() * 0.4
-            );
-            const rotSpeed = {
-                x: (Math.random() - 0.5) * 0.2,
-                y: (Math.random() - 0.5) * 0.3,
-                z: (Math.random() - 0.5) * 0.2,
-            };
-            const floatSpeed = 0.3 + Math.random() * 0.7;
-            const floatOffset = Math.random() * Math.PI * 2;
-
-            shardConfigs.push({ scale, initialPos, rot, rotSpeed, floatSpeed, floatOffset });
-        }
-        return shardConfigs;
     }
 
     onResize() {
-        const width = this.container.clientWidth;
-        const height = this.container.clientHeight;
-        this.camera.aspect = width / height;
+        const { clientWidth: w, clientHeight: h } = this.container;
+        this.camera.aspect = w / h;
         this.camera.updateProjectionMatrix();
-        this.renderer.setSize(width, height);
+        this.renderer.setSize(w, h);
     }
 
     render() {
@@ -114,5 +91,8 @@ export class View {
                 else obj.material.dispose();
             }
         });
+        if (this.renderer.domElement.parentElement) {
+            this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+        }
     }
 }
