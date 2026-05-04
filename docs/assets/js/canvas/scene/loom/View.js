@@ -1,5 +1,7 @@
 /**
- * Loom View - Passive Three.js Layer
+ * Loom View - Passive Three.js Stage
+ * 
+ * ZERO logic. Only handles object instantiation and rendering.
  */
 import * as THREE from 'three';
 
@@ -10,46 +12,45 @@ export class View {
         this.scene = null;
         this.camera = null;
         this.renderer = null;
+
+        // Passive refs
         this.threads = [];
     }
 
-    init(config, colors) {
+    init(colors, perf) {
+        const { clientWidth: w, clientHeight: h } = this.container;
+
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(colors.background);
         this.scene.fog = new THREE.FogExp2(colors.background, 0.015);
 
-        const aspect = this.container.clientWidth / this.container.clientHeight;
-        this.camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 100);
+        this.camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 100);
         this.camera.position.z = 12;
 
-        const perf = this.isMobile ? config.performance.mobile : config.performance.desktop;
-
         this.renderer = new THREE.WebGLRenderer({ antialias: !this.isMobile });
-        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+        this.renderer.setSize(w, h);
         this.renderer.setPixelRatio(perf.pixelRatio);
         this.container.appendChild(this.renderer.domElement);
     }
 
-    createThreads(type, count, segments, spacing, color, opacity) {
-        const isHorizontal = type === 'horizontal';
-        const extent = (count - 1) * spacing / 2;
+    addThread(type, fixed, segments, extent, color, opacity) {
         const mat = new THREE.LineBasicMaterial({
             color: color,
             transparent: true,
             opacity: opacity
         });
 
-        for (let i = 0; i < count; i++) {
-            const fixed = (i * spacing) - extent;
-            const geo = new THREE.BufferGeometry();
-            const pos = new Float32Array((segments + 1) * 3);
-            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-            geo.attributes.position.setUsage(THREE.DynamicDrawUsage);
+        const geo = new THREE.BufferGeometry();
+        const pos = new Float32Array((segments + 1) * 3);
+        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        geo.attributes.position.setUsage(THREE.DynamicDrawUsage);
 
-            const line = new THREE.Line(geo, mat.clone());
-            this.scene.add(line);
-            this.threads.push({ line, type, fixed, segments, extent });
-        }
+        const line = new THREE.Line(geo, mat);
+        this.scene.add(line);
+        
+        const thread = { line, type, fixed, segments, extent };
+        this.threads.push(thread);
+        return thread;
     }
 
     updateTheme(colors) {
@@ -61,8 +62,7 @@ export class View {
     }
 
     onResize() {
-        const w = this.container.clientWidth;
-        const h = this.container.clientHeight;
+        const { clientWidth: w, clientHeight: h } = this.container;
         this.camera.aspect = w / h;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(w, h);
@@ -78,5 +78,8 @@ export class View {
             t.line.geometry.dispose();
             t.line.material.dispose();
         });
+        if (this.renderer.domElement.parentElement) {
+            this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+        }
     }
 }

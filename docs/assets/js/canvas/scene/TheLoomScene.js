@@ -1,7 +1,6 @@
 /**
  * The Loom Scene - Orchestrator
  */
-import { LOOM_CONFIG, getColors } from './loom/Model.js';
 import { View } from './loom/View.js';
 import { ViewModel } from './loom/ViewModel.js';
 
@@ -28,22 +27,21 @@ export class TheLoomScene {
         }
 
         const isMobile = window.innerWidth < 768;
-        const perf = isMobile ? LOOM_CONFIG.performance.mobile : LOOM_CONFIG.performance.desktop;
-        const colors = getColors();
 
         this.view = new View(this.container, isMobile);
-        this.view.init(LOOM_CONFIG, colors);
+        this.viewModel = new ViewModel(this.view, isMobile);
         
-        this.view.createThreads('horizontal', perf.horizontalCount, perf.segments, perf.spacing, colors.lineColor, LOOM_CONFIG.physics.primaryOpacity);
-        this.view.createThreads('vertical', perf.verticalCount, perf.segments, perf.spacing, colors.nodeColor, LOOM_CONFIG.physics.secondaryOpacity);
-
-        this.viewModel = new ViewModel(this.view);
-
-        this._setupListeners();
-        this._startRenderLoop();
-        this._setupThemeObserver();
-
-        return true;
+        try {
+            this.viewModel.init();
+            this._setupListeners();
+            this._startRenderLoop();
+            this._setupThemeObserver();
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize TheLoomScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _setupListeners() {
@@ -70,13 +68,12 @@ export class TheLoomScene {
     }
 
     _onResize() {
-        if (this.view) this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
     }
 
     _setupThemeObserver() {
         this.themeObserver = new MutationObserver(() => {
-            const colors = getColors();
-            if (this.view) this.view.updateTheme(colors);
+            // Theme colors handled by Model.js if needed
         });
         this.themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-md-color-scheme'] });
     }
@@ -94,7 +91,12 @@ export class TheLoomScene {
         this.isDestroyed = true;
         if (this.animationId) cancelAnimationFrame(this.animationId);
         window.removeEventListener('resize', this._boundResize);
+        if (this.container) {
+            this.container.removeEventListener('mousemove', this._boundMouseMove);
+            this.container.removeEventListener('mouseleave', this._boundMouseLeave);
+        }
         if (this.themeObserver) this.themeObserver.disconnect();
-        if (this.view) this.view.dispose();
+
+        if (this.viewModel) this.viewModel.dispose();
     }
 }
