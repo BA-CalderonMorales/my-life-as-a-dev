@@ -1,10 +1,7 @@
 /**
  * Glacial Caverns Scene - Orchestrator
- *
- * Adheres to SOLID, KISS, and MVVM principles.
- * Uses InstancedMesh for performance.
  */
-import { GLACIAL_CONFIG } from './glacial-caverns/Model.js';
+import { getColors } from './glacial-caverns/Model.js';
 import { View } from './glacial-caverns/View.js';
 import { ViewModel } from './glacial-caverns/ViewModel.js';
 
@@ -17,7 +14,7 @@ export class GlacialCavernsScene {
         this.animationId = null;
         this.isDestroyed = false;
 
-        this._boundResize = this._onResize.bind(this);
+        this._handleResize = this._onResize.bind(this);
     }
 
     async init() {
@@ -29,24 +26,25 @@ export class GlacialCavernsScene {
         }
 
         const isMobile = window.innerWidth < 768;
-        const config = isMobile ? GLACIAL_CONFIG.mobile : GLACIAL_CONFIG.desktop;
+        const colors = getColors();
 
         this.view = new View(this.container, isMobile);
-        const blockConfigs = this.view.createCavern(
-            GLACIAL_CONFIG.lightPositions,
-            config.blockCount,
-            GLACIAL_CONFIG.iceColors
-        );
-
-        this.viewModel = new ViewModel(this.view, blockConfigs);
-
-        this._startRenderLoop();
-        window.addEventListener('resize', this._boundResize);
-        return true;
+        this.viewModel = new ViewModel(this.view, isMobile);
+        
+        try {
+            this.viewModel.init(colors);
+            this._startRenderLoop();
+            window.addEventListener('resize', this._handleResize);
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize GlacialCavernsScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _onResize() {
-        this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
     }
 
     _startRenderLoop() {
@@ -61,8 +59,8 @@ export class GlacialCavernsScene {
     destroy() {
         this.isDestroyed = true;
         if (this.animationId) cancelAnimationFrame(this.animationId);
-        window.removeEventListener('resize', this._boundResize);
+        window.removeEventListener('resize', this._handleResize);
 
-        if (this.view) this.view.dispose();
+        if (this.viewModel) this.viewModel.dispose();
     }
 }
