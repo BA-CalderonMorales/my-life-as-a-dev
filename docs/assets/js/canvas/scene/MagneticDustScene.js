@@ -1,9 +1,6 @@
 /**
  * Magnetic Dust Scene - Orchestrator
- *
- * Adheres to SOLID, KISS, and MVVM principles.
  */
-import { MAGNETIC_DUST_CONFIG } from './magnetic-dust/Model.js';
 import { View } from './magnetic-dust/View.js';
 import { ViewModel } from './magnetic-dust/ViewModel.js';
 
@@ -30,15 +27,20 @@ export class MagneticDustScene {
         }
 
         const isMobile = window.innerWidth < 768;
+
         this.view = new View(this.container, isMobile);
-        this.view.init(MAGNETIC_DUST_CONFIG);
-
-        this.viewModel = new ViewModel(this.view);
-
-        this._setupListeners();
-        this._startRenderLoop();
+        this.viewModel = new ViewModel(this.view, isMobile);
         
-        return true;
+        try {
+            this.viewModel.init();
+            this._setupListeners();
+            this._startRenderLoop();
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize MagneticDustScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _setupListeners() {
@@ -65,7 +67,7 @@ export class MagneticDustScene {
     }
 
     _onResize() {
-        if (this.view) this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
     }
 
     _startRenderLoop() {
@@ -87,6 +89,6 @@ export class MagneticDustScene {
             this.container.removeEventListener('mouseleave', this._boundMouseLeave);
         }
 
-        if (this.view) this.view.dispose();
+        if (this.viewModel) this.viewModel.dispose();
     }
 }
