@@ -1,7 +1,7 @@
 /**
  * Solar Flare ViewModel Tests
  */
-import { ViewModel } from '../ViewModel.js';
+import { ViewModel } from './ViewModel.js';
 
 class MockView {
     constructor() {

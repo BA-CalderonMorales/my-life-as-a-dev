@@ -1,7 +1,7 @@
 /**
  * Quantum Lattice ViewModel Tests
  */
-import { ViewModel } from '../ViewModel.js';
+import { ViewModel } from './ViewModel.js';
 
 // Simple mock for Three.js objects and View
 class MockView {
