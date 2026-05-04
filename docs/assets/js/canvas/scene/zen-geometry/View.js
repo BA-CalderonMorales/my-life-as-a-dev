@@ -1,48 +1,46 @@
+/**
+ * Zen Geometry View - Passive Three.js Stage
+ * 
+ * ZERO logic. Only handles object instantiation and rendering.
+ */
 import * as THREE from 'three';
 
 export class View {
-    constructor(container, colors, isMobile) {
+    constructor(container, isMobile) {
         this.container = container;
-        this.colors = colors;
         this.isMobile = isMobile;
-
         this.scene = null;
         this.camera = null;
         this.renderer = null;
-        this.ambientLight = null;
 
+        // Passive refs
         this.centralForm = null;
-        this.nodes = null; // InstancedMesh for performance
+        this.nodes = null;
         this.connections = [];
-        this.particles = null;
-
-        this.init();
+        this.ambientLight = null;
     }
 
-    init() {
+    init(colors, perf) {
+        const { clientWidth: w, clientHeight: h } = this.container;
+
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(this.colors.background);
-        this.scene.fog = new THREE.FogExp2(this.colors.fogColor, 0.009);
+        this.scene.background = new THREE.Color(colors.background);
+        this.scene.fog = new THREE.FogExp2(colors.background, 0.009);
 
-        const fov = this.isMobile ? 60 : 50;
-        const aspect = this.container.clientWidth / this.container.clientHeight;
-        this.camera = new THREE.PerspectiveCamera(fov, aspect, 0.1, 100);
-
-        const camDistance = this.isMobile ? 14 : 20;
-        this.camera.position.set(0, 0, camDistance);
-        this.camera.userData.baseDistance = camDistance;
+        this.camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 100);
+        this.camera.position.z = perf.camDistance;
 
         this.renderer = new THREE.WebGLRenderer({
             antialias: !this.isMobile,
             alpha: false,
             powerPreference: this.isMobile ? 'low-power' : 'high-performance'
         });
-        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, this.isMobile ? 1.5 : 2));
+        this.renderer.setSize(w, h);
+        this.renderer.setPixelRatio(perf.pixelRatio);
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.container.appendChild(this.renderer.domElement);
 
-        this.ambientLight = new THREE.AmbientLight(this.colors.ambientLight, 0.5);
+        this.ambientLight = new THREE.AmbientLight(colors.ambientLight, 0.5);
         this.scene.add(this.ambientLight);
 
         const keyLight = new THREE.DirectionalLight(0xffffff, 0.5);
@@ -50,77 +48,67 @@ export class View {
         this.scene.add(keyLight);
     }
 
-    createGeometry(nodeDefinitions, connections) {
-        // Central form
-        const icoSize = this.isMobile ? 2.2 : 2.5;
-        const icoGeo = new THREE.IcosahedronGeometry(icoSize, 1);
+    addCentralForm(size, colors) {
+        const icoGeo = new THREE.IcosahedronGeometry(size, 1);
         const icoMat = new THREE.MeshPhysicalMaterial({
-            color: this.colors.centralColor,
+            color: colors.centralColor,
             metalness: 0.04,
             roughness: 0.56,
             transmission: 0.18,
             transparent: true,
             opacity: 0.94,
-            emissive: this.colors.glowColor,
+            emissive: colors.glowColor,
             emissiveIntensity: 0.014,
         });
         this.centralForm = new THREE.Mesh(icoGeo, icoMat);
         this.scene.add(this.centralForm);
+    }
 
-        // Instanced Nodes for performance
-        const nodeScale = this.isMobile ? 0.85 : 1;
-        const nodeGeo = new THREE.OctahedronGeometry(1, 0); // Base size 1, scaled per instance
+    addInstancedNodes(count, colors) {
+        const nodeGeo = new THREE.OctahedronGeometry(1, 0);
         const nodeMat = new THREE.MeshPhysicalMaterial({
-            color: this.colors.nodeColor,
+            color: colors.nodeColor,
             metalness: 0.02,
             roughness: 0.72,
-            emissive: this.colors.glowColor,
+            emissive: colors.glowColor,
             emissiveIntensity: 0.03,
         });
-
-        this.nodes = new THREE.InstancedMesh(nodeGeo, nodeMat, nodeDefinitions.length);
-        const matrix = new THREE.Matrix4();
-        nodeDefinitions.forEach((config, i) => {
-            const scale = config.size * nodeScale;
-            matrix.makeScale(scale, scale, scale);
-            matrix.setPosition(...config.position);
-            this.nodes.setMatrixAt(i, matrix);
-        });
+        this.nodes = new THREE.InstancedMesh(nodeGeo, nodeMat, count);
+        this.nodes.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
         this.scene.add(this.nodes);
+    }
 
-        // Connections
+    addConnections(count, color) {
         const lineMat = new THREE.LineBasicMaterial({
-            color: this.colors.lineColor,
+            color: color,
             transparent: true,
             opacity: 0.08,
         });
 
-        connections.forEach(([fromIdx, toIdx]) => {
-            const points = [new THREE.Vector3(), new THREE.Vector3()];
-            const geo = new THREE.BufferGeometry().setFromPoints(points);
+        for (let i = 0; i < count; i++) {
+            const geo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
             const line = new THREE.Line(geo, lineMat.clone());
-            line.userData = { fromIdx, toIdx };
             this.scene.add(line);
             this.connections.push(line);
-        });
+        }
     }
 
     updateTheme(colors) {
-        this.colors = colors;
         this.scene.background.setHex(colors.background);
-        this.scene.fog.color.setHex(colors.fogColor);
+        this.scene.fog.color.setHex(colors.background);
         this.ambientLight.color.setHex(colors.ambientLight);
         this.centralForm.material.color.setHex(colors.centralColor);
+        this.centralForm.material.emissive.setHex(colors.glowColor);
         this.nodes.material.color.setHex(colors.nodeColor);
+        this.nodes.material.emissive.setHex(colors.glowColor);
         this.connections.forEach(line => line.material.color.setHex(colors.lineColor));
     }
 
     onResize() {
-        const width = this.container.clientWidth;
-        const height = this.container.clientHeight;
-        this.camera.aspect = width / height;
+        const { clientWidth: w, clientHeight: h } = this.container;
+        this.camera.aspect = w / h;
         this.camera.updateProjectionMatrix();
-        this.renderer.setSize(width, height);
+        this.renderer.setSize(w, h);
     }
 
     render() {
@@ -136,5 +124,8 @@ export class View {
                 else obj.material.dispose();
             }
         });
+        if (this.renderer.domElement.parentElement) {
+            this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+        }
     }
 }

@@ -1,41 +1,59 @@
-export const ZEN_GEOMETRY_THEMES = {
-    light: {
-        background: 0xefeee9,
-        nodeColor: 0x1c1c1c,
-        lineColor: 0x7a7a75,
-        centralColor: 0xffffff,
-        particleColor: 0x6f6f6a,
-        glowColor: 0x2e2e2e,
-        ambientLight: 0xffffff,
-        fogColor: 0xefeee9,
+/**
+ * Zen Geometry Model - Configuration
+ */
+import { themes } from '../themes/ThemeConfig.js';
+
+export const ZEN_GEOMETRY_CONFIG = {
+    performance: {
+        mobile: {
+            nodeScale: 0.85,
+            pixelRatio: 1.5,
+            camDistance: 14,
+            icoSize: 2.2
+        },
+        desktop: {
+            nodeScale: 1.0,
+            pixelRatio: 2.0,
+            camDistance: 20,
+            icoSize: 2.5
+        }
     },
-    dark: {
-        background: 0x0e0e0d,
-        nodeColor: 0xe0ded8,
-        lineColor: 0x6d6b66,
-        centralColor: 0xf7f5ef,
-        particleColor: 0xb9b6af,
-        glowColor: 0xffffff,
-        ambientLight: 0x404040,
-        fogColor: 0x0e0e0d,
+    physics: {
+        orbitSpeed: 0.012,
+        driftSpeed: 0.5
+    },
+    themes: {
+        dark: {
+            ...themes.dark,
+            centralColor: 0x1c1c1c,
+            nodeColor: 0xe0ded8,
+            glowColor: 0xf7f5ef,
+            lineColor: 0x6d6b66,
+        },
+        light: {
+            ...themes.light,
+            centralColor: 0xf2f1ed,
+            nodeColor: 0x1c1c1c,
+            glowColor: 0x4e4e49,
+            lineColor: 0x7a7a75,
+        }
     }
 };
 
 export const ZEN_NODE_DEFINITIONS = [
-    { position: [4.8, 2.1, -1.2], size: 0.28 },
-    { position: [-4.3, -2.9, 0.8], size: 0.24 },
-    { position: [3.1, -3.6, 2.2], size: 0.3 },
-    { position: [-4.8, 1.7, -2.4], size: 0.24 },
-    { position: [1.6, 4.3, 1.1], size: 0.22 },
-    { position: [-2.3, -1.1, 3.3], size: 0.26 }
+    { position: [5, 2, -3], size: 0.8 },
+    { position: [-4, -3, 2], size: 0.9 },
+    { position: [2, 6, 1], size: 0.7 },
+    { position: [-6, 1, -4], size: 1.1 },
+    { position: [0, -5, -6], size: 0.85 },
 ];
 
 export const ZEN_CONNECTIONS = [
-    [null, 0],
-    [null, 1],
-    [null, 2],
-    [0, 3],
-    [1, 5],
-    [2, 4],
-    [4, 5]
+    [0, 1], [1, 2], [2, 3], [3, 4], [4, 0],
+    [0, 2], [1, 3]
 ];
+
+export function getColors() {
+    const scheme = document.body?.getAttribute('data-md-color-scheme');
+    return scheme === 'slate' ? ZEN_GEOMETRY_CONFIG.themes.dark : ZEN_GEOMETRY_CONFIG.themes.light;
+}
