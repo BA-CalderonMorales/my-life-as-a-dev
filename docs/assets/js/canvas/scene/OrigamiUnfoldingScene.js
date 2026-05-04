@@ -1,7 +1,5 @@
 /**
  * Origami Unfolding Scene - Orchestrator
- *
- * Adheres to SOLID, KISS, and MVVM principles.
  */
 import { ORIGAMI_CONFIG } from './origami-unfolding/Model.js';
 import { View } from './origami-unfolding/View.js';
@@ -33,15 +31,19 @@ export class OrigamiUnfoldingScene {
         const colors = this._getColors();
 
         this.view = new View(this.container, isMobile);
-        this.view.init(ORIGAMI_CONFIG, colors);
-
-        this.viewModel = new ViewModel(this.view);
-
-        this._setupListeners();
-        this._startRenderLoop();
-        this._setupThemeObserver();
+        this.viewModel = new ViewModel(this.view, isMobile);
         
-        return true;
+        try {
+            this.viewModel.init(colors);
+            this._setupListeners();
+            this._startRenderLoop();
+            this._setupThemeObserver();
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize OrigamiUnfoldingScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _getColors() {
@@ -73,7 +75,7 @@ export class OrigamiUnfoldingScene {
     }
 
     _onResize() {
-        if (this.view) this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
     }
 
     _setupThemeObserver() {
@@ -104,6 +106,6 @@ export class OrigamiUnfoldingScene {
         }
         if (this.themeObserver) this.themeObserver.disconnect();
 
-        if (this.view) this.view.dispose();
+        if (this.viewModel) this.viewModel.dispose();
     }
 }
