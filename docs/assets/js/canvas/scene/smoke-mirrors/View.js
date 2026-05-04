@@ -1,5 +1,7 @@
 /**
- * Smoke Mirrors View - Passive Three.js Layer
+ * Smoke Mirrors View - Passive Three.js Stage
+ * 
+ * ZERO logic. Only handles object instantiation and rendering.
  */
 import * as THREE from 'three';
 
@@ -10,23 +12,24 @@ export class View {
         this.scene = null;
         this.camera = null;
         this.renderer = null;
+
+        // Passive refs
         this.particles = null;
         this.mirrors = [];
     }
 
-    init(config) {
-        this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(config.colors.background);
-        this.scene.fog = new THREE.FogExp2(config.colors.background, 0.015);
+    init(colors, perf) {
+        const { clientWidth: w, clientHeight: h } = this.container;
 
-        const aspect = this.container.clientWidth / this.container.clientHeight;
-        this.camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 100);
+        this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(colors.background);
+        this.scene.fog = new THREE.FogExp2(colors.background, 0.015);
+
+        this.camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 100);
         this.camera.position.set(0, 0, 15);
 
-        const perf = this.isMobile ? config.performance.mobile : config.performance.desktop;
-
         this.renderer = new THREE.WebGLRenderer({ antialias: !this.isMobile });
-        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+        this.renderer.setSize(w, h);
         this.renderer.setPixelRatio(perf.pixelRatio);
         this.container.appendChild(this.renderer.domElement);
 
@@ -40,20 +43,12 @@ export class View {
         this.scene.add(ambient, point);
     }
 
-    createParticles(count, size, colors) {
+    addParticles(positions, size, color) {
         const geo = new THREE.BufferGeometry();
-        const pos = new Float32Array(count * 3);
+        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         
-        for (let i = 0; i < count; i++) {
-            const idx = i * 3;
-            pos[idx] = (Math.random() - 0.5) * 24;
-            pos[idx + 1] = (Math.random() - 0.5) * 16;
-            pos[idx + 2] = (Math.random() - 0.5) * 8;
-        }
-
-        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
         const mat = new THREE.PointsMaterial({
-            color: colors.smoke,
+            color: color,
             size: size,
             sizeAttenuation: true,
             transparent: true,
@@ -63,10 +58,9 @@ export class View {
 
         this.particles = new THREE.Points(geo, mat);
         this.scene.add(this.particles);
-        return pos;
     }
 
-    createMirrors(positions, color) {
+    addMirrors(positions, color) {
         const shapes = [
             new THREE.TorusKnotGeometry(1.5, 0.4, 100, 16),
             new THREE.IcosahedronGeometry(1.8, 0),
@@ -88,8 +82,7 @@ export class View {
     }
 
     onResize() {
-        const w = this.container.clientWidth;
-        const h = this.container.clientHeight;
+        const { clientWidth: w, clientHeight: h } = this.container;
         this.camera.aspect = w / h;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(w, h);
@@ -101,11 +94,13 @@ export class View {
 
     dispose() {
         this.renderer.dispose();
-        this.particles.geometry.dispose();
-        this.particles.material.dispose();
+        if (this.particles) { this.particles.geometry.dispose(); this.particles.material.dispose(); }
         this.mirrors.forEach(m => {
             m.geometry.dispose();
             m.material.dispose();
         });
+        if (this.renderer.domElement.parentElement) {
+            this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+        }
     }
 }
