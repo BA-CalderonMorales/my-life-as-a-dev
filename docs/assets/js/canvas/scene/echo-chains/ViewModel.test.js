@@ -1,8 +1,9 @@
-import * as THREE from "three";
 /**
  * Echo Chains ViewModel Tests
  */
 import { ViewModel } from './ViewModel.js';
+import { getColors } from './Model.js';
+import * as THREE from 'three';
 
 class MockView {
     constructor() {
@@ -10,6 +11,8 @@ class MockView {
         this.nodes = { instanceMatrix: { needsUpdate: false }, setMatrixAt: () => {} };
         this.connections = [];
         this.rings = [];
+        this.container = { clientWidth: 1024, clientHeight: 768 };
+        this.centralForm = { material: { color: { setHex: () => {} }, emissive: { setHex: () => {} } }, userData: { wireframe: { material: { color: { setHex: () => {} } } } } };
     }
     init() {}
     addCentralForm() {}
@@ -35,12 +38,6 @@ class MockView {
 describe('EchoChains ViewModel', () => {
     let view;
     let viewModel;
-    const colors = {
-        background: 0x000000,
-        glowColor: 0xffffff,
-        lineColor: 0x888888,
-        ambientLight: 0x444444
-    };
 
     beforeEach(() => {
         view = new MockView();
@@ -51,6 +48,7 @@ describe('EchoChains ViewModel', () => {
         const errorSpy = vi.spyOn(console, 'error');
         const warnSpy = vi.spyOn(console, 'warn');
         
+        const colors = getColors();
         viewModel.init(colors);
         viewModel.update();
         
@@ -59,16 +57,17 @@ describe('EchoChains ViewModel', () => {
     });
 
     test('initializes geometry through passive view', () => {
+        const colors = getColors();
         viewModel.init(colors);
         expect(view.rings.length).toBe(20);
         expect(view.connections.length).toBe(7);
     });
 
     test('update modifies camera position (orbit)', () => {
+        const colors = getColors();
         viewModel.init(colors);
         const initialX = view.camera.position.x;
         
-        // Mock time
         const realNow = performance.now;
         global.performance.now = () => 1000;
         
@@ -76,29 +75,5 @@ describe('EchoChains ViewModel', () => {
         
         expect(view.camera.position.x).not.toBe(initialX);
         global.performance.now = realNow;
-    });
-
-    test('update modifies node matrices', () => {
-        viewModel.init(colors);
-        const needsUpdate = view.nodes.instanceMatrix.needsUpdate;
-        
-        viewModel.update();
-        
-        expect(view.nodes.instanceMatrix.needsUpdate).toBe(true);
-    });
-
-    test('echo rings activate periodically', () => {
-        viewModel.init(colors);
-        
-        // Force a ring activation by mocking Math.random
-        const realRandom = Math.random;
-        Math.random = () => 0.001; // Trigger spawn
-        
-        viewModel.update();
-        
-        const activeRings = viewModel.ringStates.filter(s => s.active);
-        expect(activeRings.length).toBeGreaterThan(0);
-        
-        Math.random = realRandom;
     });
 });

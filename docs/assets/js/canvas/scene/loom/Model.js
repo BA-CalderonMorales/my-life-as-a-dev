@@ -27,14 +27,21 @@ export const LOOM_CONFIG = {
         primaryOpacity: 0.35,
         secondaryOpacity: 0.35
     },
-    colors: {
-        background: 0x0a0a0a,
-        line: 0x888888,
-        node: 0x666666
+    themes: {
+        dark: {
+            ...themes.dark,
+            lineColor: 0x888888,
+            nodeColor: 0x666666
+        },
+        light: {
+            ...themes.light,
+            lineColor: 0x7a7a75,
+            nodeColor: 0x1c1c1c
+        }
     }
 };
 
 export function getColors() {
     const scheme = document.body?.getAttribute('data-md-color-scheme');
-    return scheme === 'slate' ? themes.dark : themes.light;
+    return scheme === 'slate' ? LOOM_CONFIG.themes.dark : LOOM_CONFIG.themes.light;
 }

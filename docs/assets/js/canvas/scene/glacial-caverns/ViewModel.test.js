@@ -1,8 +1,9 @@
-import * as THREE from "three";
 /**
  * Glacial Caverns ViewModel Tests
  */
 import { ViewModel } from './ViewModel.js';
+import { getColors } from './Model.js';
+import * as THREE from 'three';
 
 class MockView {
     constructor() {
@@ -12,6 +13,7 @@ class MockView {
             setMatrixAt: () => {},
             setColorAt: () => {}
         };
+        this.container = { clientWidth: 1024, clientHeight: 768 };
     }
     init() {}
     addPointLights() {}
@@ -24,12 +26,6 @@ class MockView {
 describe('GlacialCaverns ViewModel', () => {
     let view;
     let viewModel;
-    const colors = {
-        background: 0x000000,
-        light: 0xffffff,
-        ice: [0xffffff],
-        ambient: 0x111111
-    };
 
     beforeEach(() => {
         view = new MockView();
@@ -40,6 +36,7 @@ describe('GlacialCaverns ViewModel', () => {
         const errorSpy = vi.spyOn(console, 'error');
         const warnSpy = vi.spyOn(console, 'warn');
         
+        const colors = getColors();
         viewModel.init(colors);
         viewModel.update();
         
@@ -48,11 +45,13 @@ describe('GlacialCaverns ViewModel', () => {
     });
 
     test('initializes block configurations through passive view', () => {
+        const colors = getColors();
         viewModel.init(colors);
-        expect(viewModel.blockConfigs.length).toBe(30); // GLACIAL_CONFIG.desktop.blockCount
+        expect(viewModel.blockConfigs.length).toBe(30); 
     });
 
     test('update modifies block matrices and camera', () => {
+        const colors = getColors();
         viewModel.init(colors);
         const initialY = view.camera.position.y;
         
@@ -68,6 +67,7 @@ describe('GlacialCaverns ViewModel', () => {
     });
 
     test('onResize propagates correctly', () => {
+        const colors = getColors();
         viewModel.init(colors);
         viewModel.onResize();
     });

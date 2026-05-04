@@ -83,6 +83,6 @@ describe('SynapticFlash ViewModel', () => {
         viewModel.update();
 
         expect(view.camera.position.x).not.toBe(initialCamX);
-        expect(viewModel.nodes[0].targetEmissive).toBeGreaterThan(0.1);
+        expect(viewModel.nodes[0].targetEmissive).toBeGreaterThan(0.08); // light theme base
     });
 });

@@ -16,11 +16,19 @@ export const GLACIAL_CONFIG = {
         driftSpeed: 0.15,
         rotationSpeed: 0.3
     },
-    colors: {
-        background: 0x000818,
-        ambient: 0x223344,
-        light: 0x44aaff,
-        ice: [0x88ccff, 0xbbddff, 0xaaddff]
+    themes: {
+        dark: {
+            ...themes.dark,
+            ice: [0x88ccff, 0xbbddff, 0xaaddff],
+            light: 0x44aaff,
+            ambient: 0x223344
+        },
+        light: {
+            ...themes.light,
+            ice: [0x4488ff, 0x88bbff, 0x66aaff],
+            light: 0x004488,
+            ambient: 0xdddddd
+        }
     },
     lightPositions: [
         [5, 5, 5],
@@ -31,5 +39,5 @@ export const GLACIAL_CONFIG = {
 
 export function getColors() {
     const scheme = document.body?.getAttribute('data-md-color-scheme');
-    return scheme === 'slate' ? themes.dark : themes.light;
+    return scheme === 'slate' ? GLACIAL_CONFIG.themes.dark : GLACIAL_CONFIG.themes.light;
 }

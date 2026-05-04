@@ -23,15 +23,29 @@ export const SYNAPTIC_FLASH_CONFIG = {
         decaySpeed: 0.92,
         lerpFactor: 0.15
     },
-    colors: {
-        nodeEmissive: 0.1,
-        brightEmissive: 0.8,
-        lineOpacity: 0.15,
-        brightOpacity: 0.6
+    themes: {
+        dark: {
+            ...themes.dark,
+            nodeColor: 0xe0ded8,
+            lineColor: 0x6d6b66,
+            nodeEmissive: 0.1,
+            brightEmissive: 0.8,
+            lineOpacity: 0.15,
+            brightOpacity: 0.6
+        },
+        light: {
+            ...themes.light,
+            nodeColor: 0x1c1c1c,
+            lineColor: 0x7a7a75,
+            nodeEmissive: 0.08,
+            brightEmissive: 0.7,
+            lineOpacity: 0.12,
+            brightOpacity: 0.5
+        }
     }
 };
 
 export function getColors() {
     const scheme = document.body?.getAttribute('data-md-color-scheme');
-    return scheme === 'slate' ? themes.dark : themes.light;
+    return scheme === 'slate' ? SYNAPTIC_FLASH_CONFIG.themes.dark : SYNAPTIC_FLASH_CONFIG.themes.light;
 }

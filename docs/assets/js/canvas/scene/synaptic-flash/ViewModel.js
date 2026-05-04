@@ -41,30 +41,31 @@ export class ViewModel {
             const pos = positions[parentIdx].clone().add(dir.multiplyScalar(2 + Math.random() * 2));
             positions.push(pos);
             this.view.nodes[i].position.copy(pos);
-            this.edges.push({ from: parentIdx, to: i, baseOpacity: 0.15 });
+            this.edges.push({ from: parentIdx, to: i, baseOpacity: colors.lineOpacity });
         }
 
         // Behavior: Add network jitter/cross-links
         for (let i = 0; i < this.count; i++) {
             for (let j = i + 1; j < this.count; j++) {
                 if (positions[i].distanceTo(positions[j]) < 4 && Math.random() < 0.2) {
-                    this.edges.push({ from: i, to: j, baseOpacity: 0.08 });
+                    this.edges.push({ from: i, to: j, baseOpacity: colors.lineOpacity * 0.5 });
                 }
             }
         }
 
-        this.view.addConnections(this.edges.length, colors.lineColor, this.config.colors.lineOpacity);
+        this.view.addConnections(this.edges.length, colors.lineColor, colors.lineOpacity);
 
         positions.forEach((p, i) => {
             this.nodes.push({
                 index: i,
-                targetEmissive: 0.1,
-                currentEmissive: 0.1
+                targetEmissive: colors.nodeEmissive,
+                currentEmissive: colors.nodeEmissive
             });
         });
     }
 
     update() {
+        const colors = getColors();
         const elapsed = (performance.now() - this.startTime) / 1000;
         const cfg = this.config.physics;
 
@@ -74,13 +75,13 @@ export class ViewModel {
             this.pulses.push({ nodeIdx: 0, age: 0, propagated: false });
         }
 
-        this._processPulses();
-        this._updateVisuals(elapsed);
+        this._processPulses(colors);
+        this._updateVisuals(elapsed, colors);
         
         this.view.render();
     }
 
-    _processPulses() {
+    _processPulses(colors) {
         const cfg = this.config.physics;
         for (let i = this.pulses.length - 1; i >= 0; i--) {
             const pulse = this.pulses[i];
@@ -92,7 +93,7 @@ export class ViewModel {
             }
 
             const intensity = 1 - (pulse.age / cfg.pulseDecay);
-            this.nodes[pulse.nodeIdx].targetEmissive = Math.max(this.nodes[pulse.nodeIdx].targetEmissive, 0.8 * intensity);
+            this.nodes[pulse.nodeIdx].targetEmissive = Math.max(this.nodes[pulse.nodeIdx].targetEmissive, colors.brightEmissive * intensity);
 
             // Behavior: Probability-based signal propagation
             if (pulse.age > 0.15 && !pulse.propagated && Math.random() < cfg.propagateChance) {
@@ -106,10 +107,10 @@ export class ViewModel {
         }
     }
 
-    _updateVisuals(elapsed) {
+    _updateVisuals(elapsed, colors) {
         const cfg = this.config.physics;
         this.nodes.forEach((node, i) => {
-            node.targetEmissive = Math.max(0.1, node.targetEmissive * cfg.decaySpeed);
+            node.targetEmissive = Math.max(colors.nodeEmissive, node.targetEmissive * cfg.decaySpeed);
             node.currentEmissive += (node.targetEmissive - node.currentEmissive) * cfg.lerpFactor;
             this.view.nodes[i].material.emissiveIntensity = node.currentEmissive;
             

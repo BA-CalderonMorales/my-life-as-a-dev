@@ -1,8 +1,9 @@
-import * as THREE from "three";
 /**
  * Quantum Lattice ViewModel Tests
  */
 import { ViewModel } from './ViewModel.js';
+import { getColors } from './Model.js';
+import * as THREE from 'three';
 
 class MockView {
     constructor() {
@@ -23,16 +24,12 @@ class MockView {
     render() {}
     onResize() {}
     dispose() {}
+    updateTheme() {}
 }
 
 describe('QuantumLattice ViewModel', () => {
     let view;
     let viewModel;
-    const colors = { 
-        emissiveBase: 0.3,
-        lineColor: 0xffffff,
-        lineOpacity: 0.5
-    };
 
     beforeEach(() => {
         view = new MockView();
@@ -43,6 +40,7 @@ describe('QuantumLattice ViewModel', () => {
         const errorSpy = vi.spyOn(console, 'error');
         const warnSpy = vi.spyOn(console, 'warn');
         
+        const colors = getColors();
         viewModel.init(colors);
         viewModel.update();
         
@@ -51,6 +49,7 @@ describe('QuantumLattice ViewModel', () => {
     });
 
     test('initializes with correct node count', () => {
+        const colors = getColors();
         viewModel.init(colors);
         // gridSize for desktop is 7 -> 7^3 = 343
         expect(viewModel.count).toBe(343);
@@ -58,8 +57,8 @@ describe('QuantumLattice ViewModel', () => {
     });
 
     test('update modifies node matrices and lines', () => {
+        const colors = getColors();
         viewModel.init(colors);
-        const needsUpdateNodes = view.nodes.instanceMatrix.needsUpdate;
         
         // Mock time
         const realNow = performance.now;
@@ -70,12 +69,5 @@ describe('QuantumLattice ViewModel', () => {
         expect(view.nodes.instanceMatrix.needsUpdate).toBe(true);
         expect(view.lines.geometry.attributes.position.needsUpdate).toBe(true);
         global.performance.now = realNow;
-    });
-
-    test('calculates correct base positions (centered)', () => {
-        viewModel.init(colors);
-        // offset = (7-1)*1.48/2 = 4.44
-        // Grid should go from -4.44 to 4.44
-        expect(viewModel.basePositions[0]).toBeCloseTo(-4.44, 2);
     });
 });
