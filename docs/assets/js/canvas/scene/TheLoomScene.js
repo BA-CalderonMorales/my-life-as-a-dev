@@ -1,64 +1,100 @@
-import { ZenGeometryScene } from './ZenGeometryScene.js';
-import { LoomField } from './loom/LoomField.js';
+/**
+ * The Loom Scene - Orchestrator
+ */
+import { LOOM_CONFIG, getColors } from './loom/Model.js';
+import { View } from './loom/View.js';
+import { ViewModel } from './loom/ViewModel.js';
 
-export class TheLoomScene extends ZenGeometryScene {
+export class TheLoomScene {
     constructor(containerId = 'canvas-scene') {
-        super(containerId);
+        this.containerId = containerId;
+        this.container = null;
+        this.view = null;
+        this.viewModel = null;
+        this.animationId = null;
+        this.isDestroyed = false;
+
+        this._boundResize = this._onResize.bind(this);
+        this._boundMouseMove = this._onMouseMove.bind(this);
+        this._boundMouseLeave = this._onMouseLeave.bind(this);
     }
 
-    _createGeometry() {
-        const colors = this._getColors();
+    async init() {
+        this.container = document.getElementById(this.containerId);
+        if (!this.container) {
+            this.container = document.createElement('div');
+            this.container.id = this.containerId;
+            document.body.appendChild(this.container);
+        }
 
-        this.loomField = new LoomField({ colors, isMobile: this.isMobile });
-        this.scene.add(this.loomField.create());
-        this.threads = this.loomField.threads;
+        const isMobile = window.innerWidth < 768;
+        const perf = isMobile ? LOOM_CONFIG.performance.mobile : LOOM_CONFIG.performance.desktop;
+        const colors = getColors();
+
+        this.view = new View(this.container, isMobile);
+        this.view.init(LOOM_CONFIG, colors);
+        
+        this.view.createThreads('horizontal', perf.horizontalCount, perf.segments, perf.spacing, colors.lineColor, LOOM_CONFIG.physics.primaryOpacity);
+        this.view.createThreads('vertical', perf.verticalCount, perf.segments, perf.spacing, colors.nodeColor, LOOM_CONFIG.physics.secondaryOpacity);
+
+        this.viewModel = new ViewModel(this.view);
+
+        this._setupListeners();
+        this._startRenderLoop();
+        this._setupThemeObserver();
+
+        return true;
     }
 
-    _updateTheme() {
-        const colors = this._getColors();
-        this.scene.background.setHex(colors.background);
-        this.scene.fog.color.setHex(colors.fogColor);
-        this.ambientLight.color.setHex(colors.ambientLight);
+    _setupListeners() {
+        window.addEventListener('resize', this._boundResize);
+        this.container.addEventListener('mousemove', this._boundMouseMove);
+        this.container.addEventListener('mouseleave', this._boundMouseLeave);
+        this.container.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            this._onMouseMove(touch);
+        }, { passive: true });
+        this.container.addEventListener('touchend', this._boundMouseLeave);
+    }
 
-        this.loomField.updateColors(colors);
+    _onMouseMove(event) {
+        if (!this.viewModel) return;
+        const rect = this.container.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        this.viewModel.handleMouseMove(x, y);
+    }
+
+    _onMouseLeave() {
+        if (this.viewModel) this.viewModel.handleInteractionEnd();
+    }
+
+    _onResize() {
+        if (this.view) this.view.onResize();
+    }
+
+    _setupThemeObserver() {
+        this.themeObserver = new MutationObserver(() => {
+            const colors = getColors();
+            if (this.view) this.view.updateTheme(colors);
+        });
+        this.themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-md-color-scheme'] });
     }
 
     _startRenderLoop() {
         const animate = () => {
             if (this.isDestroyed) return;
             this.animationId = requestAnimationFrame(animate);
-
-            const elapsed = this.clock.getElapsedTime();
-            const timeSinceInteraction = elapsed - this.lastInteraction;
-            const interactionFade = Math.max(0, 1 - timeSinceInteraction / 2.4);
-
-            // Camera
-            const camDistance = this.camera.userData.baseDistance;
-            const camSpeed = 0.018;
-            const autoAngle = elapsed * camSpeed;
-            const totalAngle = autoAngle + this.orbitAngle;
-            let camX = Math.sin(totalAngle) * camDistance;
-            let camZ = Math.cos(totalAngle) * camDistance;
-            let camY = Math.sin(elapsed * camSpeed * 0.4) * 1.4 + this.orbitTilt * camDistance * 0.24;
-
-            if (this.isInteracting && !this.isTouching && !this.isPinching && interactionFade > 0) {
-                camX += this.mouse3D.x * 0.5 * interactionFade;
-                camY += this.mouse3D.y * 0.3 * interactionFade;
-            }
-
-            this.camera.position.set(camX, camY, camZ);
-            this.camera.lookAt(0, 0, 0);
-
-            this.loomField.update({
-                elapsed,
-                pointer: this.mouse3D,
-                isInteracting: this.isInteracting,
-                interactionFade,
-            });
-
-            this.renderer.render(this.scene, this.camera);
+            this.viewModel.update();
         };
-
         animate();
+    }
+
+    destroy() {
+        this.isDestroyed = true;
+        if (this.animationId) cancelAnimationFrame(this.animationId);
+        window.removeEventListener('resize', this._boundResize);
+        if (this.themeObserver) this.themeObserver.disconnect();
+        if (this.view) this.view.dispose();
     }
 }
