@@ -1,93 +1,101 @@
-import * as THREE from 'three';
-import { ParticleFlowScene } from './ParticleFlowScene.js';
+/**
+ * Tidal Pool Scene - Orchestrator
+ */
+import { TIDAL_POOL_CONFIG, getColors } from './tidal-pool/Model.js';
+import { View } from './tidal-pool/View.js';
+import { ViewModel } from './tidal-pool/ViewModel.js';
 
-export class TidalPoolScene extends ParticleFlowScene {
+export class TidalPoolScene {
     constructor(containerId = 'canvas-scene') {
-        super(containerId);
+        this.containerId = containerId;
+        this.container = null;
+        this.view = null;
+        this.viewModel = null;
+        this.animationId = null;
+        this.isDestroyed = false;
+
+        this._boundResize = this._onResize.bind(this);
+        this._boundMouseMove = this._onMouseMove.bind(this);
+        this._boundMouseLeave = this._onMouseLeave.bind(this);
     }
 
-    _createParticles() {
-        const count = this.isMobile ? 2500 : 5000;
-        const geometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(count * 3);
-        const colors = new Float32Array(count * 3);
-
-        for (let i = 0; i < count; i++) {
-            const idx = i * 3;
-            // Concentric ring distribution
-            const angle = Math.random() * Math.PI * 2;
-            const radius = Math.sqrt(Math.random()) * 12;
-            positions[idx] = Math.cos(angle) * radius;
-            positions[idx + 1] = Math.sin(angle) * radius;
-            positions[idx + 2] = 0;
-
-            // Blue/teal colors
-            const t = Math.random();
-            colors[idx] = 0.0;
-            colors[idx + 1] = 0.4 + t * 0.4;
-            colors[idx + 2] = 0.6 + t * 0.4;
+    async init() {
+        this.container = document.getElementById(this.containerId);
+        if (!this.container) {
+            this.container = document.createElement('div');
+            this.container.id = this.containerId;
+            document.body.appendChild(this.container);
         }
 
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        const isMobile = window.innerWidth < 768;
+        const perf = isMobile ? TIDAL_POOL_CONFIG.performance.mobile : TIDAL_POOL_CONFIG.performance.desktop;
+        const colors = getColors();
 
-        const material = new THREE.PointsMaterial({
-            size: 0.08,
-            sizeAttenuation: true,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.8,
+        this.view = new View(this.container, isMobile);
+        this.view.init(TIDAL_POOL_CONFIG, colors);
+        this.view.createParticles(perf.particleCount, perf.size, TIDAL_POOL_CONFIG.colors.teal);
+
+        this.viewModel = new ViewModel(this.view, perf.particleCount);
+
+        this._setupListeners();
+        this._startRenderLoop();
+        this._setupThemeObserver();
+
+        return true;
+    }
+
+    _setupListeners() {
+        window.addEventListener('resize', this._boundResize);
+        this.container.addEventListener('mousemove', this._boundMouseMove);
+        this.container.addEventListener('mouseleave', this._boundMouseLeave);
+        this.container.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            this._onMouseMove(touch);
+        }, { passive: true });
+        this.container.addEventListener('touchend', this._boundMouseLeave);
+    }
+
+    _onMouseMove(event) {
+        if (!this.viewModel) return;
+        const rect = this.container.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        this.viewModel.handleMouseMove(x, y);
+    }
+
+    _onMouseLeave() {
+        if (this.viewModel) this.viewModel.handleInteractionEnd();
+    }
+
+    _onResize() {
+        if (this.view) this.view.onResize();
+    }
+
+    _setupThemeObserver() {
+        this.themeObserver = new MutationObserver(() => {
+            const colors = getColors();
+            if (this.view) {
+                this.view.scene.background.setHex(colors.background);
+                this.view.scene.fog.color.setHex(colors.background);
+            }
         });
-
-        this.particles = new THREE.Points(geometry, material);
-        this.scene.add(this.particles);
-
-        this.scene.background = new THREE.Color(0x000510);
-        this.scene.fog = new THREE.FogExp2(0x000510, 0.02);
-
-        // Camera above looking down
-        this.camera.position.set(0, 0, 20);
-        this.camera.lookAt(0, 0, 0);
+        this.themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-md-color-scheme'] });
     }
 
     _startRenderLoop() {
         const animate = () => {
             if (this.isDestroyed) return;
             this.animationId = requestAnimationFrame(animate);
-
-            const time = this.clock.getElapsedTime();
-            const positions = this.particles.geometry.attributes.position.array;
-            const count = positions.length / 3;
-
-            for (let i = 0; i < count; i++) {
-                const idx = i * 3;
-                const x = positions[idx];
-                const y = positions[idx + 1];
-                const dist = Math.sqrt(x * x + y * y);
-
-                // Multiple sine wave frequencies
-                const wave1 = Math.sin(dist * 0.8 - time * 2);
-                const wave2 = Math.sin(dist * 1.5 - time * 3) * 0.5;
-                const wave3 = Math.sin(dist * 0.3 - time * 1) * 0.3;
-                let z = wave1 + wave2 + wave3;
-
-                // Mouse ripple disturbance
-                if (this.isInteracting) {
-                    const mx = this.mouse3D.x;
-                    const my = this.mouse3D.y;
-                    const mouseDist = Math.sqrt((x - mx) ** 2 + (y - my) ** 2);
-                    if (mouseDist < 5) {
-                        const ripple = Math.sin(mouseDist * 3 - time * 8) * Math.exp(-mouseDist * 0.5);
-                        z += ripple * 0.8;
-                    }
-                }
-
-                positions[idx + 2] = z;
-            }
-
-            this.particles.geometry.attributes.position.needsUpdate = true;
-            this.renderer.render(this.scene, this.camera);
+            this.viewModel.update();
         };
         animate();
+    }
+
+    destroy() {
+        this.isDestroyed = true;
+        if (this.animationId) cancelAnimationFrame(this.animationId);
+        window.removeEventListener('resize', this._boundResize);
+        if (this.themeObserver) this.themeObserver.disconnect();
+        if (this.view) this.view.dispose();
     }
 }
