@@ -1,10 +1,7 @@
 /**
  * Echo Chains Scene - Orchestrator
- *
- * Adheres to SOLID, KISS, and MVVM principles.
- * Specialized version of ZenGeometry with echoing rings.
  */
-import { ECHO_CHAINS_THEMES, NODE_DEFINITIONS, CONNECTIONS } from './echo-chains/Model.js';
+import { getColors } from './echo-chains/Model.js';
 import { View } from './echo-chains/View.js';
 import { ViewModel } from './echo-chains/ViewModel.js';
 
@@ -31,24 +28,24 @@ export class EchoChainsScene {
         }
 
         const isMobile = window.innerWidth < 768;
-        const colors = this._getColors();
+        const colors = getColors();
 
-        this.view = new View(this.container, colors, isMobile);
-        this.view.createGeometry(NODE_DEFINITIONS, CONNECTIONS);
+        this.view = new View(this.container, isMobile);
+        this.viewModel = new ViewModel(this.view, isMobile);
+        
+        try {
+            this.viewModel.init(colors);
+            this._setupInteraction();
+            this._startRenderLoop();
+            this._setupThemeObserver();
 
-        this.viewModel = new ViewModel(this.view, NODE_DEFINITIONS, CONNECTIONS);
-
-        this._setupInteraction();
-        this._startRenderLoop();
-        this._setupThemeObserver();
-
-        window.addEventListener('resize', this._handleResize);
-        return true;
-    }
-
-    _getColors() {
-        const scheme = document.body.getAttribute('data-md-color-scheme');
-        return scheme === 'slate' ? ECHO_CHAINS_THEMES.dark : ECHO_CHAINS_THEMES.light;
+            window.addEventListener('resize', this._handleResize);
+            return true;
+        } catch (err) {
+            console.error('Failed to initialize EchoChainsScene:', err);
+            this.destroy();
+            return false;
+        }
     }
 
     _setupInteraction() {
@@ -57,6 +54,7 @@ export class EchoChainsScene {
     }
 
     _onMouseMove(event) {
+        if (!this.viewModel) return;
         const rect = this.container.getBoundingClientRect();
         const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
         const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -64,17 +62,17 @@ export class EchoChainsScene {
     }
 
     _onInteractionEnd() {
-        this.viewModel.handleInteractionEnd();
+        if (this.viewModel) this.viewModel.handleInteractionEnd();
     }
 
     _onResize() {
-        this.view.onResize();
+        if (this.viewModel) this.viewModel.onResize();
     }
 
     _setupThemeObserver() {
         this.themeObserver = new MutationObserver(() => {
-            const colors = this._getColors();
-            this.view.updateTheme(colors);
+            const colors = getColors();
+            if (this.view) this.view.updateTheme(colors);
         });
         this.themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-md-color-scheme'] });
     }
@@ -91,7 +89,6 @@ export class EchoChainsScene {
     destroy() {
         this.isDestroyed = true;
         if (this.animationId) cancelAnimationFrame(this.animationId);
-        
         window.removeEventListener('resize', this._handleResize);
         if (this.container) {
             this.container.removeEventListener('mousemove', this._handleMouseMove);
@@ -99,6 +96,6 @@ export class EchoChainsScene {
         }
         if (this.themeObserver) this.themeObserver.disconnect();
         
-        if (this.view) this.view.dispose();
+        if (this.viewModel) this.viewModel.dispose();
     }
 }

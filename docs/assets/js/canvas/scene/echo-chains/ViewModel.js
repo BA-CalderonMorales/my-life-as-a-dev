@@ -1,187 +1,140 @@
+/**
+ * Echo Chains ViewModel - Core Behavioral Logic
+ * 
+ * Orchestrates node movements, echoing ring propagation,
+ * and orbital physics.
+ */
 import * as THREE from 'three';
+import { ECHO_CHAINS_CONFIG, NODE_DEFINITIONS, CONNECTIONS } from './Model.js';
+import { getCurrentTheme, themes } from '../themes/ThemeConfig.js';
 
 export class ViewModel {
-    constructor(view, nodeDefinitions, connections) {
+    constructor(view, isMobile) {
         this.view = view;
-        this.nodeDefinitions = nodeDefinitions;
-        this.connections = connections;
+        this.config = ECHO_CHAINS_CONFIG;
+        this.isMobile = isMobile;
 
-        this.mouse = new THREE.Vector2(-1000, -1000);
-        this.mouse3D = new THREE.Vector3();
-        this.raycaster = new THREE.Raycaster();
-        this.interactionPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+        // Interaction State (Behavioral)
+        this.mouse3D = new THREE.Vector3(0, 0, 0);
         this.isInteracting = false;
+        this.startTime = performance.now();
+        
+        // Node state
+        this.nodeBasePositions = NODE_DEFINITIONS.map(d => new THREE.Vector3(...d.position));
+        this.nodeCurrentPositions = NODE_DEFINITIONS.map(d => new THREE.Vector3(...d.position));
+        this.nodeSpeeds = NODE_DEFINITIONS.map(() => 0.5 + Math.random() * 1.5);
+        this.nodePhases = NODE_DEFINITIONS.map(() => Math.random() * Math.PI * 2);
 
-        this.nodeStates = this.nodeDefinitions.map(config => ({
-            basePos: new THREE.Vector3(...config.position),
-            currentPos: new THREE.Vector3(...config.position),
-            orbitSpeed: 0.05 + Math.random() * 0.04,
-            orbitRadius: 0.18 + Math.random() * 0.2,
-            phase: Math.random() * Math.PI * 2,
-            floatSpeed: 0.12 + Math.random() * 0.16,
-            emissive: 0.03,
-            targetEmissive: 0.03,
-            breathePhase: Math.random() * Math.PI * 2,
-            breatheSpeed: 0.22 + Math.random() * 0.28,
-            scale: config.size
+        // Ring state
+        this.ringStates = Array.from({ length: this.config.physics.ringPoolSize }, () => ({
+            active: false,
+            life: 0,
+            origin: new THREE.Vector3()
         }));
 
-        this.centralState = {
-            baseEmissive: 0.014,
-            targetEmissive: 0.014
-        };
-
-        this.lastRingEmit = 0;
-        this.activeRings = [];
-        this.clock = new THREE.Clock();
+        this.dummy = new THREE.Object3D();
+        this.raycaster = new THREE.Raycaster();
+        this.plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
     }
 
-    update() {
-        const elapsed = this.clock.getElapsedTime();
-        const delta = this.clock.getDelta();
+    init(colors) {
+        const perf = this.isMobile ? this.config.performance.mobile : this.config.performance.desktop;
+        const central = this.isMobile ? this.config.central.mobile : this.config.central.desktop;
 
-        this._updateCamera(elapsed);
-        this._updateCentralForm(elapsed);
-        this._updateNodes(elapsed);
-        this._updateConnections();
-        this._updateRings(elapsed, delta);
-        
-        this.view.render();
-    }
-
-    _updateCamera(elapsed) {
-        const camDistance = this.view.camera.userData.baseDistance;
-        const camSpeed = 0.018;
-        const totalAngle = elapsed * camSpeed;
-        const camX = Math.sin(totalAngle) * camDistance;
-        const camZ = Math.cos(totalAngle) * camDistance;
-        const camY = Math.sin(elapsed * camSpeed * 0.4) * 1.4;
-
-        this.view.camera.position.set(camX, camY, camZ);
-        this.view.camera.lookAt(0, 0, 0);
-    }
-
-    _updateCentralForm(elapsed) {
-        this.view.centralForm.rotation.x = elapsed * 0.02;
-        this.view.centralForm.rotation.y = elapsed * 0.03;
-        const breathe = 1 + Math.sin(elapsed * 0.45) * 0.01;
-        this.view.centralForm.scale.setScalar(breathe);
-
-        if (this.isInteracting) {
-            const distToCenter = this.mouse3D.length();
-            this.centralState.targetEmissive = distToCenter < 5 ? 0.05 + (1 - distToCenter / 5) * 0.03 : 0.014;
-        } else {
-            this.centralState.targetEmissive = 0.014;
-        }
-        this.centralState.baseEmissive += (this.centralState.targetEmissive - this.centralState.baseEmissive) * 0.04;
-        this.view.centralForm.material.emissiveIntensity = this.centralState.baseEmissive;
-    }
-
-    _updateNodes(elapsed) {
-        const matrix = new THREE.Matrix4();
-        const nodeScaleFactor = this.view.isMobile ? 0.85 : 1;
-
-        this.nodeStates.forEach((state, i) => {
-            state.currentPos.x = state.basePos.x + Math.sin(elapsed * state.orbitSpeed + state.phase) * state.orbitRadius;
-            state.currentPos.y = state.basePos.y + Math.cos(elapsed * state.floatSpeed + state.phase) * state.orbitRadius * 0.5;
-            state.currentPos.z = state.basePos.z + Math.sin(elapsed * state.orbitSpeed * 0.7 + state.phase) * state.orbitRadius * 0.3;
-
-            const nodeBreathe = 1 + Math.sin(elapsed * state.breatheSpeed + state.breathePhase) * 0.05;
-            const finalScale = state.scale * nodeScaleFactor * nodeBreathe;
-
-            if (this.isInteracting) {
-                const distToMouse = state.currentPos.distanceTo(this.mouse3D);
-                state.targetEmissive = distToMouse < 3.5 ? 0.07 + (1 - distToMouse / 3.5) * 0.05 : 0.03;
-            } else {
-                state.targetEmissive = 0.03;
-            }
-            state.emissive += (state.targetEmissive - state.emissive) * 0.08;
-
-            matrix.makeScale(finalScale, finalScale, finalScale);
-            matrix.setPosition(state.currentPos);
-            this.view.nodes.setMatrixAt(i, matrix);
-        });
-        this.view.nodes.instanceMatrix.needsUpdate = true;
-    }
-
-    _updateConnections() {
-        this.view.connections.forEach((line) => {
-            const { fromIdx, toIdx } = line.userData;
-            const positions = line.geometry.attributes.position.array;
-            const from = fromIdx === null ? this.view.centralForm.position : this.nodeStates[fromIdx].currentPos;
-            const to = this.nodeStates[toIdx].currentPos;
-            
-            positions[0] = from.x;
-            positions[1] = from.y;
-            positions[2] = from.z;
-            positions[3] = to.x;
-            positions[4] = to.y;
-            positions[5] = to.z;
-            line.geometry.attributes.position.needsUpdate = true;
-
-            const fromEm = fromIdx === null ? this.centralState.baseEmissive : this.nodeStates[fromIdx].emissive;
-            const toEm = this.nodeStates[toIdx].emissive;
-            const lineGlow = Math.max(fromEm, toEm);
-            line.userData.targetOpacity = 0.08 + lineGlow * 0.18;
-            line.userData.baseOpacity += (line.userData.targetOpacity - line.userData.baseOpacity) * 0.1;
-            line.material.opacity = line.userData.baseOpacity;
-        });
-    }
-
-    _updateRings(elapsed, delta) {
-        if (elapsed - this.lastRingEmit > 2.0) {
-            this.lastRingEmit = elapsed;
-            this._spawnRing(new THREE.Vector3(0, 0, 0));
-            this.nodeStates.forEach(state => this._spawnRing(state.currentPos));
-        }
-
-        for (let i = this.activeRings.length - 1; i >= 0; i--) {
-            const ring = this.activeRings[i];
-            const data = ring.userData;
-            data.life += 0.016; // Fix to 60fps for stability
-
-            const progress = data.life / data.maxLife;
-            if (progress >= 1) {
-                data.active = false;
-                ring.visible = false;
-                ring.material.opacity = 0;
-                this.activeRings.splice(i, 1);
-                continue;
-            }
-
-            const scale = 0.1 + progress * 8;
-            ring.scale.setScalar(scale);
-            ring.material.opacity = 0.4 * (1 - progress);
-            ring.position.copy(data.origin);
-        }
-    }
-
-    _spawnRing(origin) {
-        const ring = this.view.ringPool.find(r => !r.userData.active);
-        if (!ring) return;
-
-        ring.userData.active = true;
-        ring.userData.life = 0;
-        ring.userData.origin.copy(origin);
-        ring.position.copy(origin);
-        ring.scale.setScalar(0.1);
-        ring.visible = true;
-        ring.material.opacity = 0.4;
-        this.activeRings.push(ring);
+        this.view.init(colors, perf);
+        this.view.addCentralForm(central.size, colors);
+        this.view.addInstancedNodes(NODE_DEFINITIONS.length, colors);
+        this.view.addConnections(CONNECTIONS, colors.lineColor);
+        this.view.addRingPool(this.config.physics.ringPoolSize, colors.glowColor);
     }
 
     handleMouseMove(x, y) {
-        this.mouse.set(x, y);
         this.isInteracting = true;
-        this._updateMouse3D();
-    }
-
-    _updateMouse3D() {
-        this.raycaster.setFromCamera(this.mouse, this.view.camera);
-        this.raycaster.ray.intersectPlane(this.interactionPlane, this.mouse3D);
+        this.raycaster.setFromCamera({ x, y }, this.view.camera);
+        this.raycaster.ray.intersectPlane(this.plane, this.mouse3D);
     }
 
     handleInteractionEnd() {
         this.isInteracting = false;
+    }
+
+    update() {
+        const elapsed = (performance.now() - this.startTime) / 1000;
+        const dt = 0.016;
+
+        // Behavior: Orbit central form
+        const orbitRadius = this.isMobile ? 16 : 22;
+        this.view.camera.position.x = Math.sin(elapsed * this.config.physics.orbitSpeed) * orbitRadius;
+        this.view.camera.position.z = Math.cos(elapsed * this.config.physics.orbitSpeed) * orbitRadius;
+        this.view.camera.lookAt(0, 0, 0);
+
+        // Behavior: Update node positions (floaty)
+        this.nodeCurrentPositions.forEach((pos, i) => {
+            const base = this.nodeBasePositions[i];
+            const p = this.nodePhases[i];
+            const s = this.nodeSpeeds[i];
+            pos.x = base.x + Math.sin(elapsed * s + p) * 0.5;
+            pos.y = base.y + Math.cos(elapsed * s * 0.8 + p) * 0.5;
+            pos.z = base.z + Math.sin(elapsed * s * 1.2 + p) * 0.3;
+
+            this.dummy.position.copy(pos);
+            this.dummy.scale.setScalar(NODE_DEFINITIONS[i].size);
+            this.dummy.updateMatrix();
+            this.view.nodes.setMatrixAt(i, this.dummy.matrix);
+        });
+        this.view.nodes.instanceMatrix.needsUpdate = true;
+
+        // Behavior: Update connections
+        this.view.connections.forEach((line, i) => {
+            const [fromIdx, toIdx] = CONNECTIONS[i];
+            const pos = line.geometry.attributes.position.array;
+            const p1 = this.nodeCurrentPositions[fromIdx];
+            const p2 = this.nodeCurrentPositions[toIdx];
+            pos[0] = p1.x; pos[1] = p1.y; pos[2] = p1.z;
+            pos[3] = p2.x; pos[4] = p2.y; pos[5] = p2.z;
+            line.geometry.attributes.position.needsUpdate = true;
+        });
+
+        // Behavior: Process Echo Rings
+        this._updateRings(elapsed, dt);
+
+        this.view.render();
+    }
+
+    _updateRings(elapsed, dt) {
+        const maxLife = this.config.physics.ringMaxLife;
+        this.ringStates.forEach((state, i) => {
+            const ring = this.view.rings[i];
+            if (!state.active) {
+                // Occasionally spawn ring from center or nodes
+                if (Math.random() < 0.005) {
+                    state.active = true;
+                    state.life = 0;
+                    state.origin.set(0, 0, 0); // Spawning from center
+                    ring.visible = true;
+                }
+                return;
+            }
+
+            state.life += dt;
+            if (state.life > maxLife) {
+                state.active = false;
+                ring.visible = false;
+                return;
+            }
+
+            const t = state.life / maxLife;
+            ring.position.copy(state.origin);
+            ring.scale.setScalar(t * 15);
+            ring.material.opacity = (1 - t) * 0.4;
+        });
+    }
+
+    onResize() {
+        this.view.onResize();
+    }
+
+    dispose() {
+        this.view.dispose();
     }
 }
