@@ -6,7 +6,7 @@ import { ViewModel } from './ViewModel.js';
 
 class MockView {
     constructor() {
-        this.camera = {};
+        this.camera = new THREE.PerspectiveCamera();
         this.particles = {
             geometry: { 
                 attributes: { 

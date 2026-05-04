@@ -6,7 +6,7 @@ import { ViewModel } from './ViewModel.js';
 
 class MockView {
     constructor() {
-        this.camera = { position: { y: 0 }, lookAt: () => {} };
+        this.camera = new THREE.PerspectiveCamera();
         this.instancedMesh = { 
             instanceMatrix: { needsUpdate: false }, 
             setMatrixAt: () => {},

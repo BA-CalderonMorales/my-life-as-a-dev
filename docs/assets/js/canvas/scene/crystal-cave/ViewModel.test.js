@@ -13,7 +13,7 @@ class MockView {
             removeEventListener: () => {}
         };
         this.scene = { add: () => {}, background: { set: () => {} }, fog: { color: { set: () => {} } } };
-        this.camera = {};
+        this.camera = new THREE.PerspectiveCamera();
         this.renderer = { toneMapping: 0, toneMappingExposure: 0 };
     }
     init() {}

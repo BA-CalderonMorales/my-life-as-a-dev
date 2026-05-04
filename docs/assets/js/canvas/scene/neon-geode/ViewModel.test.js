@@ -6,7 +6,7 @@ import { ViewModel } from './ViewModel.js';
 
 class MockView {
     constructor() {
-        this.camera = { position: { x: 0, y: 0, z: 0 }, lookAt: () => {} };
+        this.camera = new THREE.PerspectiveCamera();
         this.crystals = [];
         this.core = { scale: { setScalar: () => {} }, rotation: { y: 0 } };
         this.sparkles = { geometry: { attributes: { position: { array: new Float32Array(300), needsUpdate: false } } } };

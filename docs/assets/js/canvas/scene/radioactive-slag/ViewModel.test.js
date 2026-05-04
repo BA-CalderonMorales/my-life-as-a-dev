@@ -6,7 +6,7 @@ import { ViewModel } from './ViewModel.js';
 
 class MockView {
     constructor() {
-        this.camera = { position: { x: 0 }, lookAt: () => {} };
+        this.camera = new THREE.PerspectiveCamera();
         this.lights = [];
         this.rocks = [];
         this.container = { clientWidth: 1024, clientHeight: 768 };

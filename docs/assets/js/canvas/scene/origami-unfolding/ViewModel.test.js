@@ -6,7 +6,7 @@ import { ViewModel } from './ViewModel.js';
 
 class MockView {
     constructor(planeCount) {
-        this.camera = { position: { x: 0, y: 0, z: 0 }, lookAt: () => {} };
+        this.camera = new THREE.PerspectiveCamera();
         this.planes = Array.from({ length: planeCount }, () => ({
             position: { copy: () => {}, lerp: () => {}, multiplyScalar: () => {}, clone: () => ({ multiplyScalar: () => {} }) },
             lookAt: () => {},
