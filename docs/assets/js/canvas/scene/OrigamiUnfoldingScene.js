@@ -1,175 +1,109 @@
-import * as THREE from 'three';
-import { ZenGeometryScene } from './ZenGeometryScene.js';
+/**
+ * Origami Unfolding Scene - Orchestrator
+ *
+ * Adheres to SOLID, KISS, and MVVM principles.
+ */
+import { ORIGAMI_CONFIG } from './origami-unfolding/Model.js';
+import { View } from './origami-unfolding/View.js';
+import { ViewModel } from './origami-unfolding/ViewModel.js';
 
-export class OrigamiUnfoldingScene extends ZenGeometryScene {
+export class OrigamiUnfoldingScene {
     constructor(containerId = 'canvas-scene') {
-        super(containerId);
+        this.containerId = containerId;
+        this.container = null;
+        this.view = null;
+        this.viewModel = null;
+        this.animationId = null;
+        this.isDestroyed = false;
+
+        this._boundResize = this._onResize.bind(this);
+        this._boundMouseMove = this._onMouseMove.bind(this);
+        this._boundMouseLeave = this._onMouseLeave.bind(this);
     }
 
-    _createGeometry() {
-        const colors = this._getColors();
-
-        this.planes = [];
-        this.planeConnections = [];
-
-        const planeSize = this.isMobile ? 2.2 : 3.0;
-        const geo = new THREE.BufferGeometry();
-        const half = planeSize / 2;
-        const vertices = new Float32Array([
-            0, half, 0,
-            -half, -half, 0,
-            half, -half, 0,
-        ]);
-        geo.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
-        geo.computeVertexNormals();
-
-        // Dodecahedron face normals as plane orientations
-        const phi = (1 + Math.sqrt(5)) / 2;
-        const normals = [
-            [0, 1, phi], [0, 1, -phi], [0, -1, phi], [0, -1, -phi],
-            [1, phi, 0], [1, -phi, 0], [-1, phi, 0], [-1, -phi, 0],
-            [phi, 0, 1], [phi, 0, -1], [-phi, 0, 1], [-phi, 0, -1],
-        ];
-
-        normals.forEach((n, i) => {
-            const normal = new THREE.Vector3(...n).normalize();
-            const mat = new THREE.MeshPhysicalMaterial({
-                color: colors.centralColor,
-                metalness: 0.02,
-                roughness: 0.6,
-                side: THREE.DoubleSide,
-                transparent: true,
-                opacity: 0.9,
-                emissive: colors.glowColor,
-                emissiveIntensity: 0.04,
-            });
-            const mesh = new THREE.Mesh(geo, mat);
-            const dist = this.isMobile ? 3.5 : 4.5;
-            mesh.position.copy(normal.clone().multiplyScalar(dist));
-            mesh.lookAt(0, 0, 0);
-            mesh.userData = {
-                baseNormal: normal.clone(),
-                basePos: mesh.position.clone(),
-                rotationSpeed: 0.15 + Math.random() * 0.25,
-                phase: Math.random() * Math.PI * 2,
-                axis: new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize(),
-            };
-            this.scene.add(mesh);
-            this.planes.push(mesh);
-        });
-
-        // Thin lines between plane centers
-        const lineMat = new THREE.LineBasicMaterial({
-            color: colors.lineColor,
-            transparent: true,
-            opacity: 0.1,
-        });
-
-        for (let i = 0; i < this.planes.length; i++) {
-            for (let j = i + 1; j < this.planes.length; j++) {
-                const dist = this.planes[i].position.distanceTo(this.planes[j].position);
-                if (dist < (this.isMobile ? 6 : 8)) {
-                    const points = [
-                        this.planes[i].position.clone(),
-                        this.planes[j].position.clone(),
-                    ];
-                    const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
-                    const line = new THREE.Line(lineGeo, lineMat.clone());
-                    line.userData = { fromIdx: i, toIdx: j };
-                    this.scene.add(line);
-                    this.planeConnections.push(line);
-                }
-            }
+    async init() {
+        this.container = document.getElementById(this.containerId);
+        if (!this.container) {
+            this.container = document.createElement('div');
+            this.container.id = this.containerId;
+            document.body.appendChild(this.container);
         }
+
+        const isMobile = window.innerWidth < 768;
+        const colors = this._getColors();
+
+        this.view = new View(this.container, isMobile);
+        this.view.init(ORIGAMI_CONFIG, colors);
+
+        this.viewModel = new ViewModel(this.view);
+
+        this._setupListeners();
+        this._startRenderLoop();
+        this._setupThemeObserver();
+        
+        return true;
     }
 
-    _updateTheme() {
-        const colors = this._getColors();
-        this.scene.background.setHex(colors.background);
-        this.scene.fog.color.setHex(colors.fogColor);
-        this.ambientLight.color.setHex(colors.ambientLight);
+    _getColors() {
+        const scheme = document.body.getAttribute('data-md-color-scheme');
+        return scheme === 'slate' ? ORIGAMI_CONFIG.themes.dark : ORIGAMI_CONFIG.themes.light;
+    }
 
-        this.planes.forEach(plane => {
-            plane.material.color.setHex(colors.centralColor);
-            plane.material.emissive.setHex(colors.glowColor);
-        });
+    _setupListeners() {
+        window.addEventListener('resize', this._boundResize);
+        this.container.addEventListener('mousemove', this._boundMouseMove);
+        this.container.addEventListener('mouseleave', this._boundMouseLeave);
+        this.container.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            this._onMouseMove(touch);
+        }, { passive: true });
+        this.container.addEventListener('touchend', this._boundMouseLeave);
+    }
 
-        this.planeConnections.forEach(line => {
-            line.material.color.setHex(colors.lineColor);
+    _onMouseMove(event) {
+        if (!this.viewModel) return;
+        const rect = this.container.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        this.viewModel.handleMouseMove(x, y);
+    }
+
+    _onMouseLeave() {
+        if (this.viewModel) this.viewModel.handleInteractionEnd();
+    }
+
+    _onResize() {
+        if (this.view) this.view.onResize();
+    }
+
+    _setupThemeObserver() {
+        this.themeObserver = new MutationObserver(() => {
+            const colors = this._getColors();
+            if (this.view) this.view.updateTheme(colors);
         });
+        this.themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-md-color-scheme'] });
     }
 
     _startRenderLoop() {
         const animate = () => {
             if (this.isDestroyed) return;
             this.animationId = requestAnimationFrame(animate);
-
-            const elapsed = this.clock.getElapsedTime();
-            const timeSinceInteraction = elapsed - this.lastInteraction;
-            const interactionFade = Math.max(0, 1 - timeSinceInteraction / 2.4);
-
-            // Camera orbit
-            const camDistance = this.camera.userData.baseDistance;
-            const camSpeed = 0.018;
-            const autoAngle = elapsed * camSpeed;
-            const totalAngle = autoAngle + this.orbitAngle;
-            let camX = Math.sin(totalAngle) * camDistance;
-            let camZ = Math.cos(totalAngle) * camDistance;
-            let camY = Math.sin(elapsed * camSpeed * 0.4) * 1.4 + this.orbitTilt * camDistance * 0.24;
-
-            if (this.isInteracting && !this.isTouching && !this.isPinching && interactionFade > 0) {
-                camX += this.mouse3D.x * 0.5 * interactionFade;
-                camY += this.mouse3D.y * 0.3 * interactionFade;
-            }
-
-            this.camera.position.set(camX, camY, camZ);
-            this.camera.lookAt(0, 0, 0);
-
-            // Interaction: find cursor direction from center
-            const cursorDir = this.mouse3D.clone().normalize();
-            if (this.mouse3D.length() < 0.1) cursorDir.set(0, 0, 1);
-
-            this.planes.forEach((plane, i) => {
-                const data = plane.userData;
-
-                // Self rotation
-                plane.rotateOnAxis(data.axis, data.rotationSpeed * 0.008);
-
-                // Fold toward cursor if close
-                let foldFactor = 0;
-                if (this.isInteracting) {
-                    const planeDir = data.baseNormal.clone();
-                    const dot = planeDir.dot(cursorDir);
-                    if (dot > 0.3) {
-                        foldFactor = (dot - 0.3) / 0.7;
-                    }
-                }
-
-                const targetPos = data.basePos.clone().lerp(
-                    data.basePos.clone().multiplyScalar(0.6),
-                    foldFactor * interactionFade
-                );
-                plane.position.lerp(targetPos, 0.06);
-            });
-
-            // Update connection lines
-            this.planeConnections.forEach((line) => {
-                const { fromIdx, toIdx } = line.userData;
-                const positions = line.geometry.attributes.position.array;
-                const from = this.planes[fromIdx].position;
-                const to = this.planes[toIdx].position;
-                positions[0] = from.x;
-                positions[1] = from.y;
-                positions[2] = from.z;
-                positions[3] = to.x;
-                positions[4] = to.y;
-                positions[5] = to.z;
-                line.geometry.attributes.position.needsUpdate = true;
-            });
-
-            this.renderer.render(this.scene, this.camera);
+            this.viewModel.update();
         };
-
         animate();
+    }
+
+    destroy() {
+        this.isDestroyed = true;
+        if (this.animationId) cancelAnimationFrame(this.animationId);
+        
+        window.removeEventListener('resize', this._boundResize);
+        if (this.container) {
+            this.container.removeEventListener('mousemove', this._boundMouseMove);
+            this.container.removeEventListener('mouseleave', this._boundMouseLeave);
+        }
+        if (this.themeObserver) this.themeObserver.disconnect();
+
+        if (this.view) this.view.dispose();
     }
 }

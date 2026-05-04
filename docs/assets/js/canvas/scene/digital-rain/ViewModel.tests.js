@@ -1,7 +1,7 @@
 /**
  * Digital Rain ViewModel Tests
  */
-import { ViewModel } from '../ViewModel.js';
+import { ViewModel } from './ViewModel.js';
 
 // Simple mock for the passive View
 class MockView {

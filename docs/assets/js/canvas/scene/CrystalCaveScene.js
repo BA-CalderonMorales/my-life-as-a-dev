@@ -1,51 +1,27 @@
 /**
- * Crystal Cave Scene - Main Orchestrator
- * 
- * Coordinates all scene components: crystals, particles, lighting,
- * camera, and interactions. Manages lifecycle and theme changes.
+ * Crystal Cave Scene - Orchestrator
+ *
+ * Adheres to SOLID, KISS, and MVVM principles.
  */
-import * as THREE from 'three';
-import { getThemeColors, getCurrentTheme, themes } from './themes/ThemeConfig.js';
-import { createCrystals } from './crystals/CrystalFactory.js';
-import { ParticleSystem } from './particles/ParticleSystem.js';
-import { LightingSystem } from './lighting/LightingSystem.js';
-import { OrbitCamera } from './camera/OrbitCamera.js';
-import { InteractionManager } from './interaction/InteractionManager.js';
-import { CrystalAnimator } from './animation/CrystalAnimator.js';
-import { ThemeTransition } from './themes/ThemeTransition.js';
+import { CRYSTAL_CAVE_CONFIG } from './crystal-cave/Model.js';
+import { View } from './crystal-cave/View.js';
+import { ViewModel } from './crystal-cave/ViewModel.js';
+import { getThemeColors } from './themes/ThemeConfig.js';
 
 export class CrystalCaveScene {
     constructor(containerId = 'canvas-scene') {
         this.containerId = containerId;
         this.container = null;
-        this.scene = null;
-        this.renderer = null;
+        this.view = null;
+        this.viewModel = null;
         this.animationId = null;
         this.isDestroyed = false;
-        this.clock = { start: 0 };
 
-        // Domain components
-        this.orbitCamera = null;
-        this.crystalGroup = null;
-        this.crystals = [];
-        this.materials = [];
-        this.particleSystem = null;
-        this.lightingSystem = null;
-        this.interactionManager = null;
-        this.crystalAnimator = null;
-        this.themeTransition = null;
-        this.themeObserver = null;
-
-        // Bound handlers
         this._handleResize = this._onResize.bind(this);
         this._positionCanvas = this._updateCanvasPosition.bind(this);
     }
 
-    /**
-     * Initialize the scene
-     */
     async init() {
-        // Use existing container if available, otherwise create one
         this.container = document.getElementById(this.containerId);
         this.isEmbedded = Boolean(this.container);
         if (!this.container) {
@@ -59,21 +35,23 @@ export class CrystalCaveScene {
         window.addEventListener('scroll', this._positionCanvas);
 
         try {
-            await this._setupScene();
-            await this._createComponents();
-            this._setupThemeObserver();
+            const colors = getThemeColors();
+            
+            this.view = new View(this.container, CRYSTAL_CAVE_CONFIG);
+            this.view.init(colors);
+
+            this.viewModel = new ViewModel(this.view);
+            this.viewModel.init();
+
             this._startRenderLoop();
+            window.addEventListener('resize', this._handleResize);
             return true;
         } catch (err) {
-            console.error('Failed to initialize Crystal Cave Scene:', err);
             this.destroy();
             return false;
         }
     }
 
-    /**
-     * Position canvas between header and footer
-     */
     _updateCanvasPosition() {
         if (this.isEmbedded) {
             this.container.style.top = '';
@@ -99,205 +77,32 @@ export class CrystalCaveScene {
         this.container.style.height = canvasHeight + 'px';
     }
 
-    /**
-     * Setup Three.js scene, camera, and renderer
-     */
-    async _setupScene() {
-        const colors = getThemeColors();
-
-        // Scene with fog
-        this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(colors.background);
-        this.scene.fog = new THREE.Fog(colors.fogColor, colors.fogNear, colors.fogFar);
-
-        // Camera
-        this.orbitCamera = new OrbitCamera({ radius: 10 });
-        this.orbitCamera.create(this.container.clientWidth / this.container.clientHeight);
-
-        // Detect mobile for performance optimization
-        const isMobile = this.orbitCamera.isMobile;
-        const pixelRatio = isMobile ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2);
-
-        // Renderer
-        this.renderer = new THREE.WebGLRenderer({
-            antialias: !isMobile, // Disable antialiasing on mobile for performance
-            alpha: false,
-            powerPreference: isMobile ? 'low-power' : 'high-performance'
-        });
-        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-        this.renderer.setPixelRatio(pixelRatio);
-        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = colors.toneMappingExposure;
-        this.container.appendChild(this.renderer.domElement);
-    }
-
-    /**
-     * Create all scene components
-     */
-    async _createComponents() {
-        const colors = getThemeColors();
-
-        // Crystal group
-        this.crystalGroup = new THREE.Group();
-        this.scene.add(this.crystalGroup);
-
-        const { crystals, materials } = createCrystals(this.crystalGroup, colors.crystalColors);
-        this.crystals = crystals;
-        this.materials = materials;
-
-        // Detect mobile for performance adjustments
-        const isMobile = this.orbitCamera.isMobile;
-
-        // Particles - reduced count on mobile
-        this.particleSystem = new ParticleSystem({
-            count: isMobile ? 500 : 1000,
-            color: colors.particleColor,
-            size: isMobile ? colors.particleSize * 1.2 : colors.particleSize, // Slightly larger on mobile to compensate
-            opacity: colors.particleOpacity,
-        });
-        this.scene.add(this.particleSystem.create());
-
-        // Lighting
-        this.lightingSystem = new LightingSystem();
-        this.lightingSystem.create(this.scene, colors);
-
-        // Interactions
-        this.interactionManager = new InteractionManager(
-            this.container,
-            this.orbitCamera.camera,
-            this.crystals,
-            this.orbitCamera
-        );
-        this.interactionManager.attach();
-
-        // Crystal animation
-        this.crystalAnimator = new CrystalAnimator(
-            this.crystals,
-            this.materials,
-            colors.glowColor
-        );
-
-        // Theme transitions
-        this.themeTransition = new ThemeTransition({
-            scene: this.scene,
-            renderer: this.renderer,
-            materials: this.materials,
-            particleSystem: this.particleSystem,
-            lightingSystem: this.lightingSystem,
-            crystalAnimator: this.crystalAnimator,
-        });
-
-        // Resize handler
-        window.addEventListener('resize', this._handleResize);
-    }
-
-    /**
-     * Setup theme change observer
-     */
-    _setupThemeObserver() {
-        let currentTheme = getCurrentTheme();
-
-        this.themeObserver = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.attributeName === 'data-md-color-scheme') {
-                    const newTheme = getCurrentTheme();
-                    if (newTheme !== currentTheme) {
-                        const fromColors = themes[currentTheme];
-                        const toColors = themes[newTheme];
-                        this.themeTransition.transition(fromColors, toColors);
-                        currentTheme = newTheme;
-                    }
-                }
-            });
-        });
-
-        this.themeObserver.observe(document.body, { attributes: true });
-    }
-
-    /**
-     * Handle window resize
-     */
     _onResize() {
         this._updateCanvasPosition();
-        const width = this.container.clientWidth;
-        const height = this.container.clientHeight;
-
-        this.orbitCamera.resize(width, height);
-        this.renderer.setSize(width, height);
+        if (this.view) this.view.onResize();
     }
 
-    /**
-     * Start the render loop
-     */
     _startRenderLoop() {
-        this.clock.start = performance.now();
-
         const animate = () => {
             if (this.isDestroyed) return;
             this.animationId = requestAnimationFrame(animate);
-
-            const elapsed = (performance.now() - this.clock.start) / 1000;
-
-            // Update camera
-            this.orbitCamera.update(elapsed);
-
-            // Update crystals
-            this.crystalAnimator.update(
-                elapsed,
-                (crystal) => this.interactionManager.isCrystalActive(crystal)
-            );
-
-            // Update particles with mouse attraction
-            this.particleSystem.update(this.interactionManager.getMouse3D());
-
-            // Update lighting shimmer
-            this.lightingSystem.update(elapsed);
-
-            // Render
-            this.renderer.render(this.scene, this.orbitCamera.camera);
+            this.viewModel.update();
         };
-
         animate();
     }
 
-    /**
-     * Clean up and destroy the scene
-     */
     destroy() {
         this.isDestroyed = true;
-
-        if (this.animationId) {
-            cancelAnimationFrame(this.animationId);
-        }
+        if (this.animationId) cancelAnimationFrame(this.animationId);
 
         window.removeEventListener('resize', this._handleResize);
         window.removeEventListener('resize', this._positionCanvas);
         window.removeEventListener('scroll', this._positionCanvas);
 
-        if (this.interactionManager) {
-            this.interactionManager.detach();
-        }
+        if (this.viewModel) this.viewModel.dispose();
+        if (this.view) this.view.dispose();
 
-        if (this.themeObserver) {
-            this.themeObserver.disconnect();
-        }
-
-        if (this.renderer) {
-            this.renderer.dispose();
-        }
-
-        if (this.particleSystem) {
-            this.particleSystem.dispose();
-        }
-
-        // Dispose crystals
-        this.crystals.forEach(crystal => {
-            if (crystal.geometry) crystal.geometry.dispose();
-        });
-        this.materials.forEach(mat => mat.dispose());
-
-        // Remove container
-        if (this.container && this.container.parentElement) {
+        if (this.container && this.container.parentElement && !this.isEmbedded) {
             this.container.parentElement.removeChild(this.container);
         }
     }
