@@ -1,0 +1,181 @@
+/* ============================================
+   Typography — AETHER Modern Gallery
+   Modern, sleek, museum-like minimal strategy: Grotesque for voice, Sans for function.
+   ============================================ */
+
+/* Load Outfit for modern museum headings via Google Fonts fallback */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;450;500;600&display=swap');
+
+:root {
+    --mlad-text-font: var(--font-body);
+    --mlad-display-font: var(--font-display);
+}
+
+body {
+    font-family: var(--mlad-text-font);
+    font-feature-settings: "liga" 1, "kern" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.md-typeset {
+    font-family: var(--mlad-text-font);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+}
+
+/* ───────────────────────────────────────────
+   LANDING PAGE: Editorial scale
+   Large, fluid serif headings for the home page.
+   ─────────────────────────────────────────── */
+.landing-page .md-typeset h1 {
+    font-family: var(--mlad-display-font);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    line-height: var(--leading-h1);
+    letter-spacing: var(--tracking-h1);
+    margin-top: 0;
+    color: var(--ink);
+}
+
+.landing-page .md-typeset h2 {
+    font-family: var(--mlad-text-font);
+    font-size: var(--text-h2);
+    font-weight: 500;
+    line-height: var(--leading-h2);
+    letter-spacing: var(--tracking-h2);
+    margin-top: var(--space-6);
+    color: var(--ink);
+}
+
+.landing-page .md-typeset h3 {
+    font-family: var(--mlad-text-font);
+    font-size: var(--text-h3);
+    font-weight: 500;
+    line-height: var(--leading-h3);
+    letter-spacing: var(--tracking-h3);
+    margin-top: var(--space-5);
+    color: var(--ink);
+}
+
+.landing-page .tx-hero__content h1 {
+    font-family: var(--mlad-display-font);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    line-height: var(--leading-h1);
+    letter-spacing: var(--tracking-h1);
+    color: var(--ink);
+}
+
+.landing-page .tx-hero__content p {
+    text-shadow: none;
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--slate);
+    max-width: 65ch;
+}
+
+/* ───────────────────────────────────────────
+   NON-LANDING PAGES: Native Zensical scale
+   Keep AETHER fonts but use docs-native sizes.
+   ─────────────────────────────────────────── */
+.md-typeset h1 {
+    font-family: var(--mlad-display-font);
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: var(--tracking-h1);
+    margin-top: 0;
+    color: var(--ink);
+}
+
+.md-typeset h2 {
+    font-family: var(--mlad-text-font);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: var(--tracking-h2);
+    margin-top: var(--space-6);
+    color: var(--ink);
+}
+
+.md-typeset h3 {
+    font-family: var(--mlad-text-font);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: var(--tracking-h3);
+    margin-top: var(--space-5);
+    color: var(--ink);
+}
+
+.md-typeset h4 {
+    font-family: var(--mlad-text-font);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ink);
+}
+
+.md-typeset h5,
+.md-typeset h6 {
+    font-family: var(--mlad-text-font);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    line-height: var(--leading-caption);
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+    color: var(--slate);
+}
+
+.md-typeset p {
+    margin-bottom: var(--space-4);
+    max-width: 65ch;
+}
+
+.md-typeset p:last-child {
+    margin-bottom: 0;
+}
+
+.md-typeset ul,
+.md-typeset ol {
+    margin: var(--space-4) 0;
+    padding-left: 1.5rem;
+}
+
+.md-typeset li {
+    margin-bottom: 0.4rem;
+}
+
+@media screen and (max-width: 48rem) {
+    .md-typeset {
+        font-size: 0.95rem;
+        line-height: 1.65;
+    }
+
+    .landing-page .md-typeset h1 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+    }
+
+    .landing-page .md-typeset h2 {
+        font-size: clamp(1.35rem, 3vw, 1.75rem);
+    }
+
+    .landing-page .tx-hero__content h1 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+    }
+
+    .landing-page .tx-hero__content p {
+        font-size: 1rem;
+    }
+
+    .md-typeset h1 {
+        font-size: 1.75rem;
+    }
+
+    .md-typeset h2 {
+        font-size: 1.35rem;
+    }
+}
