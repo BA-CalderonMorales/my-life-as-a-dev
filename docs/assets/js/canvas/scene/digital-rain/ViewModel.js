@@ -4,7 +4,7 @@
  * This file contains ALL logic, including data generation,
  * animation math, and state management.
  */
-import { DIGITAL_RAIN_CONFIG } from './Model.js';
+import { DIGITAL_RAIN_CONFIG, getColors } from './Model.js';
 
 export class ViewModel {
     constructor(view, isMobile) {
@@ -12,7 +12,7 @@ export class ViewModel {
         this.config = DIGITAL_RAIN_CONFIG;
         this.isMobile = isMobile;
 
-        this.particlesPerColumn = isMobile ? this.config.mobile.particlesPerColumn : this.config.desktop.particlesPerColumn;
+        this.particlesPerColumn = isMobile ? this.config.performance.mobile.particlesPerColumn : this.config.performance.desktop.particlesPerColumn;
         this.count = this.config.columns * this.particlesPerColumn;
 
         this.positions = new Float32Array(this.count * 3);
@@ -24,6 +24,7 @@ export class ViewModel {
     init() {
         const columns = this.config.columns;
         const columnWidth = 30 / columns;
+        const colors = getColors();
 
         for (let col = 0; col < columns; col++) {
             const x = (col - columns / 2) * columnWidth + (Math.random() - 0.5) * columnWidth * 0.5;
@@ -47,14 +48,14 @@ export class ViewModel {
             }
         }
 
-        // Push purely data to the passive view
         this.view.addParticles(this.positions, this.colors, 0.15);
-        this.view.addFloor(this.config.colors.floor);
+        this.view.addFloor(colors.floor);
     }
 
     update() {
         const dt = 0.016;
         const phys = this.config.physics;
+        const colors = getColors();
 
         for (let i = 0; i < this.count; i++) {
             const idx = i * 3;
@@ -75,7 +76,7 @@ export class ViewModel {
 
             // Behavior: Color transformation based on height and flash state
             const flash = Math.max(0, this.flashes[i]);
-            const baseGreen = this.config.colors.baseGreenMin + (Math.sin(this.positions[idx + 1] * 0.5) + 1) * 0.15;
+            const baseGreen = colors.baseGreenMin + (Math.sin(this.positions[idx + 1] * 0.5) + 1) * 0.15;
             const green = Math.min(1.0, baseGreen + flash);
             
             this.colors[idx + 1] = green;

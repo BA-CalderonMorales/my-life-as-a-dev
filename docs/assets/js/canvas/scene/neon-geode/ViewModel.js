@@ -5,7 +5,7 @@
  * and orbital camera movements.
  */
 import * as THREE from 'three';
-import { NEON_GEODE_CONFIG } from './Model.js';
+import { NEON_GEODE_CONFIG, getColors } from './Model.js';
 
 export class ViewModel {
     constructor(view, isMobile) {
@@ -13,7 +13,7 @@ export class ViewModel {
         this.config = NEON_GEODE_CONFIG;
         this.isMobile = isMobile;
 
-        const perf = isMobile ? this.config.mobile : this.config.desktop;
+        const perf = isMobile ? this.config.performance.mobile : this.config.performance.desktop;
         this.crystalCount = perf.crystalCount;
         this.sparkleCount = perf.sparkleCount;
 
@@ -24,8 +24,8 @@ export class ViewModel {
     }
 
     init() {
-        const perf = this.isMobile ? this.config.mobile : this.config.desktop;
-        const colors = this.config.colors;
+        const perf = this.isMobile ? this.config.performance.mobile : this.config.performance.desktop;
+        const colors = getColors();
 
         this.view.init(colors, perf);
         this.view.addPointLights(this.config.lightConfigs);

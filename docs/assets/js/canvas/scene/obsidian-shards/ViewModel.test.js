@@ -3,6 +3,7 @@ import * as THREE from "three";
  * Obsidian Shards ViewModel Tests
  */
 import { ViewModel } from './ViewModel.js';
+import { getColors } from './Model.js';
 
 class MockView {
     constructor() {
@@ -75,5 +76,27 @@ describe('ObsidianShards ViewModel', () => {
         // currentPos is not explicitly stored in state anymore (we use dummy)
         // so we verify update runs without error
         global.performance.now = realNow;
+    });
+
+    test('getColors returns valid theme colors', () => {
+        const colors = getColors();
+        expect(colors).toBeDefined();
+        expect(typeof colors.background).toBe('number');
+        expect(typeof colors.obsidian).toBe('number');
+        expect(Array.isArray(colors.lights)).toBe(true);
+    });
+
+    test('initializes without error in dark mode', () => {
+        document.body.setAttribute('data-md-color-scheme', 'slate');
+        const errorSpy = vi.spyOn(console, 'error');
+        viewModel.init();
+        expect(errorSpy).not.toHaveBeenCalled();
+    });
+
+    test('initializes without error in light mode', () => {
+        document.body.setAttribute('data-md-color-scheme', 'default');
+        const errorSpy = vi.spyOn(console, 'error');
+        viewModel.init();
+        expect(errorSpy).not.toHaveBeenCalled();
     });
 });

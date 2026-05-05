@@ -3,7 +3,7 @@
  *
  * Coordinates the Lifecycle between the passive View and the logical ViewModel.
  */
-import { DIGITAL_RAIN_CONFIG } from './digital-rain/Model.js';
+import { getColors } from './digital-rain/Model.js';
 import { View } from './digital-rain/View.js';
 import { ViewModel } from './digital-rain/ViewModel.js';
 
@@ -29,11 +29,8 @@ export class DigitalRainScene {
 
         const isMobile = window.innerWidth < 768;
         
-        // 1. Create passive View
         this.view = new View(this.container, isMobile);
-        this.view.init(DIGITAL_RAIN_CONFIG.colors);
-
-        // 2. Create logical ViewModel and inject View
+        this.view.init(getColors());
         this.viewModel = new ViewModel(this.view, isMobile);
         this.viewModel.init();
 

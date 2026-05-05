@@ -5,7 +5,7 @@
  * and rotational updates.
  */
 import * as THREE from 'three';
-import { OBSIDIAN_CONFIG } from './Model.js';
+import { OBSIDIAN_CONFIG, getColors } from './Model.js';
 
 export class ViewModel {
     constructor(view, isMobile) {
@@ -23,7 +23,7 @@ export class ViewModel {
 
     init() {
         const perf = this.isMobile ? this.config.performance.mobile : this.config.performance.desktop;
-        const colors = this.config.colors;
+        const colors = getColors();
 
         this.view.init(colors, perf);
         this.view.addPointLights(this.config.lightPositions, colors.lights);

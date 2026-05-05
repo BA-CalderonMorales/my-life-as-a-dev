@@ -1,7 +1,7 @@
 /**
  * Bismuth Fracture Scene - Orchestrator
  */
-import { BISMUTH_CONFIG } from './bismuth-fracture/Model.js';
+import { getColors } from './bismuth-fracture/Model.js';
 import { View } from './bismuth-fracture/View.js';
 import { ViewModel } from './bismuth-fracture/ViewModel.js';
 
@@ -28,8 +28,7 @@ export class BismuthFractureScene {
         const isMobile = window.innerWidth < 768;
         
         this.view = new View(this.container, isMobile);
-        this.view.init(BISMUTH_CONFIG.colors);
-
+        this.view.init(getColors());
         this.viewModel = new ViewModel(this.view, isMobile);
         this.viewModel.init();
 

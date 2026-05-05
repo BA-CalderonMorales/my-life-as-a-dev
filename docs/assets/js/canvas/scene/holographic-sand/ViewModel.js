@@ -2,7 +2,7 @@
  * Holographic Sand ViewModel - Core Behavioral Logic
  */
 import * as THREE from 'three';
-import { HOLOGRAPHIC_SAND_CONFIG } from './Model.js';
+import { HOLOGRAPHIC_SAND_CONFIG, getColors } from './Model.js';
 
 export class ViewModel {
     constructor(view, isMobile) {
@@ -46,9 +46,11 @@ export class ViewModel {
             this.velocities[idx+2] = (Math.random() - 0.5) * 0.02;
         }
 
-        this.view.init(this.config, this.isMobile ? this.config.performance.mobile : this.config.performance.desktop);
-        this.view.addParticles(this.positions, this.config.colors, this.particleSize);
-        this.view.addGrid(this.config.colors);
+        const colors = getColors();
+
+        this.view.init(colors, this.isMobile ? this.config.performance.mobile : this.config.performance.desktop);
+        this.view.addParticles(this.positions, colors, this.particleSize);
+        this.view.addGrid(colors);
     }
 
     triggerFormation() {

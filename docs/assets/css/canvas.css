@@ -551,6 +551,23 @@ body.canvas-page {
     }
 }
 
+/* Fullscreen canvas viewport */
+.canvas-scene-viewport.is-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    border-radius: 0;
+    border: none;
+}
+
+/* Fullscreen toggle button icon swap */
+#canvas-fullscreen-toggle[data-fullscreen="true"] svg {
+    transform: scale(0.9);
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
     .canvas-touch-hint {

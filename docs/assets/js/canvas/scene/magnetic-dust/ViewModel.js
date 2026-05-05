@@ -2,7 +2,7 @@
  * Magnetic Dust ViewModel - Core Behavioral Logic
  */
 import * as THREE from 'three';
-import { MAGNETIC_DUST_CONFIG } from './Model.js';
+import { MAGNETIC_DUST_CONFIG, getColors } from './Model.js';
 
 export class ViewModel {
     constructor(view, isMobile) {
@@ -33,11 +33,11 @@ export class ViewModel {
             this.positions[idx + 2] = (Math.random() - 0.5) * bounds.z * 2;
         }
 
-        const colors = { background: this.config.colors.background };
+        const colors = getColors();
         const perf = this.isMobile ? this.config.performance.mobile : this.config.performance.desktop;
         
         this.view.init(colors, perf);
-        this.view.addParticles(this.positions, this.config.colors.dust, this.particleSize);
+        this.view.addParticles(this.positions, colors.dust, this.particleSize);
     }
 
     handleMouseMove(x, y) {

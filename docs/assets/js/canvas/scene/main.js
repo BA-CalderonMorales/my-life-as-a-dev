@@ -357,4 +357,83 @@
         setTimeout(checkPage, 50);
     });
 
+    // Fullscreen toggle for canvas example pages
+    const FS_ENTER_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M5 5h5v2H7v3H5V5m9 0h5v5h-2V7h-3V5m3 9v5h-5v-2h3v-3h2M5 15h2v3h3v2H5v-5Z" fill="currentColor"/></svg>';
+    const FS_EXIT_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M14 14h5v2h-3v3h-2v-5m-9 0h5v5H8v-3H5v-2m3-9v5H5V8h3V5h2m9 0v5h-2V7h-3V5h5Z" fill="currentColor"/></svg>';
+
+    function updateFullscreenButton() {
+        const btn = document.getElementById('canvas-fullscreen-toggle');
+        const viewport = document.getElementById('canvas-scene');
+        if (!btn || !viewport) return;
+        const isFs = viewport.classList.contains('is-fullscreen');
+        btn.innerHTML = isFs ? FS_EXIT_ICON : FS_ENTER_ICON;
+        btn.setAttribute('data-fullscreen', String(isFs));
+        btn.setAttribute('title', isFs ? 'Exit fullscreen' : 'Toggle fullscreen');
+        btn.setAttribute('aria-label', isFs ? 'Exit fullscreen' : 'Toggle fullscreen');
+    }
+
+    function exitFullscreenViewport() {
+        const viewport = document.getElementById('canvas-scene');
+        if (!viewport) return;
+        if (viewport.classList.contains('is-fullscreen')) {
+            viewport.classList.remove('is-fullscreen');
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(() => {});
+            }
+            updateFullscreenButton();
+        }
+    }
+
+    // Event delegation so the button works across MkDocs instant-navigation DOM swaps
+    document.body.addEventListener('click', (e) => {
+        const btn = e.target.closest('#canvas-fullscreen-toggle');
+        if (!btn) return;
+        const viewport = document.getElementById('canvas-scene');
+        if (!viewport) return;
+        if (viewport.classList.contains('is-fullscreen')) {
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(() => {});
+            }
+            viewport.classList.remove('is-fullscreen');
+        } else {
+            viewport.classList.add('is-fullscreen');
+            if (viewport.requestFullscreen) {
+                viewport.requestFullscreen().catch(() => {});
+            }
+        }
+        updateFullscreenButton();
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+        const viewport = document.getElementById('canvas-scene');
+        if (!viewport) return;
+        if (!document.fullscreenElement && viewport.classList.contains('is-fullscreen')) {
+            viewport.classList.remove('is-fullscreen');
+            updateFullscreenButton();
+        }
+    });
+
+    // Wire up button icon on initial load and whenever the URL changes
+    function setupFullscreenToggle() {
+        updateFullscreenButton();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupFullscreenToggle);
+    } else {
+        setupFullscreenToggle();
+    }
+
+    // Track URL changes for instant navigation: exit fullscreen when leaving a canvas page
+    let _fsLastPathname = window.location.pathname;
+    setInterval(() => {
+        if (window.location.pathname !== _fsLastPathname) {
+            _fsLastPathname = window.location.pathname;
+            setTimeout(() => {
+                exitFullscreenViewport();
+                setupFullscreenToggle();
+            }, 160);
+        }
+    }, 100);
+
 })();

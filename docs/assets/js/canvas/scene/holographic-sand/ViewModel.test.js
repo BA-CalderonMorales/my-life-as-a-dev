@@ -3,6 +3,7 @@ import * as THREE from "three";
  * Holographic Sand ViewModel Tests
  */
 import { ViewModel } from './ViewModel.js';
+import { getColors } from './Model.js';
 
 class MockView {
     constructor() {
@@ -68,5 +69,28 @@ describe('HolographicSand ViewModel', () => {
         viewModel.update();
         
         expect(viewModel.progress).toBeGreaterThan(0);
+    });
+
+    test('getColors returns valid theme colors', () => {
+        const colors = getColors();
+        expect(colors).toBeDefined();
+        expect(typeof colors.background).toBe('number');
+        expect(typeof colors.sand).toBe('number');
+        expect(typeof colors.grid).toBe('number');
+        expect(typeof colors.gridSub).toBe('number');
+    });
+
+    test('initializes without error in dark mode', () => {
+        document.body.setAttribute('data-md-color-scheme', 'slate');
+        const errorSpy = vi.spyOn(console, 'error');
+        viewModel.init();
+        expect(errorSpy).not.toHaveBeenCalled();
+    });
+
+    test('initializes without error in light mode', () => {
+        document.body.setAttribute('data-md-color-scheme', 'default');
+        const errorSpy = vi.spyOn(console, 'error');
+        viewModel.init();
+        expect(errorSpy).not.toHaveBeenCalled();
     });
 });

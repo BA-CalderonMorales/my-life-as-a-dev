@@ -22,7 +22,7 @@ export class ViewModel {
     }
 
     init() {
-        const stackCount = this.isMobile ? this.config.mobile.stackCount : this.config.desktop.stackCount;
+        const stackCount = this.isMobile ? this.config.performance.mobile.stackCount : this.config.performance.desktop.stackCount;
         const phys = this.config.physics;
 
         // Behavior: Generate randomized fractal stack configurations
@@ -41,7 +41,6 @@ export class ViewModel {
             this.totalInstances += steps;
         }
 
-        // Push structural requirements to passive View
         this.view.addInstancedMesh(this.totalInstances);
     }
 
