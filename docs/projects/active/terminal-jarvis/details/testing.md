@@ -237,6 +237,19 @@ This ensures that new features are protected against future regressions.
 - Performance regressions are caught
 - Breaking changes require explicit approval
 
+## v0.0.83 Coverage and Mutation Testing Goal
+
+The next quality goal is to raise Rust unit coverage toward 90% while adding mutation testing to identify weak assertions quickly. The rollout should avoid major refactors and prefer narrow tests around existing behavior.
+
+Recommended sequence:
+
+1. Establish a baseline with the existing Rust test suite and coverage tooling.
+2. Add mutation testing for high-risk modules first: security, config loading, CLI parsing, tool catalog behavior, and install/update workflows.
+3. Remove or simplify dead code only when tests prove the behavior is unused or redundant.
+4. Keep mutation thresholds incremental so the suite stays useful during normal development.
+
+Related maintenance target: the repository currently carries a large number of `dead_code` allowances. Cleanup should be split by domain and tied to tests, not removed in one broad pass.
+
 ## Continuous Integration
 
 Terminal Jarvis uses GitHub Actions for CI:
