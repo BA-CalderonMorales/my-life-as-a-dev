@@ -38,14 +38,14 @@ Engineer focused on delivery infrastructure, team enablement, and making complex
 
 <div class="mlad-resume-section-title">Experience</div>
 
-<section class="mlad-timeline" markdown>
+<section class="mlad-experience" markdown>
 
-<div class="mlad-timeline__entry" markdown>
-<div class="mlad-timeline__date">2024 — Present</div>
-<div class="mlad-timeline__node" aria-hidden="true"></div>
-<div class="mlad-timeline__content" markdown>
-
-### Senior Software Engineer — Fiserv
+<div class="mlad-experience__entry" markdown>
+<div class="mlad-experience__header">
+<h3>Senior Software Engineer — Fiserv</h3>
+<span class="mlad-experience__date">2024 — Present</span>
+</div>
+<div class="mlad-experience__content" markdown>
 
 - Standardizing CI/CD and delivery practices across teams and repositories, replacing legacy Jenkins jobs with maintainable GitHub Actions that are easy to inspect and modify.
 - Turning tribal knowledge into documented defaults by guiding teams toward docs-as-code, so onboarding, troubleshooting, and release decisions do not depend on who is online.
@@ -56,12 +56,12 @@ Engineer focused on delivery infrastructure, team enablement, and making complex
 </div>
 </div>
 
-<div class="mlad-timeline__entry" markdown>
-<div class="mlad-timeline__date">2023 — 2024</div>
-<div class="mlad-timeline__node" aria-hidden="true"></div>
-<div class="mlad-timeline__content" markdown>
-
-### Military Trainee — Fiserv
+<div class="mlad-experience__entry" markdown>
+<div class="mlad-experience__header">
+<h3>Military Trainee — Fiserv</h3>
+<span class="mlad-experience__date">2023 — 2024</span>
+</div>
+<div class="mlad-experience__content" markdown>
 
 - Completed the Military-Affiliated Project Management and Analyst program, translating disciplined execution into financial technology delivery.
 - Strengthened facilitation, conflict resolution, and lightweight process design for cross-functional teams.
@@ -69,12 +69,12 @@ Engineer focused on delivery infrastructure, team enablement, and making complex
 </div>
 </div>
 
-<div class="mlad-timeline__entry" markdown>
-<div class="mlad-timeline__date">2023</div>
-<div class="mlad-timeline__node" aria-hidden="true"></div>
-<div class="mlad-timeline__content" markdown>
-
-### Web Services Developer — Insight Global (SAIC)
+<div class="mlad-experience__entry" markdown>
+<div class="mlad-experience__header">
+<h3>Web Services Developer — Insight Global (SAIC)</h3>
+<span class="mlad-experience__date">2023</span>
+</div>
+<div class="mlad-experience__content" markdown>
 
 - Delivered features, defect fixes, and refactors for legacy enterprise systems with an emphasis on small, testable changes.
 - Helped stabilize release routines and reduce the operational cost of routine updates.
@@ -82,12 +82,12 @@ Engineer focused on delivery infrastructure, team enablement, and making complex
 </div>
 </div>
 
-<div class="mlad-timeline__entry" markdown>
-<div class="mlad-timeline__date">2021 — 2023</div>
-<div class="mlad-timeline__node" aria-hidden="true"></div>
-<div class="mlad-timeline__content" markdown>
-
-### Software Engineer — Leidos
+<div class="mlad-experience__entry" markdown>
+<div class="mlad-experience__header">
+<h3>Software Engineer — Leidos</h3>
+<span class="mlad-experience__date">2021 — 2023</span>
+</div>
+<div class="mlad-experience__content" markdown>
 
 - Shipped frontend features with React and Material UI and automated pipelines with Jenkins and GitLab CI/CD.
 - Built reusable components and containerized services with Docker and Podman to keep environments consistent.
@@ -95,12 +95,12 @@ Engineer focused on delivery infrastructure, team enablement, and making complex
 </div>
 </div>
 
-<div class="mlad-timeline__entry" markdown>
-<div class="mlad-timeline__date">2014 — 2019</div>
-<div class="mlad-timeline__node" aria-hidden="true"></div>
-<div class="mlad-timeline__content" markdown>
-
-### United States Marine Corps
+<div class="mlad-experience__entry" markdown>
+<div class="mlad-experience__header">
+<h3>United States Marine Corps</h3>
+<span class="mlad-experience__date">2014 — 2019</span>
+</div>
+<div class="mlad-experience__content" markdown>
 
 - Served as a Legal Chief and Court Reporter, managing operations, training, and documentation under pressure in Spain and North Carolina.
 - Learned how to keep systems orderly, direct, and dependable when the stakes are high.
