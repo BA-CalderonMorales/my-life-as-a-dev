@@ -100,23 +100,23 @@ Currently focused on making teams self-sufficient: turning tribal knowledge into
 <div class="mlad-stats__grid" markdown>
 
 <div class="mlad-stats__item" markdown>
-<div class="mlad-stats__number" data-count="15">15</div>
-<div class="mlad-stats__label">Open Source Repos</div>
+<div class="mlad-stats__number" data-count="60">60</div>
+<div class="mlad-stats__label">Public Repos</div>
 </div>
 
 <div class="mlad-stats__item" markdown>
 <div class="mlad-stats__number" data-count="5">5</div>
-<div class="mlad-stats__label">Active Projects</div>
+<div class="mlad-stats__label">Core Projects</div>
 </div>
 
 <div class="mlad-stats__item" markdown>
-<div class="mlad-stats__number" data-count="1000">1,000</div>
+<div class="mlad-stats__number" data-count="3000">3,000</div>
 <div class="mlad-stats__label">Commits Shipped</div>
 </div>
 
 <div class="mlad-stats__item" markdown>
-<div class="mlad-stats__number" data-count="24">24</div>
-<div class="mlad-stats__label">Always Building</div>
+<div class="mlad-stats__number" data-count="5">5</div>
+<div class="mlad-stats__label">Years Building</div>
 </div>
 
 </div>
