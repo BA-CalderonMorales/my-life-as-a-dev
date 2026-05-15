@@ -17,7 +17,7 @@ hide:
 </div>
 <div class="tx-hero__details" markdown>
 
-Product-minded engineer focused on **developer tooling**, **docs-as-code**, and **delivery systems** that help teams move without guesswork.
+Engineer focused on **delivery infrastructure**, **team enablement**, and **secure remediation workflows** that help teams move without guesswork.
 
 [Explore Projects](projects/index.md){ .md-button .md-button--primary }
 [View Resume](resume/index.md){ .md-button }
@@ -60,7 +60,7 @@ I build documentation and delivery systems that make the next action obvious: se
 ## Currently
 
 - Finishing a B.S. in Computer Science while shipping production systems at Fiserv.
-- Standardizing DevOps across 20+ teams: GitHub Actions, docs-as-code, and agentic AI workflows.
+- Standardizing delivery practices across teams: CI/CD, docs-as-code, and repeatable vulnerability remediation.
 - Building Terminal Jarvis — a unified CLI for orchestrating multiple AI coding assistants.
 
 </section>
@@ -72,12 +72,12 @@ I build documentation and delivery systems that make the next action obvious: se
 
 ## What I Build
 
-I work on the layer that makes teams feel faster: the tooling, pipelines, and docs that remove friction before it becomes process.
+I work on the layer that makes teams feel faster: the defaults, pipelines, and docs that remove friction before it becomes process.
 
-- :material-console: **Developer platforms** with predictable setup and useful defaults
-- :material-file-document-edit-outline: **Docs-as-code systems** that ship with the product
-- :material-robot-outline: **AI workflows** with guardrails, observability, and clear handoffs
-- :material-source-branch: **Delivery pipelines** built for repeatability, not drama
+- :material-console: **Delivery infrastructure** with predictable setup and repeatable release paths
+- :material-file-document-edit-outline: **Docs-as-code systems** that lower onboarding and support cost
+- :material-robot-outline: **AI-assisted workflows** with practical guardrails and clear handoffs
+- :material-shield-check: **Remediation patterns** that move security from heroic effort to team habit
 
 </div>
 
@@ -87,7 +87,7 @@ I work on the layer that makes teams feel faster: the tooling, pipelines, and do
 
 Marine Corps veteran turned engineer. I value quiet systems, clear ownership, and interfaces that explain themselves on the first pass.
 
-Currently finishing a B.S. in Computer Science while shipping production systems. Based in Omaha, Nebraska. Bilingual in English and Spanish.
+Currently focused on making teams self-sufficient: turning tribal knowledge into documented defaults, one-off fixes into repeatable workflows, and manual steps into automation that is easy to inspect and maintain. Based in Omaha, Nebraska. Bilingual in English and Spanish.
 
 [:material-linkedin: Connect on LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe/){ .md-button }
 

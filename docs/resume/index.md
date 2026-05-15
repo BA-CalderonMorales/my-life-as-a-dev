@@ -13,7 +13,7 @@ hide:
 # Brandon A. Calderon Morales
 
 <div class="mlad-resume-hero__subtitle" markdown>
-Product-minded engineer focused on developer experience, documentation systems, and delivery workflows that stay understandable under pressure.
+Engineer focused on delivery infrastructure, team enablement, and making complex systems manageable through clear defaults and repeatable workflows.
 </div>
 
 <div class="mlad-resume-hero__links" markdown>
@@ -47,10 +47,11 @@ Product-minded engineer focused on developer experience, documentation systems, 
 
 ### Senior Software Engineer — Fiserv
 
-- Leading DevOps standardization across 20+ teams and 200+ repositories, moving legacy Jenkins jobs into maintainable GitHub Actions.
-- Partnering with the GitHub Copilot team on agentic workflows that reduce the time it takes to ship stories, pull requests, and documentation.
-- Serving as Confluence admin while guiding teams toward docs-as-code so knowledge lives in versioned systems instead of slide decks.
-- Keeping security requirements practical through Fortify, ScanCentral, and repeatable infrastructure patterns.
+- Standardizing CI/CD and delivery practices across teams and repositories, replacing legacy Jenkins jobs with maintainable GitHub Actions that are easy to inspect and modify.
+- Turning tribal knowledge into documented defaults by guiding teams toward docs-as-code, so onboarding, troubleshooting, and release decisions do not depend on who is online.
+- Making vulnerability remediation a repeatable team habit rather than a heroic effort, helping teams move from ad hoc fixes to predictable workflows using Fortify, ScanCentral, and practical automation.
+- Enabling responsible adoption of AI-assisted development by helping teams use agentic workflows for code analysis, documentation, and remediation without losing quality or security discipline.
+- Mentoring engineers through pairing, clear tradeoff documentation, and operational steps that stay visible and discoverable for the next maintainer.
 
 </div>
 </div>
@@ -113,10 +114,10 @@ Product-minded engineer focused on developer experience, documentation systems, 
 
 <section class="mlad-glance" markdown>
 
-- **Documentation as part of the product.** I build docs-as-code into the workflow so onboarding and maintenance do not drift apart.
-- **Calm pipelines.** I prefer predictable GitHub Actions, Jenkins, and release routines over clever systems that are hard to debug.
-- **Security built in.** Fortify, ScanCentral, dependency hygiene, and access control are baseline concerns, not cleanup work.
-- **Coaching through clarity.** I mentor by pairing, documenting tradeoffs, and keeping operational steps visible.
+- **Reduce friction before it becomes process.** I look for manual steps, tribal knowledge, and one-off fixes that slow teams down, then replace them with defaults that are easy to follow and hard to break.
+- **Documentation as infrastructure.** Onboarding and maintenance should not drift apart from the code. Docs-as-code is part of the delivery system.
+- **Security through repetition.** Vulnerability remediation scales when it is predictable, not heroic. I help teams build workflows they can own.
+- **Coach by making the path visible.** I mentor through pairing, tradeoff documentation, and operational steps that stay discoverable.
 
 </section>
 
