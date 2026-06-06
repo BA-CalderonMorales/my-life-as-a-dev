@@ -1,0 +1,62 @@
+/* Header/version polish aligned with Zensical's compact Material navigation. */
+.md-header__inner {
+    min-height: 2.8rem;
+    align-items: center;
+}
+
+.md-header__title {
+    display: flex;
+    align-items: center;
+    min-height: 2.8rem;
+    margin-inline-start: 0.45rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
+}
+
+.md-header__topic {
+    display: flex;
+    align-items: center;
+    line-height: 1.2;
+}
+
+.md-tabs__list {
+    align-items: center;
+}
+
+.md-tabs__link {
+    display: flex;
+    align-items: center;
+    height: 2.45rem;
+    font-size: 0.68rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+}
+
+.md-version {
+    display: flex;
+    align-items: center;
+    min-height: 2.8rem;
+    font-size: 0.68rem;
+    line-height: 1.2;
+}
+
+.md-version__current {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    min-height: 1.7rem;
+    padding: 0 0.45rem;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+}
+
+.md-version__label {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.2;
+}
