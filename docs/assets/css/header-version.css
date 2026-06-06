@@ -1,23 +1,60 @@
 /* Header/version polish aligned with Zensical's compact Material navigation. */
+:root {
+    --mlad-header-height: 4rem;
+    --mlad-header-surface: var(--md-default-bg-color);
+}
+
+.md-header,
+.md-tabs {
+    background: var(--mlad-header-surface);
+    background-color: var(--mlad-header-surface);
+}
+
 .md-header__inner {
-    min-height: 2.8rem;
+    min-height: var(--mlad-header-height);
     align-items: center;
 }
 
-.md-header__title {
-    display: flex;
+.md-header__button,
+.md-logo {
+    align-self: center;
+}
+
+.md-logo {
+    display: inline-flex;
     align-items: center;
-    min-height: 2.8rem;
-    margin-inline-start: 0.45rem;
-    font-size: 0.8rem;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    margin: 0 0.55rem 0 0;
+}
+
+.md-logo img,
+.md-logo svg {
+    display: block;
+    max-width: 1.6rem;
+    max-height: 1.6rem;
+}
+
+.md-header__title {
+    min-height: var(--mlad-header-height);
+    margin-inline-start: 0;
+    font-size: 0.75rem;
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: 0;
 }
 
+.md-header__ellipsis {
+    display: flex;
+    align-items: center;
+    min-height: var(--mlad-header-height);
+}
+
 .md-header__topic {
     display: flex;
     align-items: center;
+    min-height: var(--mlad-header-height);
     line-height: 1.2;
 }
 
@@ -38,7 +75,7 @@
 .md-version {
     display: flex;
     align-items: center;
-    min-height: 2.8rem;
+    min-height: var(--mlad-header-height);
     font-size: 0.68rem;
     line-height: 1.2;
 }
@@ -59,4 +96,18 @@
     display: inline-flex;
     align-items: center;
     line-height: 1.2;
+}
+
+@media screen and (max-width: 76.2344em) {
+    .md-header__title,
+    .md-header__ellipsis,
+    .md-header__topic {
+        min-height: var(--mlad-header-height);
+    }
+}
+
+@media screen and (max-width: 44.9844em) {
+    .md-header__title {
+        font-size: 0.7rem;
+    }
 }
