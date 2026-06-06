@@ -2,12 +2,18 @@
   class="md-version"
   id="md-version-selector"
   data-current-version="latest"
-  data-site-url="{{ config.site_url }}"
+  data-site-url="{{ config.site_url | default('/') }}"
   data-versions-url="{{ 'versions.json' | url }}"
 >
-  <button class="md-version__current" type="button" aria-label="Select version" aria-expanded="false" aria-controls="md-version-list">
+  <button
+    class="md-version__current"
+    type="button"
+    aria-label="Select version"
+    aria-expanded="false"
+    aria-controls="md-version-list"
+  >
     <span class="md-version__label">Version</span>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
       <path d="M7 10l5 5 5-5z" fill="currentColor"/>
     </svg>
   </button>

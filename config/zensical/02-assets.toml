@@ -23,6 +23,7 @@ extra_css = [
     "assets/css/code.css",
     "assets/css/share.css",
     "assets/css/chat-widget.css",
+    "assets/css/header-version.css",
     "assets/css/pull-to-refresh.css",
 
     # Page-specific styles
