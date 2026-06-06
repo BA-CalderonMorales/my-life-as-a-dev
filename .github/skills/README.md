@@ -47,6 +47,7 @@ Each skill is organized as a folder with a `SKILL.md` file:
 | [browser-automation](browser-automation/SKILL.md) | Browser automation with Playwright through uv |
 | [agent-browser](agent-browser/SKILL.md) | Deprecated; use browser-automation unless explicitly requested |
 | [fix-console-errors](fix-console-errors/SKILL.md) | Debug browser console errors |
+| [site-fix-tdd-bdd](site-fix-tdd-bdd/SKILL.md) | Fix site regressions with TDD/BDD-style coverage |
 
 ### Workflow
 | Skill | Description |

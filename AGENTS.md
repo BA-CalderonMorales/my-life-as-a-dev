@@ -56,6 +56,7 @@ See `.github/skills/` for detailed procedures:
 - `build-and-test/` - Building and validating
 - `browser-automation/` - Browser automation with Playwright through uv
 - `git-workflow/` - Commits and PRs
+- `site-fix-tdd-bdd/` - Fixing site regressions with TDD/BDD-style coverage
 
 ## Working Rules
 
