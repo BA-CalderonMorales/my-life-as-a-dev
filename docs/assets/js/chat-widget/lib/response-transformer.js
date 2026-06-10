@@ -73,6 +73,7 @@ const ResponseTransformer = {
         return {
             success: true,
             error: null,
+            answer: normalizedAnswer,
             data: {
                 // Raw data from API
                 raw_answer: rawResponse.answer,
@@ -147,6 +148,8 @@ const ResponseTransformer = {
 
         // Normalize line endings
         let normalized = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        normalized = this.normalizeMarkdownTables(normalized);
+        normalized = normalized.replace(/<br\s*\/?>/gi, '\n');
 
         // Remove excessive blank lines (more than 2 consecutive)
         normalized = normalized.replace(/\n{3,}/g, '\n\n');
@@ -161,6 +164,62 @@ const ResponseTransformer = {
      * @param {string} text - Normalized text
      * @returns {object} - StructuredContent object
      */
+    normalizeMarkdownTables(text) {
+        const lines = text.split('\n');
+        const result = [];
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            const nextLine = lines[i + 1] || '';
+
+            if (this.isMarkdownTableHeader(line, nextLine)) {
+                const headers = this.parseMarkdownTableRow(line);
+                i += 2;
+
+                while (i < lines.length && this.isMarkdownTableRow(lines[i])) {
+                    const cells = this.parseMarkdownTableRow(lines[i]);
+                    const title = cells[0] || 'Item';
+                    const details = [];
+
+                    for (let column = 1; column < cells.length; column++) {
+                        const header = headers[column] || `Detail ${column}`;
+                        const value = cells[column];
+                        if (value) details.push(`${header}: ${value}`);
+                    }
+
+                    result.push(`- **${title}**${details.length ? ` - ${details.join(' ')}` : ''}`);
+                    i++;
+                }
+
+                i--;
+                continue;
+            }
+
+            result.push(line);
+        }
+
+        return result.join('\n');
+    },
+
+    isMarkdownTableHeader(line, nextLine) {
+        return this.isMarkdownTableRow(line) && /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(nextLine);
+    },
+
+    isMarkdownTableRow(line) {
+        return /^\s*\|.*\|\s*$/.test(line);
+    },
+
+    parseMarkdownTableRow(line) {
+        return line
+            .trim()
+            .replace(/<br\s*\/?>/gi, ' ')
+            .replace(/^\|/, '')
+            .replace(/\|$/, '')
+            .split('|')
+            .map((cell) => cell.trim().replace(/\s+/g, ' '))
+            .filter((cell) => cell.length > 0);
+    },
+
     parseContent(text) {
         if (!text) {
             return {
