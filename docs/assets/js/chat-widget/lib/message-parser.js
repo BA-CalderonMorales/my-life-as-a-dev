@@ -249,6 +249,7 @@ class MessageParser {
         // Expand known site paths and contact handles into full URLs before parsing.
         text = this.canonicalizeKnownReferences(text);
         text = this.stripEmoji(text);
+        text = this.sanitizeUndefinedArtifacts(text);
         // Trim whitespace
         return text.trim();
     }
@@ -257,7 +258,15 @@ class MessageParser {
         return text
             .replace(/\p{Extended_Pictographic}/gu, '')
             .replace(/[\uFE0E\uFE0F\u200D]/g, '')
-            .replace(/[ \t]{2,}/g, ' ');
+            .replace(/(?<=\S)[\t ]{2,}(?=\S)/g, ' ');
+    }
+
+    sanitizeUndefinedArtifacts(text) {
+        if (!text) return '';
+        return text
+            .replace(/undefined(?=[A-Z\s])/g, '')
+            .replace(/(?<=[a-zA-Z0-9])undefined/g, '')
+            .replace(/(?<=\S) {2,}(?=\S)/g, ' ');
     }
 
     /**

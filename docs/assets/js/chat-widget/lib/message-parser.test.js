@@ -71,4 +71,94 @@ describe('MessageParser response formatting', () => {
       'Great question . Brandon focuses on developer tooling.'
     );
   });
+
+  test('removes undefined template artifact before text', () => {
+    const parser = createParser();
+    const html = parser.parse(
+      'undefinedTerminal Jarvis - What it does: A CLI tool.'
+    );
+    const dom = new JSDOM(html);
+
+    expect(dom.window.document.body.textContent).toContain('Terminal Jarvis');
+    expect(dom.window.document.body.textContent).not.toMatch(/undefined/);
+  });
+
+  test('removes undefined template artifact after text', () => {
+    const parser = createParser();
+    const html = parser.parse(
+      'Terminal Jarvisundefined - What it does: A CLI tool.'
+    );
+    const dom = new JSDOM(html);
+
+    expect(dom.window.document.body.textContent).toContain('Terminal Jarvis');
+    expect(dom.window.document.body.textContent).not.toMatch(/undefined/);
+  });
+
+  test('removes undefined artifacts surrounding project name', () => {
+    const parser = createParser();
+    const html = parser.parse([
+      'Brandon\u2019s current open\u2010source work',
+      '',
+      'undefinedTerminal Jarvisundefined - What it does: A CLI tool.',
+      'undefinedCoder Infrastructureundefined - Templates for dev environments.',
+      'undefinedMy Life as a Devundefined - A documentation portfolio.',
+    ].join('\n'));
+    const dom = new JSDOM(html);
+
+    const text = dom.window.document.body.textContent;
+    expect(text).toContain('Terminal Jarvis');
+    expect(text).toContain('Coder Infrastructure');
+    expect(text).toContain('My Life as a Dev');
+    expect(text).not.toMatch(/undefined/);
+  });
+
+  test('removes undefined before whitespace-separated text', () => {
+    const parser = createParser();
+    const html = parser.parse('undefined What it does: A CLI tool.');
+    const dom = new JSDOM(html);
+
+    expect(dom.window.document.body.textContent).toContain('What it does');
+    expect(dom.window.document.body.textContent).not.toMatch(/undefined/);
+  });
+
+  test('preserves code blocks containing the word undefined', () => {
+    const parser = createParser();
+    const html = parser.parse(
+      'Use `typeof x === "undefined"` to check.\n\n```js\nconst x = undefined;\n```'
+    );
+    const dom = new JSDOM(html);
+
+    expect(dom.window.document.body.textContent).toContain('typeof x === "undefined"');
+    expect(dom.window.document.body.textContent).toContain('const x = undefined;');
+  });
+
+  test('parses asterisk bullet points correctly', () => {
+    const parser = createParser();
+    const html = parser.parse([
+      '* Item one',
+      '* Item two',
+      '  * Nested item',
+    ].join('\n'));
+    const dom = new JSDOM(html);
+
+    const items = dom.window.document.querySelectorAll('.ai-chat-list-item-content');
+    const texts = Array.from(items).map((el) => el.textContent);
+    expect(texts).toContain('Item one');
+    expect(texts).toContain('Item two');
+    expect(texts).toContain('Nested item');
+  });
+
+  test('preserves numbered lists', () => {
+    const parser = createParser();
+    const html = parser.parse([
+      '1. First step',
+      '2. Second step',
+      '3. Third step',
+    ].join('\n'));
+    const dom = new JSDOM(html);
+
+    expect(dom.window.document.querySelectorAll('ol.ai-chat-list')).toHaveLength(1);
+    const items = dom.window.document.querySelectorAll('.ai-chat-list-item-content');
+    expect(items).toHaveLength(3);
+  });
 });
