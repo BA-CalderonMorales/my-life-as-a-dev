@@ -46,11 +46,17 @@ def response_for(service: str, prompt: str) -> str:
             "| [Docs](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/) "
             "[GitHub](https://github.com/BA-CalderonMorales/my-life-as-a-dev) "
             "[Untrusted](https://unknown.example.com/fake) |\n"
+            "---\n"
+            "- Core answer\n"
+            "  - Source-backed context\n"
+            "    - Rendered with nested indentation\n"
         )
 
     return (
         f"Answering: {prompt}\n\n"
+        "---\n"
         "- Uses source-backed docs and project context.\n"
+        "  - Keeps nested details visually grouped.\n"
         "- GitHub: [BA-CalderonMorales](https://github.com/BA-CalderonMorales)\n"
         "- LinkedIn: [bcalderonmorales-cmoe](https://www.linkedin.com/in/bcalderonmorales-cmoe/)\n"
         "- Ignore invented destination: [bad](https://unknown.example.com/fake)"
@@ -178,6 +184,8 @@ def test_suggested_chat_questions_render_clean_trusted_responses(
         assert "|---|" not in text
         assert "<br" not in html.lower()
         assert "unknown.example.com" not in hrefs
+        assert latest.locator("hr.ai-chat-separator").count() == 1
+        assert latest.locator("ul.ai-chat-list ul.ai-chat-list").count() >= 1
         assert hrefs, f"No trusted links rendered for {route_path}: {prompt}"
         assert all(is_trusted_href(href, base_url) for href in hrefs), hrefs
 

@@ -961,3 +961,22 @@
         transform: none;
     }
 }
+/* Nested assistant response formatting */
+.ai-message-content .ai-chat-list .ai-chat-list {
+  margin: 6px 0 2px 18px;
+  padding-left: 14px;
+}
+
+.ai-message-content .ai-chat-list-item-content {
+  display: inline;
+}
+
+.ai-message-content .ai-chat-separator {
+  border: 0;
+  border-top: 1px solid var(--md-default-fg-color--lightest, rgba(0, 0, 0, 0.16));
+  margin: 12px 0;
+}
+
+[data-md-color-scheme="slate"] .ai-message-content .ai-chat-separator {
+  border-top-color: rgba(255, 255, 255, 0.18);
+}

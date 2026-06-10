@@ -555,6 +555,101 @@ class MessageParser {
      * @returns {string} - Text with HTML lists and paragraphs
      */
     parseStructuredContent(text) {
+        const normalized = text.includes('\n') ? text : this.normalizeBulletPoints(text);
+        const lines = normalized.split('\n');
+        const result = [];
+        const listStack = [];
+
+        const flushLists = () => {
+            if (listStack.length === 0) return;
+            result.push(this.buildNestedList(listStack[0].list));
+            listStack.length = 0;
+        };
+
+        const addListItem = (type, indent, content) => {
+            if (listStack.length === 0) {
+                listStack.push({ indent, list: { type, items: [] } });
+            } else {
+                while (listStack.length > 0 && indent < listStack[listStack.length - 1].indent) {
+                    listStack.pop();
+                }
+
+                const top = listStack[listStack.length - 1];
+                if (indent > top.indent) {
+                    const parentItem = top.list.items[top.list.items.length - 1];
+                    if (parentItem) {
+                        const childList = { type, items: [] };
+                        parentItem.children.push(childList);
+                        listStack.push({ indent, list: childList });
+                    }
+                } else if (top.list.type !== type) {
+                    if (listStack.length === 1) {
+                        flushLists();
+                        listStack.push({ indent, list: { type, items: [] } });
+                    } else {
+                        listStack.pop();
+                        addListItem(type, indent, content);
+                        return;
+                    }
+                }
+            }
+
+            listStack[listStack.length - 1].list.items.push({ content, children: [] });
+        };
+
+        for (const line of lines) {
+            const trimmed = line.trim();
+            const indent = line.match(/^\s*/)[0].replace(/\t/g, '    ').length;
+
+            if (!trimmed) {
+                flushLists();
+                continue;
+            }
+
+            if (/^([-*_])(?:\s*\1){2,}$/.test(trimmed)) {
+                flushLists();
+                result.push('<hr class="ai-chat-separator">');
+                continue;
+            }
+
+            const headerMatch = trimmed.match(this.patterns.headerLine);
+            if (headerMatch) {
+                flushLists();
+                const headerLevel = headerMatch[1].length;
+                const headerText = headerMatch[2].trim();
+                result.push(`<p class="ai-chat-content-header" data-level="${headerLevel}">${headerText}</p>`);
+                continue;
+            }
+
+            const bulletMatch = trimmed.match(this.patterns.bulletLine);
+            if (bulletMatch) {
+                addListItem('ul', indent, bulletMatch[1].trim());
+                continue;
+            }
+
+            const numberedMatch = trimmed.match(this.patterns.numberedLine);
+            if (numberedMatch) {
+                addListItem('ol', indent, numberedMatch[2].trim());
+                continue;
+            }
+
+            flushLists();
+            result.push(`<p>${trimmed}</p>`);
+        }
+
+        flushLists();
+        return result.join('');
+    }
+
+    buildNestedList(list) {
+        const listItems = list.items.map(item => {
+            const children = item.children.map(child => this.buildNestedList(child)).join('');
+            return `<li><span class="ai-chat-list-item-content">${item.content}</span>${children}</li>`;
+        }).join('');
+        return `<${list.type} class="ai-chat-list">${listItems}</${list.type}>`;
+    }
+
+    parseStructuredContentLegacy(text) {
         // Normalize line breaks - handle both \n and inline bullet patterns
         const normalized = this.normalizeBulletPoints(text);
 
