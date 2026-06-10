@@ -61,4 +61,14 @@ describe('MessageParser response formatting', () => {
     expect(hrefs).toEqual(['https://github.com/BA-CalderonMorales/my-life-as-a-dev']);
     expect(dom.window.document.body.textContent).toContain('fake');
   });
+
+  test('removes emoji from assistant responses', () => {
+    const parser = createParser();
+    const html = parser.parse('Great question 🚀. ✅ Brandon focuses on developer tooling.');
+    const dom = new JSDOM(html);
+
+    expect(dom.window.document.body.textContent).toBe(
+      'Great question . Brandon focuses on developer tooling.'
+    );
+  });
 });

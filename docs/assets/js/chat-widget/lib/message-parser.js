@@ -248,8 +248,16 @@ class MessageParser {
         text = text.replace(/\n{3,}/g, '\n\n');
         // Expand known site paths and contact handles into full URLs before parsing.
         text = this.canonicalizeKnownReferences(text);
+        text = this.stripEmoji(text);
         // Trim whitespace
         return text.trim();
+    }
+
+    stripEmoji(text) {
+        return text
+            .replace(/\p{Extended_Pictographic}/gu, '')
+            .replace(/[\uFE0E\uFE0F\u200D]/g, '')
+            .replace(/[ \t]{2,}/g, ' ');
     }
 
     /**
