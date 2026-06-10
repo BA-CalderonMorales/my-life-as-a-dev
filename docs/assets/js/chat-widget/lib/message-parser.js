@@ -470,10 +470,12 @@ class MessageParser {
         let result = text;
         for (const [placeholder, info] of this.placeholders) {
             if (info.type === 'link') {
-                const safeUrl = this.ensureProtocol(info.url);
+                const safeUrl = this.getTrustedUrl(info.url);
                 const escapedText = this.escapeHtml(info.text);
-                const anchor = `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${escapedText}</a>`;
-                result = result.split(placeholder).join(anchor);
+                const replacement = safeUrl
+                    ? `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${escapedText}</a>`
+                    : escapedText;
+                result = result.split(placeholder).join(replacement);
             }
         }
         return result;
@@ -503,6 +505,37 @@ class MessageParser {
         }
 
         return 'https://' + url;
+    }
+
+    getTrustedUrl(url) {
+        const safeUrl = this.ensureProtocol(url);
+        return this.isTrustedUrl(safeUrl) ? safeUrl : null;
+    }
+
+    isTrustedUrl(url) {
+        try {
+            const parsed = new URL(url, window.location.origin);
+            const docsBase = new URL(this.getDocsBaseUrl());
+
+            if (parsed.origin === window.location.origin) return true;
+            if (parsed.origin === docsBase.origin && parsed.pathname.startsWith(docsBase.pathname)) return true;
+
+            if (parsed.hostname === 'ba-calderonmorales.github.io') {
+                return parsed.pathname.startsWith('/my-life-as-a-dev/');
+            }
+
+            if (parsed.hostname === 'github.com') {
+                return parsed.pathname === '/BA-CalderonMorales' || parsed.pathname.startsWith('/BA-CalderonMorales/');
+            }
+
+            if (parsed.hostname === 'www.linkedin.com') {
+                return parsed.pathname.replace(/\/$/, '') === '/in/bcalderonmorales-cmoe';
+            }
+
+            return false;
+        } catch (error) {
+            return false;
+        }
     }
 
     /**
@@ -685,9 +718,12 @@ class MessageParser {
             cleanUrl = cleanUrl.slice(0, -1);
         }
 
-        const displayText = this.getDisplayText(cleanUrl);
+        const trustedUrl = this.getTrustedUrl(cleanUrl);
+        if (!trustedUrl) return cleanUrl + trailing;
 
-        return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${displayText}</a>${trailing}`;
+        const displayText = this.getDisplayText(trustedUrl);
+
+        return `<a href="${trustedUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${displayText}</a>${trailing}`;
     }
 
     /**
