@@ -5,6 +5,9 @@ dist/
 # Cloud/local deployment
 cloud/
 
+# One off scripts/files/etc.
+tmp/
+
 # Python
 .venv/
 .venv*/
