@@ -1,4 +1,4 @@
-.PHONY: help setup serve build cli config check-config optimize-images test
+.PHONY: help setup serve build cli config check-config optimize-images test gn-analyze gn-status gn-clean
 
 DEV_ADDR ?= 0.0.0.0:8001
 
@@ -11,6 +11,11 @@ help:
 	@echo "  make cli             - Run documentation CLI tools"
 	@echo "  make optimize-images - Optimize images (WebP, responsive sizes, LQIP)"
 	@echo "  make test            - Run tests"
+	@echo ""
+	@echo "GitNexus (Code Intelligence):"
+	@echo "  make gn-analyze        - Re-index the codebase"
+	@echo "  make gn-status         - Check index freshness"
+	@echo "  make gn-clean          - Delete the index"
 
 setup:
 	uv pip install --upgrade pip
@@ -60,4 +65,14 @@ test:
 # Run image optimizer tests only
 test-optimizer:
 	uv run python -m pytest tests/test_image_optimizer.py -v
+
+# GitNexus — Code Intelligence
+gn-analyze:
+	node .gitnexus/run.cjs analyze
+
+gn-status:
+	node .gitnexus/run.cjs status
+
+gn-clean:
+	node .gitnexus/run.cjs clean
 
