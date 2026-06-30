@@ -1,4 +1,4 @@
-.PHONY: help setup serve build cli config check-config optimize-images test browser-install e2e viewport-check screenshots accessibility-check
+.PHONY: help setup serve build cli config check-config optimize-images test browser-install e2e viewport-check screenshots accessibility-check gn-analyze gn-status gn-clean
 
 DEV_ADDR ?= 0.0.0.0:8001
 export UV_CACHE_DIR ?= /tmp/uv-cache
@@ -15,6 +15,12 @@ help:
 	@echo "  make test            - Run tests"
 	@echo "  make viewport-check  - Run Playwright viewport/layout checks"
 	@echo "  make screenshots     - Capture Playwright viewport screenshots"
+	@echo "  make accessibility-check - Run accessibility checks"
+	@echo ""
+	@echo "GitNexus (Code Intelligence):"
+	@echo "  make gn-analyze      - Re-index the codebase"
+	@echo "  make gn-status       - Check index freshness"
+	@echo "  make gn-clean        - Delete the index"
 
 setup:
 	./doc-cli.sh setup
@@ -62,6 +68,16 @@ test:
 # Run image optimizer tests only
 test-optimizer:
 	uv run python -m pytest tests/test_image_optimizer.py -v
+
+# GitNexus — Code Intelligence
+gn-analyze:
+	node .gitnexus/run.cjs analyze
+
+gn-status:
+	node .gitnexus/run.cjs status
+
+gn-clean:
+	node .gitnexus/run.cjs clean
 
 # Install Playwright browser binaries. Use browser-install-deps manually if the OS needs sudo packages.
 browser-install:
