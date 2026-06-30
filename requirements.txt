@@ -1,27 +1,27 @@
 mkdocs>=1.6.1
-mkdocs-material>=9.5.24
+mkdocs-material>=9.7.6
 
 pymdown-extensions>=10.14.3
 
-mkdocs-awesome-nav>=3.1.1
-mkdocs-git-revision-date-localized-plugin>=1.4.5
+mkdocs-awesome-nav>=3.3.0
+mkdocs-git-revision-date-localized-plugin>=1.5.1
 mkdocs-git-authors-plugin>=0.9.5
-mkdocs-panzoom-plugin>=0.1.9
+mkdocs-panzoom-plugin>=0.5.2
 mkdocs-minify-plugin>=0.7.1
-mkdocs-print-site-plugin>=2.7.3
+mkdocs-print-site-plugin>=2.8
 
-mike>=2.1.3
+mike>=2.2.0
 
 # Zensical - Modern static site generator from Material for MkDocs team
-zensical>=0.0.30
+zensical>=0.0.43
 
 # AI Plugin Dependencies
-openai>=1.3.0
+openai>=1.109.1
 python-dotenv>=1.0.0
 requests>=2.31.0
 markdown>=3.5.1
-jinja2>=3.1.2
-mkdocs-glightbox>=0.3.0
+jinja2>=3.1.6
+mkdocs-glightbox>=0.5.2
 
 # AI Proxy (GitHub Models via Azure AI Inference) for per-page chat
 azure-ai-inference
@@ -33,6 +33,12 @@ pydantic>=2
 # Config tooling
 tomli-w>=1.0.0
 
+# Browser testing
+pytest>=8.0.0
+pytest-playwright>=0.7.2
+playwright>=1.48.0
+axe-playwright-python>=0.1.7
+
 # Image Optimization Plugin
 # Required for build-time image optimization (WebP conversion, responsive sizes)
-Pillow>=10.0.0
+Pillow>=12.2.0

@@ -23,7 +23,7 @@ class ChatView {
      */
     get template() {
         return `
-<button id="ai-chat-trigger" class="ai-chat-trigger" aria-label="Ask AI Assistant">
+<button id="ai-chat-trigger" class="ai-chat-trigger" aria-label="Ask AI Assistant" style="display: flex;">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <rect x="4" y="6" width="12" height="12" rx="3"></rect>
     <circle cx="8.5" cy="12" r="0.9"></circle>
@@ -600,7 +600,7 @@ class ChatView {
         const updateTrigger = () => {
             const trigger = document.getElementById('ai-chat-trigger');
             if (trigger) {
-                trigger.style.display = searchVisuallyOpen ? 'none' : '';
+                trigger.style.display = searchVisuallyOpen ? 'none' : 'flex';
             }
         };
 

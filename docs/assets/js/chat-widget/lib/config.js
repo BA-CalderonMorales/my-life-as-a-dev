@@ -7,7 +7,7 @@ const ChatConfig = {
         'https://nvidia-chat-proxy-python-dawfbmka6a-uc.a.run.app/nvidia/chat',
         'https://nvidia-chat-proxy-python-882389009262.us-central1.run.app/nvidia/chat'
     ],
-    NVIDIA_TIMEOUT: 10000,
+    NVIDIA_TIMEOUT: 60000,
 
     // Go/Gemini Cloud Run endpoint (current service URL + legacy hostname fallback)
     API_URL: 'https://agent-chat-proxy-dawfbmka6a-uc.a.run.app',
@@ -30,10 +30,8 @@ const ChatConfig = {
     },
 
     isDevMode: function () {
-        var hostname = window.location.hostname;
-        return this.hasDebugOverride() ||
-            hostname === 'localhost' ||
-            hostname === '127.0.0.1';
+        // Enforce debug override to prevent debug logs leaking in any production or pseudo-production environments
+        return this.hasDebugOverride();
     },
 
     excludedPaths: [],

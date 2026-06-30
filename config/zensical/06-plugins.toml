@@ -34,6 +34,12 @@ timezone = "America/North_Dakota/Center"
 
 [project.plugins.panzoom]
 [project.plugins.glightbox]
+width = "auto"
+height = "auto"
+skip_classes = []
+auto = true
+auto_themed = false
+auto_caption = false
 
 # ==============================================================================
 # IMAGE OPTIMIZATION PLUGIN

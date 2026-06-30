@@ -141,6 +141,17 @@ auth_instructions = "Setup instructions"
 - **Reduced Drift**: Documentation and implementation stay in sync
 - **Database Ready**: Structure supports future database integration
 
+### Config Source of Truth Direction
+
+Terminal Jarvis is moving toward a `ConfigStore` boundary instead of treating either TOML files or the runtime database as the only source of truth.
+
+- Shipped catalog metadata remains authoritative in versioned TOML files.
+- User and runtime state remains authoritative in the database.
+- Runtime tool overrides should act as database overlays on top of the shipped catalog.
+- Packaging and generated reference material should continue to read the shipped catalog until they move behind the same `ConfigStore` API.
+
+This keeps tool metadata reviewable in pull requests while preserving the database for local state, imported credentials, installation state, preferences, and user-specific overrides.
+
 ## NPM Package Structure
 
 ```

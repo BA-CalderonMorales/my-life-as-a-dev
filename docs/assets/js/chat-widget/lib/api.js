@@ -175,7 +175,10 @@ const ChatAPI = {
             logger.log('Structured response:', transformer.getSummary(structuredResponse));
         }
 
-        var validatedData = this.validateResponse(data, parser);
+        var responseData = structuredResponse && structuredResponse.success
+            ? Object.assign({}, data, { answer: structuredResponse.answer })
+            : data;
+        var validatedData = this.validateResponse(responseData, parser);
         this.sessionId = validatedData.session_id;
 
         return Object.assign({}, validatedData, {

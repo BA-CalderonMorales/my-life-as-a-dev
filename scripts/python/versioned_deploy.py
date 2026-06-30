@@ -7,6 +7,7 @@ which doesn't have native mike integration. It:
 1. Builds the site with Zensical
 2. Deploys to a versioned directory on gh-pages
 3. Updates versions.json for the version selector
+4. Prunes old versions to limit deployment size
 
 Usage:
     python versioned_deploy.py deploy <version> [--alias latest] [--push]
@@ -21,6 +22,9 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+# Maximum number of versions to keep
+MAX_VERSIONS = 15
 
 
 def run_command(cmd: list[str], check: bool = True) -> subprocess.CompletedProcess:
@@ -82,6 +86,39 @@ def checkout_gh_pages(temp_dir: Path, remote: str = "origin", branch: str = "gh-
     return True
 
 
+def prune_old_versions(gh_pages_dir: Path, versions: list, max_versions: int = MAX_VERSIONS) -> list:
+    """Remove old version directories, keeping only the most recent."""
+    if len(versions) <= max_versions:
+        return versions
+    
+    print(f"\n  Pruning old versions (keeping {max_versions} most recent)...")
+    
+    # Versions are already sorted by version_key (descending)
+    versions_to_keep = versions[:max_versions]
+    versions_to_remove = versions[max_versions:]
+    
+    for old_version in versions_to_remove:
+        version_str = old_version.get("version")
+        version_dir = gh_pages_dir / version_str
+        
+        if version_dir.exists():
+            print(f"    Removing: {version_str}")
+            shutil.rmtree(version_dir)
+        
+        # Also remove any aliases pointing to this version
+        for alias in old_version.get("aliases", []):
+            alias_dir = gh_pages_dir / alias
+            if alias_dir.exists():
+                print(f"    Removing alias: {alias}")
+                if alias_dir.is_symlink():
+                    alias_dir.unlink()
+                else:
+                    shutil.rmtree(alias_dir)
+    
+    print(f"  Pruned {len(versions_to_remove)} old versions")
+    return versions_to_keep
+
+
 def deploy_version(
     version: str,
     aliases: list[str] = None,
@@ -123,13 +160,14 @@ def deploy_version(
 
     print(f"\n[3/4] Deploying version {version}...")
 
-    # Copy site to version directory
+    # Copy site to version directory (FULL copy with assets)
     version_dir = gh_pages_dir / version
     if version_dir.exists():
         shutil.rmtree(version_dir)
     shutil.copytree(site_dir, version_dir)
+    print(f"  Copied full site to: {version_dir}")
 
-    # Handle aliases (symlinks or copies)
+    # Handle aliases (full copies for GitHub Pages compatibility)
     aliases = aliases or []
     for alias in aliases:
         alias_dir = gh_pages_dir / alias
@@ -138,8 +176,9 @@ def deploy_version(
                 alias_dir.unlink()
             else:
                 shutil.rmtree(alias_dir)
-        # Use copy instead of symlink for GitHub Pages compatibility
+        # Full copy for GitHub Pages compatibility
         shutil.copytree(version_dir, alias_dir)
+        print(f"  Created alias: {alias}")
 
     # Update versions.json
     versions = get_versions_json(gh_pages_dir)
@@ -172,6 +211,9 @@ def deploy_version(
             return (0, 0, 0)
 
     versions.sort(key=version_key, reverse=True)
+
+    # Prune old versions
+    versions = prune_old_versions(gh_pages_dir, versions, MAX_VERSIONS)
 
     save_versions_json(gh_pages_dir, versions)
 
@@ -255,6 +297,7 @@ def deploy_version(
     print(f"\nDeployed version {version} successfully!")
     if aliases:
         print(f"  Aliases: {', '.join(aliases)}")
+    print(f"  Versions kept: {len(versions)} (max: {MAX_VERSIONS})")
     if not push:
         print(f"\n  Run with --push to push to {remote}/{branch}")
 
@@ -276,7 +319,7 @@ def list_versions(remote: str = "origin", branch: str = "gh-pages") -> None:
 
     versions = json.loads(result.stdout)
 
-    print("\nDeployed versions:")
+    print(f"\nDeployed versions ({len(versions)} total, max {MAX_VERSIONS}):")
     for v in versions:
         aliases = v.get("aliases", [])
         alias_str = f" ({', '.join(aliases)})" if aliases else ""

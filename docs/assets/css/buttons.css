@@ -1,31 +1,36 @@
 /* ============================================
-   Buttons - Action hierarchy and interactive elements
+   Buttons — AETHER Actions
+   Soft radius, tactile feedback, honest materials.
    ============================================ */
 
 .md-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    min-height: 2.75rem;
-    padding: 0.72rem 1.2rem;
+    gap: var(--space-2);
+    min-height: 44px;
+    padding: var(--space-3) var(--space-5);
     border: 1px solid transparent;
-    border-radius: var(--mlad-radius-md);
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.2;
+    border-radius: var(--radius-soft);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 500;
+    line-height: 1;
     text-decoration: none;
-    transition: background-color var(--mlad-duration-fast) var(--mlad-ease-standard),
-        border-color var(--mlad-duration-fast) var(--mlad-ease-standard),
-        color var(--mlad-duration-fast) var(--mlad-ease-standard),
-        box-shadow var(--mlad-duration-fast) var(--mlad-ease-standard),
-        transform var(--mlad-duration-fast) var(--mlad-ease-standard);
+    cursor: pointer;
+    transition: background-color var(--dur-swift) var(--ease-swift),
+        border-color var(--dur-swift) var(--ease-swift),
+        color var(--dur-swift) var(--ease-swift),
+        transform var(--dur-swift) var(--ease-swift),
+        box-shadow var(--dur-swift) var(--ease-swift);
+    position: relative;
+    overflow: hidden;
 }
 
 .md-typeset .md-button,
 .md-content__inner .md-button,
 .tx-hero__content .md-button {
-    margin: 0.35rem 0.65rem 0.35rem 0;
+    margin: 0.25rem 0.5rem 0.25rem 0;
 }
 
 .md-typeset .md-button:last-child,
@@ -33,15 +38,16 @@
     margin-right: 0;
 }
 
+/* Primary button — AETHER accent */
 .md-typeset .md-button.md-button--primary,
 .md-content__inner .md-button.md-button--primary,
 .tx-hero__content .md-button.md-button--primary,
 .md-button.md-button--primary {
-    background: var(--mlad-button-bg) !important;
-    background-color: var(--mlad-button-bg) !important;
-    color: var(--mlad-button-fg) !important;
-    border-color: var(--mlad-button-bg) !important;
-    box-shadow: var(--mlad-shadow-button);
+    background: var(--accent) !important;
+    background-color: var(--accent) !important;
+    color: var(--canvas) !important;
+    border-color: transparent !important;
+    box-shadow: none;
 }
 
 .md-typeset .md-button.md-button--primary:hover,
@@ -52,55 +58,95 @@
 .tx-hero__content .md-button.md-button--primary:focus-visible,
 .md-button.md-button--primary:hover,
 .md-button.md-button--primary:focus-visible {
-    background: var(--mlad-button-bg-hover) !important;
-    background-color: var(--mlad-button-bg-hover) !important;
-    border-color: var(--mlad-button-bg-hover) !important;
-    box-shadow: var(--mlad-shadow-button-hover);
-    transform: translate(-1px, -1px);
+    background: var(--accent-hover) !important;
+    background-color: var(--accent-hover) !important;
+    border-color: transparent !important;
+    box-shadow: var(--shadow-subtle);
+    transform: translateY(-1px);
 }
 
+.md-typeset .md-button.md-button--primary:active,
+.md-button.md-button--primary:active {
+    transform: translateY(0);
+}
+
+/* Secondary button */
 .md-typeset .md-button:not(.md-button--primary),
 .md-button:not(.md-button--primary) {
-    background: var(--mlad-surface-elevated) !important;
-    color: var(--md-default-fg-color) !important;
-    border-color: var(--mlad-border-strong) !important;
-    box-shadow: var(--mlad-shadow-button);
+    background: transparent !important;
+    color: var(--ink) !important;
+    border-color: var(--stone) !important;
+    box-shadow: none;
 }
 
 .md-typeset .md-button:not(.md-button--primary):hover,
 .md-typeset .md-button:not(.md-button--primary):focus-visible,
 .md-button:not(.md-button--primary):hover,
 .md-button:not(.md-button--primary):focus-visible {
-    background: var(--mlad-button-secondary-bg) !important;
-    border-color: var(--md-default-fg-color) !important;
-    color: var(--md-default-fg-color) !important;
-    box-shadow: var(--mlad-shadow-button-hover);
-    transform: translate(-1px, -1px);
+    background: var(--stone) !important;
+    border-color: var(--ink) !important;
+    color: var(--ink) !important;
+    box-shadow: none;
+    transform: translateY(-1px);
 }
 
+.md-button:not(.md-button--primary):active {
+    transform: translateY(0);
+}
+
+/* Ripple effect on all buttons */
+.md-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width var(--dur-swift) var(--ease-swift),
+                height var(--dur-swift) var(--ease-swift),
+                opacity var(--dur-swift) var(--ease-swift);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.md-button:active::before {
+    width: 200%;
+    height: 200%;
+    opacity: 1;
+    transition: 0s;
+}
+
+/* Project link */
 .project-link {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: var(--mlad-radius-md);
-    font-size: 0.8rem;
-    font-weight: 600;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-soft);
+    font-size: var(--text-caption);
+    font-weight: 500;
     text-decoration: none;
-    color: var(--md-link-color);
-    background: var(--mlad-surface-elevated);
-    border: 1px solid var(--mlad-border-strong);
-    box-shadow: var(--mlad-shadow-button);
-    transition: background-color var(--mlad-duration-fast) var(--mlad-ease-standard),
-        color var(--mlad-duration-fast) var(--mlad-ease-standard),
-        box-shadow var(--mlad-duration-fast) var(--mlad-ease-standard);
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--stone);
+    box-shadow: none;
+    transition: background-color var(--dur-swift) var(--ease-swift),
+        color var(--dur-swift) var(--ease-swift),
+        border-color var(--dur-swift) var(--ease-swift),
+        transform var(--dur-swift) var(--ease-swift);
+    position: relative;
+    overflow: hidden;
 }
 
 .project-link:hover,
 .project-link:focus-visible {
-    background: var(--mlad-button-secondary-bg);
-    color: var(--md-default-fg-color);
-    box-shadow: var(--mlad-shadow-button-hover);
+    background: var(--stone);
+    color: var(--accent);
+    border-color: var(--ink);
+    transform: translateY(-1px);
 }
 
 .project-link svg {
@@ -108,33 +154,33 @@
     height: 14px;
 }
 
+/* Content buttons (edit, view source) */
 .md-content__button {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.45rem 0.8rem;
+    padding: var(--space-2) var(--space-3);
     margin: 0.25rem;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: var(--text-caption);
+    font-weight: 500;
     text-decoration: none;
-    color: var(--md-default-fg-color--light);
-    background: var(--mlad-surface-elevated);
-    border: 1px solid var(--mlad-border-strong);
-    border-radius: var(--mlad-radius-md);
-    box-shadow: var(--mlad-shadow-button);
-    transition: background-color var(--mlad-duration-fast) var(--mlad-ease-standard),
-        border-color var(--mlad-duration-fast) var(--mlad-ease-standard),
-        color var(--mlad-duration-fast) var(--mlad-ease-standard);
+    color: var(--slate);
+    background: transparent;
+    border: 1px solid var(--stone);
+    border-radius: var(--radius-soft);
+    box-shadow: none;
+    transition: background-color var(--dur-swift) var(--ease-swift),
+        border-color var(--dur-swift) var(--ease-swift),
+        color var(--dur-swift) var(--ease-swift);
     cursor: pointer;
 }
 
 .md-content__button:hover,
 .md-content__button:focus-visible {
-    color: var(--md-default-fg-color);
-    border-color: var(--md-default-fg-color);
-    background: var(--mlad-button-secondary-bg);
-    box-shadow: var(--mlad-shadow-button-hover);
-    transform: translate(-1px, -1px);
+    color: var(--ink);
+    border-color: var(--slate);
+    background: var(--surface-raised);
+    box-shadow: none;
 }
 
 .md-content__button svg {

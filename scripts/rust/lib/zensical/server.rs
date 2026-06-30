@@ -17,12 +17,8 @@ impl Server {
 
     /// Get the path to zensical binary.
     pub fn get_zensical_path(&self) -> String {
-        let venv_zensical = self.project_root.join(".venv").join("bin").join("zensical");
-        if venv_zensical.exists() {
-            venv_zensical.to_string_lossy().to_string()
-        } else {
-            "zensical".to_string()
-        }
+        self.find_venv_binary("zensical")
+            .unwrap_or_else(|| "zensical".to_string())
     }
 
     fn dev_addr(&self) -> String {
@@ -32,6 +28,18 @@ impl Server {
     }
 
     fn run_zensical(&self, args: &[&str]) -> io::Result<ExitStatus> {
+        if let Some(python_cmd) = self.find_venv_binary("python") {
+            let mut module_args = vec!["-m", "zensical"];
+            module_args.extend_from_slice(args);
+
+            return Command::new(python_cmd)
+                .args(&module_args)
+                .stdin(Stdio::inherit())
+                .stdout(Stdio::inherit())
+                .stderr(Stdio::inherit())
+                .status();
+        }
+
         let zensical_cmd = self.get_zensical_path();
 
         match Command::new(&zensical_cmd)
@@ -51,12 +59,48 @@ impl Server {
         let mut uv_args = vec!["run", "zensical"];
         uv_args.extend_from_slice(args);
 
-        Command::new("uv")
-            .args(&uv_args)
+        let mut cmd = Command::new("uv");
+        cmd.args(&uv_args)
             .stdin(Stdio::inherit())
             .stdout(Stdio::inherit())
-            .stderr(Stdio::inherit())
-            .status()
+            .stderr(Stdio::inherit());
+
+        if self.project_root.to_string_lossy().starts_with("/mnt/") {
+            cmd.env(
+                "UV_CACHE_DIR",
+                env::var("UV_CACHE_DIR").unwrap_or_else(|_| "/tmp/uv-cache".to_string()),
+            );
+            cmd.env(
+                "UV_LINK_MODE",
+                env::var("UV_LINK_MODE").unwrap_or_else(|_| "copy".to_string()),
+            );
+        }
+
+        cmd.status()
+    }
+
+    fn find_venv_binary(&self, name: &str) -> Option<String> {
+        if self.project_root.to_string_lossy().starts_with("/mnt/") {
+            if let Some(project_name) = self.project_root.file_name().and_then(|n| n.to_str()) {
+                let home = env::var("HOME").unwrap_or_else(|_| "/tmp".to_string());
+                let native_bin = PathBuf::from(home)
+                    .join(".venvs")
+                    .join(project_name)
+                    .join("bin")
+                    .join(name);
+
+                if native_bin.exists() {
+                    return Some(native_bin.to_string_lossy().to_string());
+                }
+            }
+        }
+
+        let project_bin = self.project_root.join(".venv").join("bin").join(name);
+        if project_bin.exists() {
+            return Some(project_bin.to_string_lossy().to_string());
+        }
+
+        None
     }
 
     /// Start the Zensical development server.

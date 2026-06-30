@@ -262,6 +262,26 @@ nav = [
     # --------------------------------------------------------------------------
     { "Canvas" = [
         { "Overview" = "canvas/index.md" },
+        { "Zen Geometry" = "canvas/zen-geometry/index.md" },
+        { "Crystal Cave" = "canvas/crystal-cave/index.md" },
+        { "Particle Flow" = "canvas/particle-flow/index.md" },
+        { "Quantum Lattice" = "canvas/quantum-lattice/index.md" },
+        { "Neon Geode" = "canvas/neon-geode/index.md" },
+        { "Magnetic Dust" = "canvas/magnetic-dust/index.md" },
+        { "Origami Unfolding" = "canvas/origami-unfolding/index.md" },
+        { "Glacial Caverns" = "canvas/glacial-caverns/index.md" },
+        { "Solar Flare" = "canvas/solar-flare/index.md" },
+        { "String Theory" = "canvas/string-theory/index.md" },
+        { "Bismuth Fracture" = "canvas/bismuth-fracture/index.md" },
+        { "Digital Rain" = "canvas/digital-rain/index.md" },
+        { "Echo Chains" = "canvas/echo-chains/index.md" },
+        { "Obsidian Shards" = "canvas/obsidian-shards/index.md" },
+        { "Smoke & Mirrors" = "canvas/smoke-mirrors/index.md" },
+        { "The Loom" = "canvas/the-loom/index.md" },
+        { "Radioactive Slag" = "canvas/radioactive-slag/index.md" },
+        { "Tidal Pool" = "canvas/tidal-pool/index.md" },
+        { "Synaptic Flash" = "canvas/synaptic-flash/index.md" },
+        { "Holographic Sand" = "canvas/holographic-sand/index.md" },
     ] },
 
     # --------------------------------------------------------------------------

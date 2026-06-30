@@ -41,6 +41,8 @@ impl Command for HelpCommand {
         println!("Usage: doc-cli [COMMAND] [OPTIONS]");
 
         println!("\nPrimary Commands (Zensical):");
+        println!("  setup                Setup development environment");
+        println!("                       Installs dependencies and starts the docs server");
         println!("  serve                Start Zensical development server (port 8001)");
         println!("                       Modern static site generator, 20x faster builds");
         println!("  build                Build site with Zensical");

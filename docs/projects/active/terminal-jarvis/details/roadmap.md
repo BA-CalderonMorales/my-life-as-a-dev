@@ -6,7 +6,7 @@ comments: true
 
 Terminal Jarvis aims to become the definitive AI coding orchestration platform - the first unified command center that intelligently coordinates multiple AI tools, prioritizes security-first architecture, and focuses on authentic developer experience.
 
-## Current Focus (v0.0.78)
+## Current Focus (v0.0.82)
 
 - [x] Interactive T.JARVIS Interface with ASCII art
 - [x] Smart tool detection and status reporting
@@ -20,6 +20,8 @@ Terminal Jarvis aims to become the definitive AI coding orchestration platform -
 - [x] Codespaces/NVM npm EACCES install fix shipped in v0.0.78 ([#62](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/62))
 - [x] `cd` command shell-state synchronization in wrappers ([#61](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/61))
 - [x] Command normalization to strip `terminal-jarvis` prefix in wrappers ([#59](https://github.com/BA-CalderonMorales/terminal-jarvis/pull/59))
+- [ ] v0.0.82 hardening: security review follow-ups, PR comment cleanup, release checklist enforcement, and maintenance workflow cleanup
+- [ ] v0.0.83 quality goal: raise Rust unit coverage toward 90% and add mutation-testing gates without major refactors
 
 ## Near-term Goals
 
@@ -43,6 +45,7 @@ Terminal Jarvis aims to become the definitive AI coding orchestration platform -
 ### Configuration Management (Q2 2026)
 
 - [x] Modular TOML configuration system
+- [ ] Establish `ConfigStore` as the source boundary: shipped TOML catalog plus database-backed user/runtime overlays
 - [ ] Web-based configuration UI
 - [ ] Profile management (work, personal, client)
 - [ ] Tool presets and templates

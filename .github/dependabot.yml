@@ -11,6 +11,7 @@ updates:
       interval: "weekly"
       day: "monday"
       time: "09:00"
+    open-pull-requests-limit: 1
     # Ignore rules to prevent breaking changes
     ignore:
       # Core MkDocs - foundation of the documentation site
@@ -56,3 +57,11 @@ updates:
         update-types: ["version-update:semver-minor", "version-update:semver-major"]
       - dependency-name: "python-dotenv"
         update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "npm" # For JavaScript dependencies via package.json
+    directory: "/" # Location of package manifests (package.json)
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 1

@@ -43,6 +43,85 @@ class TestLayoutIntegrity:
         content = page.locator(".md-content")
         expect(content).to_be_visible()
 
+    def test_back_to_top_uses_icon_only_markup(self, page: Page):
+        """Back-to-top control should render the custom SVG without visible text."""
+        top_button = page.locator(".md-top")
+        expect(top_button).to_have_count(1)
+        expect(top_button.locator("svg.mlad-top-icon")).to_have_count(1)
+
+        visible_text = page.evaluate(
+            "() => document.querySelector('.md-top').innerText.trim()"
+        )
+        assert visible_text == "", "Back-to-top text should not be visible in the button"
+
+    def test_footer_is_visible_on_home_page(self, page: Page):
+        """Home page should render the global footer."""
+        footer = page.locator(".md-footer")
+        expect(footer).to_be_visible()
+
+    def test_footer_is_visible_on_resume_page(self, page: Page, base_url: str):
+        """Resume page should render the global footer."""
+        page.goto(f"{base_url}/resume/index.html")
+        page.wait_for_load_state("networkidle")
+
+        footer = page.locator(".md-footer")
+        expect(footer).to_be_visible()
+
+    def test_back_to_top_mobile_position(self, browser, base_url: str):
+        """Back-to-top should sit in the bottom-left mobile corner when visible."""
+        context = browser.new_context(viewport={"width": 375, "height": 667})
+        page = context.new_page()
+        try:
+            page.goto(f"{base_url}/index.html")
+            page.wait_for_load_state("networkidle")
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+            page.locator(".md-top").evaluate(
+                "(el) => { el.hidden = false; el.dataset.mdState = 'visible'; }"
+            )
+
+            box = page.locator(".md-top").bounding_box()
+            assert box is not None, "Back-to-top should have a bounding box"
+            assert 24 <= box["x"] <= 48, (
+                f"Back-to-top should be near the left edge on mobile, got x={box['x']}"
+            )
+            assert box["y"] + box["height"] <= 667 - 8, (
+                "Back-to-top should not sit below the viewport"
+            )
+            assert box["y"] >= 667 - 96, (
+                f"Back-to-top should be near the bottom on mobile, got y={box['y']}"
+            )
+        finally:
+            context.close()
+
+    def test_back_to_top_desktop_position(self, browser, base_url: str):
+        """Back-to-top should sit in the bottom-left desktop corner when visible."""
+        context = browser.new_context(viewport={"width": 1280, "height": 800})
+        page = context.new_page()
+        try:
+            page.goto(f"{base_url}/index.html")
+            page.wait_for_load_state("networkidle")
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+            page.locator(".md-top").evaluate(
+                "(el) => { el.hidden = false; el.dataset.mdState = 'visible'; }"
+            )
+
+            box = page.locator(".md-top").bounding_box()
+            assert box is not None, "Back-to-top should have a bounding box"
+            assert 30 <= box["x"] <= 56, (
+                f"Back-to-top should be near the left edge on desktop, got x={box['x']}"
+            )
+            assert box["x"] + box["width"] < 1280 / 2, (
+                "Back-to-top should not render on the right side of the viewport"
+            )
+            assert box["y"] + box["height"] <= 800 - 8, (
+                "Back-to-top should not sit below the viewport"
+            )
+            assert box["y"] >= 800 - 104, (
+                f"Back-to-top should be near the bottom on desktop, got y={box['y']}"
+            )
+        finally:
+            context.close()
+
     def test_content_is_readable(self, page: Page):
         """Content text should have proper z-index above background."""
         # Check that content inner is above the background

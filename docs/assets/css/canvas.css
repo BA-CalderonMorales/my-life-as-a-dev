@@ -3,84 +3,214 @@
    ===================================================== */
 
 body.canvas-page {
-    --mlad-radius-sm: 0.45rem;
-    --mlad-radius-md: 0.85rem;
-    --mlad-radius-lg: 1.1rem;
+    --mlad-radius-sm: var(--radius-soft);
+    --mlad-radius-md: var(--radius-soft);
+    --mlad-radius-lg: var(--radius-soft);
     --mlad-radius-pill: 999px;
 }
 
-/* Hide UI elements for clean canvas experience */
-.canvas-page .md-content__button,
-.canvas-page .md-source-file,
-.canvas-page .share-actions,
-.canvas-page h1:first-of-type {
-    display: none !important;
+.canvas-example-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: var(--space-4) 0 var(--space-5);
 }
 
-.canvas-page .md-main {
-    background: transparent;
-    height: calc(100vh - var(--canvas-header-offset, 0px));
-    height: calc(100dvh - var(--canvas-header-offset, 0px));
+.canvas-gallery.grid.cards {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.canvas-gallery.grid.cards > li {
+    min-height: 15rem;
+}
+
+.canvas-example-shell {
+    display: grid;
+    gap: var(--space-4);
+    max-width: min(100%, 88rem);
+    margin: var(--space-5) auto;
+}
+
+.canvas-example-stage {
+    position: relative;
+    display: grid;
+    gap: var(--space-3);
+}
+
+.canvas-example-header,
+.canvas-example-meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
+    gap: var(--space-4);
+    align-items: start;
+}
+
+.canvas-example-header h2 {
+    margin-top: 0;
+}
+
+.canvas-example-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.canvas-sequence-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+    width: min(100%, 48rem);
+    margin: 0 auto;
+}
+
+.canvas-sequence-button {
+    display: flex;
+    min-height: 4.5rem;
+    padding: var(--space-3) var(--space-4);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--space-1);
+    color: var(--md-default-fg-color);
+    text-align: left;
+    text-decoration: none;
+    background: color-mix(in srgb, var(--surface-raised) 84%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--stone));
+    border-radius: var(--radius-soft);
+    box-shadow: var(--shadow-subtle);
+    backdrop-filter: blur(16px);
+    transition:
+        transform var(--dur-smooth) var(--ease-smooth),
+        border-color var(--dur-smooth) var(--ease-smooth),
+        box-shadow var(--dur-smooth) var(--ease-smooth);
+}
+
+.canvas-sequence-button:hover,
+.canvas-sequence-button:focus-visible {
+    color: var(--md-default-fg-color);
+    border-color: color-mix(in srgb, var(--accent) 58%, var(--stone));
+    box-shadow: var(--shadow-medium);
+}
+
+.canvas-sequence-button:hover {
+    transform: translateY(-2px);
+}
+
+.canvas-sequence-button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+.canvas-sequence-button--next {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.canvas-sequence-button__kicker {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.15;
+    text-transform: uppercase;
+}
+
+.canvas-sequence-button__title {
+    max-width: 100%;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    opacity: 0.78;
+}
+
+.canvas-scene-viewport {
+    position: relative;
+    width: 100%;
+    min-height: clamp(28rem, 64vh, 48rem);
     overflow: hidden;
+    background: var(--surface-inset);
+    border: 1px solid var(--stone);
+    border-radius: var(--radius-soft);
+    box-shadow: var(--shadow-medium);
+    cursor: crosshair;
+    touch-action: none;
 }
 
-.canvas-page .md-main__inner,
-.canvas-page .md-content {
-    margin: 0 !important;
-    padding: 0 !important;
-    max-width: none !important;
-    height: 100%;
-    overflow: hidden;
-}
-
-.canvas-page .md-main__inner,
-.canvas-page .md-content__inner {
-    min-height: 0;
-    height: 100%;
-    background: transparent;
-    box-shadow: none;
-    margin: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    max-width: none !important;
-    /* Safe area insets for notched devices */
-    padding-left: env(safe-area-inset-left, 0);
-    padding-right: env(safe-area-inset-right, 0);
-    padding-bottom: env(safe-area-inset-bottom, 0);
-    overflow: hidden;
-}
-
-body.canvas-page {
-    overflow: hidden;
-}
-
-html:has(body.canvas-page) {
-    overflow: hidden;
-}
-
-.canvas-page .md-footer {
-    display: none !important;
-}
-
-.canvas-page .canvas-shell,
-.canvas-page .canvas-shell__panel,
-.canvas-page .canvas-shell__eyebrow {
-    display: none !important;
-}
-
-.canvas-page #canvas-scene {
-    position: fixed;
+.canvas-scene-viewport::before,
+.canvas-scene-viewport::after {
+    content: "";
+    position: absolute;
     inset: 0;
-    left: 0;
-    width: 100vw;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--dur-smooth) var(--ease-smooth);
     z-index: 1;
-    pointer-events: auto;
 }
 
-.canvas-page #canvas-scene canvas {
-    display: block;
+.canvas-scene-viewport::before {
+    background:
+        linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 18%, transparent), transparent),
+        radial-gradient(circle at 50% 50%, transparent 0 52%, color-mix(in srgb, var(--ink) 10%, transparent) 100%);
+    mix-blend-mode: screen;
+    transform: translateX(-100%);
+}
+
+.canvas-scene-viewport::after {
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    box-shadow: inset 0 0 4rem color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.canvas-scene-viewport.is-loading::before {
+    opacity: 0.8;
+    animation: canvas-scanline 1.2s var(--ease-smooth) infinite;
+}
+
+.canvas-scene-viewport.is-ready::after {
+    opacity: 1;
+}
+
+.canvas-scene-viewport.has-error {
+    border-color: var(--danger, #b42318);
+}
+
+.canvas-scene-viewport:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+.canvas-scene-viewport canvas {
+    position: absolute;
+    inset: 0;
     width: 100% !important;
     height: 100% !important;
+    display: block;
+    opacity: 0;
+    transition: opacity var(--dur-smooth) var(--ease-smooth);
+}
+
+.canvas-scene-viewport.is-ready canvas {
+    opacity: 1;
+}
+
+.canvas-example-meta {
+    align-items: start;
+    padding: var(--space-4);
+    background: var(--surface-raised);
+    border: 1px solid var(--stone);
+    border-radius: var(--radius-soft);
+}
+
+@keyframes canvas-scanline {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.canvas-example-meta p:first-child {
+    margin-top: 0;
 }
 
 .canvas-placeholder {
@@ -104,8 +234,8 @@ html:has(body.canvas-page) {
 }
 
 .canvas-stage {
-    background: var(--mlad-surface-elevated, rgba(255, 255, 255, 0.95));
-    border: 1px solid var(--mlad-border-strong, rgba(15, 23, 42, 0.18));
+    background: var(--mlad-surface-elevated);
+    border: 1px solid var(--mlad-border-strong);
     border-radius: var(--mlad-radius-lg);
     padding: clamp(1.25rem, 2vw, 2rem);
     margin: 2.5rem auto;
@@ -234,6 +364,36 @@ html:has(body.canvas-page) {
 }
 
 @media screen and (max-width: 48rem) {
+    .canvas-example-header,
+    .canvas-example-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .canvas-example-stage {
+        gap: var(--space-2);
+    }
+
+    .canvas-example-actions {
+        justify-content: flex-start;
+    }
+
+    .canvas-sequence-nav {
+        gap: var(--space-2);
+    }
+
+    .canvas-sequence-button {
+        min-height: 4rem;
+        padding: var(--space-2);
+    }
+
+    .canvas-sequence-button:hover {
+        transform: translateY(-1px);
+    }
+
+    .canvas-scene-viewport {
+        min-height: clamp(22rem, 58vh, 36rem);
+    }
+
     .canvas-stage {
         margin: 1.5rem auto;
         padding: 1.25rem;
@@ -389,6 +549,23 @@ html:has(body.canvas-page) {
     .canvas-stage__viewport canvas {
         image-rendering: optimizeSpeed;
     }
+}
+
+/* Fullscreen canvas viewport */
+.canvas-scene-viewport.is-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    border-radius: 0;
+    border: none;
+}
+
+/* Fullscreen toggle button icon swap */
+#canvas-fullscreen-toggle[data-fullscreen="true"] svg {
+    transform: scale(0.9);
 }
 
 /* Reduced motion preference */

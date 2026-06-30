@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-03-01 20:47:01 UTC
+#   Generated: 2026-06-05 13:03:11 UTC
 #
 # ##############################################################################
 
@@ -23,6 +23,9 @@ repo_url = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
 repo_name = "BA-CalderonMorales/my-life-as-a-dev"
 edit_uri = "edit/main/docs/"
 extra_css = [
+    "assets/css/lumen/lumen-tokens.css",
+    "assets/css/lumen/lumen-components.css",
+    "assets/css/lumen/lumen-material.css",
     "assets/css/theme.css",
     "assets/css/typography.css",
     "assets/css/layout.css",
@@ -31,14 +34,24 @@ extra_css = [
     "assets/css/code.css",
     "assets/css/share.css",
     "assets/css/chat-widget.css",
+    "assets/css/header-version.css",
     "assets/css/pull-to-refresh.css",
     "assets/css/background.css",
     "assets/css/landing.css",
     "assets/css/canvas.css",
+    "assets/css/scroll-vines.css",
+    "assets/css/404.css",
+    "assets/css/resume.css",
+    "assets/css/projects.css",
 ]
 extra_javascript = [
     "assets/js/canvas/scene/main.js",
-    # NOTE: version-selector.js is loaded in main.html template
+    "assets/js/scroll-vines.js",
+    "assets/js/scroll-progress.js",
+    "assets/js/image-fade.js",
+    "assets/js/keyboard-shortcuts.js",
+    "assets/js/reading-time.js",
+    "assets/js/focus-mode.js",
 ]
 
 [[project.nav]]
@@ -368,6 +381,26 @@ Overview = "projects/experiments/index.md"
 [[project.nav]]
 Canvas = [
     { Overview = "canvas/index.md" },
+    { "Zen Geometry" = "canvas/zen-geometry/index.md" },
+    { "Crystal Cave" = "canvas/crystal-cave/index.md" },
+    { "Particle Flow" = "canvas/particle-flow/index.md" },
+    { "Quantum Lattice" = "canvas/quantum-lattice/index.md" },
+    { "Neon Geode" = "canvas/neon-geode/index.md" },
+    { "Magnetic Dust" = "canvas/magnetic-dust/index.md" },
+    { "Origami Unfolding" = "canvas/origami-unfolding/index.md" },
+    { "Glacial Caverns" = "canvas/glacial-caverns/index.md" },
+    { "Solar Flare" = "canvas/solar-flare/index.md" },
+    { "String Theory" = "canvas/string-theory/index.md" },
+    { "Bismuth Fracture" = "canvas/bismuth-fracture/index.md" },
+    { "Digital Rain" = "canvas/digital-rain/index.md" },
+    { "Echo Chains" = "canvas/echo-chains/index.md" },
+    { "Obsidian Shards" = "canvas/obsidian-shards/index.md" },
+    { "Smoke & Mirrors" = "canvas/smoke-mirrors/index.md" },
+    { "The Loom" = "canvas/the-loom/index.md" },
+    { "Radioactive Slag" = "canvas/radioactive-slag/index.md" },
+    { "Tidal Pool" = "canvas/tidal-pool/index.md" },
+    { "Synaptic Flash" = "canvas/synaptic-flash/index.md" },
+    { "Holographic Sand" = "canvas/holographic-sand/index.md" },
 ]
 
 [[project.nav]]
@@ -405,7 +438,7 @@ features = [
 ]
 
 [project.theme.font]
-text = "Space Grotesk"
+text = "Inter"
 code = "JetBrains Mono"
 
 [project.theme.icon]
@@ -456,9 +489,6 @@ accent = "amber"
 [project.theme.palette.toggle]
 icon = "lucide/moon"
 name = "Switch to dark mode"
-
-[project.extra.version]
-provider = "mike"
 
 [project.extra.tags]
 Python = "python"
@@ -544,6 +574,12 @@ timezone = "America/North_Dakota/Center"
 [project.plugins.panzoom]
 
 [project.plugins.glightbox]
+width = "auto"
+height = "auto"
+skip_classes = []
+auto = true
+auto_themed = false
+auto_caption = false
 
 [project.plugins.image-optimizer]
 enabled = true

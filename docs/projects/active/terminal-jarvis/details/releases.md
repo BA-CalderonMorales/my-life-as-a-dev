@@ -6,7 +6,21 @@ comments: true
 
 This page tracks recent Terminal Jarvis releases with a focus on user-impacting changes.
 
-## Latest Release: v0.0.80
+## Current Package Line: v0.0.81
+
+- **Repository Version**: v0.0.81
+- **Release Train**: v0.0.82 hardening is in progress
+
+### v0.0.82 Focus
+
+- Address actionable PR review feedback before release work continues
+- Keep project documentation in this docs repository instead of adding a `docs/` folder to `terminal-jarvis`
+- Harden security-sensitive code paths and review any credential-handling findings
+- Keep release changes ordered: CHANGELOG first, Homebrew formula before GitHub release, then tag-driven CD
+
+---
+
+## Latest Published Notes: v0.0.80
 
 - **Published**: March 31, 2026
 - **GitHub Release**: [v0.0.80](https://github.com/BA-CalderonMorales/terminal-jarvis/releases/tag/v0.0.80)

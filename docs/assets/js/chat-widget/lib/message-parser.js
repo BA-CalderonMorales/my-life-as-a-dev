@@ -248,8 +248,25 @@ class MessageParser {
         text = text.replace(/\n{3,}/g, '\n\n');
         // Expand known site paths and contact handles into full URLs before parsing.
         text = this.canonicalizeKnownReferences(text);
+        text = this.stripEmoji(text);
+        text = this.sanitizeUndefinedArtifacts(text);
         // Trim whitespace
         return text.trim();
+    }
+
+    stripEmoji(text) {
+        return text
+            .replace(/\p{Extended_Pictographic}/gu, '')
+            .replace(/[\uFE0E\uFE0F\u200D]/g, '')
+            .replace(/(?<=\S)[\t ]{2,}(?=\S)/g, ' ');
+    }
+
+    sanitizeUndefinedArtifacts(text) {
+        if (!text) return '';
+        return text
+            .replace(/undefined(?=[A-Z\s])/g, '')
+            .replace(/(?<=[a-zA-Z0-9])undefined/g, '')
+            .replace(/(?<=\S) {2,}(?=\S)/g, ' ');
     }
 
     /**
@@ -470,10 +487,12 @@ class MessageParser {
         let result = text;
         for (const [placeholder, info] of this.placeholders) {
             if (info.type === 'link') {
-                const safeUrl = this.ensureProtocol(info.url);
+                const safeUrl = this.getTrustedUrl(info.url);
                 const escapedText = this.escapeHtml(info.text);
-                const anchor = `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${escapedText}</a>`;
-                result = result.split(placeholder).join(anchor);
+                const replacement = safeUrl
+                    ? `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${escapedText}</a>`
+                    : escapedText;
+                result = result.split(placeholder).join(replacement);
             }
         }
         return result;
@@ -505,6 +524,37 @@ class MessageParser {
         return 'https://' + url;
     }
 
+    getTrustedUrl(url) {
+        const safeUrl = this.ensureProtocol(url);
+        return this.isTrustedUrl(safeUrl) ? safeUrl : null;
+    }
+
+    isTrustedUrl(url) {
+        try {
+            const parsed = new URL(url, window.location.origin);
+            const docsBase = new URL(this.getDocsBaseUrl());
+
+            if (parsed.origin === window.location.origin) return true;
+            if (parsed.origin === docsBase.origin && parsed.pathname.startsWith(docsBase.pathname)) return true;
+
+            if (parsed.hostname === 'ba-calderonmorales.github.io') {
+                return parsed.pathname.startsWith('/my-life-as-a-dev/');
+            }
+
+            if (parsed.hostname === 'github.com') {
+                return parsed.pathname === '/BA-CalderonMorales' || parsed.pathname.startsWith('/BA-CalderonMorales/');
+            }
+
+            if (parsed.hostname === 'www.linkedin.com') {
+                return parsed.pathname.replace(/\/$/, '') === '/in/bcalderonmorales-cmoe';
+            }
+
+            return false;
+        } catch (error) {
+            return false;
+        }
+    }
+
     /**
      * Escape HTML special characters to prevent XSS
      * @param {string} text - Raw text
@@ -522,6 +572,101 @@ class MessageParser {
      * @returns {string} - Text with HTML lists and paragraphs
      */
     parseStructuredContent(text) {
+        const normalized = text.includes('\n') ? text : this.normalizeBulletPoints(text);
+        const lines = normalized.split('\n');
+        const result = [];
+        const listStack = [];
+
+        const flushLists = () => {
+            if (listStack.length === 0) return;
+            result.push(this.buildNestedList(listStack[0].list));
+            listStack.length = 0;
+        };
+
+        const addListItem = (type, indent, content) => {
+            if (listStack.length === 0) {
+                listStack.push({ indent, list: { type, items: [] } });
+            } else {
+                while (listStack.length > 0 && indent < listStack[listStack.length - 1].indent) {
+                    listStack.pop();
+                }
+
+                const top = listStack[listStack.length - 1];
+                if (indent > top.indent) {
+                    const parentItem = top.list.items[top.list.items.length - 1];
+                    if (parentItem) {
+                        const childList = { type, items: [] };
+                        parentItem.children.push(childList);
+                        listStack.push({ indent, list: childList });
+                    }
+                } else if (top.list.type !== type) {
+                    if (listStack.length === 1) {
+                        flushLists();
+                        listStack.push({ indent, list: { type, items: [] } });
+                    } else {
+                        listStack.pop();
+                        addListItem(type, indent, content);
+                        return;
+                    }
+                }
+            }
+
+            listStack[listStack.length - 1].list.items.push({ content, children: [] });
+        };
+
+        for (const line of lines) {
+            const trimmed = line.trim();
+            const indent = line.match(/^\s*/)[0].replace(/\t/g, '    ').length;
+
+            if (!trimmed) {
+                flushLists();
+                continue;
+            }
+
+            if (/^([-*_])(?:\s*\1){2,}$/.test(trimmed)) {
+                flushLists();
+                result.push('<hr class="ai-chat-separator">');
+                continue;
+            }
+
+            const headerMatch = trimmed.match(this.patterns.headerLine);
+            if (headerMatch) {
+                flushLists();
+                const headerLevel = headerMatch[1].length;
+                const headerText = headerMatch[2].trim();
+                result.push(`<p class="ai-chat-content-header" data-level="${headerLevel}">${headerText}</p>`);
+                continue;
+            }
+
+            const bulletMatch = trimmed.match(this.patterns.bulletLine);
+            if (bulletMatch) {
+                addListItem('ul', indent, bulletMatch[1].trim());
+                continue;
+            }
+
+            const numberedMatch = trimmed.match(this.patterns.numberedLine);
+            if (numberedMatch) {
+                addListItem('ol', indent, numberedMatch[2].trim());
+                continue;
+            }
+
+            flushLists();
+            result.push(`<p>${trimmed}</p>`);
+        }
+
+        flushLists();
+        return result.join('');
+    }
+
+    buildNestedList(list) {
+        const listItems = list.items.map(item => {
+            const children = item.children.map(child => this.buildNestedList(child)).join('');
+            return `<li><span class="ai-chat-list-item-content">${item.content}</span>${children}</li>`;
+        }).join('');
+        return `<${list.type} class="ai-chat-list">${listItems}</${list.type}>`;
+    }
+
+    parseStructuredContentLegacy(text) {
         // Normalize line breaks - handle both \n and inline bullet patterns
         const normalized = this.normalizeBulletPoints(text);
 
@@ -685,9 +830,12 @@ class MessageParser {
             cleanUrl = cleanUrl.slice(0, -1);
         }
 
-        const displayText = this.getDisplayText(cleanUrl);
+        const trustedUrl = this.getTrustedUrl(cleanUrl);
+        if (!trustedUrl) return cleanUrl + trailing;
 
-        return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${displayText}</a>${trailing}`;
+        const displayText = this.getDisplayText(trustedUrl);
+
+        return `<a href="${trustedUrl}" target="_blank" rel="noopener noreferrer" class="ai-chat-link">${displayText}</a>${trailing}`;
     }
 
     /**

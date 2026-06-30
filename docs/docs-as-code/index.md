@@ -68,6 +68,72 @@ This site treats documentation like release infrastructure. Content lives in Git
 
 ---
 
+## The Pipeline
+
+<div class="mlad-stack" markdown>
+
+<div class="mlad-stack__node" markdown>
+<div class="mlad-stack__node-icon" markdown>
+
+:material-file-document-outline:
+
+</div>
+<div class="mlad-stack__node-label">Markdown</div>
+<div class="mlad-stack__node-desc">Content + metadata</div>
+</div>
+
+<div class="mlad-stack__arrow" aria-hidden="true">→</div>
+
+<div class="mlad-stack__node" markdown>
+<div class="mlad-stack__node-icon" markdown>
+
+:material-cog-outline:
+
+</div>
+<div class="mlad-stack__node-label">Zensical</div>
+<div class="mlad-stack__node-desc">Config merge + build</div>
+</div>
+
+<div class="mlad-stack__arrow" aria-hidden="true">→</div>
+
+<div class="mlad-stack__node" markdown>
+<div class="mlad-stack__node-icon" markdown>
+
+:material-palette-outline:
+
+</div>
+<div class="mlad-stack__node-label">MkDocs</div>
+<div class="mlad-stack__node-desc">Render + theme</div>
+</div>
+
+<div class="mlad-stack__arrow" aria-hidden="true">→</div>
+
+<div class="mlad-stack__node" markdown>
+<div class="mlad-stack__node-icon" markdown>
+
+:material-robot-outline:
+
+</div>
+<div class="mlad-stack__node-label">GitHub Actions</div>
+<div class="mlad-stack__node-desc">CI + deploy</div>
+</div>
+
+<div class="mlad-stack__arrow" aria-hidden="true">→</div>
+
+<div class="mlad-stack__node" markdown>
+<div class="mlad-stack__node-icon" markdown>
+
+:material-earth:
+
+</div>
+<div class="mlad-stack__node-label">GitHub Pages</div>
+<div class="mlad-stack__node-desc">Hosted site</div>
+</div>
+
+</div>
+
+---
+
 ## Operating rules
 
 - Docs stay in the repository with the code they explain.
@@ -84,6 +150,35 @@ This site treats documentation like release infrastructure. Content lives in Git
 - **Mike** preserves versioned releases without overwriting history.
 - **GitHub Actions** builds and deploys published versions to GitHub Pages.
 - **`doc-cli`** wraps common development and release tasks for local use.
+
+---
+
+## Recent Changes
+
+<div class="mlad-changelog" markdown>
+
+<div class="mlad-changelog__entry" markdown>
+<div class="mlad-changelog__date">2026-04-28</div>
+<div class="mlad-changelog__content" markdown>
+**High Contrast Minimalism V3** — Complete visual refresh: pure black/white palette, scroll-driven vines, animated 404, editorial timeline resume, and awwwards-level motion design.
+</div>
+</div>
+
+<div class="mlad-changelog__entry" markdown>
+<div class="mlad-changelog__date">2026-04-06</div>
+<div class="mlad-changelog__content" markdown>
+**Elemental Ink V2** — Migrated from monumental minimalism to ATLA-inspired earth tones: teal accents, warm surfaces, flat hierarchy.
+</div>
+</div>
+
+<div class="mlad-changelog__entry" markdown>
+<div class="mlad-changelog__date">2026-03-01</div>
+<div class="mlad-changelog__content" markdown>
+**Zensical Migration** — Merged modular TOML config, added version selector, image optimizer with LQIP, and automated deployment pipeline.
+</div>
+</div>
+
+</div>
 
 ---
 

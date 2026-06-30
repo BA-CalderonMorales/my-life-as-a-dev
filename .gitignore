@@ -5,8 +5,12 @@ dist/
 # Cloud/local deployment
 cloud/
 
+# One off scripts/files/etc.
+tmp/
+
 # Python
 .venv/
+.venv*/
 __pycache__/
 *.py[cod]
 *$py.class
@@ -43,6 +47,7 @@ scripts/rust/target/
 
 # Local dev configs
 .mcp.json
+.serena/
 
 # Misc
 *.log
