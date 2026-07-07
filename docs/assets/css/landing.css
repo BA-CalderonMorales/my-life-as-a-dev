@@ -67,7 +67,9 @@
 
 .landing-page .tx-hero {
     display: grid;
-    grid-template-columns: minmax(23rem, 0.82fr) minmax(26rem, 1.18fr);
+    grid-template-columns: minmax(0, 46rem);
+    justify-content: center;
+    text-align: center;
     align-items: center;
     margin-top: 0;
     gap: clamp(var(--space-5), 5vw, var(--space-8));
@@ -76,8 +78,9 @@
 
 .landing-page .tx-hero__content {
     gap: var(--space-4);
-    max-width: 42rem;
+    max-width: none;
     padding: 0;
+    text-align: center;
 }
 
 .landing-page .tx-hero__details {

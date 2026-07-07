@@ -41,6 +41,21 @@ def version_selector_enabled() -> bool:
     return bool(load_features().get("version_selector", False))
 
 
+def creative_canvas_enabled() -> bool:
+    """True when the generative creative-canvas hero flag is on."""
+    return bool(load_features().get("creative_canvas", False))
+
+
+def section_archived(section: str) -> bool:
+    """True when a top-level content section has been archived (off).
+
+    Off sections are moved from docs/<section> to docs-archive/<section>, so
+    their index.md is no longer under docs/. Used to skip page tests for
+    sections that are currently gated off.
+    """
+    return not (project_root() / "docs" / section / "index.md").exists()
+
+
 def assert_path_exists(label: str, target_path: Path) -> Path:
     """Assert that a path exists and return its resolved form."""
     if not target_path.exists():

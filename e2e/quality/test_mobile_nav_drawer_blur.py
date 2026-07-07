@@ -19,7 +19,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SITE_ROOT = PROJECT_ROOT / "site"
-MOBILE_PAGE = Path("learning/algorithms/index.html")
+MOBILE_PAGE = Path("index.html")
 CHROME_BINARY = (
     shutil.which("google-chrome")
     or shutil.which("chromium")

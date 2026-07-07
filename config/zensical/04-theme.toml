@@ -6,7 +6,6 @@
 
 [project.theme]
 custom_dir = "docs/overrides"
-logo = "assets/images/me-today.png"
 favicon = "assets/images/favicon/favicon.ico"
 language = "en"
 
@@ -112,15 +111,15 @@ distributed = "lucide/network"
 
 [[project.theme.palette]]
 scheme = "slate"
-primary = "indigo"
-accent = "amber"
+primary = "black"
+accent = "grey"
 toggle.icon = "lucide/sun"
 toggle.name = "Switch to light mode"
 
 [[project.theme.palette]]
 scheme = "default"
-primary = "indigo"
-accent = "amber"
+primary = "black"
+accent = "grey"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to dark mode"
 

@@ -114,8 +114,11 @@
 {% if config.extra.features.version_selector %}
 <link rel="stylesheet" href="{{ 'assets/css/header-version.css' | url }}">
 {% endif %}
+{% if config.extra.features.creative_canvas %}
+<link rel="stylesheet" href="{{ 'assets/css/creative-canvas.css' | url }}">
+{% endif %}
 <meta name="site_url" content="{{ config.site_url }}">
-<link rel="icon" href="{{ config.theme.logo | url }}" />
+<link rel="icon" href="{{ config.theme.favicon | url }}" />
 <link rel="manifest" href="{{ 'manifest.webmanifest' | url }}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -137,11 +140,9 @@
 <meta property="og:title" content="{% if page.meta and page.meta.title %}{{ page.meta.title }}{% else %}{{ page.title }}{% endif %}">
 <meta property="og:description" content="{% if page.meta and page.meta.description %}{{ page.meta.description }}{% else %}{{ config.site_description }}{% endif %}">
 <meta property="og:url" content="{{ config.site_url }}{% if page.url %}{{ page.url }}{% endif %}">
-<meta property="og:image" content="{{ config.site_url }}assets/images/homepage-screenshot.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{% if page.meta and page.meta.title %}{{ page.meta.title }}{% else %}{{ page.title }}{% endif %}">
 <meta name="twitter:description" content="{% if page.meta and page.meta.description %}{{ page.meta.description }}{% else %}{{ config.site_description }}{% endif %}">
-<meta name="twitter:image" content="{{ config.site_url }}assets/images/homepage-screenshot.png">
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -233,9 +234,10 @@
   })();
 </script>
 
-<!-- Three.js background disabled for minimal design -->
+<!-- Three.js / canvas-scene backgrounds disabled: the landing page now uses
+     the modular creative canvas (gated by creative_canvas) instead. -->
 <!-- <script type="module" src="{{ 'assets/js/threejs-background/main.js' | url }}"></script> -->
-<script type="module" src="{{ 'assets/js/canvas/scene/main.js' | url }}"></script>
+<!-- <script type="module" src="{{ 'assets/js/canvas/scene/main.js' | url }}"></script> -->
 
 <!-- Page transition overlay -->
 <script>
@@ -323,6 +325,14 @@
   {% if config.extra.features.version_selector %}
 <script type="module" src="{{ 'assets/js/version-selector/main.js' | url }}"></script>
   {% endif %}
+
+  {% if config.extra.features.creative_canvas %}
+  {# Generative hero: shared env, sketches, then the boot entry. #}
+  <script src="{{ 'assets/js/creative-canvas/env.js' | url }}"></script>
+  <script src="{{ 'assets/js/creative-canvas/sketches/aurora.js' | url }}"></script>
+  <script src="{{ 'assets/js/creative-canvas/sketches/particles.js' | url }}"></script>
+  <script src="{{ 'assets/js/creative-canvas/main.js' | url }}"></script>
+  {% endif %}
 {% endblock %}
 
 
@@ -385,6 +395,9 @@
 {% endblock %}
 
 {% block content %}
+{% if config.extra.features.creative_canvas %}
+{% include "partials/creative-canvas.html" %}
+{% endif %}
 {{ super() }}
 {% set is_canvas_page = page and page.file and page.file.src_uri == 'canvas/index.md' %}
 {% if page and page.url != '' and not is_canvas_page %}
