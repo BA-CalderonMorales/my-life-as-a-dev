@@ -1,6 +1,12 @@
+import pytest
 from playwright.sync_api import Page, expect
 
+from ..shared.utils import version_selector_enabled
 
+VERSION_ENABLED = version_selector_enabled()
+
+
+@pytest.mark.skipif(not VERSION_ENABLED, reason="Version selector is disabled by feature flag")
 def test_version_selector_opens_without_duplicate_chevrons(page: Page, base_url: str):
     page.goto(f"{base_url}/canvas/glacial-caverns/")
     page.wait_for_load_state("networkidle")
@@ -28,6 +34,7 @@ def test_version_selector_opens_without_duplicate_chevrons(page: Page, base_url:
     assert current_version.count(".") >= 2
 
 
+@pytest.mark.skipif(not VERSION_ENABLED, reason="Version selector is disabled by feature flag")
 def test_version_selector_preserves_current_page_links(page: Page, base_url: str):
     page.goto(f"{base_url}/canvas/glacial-caverns/")
     page.wait_for_load_state("networkidle")
@@ -40,3 +47,16 @@ def test_version_selector_preserves_current_page_links(page: Page, base_url: str
         "href",
         f"{base_url}/{current_version}/canvas/glacial-caverns/",
     )
+
+
+@pytest.mark.skipif(VERSION_ENABLED, reason="Version selector is enabled; see ON-state tests")
+def test_version_selector_absent_when_disabled(page: Page, base_url: str):
+    """No version selector should be rendered when the flag is off."""
+    page.goto(f"{base_url}/canvas/glacial-caverns/")
+    page.wait_for_load_state("networkidle")
+
+    expect(page.locator("#md-version-selector")).to_have_count(0)
+    scripts = page.evaluate(
+        "Array.from(document.scripts).map(s => s.src).join('\\n')"
+    )
+    assert "version-selector" not in scripts

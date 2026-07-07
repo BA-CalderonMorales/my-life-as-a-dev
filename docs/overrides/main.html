@@ -84,6 +84,7 @@
 
 {% block extrahead %}
 <style>
+  {% if config.extra.features.version_selector %}
   /* Ensure version selector is always visible */
   .md-version {
     display: inline-flex !important;
@@ -95,14 +96,24 @@
     display: flex !important;
     visibility: visible !important;
   }
+  {% endif %}
 
+  {% if config.extra.features.chat_assistant %}
   /* Ensure AI chat trigger is always visible */
   .ai-chat-trigger {
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
+  {% endif %}
 </style>
+
+{% if config.extra.features.chat_assistant %}
+<link rel="stylesheet" href="{{ 'assets/css/chat-widget.css' | url }}">
+{% endif %}
+{% if config.extra.features.version_selector %}
+<link rel="stylesheet" href="{{ 'assets/css/header-version.css' | url }}">
+{% endif %}
 <meta name="site_url" content="{{ config.site_url }}">
 <link rel="icon" href="{{ config.theme.logo | url }}" />
 <link rel="manifest" href="{{ 'manifest.webmanifest' | url }}">
@@ -297,6 +308,7 @@
 })();
 </script>
 
+  {% if config.extra.features.chat_assistant %}
   <script src="{{ 'assets/js/chat-widget/lib/config.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/logger.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/message-parser.js' | url }}"></script>
@@ -307,7 +319,10 @@
 <script src="{{ 'assets/js/chat-widget/src/view.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/src/view-model.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/src/main.js' | url }}"></script>
+  {% endif %}
+  {% if config.extra.features.version_selector %}
 <script type="module" src="{{ 'assets/js/version-selector/main.js' | url }}"></script>
+  {% endif %}
 {% endblock %}
 
 
@@ -350,10 +365,12 @@
     </div>
     {% include "partials/palette.html" ignore missing %}
     {% include "partials/source.html" ignore missing %}
-    
+
+    {% if config.extra.features.version_selector %}
     {# Custom version selector - placed inside header nav #}
     {% include "partials/version-selector-inline.html" %}
-    
+    {% endif %}
+
   </nav>
   {% include "partials/tabs.html" ignore missing %}
 </header>

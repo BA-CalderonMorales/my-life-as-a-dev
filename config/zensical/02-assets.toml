@@ -22,8 +22,8 @@ extra_css = [
     "assets/css/buttons.css",
     "assets/css/code.css",
     "assets/css/share.css",
-    "assets/css/chat-widget.css",
-    "assets/css/header-version.css",
+    # "assets/css/chat-widget.css",     # Loaded via docs/overrides/main.html when chat_assistant is on
+    # "assets/css/header-version.css",  # Loaded via docs/overrides/main.html when version_selector is on
     "assets/css/pull-to-refresh.css",
 
     # Page-specific styles

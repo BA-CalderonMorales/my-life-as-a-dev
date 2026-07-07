@@ -8,11 +8,17 @@ behavior does not silently regress when global theme layering changes.
 import unittest
 from pathlib import Path
 
+from ..shared.utils import version_selector_enabled
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SITE_ROOT = PROJECT_ROOT / "site"
 
 
+@unittest.skipUnless(
+    version_selector_enabled(),
+    "Version selector is disabled by feature flag",
+)
 class VersionSelectorRegressionTest(unittest.TestCase):
     """Contract checks for the built version selector assets."""
 

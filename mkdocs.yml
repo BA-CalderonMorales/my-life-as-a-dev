@@ -1,6 +1,10 @@
 # MkDocs configuration for mike versioning compatibility
-# Zensical reads this for the version provider setting
-
+# Zensical reads this for the version provider setting.
+#
+# The version selector is OFF by default (feature flag version_selector in
+# config/zensical/08-features.toml). No provider is set here so Material does
+# not render a native version dropdown. To use the native mike selector instead
+# of the custom one, set `provider = "mike"` below (and keep the flag on).
 extra:
   version:
-    provider: mike
+    provider: none

@@ -14,6 +14,8 @@ hide:
 
 # Build systems that stay readable
 
+Product-minded engineer building calm, precise systems for people who ship.
+
 </div>
 <div class="tx-hero__details" markdown>
 
@@ -30,6 +32,56 @@ Engineer focused on **delivery infrastructure**, **team enablement**, and **secu
 <img src="assets/images/me-today.png" alt="Brandon Calderon Morales" draggable="false">
 </picture>
 </div>
+</section>
+
+<section class="md-typeset landing-section-explore" markdown>
+
+## Explore the hub
+
+<div class="grid cards landing-explore" markdown>
+
+-   :material-folder-code:{ .lg .middle } **Projects**
+
+    ---
+
+    Active tools, experiments, and implementation details.
+
+    [:octicons-arrow-right-24: Browse Projects](projects/index.md)
+
+-   :material-book-open-variant:{ .lg .middle } **Learning**
+
+    ---
+
+    Algorithms, data structures, and interview preparation.
+
+    [:octicons-arrow-right-24: Start Learning](learning/index.md)
+
+-   :material-file-document-edit-outline:{ .lg .middle } **Docs-as-Code**
+
+    ---
+
+    Build, workflow, AI, and security notes.
+
+    [:octicons-arrow-right-24: Read the Docs](docs-as-code/index.md)
+
+-   :material-palette:{ .lg .middle } **Experiments**
+
+    ---
+
+    WebGL studies and visual prototypes.
+
+    [:octicons-arrow-right-24: See Experiments](projects/index.md#experiments)
+
+-   :material-account:{ .lg .middle } **About Me**
+
+    ---
+
+    Experience summary and profile.
+
+    [:octicons-arrow-right-24: View Resume](resume/index.md)
+
+</div>
+
 </section>
 
 <section class="md-typeset aether-showcase" markdown>

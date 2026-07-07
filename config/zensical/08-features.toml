@@ -1,0 +1,47 @@
+# ==============================================================================
+# FEATURE TOGGLES
+# ==============================================================================
+# Durable, config-driven feature switches for the rendered site.
+#
+# Every capability below can be re-enabled later WITHOUT resurrecting dead
+# code: the implementation (chat widget, version selector, tab content) is
+# preserved on disk and simply gated by these flags in the build/overrides.
+#
+# DEFAULT STATE (slim, presentation-focused site):
+#   - Ask AI assistant ........ OFF
+#   - Version selector ......... OFF
+#   - All top-level tabs ....... OFF except the landing page (Home)
+#
+# How to flip a feature back on:
+#   1. Set the flag below to `true`.
+#   2. Regenerate: uv run python scripts/python/merge_zensical_config.py
+#   3. Rebuild: make build
+#
+# Notes:
+#   - The chat widget CSS is loaded from docs/overrides/main.html (gated by
+#     chat_assistant); when OFF it is not linked or loaded.
+#   - The version selector is injected from main.html + header.html (gated by
+#     version_selector). The native mike provider in mkdocs.yml is disabled so
+#     no version dropdown renders. To use the native selector instead, set
+#     `provider = "mike"` in mkdocs.yml's `extra.version` block.
+#   - Tabs are filtered in docs/overrides/partials/tabs.html using the map
+#     below. Only tabs set to `true` render; the rest remain reachable via the
+#     hamburger navigation.
+# ==============================================================================
+
+[project.extra.features]
+# AI chat assistant ("Ask AI"). When false, no trigger/modal/scripts load.
+chat_assistant = false
+# Version selector dropdown in the header. When false, no selector renders.
+version_selector = false
+
+# Per-tab visibility. Keys are derived from each top-level nav title:
+# lowercased, spaces/dashes/dots replaced with underscores.
+# Only `home` is enabled by default so the landing page is the sole tab.
+[project.extra.features.tabs]
+home = true
+learning = false
+docs_as_code = false
+projects = false
+canvas = false
+about_me = false

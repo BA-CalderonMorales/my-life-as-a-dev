@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-06-05 13:03:11 UTC
+#   Generated: 2026-07-07 21:11:51 UTC
 #
 # ##############################################################################
 
@@ -33,8 +33,6 @@ extra_css = [
     "assets/css/buttons.css",
     "assets/css/code.css",
     "assets/css/share.css",
-    "assets/css/chat-widget.css",
-    "assets/css/header-version.css",
     "assets/css/pull-to-refresh.css",
     "assets/css/background.css",
     "assets/css/landing.css",
@@ -520,6 +518,18 @@ Networking = "networking"
 [[project.extra.social]]
 icon = "fontawesome/brands/github"
 link = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
+
+[project.extra.features]
+chat_assistant = false
+version_selector = false
+
+[project.extra.features.tabs]
+home = true
+learning = false
+docs_as_code = false
+projects = false
+canvas = false
+about_me = false
 
 [project.markdown_extensions.extra]
 

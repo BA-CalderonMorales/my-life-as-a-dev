@@ -2,7 +2,43 @@
 Shared utilities for e2e tests.
 """
 
+import sys
 from pathlib import Path
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:  # pragma: no cover - exercised only on <3.11
+    import tomli as tomllib
+
+
+def project_root() -> Path:
+    """Return the repository root (two levels up from this file)."""
+    return Path(__file__).resolve().parents[2]
+
+
+def load_features() -> dict:
+    """Load the feature-toggle map from the generated zensical.toml.
+
+    Returns config.extra.features, or an empty dict when unavailable. This lets
+    UI tests assert the current (flag-driven) build instead of a hardcoded state.
+    """
+    zensical = project_root() / "zensical.toml"
+    if not zensical.exists():
+        return {}
+    with open(zensical, "rb") as handle:
+        config = tomllib.load(handle)
+    extra = config.get("project", {}).get("extra", {})
+    return extra.get("features", {})
+
+
+def chat_assistant_enabled() -> bool:
+    """True when the Ask AI chat assistant feature flag is on."""
+    return bool(load_features().get("chat_assistant", False))
+
+
+def version_selector_enabled() -> bool:
+    """True when the version selector feature flag is on."""
+    return bool(load_features().get("version_selector", False))
 
 
 def assert_path_exists(label: str, target_path: Path) -> Path:
