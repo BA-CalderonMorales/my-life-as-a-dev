@@ -1,0 +1,300 @@
+/* ============================================
+   Resume — Natural, minimal, readable.
+   No gimmicks. Just good typography and space.
+   ============================================ */
+
+.resume-page {
+    --resume-shell-width: min(calc(100% - (var(--space-4) * 2)), 840px);
+}
+
+@media screen and (min-width: 76.25rem) {
+    .resume-page .md-sidebar--primary,
+    .resume-page .md-sidebar--secondary {
+        display: none !important;
+    }
+}
+
+.resume-page .md-content__inner {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-9);
+}
+
+.resume-page .md-main__inner,
+.resume-page .md-content {
+    width: 100%;
+    max-width: none;
+}
+
+.resume-page .md-content {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* Hero */
+.mlad-resume-hero {
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
+    margin: 0 auto var(--space-7);
+    padding: 0;
+}
+
+.mlad-resume-hero h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    line-height: var(--leading-h1);
+    letter-spacing: var(--tracking-h1);
+    margin: 0 0 var(--space-3);
+    color: var(--ink);
+}
+
+.mlad-resume-hero__subtitle {
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--slate);
+    max-width: 60ch;
+    margin-bottom: var(--space-4);
+}
+
+.mlad-resume-hero__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+.mlad-resume-hero__links a {
+    font-size: var(--text-caption);
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--stone);
+    padding-bottom: 2px;
+    transition: border-color var(--dur-swift) var(--ease-swift),
+        color var(--dur-swift) var(--ease-swift);
+}
+
+.mlad-resume-hero__links a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Section titles */
+.mlad-resume-section-title {
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: 600;
+    line-height: var(--leading-h3);
+    letter-spacing: var(--tracking-h3);
+    color: var(--ink);
+    margin: var(--space-7) auto var(--space-4);
+    padding: 0 0 var(--space-3);
+    border-bottom: 1px solid var(--stone);
+}
+
+/* At a glance */
+.mlad-glance {
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.mlad-glance ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+}
+
+.mlad-glance li {
+    position: relative;
+    padding-left: 0.9rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--slate);
+}
+
+.mlad-glance li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 4px;
+    height: 1px;
+    background: var(--stone);
+}
+
+/* Experience */
+.mlad-experience {
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.mlad-experience__entry {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.mlad-experience__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-1) var(--space-4);
+}
+
+.mlad-experience__header h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0;
+    color: var(--ink);
+}
+
+.mlad-experience__date {
+    font-size: var(--text-caption);
+    font-weight: 400;
+    color: var(--slate);
+    white-space: nowrap;
+}
+
+.mlad-experience__content p,
+.mlad-experience__content ul {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--slate);
+    margin: 0;
+}
+
+.mlad-experience__content ul {
+    padding-left: 1.1rem;
+    margin-top: var(--space-2);
+}
+
+.mlad-experience__content li {
+    margin-bottom: 0.4rem;
+}
+
+.mlad-experience__content li:last-child {
+    margin-bottom: 0;
+}
+
+/* Skills */
+.mlad-skills-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.mlad-skills-group h4 {
+    font-size: var(--text-caption);
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 var(--space-2);
+}
+
+.mlad-skills-group p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--slate);
+    margin: 0;
+}
+
+/* Selected work */
+.mlad-work-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    box-sizing: border-box;
+    width: var(--resume-shell-width);
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.mlad-work-item h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 var(--space-1);
+    color: var(--ink);
+}
+
+.mlad-work-item p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--slate);
+    margin: 0;
+}
+
+/* Mobile */
+@media screen and (max-width: 60rem) {
+    .resume-page .md-content__inner {
+        padding-top: var(--space-5);
+        padding-bottom: var(--space-7);
+    }
+
+    .mlad-resume-hero,
+    .mlad-resume-section-title,
+    .mlad-experience,
+    .mlad-skills-grid,
+    .mlad-work-grid,
+    .mlad-glance {
+        text-align: left;
+    }
+
+    .mlad-resume-hero h1 {
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+    }
+
+    .mlad-resume-hero__subtitle {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .mlad-resume-hero__links {
+        justify-content: flex-start;
+    }
+
+    .mlad-resume-section-title {
+        margin-top: var(--space-6);
+    }
+
+    .mlad-experience {
+        gap: var(--space-5);
+    }
+
+    .mlad-experience__header {
+        flex-direction: column;
+        gap: var(--space-1);
+    }
+
+    .mlad-experience__date {
+        white-space: normal;
+    }
+
+    .mlad-skills-grid,
+    .mlad-work-grid {
+        gap: var(--space-4);
+    }
+}
