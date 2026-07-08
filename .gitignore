@@ -54,3 +54,6 @@ scripts/rust/target/
 
 # Temporary files folder - never commit
 tmp/
+
+# Local scratch pad - never commit
+scratch/
