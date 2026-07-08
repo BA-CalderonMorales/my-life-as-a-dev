@@ -40,8 +40,6 @@
 }
 
 .landing-page .md-content__inner {
-    position: relative;
-    z-index: 2;
     background: transparent;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
