@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-07-07 22:31:30 UTC
+#   Generated: 2026-07-08 07:08:36 UTC
 #
 # ##############################################################################
 
@@ -18,7 +18,7 @@ site_name = "Brandon's Simplified Life"
 site_description = "A collection of notes, resources, and tools for developers, engineers, and tech enthusiasts."
 site_author = "Brandon Calderon-Morales"
 site_url = "https://ba-calderonmorales.github.io/my-life-as-a-dev/"
-copyright = "Copyright &copy; 2024-2025 Brandon Calderon-Morales"
+copyright = "Copyright &copy; 2024-2026 Brandon Calderon-Morales"
 repo_url = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
 repo_name = "BA-CalderonMorales/my-life-as-a-dev"
 edit_uri = "edit/main/docs/"
