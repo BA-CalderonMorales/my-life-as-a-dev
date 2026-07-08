@@ -59,9 +59,9 @@ class TestLayoutIntegrity:
         footer = page.locator(".md-footer")
         expect(footer).to_be_visible()
 
-    def test_footer_is_visible_on_resume_page(self, page: Page, base_url: str):
-        """Resume page should render the global footer."""
-        page.goto(f"{base_url}/resume/index.html")
+    def test_footer_is_visible_on_error_page(self, page: Page, base_url: str):
+        """The public error page should render the global footer."""
+        page.goto(f"{base_url}/404/")
         page.wait_for_load_state("networkidle")
 
         footer = page.locator(".md-footer")

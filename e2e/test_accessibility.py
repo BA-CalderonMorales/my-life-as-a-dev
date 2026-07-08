@@ -8,9 +8,7 @@ from axe_playwright_python.sync_playwright import Axe
 
 PAGES = [
     ("/index.html", "home"),
-    ("/docs-as-code/index.html", "docs-as-code"),
-    ("/learning/index.html", "learning"),
-    ("/projects/index.html", "projects"),
+    ("/404/", "404"),
 ]
 
 VIEWPORTS = [

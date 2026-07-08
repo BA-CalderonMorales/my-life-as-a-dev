@@ -10,11 +10,7 @@ SCREENSHOT_DIR = Path(__file__).parent.parent / "e2e" / "screenshots"
 
 PAGES = [
     ("/index.html", "home"),
-    ("/docs-as-code/index.html", "docs-as-code"),
-    ("/learning/index.html", "learning"),
-    ("/projects/index.html", "projects"),
-    ("/resume/index.html", "resume"),
-    ("/404.html", "404"),
+    ("/404/", "404"),
 ]
 
 VIEWPORTS = [

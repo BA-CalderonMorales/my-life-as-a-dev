@@ -228,6 +228,70 @@
     margin: 0;
 }
 
+.landing-section-work {
+    text-align: left;
+}
+
+.landing-section-work > h2 {
+    width: min(100%, 74rem);
+    margin: 0 auto var(--space-5);
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    line-height: 1;
+    letter-spacing: 0;
+}
+
+.landing-work-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: min(100%, 74rem);
+    margin: 0 auto;
+    border-top: 1px solid color-mix(in srgb, var(--stone) 82%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--stone) 82%, transparent);
+}
+
+.landing-work-item {
+    min-height: 12rem;
+    padding: var(--space-4);
+    border-left: 1px solid color-mix(in srgb, var(--stone) 72%, transparent);
+}
+
+.landing-work-item:first-child {
+    border-left: 0;
+}
+
+.landing-work-item__title,
+.landing-work-item__copy {
+    margin: 0;
+}
+
+.landing-work-item__title {
+    max-width: 15ch;
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+.landing-work-item__copy {
+    max-width: 24ch;
+    margin-top: var(--space-4);
+    color: var(--slate);
+    font-size: var(--text-caption);
+    line-height: 1.55;
+}
+
+.landing-bio {
+    max-width: 62ch;
+    margin: var(--space-6) auto 0;
+    color: var(--ink);
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    line-height: 1.65;
+    text-align: center;
+}
+
 /* ============================================
    Stats — Credibility at a Glance
    ============================================ */
@@ -417,9 +481,40 @@
     .landing-page .grid.cards > li,
     .landing-page .grid.cards > ul > li,
     .landing-page .grid > blockquote,
+    .landing-section-work,
     .mlad-now,
     .mlad-type-specimen {
         text-align: center;
+    }
+
+    .landing-section-work > h2 {
+        width: min(100%, 38rem);
+        margin-bottom: var(--space-4);
+    }
+
+    .landing-work-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: min(100%, 38rem);
+    }
+
+    .landing-work-item {
+        min-height: 10rem;
+        border-left: 0;
+        border-top: 1px solid color-mix(in srgb, var(--stone) 72%, transparent);
+    }
+
+    .landing-work-item:nth-child(-n + 2) {
+        border-top: 0;
+    }
+
+    .landing-work-item:nth-child(even) {
+        border-left: 1px solid color-mix(in srgb, var(--stone) 72%, transparent);
+    }
+
+    .landing-work-item__title,
+    .landing-work-item__copy {
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .mlad-now ul {
@@ -468,5 +563,19 @@
 
     .mlad-stats__number {
         font-size: 1.75rem;
+    }
+
+    .landing-work-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .landing-work-item,
+    .landing-work-item:nth-child(even) {
+        min-height: auto;
+        border-left: 0;
+    }
+
+    .landing-work-item:nth-child(2) {
+        border-top: 1px solid color-mix(in srgb, var(--stone) 72%, transparent);
     }
 }

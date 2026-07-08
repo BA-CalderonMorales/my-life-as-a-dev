@@ -28,8 +28,22 @@
     return [0, 0, 0];
   }
 
+  function tokenScopeElement() {
+    if (document.body && document.body.hasAttribute("data-md-color-scheme")) {
+      return document.body;
+    }
+    if (document.documentElement.hasAttribute("data-md-color-scheme")) {
+      return document.documentElement;
+    }
+    return document.querySelector("[data-md-color-scheme]") || document.documentElement;
+  }
+
   function readToken(name, fallback) {
-    var raw = getComputedStyle(document.documentElement).getPropertyValue(name);
+    var scope = tokenScopeElement();
+    var raw = getComputedStyle(scope).getPropertyValue(name);
+    if ((!raw || !raw.trim()) && scope !== document.documentElement) {
+      raw = getComputedStyle(document.documentElement).getPropertyValue(name);
+    }
     if (!raw || !raw.trim()) return parseColor(fallback);
     return parseColor(raw);
   }

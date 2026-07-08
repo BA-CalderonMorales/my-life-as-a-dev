@@ -32,15 +32,29 @@ The fastest way to reach me is email or one of the links below.
 
 </section>
 
-<section class="md-typeset" markdown>
+<section class="md-typeset landing-section-work" markdown>
 
 ## What I work on
 
-- **Delivery infrastructure** — predictable setup and repeatable release paths.
-- **Docs-as-code systems** — documentation that lowers onboarding and support cost.
-- **AI-assisted workflows** — practical guardrails and clear handoffs.
-- **Remediation patterns** — moving security from heroic effort to team habit.
+<div class="landing-work-grid">
+  <div class="landing-work-item">
+    <p class="landing-work-item__title">Delivery infrastructure</p>
+    <p class="landing-work-item__copy">Predictable setup and repeatable release paths.</p>
+  </div>
+  <div class="landing-work-item">
+    <p class="landing-work-item__title">Docs-as-code systems</p>
+    <p class="landing-work-item__copy">Documentation that lowers onboarding and support cost.</p>
+  </div>
+  <div class="landing-work-item">
+    <p class="landing-work-item__title">AI-assisted workflows</p>
+    <p class="landing-work-item__copy">Practical guardrails and clear handoffs.</p>
+  </div>
+  <div class="landing-work-item">
+    <p class="landing-work-item__title">Remediation patterns</p>
+    <p class="landing-work-item__copy">Moving security from heroic effort to team habit.</p>
+  </div>
+</div>
 
-I am a Marine Corps veteran turned engineer, based in Omaha, Nebraska, and bilingual in English and Spanish.
+<p class="landing-bio">I am a Marine Corps veteran turned engineer, based in Omaha, Nebraska, and bilingual in English and Spanish.</p>
 
 </section>

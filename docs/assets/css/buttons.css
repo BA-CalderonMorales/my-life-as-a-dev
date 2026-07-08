@@ -45,7 +45,7 @@
 .md-button.md-button--primary {
     background: var(--accent) !important;
     background-color: var(--accent) !important;
-    color: var(--canvas) !important;
+    color: var(--accent-contrast) !important;
     border-color: transparent !important;
     box-shadow: none;
 }

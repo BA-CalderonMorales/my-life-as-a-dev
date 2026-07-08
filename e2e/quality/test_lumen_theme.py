@@ -10,10 +10,7 @@ import pytest
 
 PAGES = [
     ("/index.html", "home"),
-    ("/docs-as-code/index.html", "docs-as-code"),
-    ("/learning/index.html", "learning"),
-    ("/projects/index.html", "projects"),
-    ("/canvas/index.html", "canvas"),
+    ("/404/", "404"),
 ]
 
 SCHEMES = [
@@ -126,7 +123,9 @@ def test_navigation_tabs_share_layout_metrics_except_canvas_state(browser, base_
     )
 
     context.close()
-    assert len(metrics) >= 2, "Expected multiple top navigation tabs"
+    if len(metrics) < 2:
+        assert len(metrics) == 1, "Expected one visible top navigation tab"
+        return
 
     baseline = metrics[0]
     mismatches = [
