@@ -499,16 +499,6 @@
 
     .landing-work-item {
         min-height: 10rem;
-        border-left: 0;
-        border-top: 1px solid color-mix(in srgb, var(--stone) 72%, transparent);
-    }
-
-    .landing-work-item:nth-child(-n + 2) {
-        border-top: 0;
-    }
-
-    .landing-work-item:nth-child(even) {
-        border-left: 1px solid color-mix(in srgb, var(--stone) 72%, transparent);
     }
 
     .landing-work-item__title,
@@ -572,10 +562,168 @@
     .landing-work-item,
     .landing-work-item:nth-child(even) {
         min-height: auto;
-        border-left: 0;
+    }
+}
+
+/* ============================================
+   HOME PAGE REFRESH — mode-aware contrast + atmosphere
+   Scoped to .landing-page. No copy is changed; every color
+   is token-derived so it flips cleanly with the palette and
+   never fights text contrast in light or dark mode.
+   ============================================ */
+
+body.landing-page {
+    /* Near-opaque surface keeps text contrast regardless of the
+       atmospheric wash sitting behind it. */
+    --home-panel: color-mix(in srgb, var(--surface-raised) 95%, transparent);
+    --home-rule: color-mix(in srgb, var(--stone) 88%, transparent);
+    --home-muted: var(--slate);
+}
+
+/* Atmosphere: two soft accent glows + a calm graded wash.
+   Purely decorative, pinned behind everything (z-index:-1). */
+body.landing-page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(1100px 560px at 82% -12%,
+            color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%),
+        radial-gradient(820px 520px at 2% 4%,
+            color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%),
+        linear-gradient(180deg,
+            color-mix(in srgb, var(--surface-muted) 55%, var(--canvas)),
+            var(--canvas) 44%);
+}
+
+/* Faint dot grid, masked to fade out below the hero. */
+body.landing-page::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(circle, var(--stone) 1px, transparent 1.5px);
+    background-size: 24px 24px;
+    -webkit-mask-image: radial-gradient(130% 70% at 50% -6%, #000 0%, transparent 72%);
+    mask-image: radial-gradient(130% 70% at 50% -6%, #000 0%, transparent 72%);
+    opacity: 0.55;
+}
+
+/* Hero: a calm, high-contrast surface so the name and pitch
+   always read clearly over any palette. */
+.landing-page .tx-hero {
+    min-height: min(680px, calc(100vh - 9rem));
+}
+
+.landing-page .tx-hero__content {
+    padding: var(--space-6) clamp(var(--space-5), 6vw, var(--space-7));
+    text-align: center;
+    background: var(--home-panel);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-soft);
+    box-shadow: var(--shadow-medium);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    backdrop-filter: blur(10px) saturate(120%);
+}
+
+.landing-page .tx-hero__content h1 {
+    margin-top: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 6vw, 4.25rem);
+    line-height: var(--leading-hero);
+    letter-spacing: var(--tracking-hero);
+    color: var(--ink);
+}
+
+.landing-page .tx-hero__content p {
+    color: var(--home-muted);
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    line-height: var(--leading-body);
+}
+
+/* Contact band reads as a quiet, bordered panel. */
+.landing-page .landing-section-contact {
+    padding: var(--space-5) var(--space-4);
+    background: color-mix(in srgb, var(--surface-muted) 45%, transparent);
+    border: 1px solid var(--home-rule);
+    border-radius: var(--radius-soft);
+}
+
+/* "What I work on": the rule table becomes legible cards that
+   hold contrast in both modes. */
+.landing-page .landing-work-grid {
+    gap: var(--space-3);
+    border: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.landing-page .landing-work-item {
+    min-height: 12rem;
+    border: 1px solid var(--home-rule);
+    border-radius: var(--radius-soft);
+    background: var(--home-panel);
+    box-shadow: var(--shadow-subtle);
+    transition:
+        transform var(--dur-swift) var(--ease-swift),
+        border-color var(--dur-swift) var(--ease-swift),
+        box-shadow var(--dur-swift) var(--ease-swift);
+}
+
+.landing-page .landing-work-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-medium);
+}
+
+.landing-page .landing-work-item__title {
+    color: var(--ink);
+    font-size: var(--text-micro);
+}
+
+.landing-page .landing-work-item__copy {
+    color: var(--home-muted);
+    font-size: var(--text-caption);
+}
+
+/* Mode-aware button contrast guard for the home page.
+   Light mode gets the darker accent so white label text
+   clears AA; dark mode keeps its already-bright accent. */
+[data-md-color-scheme="default"] .landing-page .md-button--primary {
+    background-color: var(--accent-hover);
+    color: var(--accent-contrast);
+}
+
+[data-md-color-scheme="slate"] .landing-page .md-button--primary {
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+}
+
+/* Mobile: keep the card rhythm tidy and the hero compact. */
+@media screen and (max-width: 60rem) {
+    .landing-page .tx-hero {
+        min-height: auto;
     }
 
-    .landing-work-item:nth-child(2) {
-        border-top: 1px solid color-mix(in srgb, var(--stone) 72%, transparent);
+    .landing-page .landing-work-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: min(100%, 38rem);
+    }
+
+    .landing-page .landing-work-item {
+        min-height: 10rem;
+    }
+}
+
+@media screen and (max-width: 48rem) {
+    .landing-page .landing-work-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .landing-page .landing-work-item,
+    .landing-page .landing-work-item:nth-child(even) {
+        min-height: auto;
     }
 }
