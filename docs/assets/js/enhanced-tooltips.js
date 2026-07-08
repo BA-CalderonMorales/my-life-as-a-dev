@@ -284,6 +284,12 @@
             // Icons always need tooltips - no truncation check
             addTooltip(repoLink, 'View source repository', false);
         }
+
+        // Logo link
+        const logo = document.querySelector('[data-md-component="logo"]');
+        if (logo && !logo.hasAttribute('data-custom-tooltip')) {
+            addTooltip(logo, 'Home', false);
+        }
     }
 
     /**
