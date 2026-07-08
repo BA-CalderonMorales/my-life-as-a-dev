@@ -1,0 +1,91 @@
+/* =====================================================
+   Creative Canvas — generative hero subsystem
+   -----------------------------------------------------
+   Self-contained, modular, token-driven hero visual.
+   - .creative-canvas is the page backdrop (filled by
+     main.js with a <canvas> + an SVG grain overlay).
+   - The container paints a static token-colored gradient
+     so there is always a calm backdrop (also the
+     prefers-reduced-motion fallback).
+   - Sketches (WebGL aurora, Canvas2D particles) draw on
+     top when motion is allowed.
+   ===================================================== */
+
+.creative-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  pointer-events: none;
+  contain: paint;
+  background:
+    radial-gradient(120% 90% at 18% 12%, var(--creative-canvas-accent-soft) 0%, transparent 55%),
+    radial-gradient(120% 120% at 88% 88%, var(--creative-canvas-glow) 0%, transparent 60%),
+    linear-gradient(
+      var(--creative-canvas-fallback-angle),
+      var(--creative-canvas-bg-1) 0%,
+      var(--creative-canvas-bg-2) 55%,
+      var(--creative-canvas-bg-3) 100%
+    );
+}
+
+.creative-canvas__gl,
+.creative-canvas__grain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.creative-canvas__gl {
+  /* The sketch clears to transparent, letting the static
+     gradient show through where the visual is calm. */
+  opacity: 0;
+  transition: opacity 600ms var(--dur-smooth, ease);
+}
+
+.creative-canvas.is-ready .creative-canvas__gl {
+  opacity: 1;
+}
+
+.creative-canvas__grain {
+  opacity: var(--creative-canvas-grain-opacity, 0.05);
+  mix-blend-mode: overlay;
+}
+
+/* Static fallback: no WebGL / reduced motion keeps the
+   calm CSS gradient and never paints the live canvas. */
+.creative-canvas.is-static .creative-canvas__gl {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creative-canvas__gl {
+    display: none;
+  }
+  .creative-canvas__grain {
+    opacity: calc(var(--creative-canvas-grain-opacity, 0.05) * 0.6);
+  }
+}
+
+/* On the landing page the canvas is the page backdrop, so the standard
+   Material surfaces must be transparent to let it show through. */
+.landing-page .md-main,
+.landing-page .md-main__inner,
+.landing-page .md-content {
+  background: transparent;
+}
+
+/* Keep readable UI above the fixed backdrop without letting the backdrop
+   intercept input or introduce horizontal overflow. */
+.landing-page .md-container,
+.landing-page .md-main,
+.landing-page .md-content,
+.landing-page .md-footer {
+  position: relative;
+  z-index: 1;
+}
