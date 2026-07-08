@@ -14,23 +14,13 @@ from urllib.parse import urlparse
 import pytest
 from playwright.sync_api import Page, expect
 
+from ..shared.utils import chat_assistant_enabled
+
 
 PROMPT_ROUTES: List[str] = [
     "/",
     "/index.html",
-    "/learning/",
-    "/learning/algorithms/",
-    "/learning/algorithms/sliding_window/",
-    "/learning/algorithms/dynamic_programming/",
-    "/learning/algorithms/two_pointers/",
-    "/learning/algorithms/backtracking/",
-    "/learning/data_structures/",
-    "/learning/cloud_ai/",
-    "/learning/cloud_ai/vertex_ai/",
-    "/projects/",
-    "/projects/active/",
-    "/docs-as-code/ai/",
-    "/resume/",
+    "/404/",
 ]
 
 SERVICE_MODES = ["nvidia", "go_fallback"]
@@ -43,7 +33,7 @@ def response_for(service: str, prompt: str) -> str:
             "| Project | What it does | Key links |\n"
             "|---|---|---|\n"
             f"| My Life as a Dev | Answers: {prompt} <br> Uses the docs site as source of truth. "
-            "| [Docs](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/) "
+            "| [Home](https://ba-calderonmorales.github.io/my-life-as-a-dev/) "
             "[GitHub](https://github.com/BA-CalderonMorales/my-life-as-a-dev) "
             "[Untrusted](https://unknown.example.com/fake) |\n"
             "---\n"
@@ -145,6 +135,10 @@ def page_url(base_url: str, route_path: str) -> str:
 
 @pytest.mark.parametrize("route_path", PROMPT_ROUTES)
 @pytest.mark.parametrize("service_mode", SERVICE_MODES)
+@pytest.mark.skipif(
+    not chat_assistant_enabled(),
+    reason="Ask AI chat assistant is disabled by feature flag",
+)
 def test_suggested_chat_questions_render_clean_trusted_responses(
     page: Page, base_url: str, route_path: str, service_mode: str
 ):

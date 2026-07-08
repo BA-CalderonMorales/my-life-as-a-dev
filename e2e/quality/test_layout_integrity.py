@@ -1,9 +1,9 @@
 """
 Layout integrity e2e tests.
-Ensures the Three.js background does not break MkDocs Material core styles.
+Ensures the single-page shell does not break MkDocs Material core styles.
 
 These tests verify that:
-1. Navigation sidebar renders properly
+1. Single-page navigation chrome stays hidden
 2. Header/footer remain visible
 3. Content is readable and properly positioned
 4. Responsive layouts work across device sizes
@@ -14,7 +14,7 @@ from playwright.sync_api import Page, expect
 
 
 class TestLayoutIntegrity:
-    """Tests to ensure Three.js background doesn't break MkDocs layout."""
+    """Tests to ensure the page backdrop doesn't break MkDocs layout."""
 
     @pytest.fixture(autouse=True)
     def navigate_to_home(self, page: Page, base_url: str):
@@ -33,10 +33,10 @@ class TestLayoutIntegrity:
         assert box["y"] >= 0, "Header should be at or near top of viewport"
         assert box["y"] < 100, "Header should be near the top"
 
-    def test_navigation_tabs_visible(self, page: Page):
-        """Navigation tabs should be visible."""
+    def test_navigation_tabs_hidden_for_single_page_shell(self, page: Page):
+        """A lone Home item should not render as a docs-style tab bar."""
         tabs = page.locator(".md-tabs")
-        expect(tabs).to_be_visible()
+        expect(tabs).to_have_count(0)
 
     def test_main_content_visible(self, page: Page):
         """Main content area should be visible."""
@@ -124,29 +124,20 @@ class TestLayoutIntegrity:
 
     def test_content_is_readable(self, page: Page):
         """Content text should have proper z-index above background."""
-        # Check that content inner is above the background
         content_inner = page.locator(".md-content__inner")
         expect(content_inner).to_be_visible()
 
-        # Get computed z-index
-        z_index = page.evaluate(
-            "window.getComputedStyle(document.querySelector('.md-content__inner')).zIndex"
-        )
-        # z-index should be set (not 'auto') or be a positive number
-        assert z_index != "auto" or True  # Allow auto if position is relative
+    def test_creative_canvas_is_behind_content(self, page: Page):
+        """Creative canvas should layer below the readable UI chrome."""
+        container = page.locator(".creative-canvas")
 
-    def test_threejs_container_is_behind_content(self, page: Page):
-        """Three.js container should layer below the readable UI chrome."""
-        container = page.locator("#threejs-bg-container")
-
-        # Container may not exist if WebGL is disabled
         if container.count() == 0:
-            pytest.skip("Three.js container not present (WebGL may be disabled)")
+            pytest.skip("Creative canvas is disabled by feature flag")
 
         layers = page.evaluate("""() => {
             const readZ = (selector) => window.getComputedStyle(document.querySelector(selector)).zIndex;
             return {
-                container: readZ('#threejs-bg-container'),
+                container: readZ('.creative-canvas'),
                 content: readZ('.md-content'),
                 header: readZ('.md-header'),
             };
@@ -160,35 +151,35 @@ class TestLayoutIntegrity:
         header_z = to_int(layers["header"])
 
         assert container_z < content_z, (
-            "Three.js container should layer below content. "
+            "Creative canvas should layer below content. "
             f"Computed z-indexes: {layers}"
         )
         assert container_z < header_z, (
-            "Three.js container should layer below the header. "
+            "Creative canvas should layer below the header. "
             f"Computed z-indexes: {layers}"
         )
 
-    def test_threejs_container_is_fixed_position(self, page: Page):
-        """Three.js container should use fixed positioning."""
-        container = page.locator("#threejs-bg-container")
+    def test_creative_canvas_is_fixed_position(self, page: Page):
+        """Creative canvas should use fixed positioning."""
+        container = page.locator(".creative-canvas")
 
         if container.count() == 0:
-            pytest.skip("Three.js container not present")
+            pytest.skip("Creative canvas is disabled by feature flag")
 
         position = page.evaluate(
-            "window.getComputedStyle(document.querySelector('#threejs-bg-container')).position"
+            "window.getComputedStyle(document.querySelector('.creative-canvas')).position"
         )
         assert position == "fixed", f"Container should be position:fixed, got {position}"
 
-    def test_threejs_container_has_no_pointer_events(self, page: Page):
-        """Three.js container should not intercept mouse events."""
-        container = page.locator("#threejs-bg-container")
+    def test_creative_canvas_has_no_pointer_events(self, page: Page):
+        """Creative canvas should not intercept mouse events."""
+        container = page.locator(".creative-canvas")
 
         if container.count() == 0:
-            pytest.skip("Three.js container not present")
+            pytest.skip("Creative canvas is disabled by feature flag")
 
         pointer_events = page.evaluate(
-            "window.getComputedStyle(document.querySelector('#threejs-bg-container')).pointerEvents"
+            "window.getComputedStyle(document.querySelector('.creative-canvas')).pointerEvents"
         )
         assert pointer_events == "none", f"Container should have pointer-events:none, got {pointer_events}"
 
@@ -252,13 +243,13 @@ class TestResponsiveLayout:
         )
 
     @pytest.mark.parametrize("name,width,height", VIEWPORT_SIZES)
-    def test_threejs_does_not_overflow(self, page_at_size, name: str, width: int, height: int):
-        """Three.js container should not cause overflow."""
+    def test_creative_canvas_does_not_overflow(self, page_at_size, name: str, width: int, height: int):
+        """Creative canvas should not cause overflow."""
         page = page_at_size(width, height)
 
-        container = page.locator("#threejs-bg-container")
+        container = page.locator(".creative-canvas")
         if container.count() == 0:
-            pytest.skip("Three.js container not present")
+            pytest.skip("Creative canvas is disabled by feature flag")
 
         # Container should be contained within viewport
         box = container.bounding_box()
@@ -268,77 +259,33 @@ class TestResponsiveLayout:
             assert box["height"] <= height + 1, f"Container height {box['height']} exceeds viewport {height}"
 
 
-class TestSidebarNavigation:
-    """Tests for sidebar navigation integrity."""
+class TestSinglePageNavigation:
+    """Tests for the intentional Home + 404 public surface."""
 
-    # Note: Each test creates its own context with specific viewport,
-    # so we don't use an autouse fixture here.
+    PUBLIC_PATHS = ("/index.html", "/404/")
 
-    def test_sidebar_is_visible_on_desktop(self, browser, base_url: str):
-        """Sidebar should be visible on wide desktop viewports when present."""
-        # Use 1920px width - very wide viewport where sidebars should show
-        context = browser.new_context(viewport={"width": 1920, "height": 1080})
-        page = context.new_page()
-        # Use algorithms page which has sidebar navigation (not a landing page)
-        page.goto(f"{base_url}/learning/algorithms/index.html", timeout=60000)
-        page.wait_for_load_state("networkidle")
-        
-        # Give time for sidebar content to render
-        page.wait_for_timeout(1000)
-
-        # Check if sidebar has visible navigation links (some nav items are collapsed)
-        visible_nav = page.locator(".md-sidebar--primary .md-nav__item:visible")
-        if visible_nav.count() > 0:
-            # At least some nav items should be visible on wide desktop
-            assert visible_nav.count() > 0, "Sidebar should have visible navigation items"
-        # If no visible nav items, sidebar is collapsed which is acceptable
-
-        context.close()
-
-    def test_sidebar_navigation_clickable(self, browser, base_url: str):
-        """Sidebar navigation links should be clickable."""
-        # Use 1440px width - sidebars hidden below ~1220px in MkDocs Material
+    @pytest.mark.parametrize("path", PUBLIC_PATHS)
+    def test_public_pages_do_not_show_primary_nav_links(self, browser, base_url: str, path: str):
         context = browser.new_context(viewport={"width": 1440, "height": 900})
         page = context.new_page()
-        # Use algorithms page which has sidebar navigation
-        page.goto(f"{base_url}/learning/algorithms/index.html", timeout=60000)
-        page.wait_for_load_state("domcontentloaded")
+        try:
+            page.goto(f"{base_url}{path}", timeout=60000)
+            page.wait_for_load_state("networkidle")
 
-        # Find a visible navigation link in the sidebar
-        nav_links = page.locator(".md-sidebar--primary .md-nav__link:visible")
+            visible_nav_links = page.locator(".md-sidebar--primary .md-nav__link:visible")
+            expect(page.locator(".md-tabs")).to_have_count(0)
+            assert visible_nav_links.count() == 0
+        finally:
+            context.close()
 
-        if nav_links.count() > 0:
-            first_link = nav_links.first
-            expect(first_link).to_be_visible(timeout=10000)
-
-            # Should be clickable (pointer-events not blocked)
-            handle = first_link.element_handle(timeout=5000)
-            if handle:
-                pointer_events = page.evaluate(
-                    "el => window.getComputedStyle(el).pointerEvents",
-                    handle
-                )
-                assert pointer_events != "none", "Sidebar links should be clickable"
-        # No visible links is okay on some page structures
-
-        context.close()
-
-    def test_toc_sidebar_visible_on_desktop(self, browser, base_url: str):
-        """Table of contents sidebar should be visible on wide desktop when present."""
-        # Use 1920px width - very wide viewport
-        context = browser.new_context(viewport={"width": 1920, "height": 1080})
+    def test_mobile_home_has_no_hamburger_drawer_trigger(self, browser, base_url: str):
+        context = browser.new_context(viewport={"width": 390, "height": 844})
         page = context.new_page()
-        # Use algorithms page which has TOC content
-        page.goto(f"{base_url}/learning/algorithms/index.html", timeout=60000)
-        page.wait_for_load_state("networkidle")
-        
-        # Give time for TOC content to render
-        page.wait_for_timeout(1000)
+        try:
+            page.goto(f"{base_url}/index.html", timeout=60000)
+            page.wait_for_load_state("networkidle")
 
-        # Check if TOC has actual links (page needs headings for TOC)
-        toc_links = page.locator(".md-sidebar--secondary .md-nav__link")
-        if toc_links.count() > 0:
-            expect(toc_links.first).to_be_visible(timeout=5000)
-        # If no TOC links, page may not have enough headings which is acceptable
-
-        context.close()
+            expect(page.locator("label.mlad-hamburger")).to_have_count(0)
+            assert page.locator(".md-nav--primary a.md-nav__link").count() == 0
+        finally:
+            context.close()

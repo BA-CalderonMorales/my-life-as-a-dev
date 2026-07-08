@@ -1,6 +1,6 @@
 """
 Lumen theme regression tests.
-Checks shared light/dark contrast and top-tab consistency across key pages.
+Checks shared light/dark contrast and single-page chrome across key pages.
 """
 
 import re
@@ -39,10 +39,17 @@ def _set_color_scheme(page, scheme: str):
 
 
 def _rgb_to_tuple(value: str):
-    match = re.search(r"rgba?\(([^)]+)\)", value)
-    assert match, f"Expected rgb/rgba color, got {value}"
-    parts = [float(part.strip()) for part in match.group(1).split(",")[:3]]
-    return tuple(parts)
+    rgb_match = re.search(r"rgba?\(([^)]+)\)", value)
+    if rgb_match:
+        parts = [float(part.strip()) for part in rgb_match.group(1).split(",")[:3]]
+        return tuple(parts)
+
+    color_match = re.search(r"color\(srgb\s+([^)/]+)", value)
+    if color_match:
+        parts = [float(part.strip()) for part in color_match.group(1).split()[:3]]
+        return tuple(part * 255 if part <= 1 else part for part in parts)
+
+    raise AssertionError(f"Expected rgb/rgba/color(srgb) color, got {value}")
 
 
 def _linearize(channel: float) -> float:
@@ -101,35 +108,13 @@ def test_lumen_core_surfaces_meet_text_contrast(browser, base_url, url_path, nam
 
 
 @pytest.mark.parametrize("url_path,name", PAGES)
-def test_navigation_tabs_share_layout_metrics_except_canvas_state(browser, base_url, url_path, name):
+def test_public_pages_do_not_render_top_tabs(browser, base_url, url_path, name):
     context = browser.new_context(viewport={"width": 1440, "height": 900})
     page = context.new_page()
     page.goto(f"{base_url}{url_path}", wait_until="networkidle")
 
-    metrics = page.locator(".md-tabs__link:visible").evaluate_all(
-        """(links) => links.map((link) => {
-            const styles = window.getComputedStyle(link);
-            const rect = link.getBoundingClientRect();
-            return {
-                height: Math.round(rect.height),
-                paddingLeft: styles.paddingLeft,
-                paddingRight: styles.paddingRight,
-                background: styles.backgroundColor,
-                borderRadius: styles.borderRadius,
-                fontSize: styles.fontSize,
-                textTransform: styles.textTransform,
-            };
-        })"""
-    )
+    tab_links = page.locator(".md-tabs__link:visible")
+    count = tab_links.count()
 
     context.close()
-    if len(metrics) < 2:
-        assert len(metrics) == 1, "Expected one visible top navigation tab"
-        return
-
-    baseline = metrics[0]
-    mismatches = [
-        metric for metric in metrics[1:]
-        if metric != baseline
-    ]
-    assert not mismatches, f"Top navigation tabs should share layout metrics on {name}: {mismatches}"
+    assert count == 0, f"Expected no visible top navigation tabs on {name}, got {count}"

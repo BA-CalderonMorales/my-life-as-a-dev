@@ -1,11 +1,8 @@
 {#-
   Tab bar override.
 
-  Renders only the top-level navigation items whose feature flag is enabled in
-  config.extra.features.tabs. This keeps the landing page (Home) as the sole
-  visible tab by default while preserving the other top-level sections in the
-  navigation (reachable via the hamburger menu) so they can be re-enabled later
-  without resurrecting code.
+  Renders only when at least two top-level navigation items are enabled. A
+  single Home item is the landing page state, not a tab bar.
 
   Flag keys (see config/zensical/08-features.toml):
     Home -> home, Learning -> learning, Docs-as-Code -> docs_as_code,
@@ -15,7 +12,7 @@
 {% set feature_flags = config.extra.features | default(value={}) %}
 {% set tab_flags = feature_flags.tabs | default(value={}) %}
 
-{% set ns = namespace(enabled=false, any=false) %}
+{% set ns = namespace(enabled=false, count=0) %}
 {% for nav_item in nav.items %}
   {% set ns.enabled = false %}
   {% if nav_item.title == "Home" %}{% set ns.enabled = tab_flags.home | default(value=false) %}
@@ -25,10 +22,10 @@
   {% elif nav_item.title == "Canvas" %}{% set ns.enabled = tab_flags.canvas | default(value=false) %}
   {% elif nav_item.title == "About Me" %}{% set ns.enabled = tab_flags.about_me | default(value=false) %}
   {% endif %}
-  {% if ns.enabled %}{% set ns.any = true %}{% endif %}
+  {% if ns.enabled %}{% set ns.count = ns.count + 1 %}{% endif %}
 {% endfor %}
 
-{% if ns.any %}
+{% if ns.count > 1 %}
 <nav class="md-tabs" aria-label="{{ lang.t('tabs') }}" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">

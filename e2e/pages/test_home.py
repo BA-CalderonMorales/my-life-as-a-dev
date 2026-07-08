@@ -37,10 +37,10 @@ class TestHomePage:
         for heading in headings:
             assert not has_emoji(heading), f"Found emoji in heading: {heading}"
 
-    def test_navigation_tabs_visible(self, page: Page):
-        """Navigation tabs should be visible."""
+    def test_navigation_tabs_hidden(self, page: Page):
+        """A lone Home item should not render as a docs-style tab bar."""
         tabs = page.locator(".md-tabs")
-        expect(tabs).to_be_visible()
+        expect(tabs).to_have_count(0)
 
     def test_buttons_render_correctly(self, page: Page):
         """Buttons should render without raw attribute syntax."""
@@ -50,13 +50,10 @@ class TestHomePage:
         filtered = [i for i in issues if "button" in i.lower()]
         assert not filtered, f"Raw markdown issues: {filtered}"
 
-    def test_project_cards_visible(self, page: Page):
-        """Project cards should be visible on the page."""
-        # Check for Material grid cards or surface cards
-        grid_cards = page.locator(".grid.cards li, .surface-card")
-        count = grid_cards.count()
-        # Home page should have project cards
-        assert count >= 1, "Expected at least one project card on home page"
+    def test_work_items_visible(self, page: Page):
+        """Landing page should show the focused portfolio work grid."""
+        work_items = page.locator(".landing-work-item")
+        assert work_items.count() == 4
 
     def test_links_are_clickable(self, page: Page):
         """Links should be interactive."""

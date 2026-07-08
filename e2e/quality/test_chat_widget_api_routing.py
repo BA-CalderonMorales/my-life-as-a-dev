@@ -8,12 +8,14 @@ frontend behavior is exercised without depending on live cloud services.
 
 import json
 
+import pytest
 from playwright.sync_api import Page, expect
 
 from e2e.quality.test_chat_widget import CHAT_INPUT
 from e2e.quality.test_chat_widget import CHAT_MODAL
 from e2e.quality.test_chat_widget import CHAT_SEND_BTN
 from e2e.quality.test_chat_widget import CHAT_TRIGGER
+from e2e.shared.utils import chat_assistant_enabled
 
 
 CURRENT_NVIDIA_URL = "https://nvidia-chat-proxy-python-dawfbmka6a-uc.a.run.app/nvidia/chat"
@@ -39,6 +41,11 @@ def _send_message(page: Page, text: str) -> None:
 class TestChatWidgetApiRouting:
     """Focused e2e checks for API contract and fallback behavior."""
 
+    pytestmark = pytest.mark.skipif(
+        not chat_assistant_enabled(),
+        reason="Ask AI chat assistant is disabled by feature flag",
+    )
+
     def test_nvidia_response_contract_renders_cleanly(self, page: Page, base_url: str):
         """A valid NVIDIA response should render through the existing widget parser."""
         captured_payloads = []
@@ -53,7 +60,7 @@ class TestChatWidgetApiRouting:
                         "answer": (
                             "**Routing looks good**\n"
                             "- Primary response path is active\n"
-                            "See [Active projects](/projects/active/)\n"
+                            "See [Home](/)\n"
                             "LinkedIn: bcalderonmorales-cmoe\n"
                             "GitHub: BA-CalderonMorales\n"
                             "Explore https://example.com #Python"
@@ -72,8 +79,8 @@ class TestChatWidgetApiRouting:
         bot_message = page.locator(".ai-message-bot").last
         expect(bot_message).to_contain_text("Routing looks good")
         expect(bot_message.locator("li")).to_have_count(1)
-        expect(bot_message.get_by_role("link", name="Active projects")).to_have_attribute(
-            "href", f"{base_url}/projects/active/"
+        expect(bot_message.get_by_role("link", name="Home")).to_have_attribute(
+            "href", f"{base_url}/"
         )
         expect(bot_message.get_by_role("link", name="bcalderonmorales-cmoe")).to_have_attribute(
             "href", "https://www.linkedin.com/in/bcalderonmorales-cmoe/"

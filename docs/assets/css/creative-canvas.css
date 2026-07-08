@@ -2,8 +2,8 @@
    Creative Canvas — generative hero subsystem
    -----------------------------------------------------
    Self-contained, modular, token-driven hero visual.
-   - .creative-canvas is the positioned container (filled
-     by main.js with a <canvas> + an SVG grain overlay).
+   - .creative-canvas is the page backdrop (filled by
+     main.js with a <canvas> + an SVG grain overlay).
    - The container paints a static token-colored gradient
      so there is always a calm backdrop (also the
      prefers-reduced-motion fallback).
@@ -12,11 +12,15 @@
    ===================================================== */
 
 .creative-canvas {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   pointer-events: none;
+  contain: paint;
   background:
     radial-gradient(120% 90% at 18% 12%, var(--creative-canvas-accent-soft) 0%, transparent 55%),
     radial-gradient(120% 120% at 88% 88%, var(--creative-canvas-glow) 0%, transparent 60%),
@@ -68,15 +72,20 @@
   }
 }
 
-/* On the landing page the hero canvas sits behind the content, so the
-   standard Material surfaces must be transparent to let it show through. */
+/* On the landing page the canvas is the page backdrop, so the standard
+   Material surfaces must be transparent to let it show through. */
 .landing-page .md-main,
+.landing-page .md-main__inner,
 .landing-page .md-content {
   background: transparent;
 }
 
-/* Establish a positioning context so the absolutely positioned canvas is
-   confined to the content area and scrolls with the page. */
-.landing-page .md-content {
+/* Keep readable UI above the fixed backdrop without letting the backdrop
+   intercept input or introduce horizontal overflow. */
+.landing-page .md-container,
+.landing-page .md-main,
+.landing-page .md-content,
+.landing-page .md-footer {
   position: relative;
+  z-index: 1;
 }

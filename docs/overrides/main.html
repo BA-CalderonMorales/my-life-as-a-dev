@@ -339,6 +339,22 @@
 {% block header %}
 <a href="#main-content" class="mlad-skip-link">Skip to content</a>
 
+{% set feature_flags = config.extra.features | default(value={}) %}
+{% set tab_flags = feature_flags.tabs | default(value={}) %}
+{% set visible_nav = namespace(enabled=false, count=0) %}
+{% for nav_item in nav.items %}
+  {% set visible_nav.enabled = false %}
+  {% if nav_item.title == "Home" %}{% set visible_nav.enabled = tab_flags.home | default(value=false) %}
+  {% elif nav_item.title == "Learning" %}{% set visible_nav.enabled = tab_flags.learning | default(value=false) %}
+  {% elif nav_item.title == "Docs-as-Code" %}{% set visible_nav.enabled = tab_flags.docs_as_code | default(value=false) %}
+  {% elif nav_item.title == "Projects" %}{% set visible_nav.enabled = tab_flags.projects | default(value=false) %}
+  {% elif nav_item.title == "Canvas" %}{% set visible_nav.enabled = tab_flags.canvas | default(value=false) %}
+  {% elif nav_item.title == "About Me" %}{% set visible_nav.enabled = tab_flags.about_me | default(value=false) %}
+  {% else %}{% set visible_nav.enabled = true %}
+  {% endif %}
+  {% if visible_nav.enabled %}{% set visible_nav.count = visible_nav.count + 1 %}{% endif %}
+{% endfor %}
+
 {% set header_class = "md-header" %}
 {% if "navigation.tabs.sticky" in features %}
   {% set header_class = header_class ~ " md-header--shadow md-header--lifted" %}
@@ -350,36 +366,30 @@
     <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" title="{{ config.site_name | e }}" class="md-header__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
       {% include "partials/logo.html" %}
     </a>
+    {% if visible_nav.count > 1 %}
     <label class="md-header__button md-icon mlad-hamburger" for="__drawer" aria-label="Toggle navigation">
       <span class="mlad-hamburger__line" aria-hidden="true"></span>
       <span class="mlad-hamburger__line" aria-hidden="true"></span>
       <span class="mlad-hamburger__line" aria-hidden="true"></span>
     </label>
+    {% endif %}
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
-          <span class="md-ellipsis">
-            {{ config.site_name }}
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            {% if page.meta and page.meta.title %}
-              {{ page.meta.title }}
-            {% else %}
-              {{ page.title }}
-            {% endif %}
-          </span>
+          <span class="md-ellipsis mlad-header__name">{{ config.site_author | d(config.site_name, true) }}</span>
         </div>
       </div>
     </div>
-    {% include "partials/palette.html" ignore missing %}
-    {% include "partials/source.html" ignore missing %}
+    <div class="mlad-header__actions">
+      {% include "partials/palette.html" ignore missing %}
+      {% include "partials/source.html" ignore missing %}
+      <a class="mlad-header-contact" href="mailto:b.dev.c.m@gmail.com">Email</a>
 
-    {% if config.extra.features.version_selector %}
-    {# Custom version selector - placed inside header nav #}
-    {% include "partials/version-selector-inline.html" %}
-    {% endif %}
+      {% if config.extra.features.version_selector %}
+      {# Custom version selector - placed inside header nav #}
+      {% include "partials/version-selector-inline.html" %}
+      {% endif %}
+    </div>
 
   </nav>
   {% include "partials/tabs.html" ignore missing %}
