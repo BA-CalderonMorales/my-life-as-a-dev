@@ -12,7 +12,7 @@
 #   - Ask AI assistant ........ OFF
 #   - Version selector ......... OFF
 #   - All top-level tabs ....... OFF except the landing page (Home)
-#   - Creative canvas hero ..... ON (token-driven generative hero on Home)
+#   - Creative canvas hero ..... OFF (static editorial Home treatment)
 #
 # How to flip a feature back on:
 #   1. Set the flag below to `true`.
@@ -49,9 +49,9 @@
 chat_assistant = false
 # Version selector dropdown in the header. When false, no selector renders.
 version_selector = false
-# Generative "creative canvas" hero on the landing page. When false, no canvas
-# markup/scripts load and a static token-colored gradient is shown instead.
-creative_canvas = true
+# Generative "creative canvas" hero on the landing page. The portfolio uses a
+# static editorial treatment so the content remains quiet and dependable.
+creative_canvas = false
 
 # Per-tab visibility. Keys are derived from each top-level nav title:
 # lowercased, spaces/dashes/dots replaced with underscores.

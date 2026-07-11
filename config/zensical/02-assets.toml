@@ -29,7 +29,6 @@ extra_css = [
     # Page-specific styles
     "assets/css/background.css",
     "assets/css/landing.css",
-    "assets/css/scroll-vines.css",
     "assets/css/404.css",
     "assets/css/resume.css",
     "assets/css/projects.css",
@@ -39,8 +38,6 @@ extra_css = [
 ]
 
 extra_javascript = [
-    # Scroll-driven vine animations and section bloom (landing page only)
-    "assets/js/scroll-vines.js",
     # Scroll progress bar (content pages)
     "assets/js/scroll-progress.js",
     # Lazy image fade-in

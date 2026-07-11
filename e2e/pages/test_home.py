@@ -28,8 +28,7 @@ class TestHomePage:
         """Page should have an H1 heading."""
         h1 = page.locator("h1").first
         expect(h1).to_be_visible()
-        text = h1.text_content()
-        assert text and len(text) > 0
+        expect(h1).to_contain_text("Brandon A. Calderon Morales")
 
     def test_no_emojis_in_headings(self, page: Page):
         """Headings should not contain emojis."""
@@ -50,10 +49,35 @@ class TestHomePage:
         filtered = [i for i in issues if "button" in i.lower()]
         assert not filtered, f"Raw markdown issues: {filtered}"
 
-    def test_work_items_visible(self, page: Page):
-        """Landing page should show the focused portfolio work grid."""
-        work_items = page.locator(".landing-work-item")
-        assert work_items.count() == 4
+    def test_scope_evidence_is_visible(self, page: Page):
+        """The landing page should ground Brandon's scope in concrete outcomes."""
+        evidence = page.locator(".portfolio-outcome")
+        expect(evidence).to_be_visible()
+        expect(evidence).to_contain_text("20+")
+        expect(evidence).to_contain_text("about 4,000")
+        expect(evidence).to_contain_text("about 200")
+        expect(evidence).to_contain_text("two weeks")
+
+    def test_practice_areas_are_visible(self, page: Page):
+        """The landing page should explain the systems behind the outcomes."""
+        practice_rows = page.locator(".portfolio-practice")
+        assert practice_rows.count() == 4
+
+    def test_public_projects_are_linked(self, page: Page):
+        """Featured public work should link to its primary project pages."""
+        terminal_jarvis = page.locator(
+            "a[href='https://github.com/BA-CalderonMorales/terminal-jarvis']"
+        )
+        expect(terminal_jarvis).to_be_visible()
+
+        portfolio = page.locator(
+            "a[href='https://github.com/BA-CalderonMorales/my-life-as-a-dev']"
+        )
+        expect(portfolio).to_be_visible()
+
+    def test_generative_backdrop_is_disabled(self, page: Page):
+        """The portfolio should use a quiet static canvas."""
+        expect(page.locator(".creative-canvas")).to_have_count(0)
 
     def test_links_are_clickable(self, page: Page):
         """Links should be interactive."""

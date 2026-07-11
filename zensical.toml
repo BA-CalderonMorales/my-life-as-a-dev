@@ -9,16 +9,16 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-07-08 07:08:36 UTC
+#   Generated: 2026-07-11 20:27:30 UTC
 #
 # ##############################################################################
 
 [project]
-site_name = "Brandon's Simplified Life"
-site_description = "A collection of notes, resources, and tools for developers, engineers, and tech enthusiasts."
-site_author = "Brandon Calderon-Morales"
+site_name = "Brandon A. Calderon Morales"
+site_description = "Senior software engineer working across AI-enabled delivery, secure automation, developer tooling, and documentation."
+site_author = "Brandon A. Calderon Morales"
 site_url = "https://ba-calderonmorales.github.io/my-life-as-a-dev/"
-copyright = "Copyright &copy; 2024-2026 Brandon Calderon-Morales"
+copyright = "Copyright &copy; 2024-2026 Brandon A. Calderon Morales"
 repo_url = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
 repo_name = "BA-CalderonMorales/my-life-as-a-dev"
 edit_uri = "edit/main/docs/"
@@ -36,14 +36,12 @@ extra_css = [
     "assets/css/pull-to-refresh.css",
     "assets/css/background.css",
     "assets/css/landing.css",
-    "assets/css/scroll-vines.css",
     "assets/css/404.css",
     "assets/css/resume.css",
     "assets/css/projects.css",
     "assets/css/tokens.css",
 ]
 extra_javascript = [
-    "assets/js/scroll-vines.js",
     "assets/js/scroll-progress.js",
     "assets/js/image-fade.js",
     "assets/js/keyboard-shortcuts.js",
@@ -171,7 +169,7 @@ link = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
 [project.extra.features]
 chat_assistant = false
 version_selector = false
-creative_canvas = true
+creative_canvas = false
 
 [project.extra.features.tabs]
 home = true

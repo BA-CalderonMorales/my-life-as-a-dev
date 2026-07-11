@@ -6,11 +6,11 @@
 # ==============================================================================
 
 [project]
-site_name = "Brandon's Simplified Life"
-site_description = "A collection of notes, resources, and tools for developers, engineers, and tech enthusiasts."
-site_author = "Brandon Calderon-Morales"
+site_name = "Brandon A. Calderon Morales"
+site_description = "Senior software engineer working across AI-enabled delivery, secure automation, developer tooling, and documentation."
+site_author = "Brandon A. Calderon Morales"
 site_url = "https://ba-calderonmorales.github.io/my-life-as-a-dev/"
-copyright = "Copyright &copy; 2024-2026 Brandon Calderon-Morales"
+copyright = "Copyright &copy; 2024-2026 Brandon A. Calderon Morales"
 
 
 # ==============================================================================
