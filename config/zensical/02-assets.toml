@@ -38,6 +38,8 @@ extra_css = [
 ]
 
 extra_javascript = [
+    # Living index interactions (homepage only; no-op elsewhere)
+    "assets/js/living-index.js",
     # Scroll progress bar (content pages)
     "assets/js/scroll-progress.js",
     # Lazy image fade-in

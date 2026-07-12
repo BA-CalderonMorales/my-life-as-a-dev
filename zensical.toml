@@ -9,13 +9,13 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-07-11 20:27:30 UTC
+#   Generated: 2026-07-12 01:00:15 UTC
 #
 # ##############################################################################
 
 [project]
 site_name = "Brandon A. Calderon Morales"
-site_description = "Senior software engineer working across AI-enabled delivery, secure automation, developer tooling, and documentation."
+site_description = "Marine veteran turned engineer building readable systems, open-source agent tools, and documentation that makes the next step obvious."
 site_author = "Brandon A. Calderon Morales"
 site_url = "https://ba-calderonmorales.github.io/my-life-as-a-dev/"
 copyright = "Copyright &copy; 2024-2026 Brandon A. Calderon Morales"
@@ -42,6 +42,7 @@ extra_css = [
     "assets/css/tokens.css",
 ]
 extra_javascript = [
+    "assets/js/living-index.js",
     "assets/js/scroll-progress.js",
     "assets/js/image-fade.js",
     "assets/js/keyboard-shortcuts.js",
