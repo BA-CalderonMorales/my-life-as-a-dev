@@ -478,7 +478,7 @@ hide:
       <article class="life-dossier is-active" id="work" role="tabpanel" aria-labelledby="branch-work" data-life-panel="work" tabindex="-1">
         <header class="life-dossier__header">
           <p>01 <span>/</span> Work</p>
-          <span>Enterprise systems <i>/</i> 2024—now</span>
+          <span>Enterprise systems <i>/</i> 2024–now</span>
         </header>
         <h2>Make difficult work operable.</h2>
         <p class="life-dossier__lede">At Fiserv, I help turn AI-assisted delivery and application-security work across more than twenty engineering teams into one dependable operating model.</p>
@@ -497,7 +497,7 @@ hide:
           <span>Open source <i>/</i> tools that travel</span>
         </header>
         <h2>Build tools that outlive the moment.</h2>
-        <p class="life-dossier__lede">I build practical, inspectable tools for people working with coding agents—designed so the workflow can outlive a model or vendor.</p>
+        <p class="life-dossier__lede">I build practical, inspectable tools for people working with coding agents, designed so the workflow can outlive a model or vendor.</p>
         <div class="life-artifacts">
           <a href="https://github.com/BA-CalderonMorales/terminal-jarvis">
             <span class="life-artifacts__index">A</span>
@@ -516,7 +516,7 @@ hide:
       <article class="life-dossier" id="serve" role="tabpanel" aria-labelledby="branch-serve" data-life-panel="serve" tabindex="-1">
         <header class="life-dossier__header">
           <p>03 <span>/</span> Serve</p>
-          <span>United States Marine Corps <i>/</i> 2014—2019</span>
+          <span>United States Marine Corps <i>/</i> 2014–2019</span>
         </header>
         <h2>Precision came before software.</h2>
         <p class="life-dossier__lede">As a Legal Chief and Court Reporter, confidentiality, complete records, and operational readiness were not abstractions. They were the work.</p>
@@ -549,7 +549,7 @@ hide:
         <div class="life-home">
           <div>
             <h2>The work is only one branch.</h2>
-            <p class="life-dossier__lede">I am a husband, father, bilingual Omahan, and engineer. Work, life, family, career, hobbies—I am trying to keep them in the same frame, not make one erase the others.</p>
+            <p class="life-dossier__lede">I am a husband, father, and a bilingual engineer. Work, life, family, career, and hobbies all belong in the same frame, not one erasing the others.</p>
             <div class="life-home__links">
               <a href="mailto:bacm640@gmail.com">Email</a>
               <a href="https://www.linkedin.com/in/bcalderonmorales-cmoe/">LinkedIn</a>
@@ -571,7 +571,7 @@ hide:
   <p class="life-coda__label">The throughline</p>
   <div class="life-coda__body">
     <h2 id="life-coda-title">Make the next step obvious.<br>Make the handoff dependable.</h2>
-    <p>That is the standard—whether the work is a remediation program, a command-line tool, a page of documentation, or the shape of this site.</p>
+    <p>That is the standard, whether the work is a remediation program, a command-line tool, a page of documentation, or the shape of this site.</p>
   </div>
   <nav class="life-coda__links" aria-label="Selected destinations">
     <a href="https://github.com/BA-CalderonMorales/terminal-jarvis"><span>01</span> Terminal Jarvis</a>
