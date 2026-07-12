@@ -29,6 +29,7 @@ extra_css = [
     # Page-specific styles
     "assets/css/background.css",
     "assets/css/landing.css",
+    "assets/css/life-tree.css",
     "assets/css/404.css",
     "assets/css/resume.css",
     "assets/css/projects.css",
@@ -40,6 +41,8 @@ extra_css = [
 extra_javascript = [
     # Living index interactions (homepage only; no-op elsewhere)
     "assets/js/living-index.js",
+    # Living tree silhouette: breeze + SVG facet navigation (homepage only)
+    "assets/js/life-tree.js",
     # Scroll progress bar (content pages)
     "assets/js/scroll-progress.js",
     # Lazy image fade-in

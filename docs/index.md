@@ -25,7 +25,14 @@ hide:
     </div>
 
     <div class="life-tree-shell" data-life-tree>
-              <svg class="life-tree" viewBox="0 0 720 760" role="img" aria-labelledby="life-tree-title life-tree-description">
+              <svg
+                class="life-tree"
+                viewBox="-20 0 760 760"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                aria-labelledby="life-tree-title life-tree-description"
+                data-life-tree-svg
+              >
           <title id="life-tree-title">The living index</title>
           <desc id="life-tree-description">A tree whose branches open five facets: work, making, service, learning, and life.</desc>
           <g class="life-tree__trunk">

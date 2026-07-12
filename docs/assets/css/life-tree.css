@@ -1,0 +1,180 @@
+/*
+ * Living tree
+ *
+ * The individual leaves already carry SVG transform attributes for placement.
+ * Animate their parent clusters and limbs, never the leaves themselves.
+ *
+ * This file owns the tree's monochrome silhouette, the breeze, and the
+ * facet/limb highlight. Facet selection, keyboard nav, URL hash, the scroll
+ * choreography, and reduced-motion classing live in living-index.js.
+ */
+
+:root {
+    /* Theme-aware aliases so the silhouette inverts in dark mode. */
+    --portfolio-ink: var(--life-ink);
+    --portfolio-accent: var(--life-copper);
+}
+
+[data-life-index] .life-tree {
+    display: block;
+    width: min(100%, 47.5rem);
+    height: auto;
+    aspect-ratio: 1;
+    margin-inline: auto;
+    overflow: visible;
+    color: var(--portfolio-ink, #181614);
+    shape-rendering: geometricPrecision;
+}
+
+/* Retain the monochrome silhouette. */
+[data-life-index] .life-tree :is(path, circle, rect) {
+    fill: currentColor;
+}
+
+[data-life-index] .life-tree__leaf--shade {
+    opacity: 0.62;
+}
+
+/*
+ * SVG transform origins are already defined inline on each group.
+ * transform-box makes those coordinates behave consistently.
+ */
+[data-life-index] .life-tree__limb,
+[data-life-index] .life-tree__cluster {
+    transform-box: view-box;
+}
+
+[data-life-index] .life-tree.is-wind-on .life-tree__limb {
+    animation:
+        life-tree-sway
+        var(--wind-duration, 9s)
+        cubic-bezier(0.42, 0, 0.28, 1)
+        var(--wind-delay, 0s)
+        infinite;
+    will-change: transform;
+}
+
+[data-life-index] .life-tree.is-wind-on .life-tree__cluster {
+    animation:
+        life-tree-flutter
+        var(--flutter-duration, 4.5s)
+        ease-in-out
+        var(--flutter-delay, 0s)
+        infinite;
+    will-change: transform;
+}
+
+/*
+ * Only semantic limbs receive data-facet.
+ * Ambient limbs help form the natural canopy but are not navigation.
+ */
+[data-life-index] .life-tree__limb[data-facet] {
+    cursor: pointer;
+    opacity: 0.7;
+    transition:
+        opacity 220ms ease,
+        filter 220ms ease;
+}
+
+[data-life-index] .life-tree__limb[data-facet]:hover,
+[data-life-index] .life-tree__limb[data-facet].is-preview,
+[data-life-index] .life-tree__limb[data-facet].is-active {
+    opacity: 1;
+}
+
+[data-life-index] .life-tree__limb[data-facet].is-active > .life-tree__branch {
+    fill: var(--portfolio-accent, #84402d);
+}
+
+[data-life-index] .life-tree__limb--ambient {
+    pointer-events: none;
+    opacity: 0.92;
+}
+
+/* Facet nodes read as quiet "eyes" in the canopy, copper when active. */
+[data-life-index] [data-tree-node] {
+    cursor: pointer;
+    fill: var(--life-paper);
+    stroke: currentColor;
+    stroke-width: 1.75;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+        fill 180ms ease,
+        stroke 180ms ease,
+        transform 180ms ease;
+}
+
+[data-life-index] [data-tree-node].is-active {
+    fill: var(--portfolio-accent, #84402d);
+    stroke: var(--portfolio-accent, #84402d);
+    transform: scale(1.45);
+}
+
+/* Make the small semantic branch paths easier to click. */
+[data-life-index] .life-tree__branch {
+    stroke: transparent;
+    stroke-width: 14;
+    paint-order: stroke fill;
+}
+
+/* The copper "fruit" keeps its accent (the global :is(rect) rule above would
+   otherwise paint it currentColor). */
+[data-life-index] .life-tree__pixels rect {
+    fill: var(--portfolio-accent, #84402d);
+}
+
+@keyframes life-tree-sway {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    24% {
+        transform: rotate(var(--wind-positive, 0.7deg));
+    }
+
+    58% {
+        transform: rotate(var(--wind-negative, -0.45deg));
+    }
+
+    79% {
+        transform: rotate(var(--wind-settle, 0.18deg));
+    }
+}
+
+@keyframes life-tree-flutter {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    31% {
+        transform: rotate(var(--flutter-positive, 1.1deg));
+    }
+
+    66% {
+        transform: rotate(var(--flutter-negative, -0.8deg));
+    }
+
+    84% {
+        transform: rotate(var(--flutter-settle, 0.3deg));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-life-index] .life-tree__limb,
+    [data-life-index] .life-tree__cluster {
+        animation: none !important;
+        transform: none !important;
+    }
+
+    [data-life-index] .life-tree__pixels rect {
+        animation: none !important;
+    }
+
+    [data-life-index] .life-tree__limb[data-facet],
+    [data-life-index] [data-tree-node] {
+        transition: none;
+    }
+}
