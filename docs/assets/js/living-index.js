@@ -129,7 +129,7 @@
             var treeEased = easeOutCubic(treeProgress);
 
             root.style.setProperty("--life-tree-x", (-31 * treeEased).toFixed(3) + "vw");
-            root.style.setProperty("--life-tree-scale", (1 - (0.34 * treeEased)).toFixed(3));
+            root.style.setProperty("--life-tree-scale", (1 - (0.5 * treeEased)).toFixed(3));
             root.style.setProperty("--life-intro-opacity", introOpacity.toFixed(3));
             root.style.setProperty("--life-panel-opacity", panelOpacity.toFixed(3));
             root.style.setProperty("--life-panel-y", ((1 - panelOpacity) * 1.5).toFixed(3) + "rem");
