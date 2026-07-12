@@ -68,8 +68,51 @@ class TestHomePage:
     def test_tree_is_the_navigation_system(self, page: Page):
         """The central tree should pair a visual map with real controls."""
         expect(page.locator(".life-tree")).to_be_visible()
+        expect(page.locator(".life-tree__wood-shape")).to_have_count(1)
         expect(page.locator(".life-tree [data-tree-branch]")).to_have_count(5)
+        expect(page.locator(".life-tree [data-tree-node]")).to_have_count(5)
         expect(page.get_by_role("tab", name="Work")).to_be_visible()
+
+    def test_tree_hit_paths_are_invisible_pointer_targets(self, page: Page):
+        """Semantic branch geometry should never paint over the visual wood."""
+        styles = page.locator("[data-tree-branch='work']").evaluate(
+            """element => {
+                const computed = getComputedStyle(element);
+                return {
+                    fill: computed.fill,
+                    pointerEvents: computed.pointerEvents,
+                    stroke: computed.stroke,
+                };
+            }"""
+        )
+        wood_pointer_events = page.locator(".life-tree__wood").evaluate(
+            "element => getComputedStyle(element).pointerEvents"
+        )
+
+        assert styles["fill"] == "none"
+        assert styles["pointerEvents"] == "stroke"
+        assert styles["stroke"] in {"rgba(0, 0, 0, 0)", "transparent"}
+        assert wood_pointer_events == "none"
+
+    def test_tree_branch_keyboard_activation_reaches_its_facet(self, page: Page):
+        """A focused semantic branch should activate through the keyboard."""
+        make_branch = page.locator("[data-tree-branch='make']")
+        make_branch.focus()
+        make_branch.press("Enter")
+
+        expect(page.get_by_role("tab", name="Make")).to_have_attribute(
+            "aria-selected", "true"
+        )
+        expect(page).to_have_url(re.compile(r"#make$"))
+
+    def test_tree_node_activation_reaches_its_facet(self, page: Page):
+        """The visible node target should remain clickable after the split."""
+        page.locator("[data-tree-node='serve']").click(force=True)
+
+        expect(page.get_by_role("tab", name="Serve")).to_have_attribute(
+            "aria-selected", "true"
+        )
+        expect(page).to_have_url(re.compile(r"#serve$"))
 
     def test_selecting_a_branch_replaces_the_dossier(self, page: Page):
         """A branch should reveal its facet in place and preserve a deep link."""

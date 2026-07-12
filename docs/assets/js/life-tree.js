@@ -38,39 +38,7 @@
     }
 
     function configureMotion(tree) {
-        const limbs = [...tree.querySelectorAll(".life-tree__limb")];
         const clusters = [...tree.querySelectorAll(".life-tree__cluster")];
-
-        limbs.forEach((limb, index) => {
-            const branch = limb.querySelector("[data-tree-branch]");
-            const facet = branch?.dataset.treeBranch;
-
-            if (facet) {
-                limb.dataset.facet = facet;
-            } else {
-                limb.classList.add("life-tree__limb--ambient");
-            }
-
-            const random = seededRandom(
-                hashString(`life-tree-limb-${facet ?? "ambient"}-${index}`)
-            );
-
-            const positive = between(random, 0.32, 0.92);
-            const negative = -between(random, 0.22, 0.68);
-
-            setDegrees(limb, "--wind-positive", positive);
-            setDegrees(limb, "--wind-negative", negative);
-            setDegrees(limb, "--wind-settle", positive * 0.26);
-
-            limb.style.setProperty(
-                "--wind-duration",
-                `${between(random, 7.8, 11.6).toFixed(2)}s`
-            );
-            limb.style.setProperty(
-                "--wind-delay",
-                `${-between(random, 0, 8).toFixed(2)}s`
-            );
-        });
 
         clusters.forEach((cluster, index) => {
             const random = seededRandom(
@@ -96,18 +64,24 @@
     }
 
     /*
-     * Highlight the active limb + node. living-index.js owns facet selection,
+     * Highlight the active branch + node. living-index.js owns facet selection,
      * keyboard nav, the URL hash, the scroll choreography, and the reduced-
      * motion class. We only watch its data-active-facet attribute and reflect
      * it onto the SVG, so the two controllers never fight.
+     *
+     * The visible wood is one continuous silhouette and never recolors; active
+     * state is expressed on the semantic hit paths and their nodes.
      */
     function reflectActiveFacet(root, tree) {
-        const limbs = [...tree.querySelectorAll(".life-tree__limb[data-facet]")];
+        const branches = [...tree.querySelectorAll(".life-tree__branch-hit[data-tree-branch]")];
         const nodes = [...tree.querySelectorAll("[data-tree-node]")];
 
         const apply = (facet) => {
-            limbs.forEach((limb) => {
-                limb.classList.toggle("is-active", limb.dataset.facet === facet);
+            branches.forEach((branch) => {
+                branch.classList.toggle(
+                    "is-active",
+                    branch.dataset.treeBranch === facet
+                );
             });
             nodes.forEach((node) => {
                 node.classList.toggle(
@@ -134,7 +108,8 @@
             return;
         }
 
-        const tree = root.querySelector("[data-life-tree-svg]");
+        const tree = root.querySelector("[data-life-tree-svg]")
+            || root.querySelector(".life-tree");
         const tabs = [...root.querySelectorAll("[data-life-target]")];
 
         if (!tree || tabs.length === 0) {
@@ -163,19 +138,40 @@
             }
         };
 
-        tree.querySelectorAll(".life-tree__limb[data-facet]").forEach((limb) => {
-            limb.addEventListener("click", () => {
-                selectFromTree(limb.dataset.facet);
+        const branchNodes = tree.querySelectorAll("[data-tree-node]");
+        const nodeFor = (facet) =>
+            [...branchNodes].find((node) => node.dataset.treeNode === facet);
+        const previewFacet = (facet, visible) => {
+            nodeFor(facet)?.classList.toggle("is-preview", visible);
+        };
+
+        tree.querySelectorAll(".life-tree__branch-hit[data-tree-branch]").forEach((branch) => {
+            const facet = branch.dataset.treeBranch;
+            branch.addEventListener("click", () => {
+                selectFromTree(facet);
             });
-            limb.addEventListener("pointerenter", () => {
-                limb.classList.add("is-preview");
+            branch.addEventListener("pointerenter", () => {
+                previewFacet(facet, true);
             });
-            limb.addEventListener("pointerleave", () => {
-                limb.classList.remove("is-preview");
+            branch.addEventListener("pointerleave", () => {
+                previewFacet(facet, false);
+            });
+            branch.addEventListener("focus", () => {
+                previewFacet(facet, true);
+            });
+            branch.addEventListener("blur", () => {
+                previewFacet(facet, false);
+            });
+            branch.addEventListener("keydown", (event) => {
+                if (event.key !== "Enter" && event.key !== " ") {
+                    return;
+                }
+                event.preventDefault();
+                selectFromTree(facet);
             });
         });
 
-        tree.querySelectorAll("[data-tree-node]").forEach((node) => {
+        branchNodes.forEach((node) => {
             node.addEventListener("click", (event) => {
                 event.stopPropagation();
                 selectFromTree(node.dataset.treeNode);
