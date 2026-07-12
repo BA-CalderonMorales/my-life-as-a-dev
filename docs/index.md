@@ -1,5 +1,5 @@
 ---
-title: Brandon A. Calderon Morales
+title: Brandon
 description: Marine veteran turned engineer building readable systems, open-source agent tools, and documentation that makes the next step obvious.
 comments: false
 hide:
@@ -14,7 +14,7 @@ hide:
     <div class="life-intro" data-life-intro>
       <div class="life-intro__identity">
         <p class="life-kicker">Engineer <span>/</span> Toolmaker <span>/</span> Marine veteran</p>
-        <h1>Brandon A. <br>Calderon Morales</h1>
+        <h1>Hi, I'm Brandon.</h1>
       </div>
       <p class="life-intro__field">Omaha, Nebraska<br>English + Spanish</p>
       <div class="life-intro__thesis">

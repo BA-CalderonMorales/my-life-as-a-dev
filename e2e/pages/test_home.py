@@ -30,7 +30,7 @@ class TestHomePage:
         """Page should have an H1 heading."""
         h1 = page.locator("h1").first
         expect(h1).to_be_visible()
-        expect(h1).to_contain_text("Brandon A. Calderon Morales")
+        expect(h1).to_contain_text("Hi, I'm Brandon")
 
     def test_no_emojis_in_headings(self, page: Page):
         """Headings should not contain emojis."""
