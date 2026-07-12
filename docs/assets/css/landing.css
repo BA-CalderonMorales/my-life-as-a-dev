@@ -408,102 +408,48 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     overflow: visible;
 }
 
+/* The tree is one quiet, monochrome silhouette: a single narrow trunk that
+   does not split low, tapered organic branches, and an airy canopy of leaves.
+   --life-ink inverts with the theme, so the silhouette stays true in dark mode. */
 .life-tree path,
 .life-tree circle,
 .life-tree rect {
     vector-effect: non-scaling-stroke;
 }
 
-.life-tree path {
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+.life-tree__trunk path,
+.life-tree__branch,
+.life-tree__twig {
+    fill: var(--life-ink);
+    stroke: none;
 }
 
-.life-tree__ground path {
-    stroke: var(--life-line);
-    stroke-width: 1;
-    stroke-dasharray: 2 7;
+.life-tree__leaf {
+    fill: var(--life-ink);
 }
 
-.life-tree__roots path {
-    stroke: var(--life-moss);
-    stroke-width: 1.7;
-    opacity: 0.72;
+.life-tree__leaf--shade {
+    fill: color-mix(in srgb, var(--life-ink) 76%, var(--life-paper));
 }
 
-.life-tree__trunk path {
-    stroke: var(--life-ink);
-    stroke-width: 2.1;
-}
-
-.life-tree__trunk .life-tree__heartline {
-    stroke: var(--life-copper);
-    stroke-width: 1;
-    stroke-dasharray: 2 5;
-    opacity: 0.72;
-}
-
-.life-tree__major-branches path {
-    stroke: var(--life-ink);
-    stroke-width: 1.75;
-    transition: stroke 240ms ease, stroke-width 240ms ease, opacity 240ms ease;
-}
-
-.life-tree__twigs path {
-    stroke: var(--life-moss);
-    stroke-width: 1.15;
-    stroke-dasharray: 900 0;
-    opacity: var(--life-tree-detail);
-    transition: opacity 180ms linear, stroke-dasharray 420ms ease, stroke-dashoffset 420ms ease;
-}
-
-.life-index.is-indexed .life-tree__twigs path {
-    stroke-dasharray: 2 9;
-    stroke-dashoffset: 10;
-}
-
-.life-tree__nodes circle {
-    fill: var(--life-paper);
-    stroke: var(--life-ink);
-    stroke-width: 1.5;
-    transition: fill 240ms ease, stroke 240ms ease, transform 240ms ease;
-    transform-box: fill-box;
-    transform-origin: center;
-}
-
-.life-tree__pixels rect {
-    fill: var(--life-copper);
-    opacity: var(--life-pixel-opacity);
-    transform: translateY(7px);
-    transition: opacity 150ms linear, transform 320ms ease;
-}
-
-.life-index.is-indexed .life-tree__pixels rect {
-    transform: translateY(0);
-}
-
-.life-tree__leaves circle {
-    fill: var(--life-moss);
-    opacity: 0;
-    transform: scale(0);
-    transform-box: fill-box;
-    transform-origin: center;
-    transition: opacity 240ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.life-index.is-indexed .life-tree__leaves circle {
-    opacity: 0.7;
-    transform: scale(1);
-}
-
+/* The active branch reads as a limb outlined in copper, not a recolor. */
 .life-index[data-active-facet="work"] [data-tree-branch="work"],
 .life-index[data-active-facet="make"] [data-tree-branch="make"],
 .life-index[data-active-facet="serve"] [data-tree-branch="serve"],
 .life-index[data-active-facet="learn"] [data-tree-branch="learn"],
 .life-index[data-active-facet="life"] [data-tree-branch="life"] {
     stroke: var(--life-copper);
-    stroke-width: 3;
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+}
+
+.life-tree__nodes circle {
+    fill: var(--life-paper);
+    stroke: var(--life-ink);
+    stroke-width: 1.75;
+    transition: fill 240ms ease, stroke 240ms ease, transform 240ms ease;
+    transform-box: fill-box;
+    transform-origin: center;
 }
 
 .life-index[data-active-facet="work"] [data-tree-node="work"],
@@ -514,6 +460,62 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     fill: var(--life-copper);
     stroke: var(--life-copper);
     transform: scale(1.6);
+}
+
+.life-tree__pixels rect {
+    fill: var(--life-copper);
+    opacity: var(--life-pixel-opacity);
+    transform: translateY(7px);
+    transition: opacity 150ms linear, transform 320ms ease;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.life-index.is-indexed .life-tree__pixels rect {
+    transform: translateY(0);
+    animation: life-fruit 6.5s ease-in-out infinite;
+}
+
+/* A breath of wind: limbs sway gently from the hub, leaf clusters flutter on
+   independent phases. Amplitude stays sub-perceptual so the silhouette holds. */
+.life-tree__limb {
+    transform-box: view-box;
+    animation: life-sway 9s ease-in-out infinite;
+}
+
+.life-tree__limb:nth-of-type(2) { animation-delay: -1.7s; }
+.life-tree__limb:nth-of-type(3) { animation-delay: -3.1s; }
+.life-tree__limb:nth-of-type(4) { animation-delay: -4.4s; }
+.life-tree__limb:nth-of-type(5) { animation-delay: -5.8s; }
+
+.life-tree__cluster {
+    transform-box: view-box;
+    animation: life-flutter 5.6s ease-in-out infinite;
+}
+
+.life-tree__cluster:nth-of-type(odd) { animation-delay: -1.3s; }
+.life-tree__cluster:nth-of-type(3n) { animation-delay: -2.6s; }
+
+@keyframes life-sway {
+    0%, 100% { transform: rotate(-0.55deg); }
+    50% { transform: rotate(0.55deg); }
+}
+
+@keyframes life-flutter {
+    0%, 100% { transform: rotate(-2.1deg); }
+    50% { transform: rotate(2.1deg); }
+}
+
+@keyframes life-fruit {
+    0%, 100% { opacity: calc(var(--life-pixel-opacity) * 0.7); }
+    50% { opacity: var(--life-pixel-opacity); }
+}
+
+/* Reduced motion: hold the resolved, living-but-still silhouette. */
+.life-index.is-reduced .life-tree__limb,
+.life-index.is-reduced .life-tree__cluster,
+.life-index.is-reduced .life-tree__pixels rect {
+    animation: none !important;
 }
 
 .life-branches {
