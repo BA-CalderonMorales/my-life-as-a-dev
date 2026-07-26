@@ -30,6 +30,7 @@ extra_css = [
     "assets/css/background.css",
     "assets/css/landing.css",
     "assets/css/life-tree.css",
+    "assets/css/life-leaves.css",
     "assets/css/404.css",
     "assets/css/resume.css",
     "assets/css/projects.css",
@@ -43,6 +44,8 @@ extra_javascript = [
     "assets/js/living-index.js",
     # Living tree silhouette: breeze + SVG facet navigation (homepage only)
     "assets/js/life-tree.js",
+    # Ambient falling leaves in three depth tiers (homepage only)
+    "assets/js/life-leaves.js",
     # Scroll progress bar (content pages)
     "assets/js/scroll-progress.js",
     # Lazy image fade-in
