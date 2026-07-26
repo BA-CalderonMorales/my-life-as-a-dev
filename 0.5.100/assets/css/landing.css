@@ -1,0 +1,1380 @@
+/* ============================================
+   Landing — the living index
+   A botanical field plate that behaves like an interface.
+   ============================================ */
+
+body.landing-page {
+    --life-paper: #f3f0e8;
+    --life-paper-deep: #e7e0d3;
+    --life-paper-bright: #fbf8f1;
+    --life-ink: #17211c;
+    --life-muted: #6a716a;
+    --life-faint: #93988f;
+    --life-moss: #526b55;
+    --life-moss-deep: #304638;
+    --life-copper: #a95637;
+    --life-line: rgba(23, 33, 28, 0.16);
+    --life-line-strong: rgba(23, 33, 28, 0.34);
+    --life-panel: rgba(247, 244, 236, 0.96);
+    --life-label: rgba(243, 240, 232, 0.92);
+    --life-serif: "DM Serif Display", Georgia, Cambria, "Times New Roman", serif;
+    --life-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --life-mono: var(--font-mono, "JetBrains Mono", ui-monospace, monospace);
+    --life-header-height: 4rem;
+    color: var(--life-ink);
+    background: var(--life-paper);
+}
+
+body.landing-page[data-md-color-scheme="slate"] {
+    --life-paper: #0d110e;
+    --life-paper-deep: #171d18;
+    --life-paper-bright: #1c231d;
+    --life-ink: #ece7da;
+    --life-muted: #a5aa9f;
+    --life-faint: #777e75;
+    --life-moss: #8da58a;
+    --life-moss-deep: #b6c7af;
+    --life-copper: #df8a65;
+    --life-line: rgba(236, 231, 218, 0.14);
+    --life-line-strong: rgba(236, 231, 218, 0.3);
+    --life-panel: rgba(18, 23, 19, 0.96);
+    --life-label: rgba(13, 17, 14, 0.92);
+}
+
+.landing-page .md-main,
+.landing-page .md-main__inner,
+.landing-page .md-content,
+.landing-page .md-content__inner {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.landing-page .md-main__inner {
+    display: block;
+}
+
+.landing-page .md-content__inner::before,
+.landing-page .md-content__button,
+.landing-page .creative-canvas,
+.landing-page .threejs-bg-container {
+    display: none !important;
+}
+
+.landing-page .md-sidebar--primary,
+.landing-page .md-sidebar--secondary {
+    display: none !important;
+}
+
+.landing-page .md-typeset p,
+.landing-page .md-typeset li,
+.landing-page .md-typeset blockquote {
+    max-width: none;
+}
+
+.landing-page .md-typeset h1,
+.landing-page .md-typeset h2,
+.landing-page .md-typeset h3,
+.landing-page .md-typeset p,
+.landing-page .md-typeset blockquote,
+.landing-page .md-typeset figure,
+.landing-page .md-typeset dl {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: inherit;
+    border: 0;
+}
+
+/* The landing header is a coordinate, not a navigation bar. */
+.landing-page .md-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 40;
+    height: var(--life-header-height);
+    color: var(--life-ink);
+    background: linear-gradient(to bottom, var(--life-paper) 0%, rgba(243, 240, 232, 0) 100%);
+    border: 0;
+    box-shadow: none;
+    transition: background-color 220ms ease, border-color 220ms ease;
+}
+
+.landing-page[data-md-color-scheme="slate"] .md-header {
+    background: linear-gradient(to bottom, var(--life-paper) 0%, rgba(13, 17, 14, 0) 100%);
+}
+
+.landing-page .md-header.is-scrolled {
+    background: var(--life-paper);
+    border-bottom: 1px solid var(--life-line);
+}
+
+.landing-page .md-header__inner {
+    width: 100%;
+    max-width: none;
+    min-height: var(--life-header-height);
+    padding-inline: clamp(1rem, 3vw, 3rem);
+}
+
+.landing-page .md-header__button.md-logo {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    margin: 0 0.8rem 0 0;
+    color: var(--life-paper-bright);
+}
+
+.landing-page .md-header__button.md-logo svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.landing-page .md-header__title {
+    min-width: 0;
+    margin: 0;
+    color: var(--life-ink);
+    font-family: var(--life-mono);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.landing-page .mlad-header__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.landing-page .md-header__source,
+.landing-page .md-source,
+.landing-page .md-search {
+    display: none;
+}
+
+.landing-page .mlad-header__actions {
+    gap: 0.25rem;
+}
+
+.landing-page .md-header [data-md-component="palette"] {
+    color: var(--life-ink);
+}
+
+/* A single baseline replaces a conventional site footer. */
+.landing-page .md-footer {
+    color: var(--life-muted);
+    background: var(--life-paper);
+    border-top: 1px solid var(--life-line);
+}
+
+.landing-page .md-footer__inner {
+    min-height: 4.75rem;
+    max-width: none;
+    padding: 1.15rem clamp(1rem, 4vw, 4rem);
+}
+
+.landing-page .mdlad-footer__links,
+.landing-page .mdlad-footer__meta {
+    font-family: var(--life-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.landing-page .mdlad-footer__links a {
+    color: var(--life-ink);
+    text-decoration-color: var(--life-line-strong);
+    text-underline-offset: 0.35em;
+}
+
+/* Page surface. */
+.life-index {
+    --life-tree-x: 0vw;
+    --life-tree-scale: 1;
+    --life-intro-opacity: 1;
+    --life-panel-opacity: 0;
+    --life-panel-y: 1.5rem;
+    --life-tree-detail: 1;
+    --life-pixel-opacity: 0;
+    --life-meter: 0%;
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    color: var(--life-ink);
+    background:
+        radial-gradient(circle at 17% 31%, rgba(82, 107, 85, 0.075), transparent 24rem),
+        radial-gradient(circle at 79% 69%, rgba(169, 86, 55, 0.06), transparent 28rem),
+        var(--life-paper);
+}
+
+/* With JS, hide the scroll-revealed dossier on first paint so the opening
+   frame never flashes the scrolled state. The intro owns the opening frame;
+   its arrival is handled by the life-intro-in entrance below. */
+html.js .life-index {
+    --life-panel-opacity: 0;
+}
+
+html.js .life-index:not(.is-enhanced) .life-branches {
+    opacity: 0;
+}
+
+.life-index::before {
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    content: "";
+    opacity: 0.18;
+    background-image:
+        repeating-linear-gradient(92deg, transparent 0, transparent 7px, rgba(23, 33, 28, 0.025) 8px),
+        repeating-linear-gradient(2deg, transparent 0, transparent 10px, rgba(23, 33, 28, 0.018) 11px);
+    mix-blend-mode: multiply;
+}
+
+.landing-page[data-md-color-scheme="slate"] .life-index::before {
+    opacity: 0.11;
+    filter: invert(1);
+    mix-blend-mode: screen;
+}
+
+/* No-JavaScript reading order. The enhancement collapses this into one stage. */
+.life-journey {
+    position: relative;
+}
+
+.life-stage {
+    position: relative;
+    min-height: 100svh;
+    padding-top: var(--life-header-height);
+}
+
+.life-index.is-enhanced .life-journey {
+    height: 600svh;
+}
+
+.life-index.is-enhanced .life-stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* First frame: identity sits at the perimeter and the tree owns the center. */
+.life-intro {
+    position: absolute;
+    z-index: 5;
+    inset: var(--life-header-height) 0 0;
+    opacity: var(--life-intro-opacity);
+    pointer-events: none;
+    transition: opacity 100ms linear;
+}
+
+.life-intro__identity {
+    position: absolute;
+    top: clamp(2.5rem, 7vh, 5.5rem);
+    left: clamp(1.25rem, 5vw, 5rem);
+}
+
+.life-kicker,
+.life-intro__field,
+.life-intro__prompt,
+.life-intro__thesis span,
+.life-dossier__header,
+.life-coda__label,
+.life-coda__links,
+.life-branch {
+    font-family: var(--life-mono);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.life-kicker {
+    margin-bottom: 1.25rem !important;
+    color: var(--life-copper) !important;
+    font-size: clamp(0.56rem, 0.65vw, 0.68rem);
+    line-height: 1.5;
+}
+
+.life-kicker span {
+    margin-inline: 0.4em;
+    color: var(--life-faint);
+}
+
+.landing-page .life-intro h1 {
+    max-width: 8ch;
+    color: var(--life-ink);
+    font-family: var(--life-serif);
+    font-size: clamp(2.6rem, 4.6vw, 5.2rem);
+    font-weight: 400;
+    line-height: 0.87;
+    letter-spacing: -0.045em;
+}
+
+.life-intro__field {
+    position: absolute;
+    top: clamp(3rem, 8vh, 6rem);
+    right: clamp(1.25rem, 5vw, 5rem);
+    color: var(--life-muted) !important;
+    font-size: clamp(0.58rem, 0.7vw, 0.7rem);
+    line-height: 1.85;
+    text-align: right;
+}
+
+.life-intro__thesis {
+    position: absolute;
+    bottom: clamp(2.5rem, 7vh, 5rem);
+    left: clamp(1.25rem, 5vw, 5rem);
+    width: min(27rem, 31vw);
+}
+
+.life-intro__thesis p {
+    color: var(--life-ink) !important;
+    font-family: var(--life-serif);
+    font-size: clamp(1.6rem, 2.65vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+}
+
+.life-intro__thesis span {
+    display: block;
+    margin-top: 1.2rem;
+    color: var(--life-muted);
+    font-size: clamp(0.55rem, 0.65vw, 0.66rem);
+}
+
+.life-intro__prompt {
+    position: absolute;
+    right: clamp(1.25rem, 5vw, 5rem);
+    bottom: clamp(2.5rem, 7vh, 5rem);
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    color: var(--life-muted) !important;
+    font-size: clamp(0.52rem, 0.62vw, 0.64rem);
+}
+
+.life-intro__prompt span {
+    display: inline-block;
+    width: 2.5rem;
+    height: 1px;
+    overflow: hidden;
+    background: var(--life-line-strong);
+}
+
+.life-intro__prompt span::after {
+    display: block;
+    width: 45%;
+    height: 1px;
+    content: "";
+    background: var(--life-copper);
+    animation: life-prompt 1800ms ease-in-out infinite;
+}
+
+@keyframes life-prompt {
+    0%, 100% { transform: translateX(-110%); }
+    55% { transform: translateX(220%); }
+}
+
+/* One-time staggered entrance: the intro owns the opening frame, so each
+   element arrives in sequence instead of popping in with the first paint.
+   Runs once on load; scroll-driven opacity still comes from --life-intro-opacity. */
+.life-index.is-enhanced .life-intro__identity,
+.life-index.is-enhanced .life-intro__field,
+.life-index.is-enhanced .life-intro__thesis,
+.life-index.is-enhanced .life-intro__prompt {
+    animation: life-intro-in 900ms var(--ease-swift, ease-out) both;
+}
+
+.life-index.is-enhanced .life-intro__identity { animation-delay: 120ms; }
+.life-index.is-enhanced .life-intro__field { animation-delay: 260ms; }
+.life-index.is-enhanced .life-intro__thesis { animation-delay: 420ms; }
+.life-index.is-enhanced .life-intro__prompt { animation-delay: 640ms; }
+
+@keyframes life-intro-in {
+    from {
+        opacity: 0;
+        transform: translateY(0.6rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* The tree is illustration, state diagram, and navigation map. */
+.life-tree-shell {
+    position: relative;
+    z-index: 8;
+    width: min(68vmin, 47rem);
+    aspect-ratio: 720 / 760;
+    margin: 15vh auto 3rem;
+}
+
+.life-index.is-enhanced .life-tree-shell {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    margin: 0;
+    transform: translate(-50%, -50%) translateX(var(--life-tree-x)) scale(var(--life-tree-scale));
+    transform-origin: center;
+    will-change: transform;
+}
+
+.life-tree {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* The tree silhouette, leaves, branches, nodes, and breeze are defined in
+   docs/assets/css/life-tree.css. Only the copper "fruit" pulse lives here. */
+.life-tree__pixels rect {
+    fill: var(--life-copper);
+    opacity: var(--life-pixel-opacity);
+    transform: translateY(7px);
+    transition: opacity 150ms linear, transform 320ms ease;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.life-index.is-indexed .life-tree__pixels rect {
+    transform: translateY(0);
+    animation: life-fruit 6.5s ease-in-out infinite;
+}
+
+@keyframes life-fruit {
+    0%, 100% { opacity: calc(var(--life-pixel-opacity) * 0.7); }
+    50% { opacity: var(--life-pixel-opacity); }
+}
+
+.life-branches {
+    position: absolute;
+    inset: 0;
+}
+
+.landing-page .life-branch {
+    position: absolute;
+    z-index: 3;
+    display: inline-flex;
+    min-width: 5rem;
+    min-height: 44px;
+    gap: 0.55rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 0.75rem;
+    color: var(--life-ink);
+    font-size: clamp(0.58rem, 0.72vw, 0.72rem);
+    line-height: 1;
+    text-decoration: none;
+    background: var(--life-label);
+    border: 1px solid var(--life-line);
+    border-radius: 999px;
+    box-shadow: 0 0 0 0 var(--life-paper);
+    transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.landing-page .life-branch span {
+    color: var(--life-faint);
+    font-size: 0.52rem;
+}
+
+.landing-page .life-branch:hover,
+.landing-page .life-branch:focus-visible,
+.landing-page .life-branch.is-active {
+    color: var(--life-copper);
+    background: var(--life-paper-bright);
+    border-color: var(--life-copper);
+    box-shadow: 0 0 0 4px var(--life-paper);
+}
+
+.landing-page .life-branch:focus-visible {
+    outline: 2px solid var(--life-ink);
+    outline-offset: 4px;
+}
+
+.life-branch--work { top: 27%; left: 7%; }
+.life-branch--make { top: 16%; left: 24%; }
+.life-branch--serve { top: 7%; left: 44%; }
+.life-branch--learn { top: 16%; left: 64%; }
+.life-branch--life { top: 27%; left: 80%; }
+
+/* One dossier replaces five stacked résumé sections. */
+.life-dossiers {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    gap: 1px;
+    width: min(72rem, calc(100% - 2.5rem));
+    margin: 4rem auto;
+    background: var(--life-line);
+    border: 1px solid var(--life-line);
+}
+
+.life-index:not(.is-enhanced) .life-dossier {
+    display: block;
+    background: var(--life-paper);
+}
+
+.life-index.is-enhanced .life-dossiers {
+    position: absolute;
+    top: 52%;
+    right: clamp(2rem, 4vw, 6rem);
+    width: min(54vw, 54rem);
+    height: calc(100svh - 5rem);
+    margin: 0;
+    overflow: hidden;
+    opacity: var(--life-panel-opacity);
+    pointer-events: none;
+    background: transparent;
+    border: 0;
+    transform: translateY(calc(-50% + var(--life-panel-y)));
+    transition: opacity 260ms ease;
+    scrollbar-width: thin;
+    scrollbar-color: var(--life-line-strong) transparent;
+}
+
+.life-index.is-enhanced.is-open .life-dossiers {
+    pointer-events: auto;
+}
+
+/* Panels crossfade in place so one facet never bleeds into the next. */
+.life-index.is-enhanced .life-dossier {
+    position: absolute;
+    inset: 0;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0.6rem);
+    transition:
+        opacity 460ms cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 460ms linear,
+        transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.life-index.is-enhanced .life-dossier.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.life-dossier {
+    position: relative;
+    padding: clamp(1.75rem, 3.4vw, 3.5rem);
+    color: var(--life-ink);
+    background: var(--life-panel);
+    border: 1px solid var(--life-line);
+}
+
+.life-dossier__header {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1.2rem;
+    margin-bottom: clamp(1.6rem, 3vh, 2.6rem);
+    color: var(--life-muted);
+    font-size: clamp(0.54rem, 0.65vw, 0.66rem);
+    line-height: 1.45;
+    border-bottom: 1px solid var(--life-line);
+}
+
+.life-dossier__header p {
+    flex: 0 0 auto;
+    color: var(--life-copper) !important;
+}
+
+.life-dossier__header p span,
+.life-dossier__header i {
+    color: var(--life-faint);
+    font-style: normal;
+}
+
+.life-dossier__header > span {
+    text-align: right;
+}
+
+.landing-page .life-dossier h2 {
+    max-width: 14ch;
+    color: var(--life-ink);
+    font-family: var(--life-serif);
+    font-size: clamp(2.8rem, 5.1vw, 5.8rem);
+    font-weight: 400;
+    line-height: 0.88;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+}
+
+.life-dossier__lede {
+    max-width: 46ch !important;
+    margin-top: clamp(1.5rem, 3vh, 2.4rem) !important;
+    color: var(--life-muted) !important;
+    font-size: clamp(0.95rem, 1.25vw, 1.16rem);
+    line-height: 1.68;
+}
+
+.life-evidence {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: clamp(1.8rem, 4vh, 3.25rem) !important;
+    border-block: 1px solid var(--life-line);
+}
+
+.life-evidence > div {
+    min-width: 0;
+    padding: 1.25rem 1rem 1.25rem 0;
+}
+
+.life-evidence > div + div {
+    padding-left: 1rem;
+    border-left: 1px solid var(--life-line);
+}
+
+.life-evidence dt {
+    color: var(--life-copper);
+    font-family: var(--life-serif);
+    font-size: clamp(1.45rem, 2.4vw, 2.4rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+}
+
+.life-evidence dt small {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--life-faint);
+    font-family: var(--life-mono);
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.life-evidence dd {
+    margin: 0.55rem 0 0;
+    color: var(--life-muted);
+    font-family: var(--life-mono);
+    font-size: clamp(0.5rem, 0.6vw, 0.62rem);
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.life-dossier__note {
+    max-width: 60ch !important;
+    padding-left: 1.1rem !important;
+    margin-top: clamp(1.4rem, 3vh, 2.25rem) !important;
+    color: var(--life-muted) !important;
+    font-size: clamp(0.74rem, 0.9vw, 0.9rem);
+    line-height: 1.65;
+    border-left: 2px solid var(--life-moss) !important;
+}
+
+.landing-page .life-text-link {
+    display: inline-flex;
+    min-height: 44px;
+    gap: 0.65rem;
+    align-items: center;
+    margin-top: 1.5rem;
+    color: var(--life-ink);
+    font-family: var(--life-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-decoration: underline;
+    text-decoration-color: var(--life-copper);
+    text-underline-offset: 0.4em;
+    text-transform: uppercase;
+}
+
+.landing-page .life-text-link:hover,
+.landing-page .life-text-link:focus-visible {
+    color: var(--life-copper);
+}
+
+.life-artifacts {
+    margin-top: clamp(1.8rem, 4vh, 3rem);
+    border-top: 1px solid var(--life-line);
+}
+
+.landing-page .life-artifacts > a {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    min-height: 5.5rem;
+    gap: 1rem;
+    align-items: center;
+    color: var(--life-ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--life-line);
+    transition: color 180ms ease, padding 180ms ease;
+}
+
+.landing-page .life-artifacts > a:hover,
+.landing-page .life-artifacts > a:focus-visible {
+    padding-inline: 0.6rem;
+    color: var(--life-copper);
+}
+
+.life-artifacts__index {
+    color: var(--life-faint);
+    font-family: var(--life-mono);
+    font-size: 0.56rem;
+    font-weight: 700;
+}
+
+.life-artifacts strong,
+.life-artifacts small {
+    display: block;
+}
+
+.life-artifacts strong {
+    font-family: var(--life-serif);
+    font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.life-artifacts small {
+    margin-top: 0.4rem;
+    color: var(--life-muted);
+    font-family: var(--life-mono);
+    font-size: 0.5rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.life-artifacts i {
+    color: var(--life-copper);
+    font-style: normal;
+}
+
+.life-principle {
+    padding: 1.35rem 0 1.35rem clamp(1.25rem, 3vw, 2.5rem) !important;
+    margin-top: clamp(2rem, 4vh, 3.5rem) !important;
+    background: linear-gradient(90deg, rgba(82, 107, 85, 0.1), transparent 78%);
+    border-left: 2px solid var(--life-copper) !important;
+}
+
+.life-principle p {
+    color: var(--life-ink) !important;
+    font-family: var(--life-serif);
+    font-size: clamp(1.35rem, 2.2vw, 2.25rem);
+    line-height: 1.28;
+}
+
+.life-learning {
+    margin-top: clamp(1.8rem, 4vh, 3rem);
+    border-top: 1px solid var(--life-line);
+}
+
+.life-learning p {
+    display: grid;
+    grid-template-columns: minmax(5rem, 0.35fr) 1fr;
+    gap: 1rem;
+    padding: 1rem 0 !important;
+    color: var(--life-muted) !important;
+    font-size: clamp(0.78rem, 1vw, 0.96rem);
+    line-height: 1.5;
+    border-bottom: 1px solid var(--life-line) !important;
+}
+
+.life-learning span {
+    color: var(--life-copper);
+    font-family: var(--life-mono);
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.life-home {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(11rem, 0.62fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: end;
+}
+
+.life-home figure {
+    position: relative;
+}
+
+.life-home img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: saturate(0.68) contrast(0.96);
+    border: 1px solid var(--life-line);
+    transition: filter 320ms ease;
+}
+
+.life-home figure:hover img {
+    filter: saturate(0.95) contrast(1);
+}
+
+.life-home figcaption {
+    margin-top: 0.65rem;
+    color: var(--life-muted);
+    font-family: var(--life-mono);
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.life-home figcaption span {
+    color: var(--life-copper);
+}
+
+.life-home__links {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.landing-page .life-home__links a {
+    min-height: 44px;
+    color: var(--life-ink);
+    font-family: var(--life-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-decoration-color: var(--life-copper);
+    text-underline-offset: 0.4em;
+    text-transform: uppercase;
+}
+
+.life-stage__meter {
+    position: absolute;
+    z-index: 18;
+    right: clamp(1rem, 2vw, 2rem);
+    bottom: clamp(1rem, 2vw, 2rem);
+    width: 1px;
+    height: 4.5rem;
+    overflow: hidden;
+    background: var(--life-line);
+}
+
+.life-stage__meter span {
+    display: block;
+    width: 1px;
+    height: var(--life-meter);
+    background: var(--life-copper);
+    transition: height 80ms linear;
+}
+
+/* The only conventional section is a short closing thesis. */
+.life-coda {
+    position: relative;
+    z-index: 12;
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr) minmax(13rem, 0.48fr);
+    min-height: 56svh;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+    padding: clamp(5rem, 10vw, 9rem) clamp(1.25rem, 5vw, 5rem);
+    background: var(--life-paper-deep);
+    border-top: 1px solid var(--life-line);
+}
+
+.life-coda__label {
+    align-self: start;
+    padding-top: 0.8rem;
+    color: var(--life-copper) !important;
+    font-size: 0.6rem;
+}
+
+.landing-page .life-coda h2 {
+    max-width: 12ch;
+    color: var(--life-ink);
+    font-family: var(--life-serif);
+    font-size: clamp(2.8rem, 5.8vw, 6.6rem);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+}
+
+.life-coda__body > p {
+    max-width: 50ch !important;
+    margin-top: 2rem !important;
+    color: var(--life-muted) !important;
+    font-size: clamp(0.9rem, 1.25vw, 1.12rem);
+    line-height: 1.7;
+}
+
+.life-coda__links {
+    display: grid;
+    align-self: stretch;
+    border-top: 1px solid var(--life-line-strong);
+}
+
+.landing-page .life-coda__links a {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    min-height: 3.5rem;
+    gap: 0.75rem;
+    align-items: center;
+    color: var(--life-ink);
+    font-size: 0.6rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--life-line);
+    transition: color 180ms ease, padding 180ms ease;
+}
+
+.landing-page .life-coda__links a:hover,
+.landing-page .life-coda__links a:focus-visible {
+    padding-left: 0.5rem;
+    color: var(--life-copper);
+}
+
+.life-coda__links span {
+    color: var(--life-faint);
+    font-size: 0.5rem;
+}
+
+@media screen and (max-width: 74rem) and (min-width: 56.01rem) {
+    .life-index.is-enhanced .life-tree-shell {
+        width: min(60vmin, 38rem);
+    }
+
+    .life-index.is-enhanced .life-dossiers {
+        right: 2.5rem;
+        width: 52vw;
+    }
+
+    .life-intro__thesis {
+        width: 27vw;
+    }
+
+    .life-dossier {
+        padding: 2rem;
+    }
+}
+
+/* Tablet and mobile keep the same index without sticky choreography. */
+@media screen and (max-width: 56rem) {
+    body.landing-page {
+        --life-header-height: 3.75rem;
+    }
+
+    .landing-page .md-header__inner {
+        padding-inline: 1rem;
+    }
+
+    .landing-page .md-header__button.md-logo,
+    .landing-page .md-header__button.md-logo svg {
+        width: 1.85rem;
+        height: 1.85rem;
+    }
+
+    .landing-page .md-header__title {
+        font-size: 0.56rem;
+    }
+
+    .life-index,
+    .life-index.is-enhanced {
+        --life-intro-opacity: 1 !important;
+        --life-panel-opacity: 1 !important;
+        --life-panel-y: 0rem !important;
+        --life-tree-detail: 1 !important;
+        --life-pixel-opacity: 0 !important;
+    }
+
+    .life-index.is-enhanced .life-journey {
+        height: auto;
+    }
+
+    .life-index.is-enhanced .life-stage,
+    .life-stage {
+        position: relative;
+        top: auto;
+        display: flex;
+        height: auto;
+        min-height: 0;
+        flex-direction: column;
+        overflow: visible;
+        padding: calc(var(--life-header-height) + 1.75rem) 0 0;
+    }
+
+    .life-intro {
+        position: relative;
+        inset: auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        min-height: 17rem;
+        gap: 1.5rem;
+        padding: 0 1.25rem;
+        opacity: 1;
+    }
+
+    .life-intro__identity,
+    .life-intro__field,
+    .life-intro__thesis {
+        position: static;
+    }
+
+    .life-intro__identity {
+        align-self: start;
+    }
+
+    .life-intro__field {
+        align-self: start;
+        font-size: 0.5rem;
+    }
+
+    .landing-page .life-intro h1 {
+        font-size: clamp(2.7rem, 10vw, 4.8rem);
+    }
+
+    .life-intro__thesis {
+        grid-column: 1 / -1;
+        width: min(29rem, 86vw);
+        align-self: end;
+        padding-bottom: 1rem;
+    }
+
+    .life-intro__thesis p {
+        font-size: clamp(1.6rem, 5.7vw, 2.6rem);
+    }
+
+    .life-intro__prompt {
+        display: none;
+    }
+
+    .life-index.is-enhanced .life-tree-shell,
+    .life-tree-shell {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: min(92vw, 35rem);
+        margin: 0.5rem auto 0;
+        transform: none;
+    }
+
+    .life-tree-shell {
+        aspect-ratio: auto;
+    }
+
+    .life-tree {
+        width: 100%;
+        aspect-ratio: 1;
+    }
+
+    .life-branches {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        width: 100%;
+        margin-top: -0.25rem;
+        border-block: 1px solid var(--life-line);
+    }
+
+    .landing-page .life-branch,
+    .life-branch--life,
+    .life-branch--learn,
+    .life-branch--work,
+    .life-branch--make,
+    .life-branch--serve {
+        position: static;
+        min-width: 0;
+        min-height: 3.75rem;
+        gap: 0.25rem;
+        flex-direction: column;
+        padding: 0.6rem 0.15rem;
+        font-size: clamp(0.54rem, 1.75vw, 0.68rem);
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .landing-page .life-branch + .life-branch {
+        border-left: 1px solid var(--life-line);
+    }
+
+    .landing-page .life-branch:hover,
+    .landing-page .life-branch:focus-visible,
+    .landing-page .life-branch.is-active {
+        background: var(--life-paper-deep);
+        border-color: var(--life-line);
+        box-shadow: none;
+    }
+
+    /* Active chip reads in copper, mirroring the tree's highlighted limb. */
+    .landing-page .life-branch.is-active {
+        color: var(--life-copper);
+        background: var(--life-paper-deep);
+        box-shadow: inset 0 -2px 0 var(--life-copper);
+    }
+
+    .life-index.is-enhanced .life-dossiers,
+    .life-dossiers {
+        position: relative;
+        top: auto;
+        right: auto;
+        display: block;
+        width: calc(100% - 2rem);
+        max-height: none;
+        margin: 2rem auto 4rem;
+        overflow: visible;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+    }
+
+    .life-index.is-enhanced .life-dossier:not(.is-active) {
+        display: none;
+    }
+
+    /* Mobile keeps panels in normal flow (one at a time), not the desktop
+       absolutely-stacked crossfade. */
+    .life-index.is-enhanced .life-dossier {
+        position: relative;
+        inset: auto;
+        overflow: visible;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    /* A gentle reveal when a facet is selected, so the swap feels intentional. */
+    .life-index.is-enhanced .life-dossier.is-active {
+        animation: life-dossier-in 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes life-dossier-in {
+        from { opacity: 0; transform: translateY(0.5rem); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .life-dossier {
+        padding: clamp(1.35rem, 5vw, 2.75rem);
+    }
+
+    .landing-page .life-dossier h2 {
+        max-width: 9.5ch;
+        font-size: clamp(2.8rem, 10.5vw, 5.2rem);
+    }
+
+    .life-dossier__lede {
+        font-size: clamp(0.94rem, 2.2vw, 1.08rem);
+    }
+
+    .life-home {
+        grid-template-columns: minmax(0, 1.15fr) minmax(10rem, 0.7fr);
+    }
+
+    .life-coda {
+        grid-template-columns: minmax(0, 1fr);
+        min-height: 0;
+        gap: 2.25rem;
+        padding: clamp(4rem, 10vw, 7rem) 1.25rem;
+    }
+
+    .life-coda__label {
+        padding: 0;
+    }
+
+    .landing-page .life-coda h2 {
+        max-width: 11ch;
+        font-size: clamp(3rem, 10vw, 5.5rem);
+    }
+
+    .life-coda__links {
+        width: 100%;
+    }
+
+    .life-stage__meter {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 35rem) {
+    .life-intro {
+        min-height: 13.5rem;
+        gap: 0.65rem;
+    }
+
+    .life-kicker {
+        max-width: 16rem;
+        margin-bottom: 0.9rem !important;
+    }
+
+    .landing-page .life-intro h1 {
+        font-size: clamp(2.3rem, 10.5vw, 3.3rem);
+    }
+
+    .life-intro__field {
+        padding-top: 0.15rem;
+        font-size: 0.44rem;
+    }
+
+    .life-tree-shell,
+    .life-index.is-enhanced .life-tree-shell {
+        width: 88vw;
+        margin-left: 6vw;
+    }
+
+    .life-tree {
+        max-height: 25rem;
+    }
+
+    .life-branches {
+        width: 96vw;
+        margin-inline: -4vw 0;
+    }
+
+    .life-dossier__header {
+        align-items: flex-start;
+    }
+
+    .life-dossier__header > span {
+        max-width: 14rem;
+    }
+
+    .life-evidence {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .life-evidence > div,
+    .life-evidence > div + div {
+        display: block;
+        padding: 0.9rem 0.4rem;
+        border-bottom: 0;
+    }
+
+    .life-evidence > div + div {
+        border-left: 1px solid var(--life-line);
+    }
+
+    .life-evidence dt {
+        font-size: 1.3rem;
+    }
+
+    .life-evidence dd {
+        margin-top: 0.5rem;
+        font-size: 0.43rem;
+    }
+
+    .life-learning p {
+        grid-template-columns: 5rem 1fr;
+    }
+
+    .life-home {
+        grid-template-columns: 1fr;
+    }
+
+    .life-home figure {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 0.75rem;
+        align-items: end;
+        margin-top: 0.5rem !important;
+    }
+
+    .life-home img {
+        aspect-ratio: 16 / 9;
+        object-position: center 38%;
+    }
+
+    .life-home figcaption {
+        writing-mode: vertical-rl;
+    }
+
+    .landing-page .md-footer__inner {
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+
+    .landing-page .mdlad-footer__links,
+    .landing-page .mdlad-footer__meta {
+        font-size: 0.52rem;
+    }
+
+    .life-coda {
+        gap: 1.5rem;
+        padding-block: 3rem;
+    }
+
+    .landing-page .life-coda h2 {
+        max-width: 14ch;
+        font-size: clamp(2.4rem, 9vw, 3.5rem);
+    }
+
+    .life-coda__body > p {
+        margin-top: 1.25rem !important;
+        font-size: 0.86rem;
+    }
+
+    .life-coda__links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .landing-page .life-coda__links a {
+        min-height: 3.25rem;
+        padding-right: 0.4rem;
+    }
+
+    .landing-page .life-coda__links a:nth-child(odd) {
+        border-right: 1px solid var(--life-line);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .life-index *,
+    .life-index *::before,
+    .life-index *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+
+    .life-index.is-enhanced .life-journey {
+        height: 118svh;
+    }
+}
+
+@media print {
+    .landing-page .md-header,
+    .landing-page .md-footer,
+    .life-stage__meter {
+        display: none !important;
+    }
+
+    .life-index.is-enhanced .life-journey,
+    .life-index.is-enhanced .life-stage {
+        position: relative;
+        height: auto;
+        overflow: visible;
+    }
+
+    .life-intro,
+    .life-tree-shell,
+    .life-index.is-enhanced .life-tree-shell,
+    .life-index.is-enhanced .life-dossiers,
+    .life-dossiers {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        max-height: none;
+        margin: 2rem auto;
+        opacity: 1;
+        transform: none;
+    }
+
+    .life-index.is-enhanced .life-dossier:not(.is-active) {
+        display: block;
+    }
+}
