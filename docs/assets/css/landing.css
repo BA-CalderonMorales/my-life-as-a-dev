@@ -211,10 +211,10 @@ body.landing-page[data-md-color-scheme="slate"] {
         var(--life-paper);
 }
 
-/* With JS, hide scroll-revealed content on first paint so the tree-only
-   opening view never flashes the scrolled state. No-JS keeps content visible. */
+/* With JS, hide the scroll-revealed dossier on first paint so the opening
+   frame never flashes the scrolled state. The intro owns the opening frame;
+   its arrival is handled by the life-intro-in entrance below. */
 html.js .life-index {
-    --life-intro-opacity: 0;
     --life-panel-opacity: 0;
 }
 
@@ -380,6 +380,33 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 @keyframes life-prompt {
     0%, 100% { transform: translateX(-110%); }
     55% { transform: translateX(220%); }
+}
+
+/* One-time staggered entrance: the intro owns the opening frame, so each
+   element arrives in sequence instead of popping in with the first paint.
+   Runs once on load; scroll-driven opacity still comes from --life-intro-opacity. */
+.life-index.is-enhanced .life-intro__identity,
+.life-index.is-enhanced .life-intro__field,
+.life-index.is-enhanced .life-intro__thesis,
+.life-index.is-enhanced .life-intro__prompt {
+    animation: life-intro-in 900ms var(--ease-swift, ease-out) both;
+}
+
+.life-index.is-enhanced .life-intro__identity { animation-delay: 120ms; }
+.life-index.is-enhanced .life-intro__field { animation-delay: 260ms; }
+.life-index.is-enhanced .life-intro__thesis { animation-delay: 420ms; }
+.life-index.is-enhanced .life-intro__prompt { animation-delay: 640ms; }
+
+@keyframes life-intro-in {
+    from {
+        opacity: 0;
+        transform: translateY(0.6rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* The tree is illustration, state diagram, and navigation map. */

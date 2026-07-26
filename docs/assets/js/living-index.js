@@ -117,16 +117,16 @@
 
         function applyProgress(rawProgress) {
             var progress = clamp(rawProgress, 0, 1);
-            var eased = easeOutCubic(progress);
-            var introOpacity = clamp((progress - 0.03) / 0.12, 0, 1);
-            var panelOpacity = clamp((progress - PANEL_START) / 0.18, 0, 1);
+            // Sequenced handoff: the intro bows out first (0.08-0.20), the
+            // tree decamps to the left (0.10-0.38), then the dossier lands
+            // (0.16-0.32) -- each gesture gets its own window so the opening
+            // never collapses into one muddled crossfade.
+            var introOpacity = 1 - clamp((progress - 0.08) / 0.12, 0, 1);
+            var panelOpacity = clamp((progress - 0.16) / 0.16, 0, 1);
             var detail = 1 - (clamp((progress - 0.06) / 0.5, 0, 1) * 0.84);
             var pixelOpacity = clamp((progress - 0.14) / 0.34, 0, 0.9);
 
-            // The tree holds center through the intro, then drifts as the
-            // dossier arrives -- so the opening reads as one calm gesture.
-            var treeProgress = easeInOutCubic(clamp((progress - PANEL_START) / (1 - PANEL_START), 0, 1));
-            var treeEased = easeOutCubic(treeProgress);
+            var treeEased = easeInOutCubic(clamp((progress - 0.1) / 0.28, 0, 1));
 
             root.style.setProperty("--life-tree-x", (-31 * treeEased).toFixed(3) + "vw");
             root.style.setProperty("--life-tree-scale", (1 - (0.5 * treeEased)).toFixed(3));
