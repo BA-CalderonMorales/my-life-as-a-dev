@@ -38,7 +38,10 @@
 
 [data-life-index] .life-tree__wood-shape {
     fill: currentColor;
-    stroke: none;
+    /* A matching round-joined stroke smooths the silhouette's perceived edge. */
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
 }
 
 /* Slightly lift the wood in dark mode so the trunk reads against deep paper. */
@@ -53,6 +56,42 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__wo
 /* Dark mode: give shaded leaves more presence against the dark canvas. */
 body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__leaf--shade {
     opacity: 0.78;
+}
+
+/*
+ * Bark grain: dry-brush strokes at low opacity so the wood reads grown.
+ * Light mode textures with ink and highlights with paper; dark mode flips
+ * the pair so the same two-tone logic holds on a light trunk.
+ */
+[data-life-index] .life-tree__bark path {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    opacity: 0.16;
+}
+
+[data-life-index] .life-tree__bark--light path {
+    stroke: var(--life-paper);
+    opacity: 0.22;
+}
+
+body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__bark path {
+    stroke: var(--life-paper);
+    opacity: 0.28;
+}
+
+body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__bark--light path {
+    stroke: currentColor;
+    opacity: 0.3;
+}
+
+/* Understory mass: a quiet dark base behind the leaves for canopy volume. */
+[data-life-index] .life-tree__canopy-mass ellipse {
+    fill: currentColor;
+}
+
+body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__canopy-mass ellipse {
+    opacity: 0.14;
 }
 
 /*
