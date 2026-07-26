@@ -133,6 +133,27 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__le
     fill: var(--life-copper);
 }
 
+/*
+ * Root system: stroke-drawn from the trunk base, sprawling as the reader
+ * scrolls toward the last facet. --life-roots (0..1) is driven by
+ * living-index.js; each root grows inside its own --root-delay/--root-span
+ * window so the deep sinkers arrive first and the wide laterals finish the
+ * system. pathLength="1" normalizes the dash math in markup.
+ */
+[data-life-index] .life-tree__roots {
+    pointer-events: none;
+}
+
+[data-life-index] .life-tree__roots path {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-dasharray: 1px;
+    stroke-dashoffset: calc(
+        (1 - clamp(0, (var(--life-roots, 1) - var(--root-delay, 0)) / var(--root-span, 1), 1)) * 1px
+    );
+}
+
 @keyframes life-tree-sway {
     0%,
     100% {

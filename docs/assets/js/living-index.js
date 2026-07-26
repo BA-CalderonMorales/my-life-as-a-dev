@@ -126,6 +126,11 @@
             var detail = 1 - (clamp((progress - 0.06) / 0.5, 0, 1) * 0.84);
             var pixelOpacity = clamp((progress - 0.14) / 0.34, 0, 0.9);
 
+            // Roots sprawl once the tree has decamped, deepening through the
+            // facets and completing at the last one: the further you read,
+            // the deeper the grounding goes.
+            var roots = clamp((progress - 0.35) / 0.6, 0, 1);
+
             var treeEased = easeInOutCubic(clamp((progress - 0.1) / 0.28, 0, 1));
 
             root.style.setProperty("--life-tree-x", (-31 * treeEased).toFixed(3) + "vw");
@@ -135,6 +140,7 @@
             root.style.setProperty("--life-panel-y", ((1 - panelOpacity) * 1.5).toFixed(3) + "rem");
             root.style.setProperty("--life-tree-detail", detail.toFixed(3));
             root.style.setProperty("--life-pixel-opacity", pixelOpacity.toFixed(3));
+            root.style.setProperty("--life-roots", roots.toFixed(3));
             root.style.setProperty("--life-meter", (progress * 100).toFixed(1) + "%");
             root.classList.toggle("is-indexed", progress > 0.08);
             root.classList.toggle("is-open", progress > PANEL_START);

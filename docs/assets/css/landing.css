@@ -200,6 +200,7 @@ body.landing-page[data-md-color-scheme="slate"] {
     --life-panel-y: 1.5rem;
     --life-tree-detail: 1;
     --life-pixel-opacity: 0;
+    --life-roots: 1;
     --life-meter: 0%;
     position: relative;
     isolation: isolate;
@@ -216,6 +217,7 @@ body.landing-page[data-md-color-scheme="slate"] {
    its arrival is handled by the life-intro-in entrance below. */
 html.js .life-index {
     --life-panel-opacity: 0;
+    --life-roots: 0;
 }
 
 html.js .life-index:not(.is-enhanced) .life-branches {
@@ -989,6 +991,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
         --life-panel-y: 0rem !important;
         --life-tree-detail: 1 !important;
         --life-pixel-opacity: 0 !important;
+        --life-roots: 1 !important;
     }
 
     .life-index.is-enhanced .life-journey {
