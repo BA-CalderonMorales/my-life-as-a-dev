@@ -1,0 +1,30 @@
+{
+    "name": "Brandon A. Calderon Morales",
+    "short_name": "Brandon",
+    "description": "Marine veteran turned engineer building readable systems, open-source agent tools, and documentation that makes the next step obvious.",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#f3f0e8",
+    "theme_color": "#17211c",
+    "icons": [
+        {
+            "src": "assets/images/favicon/favicon.ico",
+            "sizes": "48x48",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "assets/images/favicon/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/images/favicon/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
