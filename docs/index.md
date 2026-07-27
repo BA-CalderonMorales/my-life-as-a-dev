@@ -109,12 +109,14 @@ hide:
             <g class="life-tree__canopy-mass" aria-hidden="true">
               <!-- Understory mass: the dark base coat behind the leaves that
                    gives the canopy volume. Leaves and sky holes paint over. -->
-              <ellipse cx="300" cy="310" rx="135" ry="90" opacity="0.07"/>
-              <ellipse cx="435" cy="290" rx="125" ry="85" opacity="0.07"/>
-              <ellipse cx="370" cy="390" rx="155" ry="80" opacity="0.05"/>
-              <ellipse cx="212" cy="372" rx="108" ry="74" opacity="0.045"/>
-              <ellipse cx="523" cy="372" rx="108" ry="74" opacity="0.045"/>
-              <ellipse cx="368" cy="215" rx="95" ry="60" opacity="0.05"/>
+              <circle cx="310" cy="300" r="100" opacity="0.12"/>
+              <circle cx="410" cy="280" r="95" opacity="0.1"/>
+              <circle cx="360" cy="370" r="110" opacity="0.08"/>
+              <circle cx="230" cy="360" r="80" opacity="0.07"/>
+              <circle cx="490" cy="360" r="85" opacity="0.07"/>
+              <circle cx="360" cy="220" r="70" opacity="0.09"/>
+              <circle cx="280" cy="230" r="60" opacity="0.06"/>
+              <circle cx="440" cy="230" r="65" opacity="0.06"/>
             </g>
             <path class="life-tree__twig" d="M 276.2 402.9 L 275.3 403.0 L 274.3 403.2 L 273.0 403.4 L 271.6 403.5 L 270.1 403.7 L 268.5 403.8 L 266.8 403.9 L 265.1 404.0 L 263.4 403.9 L 261.6 403.8 L 259.6 403.6 L 257.4 403.3 L 255.2 403.0 L 253.0 402.7 L 250.8 402.3 L 248.7 401.9 L 246.7 401.5 L 244.8 401.0 L 243.1 400.4 L 241.4 399.8 L 239.7 399.0 L 238.1 398.2 L 236.6 397.4 L 235.2 396.6 L 233.9 395.9 L 232.9 395.3 L 232.0 394.9 L 231.5 395.8 L 232.3 396.2 L 233.3 396.9 L 234.5 397.6 L 235.9 398.5 L 237.4 399.4 L 239.1 400.3 L 240.8 401.2 L 242.5 402.0 L 244.3 402.7 L 246.2 403.3 L 248.2 403.8 L 250.4 404.4 L 252.6 404.8 L 254.9 405.3 L 257.1 405.7 L 259.3 406.0 L 261.3 406.3 L 263.2 406.6 L 265.0 406.7 L 266.8 406.8 L 268.6 406.9 L 270.3 406.8 L 271.9 406.8 L 273.3 406.7 L 274.6 406.6 L 275.6 406.6 L 276.4 406.6 Z"/>
             <g class="life-tree__cluster" style="transform-origin:232px 395px">
