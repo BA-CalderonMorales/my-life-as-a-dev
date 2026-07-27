@@ -126,10 +126,10 @@
             var detail = 1 - (clamp((progress - 0.06) / 0.5, 0, 1) * 0.84);
             var pixelOpacity = clamp((progress - 0.14) / 0.34, 0, 0.9);
 
-            // Roots sprawl once the tree has decamped, deepening through the
-            // facets and completing at the last one: the further you read,
+            // Roots grip the trunk base from the first frame (0.4), then keep
+            // digging and reaching through the facets: the further you read,
             // the deeper the grounding goes.
-            var roots = clamp((progress - 0.35) / 0.6, 0, 1);
+            var roots = 0.4 + 0.6 * clamp(progress / 0.95, 0, 1);
 
             var treeEased = easeInOutCubic(clamp((progress - 0.1) / 0.28, 0, 1));
 
