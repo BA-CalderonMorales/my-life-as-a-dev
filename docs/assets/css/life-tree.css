@@ -10,7 +10,7 @@
     display: block;
     width: min(100%, 47.5rem);
     height: auto;
-    aspect-ratio: 1;
+    aspect-ratio: 3 / 5;
     margin-inline: auto;
     overflow: visible;
     color: var(--life-ink);
@@ -27,9 +27,10 @@
 }
 
 /*
- * Visual wood layer: one continuous union silhouette (trunk + primary and
- * ambient limbs). It is purely decorative -- the semantic hit paths below own
- * interaction -- so it never intercepts pointer events and carries no stroke.
+ * Visual wood layer: one continuous trunk-and-flare silhouette. Primary and
+ * ambient limb ribbons live in the breeze group above. The wood is purely
+ * decorative, so it never intercepts pointer events; semantic hit paths own
+ * interaction.
  */
 [data-life-index] .life-tree__wood {
     pointer-events: none;
@@ -103,9 +104,10 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
 }
 
 /*
- * The breeze owns only the crown assembly: major limbs, leaves, semantic hit
- * paths, nodes, and fruit. The trunk and roots remain outside this transform,
- * planted in the page while the crown pivots from the upper trunk.
+ * The breeze owns only the crown assembly: canopy mass, limbs, twigs, and
+ * foliage. The trunk, roots, semantic hit paths, nodes, and fruit remain
+ * outside this transform, planted in the page while the crown pivots from the
+ * upper trunk.
  */
 [data-life-index] .life-tree__breeze {
     transform-box: view-box;
@@ -135,9 +137,10 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
 [data-life-index] .life-tree__hit-branches .life-tree__branch-hit {
     fill: none;
     stroke: transparent;
-    stroke-width: 26;
+    stroke-width: 44;
     stroke-linecap: round;
     stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
     pointer-events: stroke;
     cursor: pointer;
 }
@@ -176,8 +179,9 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
  * Root system: stroke-drawn from the trunk base, sprawling as the reader
  * scrolls toward the last facet. --life-roots (0..1) is driven by
  * living-index.js; each root grows inside its own --root-delay/--root-span
- * window so the deep sinkers arrive first and the wide laterals finish the
- * system. pathLength="1" normalizes the dash math in markup.
+ * window so the primary scaffold leads, secondary laterals branch next, and
+ * fine feeders finish the system. pathLength="1" normalizes the dash math in
+ * markup.
  */
 [data-life-index] .life-tree__roots {
     pointer-events: none;

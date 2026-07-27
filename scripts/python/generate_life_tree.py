@@ -2,8 +2,9 @@
 """Generate the deterministic living-index tree SVG fragment.
 
 Visible wood and interactive geometry are deliberately separate. One sampled
-exterior contour paints the trunk and major limbs. Five transparent paths reuse
-the exact primary-limb centerlines for pointer and keyboard interaction.
+exterior contour paints the trunk and planted flare; crown limbs render as
+separate breeze-bound ribbons. Five transparent paths reuse the exact
+primary-limb centerlines for pointer and keyboard interaction.
 """
 
 from __future__ import annotations
@@ -46,10 +47,10 @@ AMBIENT = (
 )
 
 ROOT_TIPS = (
-    (220.0, 730.0),
-    (304.0, 746.0),
-    (438.0, 746.0),
-    (526.0, 732.0),
+    (184.0, 756.0),
+    (294.0, 776.0),
+    (454.0, 778.0),
+    (564.0, 752.0),
 )
 
 Point = tuple[float, float]
@@ -66,6 +67,20 @@ class LimbGeometry:
 
 
 @dataclass(frozen=True)
+class RootPath:
+    """One authored root with explicit topology and reveal timing."""
+
+    root_id: str
+    tier: str
+    parent: str
+    anchor: Point
+    path: str
+    width: float
+    delay: float
+    span: float
+
+
+@dataclass(frozen=True)
 class TreeGeometry:
     """The single geometry model used by paint and interaction output."""
 
@@ -73,6 +88,416 @@ class TreeGeometry:
     primary: tuple[LimbGeometry, ...]
     ambient: tuple[LimbGeometry, ...]
     roots: tuple[LimbGeometry, ...]
+
+
+ROOT_PATHS = (
+    RootPath(
+        "root-west",
+        "primary",
+        "trunk",
+        (364.0, 704.0),
+        (
+            "M 364 704 C 338 724 310 744 280 764 "
+            "C 244 792 210 826 170 858 C 132 894 76 944 24 982"
+        ),
+        9.2,
+        0.00,
+        0.52,
+    ),
+    RootPath(
+        "root-southwest",
+        "primary",
+        "trunk",
+        (368.0, 706.0),
+        (
+            "M 368 706 C 350 742 338 776 322 812 "
+            "C 306 846 280 878 248 908 C 224 948 206 1008 190 1044 "
+            "C 174 1080 160 1110 150 1128"
+        ),
+        7.4,
+        0.02,
+        0.56,
+    ),
+    RootPath(
+        "root-sinker",
+        "primary",
+        "trunk",
+        (374.0, 706.0),
+        (
+            "M 374 706 C 370 754 372 800 364 844 "
+            "C 358 884 362 930 350 968 C 342 1018 334 1094 326 1164"
+        ),
+        8.2,
+        0.04,
+        0.58,
+    ),
+    RootPath(
+        "root-southeast",
+        "primary",
+        "trunk",
+        (378.0, 706.0),
+        (
+            "M 378 706 C 400 738 414 774 432 808 "
+            "C 450 842 478 870 500 904 C 518 950 536 1002 552 1040 "
+            "C 562 1068 570 1094 574 1110"
+        ),
+        7.0,
+        0.06,
+        0.55,
+    ),
+    RootPath(
+        "root-east",
+        "primary",
+        "trunk",
+        (382.0, 704.0),
+        (
+            "M 382 704 C 420 720 452 746 486 770 "
+            "C 526 798 558 824 602 846 C 642 876 674 918 696 970"
+        ),
+        8.6,
+        0.08,
+        0.50,
+    ),
+    RootPath(
+        "root-west-crown",
+        "secondary",
+        "root-west",
+        (280.0, 764.0),
+        (
+            "M 280 764 C 246 750 210 754 178 770 "
+            "C 146 786 116 808 88 838"
+        ),
+        4.0,
+        0.30,
+        0.38,
+    ),
+    RootPath(
+        "root-west-deep",
+        "secondary",
+        "root-west",
+        (170.0, 858.0),
+        (
+            "M 170 858 C 150 884 132 916 112 940 "
+            "C 90 1006 58 1054 26 1090"
+        ),
+        3.0,
+        0.36,
+        0.42,
+    ),
+    RootPath(
+        "root-southwest-lateral",
+        "secondary",
+        "root-southwest",
+        (322.0, 812.0),
+        (
+            "M 322 812 C 292 818 266 832 240 852 "
+            "C 210 878 172 902 132 916"
+        ),
+        3.6,
+        0.33,
+        0.39,
+    ),
+    RootPath(
+        "root-southwest-deep",
+        "secondary",
+        "root-southwest",
+        (248.0, 908.0),
+        (
+            "M 248 908 C 220 916 196 934 176 956 "
+            "C 154 978 132 1044 116 1092 C 104 1120 98 1136 92 1142"
+        ),
+        2.8,
+        0.42,
+        0.40,
+    ),
+    RootPath(
+        "root-center-west",
+        "secondary",
+        "root-sinker",
+        (364.0, 844.0),
+        (
+            "M 364 844 C 338 858 318 878 300 900 "
+            "C 278 930 244 1008 204 1074"
+        ),
+        3.2,
+        0.38,
+        0.38,
+    ),
+    RootPath(
+        "root-center-east",
+        "secondary",
+        "root-sinker",
+        (350.0, 968.0),
+        (
+            "M 350 968 C 372 974 392 990 410 1006 "
+            "C 438 1044 474 1098 496 1146"
+        ),
+        2.6,
+        0.47,
+        0.35,
+    ),
+    RootPath(
+        "root-southeast-lateral",
+        "secondary",
+        "root-southeast",
+        (432.0, 808.0),
+        (
+            "M 432 808 C 460 808 486 820 510 838 "
+            "C 538 858 574 880 604 902"
+        ),
+        3.5,
+        0.35,
+        0.39,
+    ),
+    RootPath(
+        "root-southeast-deep",
+        "secondary",
+        "root-southeast",
+        (500.0, 904.0),
+        (
+            "M 500 904 C 530 908 554 924 576 946 "
+            "C 600 970 626 1038 644 1084 C 650 1102 654 1118 656 1128"
+        ),
+        2.9,
+        0.43,
+        0.40,
+    ),
+    RootPath(
+        "root-east-crown",
+        "secondary",
+        "root-east",
+        (486.0, 770.0),
+        (
+            "M 486 770 C 516 754 548 750 576 760 "
+            "C 612 772 646 798 672 832"
+        ),
+        3.8,
+        0.32,
+        0.38,
+    ),
+    RootPath(
+        "root-east-deep",
+        "secondary",
+        "root-east",
+        (602.0, 846.0),
+        (
+            "M 602 846 C 626 850 650 864 668 884 "
+            "C 684 904 696 930 700 958 C 706 990 706 1028 704 1060"
+        ),
+        3.1,
+        0.39,
+        0.42,
+    ),
+    RootPath(
+        "root-west-low",
+        "secondary",
+        "root-southwest",
+        (190.0, 1044.0),
+        (
+            "M 190 1044 C 152 1028 112 1030 82 1052 "
+            "C 54 1070 32 1088 18 1112"
+        ),
+        2.7,
+        0.48,
+        0.38,
+    ),
+    RootPath(
+        "root-east-low",
+        "secondary",
+        "root-southeast",
+        (552.0, 1040.0),
+        (
+            "M 552 1040 C 590 1026 626 1034 652 1060 "
+            "C 678 1086 696 1118 704 1148"
+        ),
+        2.7,
+        0.49,
+        0.37,
+    ),
+    RootPath(
+        "rootlet-west-rise",
+        "fine",
+        "root-west-crown",
+        (178.0, 770.0),
+        "M 178 770 C 156 750 130 740 106 742",
+        1.6,
+        0.58,
+        0.30,
+    ),
+    RootPath(
+        "rootlet-west-edge",
+        "fine",
+        "root-west-crown",
+        (88.0, 838.0),
+        "M 88 838 C 64 850 34 874 14 900",
+        1.4,
+        0.62,
+        0.32,
+    ),
+    RootPath(
+        "rootlet-west-deep",
+        "fine",
+        "root-west-deep",
+        (112.0, 940.0),
+        "M 112 940 C 84 956 48 998 22 1032",
+        1.5,
+        0.66,
+        0.30,
+    ),
+    RootPath(
+        "rootlet-southwest-rise",
+        "fine",
+        "root-southwest-lateral",
+        (240.0, 852.0),
+        "M 240 852 C 224 830 202 816 178 814",
+        1.7,
+        0.59,
+        0.31,
+    ),
+    RootPath(
+        "rootlet-southwest-tip",
+        "fine",
+        "root-southwest-deep",
+        (176.0, 956.0),
+        "M 176 956 C 142 970 104 1004 70 1046",
+        1.3,
+        0.69,
+        0.28,
+    ),
+    RootPath(
+        "rootlet-center-west",
+        "fine",
+        "root-center-west",
+        (300.0, 900.0),
+        "M 300 900 C 270 916 236 962 206 1000",
+        1.5,
+        0.64,
+        0.30,
+    ),
+    RootPath(
+        "rootlet-center-sink",
+        "fine",
+        "root-center-east",
+        (410.0, 1006.0),
+        (
+            "M 410 1006 C 392 1048 378 1108 366 1144 "
+            "C 362 1156 360 1166 358 1172"
+        ),
+        1.6,
+        0.72,
+        0.28,
+    ),
+    RootPath(
+        "rootlet-southeast-rise",
+        "fine",
+        "root-southeast-lateral",
+        (510.0, 838.0),
+        "M 510 838 C 528 816 552 804 578 806",
+        1.7,
+        0.61,
+        0.32,
+    ),
+    RootPath(
+        "rootlet-southeast-tip",
+        "fine",
+        "root-southeast-deep",
+        (576.0, 946.0),
+        "M 576 946 C 616 964 658 1004 694 1042",
+        1.4,
+        0.68,
+        0.29,
+    ),
+    RootPath(
+        "rootlet-east-rise",
+        "fine",
+        "root-east-crown",
+        (576.0, 760.0),
+        "M 576 760 C 600 740 628 734 652 740",
+        1.8,
+        0.60,
+        0.31,
+    ),
+    RootPath(
+        "rootlet-east-shoulder",
+        "fine",
+        "root-east-deep",
+        (668.0, 884.0),
+        "M 668 884 C 688 870 702 852 706 836",
+        1.4,
+        0.65,
+        0.31,
+    ),
+    RootPath(
+        "rootlet-east-deep",
+        "fine",
+        "root-east-deep",
+        (700.0, 958.0),
+        "M 700 958 C 694 1002 692 1068 688 1110 C 686 1118 684 1124 680 1130",
+        1.5,
+        0.71,
+        0.28,
+    ),
+    RootPath(
+        "rootlet-west-low-rise",
+        "fine",
+        "root-west-low",
+        (82.0, 1052.0),
+        "M 82 1052 C 60 1030 36 1018 14 1010",
+        1.4,
+        0.73,
+        0.24,
+    ),
+    RootPath(
+        "rootlet-west-low-deep",
+        "fine",
+        "root-west-low",
+        (18.0, 1112.0),
+        "M 18 1112 C 30 1128 46 1142 62 1156",
+        1.3,
+        0.78,
+        0.21,
+    ),
+    RootPath(
+        "rootlet-west-basin",
+        "fine",
+        "root-southwest-deep",
+        (116.0, 1092.0),
+        "M 116 1092 C 94 1114 68 1148 52 1168",
+        1.5,
+        0.76,
+        0.23,
+    ),
+    RootPath(
+        "rootlet-east-low-rise",
+        "fine",
+        "root-east-low",
+        (652.0, 1060.0),
+        "M 652 1060 C 672 1042 690 1028 706 1018",
+        1.5,
+        0.74,
+        0.23,
+    ),
+    RootPath(
+        "rootlet-east-low-deep",
+        "fine",
+        "root-east-low",
+        (704.0, 1148.0),
+        "M 704 1148 C 690 1158 674 1164 656 1170",
+        1.3,
+        0.79,
+        0.20,
+    ),
+    RootPath(
+        "rootlet-east-basin",
+        "fine",
+        "root-southeast-deep",
+        (644.0, 1084.0),
+        "M 644 1084 C 664 1108 692 1136 690 1158",
+        1.5,
+        0.77,
+        0.22,
+    ),
+)
 
 
 def catmull_rom(points: list[Point], per_segment: int = 10) -> list[Point]:
@@ -476,7 +901,7 @@ def signed_area(loop: list[Point]) -> float:
 
 def union_outline(limbs: tuple[LimbGeometry, ...], step: float = 1.25) -> list[Point]:
     """Return the sole closed exterior contour for connected static wood."""
-    bounds = (16.0, 72.0, 704.0, 764.0)
+    bounds = (16.0, 72.0, 704.0, 804.0)
     inside, columns, rows = rasterize_capsules(
         geometry_capsules(limbs),
         x0=bounds[0],
@@ -631,32 +1056,15 @@ def sub_branch(
 
 def roots_markup() -> list[str]:
     """Draw a hierarchical root network that reveals as the journey deepens."""
-    roots = (
-        ("M 366 704 C 330 728 300 758 258 790 C 204 830 142 858 64 884", 8.0, 0.00, 0.37),
-        ("M 368 706 C 348 742 326 784 296 826 C 274 851 246 873 210 892", 6.2, 0.03, 0.37),
-        ("M 373 706 C 371 754 367 814 358 896", 7.0, 0.05, 0.39),
-        ("M 378 706 C 399 744 425 786 455 828 C 477 853 500 875 520 894", 6.0, 0.07, 0.38),
-        ("M 380 704 C 420 726 456 756 500 790 C 552 830 612 860 660 886", 7.4, 0.09, 0.39),
-        ("M 282 772 C 246 768 208 774 166 794", 3.6, 0.25, 0.27),
-        ("M 238 796 C 207 814 177 839 150 870", 2.4, 0.31, 0.24),
-        ("M 220 818 C 180 821 142 834 106 858", 2.2, 0.34, 0.24),
-        ("M 166 842 C 138 860 112 875 82 890", 1.2, 0.44, 0.20),
-        ("M 324 778 C 300 794 278 816 256 844", 2.8, 0.30, 0.26),
-        ("M 294 828 C 278 850 258 871 234 894", 1.4, 0.43, 0.21),
-        ("M 368 786 C 344 802 325 824 308 852", 2.2, 0.36, 0.24),
-        ("M 364 838 C 346 856 332 875 320 896", 1.2, 0.48, 0.19),
-        ("M 424 784 C 449 798 474 818 497 846", 2.7, 0.31, 0.26),
-        ("M 462 828 C 482 850 502 871 528 894", 1.4, 0.44, 0.21),
-        ("M 500 790 C 536 782 575 788 612 808", 3.4, 0.27, 0.27),
-        ("M 520 816 C 550 832 578 856 602 884", 2.3, 0.34, 0.23),
-        ("M 562 832 C 598 834 632 847 662 868", 2.0, 0.37, 0.23),
-        ("M 614 858 C 638 871 662 880 688 890", 1.1, 0.50, 0.18),
-    )
     output = ['      <g class="life-tree__roots" aria-hidden="true">']
-    for path, width, delay, span in roots:
+    for root in ROOT_PATHS:
+        anchor = f"{root.anchor[0]:.0f} {root.anchor[1]:.0f}"
         output.append(
-            f'        <path d="{path}" pathLength="1" stroke-width="{width:.1f}" '
-            f'style="--root-delay:{delay:.2f};--root-span:{span:.2f}"/>'
+            f'        <path class="life-tree__root life-tree__root--{root.tier}" '
+            f'data-root-id="{root.root_id}" data-root-tier="{root.tier}" '
+            f'data-root-parent="{root.parent}" data-root-anchor="{anchor}" '
+            f'd="{root.path}" pathLength="1" stroke-width="{root.width:.1f}" '
+            f'style="--root-delay:{root.delay:.2f};--root-span:{root.span:.2f}"/>'
         )
     output.append("      </g>")
     return output
@@ -798,55 +1206,116 @@ def build(seed: int = SEED) -> str:
     output.extend(branch_markup(geometry))
     output.append('        <g class="life-tree__foliage" aria-hidden="true">')
     output.extend(foliage_markup(geometry, foliage_state))
-    output.append("        </g>")
+    output.extend(("        </g>", "      </g>"))
 
-    output.append('        <g class="life-tree__hit-branches">')
+    output.append('      <g class="life-tree__hit-branches">')
     for limb in geometry.primary:
         label = limb.name.capitalize()
         output.append(
-            f'          <path class="life-tree__branch-hit" '
+            f'        <path class="life-tree__branch-hit" '
             f'data-tree-branch="{limb.name}" d="{path_from_points(limb.center, close=False)}" '
             f'tabindex="0" role="link" aria-label="Open {label} dossier"/>'
         )
-    output.append("        </g>")
+    output.append("      </g>")
 
-    output.append('        <g class="life-tree__nodes">')
+    output.append('      <g class="life-tree__nodes">')
     for name, facet in FACETS.items():
         x, y = facet["node"]
         output.append(
-            f'          <circle cx="{x:.0f}" cy="{y:.0f}" r="5.5" '
+            f'        <circle cx="{x:.0f}" cy="{y:.0f}" r="5.5" '
             f'data-tree-node="{name}" aria-hidden="true"/>'
         )
     for x, y in (
         (350, 388), (360, 474), (362, 568), (294, 326),
         (424, 324), (234, 292), (486, 300),
     ):
-        output.append(f'          <circle cx="{x}" cy="{y}" r="3.4" aria-hidden="true"/>')
-    output.append("        </g>")
+        output.append(f'        <circle cx="{x}" cy="{y}" r="3.4" aria-hidden="true"/>')
+    output.append("      </g>")
 
-    output.append('        <g class="life-tree__pixels" aria-hidden="true">')
+    output.append('      <g class="life-tree__pixels" aria-hidden="true">')
     for x, y, width, height in (
         (86, 280, 7, 7), (212, 172, 5, 5), (344, 106, 6, 6),
         (494, 182, 5, 5), (624, 268, 7, 7), (282, 354, 5, 5),
         (438, 352, 6, 6), (356, 242, 4, 4),
     ):
         output.append(
-            f'          <rect x="{x}" y="{y}" width="{width}" '
+            f'        <rect x="{x}" y="{y}" width="{width}" '
             f'height="{height}" rx="1.2"/>'
         )
-    output.extend(("        </g>", "      </g>"))
+    output.append("      </g>")
     return "\n".join(output)
 
 
 def validate(markup: str) -> bool:
     """Validate deterministic geometry and semantic output contracts."""
     expected = list(FACETS)
+    root_by_id: dict[str, RootPath] = {}
+    coordinates_by_id: dict[str, set[Point]] = {}
+    tier_counts = {
+        tier: sum(root.tier == tier for root in ROOT_PATHS)
+        for tier in ("primary", "secondary", "fine")
+    }
+    assert tier_counts == {"primary": 5, "secondary": 12, "fine": 18}
+
+    primary_terminal_depths: set[float] = set()
+    reveal_ends: list[float] = []
+    for root in ROOT_PATHS:
+        assert root.root_id not in root_by_id
+        assert root.tier in tier_counts
+        anchor = f"{root.anchor[0]:.0f} {root.anchor[1]:.0f}"
+        assert root.path.startswith(f"M {anchor}")
+
+        numbers = [
+            float(value)
+            for value in re.findall(r"-?\d+(?:\.\d+)?", root.path)
+        ]
+        assert len(numbers) % 2 == 0
+        points = set(zip(numbers[::2], numbers[1::2]))
+        assert min(point[0] for point in points) - root.width / 2 >= 12.0
+        assert max(point[0] for point in points) + root.width / 2 <= 708.0
+        assert min(point[1] for point in points) - root.width / 2 >= 696.0
+        assert max(point[1] for point in points) + root.width / 2 <= 1173.0
+
+        if root.tier == "primary":
+            assert root.parent == "trunk"
+            primary_terminal_depths.add(numbers[-1])
+        else:
+            assert root.parent in root_by_id
+            parent = root_by_id[root.parent]
+            expected_parent_tier = (
+                "primary" if root.tier == "secondary" else "secondary"
+            )
+            assert parent.tier == expected_parent_tier
+            assert root.anchor in coordinates_by_id[root.parent]
+            assert root.delay > parent.delay
+
+        reveal_end = root.delay + root.span
+        assert 0.0 <= root.delay < 1.0
+        assert 0.0 < root.span <= 1.0
+        assert reveal_end <= 1.0
+        reveal_ends.append(reveal_end)
+        root_by_id[root.root_id] = root
+        coordinates_by_id[root.root_id] = points
+
+    assert len(primary_terminal_depths) == 5
+    assert max(primary_terminal_depths) - min(primary_terminal_depths) >= 180.0
+    assert round(max(reveal_ends), 10) == 1.0
+
     assert re.findall(r'data-tree-branch="([^"]+)"', markup) == expected
     assert re.findall(r'data-tree-node="([^"]+)"', markup) == expected
+    assert re.findall(r'data-root-id="([^"]+)"', markup) == [
+        root.root_id for root in ROOT_PATHS
+    ]
+    assert {
+        tier: markup.count(f'data-root-tier="{tier}"')
+        for tier in ("primary", "secondary", "fine")
+    } == tier_counts
     assert markup.count('class="life-tree__wood-shape"') == 1
     assert markup.count('class="life-tree__breeze"') == 1
     assert markup.count('class="life-tree__roots"') == 1
     assert markup.count('class="life-tree__canopy-shape"') == 1
+    assert markup.count('class="life-tree__cluster"') == 35
+    assert len(re.findall(r'<path class="life-tree__leaf(?: |")', markup)) == 176
     wood_match = re.search(r'class="life-tree__wood-shape" d="([^"]+)"', markup)
     assert wood_match is not None
     assert len(re.findall(r"(?:^|\s)M\s", wood_match.group(1))) == 1

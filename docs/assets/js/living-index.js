@@ -2,7 +2,7 @@
     "use strict";
 
     var INDEX_SELECTOR = "[data-life-index]";
-    var DESKTOP_QUERY = "(min-width: 56.01rem)";
+    var DESKTOP_QUERY = "(min-width: 64.01rem)";
     var FACETS = ["work", "make", "serve", "learn", "life"];
     var INTRO_END = 0.14;
     var PANEL_START = 0.12;
@@ -44,6 +44,8 @@
 
         var journey = root.querySelector("[data-life-journey]");
         var stage = root.querySelector(".life-stage");
+        var treeShell = root.querySelector("[data-life-tree]");
+        var dossierRegion = root.querySelector(".life-dossiers");
         var controls = Array.prototype.slice.call(root.querySelectorAll("[data-life-target]"));
         var panels = Array.prototype.slice.call(root.querySelectorAll("[data-life-panel]"));
         var desktopLayout = window.matchMedia(DESKTOP_QUERY);
@@ -51,18 +53,45 @@
         var committedFacet = facetFromHash() || "work";
         var activeFacet = committedFacet;
         var frameRequested = false;
+        var alignmentFrame = null;
+        var layoutReleaseFrame = null;
+        var layoutTransitioning = false;
+        var pendingFacet = null;
+        var handledHash = window.location.hash;
+        var scrollBehaviorFrame = null;
+        var scrollBehaviorSnapshot = null;
+        var priorScrollRestoration = "scrollRestoration" in window.history
+            ? window.history.scrollRestoration
+            : null;
         var journeyStart = 0;
         var journeyRange = 1;
+        var mobileRootStart = 0;
+        var mobileRootRange = 1;
         var disposers = [];
 
         root.classList.add("is-enhanced");
         root.classList.toggle("is-reduced", reducedMotion.matches);
+        if (priorScrollRestoration !== null) {
+            window.history.scrollRestoration = "manual";
+        }
 
         function listen(target, eventName, handler, options) {
             target.addEventListener(eventName, handler, options);
             disposers.push(function () {
                 target.removeEventListener(eventName, handler, options);
             });
+        }
+
+        function enableManualScrollRestoration() {
+            if (priorScrollRestoration !== null) {
+                window.history.scrollRestoration = "manual";
+            }
+        }
+
+        function restoreScrollRestoration() {
+            if (priorScrollRestoration !== null) {
+                window.history.scrollRestoration = priorScrollRestoration;
+            }
         }
 
         function selectFacet(nextFacet) {
@@ -91,26 +120,155 @@
             if (window.location.hash !== "#" + nextFacet) {
                 window.history.pushState({ lifeFacet: nextFacet }, "", "#" + nextFacet);
             }
+            handledHash = window.location.hash;
         }
 
         function measureJourney() {
             var documentTop = journey.getBoundingClientRect().top + window.scrollY;
+            var treeTop = treeShell.getBoundingClientRect().top + window.scrollY;
+            var dossierTop = dossierRegion.getBoundingClientRect().top + window.scrollY;
+            var mobileRootEnd = dossierTop - (window.innerHeight * 0.65);
             journeyStart = documentTop;
             journeyRange = Math.max(journey.offsetHeight - stage.offsetHeight, 1);
+            mobileRootStart = Math.max(
+                documentTop,
+                treeTop - (window.innerHeight * 0.45)
+            );
+            mobileRootRange = Math.max(mobileRootEnd - mobileRootStart, 1);
+        }
+
+        function panelForFacet(facet) {
+            return panels.find(function (panel) {
+                return panel.getAttribute("data-life-panel") === facet;
+            });
+        }
+
+        function mobileViewportMetrics(panel) {
+            var header = document.querySelector(".md-header");
+            var headerBottom = header ? header.getBoundingClientRect().bottom : 0;
+            var scrollMargin = parseFloat(window.getComputedStyle(panel).scrollMarginTop);
+            var viewport = window.visualViewport;
+            return {
+                bottom: viewport ? viewport.offsetTop + viewport.height : window.innerHeight,
+                top: Math.max(
+                    headerBottom + 16,
+                    Number.isFinite(scrollMargin) ? scrollMargin : 0
+                )
+            };
+        }
+
+        function mobilePanelIsUsable(panel, viewport) {
+            var heading = panel.querySelector("h2");
+            var content = panel.querySelector(".life-dossier__lede");
+            if (!heading || !content) return false;
+
+            var headingRect = heading.getBoundingClientRect();
+            var contentRect = content.getBoundingClientRect();
+            return headingRect.top >= viewport.top - 1
+                && headingRect.bottom <= viewport.bottom + 1
+                && contentRect.top < viewport.bottom - 1
+                && contentRect.bottom > viewport.top + 1;
+        }
+
+        function holdInstantScrolling() {
+            var scroller = document.documentElement;
+            if (scrollBehaviorFrame !== null) {
+                window.cancelAnimationFrame(scrollBehaviorFrame);
+                scrollBehaviorFrame = null;
+            }
+            if (!scrollBehaviorSnapshot) {
+                scrollBehaviorSnapshot = {
+                    priority: scroller.style.getPropertyPriority("scroll-behavior"),
+                    value: scroller.style.getPropertyValue("scroll-behavior")
+                };
+            }
+            scroller.style.setProperty("scroll-behavior", "auto", "important");
+        }
+
+        function restoreScrollBehavior() {
+            if (!scrollBehaviorSnapshot) return;
+            var scroller = document.documentElement;
+            if (scrollBehaviorSnapshot.value) {
+                scroller.style.setProperty(
+                    "scroll-behavior",
+                    scrollBehaviorSnapshot.value,
+                    scrollBehaviorSnapshot.priority
+                );
+            } else {
+                scroller.style.removeProperty("scroll-behavior");
+            }
+            scrollBehaviorSnapshot = null;
+            scrollBehaviorFrame = null;
+        }
+
+        function releaseInstantScrolling() {
+            if (!scrollBehaviorSnapshot) return;
+            if (scrollBehaviorFrame !== null) {
+                window.cancelAnimationFrame(scrollBehaviorFrame);
+            }
+            scrollBehaviorFrame = window.requestAnimationFrame(restoreScrollBehavior);
+        }
+
+        function scrollInstantly(target) {
+            holdInstantScrolling();
+            window.scrollTo({ top: Math.round(target), behavior: "instant" });
+            releaseInstantScrolling();
         }
 
         function scrollToFacet(facet) {
             var index = FACETS.indexOf(facet);
             if (index === -1) return;
-            var fp = (index + 0.5) / FACETS.length;
-            var progress = INTRO_END + fp * (1 - INTRO_END);
-            var target = journeyStart + journeyRange * progress;
-            window.scrollTo({
-                top: target,
-                // Facet controls are navigation, not a tour through every
-                // intermediate state. Land atomically so the requested panel
-                // cannot be overwritten by a long animated scroll.
-                behavior: "auto"
+
+            if (desktopLayout.matches) {
+                if (reducedMotion.matches) return;
+                var fp = (index + 0.5) / FACETS.length;
+                var progress = INTRO_END + fp * (1 - INTRO_END);
+                var desktopTarget = journeyStart + journeyRange * progress;
+                if (Math.abs(window.scrollY - desktopTarget) > 1) {
+                    scrollInstantly(desktopTarget);
+                }
+                return;
+            }
+
+            var panel = panelForFacet(facet);
+            if (!panel) return;
+            var viewport = mobileViewportMetrics(panel);
+            if (mobilePanelIsUsable(panel, viewport)) return;
+
+            var panelTop = panel.getBoundingClientRect().top;
+            var viewportHeight = window.visualViewport
+                ? window.visualViewport.height
+                : window.innerHeight;
+            var maximum = Math.max(
+                document.documentElement.scrollHeight - viewportHeight,
+                0
+            );
+            var mobileTarget = clamp(
+                window.scrollY + panelTop - viewport.top,
+                0,
+                maximum
+            );
+            if (Math.abs(window.scrollY - mobileTarget) > 1) {
+                scrollInstantly(mobileTarget);
+            }
+        }
+
+        function requestFacetAlignment(facet) {
+            if (!isKnownFacet(facet)) return;
+            pendingFacet = facet;
+            if (alignmentFrame !== null) return;
+            alignmentFrame = window.requestAnimationFrame(function () {
+                var requestedFacet = pendingFacet;
+                var scroller = document.scrollingElement || document.documentElement;
+                alignmentFrame = null;
+                pendingFacet = null;
+                // Cancel an in-flight CSS smooth scroll before judging whether
+                // the requested article is already usable. Assigning the
+                // current offset is position-preserving.
+                holdInstantScrolling();
+                scroller.scrollTop = scroller.scrollTop;
+                scrollToFacet(requestedFacet);
+                releaseInstantScrolling();
             });
         }
 
@@ -157,10 +315,22 @@
 
         function updateScrollState() {
             frameRequested = false;
+            if (layoutTransitioning) return;
 
             if (!desktopLayout.matches) {
                 root.classList.add("is-open");
                 root.classList.remove("is-indexed");
+                var mobileRoots = reducedMotion.matches
+                    ? 1
+                    : easeInOutCubic(clamp(
+                        (window.scrollY - mobileRootStart) / mobileRootRange,
+                        0,
+                        1
+                    ));
+                root.style.setProperty(
+                    "--life-roots",
+                    (Number.isFinite(mobileRoots) ? mobileRoots : 0).toFixed(3)
+                );
                 return;
             }
 
@@ -184,7 +354,7 @@
             var nextFacet = control.getAttribute("data-life-target");
             event.preventDefault();
             commitFacet(nextFacet);
-            scrollToFacet(nextFacet);
+            requestFacetAlignment(nextFacet);
         }
 
         function handleControlKeydown(event) {
@@ -205,23 +375,57 @@
             event.preventDefault();
             var nextFacet = FACETS[nextIndex];
             commitFacet(nextFacet);
-            scrollToFacet(nextFacet);
+            controls[nextIndex].focus({ preventScroll: true });
+            requestFacetAlignment(nextFacet);
         }
 
         function handleHistoryChange() {
-            var hashFacet = facetFromHash();
-            if (!hashFacet) return;
+            var currentHash = window.location.hash;
+            if (currentHash === handledHash) return;
+            handledHash = currentHash;
+            var hashFacet = facetFromHash() || "work";
             committedFacet = hashFacet;
             selectFacet(hashFacet);
-            if (desktopLayout.matches && !reducedMotion.matches) {
-                scrollToFacet(hashFacet);
+            requestFacetAlignment(hashFacet);
+        }
+
+        function handleResize() {
+            measureJourney();
+            if (!layoutTransitioning) {
+                requestScrollUpdate();
             }
         }
 
-        function handleLayoutChange() {
+        function handleReducedMotionChange() {
             root.classList.toggle("is-reduced", reducedMotion.matches);
             measureJourney();
             requestScrollUpdate();
+        }
+
+        function handleBreakpointChange() {
+            var intendedFacet = facetFromHash() || activeFacet || committedFacet;
+            layoutTransitioning = true;
+            committedFacet = intendedFacet;
+            measureJourney();
+            selectFacet(intendedFacet);
+            requestFacetAlignment(intendedFacet);
+
+            if (layoutReleaseFrame !== null) {
+                window.cancelAnimationFrame(layoutReleaseFrame);
+            }
+            layoutReleaseFrame = window.requestAnimationFrame(function () {
+                layoutReleaseFrame = null;
+                layoutTransitioning = false;
+                measureJourney();
+                requestScrollUpdate();
+            });
+        }
+
+        function handleInitialHashAlignment() {
+            var hashFacet = facetFromHash();
+            if (!hashFacet) return;
+            measureJourney();
+            requestFacetAlignment(hashFacet);
         }
 
         controls.forEach(function (control) {
@@ -230,23 +434,38 @@
         });
 
         listen(window, "scroll", requestScrollUpdate, { passive: true });
-        listen(window, "resize", handleLayoutChange, { passive: true });
+        listen(window, "resize", handleResize, { passive: true });
         listen(window, "hashchange", handleHistoryChange);
         listen(window, "popstate", handleHistoryChange);
-        listen(desktopLayout, "change", handleLayoutChange);
-        listen(reducedMotion, "change", handleLayoutChange);
+        listen(window, "pagehide", restoreScrollRestoration);
+        listen(window, "pageshow", enableManualScrollRestoration);
+        listen(desktopLayout, "change", handleBreakpointChange);
+        listen(reducedMotion, "change", handleReducedMotionChange);
 
         selectFacet(committedFacet);
         measureJourney();
         updateScrollState();
 
-        if (facetFromHash() && desktopLayout.matches && !reducedMotion.matches) {
-            window.requestAnimationFrame(function () {
-                scrollToFacet(facetFromHash());
-            });
+        if (facetFromHash()) {
+            if (document.readyState === "complete") {
+                handleInitialHashAlignment();
+            } else {
+                listen(window, "load", handleInitialHashAlignment, { once: true });
+            }
         }
 
         teardownCurrentIndex = function () {
+            if (alignmentFrame !== null) {
+                window.cancelAnimationFrame(alignmentFrame);
+            }
+            if (layoutReleaseFrame !== null) {
+                window.cancelAnimationFrame(layoutReleaseFrame);
+            }
+            if (scrollBehaviorFrame !== null) {
+                window.cancelAnimationFrame(scrollBehaviorFrame);
+            }
+            restoreScrollBehavior();
+            restoreScrollRestoration();
             disposers.forEach(function (dispose) { dispose(); });
             root.classList.remove("is-enhanced", "is-indexed", "is-open", "is-reduced");
         };

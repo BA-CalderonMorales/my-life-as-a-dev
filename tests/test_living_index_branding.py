@@ -3,6 +3,7 @@
 import json
 import math
 import re
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from scripts.python import generate_life_tree, patch_life_tree
@@ -95,6 +96,150 @@ def test_life_tree_geometry_and_semantic_layers_are_separate():
     )
 
 
+def test_life_tree_root_network_has_explicit_botanical_topology():
+    """Every child root should emerge from an authored point on its parent."""
+    roots = generate_life_tree.ROOT_PATHS
+    root_by_id = {}
+    coordinates_by_id = {}
+    tier_counts = {
+        tier: sum(root.tier == tier for root in roots)
+        for tier in ("primary", "secondary", "fine")
+    }
+
+    assert tier_counts == {"primary": 5, "secondary": 12, "fine": 18}
+    for root in roots:
+        coordinates = [
+            float(value)
+            for value in re.findall(r"-?\d+(?:\.\d+)?", root.path)
+        ]
+        points = list(zip(coordinates[::2], coordinates[1::2]))
+        anchor = f"{root.anchor[0]:.0f} {root.anchor[1]:.0f}"
+
+        assert root.root_id not in root_by_id
+        assert root.path.startswith(f"M {anchor}")
+        if root.tier == "primary":
+            assert root.parent == "trunk"
+        else:
+            assert root.parent in root_by_id
+            parent = root_by_id[root.parent]
+            expected_parent_tier = (
+                "primary" if root.tier == "secondary" else "secondary"
+            )
+            assert parent.tier == expected_parent_tier
+            assert root.anchor in coordinates_by_id[root.parent]
+
+        root_by_id[root.root_id] = root
+        coordinates_by_id[root.root_id] = set(points)
+
+
+def test_life_tree_root_footprint_is_deep_asymmetric_and_viewbox_safe():
+    """The roots should fill the new canvas without forming a shared floor."""
+    extents = []
+    primary_terminal_depths = []
+
+    for root in generate_life_tree.ROOT_PATHS:
+        coordinates = [
+            float(value)
+            for value in re.findall(r"-?\d+(?:\.\d+)?", root.path)
+        ]
+        points = list(zip(coordinates[::2], coordinates[1::2]))
+        radius = root.width / 2
+        extents.extend(
+            (x - radius, y - radius, x + radius, y + radius)
+            for x, y in points
+        )
+        if root.tier == "primary":
+            primary_terminal_depths.append(points[-1][1])
+
+    min_x = min(extent[0] for extent in extents)
+    min_y = min(extent[1] for extent in extents)
+    max_x = max(extent[2] for extent in extents)
+    max_y = max(extent[3] for extent in extents)
+
+    assert min_x < 14.0
+    assert max_x > 706.0
+    assert max_x - min_x > 692.0
+    assert min_y >= 696.0
+    assert max_y >= 1172.0
+    assert max_y - min_y > 470.0
+    assert 1200.0 - max_y >= 27.0
+    assert len(set(primary_terminal_depths)) == 5
+    assert max(primary_terminal_depths) - min(primary_terminal_depths) >= 180.0
+
+
+def test_life_tree_root_reveal_is_tiered_and_finishes_at_one():
+    """Root growth should progress from scaffold to fine terminal detail."""
+    roots = generate_life_tree.ROOT_PATHS
+    root_by_id = {root.root_id: root for root in roots}
+    reveal_ends = [root.delay + root.span for root in roots]
+    tier_delays = {
+        tier: [root.delay for root in roots if root.tier == tier]
+        for tier in ("primary", "secondary", "fine")
+    }
+
+    assert max(tier_delays["primary"]) < min(tier_delays["secondary"])
+    assert max(tier_delays["secondary"]) < min(tier_delays["fine"])
+    assert sum(math.isclose(end, 1.0) for end in reveal_ends) == 1
+    assert math.isclose(max(reveal_ends), 1.0)
+    assert all(end <= 1.0 for end in reveal_ends)
+    for root in roots:
+        if root.parent != "trunk":
+            assert root.delay > root_by_id[root.parent].delay
+
+
+def test_life_tree_breeze_contains_only_the_visible_crown():
+    """Wood, roots, and semantic controls should remain planted and aligned."""
+    markup = generate_life_tree.build()
+    fragment = ET.fromstring(f"<svg>{markup}</svg>")
+    direct_classes = [element.get("class") for element in fragment]
+    breeze = next(
+        element
+        for element in fragment
+        if element.get("class") == "life-tree__breeze"
+    )
+
+    assert [element.get("class") for element in breeze] == [
+        "life-tree__canopy-mass",
+        "life-tree__limbs",
+        "life-tree__foliage",
+    ]
+    assert direct_classes.index("life-tree__roots") < direct_classes.index(
+        "life-tree__wood"
+    )
+    assert direct_classes.index("life-tree__wood") < direct_classes.index(
+        "life-tree__bark"
+    )
+    assert direct_classes.index("life-tree__bark") < direct_classes.index(
+        "life-tree__breeze"
+    )
+    assert direct_classes.index("life-tree__breeze") < direct_classes.index(
+        "life-tree__hit-branches"
+    )
+    assert direct_classes.index("life-tree__hit-branches") < direct_classes.index(
+        "life-tree__nodes"
+    )
+    assert direct_classes.index("life-tree__nodes") < direct_classes.index(
+        "life-tree__pixels"
+    )
+    assert breeze.find(".//*[@class='life-tree__hit-branches']") is None
+    assert breeze.find(".//*[@class='life-tree__nodes']") is None
+    assert breeze.find(".//*[@class='life-tree__pixels']") is None
+    assert breeze.find(".//*[@class='life-tree__roots']") is None
+    assert breeze.find(".//*[@class='life-tree__wood']") is None
+    assert breeze.find(".//*[@class='life-tree__bark']") is None
+    assert markup.count('class="life-tree__cluster"') == 35
+    assert len(re.findall(r'<path class="life-tree__leaf(?: |")', markup)) == 176
+
+
+def test_life_tree_wrapper_uses_the_expanded_root_viewbox():
+    """The wrapper should reserve the authored root depth without clipping."""
+    wrapped = patch_life_tree.svg_markup(generate_life_tree.build())
+
+    assert 'viewBox="0 0 720 1200"' in wrapped
+    assert 'viewBox="0 0 720 1080"' not in wrapped
+    assert 'viewBox="0 0 720 900"' not in wrapped
+
+
 def test_generated_homepage_keeps_every_tree_and_dossier_target():
     """Generated markup should preserve the public interaction contract."""
     index = INDEX.read_text(encoding="utf-8")
@@ -105,6 +250,19 @@ def test_generated_homepage_keeps_every_tree_and_dossier_target():
     assert re.findall(r'data-life-panel="([^"]+)"', index) == list(FACETS)
     for facet in FACETS:
         assert f'id="{facet}"' in index
+
+
+def test_generated_homepage_keeps_root_topology_and_expanded_bounds():
+    """The checked-in page should match the generated root contract."""
+    index = INDEX.read_text(encoding="utf-8")
+
+    assert 'viewBox="0 0 720 1200"' in index
+    assert index.count('data-root-tier="primary"') == 5
+    assert index.count('data-root-tier="secondary"') == 12
+    assert index.count('data-root-tier="fine"') == 18
+    assert re.findall(r'data-root-id="([^"]+)"', index) == [
+        root.root_id for root in generate_life_tree.ROOT_PATHS
+    ]
 
 
 def test_life_tree_patcher_is_idempotent():
