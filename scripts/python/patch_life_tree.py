@@ -21,12 +21,12 @@ def svg_markup(generated: str) -> str:
     """Wrap the generated fragment in one accessible, stable SVG element."""
     inner = textwrap.indent(textwrap.dedent(generated).strip(), "          ")
     return (
-        '        <svg class="life-tree" viewBox="0 0 720 760" '
+        '        <svg class="life-tree" viewBox="0 0 720 860" '
         'preserveAspectRatio="xMidYMid meet" role="group" data-life-tree-svg '
         'aria-labelledby="life-tree-title life-tree-description">\n'
         '          <title id="life-tree-title">The living index</title>\n'
-        '          <desc id="life-tree-description">A tree whose branches open five '
-        'facets: work, making, service, learning, and life.</desc>\n'
+        '          <desc id="life-tree-description">A rooted tree whose living '
+        'branches open five facets: work, making, service, learning, and life.</desc>\n'
         f"{inner}\n"
         "        </svg>"
     )

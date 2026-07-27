@@ -1,9 +1,6 @@
 /*
  * Living tree
  *
- * The individual leaves already carry SVG transform attributes for placement.
- * Animate their parent clusters and limbs, never the leaves themselves.
- *
  * This file owns the tree's monochrome silhouette, the breeze, and the
  * facet/limb highlight. Facet selection, keyboard nav, URL hash, the scroll
  * choreography, and reduced-motion classing live in living-index.js.
@@ -17,11 +14,13 @@
     margin-inline: auto;
     overflow: visible;
     color: var(--life-ink);
-    shape-rendering: geometricPrecision;
+    shape-rendering: auto;
 }
 
 /* Retain the monochrome silhouette without painting semantic hit geometry. */
 [data-life-index] .life-tree__wood-shape,
+[data-life-index] .life-tree__canopy-shape,
+[data-life-index] .life-tree__limb,
 [data-life-index] .life-tree__twig,
 [data-life-index] .life-tree__leaf {
     fill: currentColor;
@@ -38,9 +37,9 @@
 
 [data-life-index] .life-tree__wood-shape {
     fill: currentColor;
-    /* A matching round-joined stroke smooths the silhouette's perceived edge. */
+    /* A matching round-joined stroke keeps the woodcut edge from looking brittle. */
     stroke: currentColor;
-    stroke-width: 1.5;
+    stroke-width: 1.25;
     stroke-linejoin: round;
 }
 
@@ -85,26 +84,35 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
     opacity: 0.3;
 }
 
-/* Understory mass: a quiet dark base behind the leaves for canopy volume. */
-[data-life-index] .life-tree__canopy-mass ellipse {
-    fill: currentColor;
+/*
+ * A quiet crown wash establishes the overall silhouette at a distance. The
+ * fully inked branch-bound leaves and limbs sit above it, so the viewer can
+ * still read how the tree grows instead of seeing one opaque canopy blob.
+ */
+[data-life-index] .life-tree__canopy-mass {
+    pointer-events: none;
 }
 
-body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__canopy-mass ellipse {
-    opacity: 0.14;
+[data-life-index] .life-tree__canopy-shape {
+    fill: currentColor;
+    opacity: 0.16;
+}
+
+[data-life-index] .life-tree__canopy-shape--under {
+    opacity: 0.1;
 }
 
 /*
- * The shared breeze group keeps visible wood, semantic hit paths, nodes, and
- * fruit aligned. Individual foliage clusters flutter on top of that motion.
+ * The breeze owns only the crown assembly: major limbs, leaves, semantic hit
+ * paths, nodes, and fruit. The trunk and roots remain outside this transform,
+ * planted in the page while the crown pivots from the upper trunk.
  */
-[data-life-index] .life-tree__breeze,
-[data-life-index] .life-tree__cluster {
+[data-life-index] .life-tree__breeze {
     transform-box: view-box;
 }
 
 [data-life-index] .life-tree__breeze {
-    transform-origin: 360px 640px;
+    transform-origin: 360px 500px;
 }
 
 [data-life-index] .life-tree.is-wind-on .life-tree__breeze {
@@ -117,14 +125,8 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ca
     will-change: transform;
 }
 
-[data-life-index] .life-tree.is-wind-on .life-tree__cluster {
-    animation:
-        life-tree-flutter
-        var(--flutter-duration, 4.5s)
-        ease-in-out
-        var(--flutter-delay, 0s)
-        infinite;
-    will-change: transform;
+[data-life-index] .life-tree.is-wind-paused .life-tree__breeze {
+    animation-play-state: paused;
 }
 
 /*
@@ -181,12 +183,14 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ca
  */
 [data-life-index] .life-tree__roots {
     pointer-events: none;
+    opacity: 0.9;
 }
 
 [data-life-index] .life-tree__roots path {
     fill: none;
     stroke: currentColor;
     stroke-linecap: round;
+    stroke-linejoin: round;
     stroke-dasharray: 1px;
     stroke-dashoffset: calc(
         (1 - clamp(0, (var(--life-roots, 1) - var(--root-delay, 0)) / var(--root-span, 1), 1)) * 1px
@@ -212,28 +216,8 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ca
     }
 }
 
-@keyframes life-tree-flutter {
-    0%,
-    100% {
-        transform: rotate(0deg);
-    }
-
-    31% {
-        transform: rotate(var(--flutter-positive, 1.1deg));
-    }
-
-    66% {
-        transform: rotate(var(--flutter-negative, -0.8deg));
-    }
-
-    84% {
-        transform: rotate(var(--flutter-settle, 0.3deg));
-    }
-}
-
 @media (prefers-reduced-motion: reduce) {
-    [data-life-index] .life-tree__breeze,
-    [data-life-index] .life-tree__cluster {
+    [data-life-index] .life-tree__breeze {
         animation: none !important;
         transform: none !important;
     }

@@ -416,7 +416,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     position: relative;
     z-index: 8;
     width: min(68vmin, 47rem);
-    aspect-ratio: 720 / 760;
+    aspect-ratio: 720 / 860;
     margin: 15vh auto 3rem;
 }
 
@@ -461,6 +461,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 .life-branches {
     position: absolute;
     inset: 0;
+    pointer-events: none;
 }
 
 .landing-page .life-branch {
@@ -481,6 +482,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     border: 1px solid var(--life-line);
     border-radius: 999px;
     box-shadow: 0 0 0 0 var(--life-paper);
+    pointer-events: auto;
     transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 

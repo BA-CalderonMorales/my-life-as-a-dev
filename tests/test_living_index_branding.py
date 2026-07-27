@@ -70,7 +70,7 @@ def test_life_tree_generator_is_deterministic_and_finite():
 
 
 def test_life_tree_geometry_and_semantic_layers_are_separate():
-    """One exterior wood contour should sit behind five semantic hit paths."""
+    """One grown silhouette should sit behind five semantic hit paths."""
     markup = generate_life_tree.build()
     wood = re.search(
         r'<path class="life-tree__wood-shape" d="([^"]+)"', markup
@@ -82,6 +82,17 @@ def test_life_tree_geometry_and_semantic_layers_are_separate():
     assert re.findall(r'data-tree-node="([^"]+)"', markup) == list(FACETS)
     assert markup.count('class="life-tree__wood-shape"') == 1
     assert markup.count('class="life-tree__branch-hit"') == 5
+    assert markup.count('class="life-tree__roots"') == 1
+    assert markup.count('class="life-tree__canopy-shape"') == 1
+    assert markup.index('class="life-tree__roots"') < markup.index(
+        'class="life-tree__breeze"'
+    )
+    assert markup.index('class="life-tree__wood"') < markup.index(
+        'class="life-tree__breeze"'
+    )
+    assert markup.index('class="life-tree__limbs"') > markup.index(
+        'class="life-tree__breeze"'
+    )
 
 
 def test_generated_homepage_keeps_every_tree_and_dossier_target():

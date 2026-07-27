@@ -105,14 +105,29 @@ class TestHomePage:
         )
         expect(page).to_have_url(re.compile(r"#make$"))
 
-    def test_tree_node_activation_reaches_its_facet(self, page: Page):
-        """The visible node target should remain clickable after the split."""
-        page.locator("[data-tree-node='serve']").click(force=True)
+    @pytest.mark.parametrize("facet", ("work", "make", "serve", "learn", "life"))
+    def test_tree_node_activation_reaches_its_facet(self, page: Page, facet: str):
+        """Every visible node should activate its matching dossier and hash."""
+        page.locator(f"[data-tree-node='{facet}']").click(force=True)
 
-        expect(page.get_by_role("tab", name="Serve")).to_have_attribute(
+        expect(page.get_by_role("tab", name=facet.capitalize())).to_have_attribute(
             "aria-selected", "true"
         )
-        expect(page).to_have_url(re.compile(r"#serve$"))
+        expect(page.locator(".life-dossiers")).to_have_css("opacity", "1")
+        expect(page.locator(f"[data-life-panel='{facet}']")).to_have_css(
+            "opacity", "1"
+        )
+        expect(page).to_have_url(re.compile(fr"#{facet}$"))
+
+    def test_tree_pauses_wind_during_interaction(self, page: Page):
+        """The animated crown should become a stable navigation target."""
+        tree = page.locator(".life-tree")
+        tree.locator("[data-tree-node='work']").hover(force=True)
+
+        expect(tree).to_have_class(re.compile(r"\bis-wind-paused\b"))
+
+        page.mouse.move(0, 0)
+        expect(tree).not_to_have_class(re.compile(r"\bis-wind-paused\b"))
 
     def test_selecting_a_branch_replaces_the_dossier(self, page: Page):
         """A branch should reveal its facet in place and preserve a deep link."""

@@ -20,26 +20,33 @@ SEED = 11
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "scratch" / "life-tree.svg"
 
-HUB = (360.0, 478.0)
-TRUNK_BASE = (360.0, 708.0)
-TRUNK_TOP = (360.0, 408.0)
+HUB = (360.0, 486.0)
+TRUNK_BASE = (372.0, 704.0)
+TRUNK_TOP = (356.0, 408.0)
 
 FACETS = {
-    "work": {"node": (96.0, 256.0), "offset": -10.0, "curve": -30.0},
-    "make": {"node": (220.0, 176.0), "offset": -5.0, "curve": -16.0},
-    "serve": {"node": (360.0, 116.0), "offset": 0.0, "curve": 4.0},
-    "learn": {"node": (500.0, 176.0), "offset": 5.0, "curve": 16.0},
-    "life": {"node": (624.0, 256.0), "offset": 10.0, "curve": 30.0},
+    "work": {"node": (92.0, 286.0), "start": (354.0, 526.0), "curve": -36.0},
+    "make": {"node": (218.0, 178.0), "start": (354.0, 478.0), "curve": -18.0},
+    "serve": {"node": (350.0, 112.0), "start": (356.0, 430.0), "curve": 12.0},
+    "learn": {"node": (500.0, 188.0), "start": (365.0, 468.0), "curve": 20.0},
+    "life": {"node": (630.0, 274.0), "start": (370.0, 518.0), "curve": 38.0},
 }
 
 AMBIENT = (
-    ("up-left", (150.0, 150.0)),
-    ("up", (330.0, 148.0)),
-    ("up-right", (572.0, 150.0)),
-    ("left-mid", (120.0, 330.0)),
-    ("right-mid", (600.0, 330.0)),
-    ("low-left", (210.0, 410.0)),
-    ("low-right", (510.0, 410.0)),
+    ("far-left", (56.0, 356.0), (350.0, 548.0)),
+    ("upper-left", (128.0, 184.0), (352.0, 494.0)),
+    ("crown-left", (282.0, 112.0), (356.0, 438.0)),
+    ("crown-right", (430.0, 116.0), (363.0, 442.0)),
+    ("upper-right", (584.0, 168.0), (368.0, 488.0)),
+    ("far-right", (674.0, 346.0), (373.0, 544.0)),
+    ("low-left", (166.0, 402.0), (350.0, 566.0)),
+)
+
+ROOT_TIPS = (
+    (220.0, 730.0),
+    (304.0, 746.0),
+    (438.0, 746.0),
+    (526.0, 732.0),
 )
 
 Point = tuple[float, float]
@@ -62,6 +69,7 @@ class TreeGeometry:
     trunk: LimbGeometry
     primary: tuple[LimbGeometry, ...]
     ambient: tuple[LimbGeometry, ...]
+    roots: tuple[LimbGeometry, ...]
 
 
 def catmull_rom(points: list[Point], per_segment: int = 10) -> list[Point]:
@@ -157,26 +165,32 @@ def create_geometry(seed: int = SEED) -> tuple[TreeGeometry, object]:
     rng = Random(seed)
     trunk_center = catmull_rom(
         [
-            (360.0, TRUNK_BASE[1]),
-            (357.0, 612.0),
-            (364.0, 545.0),
-            (360.0, HUB[1]),
-            (361.0, 442.0),
-            (360.0, TRUNK_TOP[1]),
+            TRUNK_BASE,
+            (354.0, 650.0),
+            (366.0, 592.0),
+            (348.0, 536.0),
+            HUB,
+            (362.0, 446.0),
+            TRUNK_TOP,
         ],
         12,
     )
     trunk = LimbGeometry(
         "trunk",
         tuple(trunk_center),
-        tuple(interpolate_widths((20.0, 22.0, 26.0, 30.0, 22.0, 15.0), len(trunk_center))),
+        tuple(
+            interpolate_widths(
+                (66.0, 56.0, 64.0, 52.0, 46.0, 34.0, 22.0),
+                len(trunk_center),
+            )
+        ),
     )
 
     primary: list[LimbGeometry] = []
     for name, facet in FACETS.items():
         start = (
-            HUB[0] + facet["offset"] + rng.uniform(-2.5, 2.5),
-            HUB[1] + rng.uniform(8.0, 20.0),
+            facet["start"][0] + rng.uniform(-2.5, 2.5),
+            facet["start"][1] + rng.uniform(-2.5, 2.5),
         )
         center = branch_center(
             start,
@@ -186,29 +200,55 @@ def create_geometry(seed: int = SEED) -> tuple[TreeGeometry, object]:
             wobble=5.0,
         )
         primary.append(
-            LimbGeometry(name, tuple(center), tuple(taper_widths(len(center), 12.5, 2.4)))
+            LimbGeometry(name, tuple(center), tuple(taper_widths(len(center), 24.0, 3.2)))
         )
 
     ambient: list[LimbGeometry] = []
-    for name, tip in AMBIENT:
+    for name, tip, anchor in AMBIENT:
         start = (
-            HUB[0] + rng.uniform(-7.0, 7.0),
-            HUB[1] + rng.uniform(7.0, 18.0),
+            anchor[0] + rng.uniform(-3.0, 3.0),
+            anchor[1] + rng.uniform(-3.0, 3.0),
         )
-        curve = rng.uniform(-15.0, 15.0)
+        curve = rng.uniform(-22.0, 22.0)
         center = branch_center(start, tip, curve, rng=rng, wobble=5.5)
-        root_width = rng.uniform(9.0, 11.0)
+        root_width = rng.uniform(14.0, 20.0)
         ambient.append(
-            LimbGeometry(name, tuple(center), tuple(taper_widths(len(center), root_width, 2.0)))
+            LimbGeometry(name, tuple(center), tuple(taper_widths(len(center), root_width, 2.4)))
         )
 
-    return TreeGeometry(trunk, tuple(primary), tuple(ambient)), rng.getstate()
+    roots: list[LimbGeometry] = []
+    for index, tip in enumerate(ROOT_TIPS):
+        start = (
+            TRUNK_BASE[0] + rng.uniform(-10.0, 10.0),
+            TRUNK_BASE[1] - rng.uniform(1.0, 10.0),
+        )
+        center = branch_center(
+            start,
+            tip,
+            rng.uniform(-18.0, 18.0),
+            rng=rng,
+            wobble=3.5,
+        )
+        roots.append(
+            LimbGeometry(
+                f"root-{index}",
+                tuple(center),
+                tuple(taper_widths(len(center), rng.uniform(20.0, 30.0), 2.2)),
+            )
+        )
+
+    return TreeGeometry(
+        trunk,
+        tuple(primary),
+        tuple(ambient),
+        tuple(roots),
+    ), rng.getstate()
 
 
-def geometry_capsules(geometry: TreeGeometry) -> list[Capsule]:
-    """Convert sampled centerlines to tapered implicit capsules."""
+def geometry_capsules(limbs: tuple[LimbGeometry, ...]) -> list[Capsule]:
+    """Convert the selected sampled centerlines to tapered implicit capsules."""
     capsules: list[Capsule] = []
-    for limb in (geometry.trunk, *geometry.primary, *geometry.ambient):
+    for limb in limbs:
         for index, (start, end) in enumerate(zip(limb.center, limb.center[1:])):
             capsules.append(
                 (
@@ -431,11 +471,11 @@ def signed_area(loop: list[Point]) -> float:
     )
 
 
-def union_outline(geometry: TreeGeometry, step: float = 1.25) -> list[Point]:
-    """Return the sole closed exterior contour for all visible major wood."""
-    bounds = (20.0, 88.0, 700.0, 720.0)
+def union_outline(limbs: tuple[LimbGeometry, ...], step: float = 1.25) -> list[Point]:
+    """Return the sole closed exterior contour for connected static wood."""
+    bounds = (16.0, 72.0, 704.0, 764.0)
     inside, columns, rows = rasterize_capsules(
-        geometry_capsules(geometry),
+        geometry_capsules(limbs),
         x0=bounds[0],
         y0=bounds[1],
         x1=bounds[2],
@@ -454,7 +494,7 @@ def union_outline(geometry: TreeGeometry, step: float = 1.25) -> list[Point]:
     substantial = [loop for loop in loops if abs(signed_area(loop)) > 150.0]
     if len(substantial) != 1:
         areas = sorted(round(abs(signed_area(loop)), 1) for loop in substantial)
-        raise ValueError(f"wood union must have one exterior contour, got areas={areas}")
+        raise ValueError(f"static wood must have one exterior contour, got areas={areas}")
     return decimate(chaikin(substantial[0], 2))
 
 
@@ -586,76 +626,162 @@ def sub_branch(
             )
 
 
+def roots_markup() -> list[str]:
+    """Draw a hierarchical root network that reveals as the journey deepens."""
+    roots = (
+        ("M 366 704 C 330 725 300 752 258 780 C 204 814 142 836 70 852", 8.0, 0.00, 0.34),
+        ("M 368 706 C 348 738 326 775 296 812 C 274 833 248 847 216 856", 6.2, 0.03, 0.34),
+        ("M 373 706 C 371 748 367 797 360 858", 7.0, 0.05, 0.36),
+        ("M 378 706 C 399 740 425 777 455 813 C 474 833 493 847 508 856", 6.0, 0.07, 0.35),
+        ("M 380 704 C 420 723 456 750 500 780 C 552 814 608 837 650 852", 7.4, 0.09, 0.36),
+        ("M 282 764 C 246 761 208 767 170 784", 3.6, 0.25, 0.25),
+        ("M 224 800 C 186 802 150 812 116 830", 2.2, 0.34, 0.22),
+        ("M 174 824 C 148 840 124 849 98 858", 1.2, 0.44, 0.18),
+        ("M 324 770 C 300 783 278 802 258 826", 2.8, 0.30, 0.24),
+        ("M 294 816 C 280 835 264 848 244 859", 1.4, 0.43, 0.18),
+        ("M 368 778 C 345 792 327 810 312 833", 2.2, 0.36, 0.22),
+        ("M 366 820 C 350 835 338 848 328 859", 1.2, 0.48, 0.17),
+        ("M 424 776 C 449 787 472 804 493 827", 2.7, 0.31, 0.24),
+        ("M 462 816 C 480 834 497 848 518 859", 1.4, 0.44, 0.18),
+        ("M 500 780 C 536 774 573 780 606 798", 3.4, 0.27, 0.25),
+        ("M 557 816 C 591 818 621 829 648 846", 2.0, 0.37, 0.21),
+        ("M 605 840 C 627 849 648 854 670 858", 1.1, 0.50, 0.16),
+    )
+    output = ['      <g class="life-tree__roots" aria-hidden="true">']
+    for path, width, delay, span in roots:
+        output.append(
+            f'        <path d="{path}" pathLength="1" stroke-width="{width:.1f}" '
+            f'style="--root-delay:{delay:.2f};--root-span:{span:.2f}"/>'
+        )
+    output.append("      </g>")
+    return output
+
+
+def canopy_markup() -> list[str]:
+    """Lay a quiet crown wash behind the branch-bound leaf clusters."""
+    return [
+        '        <g class="life-tree__canopy-mass" aria-hidden="true">',
+        '          <path class="life-tree__canopy-shape" d="'
+        "M 42 357 "
+        "C 48 319 72 294 109 286 "
+        "C 82 248 102 205 145 194 "
+        "C 140 153 177 124 221 137 "
+        "C 239 91 291 79 327 105 "
+        "C 351 69 408 73 429 111 "
+        "C 468 84 520 105 523 150 "
+        "C 568 127 614 158 608 204 "
+        "C 655 207 681 247 660 287 "
+        "C 697 305 704 351 676 378 "
+        "C 646 408 600 407 570 391 "
+        "C 542 430 492 439 455 413 "
+        "C 424 449 370 455 337 424 "
+        "C 296 452 242 438 221 400 "
+        "C 176 426 126 410 119 374 "
+        "C 84 390 50 380 42 357 Z"
+        '"/>',
+        '          <path class="life-tree__canopy-shape life-tree__canopy-shape--under" d="'
+        "M 96 382 C 118 334 171 318 215 344 "
+        "C 245 307 303 312 329 350 "
+        "C 366 319 421 327 444 364 "
+        "C 482 335 542 351 557 396 "
+        "C 522 426 470 429 435 408 "
+        "C 397 438 341 440 306 411 "
+        "C 256 438 188 423 168 390 "
+        "C 139 401 112 397 96 382 Z"
+        '"/>',
+        "        </g>",
+    ]
+
+
+def bark_markup() -> list[str]:
+    """Add sparse woodcut grain to the planted trunk."""
+    return [
+        '        <g class="life-tree__bark" aria-hidden="true">',
+        '          <path d="M 349 668 C 358 632 348 602 359 567" stroke-width="3.0"/>',
+        '          <path d="M 381 690 C 369 653 381 620 368 583" stroke-width="2.2"/>',
+        '          <path d="M 341 616 C 350 590 345 565 354 543" stroke-width="1.6"/>',
+        '          <path d="M 374 550 C 363 530 371 507 361 487" stroke-width="1.8"/>',
+        "        </g>",
+        '        <g class="life-tree__bark life-tree__bark--light" aria-hidden="true">',
+        '          <path d="M 365 676 C 358 642 369 614 360 585" stroke-width="1.4"/>',
+        '          <path d="M 353 564 C 363 541 355 520 366 499" stroke-width="1.0"/>',
+        "        </g>",
+    ]
+
+
+def branch_markup(geometry: TreeGeometry) -> list[str]:
+    """Paint every crown limb as a breeze-bound tapered ribbon."""
+    output = ['        <g class="life-tree__limbs" aria-hidden="true">']
+    for limb in (*geometry.primary, *geometry.ambient):
+        modifier = " life-tree__limb--primary" if limb in geometry.primary else ""
+        output.append(
+            f'          <path class="life-tree__limb{modifier}" '
+            f'd="{ribbon(list(limb.center), list(limb.widths))}"/>'
+        )
+    output.append("        </g>")
+    return output
+
+
 def foliage_markup(geometry: TreeGeometry, rng_state: object) -> list[str]:
-    """Generate secondary twigs and preserve the established canopy density."""
+    """Generate edge detail over the crown without dissolving its silhouette."""
     rng = Random()
     rng.setstate(rng_state)
     output: list[str] = []
 
     for limb in geometry.primary:
-        for fraction in (0.32, 0.52, 0.72):
-            point, angle = point_and_angle(limb.center, fraction)
-            side = rng.choice((-1, 1))
-            sub_branch(
-                point,
-                angle + side * rng.uniform(0.5, 1.0),
-                rng.uniform(40.0, 78.0),
-                rng.uniform(3.0, 4.6),
-                2,
-                output,
-                rng=rng,
-            )
-        for fraction in (0.34, 0.48, 0.62, 0.76, 0.9):
-            point, _ = point_and_angle(limb.center, fraction)
-            output.append(
-                cluster(point[0], point[1], rng.randint(6, 9), 6, 26, 14, 26, rng=rng)
-            )
+        point, angle = point_and_angle(limb.center, 0.62)
+        side = rng.choice((-1, 1))
+        sub_branch(
+            point,
+            angle + side * rng.uniform(0.55, 0.95),
+            rng.uniform(38.0, 60.0),
+            rng.uniform(3.4, 4.8),
+            0,
+            output,
+            rng=rng,
+        )
+        point, _ = point_and_angle(limb.center, 0.8)
+        output.append(
+            cluster(point[0], point[1], rng.randint(4, 6), 5, 22, 17, 30, rng=rng)
+        )
         tip = limb.center[-1]
-        output.append(cluster(tip[0], tip[1], rng.randint(5, 8), 4, 22, 12, 22, rng=rng))
+        output.append(cluster(tip[0], tip[1], rng.randint(5, 7), 4, 24, 17, 31, rng=rng))
 
     for limb in geometry.ambient:
-        for fraction in (0.4, 0.65, 0.85):
-            point, angle = point_and_angle(limb.center, fraction)
-            side = rng.choice((-1, 1))
-            sub_branch(
-                point,
-                angle + side * rng.uniform(0.5, 1.0),
-                rng.uniform(34.0, 64.0),
-                rng.uniform(2.6, 4.0),
-                2,
-                output,
-                rng=rng,
-            )
         tip = limb.center[-1]
-        output.append(cluster(tip[0], tip[1], rng.randint(5, 8), 5, 22, 13, 23, rng=rng))
+        output.append(cluster(tip[0], tip[1], rng.randint(5, 7), 4, 23, 17, 30, rng=rng))
 
     crown_centers = (
-        (200, 250), (300, 210), (360, 200), (430, 210), (520, 250),
-        (160, 330), (260, 300), (360, 300), (470, 300), (560, 330),
-        (240, 380), (360, 370), (480, 380), (330, 250), (400, 260),
+        (98, 330), (148, 228), (216, 145), (320, 105),
+        (432, 116), (538, 164), (630, 266), (570, 388),
     )
     for center_x, center_y in crown_centers:
-        if rng.random() < 0.12:
-            continue
-        x = center_x + rng.uniform(-26.0, 26.0)
-        y = center_y + rng.uniform(-22.0, 22.0)
-        output.append(cluster(x, y, rng.randint(6, 10), 8, 30, 14, 25, rng=rng))
+        x = center_x + rng.uniform(-15.0, 15.0)
+        y = center_y + rng.uniform(-13.0, 13.0)
+        output.append(cluster(x, y, rng.randint(4, 6), 5, 24, 18, 31, rng=rng))
     return output
 
 
 def build(seed: int = SEED) -> str:
     """Build the complete deterministic SVG fragment."""
     geometry, foliage_state = create_geometry(seed)
-    wood = path_from_points(union_outline(geometry), close=True)
-    output = ['      <g class="life-tree__breeze">']
+    wood = path_from_points(
+        union_outline((geometry.trunk, *geometry.roots)),
+        close=True,
+    )
+    output = roots_markup()
     output.extend(
         (
-            '        <g class="life-tree__wood" aria-hidden="true">',
-            f'          <path class="life-tree__wood-shape" d="{wood}"/>',
-            "        </g>",
-            '        <g class="life-tree__foliage" aria-hidden="true">',
+            '      <g class="life-tree__wood" aria-hidden="true">',
+            f'        <path class="life-tree__wood-shape" d="{wood}"/>',
+            "      </g>",
         )
     )
+    output.extend(bark_markup())
+    output.append('      <g class="life-tree__breeze">')
+    output.extend(canopy_markup())
+    output.extend(branch_markup(geometry))
+    output.append('        <g class="life-tree__foliage" aria-hidden="true">')
     output.extend(foliage_markup(geometry, foliage_state))
     output.append("        </g>")
 
@@ -677,17 +803,17 @@ def build(seed: int = SEED) -> str:
             f'data-tree-node="{name}" aria-hidden="true"/>'
         )
     for x, y in (
-        (360, 360), (360, 470), (360, 560), (300, 320),
-        (420, 320), (240, 300), (480, 300),
+        (350, 388), (360, 474), (362, 568), (294, 326),
+        (424, 324), (234, 292), (486, 300),
     ):
         output.append(f'          <circle cx="{x}" cy="{y}" r="3.4" aria-hidden="true"/>')
     output.append("        </g>")
 
     output.append('        <g class="life-tree__pixels" aria-hidden="true">')
     for x, y, width, height in (
-        (90, 250, 7, 7), (214, 170, 5, 5), (354, 110, 6, 6),
-        (494, 170, 5, 5), (618, 250, 7, 7), (286, 360, 5, 5),
-        (434, 360, 6, 6), (360, 250, 4, 4),
+        (86, 280, 7, 7), (212, 172, 5, 5), (344, 106, 6, 6),
+        (494, 182, 5, 5), (624, 268, 7, 7), (282, 354, 5, 5),
+        (438, 352, 6, 6), (356, 242, 4, 4),
     ):
         output.append(
             f'          <rect x="{x}" y="{y}" width="{width}" '
@@ -704,6 +830,8 @@ def validate(markup: str) -> bool:
     assert re.findall(r'data-tree-node="([^"]+)"', markup) == expected
     assert markup.count('class="life-tree__wood-shape"') == 1
     assert markup.count('class="life-tree__breeze"') == 1
+    assert markup.count('class="life-tree__roots"') == 1
+    assert markup.count('class="life-tree__canopy-shape"') == 1
     wood_match = re.search(r'class="life-tree__wood-shape" d="([^"]+)"', markup)
     assert wood_match is not None
     assert len(re.findall(r"(?:^|\s)M\s", wood_match.group(1))) == 1
@@ -713,7 +841,7 @@ def validate(markup: str) -> bool:
         assert isfinite(float(token))
 
     geometry, _ = create_geometry()
-    for limb in (*geometry.primary, *geometry.ambient):
+    for limb in (*geometry.primary, *geometry.ambient, *geometry.roots):
         assert all(left > right for left, right in zip(limb.widths, limb.widths[1:]))
     assert max(limb.widths[0] for limb in geometry.primary) < max(geometry.trunk.widths)
     return True

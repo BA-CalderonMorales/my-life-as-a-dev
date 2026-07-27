@@ -12,10 +12,6 @@
         return Math.min(Math.max(value, minimum), maximum);
     }
 
-    function easeOutCubic(value) {
-        return 1 - Math.pow(1 - value, 3);
-    }
-
     function easeInOutCubic(value) {
         return value < 0.5
             ? 4 * value * value * value
@@ -111,7 +107,10 @@
             var target = journeyStart + journeyRange * progress;
             window.scrollTo({
                 top: target,
-                behavior: reducedMotion.matches ? "auto" : "smooth"
+                // Facet controls are navigation, not a tour through every
+                // intermediate state. Land atomically so the requested panel
+                // cannot be overwritten by a long animated scroll.
+                behavior: "auto"
             });
         }
 
@@ -119,18 +118,20 @@
             var progress = clamp(rawProgress, 0, 1);
             // Sequenced handoff: the intro bows out first (0.08-0.20), the
             // tree decamps to the left (0.10-0.38), then the dossier lands
-            // (0.16-0.32) -- each gesture gets its own window so the opening
-            // never collapses into one muddled crossfade.
+            // (0.12-0.20). The dossier must be fully opaque before the Work
+            // facet center at ~0.226, so every navigable section is solid.
             var introOpacity = 1 - clamp((progress - 0.08) / 0.12, 0, 1);
-            var panelOpacity = clamp((progress - 0.16) / 0.16, 0, 1);
+            var panelOpacity = clamp((progress - PANEL_START) / 0.08, 0, 1);
             var detail = 1 - (clamp((progress - 0.06) / 0.5, 0, 1) * 0.84);
             var pixelOpacity = clamp((progress - 0.14) / 0.34, 0, 0.9);
 
-            // Roots grip the trunk base from the first frame, already near-full
-            // so they hide the strange trunk base before any scroll.
-            // Scrolling deepens the grounding: sinkers dig down, laterals
-            // reach for the edges, and fine root hairs arrive last.
-            var roots = 0.85 + 0.15 * clamp(progress / 0.95, 0, 1);
+            // The planted flare is always present; the living root network
+            // begins after the story opens, then reaches biological depth in
+            // order: structural roots, laterals, and fine feeders. It resolves
+            // only near the end of the final facet.
+            var roots = easeInOutCubic(
+                clamp((progress - 0.34) / 0.61, 0, 1)
+            );
 
             var treeEased = easeInOutCubic(clamp((progress - 0.1) / 0.28, 0, 1));
 
