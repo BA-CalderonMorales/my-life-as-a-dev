@@ -177,6 +177,7 @@ body.landing-page[data-md-color-scheme="slate"] {
     padding: 1.15rem clamp(1rem, 4vw, 4rem);
 }
 
+.landing-page .mdlad-footer__credit,
 .landing-page .mdlad-footer__links,
 .landing-page .mdlad-footer__meta {
     font-family: var(--life-mono);
@@ -187,8 +188,8 @@ body.landing-page[data-md-color-scheme="slate"] {
 
 .landing-page .mdlad-footer__links a {
     color: var(--life-ink);
-    text-decoration-color: var(--life-line-strong);
-    text-underline-offset: 0.35em;
+    background: var(--life-paper-deep);
+    border-color: var(--life-line-strong);
 }
 
 /* Page surface. */
@@ -416,7 +417,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     position: relative;
     z-index: 8;
     width: min(68vmin, 47rem);
-    aspect-ratio: 720 / 860;
+    aspect-ratio: 4 / 5;
     margin: 15vh auto 3rem;
 }
 
@@ -947,6 +948,171 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     font-size: 0.5rem;
 }
 
+/* A quiet invitation: the plant grows once, then keeps a nearly still pulse. */
+.life-contact {
+    position: relative;
+    z-index: 12;
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.45fr) minmax(0, 1fr) minmax(14rem, 0.52fr);
+    min-height: 34rem;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem);
+    overflow: hidden;
+    background: var(--life-paper);
+    border-top: 1px solid var(--life-line);
+}
+
+.life-contact::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: "";
+    background: radial-gradient(circle at 15% 70%, rgba(82, 107, 85, 0.1), transparent 22rem);
+    pointer-events: none;
+}
+
+.life-contact__sprout {
+    width: min(100%, 14rem);
+    color: var(--life-ink);
+}
+
+.life-contact__sprout svg {
+    display: block;
+    width: 100%;
+    overflow: visible;
+}
+
+.life-contact__soil,
+.life-contact__stem {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+}
+
+.life-contact__soil {
+    stroke-width: 2;
+    stroke-dasharray: 140;
+    stroke-dashoffset: 140;
+    opacity: 0.32;
+    transition: stroke-dashoffset 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.life-contact__stem {
+    stroke-width: 4;
+    stroke-dasharray: 110;
+    stroke-dashoffset: 110;
+    transition: stroke-dashoffset 900ms 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.life-contact__leaf,
+.life-contact__new-leaf,
+.life-contact__seed {
+    fill: currentColor;
+}
+
+.life-contact__leaf,
+.life-contact__new-leaf {
+    transform-box: fill-box;
+    transform: scale(0) rotate(-8deg);
+    transform-origin: bottom center;
+    transition: transform 680ms cubic-bezier(0.16, 1.35, 0.3, 1);
+}
+
+.life-contact__leaf--left {
+    transition-delay: 720ms;
+}
+
+.life-contact__leaf--right {
+    transition-delay: 950ms;
+}
+
+.life-contact__new-leaf {
+    opacity: 0.68;
+    transition-delay: 1.18s;
+}
+
+.life-contact__seed {
+    opacity: 0;
+    transition: opacity 300ms 160ms linear;
+}
+
+.life-contact.is-grown .life-contact__soil,
+.life-contact.is-grown .life-contact__stem {
+    stroke-dashoffset: 0;
+}
+
+.life-contact.is-grown .life-contact__leaf,
+.life-contact.is-grown .life-contact__new-leaf {
+    transform: scale(1) rotate(0);
+}
+
+.life-contact.is-grown .life-contact__seed {
+    opacity: 1;
+}
+
+.life-contact.is-grown .life-contact__sprout svg {
+    animation: life-sprout-breathe 5.5s 1.8s ease-in-out infinite;
+    transform-origin: 50% 82%;
+}
+
+@keyframes life-sprout-breathe {
+    0%, 100% { transform: rotate(-0.5deg) scale(1); }
+    50% { transform: rotate(0.75deg) scale(1.012); }
+}
+
+.life-contact__label {
+    margin-bottom: 1.25rem !important;
+    color: var(--life-copper) !important;
+    font-size: 0.6rem;
+}
+
+.landing-page .life-contact h2 {
+    max-width: 14ch;
+    color: var(--life-ink);
+    font-family: var(--life-serif);
+    font-size: clamp(2.5rem, 4.4vw, 5rem);
+    font-weight: 400;
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+}
+
+.life-contact__body > p:last-child {
+    max-width: 46ch !important;
+    margin-top: 1.6rem !important;
+    color: var(--life-muted) !important;
+    font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+    line-height: 1.7;
+}
+
+.life-contact__actions {
+    display: grid;
+    border-top: 1px solid var(--life-line-strong);
+}
+
+.landing-page .life-contact__actions a {
+    display: flex;
+    min-height: 4rem;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--life-ink);
+    font-size: 0.64rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--life-line);
+    transition: color 180ms ease, padding 180ms ease;
+}
+
+.landing-page .life-contact__actions a:hover,
+.landing-page .life-contact__actions a:focus-visible {
+    padding-inline: 0.5rem;
+    color: var(--life-copper);
+}
+
+.landing-page .life-contact__actions .life-contact__primary {
+    font-size: 0.72rem;
+}
+
 @media screen and (max-width: 74rem) and (min-width: 56.01rem) {
     .life-index.is-enhanced .life-tree-shell {
         width: min(60vmin, 38rem);
@@ -1200,6 +1366,16 @@ html.js .life-index:not(.is-enhanced) .life-branches {
         width: 100%;
     }
 
+    .life-contact {
+        grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr);
+        min-height: 0;
+    }
+
+    .life-contact__actions {
+        grid-column: 2;
+        width: 100%;
+    }
+
     .life-stage__meter {
         display: none;
     }
@@ -1299,9 +1475,10 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 
     .landing-page .md-footer__inner {
         gap: 0.75rem;
-        align-items: flex-start;
+        align-items: center;
     }
 
+    .landing-page .mdlad-footer__credit,
     .landing-page .mdlad-footer__links,
     .landing-page .mdlad-footer__meta {
         font-size: 0.52rem;
@@ -1333,6 +1510,27 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 
     .landing-page .life-coda__links a:nth-child(odd) {
         border-right: 1px solid var(--life-line);
+    }
+
+    .life-contact {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding-block: 3.5rem;
+        text-align: left;
+    }
+
+    .life-contact__sprout {
+        width: 8rem;
+        margin-inline: auto;
+    }
+
+    .landing-page .life-contact h2 {
+        max-width: 13ch;
+        font-size: clamp(2.35rem, 9vw, 3.5rem);
+    }
+
+    .life-contact__actions {
+        grid-column: auto;
     }
 }
 

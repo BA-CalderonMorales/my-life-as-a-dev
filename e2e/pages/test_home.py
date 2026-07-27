@@ -166,6 +166,29 @@ class TestHomePage:
         ).first
         expect(portfolio).to_be_visible()
 
+    def test_contact_sprout_grows_into_the_public_contact_section(self, page: Page):
+        """The closing invitation should reveal its sprout and current email."""
+        contact = page.locator("[data-life-contact]")
+        contact.scroll_into_view_if_needed()
+
+        expect(contact).to_have_class(re.compile(r"\bis-grown\b"))
+        expect(
+            contact.locator("a[href='mailto:b.dev.c.m@gmail.com']")
+        ).to_be_visible()
+
+    def test_footer_credits_zensical_and_keeps_contact_chrome_balanced(
+        self, page: Page
+    ):
+        """Footer credit, contact icons, and right-aligned copyright should persist."""
+        footer = page.locator(".md-footer")
+        credit = footer.locator(".mdlad-footer__credit a")
+        copyright_text = footer.locator(".mdlad-footer__meta")
+
+        expect(credit).to_have_text("Zensical")
+        expect(credit).to_have_attribute("href", "https://zensical.org/")
+        expect(footer.locator(".mdlad-footer__links a")).to_have_count(3)
+        expect(copyright_text).to_have_css("text-align", "right")
+
     def test_generative_backdrop_is_disabled(self, page: Page):
         """The portfolio should use a quiet static canvas."""
         expect(page.locator(".creative-canvas")).to_have_count(0)

@@ -146,6 +146,23 @@
         } else {
             tree.classList.add("is-wind-on");
         }
+
+        const contact = root.querySelector("[data-life-contact]");
+        if (contact && "IntersectionObserver" in window) {
+            const contactObserver = new IntersectionObserver(
+                ([entry]) => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+                    contact.classList.add("is-grown");
+                    contactObserver.disconnect();
+                },
+                { rootMargin: "0px 0px -18% 0px", threshold: 0.28 }
+            );
+            contactObserver.observe(contact);
+        } else {
+            contact?.classList.add("is-grown");
+        }
     }
 
     function boot() {

@@ -109,10 +109,8 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
  */
 [data-life-index] .life-tree__breeze {
     transform-box: view-box;
-}
-
-[data-life-index] .life-tree__breeze {
     transform-origin: 360px 500px;
+    will-change: transform;
 }
 
 [data-life-index] .life-tree.is-wind-on .life-tree__breeze {
