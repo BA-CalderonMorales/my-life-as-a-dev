@@ -126,10 +126,11 @@
             var detail = 1 - (clamp((progress - 0.06) / 0.5, 0, 1) * 0.84);
             var pixelOpacity = clamp((progress - 0.14) / 0.34, 0, 0.9);
 
-            // Roots grip the trunk base from the first frame (0.4), then keep
-            // digging and reaching through the facets: the further you read,
-            // the deeper the grounding goes.
-            var roots = 0.4 + 0.6 * clamp(progress / 0.95, 0, 1);
+            // Roots grip the trunk base from the first frame, already near-full
+            // so they hide the strange trunk base before any scroll.
+            // Scrolling deepens the grounding: sinkers dig down, laterals
+            // reach for the edges, and fine root hairs arrive last.
+            var roots = 0.85 + 0.15 * clamp(progress / 0.95, 0, 1);
 
             var treeEased = easeInOutCubic(clamp((progress - 0.1) / 0.28, 0, 1));
 
