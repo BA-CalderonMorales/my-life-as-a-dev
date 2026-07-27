@@ -3,6 +3,10 @@
 {% block libs %}
 <!-- CRITICAL: Patch console and MutationObserver BEFORE MkDocs Material scripts load -->
 <script>
+  // Mark JS as available before first paint so scroll-revealed content stays
+  // hidden until the living-index module takes over (no flash of scrolled state).
+  document.documentElement.classList.add("js");
+
   (function () {
     var SUPPRESSED_ERROR_PATTERNS = [
       "Failed to execute 'observe' on 'MutationObserver'",
@@ -122,15 +126,15 @@
 <link rel="manifest" href="{{ 'manifest.webmanifest' | url }}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SimplifiedLife">
+<meta name="apple-mobile-web-app-title" content="Brandon">
 <link rel="apple-touch-icon" href="{{ 'assets/images/favicon/icon-192.png' | url }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 
-<meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)">
-<meta name="msapplication-TileColor" content="#FAFAF8">
+<meta name="theme-color" content="#F3F0E8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D110E" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-TileColor" content="#F3F0E8">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
 
@@ -154,7 +158,7 @@
   "description": "{{ config.site_description }}",
   "author": {
     "@type": "Person",
-    "name": "Brandon A. Calderon Morales",
+    "name": "Brandon",
     "url": "https://www.linkedin.com/in/bcalderonmorales-cmoe/",
     "sameAs": [
       "https://github.com/BA-CalderonMorales",
