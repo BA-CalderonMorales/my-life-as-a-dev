@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon/favicon.ico">
-      <meta name="generator" content="zensical-0.0.50">
+      <meta name="generator" content="zensical-0.0.51">
     
     
       
@@ -257,6 +257,10 @@
     
 <!-- CRITICAL: Patch console and MutationObserver BEFORE MkDocs Material scripts load -->
 <script>
+  // Mark JS as available before first paint so scroll-revealed content stays
+  // hidden until the living-index module takes over (no flash of scrolled state).
+  document.documentElement.classList.add("js");
+
   (function () {
     var SUPPRESSED_ERROR_PATTERNS = [
       "Failed to execute 'observe' on 'MutationObserver'",
@@ -373,6 +377,10 @@
     
       <link rel="stylesheet" href="../assets/css/landing.css">
     
+      <link rel="stylesheet" href="../assets/css/life-tree.css">
+    
+      <link rel="stylesheet" href="../assets/css/life-leaves.css">
+    
       <link rel="stylesheet" href="../assets/css/404.css">
     
       <link rel="stylesheet" href="../assets/css/resume.css">
@@ -420,15 +428,15 @@
 <link rel="manifest" href="../manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SimplifiedLife">
+<meta name="apple-mobile-web-app-title" content="Brandon">
 <link rel="apple-touch-icon" href="../assets/images/favicon/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 
-<meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)">
-<meta name="msapplication-TileColor" content="#FAFAF8">
+<meta name="theme-color" content="#F3F0E8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D110E" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-TileColor" content="#F3F0E8">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
 
@@ -449,10 +457,10 @@
   "@type": "WebSite",
   "name": "Brandon A. Calderon Morales",
   "url": "https://ba-calderonmorales.github.io/my-life-as-a-dev/",
-  "description": "Senior software engineer working across AI-enabled delivery, secure automation, developer tooling, and documentation.",
+  "description": "Marine veteran turned engineer building readable systems, open-source agent tools, and documentation that makes the next step obvious.",
   "author": {
     "@type": "Person",
-    "name": "Brandon A. Calderon Morales",
+    "name": "Brandon",
     "url": "https://www.linkedin.com/in/bcalderonmorales-cmoe/",
     "sameAs": [
       "https://github.com/BA-CalderonMorales",
@@ -518,9 +526,17 @@
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="./.." class="md-header__button md-logo" aria-label="Brandon A. Calderon Morales" data-md-component="logo">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M2 12 L12 2 L22 12 L12 22 Z"/>
-  <circle cx="12" cy="12" r="3"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Brandon Calderon-Morales">
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="#17211c" stroke="#526b55" stroke-width="2"/>
+  <g fill="none" stroke="#f3f0e8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 52V20"/>
+    <path d="M32 37C24 34 19 29 14 21"/>
+    <path d="M32 29C40 26 46 20 50 12"/>
+    <path d="M32 43C40 42 47 38 53 32"/>
+  </g>
+  <circle cx="14" cy="21" r="3" fill="#a95637"/>
+  <circle cx="50" cy="12" r="3" fill="#a95637"/>
+  <circle cx="53" cy="32" r="3" fill="#a95637"/>
 </svg>
     </a>
     
@@ -699,7 +715,7 @@
 <h1 class="mlad-404__title" id="this-page-doesnt-exist"><span class="mlad-404__typewriter">This page doesn't exist</span><span class="mlad-404__cursor" aria-hidden="true"></span><a class="headerlink" href="#this-page-doesnt-exist" title="Permanent link">&para;</a></h1>
 <p class="mlad-404__body">The link you followed may be broken, or the page may have been moved. Let's get you back on track.</p>
 <p><a class="md-button md-button--primary" href="../">Return Home</a>
-<a class="md-button" href="mailto:bacm640@gmail.com">Email Me</a></p>
+<a class="md-button" href="mailto:b.dev.c.m@gmail.com">Email Me</a></p>
 </div>
 <div aria-hidden="true" class="mlad-404__vine">
 <svg viewBox="0 0 120 60" preserveAspectRatio="none">
@@ -899,13 +915,18 @@
       
         <footer class="md-footer">
   <div class="md-footer__inner md-grid">
-    <div class="mdlad-footer-content">
-      <div class="mdlad-footer__links">
-        <a href="https://github.com/BA-CalderonMorales" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/bcalderonmorales-cmoe/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:bacm640@gmail.com">Email</a>
-      </div>
-    </div>
+    <p class="mdlad-footer__credit">Made with <a href="https://zensical.org/" target="_blank" rel="noopener">Zensical</a></p>
+    <nav class="mdlad-footer__links" aria-label="Contact Brandon">
+      <a href="https://github.com/BA-CalderonMorales" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.75a9.25 9.25 0 0 0-2.93 18.03c.46.09.63-.2.63-.44v-1.8c-2.57.56-3.11-1.09-3.11-1.09-.42-1.07-1.03-1.35-1.03-1.35-.84-.58.06-.57.06-.57.93.07 1.42.96 1.42.96.83 1.42 2.17 1.01 2.7.77.08-.6.32-1.01.59-1.24-2.05-.23-4.21-1.03-4.21-4.57 0-1.01.36-1.84.95-2.49-.1-.23-.41-1.18.09-2.46 0 0 .78-.25 2.54.95A8.8 8.8 0 0 1 12 7.16a8.8 8.8 0 0 1 2.31.31c1.76-1.2 2.53-.95 2.53-.95.51 1.28.19 2.23.1 2.46.59.65.95 1.48.95 2.49 0 3.55-2.17 4.33-4.23 4.56.33.29.63.85.63 1.72v2.59c0 .24.17.53.64.44A9.25 9.25 0 0 0 12 2.75Z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/bcalderonmorales-cmoe/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.44 8.38H3.29V18.5h3.15V8.38ZM4.86 3.35a1.83 1.83 0 1 0 0 3.66 1.83 1.83 0 0 0 0-3.66ZM18.5 12.7c0-3.05-1.63-4.47-3.8-4.47-1.75 0-2.53.96-2.97 1.64V8.38H8.58V18.5h3.15v-5.01c0-1.32.25-2.6 1.89-2.6 1.62 0 1.64 1.52 1.64 2.69v4.92h3.15l.09-5.8Z"/></svg>
+      </a>
+      <a href="mailto:b.dev.c.m@gmail.com" aria-label="Email Brandon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.75 5.5h16.5v13H3.75v-13Zm.5.75L12 12.5l7.75-6.25M4.5 17.75l5.1-6.1m9.9 6.1-5.1-6.1"/></svg>
+      </a>
+    </nav>
     <div class="mdlad-footer__meta">
       <span class="mdlad-footer__copy">Copyright &copy; 2024-2026 Brandon A. Calderon Morales</span>
     </div>
@@ -928,6 +949,12 @@
     
 
       <script src="../assets/javascripts/bundle.d7f30b55.min.js"></script>
+      
+        <script src="../assets/js/living-index.js"></script>
+      
+        <script src="../assets/js/life-tree.js"></script>
+      
+        <script src="../assets/js/life-leaves.js"></script>
       
         <script src="../assets/js/scroll-progress.js"></script>
       
