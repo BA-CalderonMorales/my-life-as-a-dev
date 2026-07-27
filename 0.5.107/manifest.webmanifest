@@ -1,13 +1,13 @@
 {
-    "name": "Brandon's Simplified Life",
-    "short_name": "SimplifiedLife",
-    "description": "A collection of notes, resources, and tools for developers, engineers, and tech enthusiasts.",
+    "name": "Brandon A. Calderon Morales",
+    "short_name": "Brandon",
+    "description": "Marine veteran turned engineer building readable systems, open-source agent tools, and documentation that makes the next step obvious.",
     "start_url": "./",
     "scope": "./",
     "display": "standalone",
     "orientation": "any",
-    "background_color": "#ffffff",
-    "theme_color": "#0a0a0a",
+    "background_color": "#f3f0e8",
+    "theme_color": "#17211c",
     "icons": [
         {
             "src": "assets/images/favicon/favicon.ico",
