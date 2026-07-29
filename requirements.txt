@@ -37,7 +37,7 @@ tomli-w>=1.0.0
 pytest>=8.0.0
 pytest-playwright>=0.7.2
 playwright>=1.48.0
-axe-playwright-python>=0.1.7
+axe-playwright-python>=0.1.8
 
 # Image Optimization Plugin
 # Required for build-time image optimization (WebP conversion, responsive sizes)
