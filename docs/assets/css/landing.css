@@ -212,7 +212,7 @@ body.landing-page[data-md-color-scheme="slate"] {
 /* Page surface. */
 .life-index {
     --life-tree-x: 0vw;
-    --life-tree-scale: 1;
+    --life-tree-scale: 1.08;
     --life-intro-opacity: 1;
     --life-panel-opacity: 0;
     --life-panel-y: 1.5rem;
@@ -440,7 +440,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 
 .life-index.is-enhanced .life-tree-shell {
     position: absolute;
-    top: 52%;
+    top: calc(50% + var(--life-header-height) / 2 + 8vh);
     left: 50%;
     margin: 0;
     transform: translate(-50%, -50%) translateX(var(--life-tree-x)) scale(var(--life-tree-scale));
