@@ -67,6 +67,9 @@
         var journeyRange = 1;
         var mobileRootStart = 0;
         var mobileRootRange = 1;
+        var lastScrollY = 0;
+        var scrollDirection = 0;
+        var scrollDirectionFrame = null;
         var disposers = [];
 
         root.classList.add("is-enhanced");
@@ -293,8 +296,8 @@
 
             var treeEased = easeInOutCubic(clamp((progress - 0.1) / 0.28, 0, 1));
 
-            root.style.setProperty("--life-tree-x", (-31 * treeEased).toFixed(3) + "vw");
-            root.style.setProperty("--life-tree-scale", (1 - (0.5 * treeEased)).toFixed(3));
+            root.style.setProperty("--life-tree-x", (-22 * treeEased).toFixed(3) + "vw");
+            root.style.setProperty("--life-tree-scale", (1.15 - (0.4 * treeEased)).toFixed(3));
             root.style.setProperty("--life-intro-opacity", introOpacity.toFixed(3));
             root.style.setProperty("--life-panel-opacity", panelOpacity.toFixed(3));
             root.style.setProperty("--life-panel-y", ((1 - panelOpacity) * 1.5).toFixed(3) + "rem");
@@ -316,6 +319,33 @@
         function updateScrollState() {
             frameRequested = false;
             if (layoutTransitioning) return;
+
+            // Track scroll direction for root pulse animation
+            var currentScrollY = window.scrollY;
+            var delta = currentScrollY - lastScrollY;
+            if (Math.abs(delta) > 0.5) {
+                scrollDirection = delta > 0 ? 1 : -1;
+                lastScrollY = currentScrollY;
+                var rootsEl = root.querySelector(".life-tree__roots");
+                if (rootsEl) {
+                    if (scrollDirection > 0) {
+                        rootsEl.classList.add("scroll-down");
+                    } else {
+                        rootsEl.classList.remove("scroll-down");
+                    }
+                    if (scrollDirectionFrame !== null) {
+                        window.cancelAnimationFrame(scrollDirectionFrame);
+                    }
+                    scrollDirectionFrame = window.requestAnimationFrame(function () {
+                        scrollDirectionFrame = null;
+                        setTimeout(function () {
+                            if (rootsEl && window.scrollY === lastScrollY) {
+                                rootsEl.classList.remove("scroll-down");
+                            }
+                        }, 1200);
+                    });
+                }
+            }
 
             if (!desktopLayout.matches) {
                 root.classList.add("is-open");
