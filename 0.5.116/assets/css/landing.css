@@ -13,6 +13,7 @@ body.landing-page {
     --life-moss: #526b55;
     --life-moss-deep: #304638;
     --life-copper: #a95637;
+    --life-copper-text: #91462f;
     --life-line: rgba(23, 33, 28, 0.16);
     --life-line-strong: rgba(23, 33, 28, 0.34);
     --life-panel: rgba(247, 244, 236, 0.96);
@@ -35,6 +36,7 @@ body.landing-page[data-md-color-scheme="slate"] {
     --life-moss: #8da58a;
     --life-moss-deep: #b6c7af;
     --life-copper: #df8a65;
+    --life-copper-text: #df8a65;
     --life-line: rgba(236, 231, 218, 0.14);
     --life-line-strong: rgba(236, 231, 218, 0.3);
     --life-panel: rgba(18, 23, 19, 0.96);
@@ -121,11 +123,15 @@ body.landing-page[data-md-color-scheme="slate"] {
 }
 
 .landing-page .md-header__button.md-logo {
-    width: 2rem;
-    height: 2rem;
+    display: grid;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
     padding: 0;
     margin: 0 0.8rem 0 0;
     color: var(--life-paper-bright);
+    place-items: center;
 }
 
 .landing-page .md-header__button.md-logo svg {
@@ -164,8 +170,19 @@ body.landing-page[data-md-color-scheme="slate"] {
     color: var(--life-ink);
 }
 
+.landing-page .md-header [data-md-component="palette"] .md-header__button:not([hidden]) {
+    display: grid;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    place-items: center;
+}
+
 /* A single baseline replaces a conventional site footer. */
 .landing-page .md-footer {
+    margin-top: 0;
     color: var(--life-muted);
     background: var(--life-paper);
     border-top: 1px solid var(--life-line);
@@ -177,6 +194,7 @@ body.landing-page[data-md-color-scheme="slate"] {
     padding: 1.15rem clamp(1rem, 4vw, 4rem);
 }
 
+.landing-page .mdlad-footer__credit,
 .landing-page .mdlad-footer__links,
 .landing-page .mdlad-footer__meta {
     font-family: var(--life-mono);
@@ -187,14 +205,14 @@ body.landing-page[data-md-color-scheme="slate"] {
 
 .landing-page .mdlad-footer__links a {
     color: var(--life-ink);
-    text-decoration-color: var(--life-line-strong);
-    text-underline-offset: 0.35em;
+    background: var(--life-paper-deep);
+    border-color: var(--life-line-strong);
 }
 
 /* Page surface. */
 .life-index {
     --life-tree-x: 0vw;
-    --life-tree-scale: 1;
+    --life-tree-scale: 1.08;
     --life-intro-opacity: 1;
     --life-panel-opacity: 0;
     --life-panel-y: 1.5rem;
@@ -298,7 +316,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 
 .life-kicker {
     margin-bottom: 1.25rem !important;
-    color: var(--life-copper) !important;
+    color: var(--life-copper-text) !important;
     font-size: clamp(0.56rem, 0.65vw, 0.68rem);
     line-height: 1.5;
 }
@@ -415,14 +433,14 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 .life-tree-shell {
     position: relative;
     z-index: 8;
-    width: min(68vmin, 47rem);
-    aspect-ratio: 720 / 760;
+    width: min(58vmin, 40rem);
+    aspect-ratio: 3 / 5;
     margin: 15vh auto 3rem;
 }
 
 .life-index.is-enhanced .life-tree-shell {
     position: absolute;
-    top: 52%;
+    top: calc(50% + var(--life-header-height) / 2 + 8vh);
     left: 50%;
     margin: 0;
     transform: translate(-50%, -50%) translateX(var(--life-tree-x)) scale(var(--life-tree-scale));
@@ -434,11 +452,12 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     display: block;
     width: 100%;
     height: 100%;
+    aspect-ratio: 3 / 5;
     overflow: visible;
 }
 
 /* The tree silhouette, leaves, branches, nodes, and breeze are defined in
-   docs/assets/css/life-tree.css. Only the copper "fruit" pulse lives here. */
+   docs/assets/css/life-tree.css. Copper fruit pixels reveal with tree state. */
 .life-tree__pixels rect {
     fill: var(--life-copper);
     opacity: var(--life-pixel-opacity);
@@ -450,17 +469,12 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 
 .life-index.is-indexed .life-tree__pixels rect {
     transform: translateY(0);
-    animation: life-fruit 6.5s ease-in-out infinite;
-}
-
-@keyframes life-fruit {
-    0%, 100% { opacity: calc(var(--life-pixel-opacity) * 0.7); }
-    50% { opacity: var(--life-pixel-opacity); }
 }
 
 .life-branches {
     position: absolute;
     inset: 0;
+    pointer-events: none;
 }
 
 .landing-page .life-branch {
@@ -481,6 +495,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     border: 1px solid var(--life-line);
     border-radius: 999px;
     box-shadow: 0 0 0 0 var(--life-paper);
+    pointer-events: auto;
     transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
@@ -492,10 +507,16 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 .landing-page .life-branch:hover,
 .landing-page .life-branch:focus-visible,
 .landing-page .life-branch.is-active {
-    color: var(--life-copper);
+    color: var(--life-copper-text);
     background: var(--life-paper-bright);
     border-color: var(--life-copper);
     box-shadow: 0 0 0 4px var(--life-paper);
+}
+
+.landing-page .life-branch:hover span,
+.landing-page .life-branch:focus-visible span,
+.landing-page .life-branch.is-active span {
+    color: var(--life-copper-text);
 }
 
 .landing-page .life-branch:focus-visible {
@@ -571,6 +592,11 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 .life-dossier {
     position: relative;
     padding: clamp(1.75rem, 3.4vw, 3.5rem);
+    scroll-margin-top: calc(
+        var(--life-header-height)
+        + env(safe-area-inset-top, 0px)
+        + 1rem
+    );
     color: var(--life-ink);
     background: var(--life-panel);
     border: 1px solid var(--life-line);
@@ -591,7 +617,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 
 .life-dossier__header p {
     flex: 0 0 auto;
-    color: var(--life-copper) !important;
+    color: var(--life-copper-text) !important;
 }
 
 .life-dossier__header p span,
@@ -641,7 +667,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 }
 
 .life-evidence dt {
-    color: var(--life-copper);
+    color: var(--life-copper-text);
     font-family: var(--life-serif);
     font-size: clamp(1.45rem, 2.4vw, 2.4rem);
     line-height: 1;
@@ -699,7 +725,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 
 .landing-page .life-text-link:hover,
 .landing-page .life-text-link:focus-visible {
-    color: var(--life-copper);
+    color: var(--life-copper-text);
 }
 
 .life-artifacts {
@@ -722,7 +748,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 .landing-page .life-artifacts > a:hover,
 .landing-page .life-artifacts > a:focus-visible {
     padding-inline: 0.6rem;
-    color: var(--life-copper);
+    color: var(--life-copper-text);
 }
 
 .life-artifacts__index {
@@ -756,7 +782,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 }
 
 .life-artifacts i {
-    color: var(--life-copper);
+    color: var(--life-copper-text);
     font-style: normal;
 }
 
@@ -791,7 +817,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 }
 
 .life-learning span {
-    color: var(--life-copper);
+    color: var(--life-copper-text);
     font-family: var(--life-mono);
     font-size: 0.56rem;
     font-weight: 700;
@@ -835,7 +861,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 }
 
 .life-home figcaption span {
-    color: var(--life-copper);
+    color: var(--life-copper-text);
 }
 
 .life-home__links {
@@ -892,7 +918,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 .life-coda__label {
     align-self: start;
     padding-top: 0.8rem;
-    color: var(--life-copper) !important;
+    color: var(--life-copper-text) !important;
     font-size: 0.6rem;
 }
 
@@ -910,7 +936,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 .life-coda__body > p {
     max-width: 50ch !important;
     margin-top: 2rem !important;
-    color: var(--life-muted) !important;
+    color: var(--life-ink) !important;
     font-size: clamp(0.9rem, 1.25vw, 1.12rem);
     line-height: 1.7;
 }
@@ -937,17 +963,182 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 .landing-page .life-coda__links a:hover,
 .landing-page .life-coda__links a:focus-visible {
     padding-left: 0.5rem;
-    color: var(--life-copper);
+    color: var(--life-copper-text);
 }
 
 .life-coda__links span {
-    color: var(--life-faint);
+    color: var(--life-copper-text);
     font-size: 0.5rem;
 }
 
-@media screen and (max-width: 74rem) and (min-width: 56.01rem) {
+/* A quiet invitation: the plant grows once, then keeps a nearly still pulse. */
+.life-contact {
+    position: relative;
+    z-index: 12;
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.45fr) minmax(0, 1fr) minmax(14rem, 0.52fr);
+    min-height: 34rem;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem);
+    overflow: hidden;
+    background: var(--life-paper);
+    border-top: 1px solid var(--life-line);
+}
+
+.life-contact::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: "";
+    background: radial-gradient(circle at 15% 70%, rgba(82, 107, 85, 0.1), transparent 22rem);
+    pointer-events: none;
+}
+
+.life-contact__sprout {
+    width: min(100%, 14rem);
+    color: var(--life-ink);
+}
+
+.life-contact__sprout svg {
+    display: block;
+    width: 100%;
+    overflow: visible;
+}
+
+.life-contact__soil,
+.life-contact__stem {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+}
+
+.life-contact__soil {
+    stroke-width: 2;
+    stroke-dasharray: 140;
+    stroke-dashoffset: 140;
+    opacity: 0.32;
+    transition: stroke-dashoffset 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.life-contact__stem {
+    stroke-width: 4;
+    stroke-dasharray: 110;
+    stroke-dashoffset: 110;
+    transition: stroke-dashoffset 900ms 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.life-contact__leaf,
+.life-contact__new-leaf,
+.life-contact__seed {
+    fill: currentColor;
+}
+
+.life-contact__leaf,
+.life-contact__new-leaf {
+    transform-box: fill-box;
+    transform: scale(0) rotate(-8deg);
+    transform-origin: bottom center;
+    transition: transform 680ms cubic-bezier(0.16, 1.35, 0.3, 1);
+}
+
+.life-contact__leaf--left {
+    transition-delay: 720ms;
+}
+
+.life-contact__leaf--right {
+    transition-delay: 950ms;
+}
+
+.life-contact__new-leaf {
+    opacity: 0.68;
+    transition-delay: 1.18s;
+}
+
+.life-contact__seed {
+    opacity: 0;
+    transition: opacity 300ms 160ms linear;
+}
+
+.life-contact.is-grown .life-contact__soil,
+.life-contact.is-grown .life-contact__stem {
+    stroke-dashoffset: 0;
+}
+
+.life-contact.is-grown .life-contact__leaf,
+.life-contact.is-grown .life-contact__new-leaf {
+    transform: scale(1) rotate(0);
+}
+
+.life-contact.is-grown .life-contact__seed {
+    opacity: 1;
+}
+
+.life-contact.is-grown .life-contact__sprout svg {
+    animation: life-sprout-breathe 5.5s 1.8s ease-in-out infinite;
+    transform-origin: 50% 82%;
+}
+
+@keyframes life-sprout-breathe {
+    0%, 100% { transform: rotate(-0.5deg) scale(1); }
+    50% { transform: rotate(0.75deg) scale(1.012); }
+}
+
+.life-contact__label {
+    margin-bottom: 1.25rem !important;
+    color: var(--life-copper-text) !important;
+    font-size: 0.6rem;
+}
+
+.landing-page .life-contact h2 {
+    max-width: 14ch;
+    color: var(--life-ink);
+    font-family: var(--life-serif);
+    font-size: clamp(2.5rem, 4.4vw, 5rem);
+    font-weight: 400;
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+}
+
+.life-contact__body > p:last-child {
+    max-width: 46ch !important;
+    margin-top: 1.6rem !important;
+    color: var(--life-muted) !important;
+    font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+    line-height: 1.7;
+}
+
+.life-contact__actions {
+    display: grid;
+    border-top: 1px solid var(--life-line-strong);
+}
+
+.landing-page .life-contact__actions a {
+    display: flex;
+    min-height: 4rem;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--life-ink);
+    font-size: 0.64rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--life-line);
+    transition: color 180ms ease, padding 180ms ease;
+}
+
+.landing-page .life-contact__actions a:hover,
+.landing-page .life-contact__actions a:focus-visible {
+    padding-inline: 0.5rem;
+    color: var(--life-copper-text);
+}
+
+.landing-page .life-contact__actions .life-contact__primary {
+    font-size: 0.72rem;
+}
+
+@media screen and (max-width: 74rem) and (min-width: 64.01rem) {
     .life-index.is-enhanced .life-tree-shell {
-        width: min(60vmin, 38rem);
+        width: min(60vmin, 31rem);
     }
 
     .life-index.is-enhanced .life-dossiers {
@@ -965,7 +1156,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 }
 
 /* Tablet and mobile keep the same index without sticky choreography. */
-@media screen and (max-width: 56rem) {
+@media screen and (max-width: 64rem) {
     body.landing-page {
         --life-header-height: 3.75rem;
     }
@@ -974,7 +1165,6 @@ html.js .life-index:not(.is-enhanced) .life-branches {
         padding-inline: 1rem;
     }
 
-    .landing-page .md-header__button.md-logo,
     .landing-page .md-header__button.md-logo svg {
         width: 1.85rem;
         height: 1.85rem;
@@ -991,7 +1181,6 @@ html.js .life-index:not(.is-enhanced) .life-branches {
         --life-panel-y: 0rem !important;
         --life-tree-detail: 1 !important;
         --life-pixel-opacity: 0 !important;
-        --life-roots: 1 !important;
     }
 
     .life-index.is-enhanced .life-journey {
@@ -1060,7 +1249,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
         position: relative;
         top: auto;
         left: auto;
-        width: min(92vw, 35rem);
+        width: min(92vw, 38rem);
         margin: 0.5rem auto 0;
         transform: none;
     }
@@ -1071,15 +1260,18 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 
     .life-tree {
         width: 100%;
-        aspect-ratio: 1;
+        height: auto;
+        aspect-ratio: 3 / 5;
     }
 
     .life-branches {
         position: relative;
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
+        box-sizing: border-box;
         width: 100%;
-        margin-top: -0.25rem;
+        padding-inline: 0.4rem;
+        margin-top: 0;
         border-block: 1px solid var(--life-line);
     }
 
@@ -1091,7 +1283,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     .life-branch--serve {
         position: static;
         min-width: 0;
-        min-height: 3.75rem;
+        min-height: 3.25rem;
         gap: 0.25rem;
         flex-direction: column;
         padding: 0.6rem 0.15rem;
@@ -1116,7 +1308,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 
     /* Active chip reads in copper, mirroring the tree's highlighted limb. */
     .landing-page .life-branch.is-active {
-        color: var(--life-copper);
+        color: var(--life-copper-text);
         background: var(--life-paper-deep);
         box-shadow: inset 0 -2px 0 var(--life-copper);
     }
@@ -1128,8 +1320,9 @@ html.js .life-index:not(.is-enhanced) .life-branches {
         right: auto;
         display: block;
         width: calc(100% - 2rem);
+        height: auto;
         max-height: none;
-        margin: 2rem auto 4rem;
+        margin: 1.5rem auto 2.5rem;
         overflow: visible;
         opacity: 1;
         pointer-events: auto;
@@ -1181,8 +1374,8 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     .life-coda {
         grid-template-columns: minmax(0, 1fr);
         min-height: 0;
-        gap: 2.25rem;
-        padding: clamp(4rem, 10vw, 7rem) 1.25rem;
+        gap: 1.5rem;
+        padding: clamp(3rem, 7vw, 5rem) 1.25rem;
     }
 
     .life-coda__label {
@@ -1195,7 +1388,33 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     }
 
     .life-coda__links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         width: 100%;
+    }
+
+    .landing-page .life-coda__links a {
+        min-height: 3rem;
+        padding-right: 0.5rem;
+    }
+
+    .landing-page .life-coda__links a:nth-child(odd) {
+        border-right: 1px solid var(--life-line);
+    }
+
+    .life-contact {
+        grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr);
+        min-height: 0;
+        gap: clamp(1.5rem, 4vw, 3rem);
+        padding: clamp(3rem, 6vw, 4.5rem) 1.25rem;
+    }
+
+    .life-contact__actions {
+        grid-column: 2;
+        width: 100%;
+    }
+
+    .landing-page .life-contact__actions a {
+        min-height: 3.25rem;
     }
 
     .life-stage__meter {
@@ -1205,8 +1424,8 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 
 @media screen and (max-width: 35rem) {
     .life-intro {
-        min-height: 13.5rem;
-        gap: 0.65rem;
+        min-height: 12.25rem;
+        gap: 0.5rem;
     }
 
     .life-kicker {
@@ -1225,29 +1444,50 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 
     .life-tree-shell,
     .life-index.is-enhanced .life-tree-shell {
-        width: 88vw;
-        margin-left: 6vw;
+        width: 92vw;
+        margin-inline: auto;
     }
 
     .life-tree {
-        max-height: 25rem;
+        max-height: none;
     }
 
     .life-branches {
-        width: 96vw;
-        margin-inline: -4vw 0;
+        width: 100%;
+        margin-inline: 0;
     }
 
     .life-dossier__header {
         align-items: flex-start;
+        padding-bottom: 0.9rem;
+        margin-bottom: 1.25rem;
     }
 
     .life-dossier__header > span {
         max-width: 14rem;
     }
 
+    .life-index.is-enhanced .life-dossiers,
+    .life-dossiers {
+        margin: 1.25rem auto 1.5rem;
+    }
+
+    .life-dossier {
+        padding: 1.25rem;
+    }
+
+    .life-dossier__lede {
+        margin-top: 1rem !important;
+    }
+
     .life-evidence {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 1.2rem !important;
+    }
+
+    .life-dossier__note,
+    .landing-page .life-text-link {
+        margin-top: 1rem !important;
     }
 
     .life-evidence > div,
@@ -1296,18 +1536,21 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     }
 
     .landing-page .md-footer__inner {
-        gap: 0.75rem;
-        align-items: flex-start;
+        min-height: 0;
+        gap: 0.25rem;
+        align-items: center;
+        padding: 0.5rem 1rem;
     }
 
+    .landing-page .mdlad-footer__credit,
     .landing-page .mdlad-footer__links,
     .landing-page .mdlad-footer__meta {
         font-size: 0.52rem;
     }
 
     .life-coda {
-        gap: 1.5rem;
-        padding-block: 3rem;
+        gap: 0.75rem;
+        padding-block: 1.25rem;
     }
 
     .landing-page .life-coda h2 {
@@ -1316,7 +1559,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     }
 
     .life-coda__body > p {
-        margin-top: 1.25rem !important;
+        margin-top: 0.75rem !important;
         font-size: 0.86rem;
     }
 
@@ -1325,16 +1568,75 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     }
 
     .landing-page .life-coda__links a {
-        min-height: 3.25rem;
+        min-height: 44px;
         padding-right: 0.4rem;
     }
 
     .landing-page .life-coda__links a:nth-child(odd) {
         border-right: 1px solid var(--life-line);
     }
+
+    .life-contact {
+        grid-template-columns: 5.5rem minmax(0, 1fr);
+        gap: 1rem;
+        align-items: start;
+        padding: 1.25rem 1rem;
+        text-align: left;
+    }
+
+    .life-contact__sprout {
+        width: 5.5rem;
+        margin: 0;
+    }
+
+    .life-contact__body {
+        grid-column: 2;
+    }
+
+    .life-contact__body > p:last-child {
+        margin-top: 1.2rem !important;
+    }
+
+    .landing-page .life-contact h2 {
+        max-width: 13ch;
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .life-contact__actions {
+        grid-column: 1 / -1;
+    }
+
+    .landing-page .life-contact__actions a {
+        min-height: 44px;
+    }
+}
+
+@media screen and (max-width: 22rem) {
+    .landing-page .life-intro h1 {
+        font-size: 2rem;
+        overflow-wrap: normal;
+    }
+
+    .life-contact {
+        grid-template-columns: 4rem minmax(0, 1fr);
+        gap: 0.75rem;
+    }
+
+    .life-contact__sprout {
+        width: 4rem;
+    }
+
+    .landing-page .life-contact h2 {
+        overflow-wrap: normal;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .life-index,
+    .life-index.is-enhanced {
+        --life-roots: 1 !important;
+    }
+
     .life-index *,
     .life-index *::before,
     .life-index *::after {
@@ -1343,7 +1645,9 @@ html.js .life-index:not(.is-enhanced) .life-branches {
         animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
     }
+}
 
+@media screen and (min-width: 64.01rem) and (prefers-reduced-motion: reduce) {
     .life-index.is-enhanced .life-journey {
         height: 118svh;
     }
