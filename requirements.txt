@@ -35,7 +35,7 @@ tomli-w>=1.0.0
 
 # Browser testing
 pytest>=8.0.0
-pytest-playwright>=0.7.2
+pytest-playwright>=0.8.0
 playwright>=1.48.0
 axe-playwright-python>=0.1.8
 
