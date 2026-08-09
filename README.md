@@ -39,7 +39,7 @@ The repository behind a versioned docs-and-project hub for developer tooling, le
 
 ## Run It Locally
 
-Prerequisites: Python 3.10+, [`uv`](https://docs.astral.sh/uv/), and Rust/Cargo only if you want to rebuild `doc-cli`.
+Prerequisites: Python 3.14+, [`uv`](https://docs.astral.sh/uv/), and Rust/Cargo only if you want to rebuild `doc-cli`.
 
 ```bash
 git clone https://github.com/BA-CalderonMorales/my-life-as-a-dev.git

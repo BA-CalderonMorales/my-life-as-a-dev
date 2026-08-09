@@ -7,10 +7,10 @@ SOURCE_CSS = ROOT / "docs" / "assets" / "css" / "header-version.css"
 SOURCE_PARTIAL = ROOT / "docs" / "overrides" / "partials" / "header.html"
 
 
-def test_generated_config_loads_header_version_stylesheet():
+def test_generated_config_excludes_gated_header_version_stylesheet():
     config = GENERATED_CONFIG.read_text(encoding="utf-8")
 
-    assert '"assets/css/header-version.css"' in config
+    assert '"assets/css/header-version.css"' not in config
 
 
 def test_header_css_contains_single_surface_contract():
