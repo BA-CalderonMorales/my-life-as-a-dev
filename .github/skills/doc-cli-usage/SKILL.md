@@ -29,7 +29,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:8001/ || echo "Server no
 ```
 
 **Why this matters:**
-- AI agents need the terminal to run other commands (git, tests, agent-browser, etc.)
+- AI agents need the terminal to run other commands (git, tests, browser checks, etc.)
 - Foreground servers block the terminal until manually stopped
 - Using `nohup` with `&` allows the server to run independently
 - Logs go to `/tmp/server.log` for debugging if needed

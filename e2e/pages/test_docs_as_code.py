@@ -6,8 +6,10 @@ import pytest
 from playwright.sync_api import Page, expect
 
 from ..shared import has_emoji
+from ..shared.utils import section_archived
 
 
+@pytest.mark.skipif(section_archived("docs-as-code"), reason="Docs-as-Code section is archived/off")
 class TestDocsAsCodePage:
     """Tests for the docs-as-code page."""
 

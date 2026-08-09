@@ -1,0 +1,66 @@
+{#-
+  Primary navigation drawer override.
+
+  Mirrors the feature-flag gating used by partials/tabs.html. A single enabled
+  Home item is not real navigation, so no primary drawer is rendered until at
+  least two top-level items are enabled.
+
+  Flag keys (see config/zensical/08-features.toml):
+    Home -> home, Learning -> learning, Docs-as-Code -> docs_as_code,
+    Projects -> projects, Canvas -> canvas, About Me -> about_me
+-#}
+{% import "partials/nav-item.html" as item with context %}
+{% set class = "md-nav md-nav--primary" %}
+{% if "navigation.tabs" in features %}
+  {% set class = class ~ " md-nav--lifted" %}
+{% endif %}
+{% if "toc.integrate" in features %}
+  {% set class = class ~ " md-nav--integrated" %}
+{% endif %}
+{% set feature_flags = config.extra.features | default(value={}) %}
+{% set tab_flags = feature_flags.tabs | default(value={}) %}
+{% set visible_nav = namespace(enabled=false, count=0) %}
+{% for nav_item in nav.items %}
+  {% set visible_nav.enabled = false %}
+  {% if nav_item.title == "Home" %}{% set visible_nav.enabled = tab_flags.home | default(value=false) %}
+  {% elif nav_item.title == "Learning" %}{% set visible_nav.enabled = tab_flags.learning | default(value=false) %}
+  {% elif nav_item.title == "Docs-as-Code" %}{% set visible_nav.enabled = tab_flags.docs_as_code | default(value=false) %}
+  {% elif nav_item.title == "Projects" %}{% set visible_nav.enabled = tab_flags.projects | default(value=false) %}
+  {% elif nav_item.title == "Canvas" %}{% set visible_nav.enabled = tab_flags.canvas | default(value=false) %}
+  {% elif nav_item.title == "About Me" %}{% set visible_nav.enabled = tab_flags.about_me | default(value=false) %}
+  {% else %}{% set visible_nav.enabled = true %}
+  {% endif %}
+  {% if visible_nav.enabled %}{% set visible_nav.count = visible_nav.count + 1 %}{% endif %}
+{% endfor %}
+{% if visible_nav.count > 1 %}
+<nav class="{{ class }}" aria-label="{{ lang.t('nav') }}" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" title="{{ config.site_name | e }}" class="md-nav__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
+      {% include "partials/logo.html" %}
+    </a>
+    {{ config.site_name }}
+  </label>
+  {% if config.repo_url %}
+    <div class="md-nav__source">
+      {% include "partials/source.html" %}
+    </div>
+  {% endif %}
+  <ul class="md-nav__list" data-md-scrollfix>
+    {% for nav_item in nav.items %}
+      {% set ns = namespace(enabled=false) %}
+      {% if nav_item.title == "Home" %}{% set ns.enabled = tab_flags.home | default(value=false) %}
+      {% elif nav_item.title == "Learning" %}{% set ns.enabled = tab_flags.learning | default(value=false) %}
+      {% elif nav_item.title == "Docs-as-Code" %}{% set ns.enabled = tab_flags.docs_as_code | default(value=false) %}
+      {% elif nav_item.title == "Projects" %}{% set ns.enabled = tab_flags.projects | default(value=false) %}
+      {% elif nav_item.title == "Canvas" %}{% set ns.enabled = tab_flags.canvas | default(value=false) %}
+      {% elif nav_item.title == "About Me" %}{% set ns.enabled = tab_flags.about_me | default(value=false) %}
+      {% else %}{% set ns.enabled = true %}
+      {% endif %}
+      {% if ns.enabled %}
+        {% set path = "__nav_" ~ loop.index %}
+        {{ item.render(nav_item, path, 1) }}
+      {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
+{% endif %}

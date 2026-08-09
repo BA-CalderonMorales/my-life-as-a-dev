@@ -16,6 +16,10 @@ basic interaction patterns without making actual API calls.
 import pytest
 from playwright.sync_api import Page, expect
 
+from ..shared.utils import chat_assistant_enabled
+
+CHAT_ENABLED = chat_assistant_enabled()
+
 
 # =============================================================================
 # Constants
@@ -49,6 +53,7 @@ def chat_page(page: Page, http_server: str) -> Page:
 # Widget Structure Tests
 # =============================================================================
 
+@pytest.mark.skipif(not CHAT_ENABLED, reason="Ask AI chat assistant is disabled by feature flag")
 class TestChatWidgetStructure:
     """Validate chat widget DOM structure and elements."""
 
@@ -104,6 +109,7 @@ class TestChatWidgetStructure:
 # Widget Interaction Tests
 # =============================================================================
 
+@pytest.mark.skipif(not CHAT_ENABLED, reason="Ask AI chat assistant is disabled by feature flag")
 class TestChatWidgetInteraction:
     """Validate chat widget user interactions."""
 
@@ -186,6 +192,7 @@ class TestChatWidgetInteraction:
 # Widget Accessibility Tests
 # =============================================================================
 
+@pytest.mark.skipif(not CHAT_ENABLED, reason="Ask AI chat assistant is disabled by feature flag")
 class TestChatWidgetAccessibility:
     """Validate chat widget accessibility features."""
 
@@ -219,6 +226,7 @@ class TestChatWidgetAccessibility:
 # Widget Style Tests
 # =============================================================================
 
+@pytest.mark.skipif(not CHAT_ENABLED, reason="Ask AI chat assistant is disabled by feature flag")
 class TestChatWidgetStyles:
     """Validate chat widget styling is applied correctly."""
 
@@ -247,3 +255,30 @@ class TestChatWidgetStyles:
         border_style = container.evaluate("el => getComputedStyle(el).borderTopStyle")
         assert border_width != "0px"
         assert border_style != "none"
+
+
+# =============================================================================
+# Disabled-State Tests (feature flag OFF)
+# =============================================================================
+
+@pytest.mark.skipif(CHAT_ENABLED, reason="Ask AI chat assistant is enabled; see ON-state tests")
+class TestChatWidgetDisabled:
+    """Validate that the chat widget is fully absent when the flag is off."""
+
+    def test_chat_trigger_absent(self, page: Page, base_url: str):
+        """No Ask AI trigger should be rendered."""
+        page.goto(base_url)
+        expect(page.locator(CHAT_TRIGGER)).to_have_count(0)
+
+    def test_chat_modal_absent(self, page: Page, base_url: str):
+        """No chat modal should be rendered."""
+        page.goto(base_url)
+        expect(page.locator(CHAT_MODAL)).to_have_count(0)
+
+    def test_chat_scripts_not_loaded(self, page: Page, base_url: str):
+        """No chat-widget scripts should be referenced in the page."""
+        page.goto(base_url)
+        scripts = page.evaluate(
+            "Array.from(document.scripts).map(s => s.src).join('\\n')"
+        )
+        assert "chat-widget" not in scripts

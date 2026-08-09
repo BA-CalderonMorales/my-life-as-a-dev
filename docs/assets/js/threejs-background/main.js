@@ -5,7 +5,6 @@
 
 import { DeviceDetector } from './utils/DeviceDetector.js';
 import { HomePageScene } from './pages/HomePageScene.js';
-import { SubtlePageScene } from './pages/SubtlePageScene.js';
 
 class ThreeJSBackgroundApp {
     constructor() {
@@ -26,24 +25,16 @@ class ThreeJSBackgroundApp {
             ? window.location.pathname.slice(0, -'index.html'.length)
             : window.location.pathname;
 
-        if (path.includes('/canvas/')) {
-            return 'none';
-        }
-
         if (/\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/.test(path) || path === '/') {
             return 'home';
         }
 
-        return 'page';
+        return 'none';
     }
 
     createScene(kind) {
         if (kind === 'home') {
             return new HomePageScene(this.containerId);
-        }
-
-        if (kind === 'page') {
-            return new SubtlePageScene(this.containerId);
         }
 
         return null;

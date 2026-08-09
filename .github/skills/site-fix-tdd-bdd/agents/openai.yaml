@@ -1,0 +1,4 @@
+interface:
+  display_name: "Site Fix TDD/BDD"
+  short_description: "Fix site regressions with test-first coverage."
+  default_prompt: "Use this skill to diagnose and fix a site UI or behavior regression with unit, mutation, integration, and browser e2e coverage before deploying."

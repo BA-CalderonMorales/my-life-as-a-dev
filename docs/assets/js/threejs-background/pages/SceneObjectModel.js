@@ -51,10 +51,12 @@ export const HOME_SCENE_OBJECTS = [
         animation: { scrollInfluence: 0.32 }
     },
     {
-        kind: 'wireframeRing',
+        kind: 'torus',
         options: {
-            innerRadius: 10,
-            outerRadius: 12.5,
+            radius: 11.25,
+            tube: 0.12,
+            radialSegments: 8,
+            tubularSegments: 96,
             color: 0x9a9a95,
             opacity: 0.065,
             position: { x: 0, y: 0, z: -22 }
@@ -62,10 +64,12 @@ export const HOME_SCENE_OBJECTS = [
         animation: { enableFloat: false, scrollInfluence: 0.12 }
     },
     {
-        kind: 'wireframeRing',
+        kind: 'torus',
         options: {
-            innerRadius: 14,
-            outerRadius: 16.5,
+            radius: 15.25,
+            tube: 0.14,
+            radialSegments: 8,
+            tubularSegments: 128,
             color: 0xf7f6f0,
             opacity: 0.04,
             position: { x: -4, y: -2, z: -30 }
@@ -76,10 +80,12 @@ export const HOME_SCENE_OBJECTS = [
 
 export const PAGE_SCENE_OBJECTS = [
     {
-        kind: 'wireframeRing',
+        kind: 'torus',
         options: {
-            innerRadius: 6.8,
-            outerRadius: 8.1,
+            radius: 7.45,
+            tube: 0.1,
+            radialSegments: 8,
+            tubularSegments: 96,
             color: 0xcfcfc9,
             opacity: 0.08,
             position: { x: -7.5, y: -1.2, z: -18 }
@@ -87,10 +93,12 @@ export const PAGE_SCENE_OBJECTS = [
         animation: { enableFloat: false, scrollInfluence: 0.12 }
     },
     {
-        kind: 'wireframeRing',
+        kind: 'torus',
         options: {
-            innerRadius: 5.8,
-            outerRadius: 7.1,
+            radius: 6.45,
+            tube: 0.1,
+            radialSegments: 8,
+            tubularSegments: 96,
             color: 0x444440,
             opacity: 0.06,
             position: { x: 8.5, y: 2.2, z: -20 }

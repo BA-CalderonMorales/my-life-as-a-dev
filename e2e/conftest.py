@@ -66,7 +66,15 @@ def browser():
         pytest.skip("Playwright is not installed in this environment")
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        try:
+            browser = p.chromium.launch(headless=True)
+        except Exception as exc:
+            pytest.exit(
+                "Playwright Chromium could not start. Run "
+                "`make browser-install`, or `make browser-install-deps` if Linux/WSL "
+                f"system libraries are missing. Original error: {exc}",
+                returncode=2,
+            )
         yield browser
         browser.close()
 
@@ -93,26 +101,6 @@ PAGE_SOURCES = {
         "name": "Home",
         "source": DOCS_ROOT / "index.md",
         "url": "/index.html",
-    },
-    "docs_as_code": {
-        "name": "Docs as Code",
-        "source": DOCS_ROOT / "docs-as-code" / "index.md",
-        "url": "/docs-as-code/index.html",
-    },
-    "learning": {
-        "name": "Learning",
-        "source": DOCS_ROOT / "learning" / "index.md",
-        "url": "/learning/index.html",
-    },
-    "projects": {
-        "name": "Projects",
-        "source": DOCS_ROOT / "projects" / "index.md",
-        "url": "/projects/index.html",
-    },
-    "resume": {
-        "name": "Resume",
-        "source": DOCS_ROOT / "resume" / "index.md",
-        "url": "/resume/index.html",
     },
     "error": {
         "name": "404",

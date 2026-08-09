@@ -6,7 +6,6 @@
 
 [project.theme]
 custom_dir = "docs/overrides"
-logo = "assets/images/me-today.png"
 favicon = "assets/images/favicon/favicon.ico"
 language = "en"
 
@@ -62,7 +61,7 @@ features = [
 # ==============================================================================
 
 [project.theme.font]
-text = "Space Grotesk"
+text = "Inter"
 code = "JetBrains Mono"
 
 
@@ -112,15 +111,15 @@ distributed = "lucide/network"
 
 [[project.theme.palette]]
 scheme = "slate"
-primary = "indigo"
-accent = "amber"
+primary = "black"
+accent = "grey"
 toggle.icon = "lucide/sun"
 toggle.name = "Switch to light mode"
 
 [[project.theme.palette]]
 scheme = "default"
-primary = "indigo"
-accent = "amber"
+primary = "black"
+accent = "grey"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to dark mode"
 
@@ -128,12 +127,13 @@ toggle.name = "Switch to dark mode"
 # ==============================================================================
 # VERSION SELECTOR
 # ==============================================================================
-# Enable mike versioning provider for documentation version dropdown.
-# This allows users to switch between different versions of the docs.
+# DISABLED: Using custom version selector in template partial instead.
+# Zensical's native mike provider conflicts with custom versioned_deploy.py.
+# See: docs/overrides/partials/version-selector.html
 # ==============================================================================
 
-[project.extra.version]
-provider = "mike"
+# [project.extra.version]
+# provider = "mike"
 
 
 # ==============================================================================

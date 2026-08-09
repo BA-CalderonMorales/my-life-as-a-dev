@@ -10,7 +10,7 @@
     {{ config.repo_name }}
     <!-- Display version tag if available -->
     {% if git_tag %}
-    <div class="md-source__version" style="margin-left: 0.6rem; padding: 0 0.6rem; background: var(--md-primary-fg-color); border-radius: 0; font-weight: bold; font-size: 0.5625rem;">
+    <div class="md-source__version">
       {{ git_tag }}
     </div>
     {% endif %}

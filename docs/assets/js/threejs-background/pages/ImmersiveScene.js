@@ -243,7 +243,25 @@ export class ImmersiveScene {
     }
 
     detectTheme() {
-        const isDarkMode = document.body.getAttribute('data-md-color-scheme') === 'slate';
+        let isDarkMode = false;
+        const scheme = document.body?.getAttribute('data-md-color-scheme');
+
+        if (scheme) {
+            isDarkMode = scheme === 'slate';
+        } else {
+            // Initial load fallback before MkDocs hydration
+            try {
+                const paletteObj = JSON.parse(localStorage.getItem('__md_param') || '{}').palette;
+                if (paletteObj && paletteObj.color && paletteObj.color.scheme) {
+                    isDarkMode = paletteObj.color.scheme === 'slate';
+                } else {
+                    isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                }
+            } catch (e) {
+                isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+        }
+        
         this.currentTheme = isDarkMode ? 'dark' : 'light';
         this.applyTheme();
     }

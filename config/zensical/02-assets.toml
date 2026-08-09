@@ -7,6 +7,11 @@
 
 [project]
 extra_css = [
+    # Lumen Design System - production site tokens and components
+    "assets/css/lumen/lumen-tokens.css",
+    "assets/css/lumen/lumen-components.css",
+    "assets/css/lumen/lumen-material.css",
+
     # Base theming
     "assets/css/theme.css",
     "assets/css/typography.css",
@@ -17,17 +22,39 @@ extra_css = [
     "assets/css/buttons.css",
     "assets/css/code.css",
     "assets/css/share.css",
-    "assets/css/chat-widget.css",
+    # "assets/css/chat-widget.css",     # Loaded via docs/overrides/main.html when chat_assistant is on
+    # "assets/css/header-version.css",  # Loaded via docs/overrides/main.html when version_selector is on
     "assets/css/pull-to-refresh.css",
 
     # Page-specific styles
     "assets/css/background.css",
     "assets/css/landing.css",
-    "assets/css/canvas.css",
+    "assets/css/life-tree.css",
+    "assets/css/life-leaves.css",
+    "assets/css/404.css",
+    "assets/css/resume.css",
+    "assets/css/projects.css",
+
+    # Clean neutral palette override + creative-canvas tokens (loaded last)
+    "assets/css/tokens.css",
 ]
 
 extra_javascript = [
-    # Canvas page Three.js scene (must load globally for instant navigation)
-    "assets/js/canvas/scene/main.js",
-    # NOTE: version-selector.js is loaded in main.html template
+    # Living index interactions (homepage only; no-op elsewhere)
+    "assets/js/living-index.js",
+    # Living tree silhouette: breeze + SVG facet navigation (homepage only)
+    "assets/js/life-tree.js",
+    # Ambient falling leaves in three depth tiers (homepage only)
+    "assets/js/life-leaves.js",
+    # Scroll progress bar (content pages)
+    "assets/js/scroll-progress.js",
+    # Lazy image fade-in
+    "assets/js/image-fade.js",
+    # Keyboard shortcuts modal
+    "assets/js/keyboard-shortcuts.js",
+    # Reading time estimate
+    "assets/js/reading-time.js",
+    # Focus mode toggle (press 'f')
+    "assets/js/focus-mode.js",
+    # NOTE: Zensical's native version selector is used (via mike + modern theme)
 ]

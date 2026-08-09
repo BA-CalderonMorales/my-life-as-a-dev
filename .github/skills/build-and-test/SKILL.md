@@ -43,12 +43,10 @@ make build
 ### Shared UI / global CSS / header / drawer / overlay / dropdown changes
 
 ```bash
-make build
-uv run python -m unittest e2e.quality.test_version_selector_regression -v
-uv run python -m unittest e2e.quality.test_mobile_nav_drawer_blur -v
+make viewport-check
 ```
 
-Then do a browser sanity check on home plus one content page.
+Use `make screenshots` when the visual design itself changed and image review is needed.
 
 ### Versioning or production release changes
 
@@ -126,19 +124,19 @@ When changing shared UI behavior, do not stop at `make build`. Run a focused reg
 make build
 ```
 
-### 2. Run targeted regression checks first
-
-Prefer the built-asset checks that do not need extra Python test dependencies:
+### 2. Run targeted browser checks first
 
 ```bash
-# Version selector / header dropdown regressions
-uv run python -m unittest e2e.quality.test_version_selector_regression -v
-
-# Mobile nav drawer / overlay regressions
-uv run python -m unittest e2e.quality.test_mobile_nav_drawer_blur -v
+make viewport-check
 ```
 
-If a browser-backed test is blocked by sandbox restrictions, rerun it with the needed approval instead of skipping it silently.
+If visual polish changed, also run:
+
+```bash
+make screenshots
+```
+
+If a browser-backed test is blocked by sandbox restrictions or missing Chromium dependencies, rerun it with the needed approval instead of skipping it silently.
 
 ### 3. Sanity check the shared shell, not just the page you touched
 
@@ -150,7 +148,7 @@ For shared CSS/JS changes, verify at least:
 - Version selector dropdown has an opaque background and older versions are clickable
 - A fix on one shared element does not break another shared element in the same header or overlay stack
 
-Use the [Agent Browser](../agent-browser/SKILL.md) skill when browser interaction is required.
+Use the [Browser Automation](../browser-automation/SKILL.md) skill when browser interaction is required.
 
 ## Using Doc-CLI
 
@@ -202,8 +200,8 @@ make build
 If a regression test or visual check needs a real browser and the sandbox blocks it:
 
 1. Run the build first so `site/` reflects the current patch
-2. Use the agent-browser workflow for interactive checks when available
-3. If the browser still needs permissions outside the sandbox, request escalation and rerun the exact targeted check
+2. Use `make viewport-check`, `make screenshots`, or `make accessibility-check`
+3. If Chromium needs missing OS dependencies outside the sandbox, request escalation and rerun the exact targeted check
 
 ## Checklist
 

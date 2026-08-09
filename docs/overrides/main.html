@@ -3,6 +3,10 @@
 {% block libs %}
 <!-- CRITICAL: Patch console and MutationObserver BEFORE MkDocs Material scripts load -->
 <script>
+  // Mark JS as available before first paint so scroll-revealed content stays
+  // hidden until the living-index module takes over (no flash of scrolled state).
+  document.documentElement.classList.add("js");
+
   (function () {
     var SUPPRESSED_ERROR_PATTERNS = [
       "Failed to execute 'observe' on 'MutationObserver'",
@@ -84,74 +88,85 @@
 
 {% block extrahead %}
 <style>
-  :root {
-    --mlad-critical-surface: rgba(248, 247, 242, 0.78);
-    --mlad-critical-border: rgba(21, 21, 21, 0.16);
-  }
-
-  [data-md-color-scheme="slate"] {
-    --mlad-critical-surface: rgba(28, 28, 27, 0.82);
-    --mlad-critical-border: rgba(242, 241, 237, 0.16);
-  }
-
-  .md-content__inner {
-    background: var(--mlad-critical-surface);
-    border-radius: 0;
-    border: 1px solid var(--mlad-critical-border);
-    box-shadow: 8px 8px 0 rgba(21, 21, 21, 0.08);
-  }
-
-  .landing-page .md-content__inner,
-  .canvas-page .md-content__inner {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  .threejs-bg-container {
-    opacity: 0;
-  }
-
-  /* Ensure version selector is always visible but constrained */
+  {% if config.extra.features.version_selector %}
+  /* Ensure version selector is always visible */
   .md-version {
     display: inline-flex !important;
     visibility: visible !important;
     opacity: 1 !important;
-    flex-shrink: 1;
-    min-width: 0;
   }
-  
+
   .md-version__current {
     display: flex !important;
     visibility: visible !important;
-    min-width: 0;
-    overflow: hidden;
   }
-  
-  /* Prevent horizontal overflow on mobile */
-  html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  
+  {% endif %}
+
+  {% if config.extra.features.chat_assistant %}
   /* Ensure AI chat trigger is always visible */
   .ai-chat-trigger {
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
+  {% endif %}
 </style>
+
+{% if config.extra.features.chat_assistant %}
+<link rel="stylesheet" href="{{ 'assets/css/chat-widget.css' | url }}">
+{% endif %}
+{% if config.extra.features.version_selector %}
+<link rel="stylesheet" href="{{ 'assets/css/header-version.css' | url }}">
+{% endif %}
+{% if config.extra.features.creative_canvas %}
+<link rel="stylesheet" href="{{ 'assets/css/creative-canvas.css' | url }}">
+{% endif %}
 <meta name="site_url" content="{{ config.site_url }}">
-<link rel="icon" href="{{ config.theme.logo | url }}" />
+<link rel="icon" href="{{ config.theme.favicon | url }}" />
 <link rel="manifest" href="{{ 'manifest.webmanifest' | url }}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SimplifiedLife">
+<meta name="apple-mobile-web-app-title" content="Brandon">
 <link rel="apple-touch-icon" href="{{ 'assets/images/favicon/icon-192.png' | url }}">
-<meta name="theme-color" content="#111111">
-<meta name="msapplication-TileColor" content="#111111">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<meta name="theme-color" content="#F3F0E8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D110E" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-TileColor" content="#F3F0E8">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+
+<!-- Open Graph / Twitter Cards -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ config.site_name }}">
+<meta property="og:title" content="{% if page.meta and page.meta.title %}{{ page.meta.title }}{% else %}{{ page.title }}{% endif %}">
+<meta property="og:description" content="{% if page.meta and page.meta.description %}{{ page.meta.description }}{% else %}{{ config.site_description }}{% endif %}">
+<meta property="og:url" content="{{ config.site_url }}{% if page.url %}{{ page.url }}{% endif %}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% if page.meta and page.meta.title %}{{ page.meta.title }}{% else %}{{ page.title }}{% endif %}">
+<meta name="twitter:description" content="{% if page.meta and page.meta.description %}{{ page.meta.description }}{% else %}{{ config.site_description }}{% endif %}">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ config.site_name }}",
+  "url": "{{ config.site_url }}",
+  "description": "{{ config.site_description }}",
+  "author": {
+    "@type": "Person",
+    "name": "Brandon",
+    "url": "https://www.linkedin.com/in/bcalderonmorales-cmoe/",
+    "sameAs": [
+      "https://github.com/BA-CalderonMorales",
+      "https://www.linkedin.com/in/bcalderonmorales-cmoe/"
+    ]
+  }
+}
+</script>
 <script src="{{ 'assets/js/console-patch.js' | url }}"></script>
 <script type="importmap">
 {
@@ -190,6 +205,7 @@
 <script>
   (function () {
     var HOME_PATTERN = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?$/;
+    var RESUME_PATTERN = /\/my-life-as-a-dev\/(latest\/|[0-9]+\.[0-9]+\.[0-9]+\/)?resume\/$/;
 
     function normalizePath(pathname) {
       return pathname.endsWith('index.html') ? pathname.slice(0, -'index.html'.length) : pathname;
@@ -201,9 +217,11 @@
       var path = normalizePath(window.location.pathname);
       var isCanvas = path.indexOf('/canvas/') !== -1;
       var isHome = path === '/' || HOME_PATTERN.test(path);
+      var isResume = path === '/resume/' || RESUME_PATTERN.test(path);
       var scene = isCanvas ? 'none' : (isHome ? 'home' : 'page');
 
       document.body.classList.toggle('landing-page', isHome);
+      document.body.classList.toggle('resume-page', isResume);
       document.body.classList.toggle('canvas-page', isCanvas);
       document.body.setAttribute('data-mlad-scene', scene);
     }
@@ -220,10 +238,84 @@
   })();
 </script>
 
-<script type="module" src="{{ 'assets/js/threejs-background/main.js' | url }}"></script>
-<script type="module" src="{{ 'assets/js/canvas/scene/main.js' | url }}"></script>
+<!-- Three.js / canvas-scene backgrounds disabled: the landing page now uses
+     the modular creative canvas (gated by creative_canvas) instead. -->
+<!-- <script type="module" src="{{ 'assets/js/threejs-background/main.js' | url }}"></script> -->
+<!-- <script type="module" src="{{ 'assets/js/canvas/scene/main.js' | url }}"></script> -->
 
-<script src="{{ 'assets/js/chat-widget/lib/config.js' | url }}"></script>
+<!-- Page transition overlay -->
+<script>
+(function () {
+  'use strict';
+
+  var overlay = document.createElement('div');
+  overlay.className = 'mlad-page-transition';
+  overlay.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(overlay);
+
+  function fadeIn() {
+    overlay.style.opacity = '1';
+  }
+
+  function fadeOut() {
+    overlay.style.opacity = '0';
+  }
+
+  // Hook into MkDocs Material instant navigation
+  if (typeof document$ !== 'undefined') {
+    document$.subscribe(function () {
+      fadeOut();
+    });
+  }
+
+  // Fallback for regular navigation
+  window.addEventListener('pageshow', fadeOut);
+
+  // Trigger fade on link clicks
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('a');
+    if (!el) return;
+    var href = el.getAttribute('href') || '';
+    // Only internal links
+    if (href.indexOf('http') === 0 && el.hostname !== location.hostname) return;
+    if (href.indexOf('#') === 0) return;
+    if (el.getAttribute('download')) return;
+    fadeIn();
+  });
+})();
+</script>
+
+<!-- Header scroll state -->
+<script>
+(function () {
+  'use strict';
+
+  var header = document.querySelector('.md-header');
+  if (!header) return;
+
+  function onScroll() {
+    var scrolled = (window.scrollY || window.pageYOffset) > 4;
+    header.classList.toggle('is-scrolled', scrolled);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+<!-- Skip link target -->
+<script>
+(function () {
+  'use strict';
+  var content = document.querySelector('.md-content__inner');
+  if (content && !content.id) {
+    content.id = 'main-content';
+  }
+})();
+</script>
+
+  {% if config.extra.features.chat_assistant %}
+  <script src="{{ 'assets/js/chat-widget/lib/config.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/logger.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/message-parser.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/lib/response-transformer.js' | url }}"></script>
@@ -233,117 +325,74 @@
 <script src="{{ 'assets/js/chat-widget/src/view.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/src/view-model.js' | url }}"></script>
 <script src="{{ 'assets/js/chat-widget/src/main.js' | url }}"></script>
-<script>
-// Version selector loader
-(function() {
-  'use strict';
-  
-  function loadVersions() {
-    const container = document.getElementById('md-version-selector');
-    const list = document.getElementById('md-version-list');
-    if (!container || !list) return;
-    
-    const path = window.location.pathname;
-    const parts = path.split('/').filter(Boolean);
-    const baseUrl = parts.length >= 1 ? '/' + parts[0] + '/' : '/';
-    const currentVersion = parts.length >= 2 ? parts[1] : 'latest';
-    
-    const label = container.querySelector('.md-version__label');
-    if (label) label.textContent = currentVersion;
-    
-    fetch(baseUrl + 'versions.json')
-      .then(r => r.json())
-      .then(versions => {
-        if (!Array.isArray(versions) || versions.length === 0) {
-          list.innerHTML = '<li class="md-version__item"><span class="md-version__link">No versions</span></li>';
-          return;
-        }
-        
-        const html = versions.map(v => {
-          const isActive = v.version === currentVersion || (v.aliases && v.aliases.includes(currentVersion));
-          const aliasText = v.aliases && v.aliases.length > 0 ? ' (' + v.aliases.join(', ') + ')' : '';
-          const url = baseUrl + v.version + '/';
-          return '<li class="md-version__item' + (isActive ? ' md-version__item--active' : '') + '">' +
-            '<a href="' + url + '" class="md-version__link">' + v.version + aliasText + '</a>' +
-          '</li>';
-        }).join('');
-        
-        list.innerHTML = html;
-      })
-      .catch(e => {
-        console.error('Version selector error:', e);
-        list.innerHTML = '<li class="md-version__item"><span class="md-version__link">Error</span></li>';
-      });
-  }
-  
-  function initToggle() {
-    const container = document.getElementById('md-version-selector');
-    if (!container) return;
-    
-    const button = container.querySelector('.md-version__current');
-    if (!button) return;
-    
-    button.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const isOpen = container.classList.toggle('md-version--active');
-      button.setAttribute('aria-expanded', String(isOpen));
-    });
-    
-    document.addEventListener('click', function(e) {
-      if (!container.contains(e.target)) {
-        container.classList.remove('md-version--active');
-        button.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
-  
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      loadVersions();
-      initToggle();
-    });
-  } else {
-    loadVersions();
-    initToggle();
-  }
-})();
-</script>
+  {% endif %}
+  {% if config.extra.features.version_selector %}
+<script type="module" src="{{ 'assets/js/version-selector/main.js' | url }}"></script>
+  {% endif %}
+
+  {% if config.extra.features.creative_canvas %}
+  {# Generative hero: shared env, sketches, then the boot entry. #}
+  <script src="{{ 'assets/js/creative-canvas/env.js' | url }}"></script>
+  <script src="{{ 'assets/js/creative-canvas/sketches/aurora.js' | url }}"></script>
+  <script src="{{ 'assets/js/creative-canvas/sketches/particles.js' | url }}"></script>
+  <script src="{{ 'assets/js/creative-canvas/main.js' | url }}"></script>
+  {% endif %}
 {% endblock %}
 
 
 {% block header %}
-<header class="md-header md-header--shadow" data-md-component="header">
+<a href="#main-content" class="mlad-skip-link">Skip to content</a>
+
+{% set feature_flags = config.extra.features | default(value={}) %}
+{% set tab_flags = feature_flags.tabs | default(value={}) %}
+{% set visible_nav = namespace(enabled=false, count=0) %}
+{% for nav_item in nav.items %}
+  {% set visible_nav.enabled = false %}
+  {% if nav_item.title == "Home" %}{% set visible_nav.enabled = tab_flags.home | default(value=false) %}
+  {% elif nav_item.title == "Learning" %}{% set visible_nav.enabled = tab_flags.learning | default(value=false) %}
+  {% elif nav_item.title == "Docs-as-Code" %}{% set visible_nav.enabled = tab_flags.docs_as_code | default(value=false) %}
+  {% elif nav_item.title == "Projects" %}{% set visible_nav.enabled = tab_flags.projects | default(value=false) %}
+  {% elif nav_item.title == "Canvas" %}{% set visible_nav.enabled = tab_flags.canvas | default(value=false) %}
+  {% elif nav_item.title == "About Me" %}{% set visible_nav.enabled = tab_flags.about_me | default(value=false) %}
+  {% else %}{% set visible_nav.enabled = true %}
+  {% endif %}
+  {% if visible_nav.enabled %}{% set visible_nav.count = visible_nav.count + 1 %}{% endif %}
+{% endfor %}
+
+{% set header_class = "md-header" %}
+{% if "navigation.tabs.sticky" in features %}
+  {% set header_class = header_class ~ " md-header--shadow md-header--lifted" %}
+{% elif "navigation.tabs" not in features %}
+  {% set header_class = header_class ~ " md-header--shadow" %}
+{% endif %}
+<header class="{{ header_class }}" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" title="{{ config.site_name | e }}" class="md-header__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
+    <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" class="md-header__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
       {% include "partials/logo.html" %}
     </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    {% if visible_nav.count > 1 %}
+    <label class="md-header__button md-icon mlad-hamburger" for="__drawer" aria-label="Toggle navigation">
+      <span class="mlad-hamburger__line" aria-hidden="true"></span>
+      <span class="mlad-hamburger__line" aria-hidden="true"></span>
+      <span class="mlad-hamburger__line" aria-hidden="true"></span>
     </label>
+    {% endif %}
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
-          <span class="md-ellipsis">
-            {{ config.site_name }}
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            {% if page.meta and page.meta.title %}
-              {{ page.meta.title }}
-            {% else %}
-              {{ page.title }}
-            {% endif %}
-          </span>
+          <span class="md-ellipsis mlad-header__name">{{ config.site_author | d(config.site_name, true) }}</span>
         </div>
       </div>
     </div>
-    {% include "partials/palette.html" ignore missing %}
-    {% include "partials/source.html" ignore missing %}
-    
-    {# Custom version selector - placed inside header nav #}
-    {% include "partials/version-selector-inline.html" %}
-    
+    <div class="mlad-header__actions">
+      {% include "partials/palette.html" ignore missing %}
+      {% include "partials/source.html" ignore missing %}
+      {% if config.extra.features.version_selector %}
+      {# Custom version selector - placed inside header nav #}
+      {% include "partials/version-selector-inline.html" %}
+      {% endif %}
+    </div>
+
   </nav>
   {% include "partials/tabs.html" ignore missing %}
 </header>
@@ -351,11 +400,16 @@
 
 {% block classes %}
 {% set is_home = page and (page.url == '' or page.url == 'index/' or (page.file and page.file.src_uri == 'index.md')) %}
-{% set is_canvas = page and page.file and page.file.src_uri == 'canvas/index.md' %}
-{{ super() }}{% if is_home %} landing-page{% endif %}{% if is_canvas %} canvas-page{% endif %}
+{% set is_canvas = page and page.file and page.file.src_uri and page.file.src_uri.startswith('canvas/') %}
+{% set is_resume = page and page.file and page.file.src_uri == 'resume/index.md' %}
+{% set is_projects = page and page.file and page.file.src_uri == 'projects/index.md' %}
+{{ super() }}{% if is_home %} landing-page{% endif %}{% if is_canvas %} canvas-page{% endif %}{% if is_resume %} resume-page{% endif %}{% if is_projects %} projects-page{% endif %}
 {% endblock %}
 
 {% block content %}
+{% if config.extra.features.creative_canvas %}
+{% include "partials/creative-canvas.html" %}
+{% endif %}
 {{ super() }}
 {% set is_canvas_page = page and page.file and page.file.src_uri == 'canvas/index.md' %}
 {% if page and page.url != '' and not is_canvas_page %}

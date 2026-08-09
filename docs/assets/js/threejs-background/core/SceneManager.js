@@ -56,9 +56,15 @@ export class SceneManager {
         this.scene = new THREE.Scene();
     }
 
+    getViewportSize() {
+        return {
+            width: this.container?.clientWidth || window.innerWidth || document.documentElement.clientWidth || 1,
+            height: this.container?.clientHeight || window.innerHeight || document.documentElement.clientHeight || 1
+        };
+    }
+
     async setupCamera() {
-        const width = this.container.clientWidth || window.innerWidth;
-        const height = this.container.clientHeight || window.innerHeight;
+        const { width, height } = this.getViewportSize();
         const aspect = width / height;
 
         this.camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 1000);
@@ -85,11 +91,11 @@ export class SceneManager {
         this.renderer.domElement.style.pointerEvents = 'none';
 
         this.container.appendChild(this.renderer.domElement);
+        requestAnimationFrame(() => this.handleResize());
     }
 
     updateRendererSize() {
-        const width = this.container.clientWidth || window.innerWidth;
-        const height = this.container.clientHeight || window.innerHeight;
+        const { width, height } = this.getViewportSize();
         this.renderer.setSize(width, height);
 
         if (this.camera) {

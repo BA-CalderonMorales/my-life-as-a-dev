@@ -1,0 +1,296 @@
+/*
+ * Living tree
+ *
+ * This file owns the tree's monochrome silhouette, the breeze, and the
+ * facet/limb highlight. Facet selection, keyboard nav, URL hash, the scroll
+ * choreography, and reduced-motion classing live in living-index.js.
+ */
+
+[data-life-index] .life-tree {
+    display: block;
+    width: min(100%, 62rem);
+    height: auto;
+    aspect-ratio: 3 / 5;
+    margin-inline: auto;
+    overflow: visible;
+    color: var(--life-ink);
+    shape-rendering: auto;
+}
+
+/* Retain the monochrome silhouette without painting semantic hit geometry. */
+[data-life-index] .life-tree__wood-shape,
+[data-life-index] .life-tree__canopy-shape,
+[data-life-index] .life-tree__limb,
+[data-life-index] .life-tree__twig,
+[data-life-index] .life-tree__leaf {
+    fill: currentColor;
+}
+
+/*
+ * Visual wood layer: one continuous trunk-and-flare silhouette. Primary and
+ * ambient limb ribbons live in the breeze group above. The wood is purely
+ * decorative, so it never intercepts pointer events; semantic hit paths own
+ * interaction.
+ */
+[data-life-index] .life-tree__wood {
+    pointer-events: none;
+}
+
+[data-life-index] .life-tree__wood-shape {
+    fill: currentColor;
+    /* A matching round-joined stroke keeps the woodcut edge from looking brittle. */
+    stroke: currentColor;
+    stroke-width: 1.25;
+    stroke-linejoin: round;
+}
+
+/* Slightly lift the wood in dark mode so the trunk reads against deep paper. */
+body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__wood-shape {
+    fill: var(--life-ink);
+}
+
+[data-life-index] .life-tree__leaf--shade {
+    opacity: 0.62;
+}
+
+/* Dark mode: give shaded leaves more presence against the dark canvas. */
+body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__leaf--shade {
+    opacity: 0.78;
+}
+
+/*
+ * Bark grain: dry-brush strokes at low opacity so the wood reads grown.
+ * Light mode textures with ink and highlights with paper; dark mode flips
+ * the pair so the same two-tone logic holds on a light trunk.
+ */
+[data-life-index] .life-tree__bark path {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    opacity: 0.16;
+}
+
+[data-life-index] .life-tree__bark--light path {
+    stroke: var(--life-paper);
+    opacity: 0.22;
+}
+
+body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__bark path {
+    stroke: var(--life-paper);
+    opacity: 0.28;
+}
+
+body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__bark--light path {
+    stroke: currentColor;
+    opacity: 0.3;
+}
+
+/*
+ * A quiet crown wash establishes the overall silhouette at a distance. The
+ * fully inked branch-bound leaves and limbs sit above it, so the viewer can
+ * still read how the tree grows instead of seeing one opaque canopy blob.
+ */
+[data-life-index] .life-tree__canopy-mass {
+    pointer-events: none;
+}
+
+[data-life-index] .life-tree__canopy-shape {
+    fill: currentColor;
+    opacity: 0.16;
+}
+
+[data-life-index] .life-tree__canopy-shape--under {
+    opacity: 0.1;
+}
+
+/*
+ * The breeze owns only the crown assembly: canopy mass, limbs, twigs, and
+ * foliage. The trunk, roots, semantic hit paths, nodes, and fruit remain
+ * outside this transform, planted in the page while the crown pivots from the
+ * upper trunk.
+ */
+[data-life-index] .life-tree__breeze {
+    transform-box: view-box;
+    transform-origin: 360px 500px;
+    will-change: transform;
+}
+
+[data-life-index] .life-tree.is-wind-on .life-tree__breeze {
+    animation:
+        life-tree-sway
+        var(--wind-duration, 9s)
+        cubic-bezier(0.42, 0, 0.28, 1)
+        var(--wind-delay, 0s)
+        infinite;
+    will-change: transform;
+}
+
+[data-life-index] .life-tree.is-wind-paused .life-tree__breeze {
+    animation-play-state: paused;
+}
+
+/*
+ * Semantic interaction layer: five transparent hit paths follow the branch
+ * centerlines with a generous invisible pointer stroke. They never paint, so
+ * the wood silhouette stays clean; active state is reflected on the nodes.
+ */
+[data-life-index] .life-tree__hit-branches .life-tree__branch-hit {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 44;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    pointer-events: stroke;
+    cursor: pointer;
+}
+
+/* Facet nodes read as quiet "eyes" in the canopy, copper when active. */
+[data-life-index] [data-tree-node] {
+    cursor: pointer;
+    fill: var(--life-paper);
+    stroke: currentColor;
+    stroke-width: 1.75;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+        fill 80ms ease,
+        stroke 80ms ease,
+        transform 80ms ease;
+}
+
+[data-life-index] [data-tree-node].is-preview {
+    stroke: var(--life-copper);
+    transform: scale(1.25);
+}
+
+[data-life-index] [data-tree-node].is-active {
+    fill: var(--life-copper);
+    stroke: var(--life-copper);
+    transform: scale(1.45);
+}
+
+/* The copper "fruit" keeps its restrained accent. */
+[data-life-index] .life-tree__pixels rect {
+    fill: var(--life-copper);
+}
+
+/*
+ * Root system: stroke-drawn from the trunk base, sprawling as the reader
+ * scrolls toward the last facet. --life-roots (0..1) is driven by
+ * living-index.js; each root grows inside its own --root-delay/--root-span
+ * window so the primary scaffold leads, secondary laterals branch next, and
+ * fine feeders finish the system. pathLength="1" normalizes the dash math in
+ * markup.
+ *
+ * Roots also breathe with a subtle organic sway tied to the crown breeze,
+ * and respond to scroll direction with a gentle pulse.
+ */
+[data-life-index] .life-tree__roots {
+    pointer-events: none;
+    opacity: 0.9;
+    transform-box: view-box;
+    transform-origin: 360px 700px;
+    will-change: transform, opacity;
+}
+
+[data-life-index] .life-tree__roots path {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1px;
+    stroke-dashoffset: calc(
+        (1 - clamp(0, (var(--life-roots, 1) - var(--root-delay, 0)) / var(--root-span, 1), 1)) * 1px
+    );
+    /* Each root tier gets its own subtle sway phase */
+    animation:
+        life-root-breathe
+        var(--root-breathe-duration, 14s)
+        cubic-bezier(0.4, 0, 0.3, 1)
+        var(--root-breathe-delay, 0s)
+        infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+    will-change: transform, stroke-dashoffset;
+}
+
+[data-life-index] .life-tree.is-wind-on .life-tree__roots {
+    animation:
+        life-root-sway
+        var(--wind-duration, 9s)
+        cubic-bezier(0.42, 0, 0.28, 1)
+        var(--wind-delay, 0s)
+        infinite;
+}
+
+[data-life-index] .life-tree.is-wind-paused .life-tree__roots {
+    animation-play-state: paused;
+}
+
+/* Scroll-direction pulse: roots gently swell when scrolling down */
+[data-life-index] .life-tree__roots.scroll-down {
+    animation-name: life-root-breathe, life-root-pulse;
+    animation-duration: var(--root-breathe-duration, 14s), 1.2s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1), cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation-iteration-count: infinite, 1;
+}
+
+@keyframes life-root-breathe {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.008) rotate(0.12deg); }
+}
+
+@keyframes life-root-sway {
+    0%, 100% { transform: rotate(0deg); }
+    24% { transform: rotate(var(--wind-positive, 0.35deg)); }
+    58% { transform: rotate(var(--wind-negative, -0.22deg)); }
+    79% { transform: rotate(var(--wind-settle, 0.09deg)); }
+}
+
+@keyframes life-root-pulse {
+    0% { transform: scale(1); opacity: 0.9; }
+    35% { transform: scale(1.015); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.9; }
+}
+
+@keyframes life-tree-sway {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    24% {
+        transform: rotate(var(--wind-positive, 0.7deg));
+    }
+
+    58% {
+        transform: rotate(var(--wind-negative, -0.45deg));
+    }
+
+    79% {
+        transform: rotate(var(--wind-settle, 0.18deg));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-life-index] .life-tree__breeze {
+        animation: none !important;
+        transform: none !important;
+    }
+
+    [data-life-index] .life-tree__roots,
+    [data-life-index] .life-tree__roots path {
+        animation: none !important;
+        transform: none !important;
+    }
+
+    [data-life-index] .life-tree__pixels rect {
+        animation: none !important;
+    }
+
+    [data-life-index] .life-tree__branch-hit,
+    [data-life-index] [data-tree-node] {
+        transition: none;
+    }
+}

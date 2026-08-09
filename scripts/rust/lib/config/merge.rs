@@ -1,5 +1,6 @@
 //! Config file merging utilities.
 
+use std::env;
 use std::fs;
 use std::io;
 use std::path::PathBuf;
@@ -28,9 +29,7 @@ impl Merger {
             return true;
         }
 
-        let zensical_mtime = match fs::metadata(&zensical_toml)
-            .and_then(|m| m.modified())
-        {
+        let zensical_mtime = match fs::metadata(&zensical_toml).and_then(|m| m.modified()) {
             Ok(time) => time,
             Err(_) => return true,
         };
@@ -58,7 +57,8 @@ impl Merger {
     pub fn merge(&self) -> io::Result<()> {
         println!("\n Config files changed, merging configuration...\n");
 
-        let merge_script = self.project_root
+        let merge_script = self
+            .project_root
             .join("scripts")
             .join("python")
             .join("merge_zensical_config.py");
@@ -71,13 +71,26 @@ impl Merger {
         }
 
         // Try uv run first
-        let status = Command::new("uv")
+        let mut uv_cmd = Command::new("uv");
+        uv_cmd
             .current_dir(&self.project_root)
             .args(&["run", "python", merge_script.to_str().unwrap()])
             .stdin(Stdio::inherit())
             .stdout(Stdio::inherit())
-            .stderr(Stdio::inherit())
-            .status();
+            .stderr(Stdio::inherit());
+
+        if self.project_root.to_string_lossy().starts_with("/mnt/") {
+            uv_cmd.env(
+                "UV_CACHE_DIR",
+                env::var("UV_CACHE_DIR").unwrap_or_else(|_| "/tmp/uv-cache".to_string()),
+            );
+            uv_cmd.env(
+                "UV_LINK_MODE",
+                env::var("UV_LINK_MODE").unwrap_or_else(|_| "copy".to_string()),
+            );
+        }
+
+        let status = uv_cmd.status();
 
         match status {
             Ok(s) if s.success() => {
@@ -88,7 +101,7 @@ impl Merger {
         }
 
         // Fallback to direct python
-        let venv_python = self.project_root.join(".venv").join("bin").join("python");
+        let venv_python = self.find_venv_python();
         let python_cmd = if venv_python.exists() {
             venv_python.to_string_lossy().to_string()
         } else {
@@ -111,6 +124,30 @@ impl Merger {
                 io::ErrorKind::Other,
                 format!("Config merge failed: {}", status),
             ))
+        }
+    }
+
+    fn find_venv_python(&self) -> PathBuf {
+        let project_python = self.project_root.join(".venv").join("bin").join("python");
+        if project_python.exists() || !self.project_root.to_string_lossy().starts_with("/mnt/") {
+            return project_python;
+        }
+
+        let Some(project_name) = self.project_root.file_name().and_then(|n| n.to_str()) else {
+            return project_python;
+        };
+
+        let home = env::var("HOME").unwrap_or_else(|_| "/tmp".to_string());
+        let native_python = PathBuf::from(home)
+            .join(".venvs")
+            .join(project_name)
+            .join("bin")
+            .join("python");
+
+        if native_python.exists() {
+            native_python
+        } else {
+            project_python
         }
     }
 
