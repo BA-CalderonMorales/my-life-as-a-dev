@@ -157,7 +157,6 @@ body.landing-page[data-md-color-scheme="slate"] {
 }
 
 .landing-page .md-header__source,
-.landing-page .md-source,
 .landing-page .md-search {
     display: none;
 }
