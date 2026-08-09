@@ -2,78 +2,88 @@
 
 ## Current Shape
 
-- **Generator**: Zensical (MkDocs Material-based)
-- **Content**: Developer journey, learning notes, platform experiments, docs-as-code workflows
-- **Structure**: `docs/` contains published content, `config/zensical/` has modular config, `scripts/` has Rust CLI and Python helpers
-- **Deploy**: GitHub Pages via `make build` → `gh-pages` branch
-- **Serve**: `make serve`
-- **Build**: `make build`
-- **Viewport Check**: `make viewport-check`
-- **CLI**: `doc-cli`
+- Zensical (MkDocs Material) site: `docs/` is published content,
+  `docs-archive/` holds retired long-form documentation, and
+  `config/zensical/*.toml` is the modular config merged into `zensical.toml`.
+- `scripts/` holds local automation: `scripts/python/` for site tooling
+  (config merge, canvas generation), `scripts/rust/` for checks like nav
+  validation; `doc-cli` (via `doc-cli.sh`) is the interactive front door.
+- `e2e/` holds the Playwright suite (viewport, quality, accessibility) run
+  through `uv`; `tests/` holds unit and mutation coverage.
+- `.github/skills/` is the procedure library agents execute from
+  (`add-documentation-page`, `browser-automation`, `site-fix-tdd-bdd`,
+  `git-workflow`, ...).
+- Deploy: GitHub Pages via `make build` -> `gh-pages` branch.
+- Pre-rewrite leftovers are pruned; use Git history for legacy reference.
+
+## Key Sections
+
+| To understand... | Read |
+|---|---|
+| Site generation and build workflow | `README.md`, Makefile targets |
+| Navigation and page metadata | `config/zensical/03-navigation.toml` |
+| Adding or editing pages | `.github/skills/add-documentation-page/SKILL.md` |
+| Browser automation (Playwright via uv) | `.github/skills/browser-automation/SKILL.md`, `e2e/` |
+| Site fixes with TDD/BDD coverage | `.github/skills/site-fix-tdd-bdd/SKILL.md` |
+| Git flow, commits, and PRs | `.github/skills/git-workflow/SKILL.md`, `CONTRIBUTING.md` |
+| Build and validate every change | `.github/skills/build-and-test/SKILL.md` |
+| Everything else | `CHANGELOG.md`, then this file again |
+
+Lost in the woods? Start with `README.md` for *why*, then
+`.github/skills/build-and-test/SKILL.md` for *how* a change lands.
+
+## Run
+
+```bash
+make setup              # uv-based install
+make serve              # Zensical dev server on :8001
+make build              # build the site
+make viewport-check     # Playwright layout checks
+make screenshots        # viewport captures
+make accessibility-check # axe-backed checks
+doc-cli                 # interactive doc tooling
+```
 
 ## Branch Strategy
 
-- **`develop`**: default base for PRs. Experimentation and quick iteration.
-- **`main`**: tagged releases only. PRs merge into `develop` first, then
-  `develop` fast-forwards into `main` at release time.
-- **Feature branches**: branch from `develop`, PR against `develop`.
+- `develop`: default base for PRs; experimentation and fast iteration.
+- `main`: tagged releases only - `develop` fast-forwards into `main` at
+  release time.
+- `gh-pages` is the deploy target only; never open PRs against it.
+- Feature branches branch from `develop` and PR against `develop`.
 
-## Quick Commands
+## CI
 
-```bash
-make setup    # Install dependencies (uses uv)
-make serve    # Start Zensical dev server
-make build    # Build site with Zensical
-make viewport-check  # Run Playwright responsive layout checks
-make screenshots     # Capture Playwright screenshots across viewports
-doc-cli       # Interactive CLI (uses .venv automatically)
-```
+- `github_pages.yml` builds and deploys the site; `security-scan.yml` gates
+  pushes and PRs. Both skip docs-adjacent paths or support
+  `workflow_dispatch` when a run is needed.
 
-## Browser Automation
+## Rules
 
-```bash
-make browser-install       # Install Playwright Chromium
-make viewport-check        # Validate responsive layout
-make screenshots           # Capture mobile/tablet/desktop screenshots
-make accessibility-check   # Run axe-backed accessibility checks
-```
+- ALWAYS use `uv` for Python - never `pip`; keep `uv.lock` in sync.
+- Browser automation ONLY through repo Playwright tests via `uv` - never
+  Playwright MCP; never use `agent-browser` unless explicitly requested.
+- No emojis in commits, docs, or comments.
+- Conventional commits: `feat:`, `fix:`, `docs:`, `chore:`.
+- Verify before committing: `make build`; fix every "not included in nav"
+  warning.
+- New pages must be registered in `config/zensical/03-navigation.toml`
+  (via `config/zensical/` modular files), not `.nav.yml`.
+- One change per commit; stop and explain before major architectural
+  changes; never bundle unrelated work.
 
-## Critical Rules
+## Design Principles
 
-- **ALWAYS use `uv`** for Python - never `pip` directly
-- **ALWAYS use repo Playwright tests through `uv`** for browser automation - never Playwright MCP
-- **Do not use `agent-browser`** unless explicitly requested; prefer `make viewport-check`, `make screenshots`, and `make accessibility-check`
-- **No emojis** in commits, docs, or comments
-
-## Core Rules
-
-1. ALWAYS use `uv` for Python package management
-2. No emojis in commits, docs, or comments
-3. Conventional Commits: `feat:`, `fix:`, `docs:`, `chore:`
-4. Always verify: Run `make build` before committing
-5. Update nav: ALL new pages must be added to `.nav.yml`
-6. Check build output: Fix "not included in nav" warnings
-7. Test changes: Use `make serve` to preview
-8. Use `zensical.toml` as primary config (not mkdocs.yml)
-9. No output truncation: Show full command output
-10. Browser automation uses repo Playwright tests via `uv`, not Playwright MCP
-
-## Skills
-
-See `.github/skills/` for detailed procedures:
-- `add-documentation-page/` - Adding new pages
-- `add-algorithm-problem/` - Adding algorithm problems
-- `build-and-test/` - Building and validating
-- `browser-automation/` - Browser automation with Playwright through uv
-- `git-workflow/` - Commits and PRs
-- `site-fix-tdd-bdd/` - Fixing site regressions with TDD/BDD-style coverage
-
-## Working Rules
-
-- Stop and explain before major architectural changes
-- One change per commit, commit before starting next
-- Do not bundle unrelated work into the same commit
-
+- **SRP** - one page = one topic; one skill = one procedure.
+- **OCP** - extend by adding a page or skill, never by widening an existing
+  one.
+- **DRY** - one authoritative home per piece of knowledge: modular TOML
+  sources merge into `zensical.toml`; nav lives in one config, not scattered.
+- **KISS** - boring beats novel; delete before adding.
+- **POLA** - behavior must not astonish: builds fail loudly on nav drift;
+  screenshots regenerate from the same Playwright suite.
+- **CQS** - `make serve` preview is read-only; `make build` writes `site/`;
+  deploys happen only through `github_pages.yml`.
 ## GitNexus — Code Intelligence
 
 This project is indexed by GitNexus as **my-life-as-a-dev** (4151 symbols, 6382 relationships, 159 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
