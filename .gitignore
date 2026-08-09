@@ -57,3 +57,6 @@ tmp/
 
 # Local scratch pad - never commit
 scratch/
+
+# Graphify knowledge graph output - never commit
+graphify-out/
