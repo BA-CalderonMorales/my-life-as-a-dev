@@ -80,7 +80,7 @@ def test_life_tree_geometry_and_semantic_layers_are_separate():
     assert wood is not None
     assert len(re.findall(r"(?:^|\s)M\s", wood.group(1))) == 1
     assert re.findall(r'data-tree-branch="([^"]+)"', markup) == list(FACETS)
-    assert re.findall(r'data-tree-node="([^"]+)"', markup) == list(FACETS)
+    assert re.findall(r'data-tree-node="([^"]+)"', markup) == []
     assert markup.count('class="life-tree__wood-shape"') == 1
     assert markup.count('class="life-tree__branch-hit"') == 5
     assert markup.count('class="life-tree__roots"') == 1
@@ -228,7 +228,7 @@ def test_life_tree_breeze_contains_only_the_visible_crown():
     assert breeze.find(".//*[@class='life-tree__wood']") is None
     assert breeze.find(".//*[@class='life-tree__bark']") is None
     assert markup.count('class="life-tree__cluster"') == 35
-    assert len(re.findall(r'<path class="life-tree__leaf(?: |")', markup)) == 176
+    assert len(re.findall(r'<path class="life-tree__leaf(?: |")', markup)) == 163
 
 
 def test_life_tree_wrapper_uses_the_expanded_root_viewbox():
@@ -245,7 +245,7 @@ def test_generated_homepage_keeps_every_tree_and_dossier_target():
     index = INDEX.read_text(encoding="utf-8")
 
     assert re.findall(r'data-tree-branch="([^"]+)"', index) == list(FACETS)
-    assert re.findall(r'data-tree-node="([^"]+)"', index) == list(FACETS)
+    assert re.findall(r'data-tree-node="([^"]+)"', index) == []
     assert re.findall(r'data-life-target="([^"]+)"', index) == list(FACETS)
     assert re.findall(r'data-life-panel="([^"]+)"', index) == list(FACETS)
     for facet in FACETS:

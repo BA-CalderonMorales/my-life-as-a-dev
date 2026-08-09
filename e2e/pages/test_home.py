@@ -243,7 +243,7 @@ class TestHomePage:
         expect(page.locator(".life-tree")).to_be_visible()
         expect(page.locator(".life-tree__wood-shape")).to_have_count(1)
         expect(page.locator(".life-tree [data-tree-branch]")).to_have_count(5)
-        expect(page.locator(".life-tree [data-tree-node]")).to_have_count(5)
+        expect(page.locator(".life-tree [data-tree-node]")).to_have_count(0)
         expect(page.get_by_role("tab", name="Work")).to_be_visible()
 
     def test_tree_hit_paths_are_invisible_pointer_targets(self, page: Page):
@@ -279,9 +279,9 @@ class TestHomePage:
         expect(page).to_have_url(re.compile(r"#make$"))
 
     @pytest.mark.parametrize("facet", ("work", "make", "serve", "learn", "life"))
-    def test_tree_node_activation_reaches_its_facet(self, page: Page, facet: str):
-        """Every visible node should activate its matching dossier and hash."""
-        page.locator(f"[data-tree-node='{facet}']").click(force=True)
+    def test_tree_branch_click_activation_reaches_its_facet(self, page: Page, facet: str):
+        """Every visible branch should activate its matching dossier and hash."""
+        page.locator(f"[data-tree-branch='{facet}']").click(force=True)
 
         expect(page.get_by_role("tab", name=facet.capitalize())).to_have_attribute(
             "aria-selected", "true"
@@ -295,7 +295,7 @@ class TestHomePage:
     def test_tree_pauses_wind_during_interaction(self, page: Page):
         """The animated crown should become a stable navigation target."""
         tree = page.locator(".life-tree")
-        tree.locator("[data-tree-node='work']").hover(force=True)
+        tree.locator("[data-tree-branch='work']").hover(force=True)
 
         expect(tree).to_have_class(re.compile(r"\bis-wind-paused\b"))
 
@@ -436,12 +436,12 @@ class TestLivingIndexChoreography:
         _assert_mobile_facet(mobile_page, facet)
         assert mobile_page.evaluate("window.__lifeFacetChanges") == [facet]
 
-    def test_mobile_svg_node_uses_the_same_navigation_contract(
+    def test_mobile_svg_branch_uses_the_same_navigation_contract(
         self, mobile_page: Page
     ):
-        """A tree node should forward through the tab controller on mobile."""
+        """A tree branch should forward through the tab controller on mobile."""
         _observe_facet_changes(mobile_page)
-        mobile_page.locator("[data-tree-node='serve']").click(force=True)
+        mobile_page.locator("[data-tree-branch='serve']").click(force=True)
 
         _assert_mobile_facet(mobile_page, "serve")
         assert mobile_page.evaluate("window.__lifeFacetChanges") == ["serve"]
