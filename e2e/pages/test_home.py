@@ -600,21 +600,24 @@ class TestLivingIndexChoreography:
     def test_mobile_root_growth_is_bounded_and_reversible(
         self, mobile_page: Page
     ):
-        """Scrolling down and back up should grow and retract one finite scalar."""
-        positions = mobile_page.evaluate(
+        """Scrolling through the tree box grows and retracts one finite scalar."""
+        bounds = mobile_page.evaluate(
             """() => {
-                const dossiers = document.querySelector(".life-dossiers");
+                const shell = document.querySelector(".life-tree-shell");
+                const stage = document.querySelector(".life-stage");
+                const shellBox = shell.getBoundingClientRect();
+                const stageBox = stage.getBoundingClientRect();
                 return {
-                    dossierTop:
-                        dossiers.getBoundingClientRect().top + window.scrollY,
+                    pinnedTop: shellBox.top,
+                    shellHeight: shellBox.height,
+                    stageHeight: stageBox.height,
                     viewportHeight: window.innerHeight,
                 };
             }"""
         )
-        downward_target = (
-            positions["dossierTop"] - positions["viewportHeight"] * 0.5
-        )
-        midpoint_target = downward_target * 0.5
+        release = bounds["stageHeight"]
+        past = release + bounds["pinnedTop"] + bounds["shellHeight"]
+        midpoint_target = (release + past) / 2
 
         def root_progress():
             return float(
@@ -628,7 +631,7 @@ class TestLivingIndexChoreography:
         start = root_progress()
         _scroll_without_animation(mobile_page, midpoint_target)
         midpoint = root_progress()
-        _scroll_without_animation(mobile_page, downward_target)
+        _scroll_without_animation(mobile_page, past + 100)
         grown = root_progress()
         _scroll_without_animation(mobile_page, midpoint_target)
         retracted_midpoint = root_progress()
