@@ -38,6 +38,16 @@ cd scripts/rust
 cargo build --release --bin doc-cli
 ```
 
+## Demo
+
+The README recording was made with [VHS](https://github.com/charmbracelet/vhs)
+from `scripts/demo/doc-cli.tape` — boot the menu once, run each command
+inside it, and leave with `exit`. Re-record from the repository root:
+
+```bash
+vhs scripts/demo/doc-cli.tape
+```
+
 ## Why It Exists
 
 The site pipeline leans on a Rust binary (rather than a second Python CLI) so

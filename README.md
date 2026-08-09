@@ -1,85 +1,106 @@
-# Brandon's Simplified Life
+<div align="center">
 
-[![Build status](https://img.shields.io/github/actions/workflow/status/BA-CalderonMorales/my-life-as-a-dev/github_pages.yml?branch=main&label=build)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions)
-[![License](https://img.shields.io/github/license/BA-CalderonMorales/my-life-as-a-dev)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/blob/main/LICENSE)
-[![Live site](https://img.shields.io/badge/site-live-1f9d8b)](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
+# My Life as a Dev
 
-The repository behind a versioned docs-and-project hub for developer tooling, learning notes, platform experiments, and docs-as-code workflows. It doubles as a working reference for Zensical builds, Rust CLI automation, versioned releases, image optimization, and the site AI assistant.
+**A docs-as-code site that treats a career like an open-source project**
 
-![Site Preview](docs/assets/images/homepage-screenshot.png)
+[![Live site](https://img.shields.io/badge/site-live-1f9d8b?style=flat-square)](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
+[![Build status](https://img.shields.io/github/actions/workflow/status/BA-CalderonMorales/my-life-as-a-dev/github_pages.yml?branch=main&label=build&style=flat-square)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-## Table of Contents
+<img src="docs/demo-doc-cli.gif" alt="doc-cli interactive menu" width="100%">
 
-- [Explore](#explore)
-- [What Lives Here](#what-lives-here)
-- [Run It Locally](#run-it-locally)
-- [Validate And Release](#validate-and-release)
-- [License](#license)
+</div>
 
+## Install
 
-> *Note: If these links do not respond in the GitHub Mobile app, try viewing in a browser. This is a known platform limitation.*
-
-## Explore
-
-- [Live Documentation](https://ba-calderonmorales.github.io/my-life-as-a-dev/) for the published site
-- [Docs-as-Code](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/) for build, workflow, AI, and security notes
-- [Learning](https://ba-calderonmorales.github.io/my-life-as-a-dev/learning/) for algorithms, data structures, interview prep, and cloud AI notes
-- [Projects](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/) for active tools, experiments, and implementation details
-- [Resume](https://ba-calderonmorales.github.io/my-life-as-a-dev/resume/) for the current profile and experience summary
-- [Kimi Cheat Sheet](https://github.com/BA-CalderonMorales/kimi-cheat-sheet) and [Codex Cheat Sheet](https://github.com/BA-CalderonMorales/codex-cheat-sheet) for AI CLI quick references
-
-## What Lives Here
-
-- `docs/` contains the published content, landing pages, project docs, and learning material
-- `config/zensical/` is the editable source of truth for site configuration
-- `zensical.toml` is generated from the modular config before serve and build
-- `scripts/rust/` contains `doc-cli`, the Rust tool used for local workflows and release tasks
-- `scripts/python/` contains deploy helpers, config merge tooling, and image optimization code
-- `e2e/` and `tests/` cover shared UI behavior and plugin logic
-
-## Run It Locally
-
-Prerequisites: Python 3.14+, [`uv`](https://docs.astral.sh/uv/), and Rust/Cargo only if you want to rebuild `doc-cli`.
+Run the site locally with `uv`; Rust/Cargo is only needed to rebuild
+`doc-cli` from source.
 
 ```bash
 git clone https://github.com/BA-CalderonMorales/my-life-as-a-dev.git
 cd my-life-as-a-dev
 uv venv .venv
 make setup
+```
+
+Prerequisites: Python 3.14+, [`uv`](https://docs.astral.sh/uv/).
+
+## Quick Start
+
+```bash
 make serve
 ```
 
-Open `http://localhost:8001/my-life-as-a-dev/`.
+Open `http://localhost:8001/my-life-as-a-dev/`. The landing page is a living
+index: a generated tree whose branches open the five facets of the site.
 
-Useful commands:
+Prefer the interactive menu? Bare `doc-cli` opens it and stays open until you
+type `exit`:
 
 ```bash
-make build
 ./doc-cli.sh
 ```
 
-`make build` validates the site output. `./doc-cli.sh` rebuilds and launches the Rust CLI wrapper when you want the interactive menu or release tooling.
+## Commands
 
-## Staged (Not Yet Published)
+Everything runs through one Rust front door, `doc-cli` (wrapped by
+`doc-cli.sh`, which rebuilds the binary when its sources change). Commands
+work headless (`./doc-cli <command>`) or from the interactive menu.
 
-`docs-archive/blog/` and `docs-archive/doc-cli/` are curated but deliberately
-not shown publicly. To publish either: set its flag to `true` in
-`config/zensical/08-features.toml`, restore its nav entry from
-`docs-archive/03-navigation-full.toml`, and regenerate the config.
+| Command | Purpose |
+|---|---|
+| `serve` | Zensical dev server on :8001 |
+| `build` | Build the site with Zensical |
+| `kill` | Stop dev servers and free ports 8000/8001 |
+| `info` | Project structure and configuration overview |
+| `validate` | Validate `zensical.toml` and referenced files |
+| `nav-check` | Find markdown pages missing from navigation |
+| `bump-version` | Bump the documentation version |
+| `deploy [VERSION]` | Deploy a versioned release to GitHub Pages |
+| `update [VERSION]` | One-shot version update/deploy helper |
+| `setup` | Install dependencies and start the server |
+| `help` | The full command map |
 
-## Validate And Release
+Make aliases: `make serve`, `make build`, `make test`, `make e2e`,
+`make viewport-check`, `make accessibility-check`.
 
-```bash
-make build
-./doc-cli help
-./doc-cli validate
-./doc-cli nav-check
-./doc-cli update <version> --alias latest --push
+## Layout
+
+The repository is a few small planes, and every domain is bucketed the same
+way — once you can read one, you can read them all.
+
+```text
+docs/                           # published content (slim: one landing page)
+docs/assets/                    # CSS, JS, images for the published site
+docs-archive/                   # retired sections + staged ones (blog, doc-cli)
+config/zensical/                # modular config, merged into zensical.toml
+scripts/rust/                   # doc-cli: the Rust front door
+scripts/python/                 # site tooling: config merge, tree generator
+scripts/demo/                   # the VHS tape behind docs/demo-doc-cli.gif
+e2e/                            # Playwright browser suite
+tests/                          # unit contracts for config and plugins
 ```
+
+`zensical.toml` is generated from `config/zensical/*.toml` before every
+serve/build. Staged sections live in `docs-archive/` with their nav entries
+and feature flags ready — publishing one is a flag flip, not a rewrite.
+
+## Docs
+
+Browse the published site: [live index](https://ba-calderonmorales.github.io/my-life-as-a-dev/), plus
+[Docs-as-Code](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/),
+[Learning](https://ba-calderonmorales.github.io/my-life-as-a-dev/learning/),
+[Projects](https://ba-calderonmorales.github.io/my-life-as-a-dev/projects/),
+and [Resume](https://ba-calderonmorales.github.io/my-life-as-a-dev/resume/).
+
+| Document | What |
+|---|---|
+| [Docs-as-Code](https://ba-calderonmorales.github.io/my-life-as-a-dev/docs-as-code/) | Build, workflow, AI, and security notes |
+| [Staged: Blog](docs-archive/blog/index.md) | Long-form writing, coming soon |
+| [Staged: Doc-CLI](docs-archive/doc-cli/index.md) | The doc-cli executable, documented |
+| [AI CLI cheat sheets](https://github.com/BA-CalderonMorales/kimi-cheat-sheet) | Kimi and Codex quick references |
 
 ## License
 
-MIT License. See [LICENSE](LICENSE).
-
----
-*Last synced: 2026-04-06 via [workspace manager](https://github.com/BA-CalderonMorales)*
+MIT

@@ -46,16 +46,34 @@ impl App {
     }
 
     /// Main execution - dispatch to command or interactive mode.
+    ///
+    /// Bare invocation opens the interactive menu, which stays open until the
+    /// operator types `exit` (or `quit`): each round picks one command, runs
+    /// it, then returns to the menu. With arguments, the named command runs
+    /// once and the process exits.
     fn execute(&self) -> io::Result<()> {
         Self::print_header();
 
-        let command_name = if self.args.len() <= 1 {
-            menu::run(&self.registry)?
-        } else {
-            self.args[1].clone()
-        };
+        if self.args.len() > 1 {
+            return self.execute_command(&self.args[1].clone());
+        }
 
-        self.execute_command(&command_name)
+        loop {
+            let choice = menu::run(&self.registry)?;
+            if matches!(choice.as_str(), "exit" | "quit") {
+                println!("Leaving doc-cli.");
+                break;
+            }
+            match self.registry.find(&choice) {
+                Some(cmd) => cmd.execute()?,
+                None => {
+                    eprintln!("Unknown command: {}", choice);
+                    eprintln!("Type 'exit' to leave, or pick from the menu.");
+                }
+            }
+            println!();
+        }
+        Ok(())
     }
 
     /// Create the command registry with detected paths.
