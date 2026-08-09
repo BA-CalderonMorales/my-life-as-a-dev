@@ -145,31 +145,6 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
     cursor: pointer;
 }
 
-/* Facet nodes read as quiet "eyes" in the canopy, copper when active. */
-[data-life-index] [data-tree-node] {
-    cursor: pointer;
-    fill: var(--life-paper);
-    stroke: currentColor;
-    stroke-width: 1.75;
-    transform-box: fill-box;
-    transform-origin: center;
-    transition:
-        fill 80ms ease,
-        stroke 80ms ease,
-        transform 80ms ease;
-}
-
-[data-life-index] [data-tree-node].is-preview {
-    stroke: var(--life-copper);
-    transform: scale(1.25);
-}
-
-[data-life-index] [data-tree-node].is-active {
-    fill: var(--life-copper);
-    stroke: var(--life-copper);
-    transform: scale(1.45);
-}
-
 /* The copper "fruit" keeps its restrained accent. */
 [data-life-index] .life-tree__pixels rect {
     fill: var(--life-copper);
@@ -289,8 +264,7 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
         animation: none !important;
     }
 
-    [data-life-index] .life-tree__branch-hit,
-    [data-life-index] [data-tree-node] {
+    [data-life-index] .life-tree__branch-hit {
         transition: none;
     }
 }
