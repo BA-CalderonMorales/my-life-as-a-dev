@@ -10,23 +10,16 @@
      * it onto the SVG, so the two controllers never fight.
      *
      * The visible wood is one continuous silhouette and never recolors; active
-     * state is expressed on the semantic hit paths and their nodes.
+     * state is expressed on the semantic hit paths.
      */
     function reflectActiveFacet(root, tree) {
         const branches = [...tree.querySelectorAll(".life-tree__branch-hit[data-tree-branch]")];
-        const nodes = [...tree.querySelectorAll("[data-tree-node]")];
 
         const apply = (facet) => {
             branches.forEach((branch) => {
                 branch.classList.toggle(
                     "is-active",
                     branch.dataset.treeBranch === facet
-                );
-            });
-            nodes.forEach((node) => {
-                node.classList.toggle(
-                    "is-active",
-                    node.dataset.treeNode === facet
                 );
             });
         };
@@ -90,29 +83,10 @@
             tabs.find((tab) => tab.dataset.lifeTarget === facet)?.click();
         };
 
-        const branchNodes = tree.querySelectorAll("[data-tree-node]");
-        const nodeFor = (facet) =>
-            [...branchNodes].find((node) => node.dataset.treeNode === facet);
-        const previewFacet = (facet, visible) => {
-            nodeFor(facet)?.classList.toggle("is-preview", visible);
-        };
-
         tree.querySelectorAll(".life-tree__branch-hit[data-tree-branch]").forEach((branch) => {
             const facet = branch.dataset.treeBranch;
             branch.addEventListener("click", () => {
                 selectFromTree(facet);
-            });
-            branch.addEventListener("pointerenter", () => {
-                previewFacet(facet, true);
-            });
-            branch.addEventListener("pointerleave", () => {
-                previewFacet(facet, false);
-            });
-            branch.addEventListener("focus", () => {
-                previewFacet(facet, true);
-            });
-            branch.addEventListener("blur", () => {
-                previewFacet(facet, false);
             });
             branch.addEventListener("keydown", (event) => {
                 if (event.key !== "Enter" && event.key !== " ") {
@@ -120,13 +94,6 @@
                 }
                 event.preventDefault();
                 selectFromTree(facet);
-            });
-        });
-
-        branchNodes.forEach((node) => {
-            node.addEventListener("click", (event) => {
-                event.stopPropagation();
-                selectFromTree(node.dataset.treeNode);
             });
         });
 
@@ -145,6 +112,23 @@
             observer.observe(tree);
         } else {
             tree.classList.add("is-wind-on");
+        }
+
+        const contact = root.querySelector("[data-life-contact]");
+        if (contact && "IntersectionObserver" in window) {
+            const contactObserver = new IntersectionObserver(
+                ([entry]) => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+                    contact.classList.add("is-grown");
+                    contactObserver.disconnect();
+                },
+                { rootMargin: "0px 0px -18% 0px", threshold: 0.28 }
+            );
+            contactObserver.observe(contact);
+        } else {
+            contact?.classList.add("is-grown");
         }
     }
 
