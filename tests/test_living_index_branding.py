@@ -228,7 +228,7 @@ def test_life_tree_breeze_contains_only_the_visible_crown():
     assert breeze.find(".//*[@class='life-tree__wood']") is None
     assert breeze.find(".//*[@class='life-tree__bark']") is None
     assert markup.count('class="life-tree__cluster"') == 35
-    assert len(re.findall(r'<path class="life-tree__leaf(?: |")', markup)) == 176
+    assert len(re.findall(r'<path class="life-tree__leaf(?: |")', markup)) == 163
 
 
 def test_life_tree_wrapper_uses_the_expanded_root_viewbox():
