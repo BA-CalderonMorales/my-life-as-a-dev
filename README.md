@@ -39,7 +39,7 @@ The repository behind a versioned docs-and-project hub for developer tooling, le
 
 ## Run It Locally
 
-Prerequisites: Python 3.10+, [`uv`](https://docs.astral.sh/uv/), and Rust/Cargo only if you want to rebuild `doc-cli`.
+Prerequisites: Python 3.14+, [`uv`](https://docs.astral.sh/uv/), and Rust/Cargo only if you want to rebuild `doc-cli`.
 
 ```bash
 git clone https://github.com/BA-CalderonMorales/my-life-as-a-dev.git
@@ -59,6 +59,13 @@ make build
 ```
 
 `make build` validates the site output. `./doc-cli.sh` rebuilds and launches the Rust CLI wrapper when you want the interactive menu or release tooling.
+
+## Staged (Not Yet Published)
+
+`docs-archive/blog/` and `docs-archive/doc-cli/` are curated but deliberately
+not shown publicly. To publish either: set its flag to `true` in
+`config/zensical/08-features.toml`, restore its nav entry from
+`docs-archive/03-navigation-full.toml`, and regenerate the config.
 
 ## Validate And Release
 

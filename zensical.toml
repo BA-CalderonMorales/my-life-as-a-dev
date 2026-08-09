@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-07-26 23:08:13 UTC
+#   Generated: 2026-08-09 20:09:05 UTC
 #
 # ##############################################################################
 
@@ -183,6 +183,8 @@ docs_as_code = false
 projects = false
 canvas = false
 about_me = false
+blog = false
+doc_cli = false
 
 [project.markdown_extensions.extra]
 
