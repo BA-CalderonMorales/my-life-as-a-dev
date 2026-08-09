@@ -45,10 +45,10 @@
         var journey = root.querySelector("[data-life-journey]");
         var stage = root.querySelector(".life-stage");
         var treeShell = root.querySelector("[data-life-tree]");
-        var dossierRegion = root.querySelector(".life-dossiers");
         var controls = Array.prototype.slice.call(root.querySelectorAll("[data-life-target]"));
         var panels = Array.prototype.slice.call(root.querySelectorAll("[data-life-panel]"));
         var desktopLayout = window.matchMedia(DESKTOP_QUERY);
+        var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
         var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
         var committedFacet = facetFromHash() || "work";
         var activeFacet = committedFacet;
@@ -65,8 +65,6 @@
             : null;
         var journeyStart = 0;
         var journeyRange = 1;
-        var mobileRootStart = 0;
-        var mobileRootRange = 1;
         var lastScrollY = 0;
         var scrollDirection = 0;
         var scrollDirectionFrame = null;
@@ -128,16 +126,21 @@
 
         function measureJourney() {
             var documentTop = journey.getBoundingClientRect().top + window.scrollY;
-            var treeTop = treeShell.getBoundingClientRect().top + window.scrollY;
-            var dossierTop = dossierRegion.getBoundingClientRect().top + window.scrollY;
-            var mobileRootEnd = dossierTop - (window.innerHeight * 0.65);
             journeyStart = documentTop;
             journeyRange = Math.max(journey.offsetHeight - stage.offsetHeight, 1);
-            mobileRootStart = Math.max(
-                documentTop,
-                treeTop - (window.innerHeight * 0.45)
-            );
-            mobileRootRange = Math.max(mobileRootEnd - mobileRootStart, 1);
+        }
+
+        /*
+         * Roots stay enclosed to the tree's own box: 0 while the tree shell
+         * sits below the viewport, 1 once its box has fully passed the top.
+         * The root system never sprawls across the rest of the page.
+         */
+        function treeBoxReveal() {
+            var box = treeShell.getBoundingClientRect();
+            var viewport = window.visualViewport
+                ? window.visualViewport.height
+                : window.innerHeight;
+            return clamp((viewport - box.top) / (viewport + box.height), 0, 1);
         }
 
         function panelForFacet(facet) {
@@ -289,9 +292,10 @@
             // The planted flare is always present; the living root network
             // begins after the story opens, then reaches biological depth in
             // order: structural roots, laterals, and fine feeders. It resolves
-            // only near the end of the final facet.
+            // while the tree still holds the stage, so the roots never sprawl
+            // across the rest of the journey.
             var roots = easeInOutCubic(
-                clamp((progress - 0.34) / 0.61, 0, 1)
+                clamp((progress - 0.30) / 0.28, 0, 1)
             );
 
             var treeEased = easeInOutCubic(clamp((progress - 0.1) / 0.28, 0, 1));
@@ -352,11 +356,7 @@
                 root.classList.remove("is-indexed");
                 var mobileRoots = reducedMotion.matches
                     ? 1
-                    : easeInOutCubic(clamp(
-                        (window.scrollY - mobileRootStart) / mobileRootRange,
-                        0,
-                        1
-                    ));
+                    : easeInOutCubic(treeBoxReveal());
                 root.style.setProperty(
                     "--life-roots",
                     (Number.isFinite(mobileRoots) ? mobileRoots : 0).toFixed(3)

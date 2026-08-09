@@ -27,6 +27,7 @@ from pathlib import Path
 from typing import Any
 
 from mkdocs.config import config_options
+from mkdocs.config.base import Config
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.files import Files
@@ -38,7 +39,7 @@ from .infrastructure.converters import PillowConverter, PillowLoader
 from .presentation.html_transformer import HTMLImageTransformer
 
 
-class ImageOptimizerConfig:
+class ImageOptimizerConfig(Config):
     """Configuration options for the image optimizer plugin."""
 
     enabled = config_options.Type(bool, default=True)
