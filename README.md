@@ -60,6 +60,13 @@ make build
 
 `make build` validates the site output. `./doc-cli.sh` rebuilds and launches the Rust CLI wrapper when you want the interactive menu or release tooling.
 
+## Staged (Not Yet Published)
+
+`docs-archive/blog/` and `docs-archive/doc-cli/` are curated but deliberately
+not shown publicly. To publish either: set its flag to `true` in
+`config/zensical/08-features.toml`, restore its nav entry from
+`docs-archive/03-navigation-full.toml`, and regenerate the config.
+
 ## Validate And Release
 
 ```bash

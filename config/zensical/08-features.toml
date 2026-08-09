@@ -19,11 +19,14 @@
 #   2. Regenerate: uv run python scripts/python/merge_zensical_config.py
 #   3. Rebuild: make build
 #
-# Off-section content (Learning, Docs-as-Code, Projects, Canvas, About Me):
+# Off-section content (Learning, Docs-as-Code, Projects, Canvas, About Me,
+# Blog, Doc-CLI):
 #   The source files are PRESERVED on disk under docs-archive/<section>/ and
 #   are excluded from the build, nav drawer, and search. They are not deleted.
 #   The tab flags below still gate the visible tab bar and hamburger drawer so
 #   the navigation stays consistent if a section is restored.
+#   Blog and Doc-CLI are deliberately staged: curated in docs-archive/ until
+#   ready to be shown publicly.
 #
 # To fully re-enable a section:
 #   1. Move it back:   git mv docs-archive/<section> docs/<section>
@@ -63,3 +66,5 @@ docs_as_code = false
 projects = false
 canvas = false
 about_me = false
+blog = false
+doc_cli = false
