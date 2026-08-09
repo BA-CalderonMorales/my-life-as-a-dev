@@ -1219,12 +1219,6 @@ def build(seed: int = SEED) -> str:
     output.append("      </g>")
 
     output.append('      <g class="life-tree__nodes">')
-    for name, facet in FACETS.items():
-        x, y = facet["node"]
-        output.append(
-            f'        <circle cx="{x:.0f}" cy="{y:.0f}" r="5.5" '
-            f'data-tree-node="{name}" aria-hidden="true"/>'
-        )
     for x, y in (
         (350, 388), (360, 474), (362, 568), (294, 326),
         (424, 324), (234, 292), (486, 300),
@@ -1302,7 +1296,7 @@ def validate(markup: str) -> bool:
     assert round(max(reveal_ends), 10) == 1.0
 
     assert re.findall(r'data-tree-branch="([^"]+)"', markup) == expected
-    assert re.findall(r'data-tree-node="([^"]+)"', markup) == expected
+    assert re.findall(r'data-tree-node="([^"]+)"', markup) == []
     assert re.findall(r'data-root-id="([^"]+)"', markup) == [
         root.root_id for root in ROOT_PATHS
     ]
