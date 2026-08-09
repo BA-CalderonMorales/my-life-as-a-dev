@@ -39,10 +39,11 @@ def patch_text(source: str, generated: str) -> str:
     if count != 1:
         raise ValueError('could not locate one <svg class="life-tree"> block')
 
-    for attribute in ("data-tree-branch", "data-tree-node"):
-        values = re.findall(fr'{attribute}="([^"]+)"', patched)
-        if values != list(FACETS):
-            raise ValueError(f"invalid {attribute} facets: {values}")
+    values = re.findall(r'data-tree-branch="([^"]+)"', patched)
+    if values != list(FACETS):
+        raise ValueError(f"invalid data-tree-branch facets: {values}")
+    if re.findall(r'data-tree-node="[^"]+"', patched):
+        raise ValueError("homepage tree must not carry facet node eyes")
     if patched.count('class="life-tree__wood-shape"') != 1:
         raise ValueError("homepage must contain exactly one visible wood shape")
     return patched
