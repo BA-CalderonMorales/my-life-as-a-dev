@@ -157,7 +157,6 @@ body.landing-page[data-md-color-scheme="slate"] {
 }
 
 .landing-page .md-header__source,
-.landing-page .md-source,
 .landing-page .md-search {
     display: none;
 }
@@ -212,7 +211,7 @@ body.landing-page[data-md-color-scheme="slate"] {
 /* Page surface. */
 .life-index {
     --life-tree-x: 0vw;
-    --life-tree-scale: 1;
+    --life-tree-scale: 1.08;
     --life-intro-opacity: 1;
     --life-panel-opacity: 0;
     --life-panel-y: 1.5rem;
@@ -433,14 +432,14 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 .life-tree-shell {
     position: relative;
     z-index: 8;
-    width: min(58vmin, 40rem);
+    width: min(62vmin, 44rem);
     aspect-ratio: 3 / 5;
     margin: 15vh auto 3rem;
 }
 
 .life-index.is-enhanced .life-tree-shell {
     position: absolute;
-    top: 52%;
+    top: calc(50% + var(--life-header-height) / 2 + 8vh);
     left: 50%;
     margin: 0;
     transform: translate(-50%, -50%) translateX(var(--life-tree-x)) scale(var(--life-tree-scale));
