@@ -41,4 +41,4 @@ axe-playwright-python>=0.1.8
 
 # Image Optimization Plugin
 # Required for build-time image optimization (WebP conversion, responsive sizes)
-Pillow>=12.2.0
+Pillow>=12.3.0
