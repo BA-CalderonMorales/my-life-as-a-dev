@@ -8,7 +8,7 @@
 
 [data-life-index] .life-tree {
     display: block;
-    width: min(100%, 47.5rem);
+    width: min(100%, 62rem);
     height: auto;
     aspect-ratio: 3 / 5;
     margin-inline: auto;
@@ -145,31 +145,6 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
     cursor: pointer;
 }
 
-/* Facet nodes read as quiet "eyes" in the canopy, copper when active. */
-[data-life-index] [data-tree-node] {
-    cursor: pointer;
-    fill: var(--life-paper);
-    stroke: currentColor;
-    stroke-width: 1.75;
-    transform-box: fill-box;
-    transform-origin: center;
-    transition:
-        fill 80ms ease,
-        stroke 80ms ease,
-        transform 80ms ease;
-}
-
-[data-life-index] [data-tree-node].is-preview {
-    stroke: var(--life-copper);
-    transform: scale(1.25);
-}
-
-[data-life-index] [data-tree-node].is-active {
-    fill: var(--life-copper);
-    stroke: var(--life-copper);
-    transform: scale(1.45);
-}
-
 /* The copper "fruit" keeps its restrained accent. */
 [data-life-index] .life-tree__pixels rect {
     fill: var(--life-copper);
@@ -182,10 +157,16 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
  * window so the primary scaffold leads, secondary laterals branch next, and
  * fine feeders finish the system. pathLength="1" normalizes the dash math in
  * markup.
+ *
+ * Roots also breathe with a subtle organic sway tied to the crown breeze,
+ * and respond to scroll direction with a gentle pulse.
  */
 [data-life-index] .life-tree__roots {
     pointer-events: none;
     opacity: 0.9;
+    transform-box: view-box;
+    transform-origin: 360px 700px;
+    will-change: transform, opacity;
 }
 
 [data-life-index] .life-tree__roots path {
@@ -197,6 +178,55 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
     stroke-dashoffset: calc(
         (1 - clamp(0, (var(--life-roots, 1) - var(--root-delay, 0)) / var(--root-span, 1), 1)) * 1px
     );
+    /* Each root tier gets its own subtle sway phase */
+    animation:
+        life-root-breathe
+        var(--root-breathe-duration, 14s)
+        cubic-bezier(0.4, 0, 0.3, 1)
+        var(--root-breathe-delay, 0s)
+        infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+    will-change: transform, stroke-dashoffset;
+}
+
+[data-life-index] .life-tree.is-wind-on .life-tree__roots {
+    animation:
+        life-root-sway
+        var(--wind-duration, 9s)
+        cubic-bezier(0.42, 0, 0.28, 1)
+        var(--wind-delay, 0s)
+        infinite;
+}
+
+[data-life-index] .life-tree.is-wind-paused .life-tree__roots {
+    animation-play-state: paused;
+}
+
+/* Scroll-direction pulse: roots gently swell when scrolling down */
+[data-life-index] .life-tree__roots.scroll-down {
+    animation-name: life-root-breathe, life-root-pulse;
+    animation-duration: var(--root-breathe-duration, 14s), 1.2s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1), cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation-iteration-count: infinite, 1;
+}
+
+@keyframes life-root-breathe {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.008) rotate(0.12deg); }
+}
+
+@keyframes life-root-sway {
+    0%, 100% { transform: rotate(0deg); }
+    24% { transform: rotate(var(--wind-positive, 0.35deg)); }
+    58% { transform: rotate(var(--wind-negative, -0.22deg)); }
+    79% { transform: rotate(var(--wind-settle, 0.09deg)); }
+}
+
+@keyframes life-root-pulse {
+    0% { transform: scale(1); opacity: 0.9; }
+    35% { transform: scale(1.015); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.9; }
 }
 
 @keyframes life-tree-sway {
@@ -224,12 +254,17 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
         transform: none !important;
     }
 
+    [data-life-index] .life-tree__roots,
+    [data-life-index] .life-tree__roots path {
+        animation: none !important;
+        transform: none !important;
+    }
+
     [data-life-index] .life-tree__pixels rect {
         animation: none !important;
     }
 
-    [data-life-index] .life-tree__branch-hit,
-    [data-life-index] [data-tree-node] {
+    [data-life-index] .life-tree__branch-hit {
         transition: none;
     }
 }
