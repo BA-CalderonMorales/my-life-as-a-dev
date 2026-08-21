@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Marine veteran turned engineer building readable systems, open-source agent tools, and documentation that makes the next step obvious.">
+        <meta name="description" content="Engineer and Marine veteran in Omaha. I build readable systems, open-source tools, and documentation people can follow.">
       
       
         <meta name="author" content="Brandon A. Calderon Morales">
@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="./assets/images/favicon/favicon.ico">
-      <meta name="generator" content="zensical-0.0.55">
+      <meta name="generator" content="zensical-0.0.56">
     
     
       
@@ -255,6 +255,23 @@
 
     
     
+<!-- Hand-drawn FX: roughen filter with stepped-seed "line boil" (played on 2s).
+     The still variant serves prefers-reduced-motion via CSS selection. -->
+<svg class="mlad-fx-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="mlad-pencil" x="-4%" y="-4%" width="108%" height="108%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.019 0.027" numOctaves="2" seed="7" result="grain">
+        <animate attributeName="seed" values="7;3;11;5;9;2;7" dur="0.84s" calcMode="discrete" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="mlad-pencil-still" x="-4%" y="-4%" width="108%" height="108%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.019 0.027" numOctaves="2" seed="7" result="grain"/>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
 <!-- CRITICAL: Patch console and MutationObserver BEFORE MkDocs Material scripts load -->
 <script>
   // Mark JS as available before first paint so scroll-revealed content stays
@@ -346,8 +363,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kalam:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Kalam";--md-code-font:"JetBrains Mono"}</style>
       
     
     
@@ -388,6 +405,8 @@
       <link rel="stylesheet" href="./assets/css/projects.css">
     
       <link rel="stylesheet" href="./assets/css/tokens.css">
+    
+      <link rel="stylesheet" href="./assets/css/hand-drawn.css">
     
     <script>
     // CRITICAL: Patch MutationObserver IMMEDIATELY before any other code runs
@@ -444,11 +463,11 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Brandon A. Calderon Morales">
 <meta property="og:title" content="Brandon">
-<meta property="og:description" content="Marine veteran turned engineer building readable systems, open-source agent tools, and documentation that makes the next step obvious.">
+<meta property="og:description" content="Engineer and Marine veteran in Omaha. I build readable systems, open-source tools, and documentation people can follow.">
 <meta property="og:url" content="https://ba-calderonmorales.github.io/my-life-as-a-dev/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Brandon">
-<meta name="twitter:description" content="Marine veteran turned engineer building readable systems, open-source agent tools, and documentation that makes the next step obvious.">
+<meta name="twitter:description" content="Engineer and Marine veteran in Omaha. I build readable systems, open-source tools, and documentation people can follow.">
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -710,14 +729,14 @@
   <div class="life-stage">
     <div class="life-intro" data-life-intro>
       <div class="life-intro__identity">
-        <p class="life-kicker">Engineer <span>/</span> Toolmaker <span>/</span> Marine veteran</p>
         <h1>Hi, I'm Brandon.</h1>
       </div>
       <p class="life-intro__field">Omaha, Nebraska<br>English + Spanish</p>
       <div class="life-intro__thesis">
-        <p>I make complicated engineering work easier to run.</p>
-        <span>Build systems that stay readable.</span>
+        <p>I make complicated systems easier to run.</p>
+        <span>Readable systems, written down.</span>
       </div>
+      <p class="life-kicker">Engineer <span>/</span> Toolmaker <span>/</span> Marine veteran</p>
       <p class="life-intro__prompt"><span aria-hidden="true"></span> Choose a branch or scroll to open the index</p>
     </div>
 
@@ -1086,7 +1105,7 @@
           <p>01 <span>/</span> Work</p>
           <span>Enterprise systems <i>/</i> 2024–now</span>
         </header>
-        <h2>Make difficult work operable.</h2>
+        <h2>I make hard systems usable.</h2>
         <p class="life-dossier__lede">At Fiserv, I help turn AI-assisted delivery and application-security work across more than twenty engineering teams into one dependable operating model.</p>
         <dl class="life-evidence" aria-label="Selected delivery outcome">
           <div><dt>20+</dt><dd>engineering teams</dd></div>
@@ -1176,7 +1195,7 @@
 <section class="life-coda" aria-labelledby="life-coda-title">
   <p class="life-coda__label">The throughline</p>
   <div class="life-coda__body">
-    <h2 id="life-coda-title">Make the next step obvious.<br>Make the handoff dependable.</h2>
+    <h2 id="life-coda-title">Clear next steps.<br>Dependable handoffs.</h2>
     <p>That is the standard, whether the work is a remediation program, a command-line tool, a page of documentation, or the shape of this site.</p>
   </div>
   <nav class="life-coda__links" aria-label="Selected destinations">
@@ -1200,7 +1219,7 @@
   </div>
   <div class="life-contact__body">
     <p class="life-contact__label">One more branch</p>
-    <h2 id="life-contact-title">There is always room for something good to grow.</h2>
+    <h2 id="life-contact-title">Say hello.</h2>
     <p>If something here connects with work you are tending, leave a note. I read every one.</p>
   </div>
   <div class="life-contact__actions">

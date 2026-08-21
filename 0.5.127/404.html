@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="/my-life-as-a-dev/assets/images/favicon/favicon.ico">
-      <meta name="generator" content="zensical-0.0.52">
+      <meta name="generator" content="zensical-0.0.56">
     
     
       
@@ -30,7 +30,7 @@
       
         
       
-      <link rel="stylesheet" href="/my-life-as-a-dev/assets/stylesheets/modern/main.8b3b5a67.min.css">
+      <link rel="stylesheet" href="/my-life-as-a-dev/assets/stylesheets/modern/main.20815dad.min.css">
       
         
           
@@ -253,6 +253,23 @@
 
     
     
+<!-- Hand-drawn FX: roughen filter with stepped-seed "line boil" (played on 2s).
+     The still variant serves prefers-reduced-motion via CSS selection. -->
+<svg class="mlad-fx-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="mlad-pencil" x="-4%" y="-4%" width="108%" height="108%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.019 0.027" numOctaves="2" seed="7" result="grain">
+        <animate attributeName="seed" values="7;3;11;5;9;2;7" dur="0.84s" calcMode="discrete" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="mlad-pencil-still" x="-4%" y="-4%" width="108%" height="108%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.019 0.027" numOctaves="2" seed="7" result="grain"/>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
 <!-- CRITICAL: Patch console and MutationObserver BEFORE MkDocs Material scripts load -->
 <script>
   // Mark JS as available before first paint so scroll-revealed content stays
@@ -344,8 +361,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kalam:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Kalam";--md-code-font:"JetBrains Mono"}</style>
       
     
     
@@ -386,6 +403,8 @@
       <link rel="stylesheet" href="/my-life-as-a-dev/assets/css/projects.css">
     
       <link rel="stylesheet" href="/my-life-as-a-dev/assets/css/tokens.css">
+    
+      <link rel="stylesheet" href="/my-life-as-a-dev/assets/css/hand-drawn.css">
     
     <script>
     // CRITICAL: Patch MutationObserver IMMEDIATELY before any other code runs
@@ -746,7 +765,7 @@
     
     
 
-      <script src="/my-life-as-a-dev/assets/javascripts/bundle.ed145cee.min.js"></script>
+      <script src="/my-life-as-a-dev/assets/javascripts/bundle.e886cdf1.min.js"></script>
       
         <script src="/my-life-as-a-dev/assets/js/living-index.js"></script>
       

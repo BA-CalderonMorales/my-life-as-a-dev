@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon/favicon.ico">
-      <meta name="generator" content="zensical-0.0.52">
+      <meta name="generator" content="zensical-0.0.56">
     
     
       
@@ -32,7 +32,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.8b3b5a67.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.20815dad.min.css">
       
         
           
@@ -255,6 +255,23 @@
 
     
     
+<!-- Hand-drawn FX: roughen filter with stepped-seed "line boil" (played on 2s).
+     The still variant serves prefers-reduced-motion via CSS selection. -->
+<svg class="mlad-fx-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="mlad-pencil" x="-4%" y="-4%" width="108%" height="108%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.019 0.027" numOctaves="2" seed="7" result="grain">
+        <animate attributeName="seed" values="7;3;11;5;9;2;7" dur="0.84s" calcMode="discrete" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="mlad-pencil-still" x="-4%" y="-4%" width="108%" height="108%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.019 0.027" numOctaves="2" seed="7" result="grain"/>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
 <!-- CRITICAL: Patch console and MutationObserver BEFORE MkDocs Material scripts load -->
 <script>
   // Mark JS as available before first paint so scroll-revealed content stays
@@ -346,8 +363,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kalam:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Kalam";--md-code-font:"JetBrains Mono"}</style>
       
     
     
@@ -388,6 +405,8 @@
       <link rel="stylesheet" href="../assets/css/projects.css">
     
       <link rel="stylesheet" href="../assets/css/tokens.css">
+    
+      <link rel="stylesheet" href="../assets/css/hand-drawn.css">
     
     <script>
     // CRITICAL: Patch MutationObserver IMMEDIATELY before any other code runs
@@ -714,7 +733,7 @@
 <div class="mlad-404__content">
 <h1 class="mlad-404__title" id="this-page-doesnt-exist"><span class="mlad-404__typewriter">This page doesn't exist</span><span class="mlad-404__cursor" aria-hidden="true"></span><a class="headerlink" href="#this-page-doesnt-exist" title="Permanent link">&para;</a></h1>
 <p class="mlad-404__body">The link you followed may be broken, or the page may have been moved. Let's get you back on track.</p>
-<p><a class="md-button md-button--primary" href="../">Return Home</a>
+<p><a class="md-button md-button--primary" href="../index.html">Return Home</a>
 <a class="md-button" href="mailto:b.dev.c.m@gmail.com">Email Me</a></p>
 </div>
 <div aria-hidden="true" class="mlad-404__vine">
@@ -948,7 +967,7 @@
     
     
 
-      <script src="../assets/javascripts/bundle.ed145cee.min.js"></script>
+      <script src="../assets/javascripts/bundle.e886cdf1.min.js"></script>
       
         <script src="../assets/js/living-index.js"></script>
       

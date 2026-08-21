@@ -157,7 +157,6 @@ body.landing-page[data-md-color-scheme="slate"] {
 }
 
 .landing-page .md-header__source,
-.landing-page .md-source,
 .landing-page .md-search {
     display: none;
 }
@@ -433,7 +432,7 @@ html.js .life-index:not(.is-enhanced) .life-branches {
 .life-tree-shell {
     position: relative;
     z-index: 8;
-    width: min(58vmin, 40rem);
+    width: min(62vmin, 44rem);
     aspect-ratio: 3 / 5;
     margin: 15vh auto 3rem;
 }

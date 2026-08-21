@@ -131,6 +131,152 @@
         }
 
         /*
+         * The freed root field: a full-bleed underlay pinned to the bottom of
+         * the viewport. Where the tree's own roots stay planted in the stage,
+         * these escape it - drawn curves that fan across the whole width and
+         * reach further as the reader scrolls. Authored by hand, not grown by
+         * formula: every path here is a deliberate stroke, thick primaries
+         * first, fine feeders last, each with its own reveal window.
+         */
+        var FIELD_VIEWBOX = "0 0 1440 420";
+                var FIELD_PATHS = [
+            // ── Primary scaffold: heavy strokes straight from the trunk base ──
+            { tier: "primary", delay: 0.00, span: 0.42, width: 6.2,
+              d: "M 452 402 C 400 398 330 404 268 388 C 196 370 120 372 60 342 C 20 322 -60 296 -170 264" },
+            { tier: "primary", delay: 0.03, span: 0.44, width: 5.6,
+              d: "M 462 406 C 420 420 356 416 300 424 C 220 434 140 418 84 380 C 40 356 -40 330 -140 300" },
+            { tier: "primary", delay: 0.06, span: 0.46, width: 6.6,
+              d: "M 474 404 C 480 414 492 418 508 420 L 560 419 C 664 416 780 424 892 408 C 1010 390 1120 386 1224 356 C 1320 330 1480 304 1630 270" },
+            { tier: "primary", delay: 0.09, span: 0.44, width: 5.2,
+              d: "M 468 408 C 500 416 560 430 640 428 C 760 426 900 438 1040 428 C 1180 418 1440 402 1610 358" },
+            { tier: "primary", delay: 0.05, span: 0.40, width: 5.8,
+              d: "M 466 405 C 460 412 452 415 446 418 C 430 424 414 428 402 436 C 386 446 372 452 360 462" },
+            { tier: "primary", delay: 0.08, span: 0.42, width: 5.4,
+              d: "M 478 406 C 512 418 540 432 570 444 C 610 460 650 468 700 476" },
+            { tier: "primary", delay: 0.07, span: 0.41, width: 5.0,
+              d: "M 458 404 C 436 416 410 424 386 436 C 350 452 320 462 290 474" },
+
+            // ── Laterals: each forks from a point on its parent primary ──
+            { tier: "secondary", delay: 0.14, span: 0.30, width: 3.1,
+              d: "M 330 403 C 296 396 264 398 232 388 C 200 378 176 380 152 370" },
+            { tier: "secondary", delay: 0.18, span: 0.28, width: 2.7,
+              d: "M 196 371 C 168 362 144 364 118 354 C 96 346 78 348 62 340" },
+            { tier: "secondary", delay: 0.22, span: 0.30, width: 2.9,
+              d: "M 300 424 C 272 430 246 428 218 434 C 190 440 166 436 142 442" },
+            { tier: "secondary", delay: 0.20, span: 0.28, width: 2.6,
+              d: "M 140 419 C 116 412 94 416 72 408 C 52 402 36 404 22 398" },
+            { tier: "secondary", delay: 0.16, span: 0.30, width: 3.0,
+              d: "M 664 416 C 700 410 730 414 764 406 C 800 398 828 400 856 392" },
+            { tier: "secondary", delay: 0.24, span: 0.30, width: 2.8,
+              d: "M 892 408 C 924 414 954 412 986 418 C 1020 424 1050 420 1080 426" },
+            { tier: "secondary", delay: 0.20, span: 0.28, width: 2.7,
+              d: "M 1120 386 C 1150 378 1178 380 1206 372 C 1236 364 1260 366 1282 358" },
+            { tier: "secondary", delay: 0.26, span: 0.28, width: 2.8,
+              d: "M 760 426 C 792 432 820 430 852 436 C 886 442 916 440 946 446" },
+            { tier: "secondary", delay: 0.28, span: 0.26, width: 2.5,
+              d: "M 1040 428 C 1072 424 1100 428 1130 422 C 1162 416 1188 418 1212 412" },
+            { tier: "secondary", delay: 0.24, span: 0.26, width: 2.6,
+              d: "M 446 418 C 452 428 450 438 456 448 C 462 458 460 466 466 474" },
+            { tier: "secondary", delay: 0.28, span: 0.24, width: 2.4,
+              d: "M 386 436 C 366 444 348 442 330 450" },
+            { tier: "secondary", delay: 0.30, span: 0.24, width: 2.4,
+              d: "M 570 444 C 592 452 616 454 638 462" },
+
+            // ── Fine feeders: hair strokes finishing the system ──
+            { tier: "fine", delay: 0.38, span: 0.20, width: 1.5,
+              d: "M 232 388 C 214 384 198 386 182 380" },
+            { tier: "fine", delay: 0.42, span: 0.18, width: 1.2,
+              d: "M 152 370 C 138 366 126 368 114 362" },
+            { tier: "fine", delay: 0.40, span: 0.20, width: 1.4,
+              d: "M 124 371 C 106 366 92 368 76 362" },
+            { tier: "fine", delay: 0.44, span: 0.18, width: 1.2,
+              d: "M 118 354 C 104 350 92 352 80 346" },
+            { tier: "fine", delay: 0.40, span: 0.20, width: 1.3,
+              d: "M 218 434 C 202 438 188 436 172 440" },
+            { tier: "fine", delay: 0.46, span: 0.18, width: 1.2,
+              d: "M 72 408 C 58 404 46 406 34 400" },
+            { tier: "fine", delay: 0.38, span: 0.20, width: 1.4,
+              d: "M 764 406 C 780 402 794 404 810 400" },
+            { tier: "fine", delay: 0.44, span: 0.18, width: 1.2,
+              d: "M 856 392 C 872 388 886 390 900 386" },
+            { tier: "fine", delay: 0.42, span: 0.20, width: 1.3,
+              d: "M 986 418 C 1002 422 1016 420 1032 424" },
+            { tier: "fine", delay: 0.46, span: 0.18, width: 1.2,
+              d: "M 1206 372 C 1222 368 1236 370 1252 366" },
+            { tier: "fine", delay: 0.50, span: 0.16, width: 1.1,
+              d: "M 1282 358 C 1298 354 1312 356 1328 352" },
+            { tier: "fine", delay: 0.44, span: 0.18, width: 1.2,
+              d: "M 1130 422 C 1146 418 1160 420 1176 416" },
+            { tier: "fine", delay: 0.36, span: 0.20, width: 1.3,
+              d: "M 560 419 C 574 424 588 422 602 426" },
+            { tier: "fine", delay: 0.40, span: 0.18, width: 1.2,
+              d: "M 222 433 C 206 437 192 435 178 439" },
+            { tier: "fine", delay: 0.46, span: 0.16, width: 1.2,
+              d: "M 610 460 C 624 464 638 462 652 466" },
+            { tier: "fine", delay: 0.48, span: 0.16, width: 1.1,
+              d: "M 320 462 C 306 466 294 464 280 468" },
+            { tier: "fine", delay: 0.34, span: 0.20, width: 1.3,
+              d: "M 500 421 C 512 424 524 422 536 425" },
+            { tier: "fine", delay: 0.36, span: 0.18, width: 1.2,
+              d: "M 440 419 C 428 423 418 421 406 424" }
+        ];
+
+        function buildRootsField() {
+            if (root.querySelector(".life-roots-field")) return;
+            var svgNS = "http://www.w3.org/2000/svg";
+            var svg = document.createElementNS(svgNS, "svg");
+            svg.setAttribute("class", "life-roots-field");
+            svg.setAttribute("viewBox", FIELD_VIEWBOX);
+            svg.setAttribute("preserveAspectRatio", "none");
+            svg.setAttribute("aria-hidden", "true");
+            svg.setAttribute("focusable", "false");
+            var inner = document.createElementNS(svgNS, "g");
+            inner.setAttribute("class", "life-roots-field__inner");
+            var WASH_OPACITY = { primary: 0.26, secondary: 0.18, fine: 0.12 };
+            FIELD_PATHS.forEach(function (spec) {
+                var wash = document.createElementNS(svgNS, "path");
+                wash.setAttribute("d", spec.d);
+                wash.setAttribute("pathLength", "1");
+                wash.setAttribute("class", "life-roots-field__root life-roots-field__root--wash");
+                wash.style.setProperty("--field-delay", spec.delay.toFixed(2));
+                wash.style.setProperty("--field-span", spec.span.toFixed(2));
+                wash.style.strokeWidth = (spec.width * 2.8).toFixed(1);
+                wash.style.strokeOpacity = WASH_OPACITY[spec.tier];
+                inner.appendChild(wash);
+
+                var path = document.createElementNS(svgNS, "path");
+                path.setAttribute("d", spec.d);
+                path.setAttribute("pathLength", "1");
+                path.setAttribute("class", "life-roots-field__root life-roots-field__root--" + spec.tier);
+                path.style.setProperty("--field-delay", spec.delay.toFixed(2));
+                path.style.setProperty("--field-span", spec.span.toFixed(2));
+                path.style.strokeWidth = spec.width;
+                inner.appendChild(path);
+            });
+            svg.appendChild(inner);
+            root.appendChild(svg);
+        }
+
+        /*
+         * The field is drawn around an origin cluster at x=460 in a 1440
+         * grid; the tree, though, slides left as the story opens. Measure
+         * the trunk base on screen and slide the field to match, so every
+         * root visibly grows out of the trunk instead of floating nearby.
+         */
+        function alignRootsField() {
+            var field = root.querySelector(".life-roots-field");
+            var treeSvg = root.querySelector(".life-tree");
+            if (!field || !treeSvg) return;
+            var box = treeSvg.getBoundingClientRect();
+            if (!box.width) return;
+            var trunkX = box.left + box.width * 0.5;
+            var shift = trunkX - window.innerWidth * (460 / 1440);
+            field.style.transform = "translateX(" + shift.toFixed(1) + "px)";
+        }
+
+        buildRootsField();
+
+        /*
          * Roots stay enclosed to the tree's own box: 0 while the tree shell
          * sits below the viewport, 1 once its box has fully passed the top.
          * The root system never sprawls across the rest of the page.
@@ -298,19 +444,28 @@
                 clamp((progress - 0.30) / 0.28, 0, 1)
             );
 
+            // The freed field keeps reaching through nearly the whole journey:
+            // it starts as soon as the story opens and finishes near the coda,
+            // so the ground feels alive under the entire read.
+            var fieldRoots = easeInOutCubic(
+                clamp((progress - 0.04) / 0.72, 0, 1)
+            );
+
             var treeEased = easeInOutCubic(clamp((progress - 0.1) / 0.28, 0, 1));
 
             root.style.setProperty("--life-tree-x", (-22 * treeEased).toFixed(3) + "vw");
-            root.style.setProperty("--life-tree-scale", (1.15 - (0.4 * treeEased)).toFixed(3));
+            root.style.setProperty("--life-tree-scale", (1.07 - (0.38 * treeEased)).toFixed(3));
             root.style.setProperty("--life-intro-opacity", introOpacity.toFixed(3));
             root.style.setProperty("--life-panel-opacity", panelOpacity.toFixed(3));
             root.style.setProperty("--life-panel-y", ((1 - panelOpacity) * 1.5).toFixed(3) + "rem");
             root.style.setProperty("--life-tree-detail", detail.toFixed(3));
             root.style.setProperty("--life-pixel-opacity", pixelOpacity.toFixed(3));
             root.style.setProperty("--life-roots", roots.toFixed(3));
+            root.style.setProperty("--life-field-roots", fieldRoots.toFixed(3));
             root.style.setProperty("--life-meter", (progress * 100).toFixed(1) + "%");
             root.classList.toggle("is-indexed", progress > 0.08);
             root.classList.toggle("is-open", progress > PANEL_START);
+            alignRootsField();
 
             if (desktopLayout.matches && !reducedMotion.matches) {
                 var nextFacet = facetFromProgress(progress);
@@ -361,6 +516,11 @@
                     "--life-roots",
                     (Number.isFinite(mobileRoots) ? mobileRoots : 0).toFixed(3)
                 );
+                root.style.setProperty(
+                    "--life-field-roots",
+                    (Number.isFinite(mobileRoots) ? mobileRoots : 0).toFixed(3)
+                );
+                alignRootsField();
                 return;
             }
 

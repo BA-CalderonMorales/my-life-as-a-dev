@@ -1,6 +1,23 @@
 {% extends "base.html" %}
 
 {% block libs %}
+<!-- Hand-drawn FX: roughen filter with stepped-seed "line boil" (played on 2s).
+     The still variant serves prefers-reduced-motion via CSS selection. -->
+<svg class="mlad-fx-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="mlad-pencil" x="-4%" y="-4%" width="108%" height="108%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.019 0.027" numOctaves="2" seed="7" result="grain">
+        <animate attributeName="seed" values="7;3;11;5;9;2;7" dur="0.84s" calcMode="discrete" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="mlad-pencil-still" x="-4%" y="-4%" width="108%" height="108%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.019 0.027" numOctaves="2" seed="7" result="grain"/>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
 <!-- CRITICAL: Patch console and MutationObserver BEFORE MkDocs Material scripts load -->
 <script>
   // Mark JS as available before first paint so scroll-revealed content stays
