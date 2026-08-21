@@ -1,0 +1,914 @@
+/* =====================================================
+   Hand-drawn — Ink on Paper
+   -----------------------------------------------------
+   Final override layer. Flips the whole site to a
+   monochrome, hand-drawn aesthetic: pen-stroke borders,
+   offset ink shadows, wavy underlines, paper grain.
+   Light mode = ink on paper. Dark mode = chalk on slate.
+   Loaded last so these values win the cascade.
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400;600;700&display=swap');
+
+/* ───────────────────────────────────────────
+   Type stack
+   ─────────────────────────────────────────── */
+
+:root {
+    --font-display: "Architects Daughter", "Kalam", "Comic Sans MS", cursive;
+    --font-body: "Kalam", "Segoe Print", "Comic Sans MS", cursive;
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+    /* Hand-drawn geometry: three wobbly boxes so nothing looks stamped */
+    --sketch-radius-a: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    --sketch-radius-b: 15px 225px 15px 255px / 225px 15px 255px 15px;
+    --sketch-radius-c: 125px 10px 20px 185px / 25px 205px 205px 25px;
+    --sketch-radius-line: 12px 4px 10px 6px / 6px 10px 4px 12px;
+}
+
+/* ───────────────────────────────────────────
+   Palette — strict black and white
+   ─────────────────────────────────────────── */
+
+:root,
+[data-md-color-scheme="default"] {
+    /* Notebook paper stack: holes, margin line, ruled lines.
+       Defined per scheme - nested vars inside a :root-level composite
+       would bake with root values and break dark mode. */
+    --notebook-paper:
+        radial-gradient(
+            circle at 44px 50%,
+            transparent 0 7.5px,
+            rgba(22, 22, 22, 0.16) 7.5px 9px,
+            transparent 9px
+        ),
+        radial-gradient(circle at 44px 50%, #dedede 0 7px, transparent 7px),
+        linear-gradient(
+            90deg,
+            transparent 0 79px,
+            rgba(22, 22, 22, 0.30) 79px 80px,
+            transparent 80px 85px,
+            rgba(22, 22, 22, 0.30) 85px 86px,
+            transparent 86px 100%
+        ),
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0 33px,
+            rgba(22, 22, 22, 0.15) 33px 34px
+        );
+
+    --canvas: #fafafa;
+    --ink: #161616;
+    --stone: #e4e4e2;
+    --slate: #585858;
+    --accent: var(--ink);
+    --accent-hover: #000000;
+    --accent-contrast: #fafafa;
+    --focus-ring: var(--ink);
+
+    --sketch-shadow-sm: 2px 2px 0 0 var(--ink);
+    --sketch-shadow-md: 3px 3px 0 0 var(--ink);
+    --sketch-border: color-mix(in srgb, var(--ink) 82%, transparent);
+    --grain-opacity: 0.05;
+
+    /* College rule: ruled lines + double margin line */
+    --rule-line: rgba(22, 22, 22, 0.15);
+    --rule-margin: rgba(22, 22, 22, 0.30);
+    --rule-gap: 34px;
+    --rule-at: 84px;
+
+    /* Punched holes down the left edge */
+    --hole-x: 44px;
+    --hole-r: 7px;
+    --hole-gap: 312px;
+    --hole-fill: #dedede;
+    --hole-rim: rgba(22, 22, 22, 0.16);
+
+    --surface-raised: #ffffff;
+    --surface-muted: #f0f0ee;
+    --surface-floating: rgba(255, 255, 255, 0.94);
+
+    --creative-canvas-bg-1: #fafafa;
+    --creative-canvas-bg-2: #f1f1f0;
+    --creative-canvas-bg-3: #e7e7e5;
+    --creative-canvas-accent: #161616;
+    --creative-canvas-accent-soft: rgba(22, 22, 22, 0.10);
+    --creative-canvas-glow: rgba(22, 22, 22, 0.12);
+    --creative-canvas-particle: rgba(22, 22, 22, 0.40);
+    --creative-canvas-grain-opacity: 0.05;
+}
+
+[data-md-color-scheme="slate"] {
+    /* Notebook paper stack: chalk rules on the night sheet. */
+    --notebook-paper:
+        radial-gradient(
+            circle at 44px 50%,
+            transparent 0 7.5px,
+            rgba(237, 237, 237, 0.20) 7.5px 9px,
+            transparent 9px
+        ),
+        radial-gradient(circle at 44px 50%, #0a0a0a 0 7px, transparent 7px),
+        linear-gradient(
+            90deg,
+            transparent 0 79px,
+            rgba(237, 237, 237, 0.32) 79px 80px,
+            transparent 80px 85px,
+            rgba(237, 237, 237, 0.32) 85px 86px,
+            transparent 86px 100%
+        ),
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0 33px,
+            rgba(237, 237, 237, 0.17) 33px 34px
+        );
+
+    --canvas: #121212;
+    --ink: #ededed;
+    --stone: #2b2b2b;
+    --slate: #a6a6a6;
+    --accent: var(--ink);
+    --accent-hover: #ffffff;
+    --accent-contrast: #121212;
+    --focus-ring: var(--ink);
+
+    --sketch-shadow-sm: 2px 2px 0 0 rgba(237, 237, 237, 0.75);
+    --sketch-shadow-md: 3px 3px 0 0 rgba(237, 237, 237, 0.75);
+    --sketch-border: color-mix(in srgb, var(--ink) 72%, transparent);
+    --grain-opacity: 0.07;
+
+    /* Chalk-ruled night notebook */
+    --rule-line: rgba(237, 237, 237, 0.17);
+    --rule-margin: rgba(237, 237, 237, 0.32);
+    --rule-gap: 34px;
+    --rule-at: 84px;
+
+    /* Punched holes down the left edge */
+    --hole-x: 44px;
+    --hole-r: 7px;
+    --hole-gap: 312px;
+    --hole-fill: #0a0a0a;
+    --hole-rim: rgba(237, 237, 237, 0.20);
+
+    --surface-raised: #1a1a1a;
+    --surface-muted: #202020;
+    --surface-floating: rgba(20, 20, 20, 0.94);
+
+    --creative-canvas-bg-1: #121212;
+    --creative-canvas-bg-2: #191919;
+    --creative-canvas-bg-3: #222222;
+    --creative-canvas-accent: #ededed;
+    --creative-canvas-accent-soft: rgba(237, 237, 237, 0.12);
+    --creative-canvas-glow: rgba(237, 237, 237, 0.14);
+    --creative-canvas-particle: rgba(237, 237, 237, 0.38);
+    --creative-canvas-grain-opacity: 0.07;
+}
+
+/* Material bridge values that were hardcoded warm */
+[data-md-color-scheme="default"] {
+    --md-code-bg-color: #f0f0ee;
+    --md-code-fg-color: #161616;
+    --md-default-fg-color--lightest: rgba(22, 22, 22, 0.10);
+}
+
+[data-md-color-scheme="slate"] {
+    --md-code-bg-color: #1a1a1a;
+    --md-code-fg-color: #ededed;
+    --md-default-fg-color--lightest: rgba(237, 237, 237, 0.12);
+}
+
+/* Landing field plate: monochrome herbarium */
+body.landing-page {
+    --life-paper: #fafafa;
+    --life-paper-deep: #efefed;
+    --life-paper-bright: #ffffff;
+    --life-ink: #161616;
+    --life-muted: #585858;
+    --life-faint: #8c8c8c;
+    --life-moss: #3d3d3d;
+    --life-moss-deep: #1f1f1f;
+    --life-copper: #161616;
+    --life-copper-text: #161616;
+    --life-line: rgba(22, 22, 22, 0.18);
+    --life-line-strong: rgba(22, 22, 22, 0.40);
+    --life-panel: rgba(250, 250, 250, 0.96);
+    --life-label: rgba(250, 250, 250, 0.92);
+    --life-serif: "Caveat", "Shantell Sans", cursive;
+    --life-sans: "Shantell Sans", "Segoe Print", cursive;
+}
+
+body.landing-page[data-md-color-scheme="slate"] {
+    --life-paper: #121212;
+    --life-paper-deep: #1a1a1a;
+    --life-paper-bright: #212121;
+    --life-ink: #ededed;
+    --life-muted: #a6a6a6;
+    --life-faint: #787878;
+    --life-moss: #bdbdbd;
+    --life-moss-deep: #e0e0e0;
+    --life-copper: #ededed;
+    --life-copper-text: #ededed;
+    --life-line: rgba(237, 237, 237, 0.16);
+    --life-line-strong: rgba(237, 237, 237, 0.36);
+    --life-panel: rgba(18, 18, 18, 0.96);
+    --life-label: rgba(18, 18, 18, 0.92);
+}
+
+/* ───────────────────────────────────────────
+   Notebook paper — college rule, punched holes
+   Ruled lines every 34px, double margin line at
+   84px, a column of holes along the left edge.
+   One shared layer stack; every paper surface
+   points at it.
+   ─────────────────────────────────────────── */
+
+
+body {
+    background-color: var(--canvas);
+    background-image: var(--notebook-paper);
+    background-size: var(--notebook-paper-size);
+    background-repeat: repeat-y, repeat-y, no-repeat, repeat;
+}
+
+body.landing-page {
+    background-color: var(--canvas);
+    background-image: var(--notebook-paper);
+    background-size: var(--notebook-paper-size);
+    background-repeat: repeat-y, repeat-y, no-repeat, repeat;
+}
+
+/* ───────────────────────────────────────────
+   Paper grain — kills digital flatness
+   ─────────────────────────────────────────── */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+}
+
+/* ───────────────────────────────────────────
+   Typography — pen-print headings, pen body
+   The sweep covers every chrome surface so no
+   system font leaks through anywhere.
+   ─────────────────────────────────────────── */
+
+body,
+button,
+input,
+select,
+textarea,
+.md-typeset,
+.md-header,
+.md-header__title,
+.md-tabs,
+.md-nav,
+.md-nav__link,
+.md-nav__title,
+.md-sidebar,
+.md-footer,
+.md-footer__link,
+.md-search__input,
+.md-search-result__article,
+.md-banner,
+.md-tooltip__inner,
+.md-annotation,
+.md-content__button,
+.md-typeset .admonition-title,
+.md-typeset summary,
+.md-typeset .tabbed-labels label,
+.md-typeset .footnote,
+.md-status,
+.tx-hero,
+.life-index {
+    font-family: var(--font-body);
+}
+
+/* Code and keyboard stay monospace - legibility trumps gimmick. */
+.md-typeset pre code,
+.md-typeset code,
+.md-typeset kbd,
+.md-typeset .md-typeset__table code,
+.md-annotation code {
+    font-family: var(--font-mono);
+}
+
+.md-header__title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+.md-typeset h1,
+.landing-page .md-typeset h1,
+.landing-page .tx-hero__content h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.005em;
+}
+
+/* Root font-size is 20px in Zensical; sizes below account for that.
+   The landing page keeps its own tuned responsive scale untouched. */
+.md-typeset h1 {
+    font-size: 2.4rem;
+    line-height: 1.1;
+}
+
+.md-typeset h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0.005em;
+}
+
+.md-typeset h3 {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.md-typeset h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.md-typeset h5,
+.md-typeset h6 {
+    font-family: var(--font-body);
+    text-transform: none;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+@media screen and (max-width: 48rem) {
+    .md-typeset h1 {
+        font-size: 2.1rem;
+    }
+
+    .md-typeset h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* ───────────────────────────────────────────
+   Links — pen squiggle underlines
+   ─────────────────────────────────────────── */
+
+.md-typeset a:not(.md-button),
+.md-typeset a:not(.md-button):visited {
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: color-mix(in srgb, var(--ink) 52%, transparent);
+}
+
+.md-typeset a:not(.md-button):hover,
+.md-typeset a:not(.md-button):focus-visible {
+    text-decoration-color: var(--ink);
+    text-decoration-thickness: 1.5px;
+}
+
+.mlad-link-sweep {
+    text-decoration: none !important;
+}
+
+/* ───────────────────────────────────────────
+   Buttons — pressed-pen physics
+   ─────────────────────────────────────────── */
+
+.md-button {
+    border: 2px solid var(--ink);
+    border-radius: var(--sketch-radius-a);
+    font-family: var(--font-body);
+    font-weight: 400;
+    box-shadow: var(--sketch-shadow-md);
+    transition: transform 120ms ease, box-shadow 120ms ease,
+        background-color 120ms ease, color 120ms ease;
+}
+
+.md-typeset .md-button.md-button--primary,
+.md-content__inner .md-button.md-button--primary,
+.tx-hero__content .md-button.md-button--primary,
+.md-button.md-button--primary {
+    background: var(--ink) !important;
+    color: var(--canvas) !important;
+    border-color: var(--ink) !important;
+    box-shadow: var(--sketch-shadow-md);
+}
+
+.md-typeset .md-button:not(.md-button--primary),
+.md-button:not(.md-button--primary) {
+    background: var(--canvas) !important;
+    color: var(--ink) !important;
+    border-color: var(--ink) !important;
+    box-shadow: var(--sketch-shadow-md);
+}
+
+.md-button:hover,
+.md-button:focus-visible {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 var(--ink);
+}
+
+.md-button:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+/* Kill the digital ripple */
+.md-button::before {
+    display: none;
+}
+
+.project-link,
+.md-content__button {
+    border: 2px solid var(--sketch-border);
+    border-radius: var(--sketch-radius-b);
+    transition: transform 120ms ease, box-shadow 120ms ease,
+        border-color 120ms ease, color 120ms ease;
+}
+
+.project-link:hover,
+.project-link:focus-visible,
+.md-content__button:hover,
+.md-content__button:focus-visible {
+    transform: translate(1px, 1px);
+    box-shadow: var(--sketch-shadow-sm);
+    color: var(--ink);
+    border-color: var(--ink);
+}
+
+/* ───────────────────────────────────────────
+   Cards — sketched index cards
+   ─────────────────────────────────────────── */
+
+.grid.cards > li,
+.grid.cards > ul > li {
+    border: 2px solid var(--sketch-border);
+    border-radius: var(--sketch-radius-a);
+    box-shadow: var(--sketch-shadow-sm);
+    transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.grid.cards > li:hover,
+.grid.cards > ul > li:hover {
+    transform: translate(-1px, -2px) rotate(-0.35deg);
+    box-shadow: var(--sketch-shadow-md);
+}
+
+.grid.cards > li h3,
+.grid.cards > li h4,
+.grid.cards > ul > li h3,
+.grid.cards > ul > li h4 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+/* ───────────────────────────────────────────
+   Blockquotes — thick marker stroke
+   ─────────────────────────────────────────── */
+
+.md-typeset blockquote {
+    border-left: 5px solid var(--ink);
+    border-radius: 2px 10px 10px 2px;
+    background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+/* ───────────────────────────────────────────
+   Admonitions — sketched callout boxes
+   ─────────────────────────────────────────── */
+
+.md-typeset .admonition,
+.md-typeset details {
+    border: 2px solid var(--sketch-border);
+    border-radius: var(--sketch-radius-c);
+    box-shadow: var(--sketch-shadow-sm);
+    background: var(--canvas);
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    border-top-left-radius: var(--sketch-radius-c);
+}
+
+/* ───────────────────────────────────────────
+   Code — graph-paper margins
+   ─────────────────────────────────────────── */
+
+.md-typeset pre {
+    border: 2px solid var(--sketch-border);
+    border-radius: var(--sketch-radius-b);
+    box-shadow: var(--sketch-shadow-sm);
+}
+
+.md-typeset code:not(pre code) {
+    border: 1.5px solid var(--sketch-border);
+    border-radius: var(--sketch-radius-line);
+    background: var(--surface-muted);
+}
+
+.md-typeset pre > code {
+    background: transparent;
+}
+
+/* ───────────────────────────────────────────
+   Tables — ruled notebook grid
+   ─────────────────────────────────────────── */
+
+.md-typeset table {
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.md-typeset th {
+    border-bottom: 3px solid var(--ink);
+}
+
+.md-typeset td,
+.md-typeset th {
+    border-color: color-mix(in srgb, var(--ink) 26%, transparent);
+}
+
+.md-typeset__table {
+    border-radius: var(--sketch-radius-b);
+    box-shadow: 0 0 0 2px var(--sketch-border);
+    overflow: hidden;
+}
+
+/* ───────────────────────────────────────────
+   Rules and separators — drawn lines
+   ─────────────────────────────────────────── */
+
+.md-typeset hr {
+    border: 0;
+    height: 0.5em;
+    margin: 1.5em 0;
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: 24px 8px;
+    opacity: 0.65;
+}
+
+[data-md-color-scheme="default"] .md-typeset hr {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8' viewBox='0 0 24 8'%3E%3Cpath d='M0 4 Q 6 1 12 4 T 24 4' fill='none' stroke='%23161616' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+[data-md-color-scheme="slate"] .md-typeset hr {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8' viewBox='0 0 24 8'%3E%3Cpath d='M0 4 Q 6 1 12 4 T 24 4' fill='none' stroke='%23ededed' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* ───────────────────────────────────────────
+   Chrome — header, nav, footer, search
+   ─────────────────────────────────────────── */
+
+.md-header {
+    border-bottom: 2px solid var(--ink);
+    box-shadow: none;
+}
+
+.md-tabs {
+    border-bottom: none;
+}
+
+.md-sidebar .md-sidebar__scrollwrap {
+    border-right: 1px dashed color-mix(in srgb, var(--ink) 30%, transparent);
+}
+
+.md-sidebar--secondary .md-sidebar__scrollwrap {
+    border-right: 0;
+    border-left: 1px dashed color-mix(in srgb, var(--ink) 30%, transparent);
+}
+
+.md-nav__link--active {
+    background: linear-gradient(
+        to right,
+        color-mix(in srgb, var(--ink) 13%, transparent) 0%,
+        color-mix(in srgb, var(--ink) 13%, transparent) 94%,
+        transparent 100%
+    );
+    border-radius: 10px 4px 12px 6px;
+    font-weight: 700;
+}
+
+.md-footer {
+    border-top: 2px solid var(--ink);
+}
+
+.md-search__form {
+    border: 2px solid var(--sketch-border);
+    border-radius: var(--sketch-radius-a);
+    background: var(--canvas);
+}
+
+.md-search__input {
+    border-radius: inherit;
+}
+
+.md-search__output {
+    border-radius: var(--sketch-radius-b);
+    border: 2px solid var(--sketch-border);
+}
+
+.md-scroll-progress,
+.mlad-scroll-progress {
+    background: var(--ink) !important;
+}
+
+/* Content tabs: marker underline for the active label */
+.md-typeset .tabbed-labels > label {
+    font-weight: 600;
+}
+
+.md-typeset .tabbed-set > input:checked + label,
+.md-typeset .tabbed-labels > label.tabbed-label-active {
+    box-shadow: 0 3px 0 0 var(--ink);
+}
+
+.md-typeset .tabbed-set {
+    border-radius: var(--sketch-radius-b);
+}
+
+/* ───────────────────────────────────────────
+   Landing personality — human wobble
+   ─────────────────────────────────────────── */
+
+.life-kicker {
+    position: absolute;
+    right: clamp(1.25rem, 5vw, 5rem);
+    bottom: calc(clamp(2.5rem, 7vh, 5rem) + 2.4rem);
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: var(--life-muted);
+}
+
+.life-kicker span {
+    color: var(--life-faint);
+}
+
+@media screen and (max-width: 48rem) {
+
+    .life-kicker {
+        position: static;
+        text-align: right;
+        padding-right: clamp(1.25rem, 5vw, 5rem);
+        margin-top: 0.6rem;
+    }
+}
+
+.life-intro__thesis p {
+    font-family: var(--font-display);
+    font-weight: 400;
+}
+
+.life-intro__thesis span {
+    font-family: var(--font-body);
+    font-size: 1rem;
+}
+
+.life-intro__prompt {
+    font-style: italic;
+}
+
+/* ───────────────────────────────────────────
+   Pencil-drawn tree — line, not silhouette
+   Fills drop to paper-tone washes; edges carry
+   the stroke. Depth comes from tone, never from
+   photographic blur.
+   ─────────────────────────────────────────── */
+
+[data-life-index] .life-tree__wood-shape {
+    fill-opacity: 0.14;
+}
+
+[data-life-index] .life-tree__canopy-shape {
+    fill-opacity: 0.05;
+    stroke: currentColor;
+    stroke-width: 1.1;
+    stroke-opacity: 0.42;
+}
+
+[data-life-index] .life-tree__canopy-shape--under {
+    fill-opacity: 0.035;
+    stroke-opacity: 0.26;
+}
+
+[data-life-index] .life-tree__leaf {
+    fill-opacity: 0.85;
+    stroke: currentColor;
+    stroke-width: 0.9;
+    stroke-opacity: 0.75;
+}
+
+[data-life-index] .life-tree__leaf--shade {
+    fill-opacity: 0.45;
+}
+
+/* Branches and twigs: the trunk's recipe - wash fill, crisp pencil edge. */
+[data-life-index] .life-tree__limb,
+[data-life-index] .life-tree__twig {
+    fill-opacity: 0.16;
+    stroke: currentColor;
+    stroke-width: 1.1;
+    stroke-opacity: 0.8;
+    stroke-linejoin: round;
+}
+
+/* In-tree roots sit back like construction lines under the crown. */
+[data-life-index] .life-tree__roots {
+    opacity: 0.72;
+}
+
+/* Falling leaves: outlined petals, flat two-tone depth */
+[data-life-index] .life-leaf__blade,
+[data-life-index] .life-leaf__petal {
+    fill-opacity: 0.62;
+    stroke: currentColor;
+    stroke-width: 0.9;
+    stroke-opacity: 0.75;
+}
+
+[data-life-index] .life-leaves--far .life-leaf__blade,
+[data-life-index] .life-leaves--near .life-leaf__blade {
+    filter: none;
+}
+
+/* Contact sprout: same pencil treatment */
+.life-contact__leaf,
+.life-contact__new-leaf {
+    fill-opacity: 0.3;
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-opacity: 0.7;
+}
+
+/* Roughen every drawn element; the animated variant
+   boils at ~7fps like re-traced frames. */
+@media (prefers-reduced-motion: no-preference) {
+
+    .life-tree,
+    .life-contact__sprout svg,
+    .life-roots-field {
+        filter: url(#mlad-pencil);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .life-tree,
+    .life-contact__sprout svg,
+    .life-roots-field {
+        filter: url(#mlad-pencil-still);
+    }
+}
+
+/* ───────────────────────────────────────────
+   The freed root field — full-bleed underlay
+   Pinned to the bottom of the viewport, it spans
+   edge to edge and keeps reaching as you scroll.
+   ─────────────────────────────────────────── */
+
+.life-roots-field {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    width: 100%;
+    height: 50vh;
+    overflow: hidden;
+    color: var(--life-ink, var(--ink));
+    opacity: 0.85;
+    pointer-events: none;
+}
+
+.life-roots-field path {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1px;
+    stroke-dashoffset: calc(
+        (1 - clamp(0, (var(--life-field-roots, 0) - var(--field-delay, 0)) / var(--field-span, 1), 1)) * 1px
+    );
+}
+
+.life-roots-field__root--primary {
+    stroke-opacity: 0.72;
+}
+
+.life-roots-field__root--secondary {
+    stroke-opacity: 0.52;
+}
+
+.life-roots-field__root--fine {
+    stroke-opacity: 0.36;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+    .life-roots-field__inner {
+        transform-box: view-box;
+        transform-origin: 50% 100%;
+        animation: life-field-breathe 13s ease-in-out infinite;
+        will-change: transform;
+    }
+}
+
+@keyframes life-field-breathe {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.006);
+    }
+}
+
+/* Landing page surface: the ruled notebook shows through instead of
+   the painted paper sheet (which also carried green/copper tints). */
+.life-index {
+    background-color: var(--canvas);
+    background-image: var(--notebook-paper);
+    background-size: var(--notebook-paper-size);
+    background-repeat: repeat-y, repeat-y, no-repeat, repeat;
+}
+
+/* Landing header title: same pen as everything else (was mono caps). */
+.landing-page .md-header__title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: none;
+}
+
+/* Logo mark: strip the hardcoded greens/copper to ink. */
+.md-logo svg rect {
+    fill: var(--ink);
+    stroke: var(--ink);
+}
+
+.md-logo svg g {
+    stroke: var(--canvas);
+}
+
+.md-logo svg circle {
+    fill: var(--canvas);
+    stroke: var(--ink);
+    stroke-width: 2;
+}
+
+/* ───────────────────────────────────────────
+   Small honesties
+   ─────────────────────────────────────────── */
+
+::selection {
+    background: var(--ink);
+    color: var(--canvas);
+}
+
+::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--ink) 45%, transparent);
+    border-radius: 8px 3px 9px 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--ink);
+}
+
+.md-typeset .footnote-backref,
+.md-typeset .headerlink {
+    text-decoration: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .md-button,
+    .grid.cards > li,
+    .project-link,
+    .md-content__button {
+        transition: none;
+    }
+
+    .grid.cards > li:hover {
+        transform: none;
+    }
+}

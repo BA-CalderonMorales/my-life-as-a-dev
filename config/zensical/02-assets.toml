@@ -35,8 +35,11 @@ extra_css = [
     "assets/css/resume.css",
     "assets/css/projects.css",
 
-    # Clean neutral palette override + creative-canvas tokens (loaded last)
+    # Clean neutral palette override + creative-canvas tokens
     "assets/css/tokens.css",
+
+    # Hand-drawn ink-on-paper layer (loaded last; wins the cascade)
+    "assets/css/hand-drawn.css",
 ]
 
 extra_javascript = [

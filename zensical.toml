@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-08-09 20:09:05 UTC
+#   Generated: 2026-08-21 00:00:30 UTC
 #
 # ##############################################################################
 
@@ -42,6 +42,7 @@ extra_css = [
     "assets/css/resume.css",
     "assets/css/projects.css",
     "assets/css/tokens.css",
+    "assets/css/hand-drawn.css",
 ]
 extra_javascript = [
     "assets/js/living-index.js",
@@ -88,7 +89,7 @@ features = [
 ]
 
 [project.theme.font]
-text = "Inter"
+text = "Kalam"
 code = "JetBrains Mono"
 
 [project.theme.icon]

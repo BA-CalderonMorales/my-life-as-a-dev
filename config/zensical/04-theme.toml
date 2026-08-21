@@ -61,7 +61,7 @@ features = [
 # ==============================================================================
 
 [project.theme.font]
-text = "Inter"
+text = "Kalam"
 code = "JetBrains Mono"
 
 
