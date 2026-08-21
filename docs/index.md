@@ -1,6 +1,6 @@
 ---
 title: Brandon
-description: Marine veteran turned engineer building readable systems, open-source agent tools, and documentation that makes the next step obvious.
+description: Engineer and Marine veteran in Omaha. I build readable systems, open-source tools, and documentation people can follow.
 comments: false
 hide:
   - navigation
@@ -13,14 +13,14 @@ hide:
   <div class="life-stage">
     <div class="life-intro" data-life-intro>
       <div class="life-intro__identity">
-        <p class="life-kicker">Engineer <span>/</span> Toolmaker <span>/</span> Marine veteran</p>
         <h1>Hi, I'm Brandon.</h1>
       </div>
       <p class="life-intro__field">Omaha, Nebraska<br>English + Spanish</p>
       <div class="life-intro__thesis">
-        <p>I make complicated engineering work easier to run.</p>
-        <span>Build systems that stay readable.</span>
+        <p>I make complicated systems easier to run.</p>
+        <span>Readable systems, written down.</span>
       </div>
+      <p class="life-kicker">Engineer <span>/</span> Toolmaker <span>/</span> Marine veteran</p>
       <p class="life-intro__prompt"><span aria-hidden="true"></span> Choose a branch or scroll to open the index</p>
     </div>
 
@@ -389,7 +389,7 @@ hide:
           <p>01 <span>/</span> Work</p>
           <span>Enterprise systems <i>/</i> 2024–now</span>
         </header>
-        <h2>Make difficult work operable.</h2>
+        <h2>I make hard systems usable.</h2>
         <p class="life-dossier__lede">At Fiserv, I help turn AI-assisted delivery and application-security work across more than twenty engineering teams into one dependable operating model.</p>
         <dl class="life-evidence" aria-label="Selected delivery outcome">
           <div><dt>20+</dt><dd>engineering teams</dd></div>
@@ -479,7 +479,7 @@ hide:
 <section class="life-coda" aria-labelledby="life-coda-title">
   <p class="life-coda__label">The throughline</p>
   <div class="life-coda__body">
-    <h2 id="life-coda-title">Make the next step obvious.<br>Make the handoff dependable.</h2>
+    <h2 id="life-coda-title">Clear next steps.<br>Dependable handoffs.</h2>
     <p>That is the standard, whether the work is a remediation program, a command-line tool, a page of documentation, or the shape of this site.</p>
   </div>
   <nav class="life-coda__links" aria-label="Selected destinations">
@@ -503,7 +503,7 @@ hide:
   </div>
   <div class="life-contact__body">
     <p class="life-contact__label">One more branch</p>
-    <h2 id="life-contact-title">There is always room for something good to grow.</h2>
+    <h2 id="life-contact-title">Say hello.</h2>
     <p>If something here connects with work you are tending, leave a note. I read every one.</p>
   </div>
   <div class="life-contact__actions">

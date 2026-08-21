@@ -279,7 +279,7 @@ class TestResponsiveLayout:
                 return {
                     fontSize: Number.parseFloat(getComputedStyle(heading).fontSize),
                     heroWordLines: wordLines(".life-intro h1", "Brandon."),
-                    contactWordLines: wordLines(".life-contact h2", "something"),
+                    contactWordLines: wordLines(".life-contact h2", "hello"),
                 };
             }"""
         )
