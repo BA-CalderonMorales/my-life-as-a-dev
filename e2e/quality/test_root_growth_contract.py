@@ -51,7 +51,23 @@ def _scroll_to_progress(page, fraction):
         fraction,
     )
     page.evaluate(f"window.scrollTo(0, {y})")
-    page.wait_for_timeout(1800)
+
+
+def _wait_until_drawn(page, selector, timeout_ms=6000):
+    """Poll until every reveal stroke of the selector finishes drawing.
+
+    The tier springs settle on an underdamped cascade, and their wall
+    clock depends on paint load - a fixed sleep races them. Poll instead
+    and fail fast once the system has actually converged.
+    """
+    deadline = timeout_ms
+    while deadline > 0:
+        paths = _offsets(page, selector)
+        if paths and all(p["offset"] <= DRAWN_EPSILON for p in paths):
+            return paths
+        page.wait_for_timeout(150)
+        deadline -= 150
+    return _offsets(page, selector)
 
 
 def test_rest_hides_every_root(browser, base_url):
@@ -79,7 +95,7 @@ def test_grown_draws_every_root(browser, base_url):
         _scroll_to_progress(page, 0.55)
 
         for selector in REVEAL_SELECTORS:
-            paths = _offsets(page, selector)
+            paths = _wait_until_drawn(page, selector)
             assert paths, f"{viewport}: {selector} missing"
             undrawn = [p for p in paths if p["offset"] > DRAWN_EPSILON]
             assert not undrawn, (
@@ -95,6 +111,9 @@ def test_growth_is_tier_ordered(browser, base_url):
     page = context.new_page()
     page.goto(f"{base_url}/index.html", wait_until="networkidle")
     _scroll_to_progress(page, 0.20)
+    # Mid-growth snapshot: long enough for primaries to emerge, short
+    # enough that the cascade has not finished.
+    page.wait_for_timeout(1200)
 
     # The reveal lives on the mask strokes; tiers are explicit classes.
     primary = _offsets(page, ".life-tree__root--primary")
