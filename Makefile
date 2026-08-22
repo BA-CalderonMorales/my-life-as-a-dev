@@ -1,4 +1,4 @@
-.PHONY: help setup serve build cli config check-config optimize-images test browser-install e2e viewport-check screenshots accessibility-check gn-analyze gn-status gn-clean
+.PHONY: help setup serve build cli config check-config tree-gen optimize-images test browser-install e2e viewport-check screenshots accessibility-check gn-analyze gn-status gn-clean
 
 DEV_ADDR ?= 0.0.0.0:8001
 export UV_CACHE_DIR ?= /tmp/uv-cache
@@ -11,6 +11,7 @@ help:
 	@echo "  make build           - Build site with Zensical"
 	@echo "  make config          - Merge config/zensical/*.toml into zensical.toml"
 	@echo "  make cli             - Run documentation CLI tools"
+	@echo "  make tree-gen        - Resync generated tree into docs/index.md"
 	@echo "  make optimize-images - Optimize images (WebP, responsive sizes, LQIP)"
 	@echo "  make test            - Run tests"
 	@echo "  make viewport-check  - Run Playwright viewport/layout checks"
@@ -38,6 +39,14 @@ check-config:
 			uv run python scripts/python/merge_zensical_config.py; \
 		fi \
 	fi
+
+# Resync the generated living-index tree + roots into docs/index.md
+tree-gen:
+	uv run python scripts/python/tree-gen/gen_tree.py
+
+# Verify docs/index.md matches the tree generator (fails on drift)
+tree-gen-check:
+	uv run python scripts/python/tree-gen/gen_tree.py --check
 
 # Primary development server (Zensical) - auto-merges config if needed
 serve: check-config
