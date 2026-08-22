@@ -346,6 +346,15 @@
             growthStates[tier.name] = { x: 0, v: 0 };
         });
 
+        /*
+         * The freed field rides its own softer spring - a distant echo of
+         * the tree's growth, lagging the same scroll with the same organic
+         * settle instead of a flat eased scalar.
+         */
+        var FIELD_SPRING = { stiffness: 48, damping: 13 };
+        var fieldTarget = 0;
+        var fieldState = { x: 0, v: 0 };
+
         function writeGrowthVars() {
             GROWTH_TIERS.forEach(function (tier) {
                 var state = growthStates[tier.name];
@@ -354,12 +363,12 @@
                     state.x.toFixed(4)
                 );
             });
+            root.style.setProperty("--life-field-spring", fieldState.x.toFixed(4));
         }
 
-        function springToward(tier, target, dt) {
-            var state = growthStates[tier.name];
-            var accel = -tier.stiffness * (state.x - target)
-                - tier.damping * state.v;
+        function integrateSpring(state, spring, target, dt) {
+            var accel = -spring.stiffness * (state.x - target)
+                - spring.damping * state.v;
             state.v += accel * dt;
             state.x += state.v * dt;
             if (Math.abs(state.x - target) < 0.0005
@@ -369,6 +378,10 @@
                 return false;
             }
             return true;
+        }
+
+        function springToward(tier, target, dt) {
+            return integrateSpring(growthStates[tier.name], tier, target, dt);
         }
 
         function cascadeTarget(name, parentX) {
@@ -393,6 +406,8 @@
                     dt
                 ) || awake;
             }
+            awake = integrateSpring(fieldState, FIELD_SPRING, fieldTarget, dt)
+                || awake;
             writeGrowthVars();
             if (awake) {
                 growthFrame = window.requestAnimationFrame(stepGrowth);
@@ -401,23 +416,30 @@
             }
         }
 
-        function driveRootGrowth(target, animate) {
+        function driveRootGrowth(target, fieldTargetValue, animate) {
             var value = clamp(target, 0, 1);
+            var nextFieldTarget = clamp(fieldTargetValue, 0, 1);
             root.style.setProperty("--life-roots", value.toFixed(3));
+            root.style.setProperty("--life-field-roots", nextFieldTarget.toFixed(3));
             if (growthFrame !== null) {
                 window.cancelAnimationFrame(growthFrame);
                 growthFrame = null;
             }
             if (!animate) {
+                growthTarget = value;
+                fieldTarget = nextFieldTarget;
                 GROWTH_TIERS.forEach(function (tier) {
                     growthStates[tier.name].x = value;
                     growthStates[tier.name].v = 0;
                 });
+                fieldState.x = nextFieldTarget;
+                fieldState.v = 0;
                 growthLastTime = 0;
                 writeGrowthVars();
                 return;
             }
             growthTarget = value;
+            fieldTarget = nextFieldTarget;
             growthFrame = window.requestAnimationFrame(stepGrowth);
         }
 
@@ -596,8 +618,7 @@
             root.style.setProperty("--life-panel-y", ((1 - panelOpacity) * 1.5).toFixed(3) + "rem");
             root.style.setProperty("--life-tree-detail", detail.toFixed(3));
             root.style.setProperty("--life-pixel-opacity", pixelOpacity.toFixed(3));
-            driveRootGrowth(roots, !reducedMotion.matches);
-            root.style.setProperty("--life-field-roots", fieldRoots.toFixed(3));
+            driveRootGrowth(roots, fieldRoots, !reducedMotion.matches);
             root.style.setProperty("--life-meter", (progress * 100).toFixed(1) + "%");
             root.classList.toggle("is-indexed", progress > 0.08);
             root.classList.toggle("is-open", progress > PANEL_START);
@@ -648,13 +669,12 @@
                 var mobileRoots = reducedMotion.matches
                     ? 1
                     : easeInOutCubic(treeBoxReveal());
+                var mobileRootsValue =
+                    Number.isFinite(mobileRoots) ? mobileRoots : 0;
                 driveRootGrowth(
-                    Number.isFinite(mobileRoots) ? mobileRoots : 0,
+                    mobileRootsValue,
+                    mobileRootsValue,
                     !reducedMotion.matches
-                );
-                root.style.setProperty(
-                    "--life-field-roots",
-                    (Number.isFinite(mobileRoots) ? mobileRoots : 0).toFixed(3)
                 );
                 alignRootsField();
                 return;

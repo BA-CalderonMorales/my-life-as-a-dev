@@ -861,6 +861,12 @@ textarea,
     transition: transform 320ms ease-out;
 }
 
+/* The field rides its own spring scalar from living-index.js; the
+   flat --life-field-roots master stays as the fallback chain's floor. */
+.life-roots-field {
+    --life-field-growth: var(--life-field-spring, var(--life-field-roots, 0));
+}
+
 .life-roots-field path {
     fill: none;
     stroke: currentColor;
@@ -868,7 +874,7 @@ textarea,
     stroke-linejoin: round;
     stroke-dasharray: 1px;
     stroke-dashoffset: calc(
-        (1 - clamp(0, (var(--life-field-roots, 0) - var(--field-delay, 0)) / var(--field-span, 1), 1)) * 1px
+        (1 - clamp(0, (var(--life-field-growth, 0) - var(--field-delay, 0)) / var(--field-span, 1), 1)) * 1px
     );
 }
 
