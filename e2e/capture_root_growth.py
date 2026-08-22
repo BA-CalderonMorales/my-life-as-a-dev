@@ -28,6 +28,17 @@ SCROLL_STATES = [
     ("mid", 1700),
 ]
 
+# Mobile scrolls the tree shell through the viewport as a normal flow
+# element, so the progress-based grown target lands past the artwork and
+# frames the footer instead of the root system. Fixed offsets keep the
+# trunk flare, the root crown, and the field band in frame together.
+MOBILE_SCROLL_STATES = [
+    ("rest", 0),
+    ("early", 350),
+    ("mid", 650),
+]
+MOBILE_GROWN_Y = 850
+
 
 def _progress_scroll_y(page, fraction):
     return page.evaluate(
@@ -58,15 +69,20 @@ def test_capture_root_growth(browser, base_url, http_server, viewport_name, view
     page.goto(f"{base_url}/index.html", wait_until="networkidle")
     page.wait_for_timeout(600)
 
+    is_mobile = viewport_name.startswith("mobile")
+    states = MOBILE_SCROLL_STATES if is_mobile else SCROLL_STATES
     shots = []
-    for name, offset in SCROLL_STATES:
+    for name, offset in states:
         page.evaluate(f"window.scrollTo(0, {offset})")
         page.wait_for_timeout(1600)
         path = SCREENSHOT_DIR / f"roots-{viewport_name}-{name}.png"
         page.screenshot(path=str(path))
         shots.append((name, path))
 
-    grown_y = _progress_scroll_y(page, 0.52)
+    if is_mobile:
+        grown_y = MOBILE_GROWN_Y
+    else:
+        grown_y = _progress_scroll_y(page, 0.52)
     page.evaluate(f"window.scrollTo(0, {grown_y})")
     page.wait_for_timeout(1800)
     grown_path = SCREENSHOT_DIR / f"roots-{viewport_name}-grown.png"

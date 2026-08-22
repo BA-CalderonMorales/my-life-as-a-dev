@@ -203,9 +203,24 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
     );
 }
 
-/* The organs themselves: plain fills; the mask owns all reveal math. */
+/* The organs themselves: plain fills; the mask owns all reveal math.
+   Ink hierarchy rides opacity as well as width - heavy wood reads
+   nearly solid where it grips the trunk, finer organs sit lighter, and
+   nothing glows translucent enough to read as an X-ray. */
 [data-life-index] .life-tree__root-body {
     fill: currentColor;
+}
+
+[data-life-index] .life-tree__root-body--primary {
+    fill-opacity: 0.92;
+}
+
+[data-life-index] .life-tree__root-body--lateral {
+    fill-opacity: 0.78;
+}
+
+[data-life-index] .life-tree__root-body--fine {
+    fill-opacity: 0.6;
 }
 
 /* Each tier breathes as one unit so body and mask never drift apart. */
