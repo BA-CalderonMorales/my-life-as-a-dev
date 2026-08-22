@@ -152,11 +152,11 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
 
 /*
  * Root system: stroke-drawn from the trunk base, sprawling as the reader
- * scrolls toward the last facet. --life-roots (0..1) is driven by
- * living-index.js; each root grows inside its own --root-delay/--root-span
- * window so the primary scaffold leads, secondary laterals branch next, and
- * fine feeders finish the system. pathLength="1" normalizes the dash math in
- * markup.
+ * scrolls toward the last facet. living-index.js drives one growth target
+ * per tier (--life-roots-primary/lateral/fine) through underdamped
+ * springs, so heavy wood emerges slowly and feeders flick out fast; each
+ * root grows inside its own --root-delay/--root-span window on top of
+ * its tier's motion. pathLength="1" normalizes the dash math in markup.
  *
  * Roots also breathe with a subtle organic sway tied to the crown breeze,
  * and respond to scroll direction with a gentle pulse.
@@ -169,16 +169,31 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
     will-change: transform, opacity;
 }
 
+/* Tier mapping: each class feeds its own spring scalar into the shared
+   reveal math. Fallbacks degrade to the flat --life-roots master and
+   finally to 0, so nothing renders before the choreography speaks. */
+[data-life-index] .life-tree__root--primary {
+    --life-root-growth: var(--life-roots-primary, var(--life-roots, 0));
+}
+
+[data-life-index] .life-tree__root--lateral {
+    --life-root-growth: var(--life-roots-lateral, var(--life-roots, 0));
+}
+
+[data-life-index] .life-tree__root--fine {
+    --life-root-growth: var(--life-roots-fine, var(--life-roots, 0));
+}
+
 [data-life-index] .life-tree__roots path {
     fill: none;
     stroke: currentColor;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-dasharray: 1px;
-    /* Fallback 0: before the choreography sets --life-roots nothing may
-       show - roots must never render as static marks at rest. */
+    /* Fallback 0: before the choreography sets a growth scalar nothing
+       may show - roots must never render as static marks at rest. */
     stroke-dashoffset: calc(
-        (1 - clamp(0, (var(--life-roots, 0) - var(--root-delay, 0)) / var(--root-span, 1), 1)) * 1px
+        (1 - clamp(0, (var(--life-root-growth, 0) - var(--root-delay, 0)) / var(--root-span, 1), 1)) * 1px
     );
     /* Each root tier gets its own subtle sway phase */
     animation:

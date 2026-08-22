@@ -321,6 +321,110 @@
             return clamp(window.scrollY / shellExtent, 0, 1);
         }
 
+        /*
+         * Growth pressure: tiers hang in a cascade, the way real roots
+         * branch. Each tier chases its own target on a slightly-
+         * underdamped spring, and every child's target derives from its
+         * parent's ACTUAL position - laterals only wake once the heavy
+         * wood is underway, feeders only flick out off existing laterals.
+         * A child can never outrun its parent. Because the springs lag
+         * the reader, roots surge while scrolling and settle with a
+         * believable overshoot when they pause; mid-scroll pauses freeze
+         * partial systems mid-growth. Overshoot past 0..1 is safe: every
+         * reveal window clamps independently.
+         */
+        var GROWTH_TIERS = [
+            { name: "primary", stiffness: 36, damping: 11 },
+            { name: "lateral", stiffness: 64, damping: 15 },
+            { name: "fine", stiffness: 130, damping: 18 }
+        ];
+        var GROWTH_CASCADE = {
+            lateral: { wake: 0.18, span: 0.62 },
+            fine: { wake: 0.24, span: 0.58 }
+        };
+        var growthTarget = 0;
+        var growthStates = {};
+        var growthFrame = null;
+        var growthLastTime = 0;
+        GROWTH_TIERS.forEach(function (tier) {
+            growthStates[tier.name] = { x: 0, v: 0 };
+        });
+
+        function writeGrowthVars() {
+            GROWTH_TIERS.forEach(function (tier) {
+                var state = growthStates[tier.name];
+                root.style.setProperty(
+                    "--life-roots-" + tier.name,
+                    state.x.toFixed(4)
+                );
+            });
+        }
+
+        function springToward(tier, target, dt) {
+            var state = growthStates[tier.name];
+            var accel = -tier.stiffness * (state.x - target)
+                - tier.damping * state.v;
+            state.v += accel * dt;
+            state.x += state.v * dt;
+            if (Math.abs(state.x - target) < 0.0005
+                && Math.abs(state.v) < 0.002) {
+                state.x = target;
+                state.v = 0;
+                return false;
+            }
+            return true;
+        }
+
+        function cascadeTarget(name, parentX) {
+            var gate = GROWTH_CASCADE[name];
+            return clamp((parentX - gate.wake) / gate.span, 0, 1);
+        }
+
+        function stepGrowth(now) {
+            growthFrame = null;
+            var dt = growthLastTime
+                ? Math.min((now - growthLastTime) / 1000, 0.05)
+                : 1 / 60;
+            growthLastTime = now;
+            var awake = false;
+            awake = springToward(GROWTH_TIERS[0], growthTarget, dt) || awake;
+            for (var i = 1; i < GROWTH_TIERS.length; i++) {
+                var tier = GROWTH_TIERS[i];
+                var parentX = growthStates[GROWTH_TIERS[i - 1].name].x;
+                awake = springToward(
+                    tier,
+                    cascadeTarget(tier.name, parentX),
+                    dt
+                ) || awake;
+            }
+            writeGrowthVars();
+            if (awake) {
+                growthFrame = window.requestAnimationFrame(stepGrowth);
+            } else {
+                growthLastTime = 0;
+            }
+        }
+
+        function driveRootGrowth(target, animate) {
+            var value = clamp(target, 0, 1);
+            root.style.setProperty("--life-roots", value.toFixed(3));
+            if (growthFrame !== null) {
+                window.cancelAnimationFrame(growthFrame);
+                growthFrame = null;
+            }
+            if (!animate) {
+                GROWTH_TIERS.forEach(function (tier) {
+                    growthStates[tier.name].x = value;
+                    growthStates[tier.name].v = 0;
+                });
+                growthLastTime = 0;
+                writeGrowthVars();
+                return;
+            }
+            growthTarget = value;
+            growthFrame = window.requestAnimationFrame(stepGrowth);
+        }
+
         function panelForFacet(facet) {
             return panels.find(function (panel) {
                 return panel.getAttribute("data-life-panel") === facet;
@@ -358,7 +462,10 @@
             var scroller = document.documentElement;
             if (scrollBehaviorFrame !== null) {
                 window.cancelAnimationFrame(scrollBehaviorFrame);
-                scrollBehaviorFrame = null;
+            }
+            if (growthFrame !== null) {
+                window.cancelAnimationFrame(growthFrame);
+                growthFrame = null;
             }
             if (!scrollBehaviorSnapshot) {
                 scrollBehaviorSnapshot = {
@@ -474,10 +581,9 @@
             // begins as the story opens and reaches biological depth in
             // order: structural sinkers, laterals, and fine feeders. It
             // resolves while the tree still holds the stage, so the roots
-            // never sprawl across the rest of the journey.
-            var roots = easeInOutCubic(
-                clamp((progress - 0.10) / 0.34, 0, 1)
-            );
+            // never sprawl across the rest of the journey. The raw window
+            // feeds the tier springs - they supply the easing character.
+            var roots = clamp((progress - 0.10) / 0.34, 0, 1);
 
             // The freed field keeps reaching through most of the journey,
             // but only after the handoff settles - never at rest.
@@ -494,7 +600,7 @@
             root.style.setProperty("--life-panel-y", ((1 - panelOpacity) * 1.5).toFixed(3) + "rem");
             root.style.setProperty("--life-tree-detail", detail.toFixed(3));
             root.style.setProperty("--life-pixel-opacity", pixelOpacity.toFixed(3));
-            root.style.setProperty("--life-roots", roots.toFixed(3));
+            driveRootGrowth(roots, !reducedMotion.matches);
             root.style.setProperty("--life-field-roots", fieldRoots.toFixed(3));
             root.style.setProperty("--life-meter", (progress * 100).toFixed(1) + "%");
             root.classList.toggle("is-indexed", progress > 0.08);
@@ -546,9 +652,9 @@
                 var mobileRoots = reducedMotion.matches
                     ? 1
                     : easeInOutCubic(treeBoxReveal());
-                root.style.setProperty(
-                    "--life-roots",
-                    (Number.isFinite(mobileRoots) ? mobileRoots : 0).toFixed(3)
+                driveRootGrowth(
+                    Number.isFinite(mobileRoots) ? mobileRoots : 0,
+                    !reducedMotion.matches
                 );
                 root.style.setProperty(
                     "--life-field-roots",
