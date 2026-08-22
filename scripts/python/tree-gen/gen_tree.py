@@ -268,34 +268,34 @@ BARK_LIGHT = [
 # ── roots: heavy sinkers from the flare, diving down-and-out ────────────
 # Each entry: (chain, width, tier, delay). Tiers: primary (the
 # buttress continuations), lateral (first forks), fine (feeders).
+# Spines are authored asymmetric on purpose: west and east differ in
+# depth, rhythm, and reach; the taproot forks once into a long shallow
+# wander and a short steep drop, never a mirrored V. Every consecutive
+# waypoint descends - long travel happens below the ground line.
 ROOTS = [
-    # west deep sinker
-    ([(340, 700), (312, 744), (290, 800), (274, 866)], 7.0, "primary", 0.00),
-    ([(274, 866), (260, 908), (246, 956)], 3.4, "lateral", 0.22),
-    ([(274, 866), (292, 906), (304, 948)], 2.6, "lateral", 0.26),
-    # east deep sinker
-    ([(382, 702), (420, 748), (448, 804), (466, 868)], 7.0, "primary", 0.03),
-    ([(466, 868), (480, 912), (492, 960)], 3.4, "lateral", 0.25),
-    ([(466, 868), (450, 910), (438, 954)], 2.6, "lateral", 0.29),
-    # west lateral, running shallow briefly before diving
-    ([(332, 706), (288, 734), (240, 772), (200, 824)], 5.0, "primary", 0.06),
-    ([(200, 824), (182, 868), (168, 912)], 2.8, "lateral", 0.28),
-    ([(240, 772), (222, 806), (210, 844)], 2.2, "fine", 0.34),
-    # east lateral
-    ([(390, 706), (440, 738), (492, 778), (536, 826)], 5.0, "primary", 0.09),
-    ([(536, 826), (560, 868), (578, 908)], 2.8, "lateral", 0.31),
-    ([(492, 778), (512, 812), (526, 850)], 2.2, "fine", 0.36),
-    # center taproot
-    ([(360, 710), (356, 762), (364, 826), (376, 894)], 6.0, "primary", 0.12),
-    ([(376, 894), (384, 944), (392, 996)], 3.0, "lateral", 0.34),
-    ([(376, 894), (366, 942), (356, 988)], 2.4, "lateral", 0.37),
-    # feeders hanging off the primaries
-    ([(312, 744), (296, 776), (286, 812)], 2.0, "fine", 0.30),
-    ([(420, 748), (438, 782), (448, 818)], 2.0, "fine", 0.32),
-    ([(288, 800), (270, 830), (258, 862)], 1.6, "fine", 0.38),
-    ([(448, 804), (466, 836), (476, 868)], 1.6, "fine", 0.40),
-    ([(356, 762), (338, 792), (326, 824)], 1.6, "fine", 0.42),
-    ([(364, 826), (382, 858), (392, 888)], 1.4, "fine", 0.44),
+    # primaries: the buttress continuations
+    ([(340, 700), (320, 730), (305, 772), (296, 820), (288, 872)], 7.0, "primary", 0.00),
+    ([(382, 702), (402, 736), (420, 780), (432, 832), (442, 884)], 7.0, "primary", 0.03),
+    ([(332, 706), (298, 726), (260, 754), (222, 788), (200, 830), (192, 872)], 5.0, "primary", 0.06),
+    ([(390, 706), (426, 726), (464, 750), (500, 780), (530, 818)], 5.0, "primary", 0.09),
+    ([(360, 710), (357, 756), (362, 806), (372, 862), (380, 910)], 6.0, "primary", 0.12),
+    # laterals: fork downward off a parent, each unlike its sibling
+    ([(288, 872), (270, 908), (250, 954)], 3.2, "lateral", 0.22),
+    ([(288, 872), (301, 914), (307, 958)], 2.3, "lateral", 0.26),
+    ([(442, 884), (459, 922), (473, 966)], 3.4, "lateral", 0.25),
+    ([(442, 884), (431, 924), (423, 960)], 2.4, "lateral", 0.29),
+    ([(200, 830), (183, 868), (171, 908)], 2.7, "lateral", 0.28),
+    ([(530, 818), (549, 854), (563, 894)], 2.6, "lateral", 0.31),
+    ([(372, 862), (356, 906), (338, 950), (329, 988)], 2.9, "lateral", 0.34),
+    ([(380, 910), (392, 947), (401, 980)], 2.1, "lateral", 0.37),
+    # fine feeders: sparse hair strokes, visibly subordinate
+    ([(305, 772), (290, 800), (281, 836)], 1.7, "fine", 0.30),
+    ([(420, 780), (436, 810), (449, 843)], 1.7, "fine", 0.32),
+    ([(240, 770), (226, 801), (217, 834)], 1.4, "fine", 0.36),
+    ([(464, 750), (478, 781), (491, 813)], 1.4, "fine", 0.38),
+    ([(296, 820), (283, 851), (276, 884)], 1.3, "fine", 0.40),
+    ([(362, 806), (347, 838), (337, 872)], 1.2, "fine", 0.42),
+    ([(432, 832), (420, 861), (414, 888)], 1.2, "fine", 0.44),
 ]
 
 # Draw speed per tier, in viewBox units consumed per unit of reveal
@@ -306,17 +306,48 @@ ROOT_SPEED = {"primary": 620.0, "lateral": 470.0, "fine": 430.0}
 SPAN_MIN, SPAN_MAX = 0.12, 0.34
 
 
+def undulate(chain, amp=4.5, seed=1):
+    """Weave a coarse spine into an organic centerline, endpoints pinned.
+
+    Low-frequency perpendicular offsets fade to zero at both ends so
+    child roots stay attached to their parents' exact joints; the seed
+    gives every root its own phase, so mirrored placements never render
+    as matching curves.
+    """
+    pts = sample_chain(chain, n_per_seg=12)
+    arcs = arclens(pts)
+    total = arcs[-1] or 1.0
+    tans = tangents(pts)
+    ph = seed * 2.399963
+    n_targets = max(4, min(9, int(total / 55)))
+    out = []
+    for k in range(n_targets + 1):
+        t = k / n_targets
+        i = min(range(len(pts)), key=lambda j: abs(arcs[j] / total - t))
+        env = min(1.0, 5.0 * t) * min(1.0, 5.0 * (1.0 - t))
+        off = amp * env * (
+            math.sin(t * 8.3 + ph) * 0.62
+            + math.sin(t * 3.1 + ph * 1.7) * 0.38
+        )
+        nx, ny = -tans[i][1], tans[i][0]
+        out.append((pts[i][0] + nx * off, pts[i][1] + ny * off))
+    out[0] = tuple(chain[0])
+    out[-1] = tuple(chain[-1])
+    return out
+
+
 def chain_length(chain):
     return arclens(sample_chain(chain, n_per_seg=8))[-1]
 
 
 def build_roots():
     out = ['          <g class="life-tree__roots" aria-hidden="true">']
-    for chain, width, tier, delay in ROOTS:
-        span = clamp(chain_length(chain) / ROOT_SPEED[tier], SPAN_MIN, SPAN_MAX)
+    for idx, (chain, width, tier, delay) in enumerate(ROOTS):
+        woven = undulate(chain, amp=4.5, seed=idx + 2)
+        span = clamp(chain_length(woven) / ROOT_SPEED[tier], SPAN_MIN, SPAN_MAX)
         out.append(
             f'            <path class="life-tree__root life-tree__root--{tier}" '
-            f'd="{cr_to_cubic_d(chain)}" pathLength="1" stroke-width="{width}" '
+            f'd="{cr_to_cubic_d(woven)}" pathLength="1" stroke-width="{width}" '
             f'style="--root-delay:{delay};--root-span:{span:.2f}"/>'
         )
     out.append('          </g>')
