@@ -311,94 +311,90 @@ class RootSpec:
 
 
 ROOT_SPECS = [
-    # primaries: the buttress continuations, one elbow each where the
-    # root struck stone; flares sit INSIDE the trunk outline so the eye
-    # never has to take the seam on faith.
+    # Five pioneers, five personalities - no mirrored pairs:
+    #   runner:  runs shallow and wide west, then dives late and steep
+    #   gnarler: stays short and close to the trunk, tight elbows
+    #   plunger: heaviest wood, near-vertical, deepest terminal
+    #   forker:  forks early into two near-equal prongs
+    #   diver:   one clean diagonal down-and-out, medium reach
+    # Flares sit INSIDE the trunk outline so the buttresses visibly flow
+    # into specific roots; every consecutive waypoint descends.
     RootSpec(
-        "west-dive",
-        [(340, 700), (322, 731), (308, 769), (301, 790), (295, 797),
-         (290, 812), (288, 846), (288, 872)],
-        flare=22.0, tip=2.0, tier="primary", delay=0.00, seed=2,
-        kinks=[(0.55, 16.0)], amp=4.0,
+        "runner",
+        [(334, 706), (312, 719), (288, 729), (262, 736), (242, 739),
+         (230, 741), (223, 750), (213, 780), (204, 818), (198, 856),
+         (195, 886)],
+        flare=17.0, tip=1.8, tier="primary", delay=0.00, seed=2,
+        kinks=[(0.68, -10.0)], amp=3.2,
     ),
     RootSpec(
-        "east-dive",
-        [(382, 702), (400, 733), (414, 765), (421, 786), (427, 793),
-         (432, 809), (436, 848), (442, 884)],
-        flare=20.0, tip=1.9, tier="primary", delay=0.03, seed=3,
-        kinks=[(0.52, -14.0)], amp=4.2,
+        "gnarler",
+        [(340, 704), (331, 723), (323, 740), (315, 755), (309, 768)],
+        flare=14.0, tip=1.6, tier="primary", delay=0.03, seed=3,
+        kinks=[(0.32, -9.0), (0.58, 10.0)], amp=5.0,
     ),
     RootSpec(
-        "west-runner",
-        [(332, 706), (306, 724), (282, 741), (264, 750), (256, 752),
-         (247, 759), (231, 771), (211, 789), (200, 801), (196, 814),
-         (194, 843), (192, 872)],
-        flare=17.0, tip=1.8, tier="primary", delay=0.06, seed=4,
-        kinks=[(0.38, 13.0), (0.74, -11.0)], amp=4.5,
+        "plunger",
+        [(361, 700), (358, 754), (361, 810), (368, 862), (377, 912),
+         (384, 962)],
+        flare=24.0, tip=2.0, tier="primary", delay=0.06, seed=4,
+        kinks=[(0.52, 7.0)], amp=2.4,
     ),
     RootSpec(
-        "east-runner",
-        [(390, 706), (412, 720), (436, 734), (456, 744), (464, 747),
-         (473, 755), (491, 767), (509, 780), (520, 791), (526, 803),
-         (530, 818)],
-        flare=15.0, tip=1.7, tier="primary", delay=0.09, seed=5,
-        kinks=[(0.42, -12.0), (0.70, 10.0)], amp=4.4,
+        "forker",
+        [(384, 702), (398, 722), (408, 744), (414, 762)],
+        flare=19.0, tip=1.7, tier="primary", delay=0.09, seed=5,
+        kinks=[(0.45, -8.0)], amp=3.0,
     ),
     RootSpec(
-        "center-sinker",
-        [(360, 710), (357, 756), (362, 806), (372, 862), (380, 910)],
-        flare=24.0, tip=2.1, tier="primary", delay=0.12, seed=6,
-        kinks=[(0.60, 9.0)], amp=3.4,
+        "diver",
+        [(390, 706), (408, 728), (421, 752), (430, 774), (435, 792),
+         (437, 806)],
+        flare=15.0, tip=1.7, tier="primary", delay=0.12, seed=6,
+        kinks=[(0.55, -12.0)], amp=3.0,
     ),
-    # laterals: fork downward off a parent, each leaving tangentially;
-    # the generator derives fork anchors from the FINAL parent polyline,
-    # adds a collar swelling on the parent at every interior fork.
-    RootSpec("west-dive-outer", [(288, 872), (270, 908), (250, 954)],
-             flare=5.6, tip=0.65, tier="lateral", delay=0.22, seed=8,
-             parent="west-dive"),
-    RootSpec("west-dive-inner", [(288, 872), (301, 914), (307, 958)],
-             flare=4.4, tip=0.5, tier="lateral", delay=0.26, seed=9,
-             parent="west-dive"),
-    RootSpec("east-dive-outer", [(442, 884), (459, 922), (473, 966)],
-             flare=6.0, tip=0.7, tier="lateral", delay=0.25, seed=10,
-             parent="east-dive"),
-    RootSpec("east-dive-inner", [(442, 884), (431, 924), (423, 960)],
-             flare=4.6, tip=0.5, tier="lateral", delay=0.29, seed=11,
-             parent="east-dive"),
-    RootSpec("west-runner-drop", [(200, 830), (183, 868), (171, 908)],
-             flare=5.0, tip=0.55, tier="lateral", delay=0.28, seed=12,
-             parent="west-runner"),
-    RootSpec("east-runner-drop", [(530, 818), (549, 854), (563, 894)],
-             flare=4.8, tip=0.55, tier="lateral", delay=0.31, seed=13,
-             parent="east-runner"),
-    RootSpec("sinker-sweep", [(372, 862), (356, 906), (338, 950), (329, 988)],
-             flare=5.4, tip=0.6, tier="lateral", delay=0.34, seed=14,
-             parent="center-sinker"),
-    RootSpec("sinker-probe", [(380, 910), (392, 947), (401, 980)],
-             flare=4.0, tip=0.45, tier="lateral", delay=0.37, seed=15,
-             parent="center-sinker"),
-    # fine feeders: sparse hair organs, visibly subordinate
-    RootSpec("hair-west-a", [(305, 772), (290, 800), (281, 836)],
-             flare=3.0, tip=0.35, tier="fine", delay=0.30, seed=16,
-             parent="west-dive"),
-    RootSpec("hair-east-a", [(420, 780), (436, 810), (449, 843)],
-             flare=3.0, tip=0.35, tier="fine", delay=0.32, seed=17,
-             parent="east-dive"),
-    RootSpec("hair-west-b", [(240, 770), (226, 801), (217, 834)],
-             flare=2.6, tip=0.3, tier="fine", delay=0.36, seed=18,
-             parent="west-runner"),
-    RootSpec("hair-east-b", [(464, 750), (478, 781), (491, 813)],
-             flare=2.6, tip=0.3, tier="fine", delay=0.38, seed=19,
-             parent="east-runner"),
-    RootSpec("hair-west-c", [(296, 820), (283, 851), (276, 884)],
-             flare=2.4, tip=0.28, tier="fine", delay=0.40, seed=20,
-             parent="west-dive"),
-    RootSpec("hair-center", [(362, 806), (347, 838), (337, 872)],
-             flare=2.2, tip=0.25, tier="fine", delay=0.42, seed=21,
-             parent="center-sinker"),
-    RootSpec("hair-east-c", [(432, 832), (420, 861), (414, 888)],
-             flare=2.2, tip=0.25, tier="fine", delay=0.44, seed=22,
-             parent="east-dive"),
+    # laterals: forks hanging off the pioneers; the forker's prongs
+    # leave EARLY as near-equals and carry on like second primaries.
+    RootSpec("runner-drop", [(200, 832), (184, 866), (173, 900), (164, 922), (155, 940), (149, 956)],
+             flare=5.0, tip=0.55, tier="lateral", delay=0.22, seed=8,
+             parent="runner"),
+    RootSpec("prong-east", [(408, 744), (426, 768), (442, 794), (454, 820), (468, 846), (476, 868)],
+             flare=7.2, tip=0.85, tier="lateral", delay=0.25, seed=9,
+             parent="forker"),
+    RootSpec("prong-south", [(411, 752), (417, 788), (422, 822), (426, 854)],
+             flare=6.6, tip=0.75, tier="lateral", delay=0.29, seed=10,
+             parent="forker"),
+    RootSpec("plunger-sweep", [(368, 862), (354, 900), (338, 940), (329, 972)],
+             flare=5.4, tip=0.6, tier="lateral", delay=0.32, seed=11,
+             parent="plunger"),
+    RootSpec("plunger-probe", [(380, 930), (390, 960), (398, 986)],
+             flare=4.0, tip=0.45, tier="lateral", delay=0.37, seed=12,
+             parent="plunger"),
+    RootSpec("diver-drop", [(433, 790), (427, 824), (423, 852)],
+             flare=4.4, tip=0.5, tier="lateral", delay=0.34, seed=13,
+             parent="diver"),
+    RootSpec("diver-spear", [(430, 774), (446, 800), (462, 828), (480, 854), (490, 874)],
+             flare=4.6, tip=0.5, tier="lateral", delay=0.38, seed=19,
+             parent="diver"),
+    # fine feeders: PATCHES, not a fan. Two cluster on the plunger's
+    # lower reach, two on the east prong's mid-section, one stub tails
+    # the gnarler. The runner's long shallow run and the whole diver
+    # carry nothing - negative space is intentional.
+    RootSpec("hair-plunger-a", [(362, 812), (349, 842), (340, 872)],
+             flare=2.6, tip=0.3, tier="fine", delay=0.30, seed=14,
+             parent="plunger"),
+    RootSpec("hair-plunger-b", [(370, 838), (360, 868), (352, 898)],
+             flare=2.4, tip=0.28, tier="fine", delay=0.40, seed=15,
+             parent="plunger"),
+    RootSpec("hair-prong-a", [(442, 794), (452, 816), (460, 838)],
+             flare=2.6, tip=0.3, tier="fine", delay=0.36, seed=16,
+             parent="prong-east"),
+    RootSpec("hair-prong-b", [(430, 772), (438, 792), (444, 812)],
+             flare=2.2, tip=0.26, tier="fine", delay=0.42, seed=17,
+             parent="prong-east"),
+    RootSpec("hair-gnarler", [(309, 768), (300, 790), (294, 810)],
+             flare=2.0, tip=0.22, tier="fine", delay=0.44, seed=18,
+             parent="gnarler"),
 ]
 
 # Draw speed per tier, in viewBox units consumed per unit of reveal
@@ -597,7 +593,10 @@ def build_roots():
             )
         out.append('              </mask>')
     out.append('            </defs>')
-    for tier in tiers:
+    # Depth layering: feeders paint first (behind), laterals next, heavy
+    # primary wood LAST so the buttress continuations grip toward the
+    # viewer and finer organs weave behind them.
+    for tier in ("fine", "lateral", "primary"):
         out.append(
             f'            <g class="life-tree__root-tier life-tree__root-tier--{tier}" '
             f'mask="url(#life-roots-mask-{tier})">'
@@ -628,21 +627,23 @@ def build_roots():
 FIELD_VIEWBOX = "-40 392 1560 168"
 
 FIELD_SPECS = [
-    # primaries: five divers leaving the origin cluster at depth
+    # Five divers, one per personality, spanning the whole earth band:
+    # far west corner to the deep east, with long shallow travel kept at
+    # depth and every tail diving - never a horizontal speed line.
     RootSpec(
         "field-west-sweeper",
         [(452, 402), (424, 409), (396, 417), (368, 426), (338, 435),
          (306, 444), (272, 453), (236, 463), (200, 473), (166, 483),
          (134, 493), (106, 503), (82, 513), (60, 522), (38, 531),
-         (16, 538)],
+         (12, 538), (-8, 546)],
         flare=11.0, tip=1.3, tier="primary", delay=0.00, seed=30,
         kinks=[(0.42, 10.0)], amp=3.2,
     ),
     RootSpec(
         "field-southwest-dive",
         [(462, 404), (448, 414), (436, 425), (427, 437), (420, 449),
-         (414, 462), (407, 475), (399, 489), (390, 503), (380, 515),
-         (371, 524), (365, 528)],
+         (414, 462), (407, 475), (399, 489), (390, 503), (381, 517),
+         (373, 530), (368, 542), (365, 552)],
         flare=9.0, tip=1.1, tier="primary", delay=0.03, seed=31,
         kinks=[(0.55, -12.0)], amp=3.0,
     ),
@@ -650,7 +651,7 @@ FIELD_SPECS = [
         "field-center-diver",
         [(470, 402), (474, 412), (480, 421), (487, 430), (493, 440),
          (498, 450), (502, 460), (505, 471), (507, 482), (508, 493),
-         (509, 505), (512, 522)],
+         (509, 505), (511, 520), (513, 534), (516, 548)],
         flare=10.0, tip=1.2, tier="primary", delay=0.06, seed=32,
         kinks=[(0.62, 8.0)], amp=2.6,
     ),
@@ -658,19 +659,21 @@ FIELD_SPECS = [
         "field-southeast-dive",
         [(478, 404), (500, 412), (525, 421), (551, 431), (577, 442),
          (602, 454), (624, 466), (643, 479), (657, 492), (667, 505),
-         (673, 518), (682, 532)],
+         (674, 518), (684, 532), (700, 544), (716, 554)],
         flare=9.5, tip=1.1, tier="primary", delay=0.04, seed=33,
         kinks=[(0.70, -10.0)], amp=3.0,
     ),
+    # east runner: the long one - shallow travel across the east half,
+    # then a decisive dive so the far edge lands in depth.
     RootSpec(
         "field-east-sweeper",
         [(472, 402), (500, 407), (534, 413), (572, 420), (612, 428),
-         (652, 437), (690, 447), (726, 458), (758, 469), (786, 480),
-         (808, 491), (826, 503), (841, 514), (850, 521)],
+         (652, 437), (692, 447), (730, 458), (764, 470), (794, 483),
+         (820, 496), (842, 509), (862, 522), (884, 535), (908, 546)],
         flare=10.5, tip=1.25, tier="primary", delay=0.08, seed=34,
         kinks=[(0.38, -9.0), (0.72, 11.0)], amp=3.2,
     ),
-    # secondaries: forks hanging off the divers
+    # secondaries: tunnel branches hanging off the divers
     RootSpec("field-west-fork", [(300, 443), (280, 452), (256, 460), (232, 466), (212, 471)],
              flare=4.6, tip=0.55, tier="secondary", delay=0.16, seed=35,
              parent="field-west-sweeper"),
@@ -680,19 +683,26 @@ FIELD_SPECS = [
     RootSpec("field-center-west-fork", [(493, 440), (481, 450), (468, 458), (455, 464)],
              flare=4.0, tip=0.5, tier="secondary", delay=0.18, seed=37,
              parent="field-center-diver"),
-    RootSpec("field-center-east-fork", [(502, 460), (512, 470), (520, 481), (526, 492), (529, 502)],
+    RootSpec("field-center-east-fork", [(502, 460), (512, 470), (520, 481), (526, 492)],
              flare=4.2, tip=0.52, tier="secondary", delay=0.24, seed=38,
              parent="field-center-diver"),
-    RootSpec("field-southeast-fork", [(602, 454), (620, 464), (636, 476), (650, 489)],
+    RootSpec("field-southeast-deep", [(624, 466), (648, 486), (668, 506), (684, 526)],
              flare=4.4, tip=0.55, tier="secondary", delay=0.20, seed=39,
              parent="field-southeast-dive"),
-    RootSpec("field-east-upper-fork", [(690, 447), (704, 456), (716, 467), (725, 478)],
+    RootSpec("field-east-upper-fork", [(692, 447), (706, 458), (718, 470), (728, 482)],
              flare=4.0, tip=0.5, tier="secondary", delay=0.26, seed=40,
              parent="field-east-sweeper"),
-    RootSpec("field-east-lower-fork", [(786, 480), (800, 490), (812, 500), (822, 509)],
+    RootSpec("field-east-lower-fork", [(820, 496), (836, 508), (850, 519), (862, 529)],
              flare=3.8, tip=0.48, tier="secondary", delay=0.30, seed=41,
              parent="field-east-sweeper"),
-    # fine feeders: hair organs clustered patchily near the divers
+    # the far runner: carries the system to the eastern edge of the
+    # earth band, descending steadily so even the longest travel dives.
+    RootSpec("field-far-runner", [(794, 483), (900, 499), (1010, 513),
+                                  (1120, 526), (1226, 537), (1330, 547),
+                                  (1404, 554)],
+             flare=4.8, tip=0.55, tier="secondary", delay=0.28, seed=47,
+             parent="field-east-sweeper"),
+    # fine feeders: hair organs clustered patchily along the tunnels
     RootSpec("field-hair-west", [(368, 426), (356, 434), (344, 442), (333, 450)],
              flare=2.6, tip=0.3, tier="fine", delay=0.36, seed=42,
              parent="field-west-sweeper"),
@@ -702,12 +712,15 @@ FIELD_SPECS = [
     RootSpec("field-hair-southeast", [(643, 479), (652, 488), (660, 497), (667, 505)],
              flare=2.6, tip=0.3, tier="fine", delay=0.40, seed=44,
              parent="field-southeast-dive"),
-    RootSpec("field-hair-east", [(758, 469), (768, 477), (777, 485), (785, 492)],
+    RootSpec("field-hair-east", [(764, 470), (774, 478), (783, 486), (791, 493)],
              flare=2.4, tip=0.28, tier="fine", delay=0.46, seed=45,
              parent="field-east-sweeper"),
     RootSpec("field-hair-deep", [(414, 462), (405, 471), (396, 480), (388, 488)],
              flare=2.2, tip=0.26, tier="fine", delay=0.42, seed=46,
              parent="field-southwest-dive"),
+    RootSpec("field-hair-far", [(1010, 513), (1022, 520), (1033, 527)],
+             flare=2.2, tip=0.26, tier="fine", delay=0.50, seed=48,
+             parent="field-far-runner"),
 ]
 
 FIELD_SPEED = {"primary": 1150.0, "secondary": 850.0, "fine": 700.0}
@@ -782,9 +795,10 @@ def build_field():
         )
         out.append('        </mask>')
     out.append('      </defs>')
-    # Washes first (blurred underlay), then crisp ink on top.
+    # Washes first (blurred underlay), then crisp ink on top; inside
+    # each, feeders sit behind and heavy wood paints last.
     for kind in ("wash", "tier"):
-        for tier in tiers:
+        for tier in ("fine", "secondary", "primary"):
             cls = f'life-field-{kind} life-field-{kind}--{tier}'
             filter_attr = (
                 ' filter="url(#life-field-wash-blur)"' if kind == "wash" else ""

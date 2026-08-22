@@ -855,10 +855,10 @@ textarea,
     color: var(--life-ink, var(--ink));
     opacity: 0.72;
     pointer-events: none;
-}
-
-.life-roots-field {
-    transition: transform 320ms ease-out;
+    /* No transition on transform: the field must lock to the trunk base
+       on every frame. An eased slide reads as the root system tearing
+       free of the tree while scrolling. */
+    will-change: transform;
 }
 
 /* The field rides its own spring scalar from living-index.js; the
