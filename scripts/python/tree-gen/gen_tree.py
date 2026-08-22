@@ -367,7 +367,7 @@ ROOT_SPECS = [
     RootSpec("gnarler-stub", [(315, 755), (306, 765), (299, 773)],
              flare=2.8, tip=0.33, tier="lateral", delay=0.26, seed=27,
              parent="gnarler"),
-    RootSpec("runner-drop", [(200, 832), (184, 866), (173, 900), (164, 922), (155, 940), (149, 956)],
+    RootSpec("runner-drop", [(200, 832), (184, 866), (173, 900), (164, 922), (155, 940), (146, 958), (140, 974)],
              flare=5.0, tip=0.55, tier="lateral", delay=0.22, seed=8,
              parent="runner"),
     RootSpec("prong-east", [(408, 744), (426, 768), (442, 794), (454, 820), (468, 846), (476, 868)],
@@ -385,7 +385,7 @@ ROOT_SPECS = [
     RootSpec("diver-drop", [(433, 790), (427, 824), (423, 852)],
              flare=4.4, tip=0.5, tier="lateral", delay=0.34, seed=13,
              parent="diver"),
-    RootSpec("diver-spear", [(430, 774), (446, 800), (462, 828), (480, 854), (490, 874)],
+    RootSpec("diver-spear", [(430, 774), (446, 800), (462, 828), (480, 854), (494, 876), (500, 890)],
              flare=4.6, tip=0.5, tier="lateral", delay=0.38, seed=19,
              parent="diver"),
     # fine feeders: PATCHES, not a fan. Two cluster on the plunger's
@@ -445,7 +445,7 @@ SPAN_MIN, SPAN_MAX = 0.12, 0.34
 COLLAR_WINDOW = (0.05, 0.95)
 
 
-def undulate(chain, amp=4.5, seed=1):
+def undulate(chain, amp=4.5, seed=1, samples_per_seg=12):
     """Weave a coarse spine into an organic centerline, endpoints pinned.
 
     Low-frequency perpendicular offsets fade to zero at both ends; the
@@ -453,7 +453,7 @@ def undulate(chain, amp=4.5, seed=1):
     render as matching curves. Fork attachment is handled separately by
     snapping children onto their parent's final polyline.
     """
-    pts = sample_chain(chain, n_per_seg=12)
+    pts = sample_chain(chain, n_per_seg=samples_per_seg)
     arcs = arclens(pts)
     total = arcs[-1] or 1.0
     tans = tangents(pts)
@@ -526,7 +526,7 @@ class RootRecord:
         return self.pts[idx], self.tans[idx], self.arcs[idx] / self.total
 
 
-def build_organ_records(specs, speed_by_tier, span_bounds):
+def build_organ_records(specs, speed_by_tier, span_bounds, n_per_seg=24):
     """Weave, bend, and attach every root spec into final geometry.
 
     Parents are processed before children (spec order guarantees it);
@@ -536,7 +536,8 @@ def build_organ_records(specs, speed_by_tier, span_bounds):
     records = {}
     for spec in specs:
         speed = speed_by_tier[spec.tier]
-        woven = undulate(spec.chain, amp=spec.amp, seed=spec.seed)
+        woven = undulate(spec.chain, amp=spec.amp, seed=spec.seed,
+                         samples_per_seg=n_per_seg)
         for t_kink, deg in spec.kinks:
             woven = _bend_tail(woven, t_kink, deg)
         pts = sample_chain(woven)
@@ -739,6 +740,14 @@ FIELD_SPECS = [
              flare=7.0, tip=0.8, tier="secondary", delay=0.28, seed=47,
              parent="field-east-sweeper"),
     # fine feeders: hair organs clustered patchily along the tunnels
+    RootSpec("field-center-shallow",
+             [(466, 403), (430, 409), (392, 417), (352, 427), (314, 438),
+              (282, 449)],
+             flare=5.5, tip=0.6, tier="secondary", delay=0.22, seed=49,
+             parent="field-center-diver"),
+    RootSpec("field-west-deep-fork", [(134, 493), (120, 505), (108, 518)],
+             flare=3.8, tip=0.45, tier="secondary", delay=0.24, seed=50,
+             parent="field-west-sweeper"),
     RootSpec("field-hair-west", [(368, 426), (356, 434), (344, 442), (333, 450)],
              flare=2.6, tip=0.3, tier="fine", delay=0.36, seed=42,
              parent="field-west-sweeper"),
@@ -770,7 +779,27 @@ FIELD_WASH_SPAN_STRETCH = 1.35
 
 def build_field_records():
     """Final geometry for the full-bleed field underlay."""
-    return build_organ_records(FIELD_SPECS, FIELD_SPEED, FIELD_SPAN_BOUNDS)
+    return build_organ_records(FIELD_SPECS, FIELD_SPEED, FIELD_SPAN_BOUNDS,
+                               n_per_seg=10)
+
+
+FIELD_BURIAL_VOIDS = (
+    (210, 478, 55, 13),
+    (690, 502, 65, 15),
+    (1150, 524, 70, 16),
+)
+
+
+def burial_voids():
+    """Soft black voids inside a field mask: organs crossing one appear
+    to dive beneath the soil plane and resurface past it. Static shapes,
+    so they cost nothing during the growth animation."""
+    return [
+        f'          <ellipse cx="{fmt(cx)}" cy="{fmt(cy)}" '
+        f'rx="{fmt(rx)}" ry="{fmt(ry)}" fill="#000" '
+        f'filter="url(#life-field-buried-blur)"/>'
+        for cx, cy, rx, ry in FIELD_BURIAL_VOIDS
+    ]
 
 
 def build_field():
@@ -804,6 +833,10 @@ def build_field():
         'width="130%" height="220%">',
         '          <feGaussianBlur stdDeviation="2"/>',
         '        </filter>',
+        '        <filter id="life-field-buried-blur" x="-60%" y="-300%" '
+        'width="220%" height="700%">',
+        '          <feGaussianBlur stdDeviation="9"/>',
+        '        </filter>',
     ]
     for tier in tiers:
         specs_in_tier = [s for s in FIELD_SPECS if s.tier == tier]
@@ -817,6 +850,7 @@ def build_field():
             reveal_stroke(s, s.delay, records[s.name].span)
             for s in specs_in_tier
         )
+        out.extend(burial_voids())
         out.append('        </mask>')
         out.append(
             f'        <mask id="life-field-wash-{tier}" {region_attrs}>'
@@ -829,6 +863,7 @@ def build_field():
             )
             for s in specs_in_tier
         )
+        out.extend(burial_voids())
         out.append('        </mask>')
     out.append('      </defs>')
     # Washes first (blurred underlay), then crisp ink on top; inside
