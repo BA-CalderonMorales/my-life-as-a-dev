@@ -332,12 +332,17 @@ class TestResponsiveLayout:
         )
         assert (
             metrics["roots"]["right"] - metrics["roots"]["left"]
-            >= (metrics["tree"]["right"] - metrics["tree"]["left"]) * 0.93
-        ), f"{name}: roots no longer span the tree footprint"
+            >= (metrics["tree"]["right"] - metrics["tree"]["left"]) * 0.45
+        ), f"{name}: roots fan too narrow under the base"
         assert (
             metrics["roots"]["bottom"] - metrics["roots"]["top"]
-            >= (metrics["tree"]["right"] - metrics["tree"]["left"]) * 0.64
+            >= (metrics["tree"]["right"] - metrics["tree"]["left"]) * 0.32
         ), f"{name}: roots no longer occupy meaningful vertical space"
+        # Roots emerge from the flare near the trunk base - never from the
+        # canopy half of the illustration.
+        assert metrics["roots"]["top"] >= metrics["tree"]["top"] + (
+            metrics["tree"]["bottom"] - metrics["tree"]["top"]
+        ) * 0.5, f"{name}: roots reach into the canopy half"
         assert metrics["tree"]["bottom"] <= metrics["controls"]["top"] + 1, (
             f"{name}: roots overlap the visible facet controls"
         )
@@ -523,7 +528,9 @@ class TestResponsiveLayout:
         assert bounds["rootLeft"] >= bounds["stageLeft"] - 1
         assert bounds["rootRight"] <= bounds["stageRight"] + 1
         assert bounds["rootBottom"] <= bounds["stageBottom"] + 1
-        assert bounds["rootHeight"] >= bounds["treeWidth"] * 0.64
+        # The root fan dives from the flare: about 0.43x tree width tall
+        # (viewBox 310/720); require a meaningful but base-anchored fan.
+        assert bounds["rootHeight"] >= bounds["treeWidth"] * 0.35
 
     def test_tree_motion_respects_the_reduced_motion_preference(
         self, browser, base_url: str
@@ -569,7 +576,15 @@ class TestResponsiveLayout:
             finally:
                 context.close()
 
-        assert results["no-preference"]["animations"] == ["life-tree-sway"]
+        assert results["no-preference"]["animations"] != []
+        # Normal mode carries exactly three ambient loops: the crown sway
+        # on the breeze group, the wind sway on the roots group, and the
+        # breathe on every root path.
+        names = sorted(set(results["no-preference"]["animations"]))
+        assert names == ["life-root-breathe", "life-root-sway", "life-tree-sway"]
+        assert (
+            results["no-preference"]["animations"].count("life-tree-sway") == 1
+        )
         assert results["no-preference"]["rootDashOffset"] > 0
         assert results["reduce"]["animations"] == []
         assert results["reduce"]["rootDashOffset"] == 0

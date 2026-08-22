@@ -139,86 +139,86 @@
          * first, fine feeders last, each with its own reveal window.
          */
         var FIELD_VIEWBOX = "0 0 1440 420";
-                var FIELD_PATHS = [
-            // ── Primary scaffold: heavy strokes straight from the trunk base ──
+        var FIELD_PATHS = [
+            // ── Primary scaffold: heavy sinkers that dive from the flare ──
+            // Every root leaves the base descending; long travel happens at
+            // depth, the way real roots spread under the ground line.
             { tier: "primary", delay: 0.00, span: 0.42, width: 6.2,
-              d: "M 452 402 C 400 398 330 404 268 388 C 196 370 120 372 60 342 C 20 322 -60 296 -170 264" },
+              d: "M 450 400 C 404 418 362 442 320 462 C 270 486 210 504 150 516 C 96 526 40 532 -30 536" },
             { tier: "primary", delay: 0.03, span: 0.44, width: 5.6,
-              d: "M 462 406 C 420 420 356 416 300 424 C 220 434 140 418 84 380 C 40 356 -40 330 -140 300" },
+              d: "M 458 406 C 420 418 384 434 344 446 C 296 460 244 468 190 476 C 134 484 74 490 14 496" },
             { tier: "primary", delay: 0.06, span: 0.46, width: 6.6,
-              d: "M 474 404 C 480 414 492 418 508 420 L 560 419 C 664 416 780 424 892 408 C 1010 390 1120 386 1224 356 C 1320 330 1480 304 1630 270" },
+              d: "M 474 402 C 520 420 562 444 606 464 C 658 488 720 506 786 518 C 844 528 902 534 970 538" },
             { tier: "primary", delay: 0.09, span: 0.44, width: 5.2,
-              d: "M 468 408 C 500 416 560 430 640 428 C 760 426 900 438 1040 428 C 1180 418 1440 402 1610 358" },
+              d: "M 468 408 C 508 420 552 436 600 450 C 656 466 718 476 784 484 C 850 490 916 494 986 498" },
             { tier: "primary", delay: 0.05, span: 0.40, width: 5.8,
-              d: "M 466 405 C 460 412 452 415 446 418 C 430 424 414 428 402 436 C 386 446 372 452 360 462" },
+              d: "M 466 404 C 458 424 450 446 444 468 C 438 492 430 514 422 536" },
             { tier: "primary", delay: 0.08, span: 0.42, width: 5.4,
-              d: "M 478 406 C 512 418 540 432 570 444 C 610 460 650 468 700 476" },
+              d: "M 480 406 C 512 424 542 444 570 464 C 600 486 626 504 650 522" },
             { tier: "primary", delay: 0.07, span: 0.41, width: 5.0,
-              d: "M 458 404 C 436 416 410 424 386 436 C 350 452 320 462 290 474" },
+              d: "M 456 404 C 432 422 408 442 384 462 C 358 484 332 502 306 520" },
 
-            // ── Laterals: each forks from a point on its parent primary ──
+            // ── Laterals: fork downward off a parent, then ease outward ──
             { tier: "secondary", delay: 0.14, span: 0.30, width: 3.1,
-              d: "M 330 403 C 296 396 264 398 232 388 C 200 378 176 380 152 370" },
+              d: "M 320 462 C 296 476 272 488 248 496 C 228 503 208 508 188 512" },
             { tier: "secondary", delay: 0.18, span: 0.28, width: 2.7,
-              d: "M 196 371 C 168 362 144 364 118 354 C 96 346 78 348 62 340" },
+              d: "M 190 476 C 172 486 154 494 136 500 C 122 505 108 508 94 510" },
             { tier: "secondary", delay: 0.22, span: 0.30, width: 2.9,
-              d: "M 300 424 C 272 430 246 428 218 434 C 190 440 166 436 142 442" },
+              d: "M 344 446 C 320 456 296 464 272 470 C 250 475 228 478 206 480" },
             { tier: "secondary", delay: 0.20, span: 0.28, width: 2.6,
-              d: "M 140 419 C 116 412 94 416 72 408 C 52 402 36 404 22 398" },
+              d: "M 240 468 C 222 477 204 484 186 489 C 170 493 154 496 138 498" },
             { tier: "secondary", delay: 0.16, span: 0.30, width: 3.0,
-              d: "M 664 416 C 700 410 730 414 764 406 C 800 398 828 400 856 392" },
+              d: "M 606 464 C 632 476 658 486 686 494 C 712 501 738 506 764 509" },
             { tier: "secondary", delay: 0.24, span: 0.30, width: 2.8,
-              d: "M 892 408 C 924 414 954 412 986 418 C 1020 424 1050 420 1080 426" },
+              d: "M 786 518 C 812 525 838 530 866 534 C 892 537 918 539 944 540" },
             { tier: "secondary", delay: 0.20, span: 0.28, width: 2.7,
-              d: "M 1120 386 C 1150 378 1178 380 1206 372 C 1236 364 1260 366 1282 358" },
+              d: "M 720 506 L 721 506 M 720 506 C 742 515 764 523 788 529 C 810 534 832 538 854 541" },
             { tier: "secondary", delay: 0.26, span: 0.28, width: 2.8,
-              d: "M 760 426 C 792 432 820 430 852 436 C 886 442 916 440 946 446" },
+              d: "M 600 450 C 618 460 636 469 656 477 C 674 484 692 490 710 495" },
             { tier: "secondary", delay: 0.28, span: 0.26, width: 2.5,
-              d: "M 1040 428 C 1072 424 1100 428 1130 422 C 1162 416 1188 418 1212 412" },
+              d: "M 656 466 C 674 474 692 481 712 487 C 730 492 748 496 766 499" },
             { tier: "secondary", delay: 0.24, span: 0.26, width: 2.6,
-              d: "M 446 418 C 452 428 450 438 456 448 C 462 458 460 466 466 474" },
+              d: "M 444 468 C 456 478 466 488 474 498 C 481 507 487 516 491 524" },
             { tier: "secondary", delay: 0.28, span: 0.24, width: 2.4,
-              d: "M 386 436 C 366 444 348 442 330 450" },
+              d: "M 392 462 C 380 472 368 482 356 491" },
             { tier: "secondary", delay: 0.30, span: 0.24, width: 2.4,
-              d: "M 570 444 C 592 452 616 454 638 462" },
+              d: "M 570 464 C 582 473 594 481 608 489" },
 
             // ── Fine feeders: hair strokes finishing the system ──
             { tier: "fine", delay: 0.38, span: 0.20, width: 1.5,
-              d: "M 232 388 C 214 384 198 386 182 380" },
+              d: "M 248 496 C 234 502 220 507 206 511" },
             { tier: "fine", delay: 0.42, span: 0.18, width: 1.2,
-              d: "M 152 370 C 138 366 126 368 114 362" },
+              d: "M 188 512 C 176 516 164 519 152 521" },
             { tier: "fine", delay: 0.40, span: 0.20, width: 1.4,
-              d: "M 124 371 C 106 366 92 368 76 362" },
+              d: "M 206 480 C 194 486 182 491 170 495" },
             { tier: "fine", delay: 0.44, span: 0.18, width: 1.2,
-              d: "M 118 354 C 104 350 92 352 80 346" },
+              d: "M 138 498 L 139 498 M 138 498 C 128 503 118 507 108 510" },
             { tier: "fine", delay: 0.40, span: 0.20, width: 1.3,
-              d: "M 218 434 C 202 438 188 436 172 440" },
+              d: "M 272 470 C 260 475 248 479 236 482" },
             { tier: "fine", delay: 0.46, span: 0.18, width: 1.2,
-              d: "M 72 408 C 58 404 46 406 34 400" },
-            { tier: "fine", delay: 0.38, span: 0.20, width: 1.4,
-              d: "M 764 406 C 780 402 794 404 810 400" },
+              d: "M 686 494 C 700 499 714 503 728 507" },
             { tier: "fine", delay: 0.44, span: 0.18, width: 1.2,
-              d: "M 856 392 C 872 388 886 390 900 386" },
+              d: "M 766 509 C 780 513 794 516 808 518" },
             { tier: "fine", delay: 0.42, span: 0.20, width: 1.3,
-              d: "M 986 418 C 1002 422 1016 420 1032 424" },
+              d: "M 866 534 C 880 537 894 539 908 540" },
             { tier: "fine", delay: 0.46, span: 0.18, width: 1.2,
-              d: "M 1206 372 C 1222 368 1236 370 1252 366" },
+              d: "M 712 487 C 724 491 736 494 748 497" },
             { tier: "fine", delay: 0.50, span: 0.16, width: 1.1,
-              d: "M 1282 358 C 1298 354 1312 356 1328 352" },
+              d: "M 854 541 C 866 543 878 545 890 546" },
             { tier: "fine", delay: 0.44, span: 0.18, width: 1.2,
-              d: "M 1130 422 C 1146 418 1160 420 1176 416" },
+              d: "M 656 477 C 668 482 680 486 692 490" },
             { tier: "fine", delay: 0.36, span: 0.20, width: 1.3,
-              d: "M 560 419 C 574 424 588 422 602 426" },
+              d: "M 474 498 C 482 505 489 512 495 519" },
             { tier: "fine", delay: 0.40, span: 0.18, width: 1.2,
-              d: "M 222 433 C 206 437 192 435 178 439" },
+              d: "M 491 524 C 497 530 502 536 506 542" },
             { tier: "fine", delay: 0.46, span: 0.16, width: 1.2,
-              d: "M 610 460 C 624 464 638 462 652 466" },
+              d: "M 608 489 C 618 494 628 498 638 502" },
             { tier: "fine", delay: 0.48, span: 0.16, width: 1.1,
-              d: "M 320 462 C 306 466 294 464 280 468" },
+              d: "M 356 491 C 346 498 336 504 326 510" },
             { tier: "fine", delay: 0.34, span: 0.20, width: 1.3,
-              d: "M 500 421 C 512 424 524 422 536 425" },
+              d: "M 516 472 C 526 478 536 484 546 490" },
             { tier: "fine", delay: 0.36, span: 0.18, width: 1.2,
-              d: "M 440 419 C 428 423 418 421 406 424" }
+              d: "M 542 444 L 543 444 M 542 444 C 552 451 562 457 572 463" }
         ];
 
         function buildRootsField() {
@@ -268,10 +268,38 @@
             var treeSvg = root.querySelector(".life-tree");
             if (!field || !treeSvg) return;
             var box = treeSvg.getBoundingClientRect();
-            if (!box.width) return;
-            var trunkX = box.left + box.width * 0.5;
-            var shift = trunkX - window.innerWidth * (460 / 1440);
-            field.style.transform = "translateX(" + shift.toFixed(1) + "px)";
+            if (!box.width || !box.height) return;
+
+            /*
+             * One continuous system: the field's ground line must sit at
+             * the trunk base on screen - never at the svg bounding box
+             * bottom, which reserves empty viewBox space below the base.
+             * Trunk base in viewBox coords: (356, 708) of 720 x 1200.
+             * Field ground line: y ~= 405 of the 420-tall field grid.
+             */
+            var trunkX = box.left + box.width * (356 / 720);
+            var trunkY = box.top + box.height * (708 / 1200);
+
+            var fieldH = field.getBoundingClientRect().height || window.innerHeight * 0.5;
+            var groundFromBottom = fieldH * ((420 - 405) / 420);
+            var desiredBottomY = trunkY + groundFromBottom * 0.4;
+
+            /*
+             * While the trunk holds the stage, the field hangs from its
+             * base - one continuous system. Once the tree decamps, the
+             * field returns to its neutral full-bleed post at the bottom.
+             */
+            var onStage = trunkY > -window.innerHeight * 0.2 &&
+                trunkY < window.innerHeight;
+            var shiftX = 0;
+            var shiftY = 0;
+            if (onStage) {
+                shiftX = trunkX - window.innerWidth * (460 / 1440);
+                shiftY = desiredBottomY - window.innerHeight;
+            }
+
+            field.style.transform = "translate(" + shiftX.toFixed(1) + "px, " +
+                shiftY.toFixed(1) + "px)";
         }
 
         buildRootsField();
@@ -426,29 +454,31 @@
 
         function applyProgress(rawProgress) {
             var progress = clamp(rawProgress, 0, 1);
-            // Sequenced handoff: the intro bows out first (0.08-0.20), the
-            // tree decamps to the left (0.10-0.38), then the dossier lands
-            // (0.12-0.20). The dossier must be fully opaque before the Work
-            // facet center at ~0.226, so every navigable section is solid.
-            var introOpacity = 1 - clamp((progress - 0.08) / 0.12, 0, 1);
-            var panelOpacity = clamp((progress - PANEL_START) / 0.08, 0, 1);
+            // Sequenced handoff with DISJOINT windows: the intro and its
+            // pills are fully gone by 0.13, only then does the dossier
+            // begin to land (0.145-0.215), so no scroll position ever
+            // shows two text layers at partial opacity. The tree decamps
+            // through the quiet gap as art, never competing with copy.
+            // The dossier must be fully opaque before the Work facet
+            // center at ~0.226, so every navigable section is solid.
+            var introOpacity = 1 - clamp((progress - 0.05) / 0.08, 0, 1);
+            var panelOpacity = clamp((progress - 0.145) / 0.07, 0, 1);
             var detail = 1 - (clamp((progress - 0.06) / 0.5, 0, 1) * 0.84);
             var pixelOpacity = clamp((progress - 0.14) / 0.34, 0, 0.9);
 
             // The planted flare is always present; the living root network
-            // begins after the story opens, then reaches biological depth in
-            // order: structural roots, laterals, and fine feeders. It resolves
-            // while the tree still holds the stage, so the roots never sprawl
-            // across the rest of the journey.
+            // begins as the story opens and reaches biological depth in
+            // order: structural sinkers, laterals, and fine feeders. It
+            // resolves while the tree still holds the stage, so the roots
+            // never sprawl across the rest of the journey.
             var roots = easeInOutCubic(
-                clamp((progress - 0.30) / 0.28, 0, 1)
+                clamp((progress - 0.10) / 0.34, 0, 1)
             );
 
-            // The freed field keeps reaching through nearly the whole journey:
-            // it starts as soon as the story opens and finishes near the coda,
-            // so the ground feels alive under the entire read.
+            // The freed field keeps reaching through most of the journey,
+            // but only after the handoff settles - never at rest.
             var fieldRoots = easeInOutCubic(
-                clamp((progress - 0.04) / 0.72, 0, 1)
+                clamp((progress - 0.13) / 0.60, 0, 1)
             );
 
             var treeEased = easeInOutCubic(clamp((progress - 0.1) / 0.28, 0, 1));

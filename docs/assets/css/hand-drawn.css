@@ -190,7 +190,7 @@ body.landing-page {
     --life-copper-text: #161616;
     --life-line: rgba(22, 22, 22, 0.18);
     --life-line-strong: rgba(22, 22, 22, 0.40);
-    --life-panel: rgba(250, 250, 250, 0.96);
+    --life-panel: rgba(250, 250, 250, 1);
     --life-label: rgba(250, 250, 250, 0.92);
     --life-serif: "Caveat", "Shantell Sans", cursive;
     --life-sans: "Shantell Sans", "Segoe Print", cursive;
@@ -209,7 +209,7 @@ body.landing-page[data-md-color-scheme="slate"] {
     --life-copper-text: #ededed;
     --life-line: rgba(237, 237, 237, 0.16);
     --life-line-strong: rgba(237, 237, 237, 0.36);
-    --life-panel: rgba(18, 18, 18, 0.96);
+    --life-panel: rgba(18, 18, 18, 1);
     --life-label: rgba(18, 18, 18, 0.92);
 }
 
@@ -648,7 +648,8 @@ textarea,
 .life-kicker {
     position: absolute;
     right: clamp(1.25rem, 5vw, 5rem);
-    bottom: calc(clamp(2.5rem, 7vh, 5rem) + 2.4rem);
+    bottom: calc(clamp(2.5rem, 7vh, 5rem) + 3.4rem);
+    z-index: 3;
     margin: 0;
     font-family: var(--font-display);
     font-size: 1.15rem;
@@ -693,39 +694,48 @@ textarea,
    ─────────────────────────────────────────── */
 
 [data-life-index] .life-tree__wood-shape {
-    fill-opacity: 0.14;
+    fill-opacity: 0.3;
 }
 
 [data-life-index] .life-tree__canopy-shape {
-    fill-opacity: 0.05;
+    fill-opacity: 0.3;
     stroke: currentColor;
-    stroke-width: 1.1;
-    stroke-opacity: 0.42;
+    stroke-width: 1.4;
+    stroke-opacity: 0.8;
 }
 
 [data-life-index] .life-tree__canopy-shape--under {
-    fill-opacity: 0.035;
-    stroke-opacity: 0.26;
+    fill-opacity: 0.13;
+    stroke-opacity: 0.38;
 }
 
 [data-life-index] .life-tree__leaf {
     fill-opacity: 0.85;
     stroke: currentColor;
-    stroke-width: 0.9;
-    stroke-opacity: 0.75;
+    stroke-width: 1.2;
+    stroke-opacity: 0.9;
 }
 
 [data-life-index] .life-tree__leaf--shade {
     fill-opacity: 0.45;
 }
 
+/* Bark hatching: keep it legible at every viewport scale. */
+[data-life-index] .life-tree__bark path {
+    stroke-width: 2.2px;
+}
+
+[data-life-index] .life-tree__bark--light path {
+    stroke-width: 1.3px;
+}
+
 /* Branches and twigs: the trunk's recipe - wash fill, crisp pencil edge. */
 [data-life-index] .life-tree__limb,
 [data-life-index] .life-tree__twig {
-    fill-opacity: 0.16;
+    fill-opacity: 0.4;
     stroke: currentColor;
-    stroke-width: 1.1;
-    stroke-opacity: 0.8;
+    stroke-width: 1.8;
+    stroke-opacity: 0.9;
     stroke-linejoin: round;
 }
 
@@ -734,13 +744,52 @@ textarea,
     opacity: 0.72;
 }
 
+
+/* The in-tree roots read as the root CROWN hugging the trunk base;
+   the freed field continues the system across the page. Deep sweepers
+   inside the svg would read as a second, disconnected root system. */
+[data-life-index] .life-tree__roots {
+    opacity: 0.72;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 12%, transparent 26%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 12%, transparent 26%);
+}
+
+/* Intro overlay rides above the tree shell (z 8): words over art,
+   always - animations must never obscure content. */
+.life-intro {
+    z-index: 9;
+}
+
+/* Readability without pasted-label boxes: a soft paper halo follows the
+   letterforms only (text-shadow), so no rectangular patches sit behind
+   intro copy - the notebook stays continuous under every word. */
+.life-intro__identity,
+.life-intro__thesis,
+.life-kicker,
+.life-intro__prompt,
+.life-branches {
+    text-shadow:
+        0 1px 0 var(--canvas),
+        0 -1px 0 var(--canvas),
+        1px 0 0 var(--canvas),
+        -1px 0 0 var(--canvas),
+        0 2px 6px var(--canvas);
+}
+
+.life-intro__thesis {
+    max-width: min(30rem, 44vw);
+    z-index: 2;
+}
+
 /* Falling leaves: outlined petals, flat two-tone depth */
 [data-life-index] .life-leaf__blade,
 [data-life-index] .life-leaf__petal {
-    fill-opacity: 0.62;
+    fill-opacity: 0.7;
     stroke: currentColor;
-    stroke-width: 0.9;
-    stroke-opacity: 0.75;
+    stroke-width: 1.1;
+    stroke-opacity: 0.9;
+    filter: none;
+}
 }
 
 [data-life-index] .life-leaves--far .life-leaf__blade,
@@ -758,7 +807,10 @@ textarea,
 }
 
 /* Roughen every drawn element; the animated variant
-   boils at ~7fps like re-traced frames. */
+   boils at ~7fps like re-traced frames. The tree keeps the animated
+   boil - it was never the cause of the vanishing act (a full-bleed
+   opaque .life-branches background was), and the boil is part of the
+   notebook's living-pencil look. */
 @media (prefers-reduced-motion: no-preference) {
 
     .life-tree,
@@ -797,6 +849,10 @@ textarea,
     pointer-events: none;
 }
 
+.life-roots-field {
+    transition: transform 320ms ease-out;
+}
+
 .life-roots-field path {
     fill: none;
     stroke: currentColor;
@@ -809,15 +865,15 @@ textarea,
 }
 
 .life-roots-field__root--primary {
-    stroke-opacity: 0.72;
+    stroke-opacity: 0.5;
 }
 
 .life-roots-field__root--secondary {
-    stroke-opacity: 0.52;
+    stroke-opacity: 0.4;
 }
 
 .life-roots-field__root--fine {
-    stroke-opacity: 0.36;
+    stroke-opacity: 0.3;
 }
 
 @media (prefers-reduced-motion: no-preference) {

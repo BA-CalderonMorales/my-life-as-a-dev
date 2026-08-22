@@ -175,8 +175,10 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-dasharray: 1px;
+    /* Fallback 0: before the choreography sets --life-roots nothing may
+       show - roots must never render as static marks at rest. */
     stroke-dashoffset: calc(
-        (1 - clamp(0, (var(--life-roots, 1) - var(--root-delay, 0)) / var(--root-span, 1), 1)) * 1px
+        (1 - clamp(0, (var(--life-roots, 0) - var(--root-delay, 0)) / var(--root-span, 1), 1)) * 1px
     );
     /* Each root tier gets its own subtle sway phase */
     animation:
