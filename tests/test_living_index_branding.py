@@ -30,7 +30,25 @@ def test_header_and_favicon_share_the_branch_geometry():
     logo = LOGO.read_text(encoding="utf-8")
     mark = MARK.read_text(encoding="utf-8")
     assert re.findall(r'<path d="([^"]+)"', logo) == list(BRAND_PATHS)
-    assert re.findall(r'<path d="([^"]+)"', mark) == list(BRAND_PATHS)
+
+    # The browser mark re-traces the same skeleton in the site's
+    # hand-drawn style: one stroke per brand path, plus a fruit dot
+    # pinned at every branch tip within a pencil-width of tolerance.
+    stroke_group = re.search(r"<g[^>]*>(.*?)</g>", mark, re.S)
+    assert stroke_group, "browser mark lost its stroke group"
+    mark_strokes = re.findall(r'<path d="([^"]+)"', stroke_group.group(1))
+    assert len(mark_strokes) == len(BRAND_PATHS)
+
+    tips = [(14, 21), (50, 12), (53, 31)]
+    dots = [
+        (float(match.group(1)), float(match.group(2)))
+        for match in re.finditer(
+            r'<circle cx="([\d.]+)" cy="([\d.]+)"', mark
+        )
+    ]
+    assert len(dots) == len(tips)
+    for tip_x, tip_y in tips:
+        assert any(math.hypot(dx - tip_x, dy - tip_y) <= 1 for dx, dy in dots)
 
 
 def test_favicon_is_a_real_icon_container():
@@ -252,17 +270,33 @@ def test_generated_homepage_keeps_every_tree_and_dossier_target():
         assert f'id="{facet}"' in index
 
 
+def _load_gen_tree():
+    """Load the tree generator from its hyphenated directory."""
+    import importlib.util
+
+    path = ROOT / "scripts" / "python" / "tree-gen" / "gen_tree.py"
+    spec = importlib.util.spec_from_file_location("mlad_gen_tree", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def test_generated_homepage_keeps_root_topology_and_expanded_bounds():
     """The checked-in page should match the generated root contract."""
     index = INDEX.read_text(encoding="utf-8")
+    gen_tree = _load_gen_tree()
 
     assert 'viewBox="0 0 720 1200"' in index
-    assert index.count('data-root-tier="primary"') == 5
-    assert index.count('data-root-tier="secondary"') == 12
-    assert index.count('data-root-tier="fine"') == 18
-    assert re.findall(r'data-root-id="([^"]+)"', index) == [
-        root.root_id for root in generate_life_tree.ROOT_PATHS
-    ]
+
+    expected_tiers = {"primary": 0, "lateral": 0, "fine": 0}
+    for _, _, tier, _delay in gen_tree.ROOTS:
+        expected_tiers[tier] += 1
+    for tier, count in expected_tiers.items():
+        assert index.count(f'life-tree__root--{tier}"') == count
+
+    for name in ("roots", "tree"):
+        assert index.count(f"<!-- gen_tree:{name} -->") == 1
+        assert index.count(f"<!-- /gen_tree:{name} -->") == 1
 
 
 def test_life_tree_patcher_is_idempotent():
