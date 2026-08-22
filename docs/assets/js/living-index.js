@@ -307,14 +307,18 @@
         /*
          * Roots stay enclosed to the tree's own box: 0 while the tree shell
          * sits below the viewport, 1 once its box has fully passed the top.
-         * The root system never sprawls across the rest of the page.
+         * The ratio keys off scroll travel against the shell's full document
+         * extent, so every viewport starts with exactly zero root ink no
+         * matter how much of the shell already peeks into view at rest.
          */
         function treeBoxReveal() {
             var box = treeShell.getBoundingClientRect();
             var viewport = window.visualViewport
                 ? window.visualViewport.height
                 : window.innerHeight;
-            return clamp((viewport - box.top) / (viewport + box.height), 0, 1);
+            var shellExtent = box.top + window.scrollY + box.height;
+            if (shellExtent <= 0) return 0;
+            return clamp(window.scrollY / shellExtent, 0, 1);
         }
 
         function panelForFacet(facet) {
