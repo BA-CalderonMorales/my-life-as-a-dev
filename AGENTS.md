@@ -84,6 +84,41 @@ doc-cli                 # interactive doc tooling
   screenshots regenerate from the same Playwright suite.
 - **CQS** - `make serve` preview is read-only; `make build` writes `site/`;
   deploys happen only through `github_pages.yml`.
+
+### Extended North Stars
+
+Beyond the six working principles above, these classic guides apply when
+the situation calls for them:
+
+- **LSP** - a variant of a component (page, skill, script) must be
+  swappable for the original without breaking callers; same contract,
+  same expectations.
+- **ISP** - keep interfaces narrow: a skill or Make target should expose
+  only what its caller needs, not one mega-entrypoint.
+- **DIP** - depend on abstractions (config vars, CSS custom properties,
+  Make targets), not concrete implementations; swap Zensical internals
+  without touching every page.
+- **CRP / composition over inheritance** - compose pages from partials,
+  skills from steps, styles from layered sheets; do not deepen chains.
+- **Law of Demeter** - talk to your neighbors: a page touches its nav
+  entry and its assets, not another page's internals.
+- **Design by contract** - scripts and skills state preconditions
+  (`site/` built), postconditions (`nav valid`), and fail loudly when
+  they cannot honor them.
+- **Encapsulation** - each config module owns its slice; nothing reaches
+  into another module's keys.
+- **Linguistic modular units** - modules map to real files and targets:
+  one TOML source, one skill directory, one test file.
+- **Self-documentation** - a skill's SKILL.md carries everything about
+  the skill; a script's `--help` carries everything about the script.
+- **Uniform access** - whether a value is computed or stored (merged
+  config vs static file), you reach it the same way.
+- **Single choice** - exactly one home lists the exhaustive set: nav in
+  `03-navigation.toml`, skills in `.github/skills/`, targets in the
+  Makefile.
+- **Persistence closure** - storing an artifact means storing its
+  dependents: committed screenshots ship with the suite that regenerates
+  them; the ledger ships with the gate runner that reads it.
 ## GitNexus — Code Intelligence
 
 This project is indexed by GitNexus as **my-life-as-a-dev** (4151 symbols, 6382 relationships, 159 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
