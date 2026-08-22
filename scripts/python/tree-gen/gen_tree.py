@@ -128,6 +128,10 @@ def fmt(v):
     return f"{v:.1f}".rstrip('0').rstrip('.')
 
 
+def clamp(v, lo, hi):
+    return max(lo, min(hi, v))
+
+
 def tapered_shape(chain, w0, w1, seed=1, taper_pow=0.85, buttress=0.0,
                   wob=0.7, tip_sharp=True, collars=()):
     """Emit a closed tapered filled path around a chained centerline."""
@@ -262,46 +266,58 @@ BARK_LIGHT = [
 ]
 
 # ── roots: heavy sinkers from the flare, diving down-and-out ────────────
-# Each entry: (chain, width, tier, delay, span). Tiers: primary (the
+# Each entry: (chain, width, tier, delay). Tiers: primary (the
 # buttress continuations), lateral (first forks), fine (feeders).
 ROOTS = [
     # west deep sinker
-    ([(340, 700), (312, 744), (290, 800), (274, 866)], 7.0, "primary", 0.00, 0.30),
-    ([(274, 866), (260, 908), (246, 956)], 3.4, "lateral", 0.22, 0.26),
-    ([(274, 866), (292, 906), (304, 948)], 2.6, "lateral", 0.26, 0.24),
+    ([(340, 700), (312, 744), (290, 800), (274, 866)], 7.0, "primary", 0.00),
+    ([(274, 866), (260, 908), (246, 956)], 3.4, "lateral", 0.22),
+    ([(274, 866), (292, 906), (304, 948)], 2.6, "lateral", 0.26),
     # east deep sinker
-    ([(382, 702), (420, 748), (448, 804), (466, 868)], 7.0, "primary", 0.03, 0.30),
-    ([(466, 868), (480, 912), (492, 960)], 3.4, "lateral", 0.25, 0.26),
-    ([(466, 868), (450, 910), (438, 954)], 2.6, "lateral", 0.29, 0.24),
+    ([(382, 702), (420, 748), (448, 804), (466, 868)], 7.0, "primary", 0.03),
+    ([(466, 868), (480, 912), (492, 960)], 3.4, "lateral", 0.25),
+    ([(466, 868), (450, 910), (438, 954)], 2.6, "lateral", 0.29),
     # west lateral, running shallow briefly before diving
-    ([(332, 706), (288, 734), (240, 772), (200, 824)], 5.0, "primary", 0.06, 0.30),
-    ([(200, 824), (182, 868), (168, 912)], 2.8, "lateral", 0.28, 0.24),
-    ([(240, 772), (222, 806), (210, 844)], 2.2, "fine", 0.34, 0.22),
+    ([(332, 706), (288, 734), (240, 772), (200, 824)], 5.0, "primary", 0.06),
+    ([(200, 824), (182, 868), (168, 912)], 2.8, "lateral", 0.28),
+    ([(240, 772), (222, 806), (210, 844)], 2.2, "fine", 0.34),
     # east lateral
-    ([(390, 706), (440, 738), (492, 778), (536, 826)], 5.0, "primary", 0.09, 0.30),
-    ([(536, 826), (560, 868), (578, 908)], 2.8, "lateral", 0.31, 0.24),
-    ([(492, 778), (512, 812), (526, 850)], 2.2, "fine", 0.36, 0.22),
+    ([(390, 706), (440, 738), (492, 778), (536, 826)], 5.0, "primary", 0.09),
+    ([(536, 826), (560, 868), (578, 908)], 2.8, "lateral", 0.31),
+    ([(492, 778), (512, 812), (526, 850)], 2.2, "fine", 0.36),
     # center taproot
-    ([(360, 710), (356, 762), (364, 826), (376, 894)], 6.0, "primary", 0.12, 0.30),
-    ([(376, 894), (384, 944), (392, 996)], 3.0, "lateral", 0.34, 0.24),
-    ([(376, 894), (366, 942), (356, 988)], 2.4, "lateral", 0.37, 0.22),
+    ([(360, 710), (356, 762), (364, 826), (376, 894)], 6.0, "primary", 0.12),
+    ([(376, 894), (384, 944), (392, 996)], 3.0, "lateral", 0.34),
+    ([(376, 894), (366, 942), (356, 988)], 2.4, "lateral", 0.37),
     # feeders hanging off the primaries
-    ([(312, 744), (296, 776), (286, 812)], 2.0, "fine", 0.30, 0.22),
-    ([(420, 748), (438, 782), (448, 818)], 2.0, "fine", 0.32, 0.22),
-    ([(288, 800), (270, 830), (258, 862)], 1.6, "fine", 0.38, 0.20),
-    ([(448, 804), (466, 836), (476, 868)], 1.6, "fine", 0.40, 0.20),
-    ([(356, 762), (338, 792), (326, 824)], 1.6, "fine", 0.42, 0.20),
-    ([(364, 826), (382, 858), (392, 888)], 1.4, "fine", 0.44, 0.18),
+    ([(312, 744), (296, 776), (286, 812)], 2.0, "fine", 0.30),
+    ([(420, 748), (438, 782), (448, 818)], 2.0, "fine", 0.32),
+    ([(288, 800), (270, 830), (258, 862)], 1.6, "fine", 0.38),
+    ([(448, 804), (466, 836), (476, 868)], 1.6, "fine", 0.40),
+    ([(356, 762), (338, 792), (326, 824)], 1.6, "fine", 0.42),
+    ([(364, 826), (382, 858), (392, 888)], 1.4, "fine", 0.44),
 ]
+
+# Draw speed per tier, in viewBox units consumed per unit of reveal
+# progress: thick wood crawls with slow authority while fine feeders
+# flick out quickly. A root's --root-span derives from its own chain
+# length divided by its tier speed, so long strokes never streak.
+ROOT_SPEED = {"primary": 620.0, "lateral": 470.0, "fine": 430.0}
+SPAN_MIN, SPAN_MAX = 0.12, 0.34
+
+
+def chain_length(chain):
+    return arclens(sample_chain(chain, n_per_seg=8))[-1]
 
 
 def build_roots():
     out = ['          <g class="life-tree__roots" aria-hidden="true">']
-    for chain, width, tier, delay, span in ROOTS:
+    for chain, width, tier, delay in ROOTS:
+        span = clamp(chain_length(chain) / ROOT_SPEED[tier], SPAN_MIN, SPAN_MAX)
         out.append(
             f'            <path class="life-tree__root life-tree__root--{tier}" '
             f'd="{cr_to_cubic_d(chain)}" pathLength="1" stroke-width="{width}" '
-            f'style="--root-delay:{delay};--root-span:{span}"/>'
+            f'style="--root-delay:{delay};--root-span:{span:.2f}"/>'
         )
     out.append('          </g>')
     return "\n".join(out)
