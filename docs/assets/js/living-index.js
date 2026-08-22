@@ -138,7 +138,14 @@
          * formula: every path here is a deliberate stroke, thick primaries
          * first, fine feeders last, each with its own reveal window.
          */
-        var FIELD_VIEWBOX = "0 0 1440 420";
+        /*
+         * The field's frame must CONTAIN its artwork: these strokes dive
+         * from the ground line (y~405) down to y~546, so the band starts
+         * just above the ground and runs deep. An earlier 0 0 1440 420
+         * frame clipped everything below the ground line - a root system
+         * beheaded at the soil.
+         */
+        var FIELD_VIEWBOX = "-40 392 1560 168";
         var FIELD_PATHS = [
             // ── Primary scaffold: heavy sinkers that dive from the flare ──
             // Every root leaves the base descending; long travel happens at
@@ -273,10 +280,12 @@
         }
 
         /*
-         * The field is drawn around an origin cluster at x=460 in a 1440
-         * grid; the tree, though, slides left as the story opens. Measure
-         * the trunk base on screen and slide the field to match, so every
-         * root visibly grows out of the trunk instead of floating nearby.
+         * The field is drawn around an origin cluster at x=460 in a 1560
+         * grid starting at x=-40; the tree, though, slides left as the
+         * story opens. Measure the trunk base on screen and slide the
+         * field to match, so every root visibly grows out of the trunk
+         * instead of floating nearby. The ground line sits at y=405, a
+         * sliver from the top of the band - everything under it is root.
          */
         function alignRootsField() {
             var field = root.querySelector(".life-roots-field");
@@ -287,30 +296,31 @@
 
             /*
              * One continuous system: the field's ground line must sit at
-             * the trunk base on screen - never at the svg bounding box
-             * bottom, which reserves empty viewBox space below the base.
-             * Trunk base in viewBox coords: (356, 708) of 720 x 1200.
-             * Field ground line: y ~= 405 of the 420-tall field grid.
+             * the trunk base on screen. Trunk base in viewBox coords:
+             * (356, 708) of 720 x 1200. Field ground line: y=405 of the
+             * band that spans y 392..560.
              */
             var trunkX = box.left + box.width * (356 / 720);
             var trunkY = box.top + box.height * (708 / 1200);
 
             var fieldH = field.getBoundingClientRect().height || window.innerHeight * 0.5;
-            var groundFromBottom = fieldH * ((420 - 405) / 420);
-            var desiredBottomY = trunkY + groundFromBottom * 0.4;
+            var flareFrac = (460 - (-40)) / 1560;
+            var groundFromTop = fieldH * ((405 - 392) / 168);
 
             /*
              * While the trunk holds the stage, the field hangs from its
-             * base - one continuous system. Once the tree decamps, the
-             * field returns to its neutral full-bleed post at the bottom.
+             * base - one continuous system, the flare tucked just beneath
+             * the visible trunk foot. Once the tree decamps, the field
+             * returns to its neutral full-bleed post at the bottom.
              */
             var onStage = trunkY > -window.innerHeight * 0.2 &&
                 trunkY < window.innerHeight;
             var shiftX = 0;
             var shiftY = 0;
             if (onStage) {
-                shiftX = trunkX - window.innerWidth * (460 / 1440);
-                shiftY = desiredBottomY - window.innerHeight;
+                shiftX = trunkX - window.innerWidth * flareFrac;
+                var fieldTopTarget = trunkY - groundFromTop + fieldH * 0.10;
+                shiftY = fieldTopTarget - (window.innerHeight - fieldH);
             }
 
             field.style.transform = "translate(" + shiftX.toFixed(1) + "px, " +
