@@ -335,10 +335,10 @@ ROOT_SPECS = [
     ),
     RootSpec(
         "plunger",
-        [(361, 694), (358, 750), (361, 810), (368, 862), (377, 912),
-         (384, 962)],
+        [(361, 694), (356, 752), (365, 806), (374, 858), (380, 910),
+         (384, 958)],
         flare=27.0, tip=2.2, tier="primary", delay=0.06, seed=4,
-        kinks=[(0.52, 7.0)], amp=2.4,
+        kinks=[(0.30, -9.0), (0.62, 11.0)], amp=4.6,
     ),
     RootSpec(
         "forker",
@@ -358,7 +358,7 @@ ROOT_SPECS = [
     RootSpec("runner-early", [(258, 737), (246, 750), (237, 766)],
              flare=3.6, tip=0.42, tier="lateral", delay=0.20, seed=24,
              parent="runner"),
-    RootSpec("plunger-early", [(359, 776), (350, 797), (344, 815)],
+    RootSpec("plunger-early", [(358, 774), (344, 792), (334, 808)],
              flare=3.4, tip=0.40, tier="lateral", delay=0.24, seed=25,
              parent="plunger"),
     RootSpec("diver-early", [(408, 728), (400, 745), (396, 761)],
@@ -376,10 +376,10 @@ ROOT_SPECS = [
     RootSpec("prong-south", [(411, 752), (417, 788), (422, 822), (426, 854)],
              flare=6.6, tip=0.75, tier="lateral", delay=0.29, seed=10,
              parent="forker"),
-    RootSpec("plunger-sweep", [(368, 862), (354, 900), (338, 940), (329, 972)],
+    RootSpec("plunger-sweep", [(372, 856), (352, 894), (334, 934), (324, 968)],
              flare=5.4, tip=0.6, tier="lateral", delay=0.32, seed=11,
              parent="plunger"),
-    RootSpec("plunger-probe", [(380, 930), (390, 960), (398, 986)],
+    RootSpec("plunger-probe", [(382, 928), (395, 956), (406, 982)],
              flare=4.0, tip=0.45, tier="lateral", delay=0.37, seed=12,
              parent="plunger"),
     RootSpec("diver-drop", [(433, 790), (427, 824), (423, 852)],
@@ -392,10 +392,10 @@ ROOT_SPECS = [
     # lower reach, two on the east prong's mid-section, one stub tails
     # the gnarler. The runner's long shallow run and the whole diver
     # carry nothing - negative space is intentional.
-    RootSpec("hair-plunger-a", [(362, 812), (349, 842), (340, 872)],
+    RootSpec("hair-plunger-a", [(363, 814), (346, 838), (333, 864)],
              flare=2.6, tip=0.3, tier="fine", delay=0.30, seed=14,
              parent="plunger"),
-    RootSpec("hair-plunger-b", [(370, 838), (360, 868), (352, 898)],
+    RootSpec("hair-plunger-b", [(371, 840), (357, 866), (346, 892)],
              flare=2.4, tip=0.28, tier="fine", delay=0.40, seed=15,
              parent="plunger"),
     RootSpec("hair-prong-a", [(442, 794), (452, 816), (460, 838)],
@@ -407,19 +407,16 @@ ROOT_SPECS = [
     RootSpec("hair-gnarler", [(309, 768), (300, 790), (294, 810)],
              flare=2.0, tip=0.22, tier="fine", delay=0.44, seed=18,
              parent="gnarler"),
-    RootSpec("hair-runner-tip", [(195, 886), (188, 906), (183, 924)],
+    RootSpec("hair-runner-tip", [(195, 886), (184, 900), (178, 918)],
              flare=1.8, tip=0.2, tier="fine", delay=0.46, seed=20,
              parent="runner"),
-    RootSpec("hair-plunger-tip", [(384, 962), (379, 982), (375, 1000)],
+    RootSpec("hair-plunger-tip", [(384, 960), (394, 972), (402, 986)],
              flare=1.8, tip=0.2, tier="fine", delay=0.48, seed=21,
              parent="plunger"),
-    RootSpec("hair-forker-tip", [(414, 762), (421, 780), (426, 796)],
-             flare=1.6, tip=0.18, tier="fine", delay=0.50, seed=22,
-             parent="forker"),
-    RootSpec("hair-diver-tip", [(437, 806), (444, 823), (449, 838)],
+    RootSpec("hair-diver-tip", [(437, 806), (447, 816), (454, 828)],
              flare=1.5, tip=0.18, tier="fine", delay=0.52, seed=23,
              parent="diver"),
-    RootSpec("hair-runnerdrop", [(170, 908), (162, 924), (156, 938)],
+    RootSpec("hair-runnerdrop", [(170, 908), (159, 918), (151, 930)],
              flare=1.6, tip=0.19, tier="fine", delay=0.54, seed=28,
              parent="runner-drop"),
     RootSpec("hair-prongsouth", [(422, 822), (417, 838), (413, 852)],
@@ -526,7 +523,19 @@ class RootRecord:
         return self.pts[idx], self.tans[idx], self.arcs[idx] / self.total
 
 
-def build_organ_records(specs, speed_by_tier, span_bounds, n_per_seg=24):
+def _enforce_descent(waypoints):
+    """Clamp a woven spine so it never climbs: soil-bound roots descend
+    or hold level; an upward kink renders as a loop under the band's
+    vertical stretch."""
+    out = [waypoints[0]]
+    for x, y in waypoints[1:]:
+        # SVG y grows downward: descending soil means y may only grow.
+        out.append((x, max(y, out[-1][1])))
+    return out
+
+
+def build_organ_records(specs, speed_by_tier, span_bounds, n_per_seg=24,
+                        monotonic_y=False):
     """Weave, bend, and attach every root spec into final geometry.
 
     Parents are processed before children (spec order guarantees it);
@@ -540,6 +549,8 @@ def build_organ_records(specs, speed_by_tier, span_bounds, n_per_seg=24):
                          samples_per_seg=n_per_seg)
         for t_kink, deg in spec.kinks:
             woven = _bend_tail(woven, t_kink, deg)
+        if monotonic_y:
+            woven = _enforce_descent(woven)
         pts = sample_chain(woven)
         arcs = arclens(pts)
         rec = RootRecord(spec, speed=speed, span_bounds=span_bounds)
@@ -574,6 +585,8 @@ def build_organ_records(specs, speed_by_tier, span_bounds, n_per_seg=24):
             my = flow * ty * 0.7 + vy / seg * 0.45
             norm = math.hypot(mx, my) or 1.0
             woven[1] = (px + mx / norm * seg, py + my / norm * seg)
+            if monotonic_y:
+                woven = _enforce_descent(woven)
             pts = sample_chain(woven)
             rec.pts = pts
             rec.arcs = arclens(pts)
@@ -670,32 +683,31 @@ FIELD_SPECS = [
     # depth and every tail diving - never a horizontal speed line.
     RootSpec(
         "field-west-sweeper",
-        [(452, 402), (424, 409), (396, 417), (368, 426), (338, 435),
-         (306, 444), (272, 453), (236, 463), (200, 473), (166, 483),
-         (134, 493), (106, 503), (82, 513), (60, 522), (38, 531),
-         (12, 538), (-10, 547), (-28, 553), (-46, 559)],
+        [(452, 402), (420, 416), (396, 434), (380, 454), (370, 472),
+         (362, 492), (354, 508), (342, 520), (326, 528), (306, 532),
+         (280, 536), (248, 540), (210, 545), (166, 551), (118, 557),
+         (66, 563), (10, 568), (-46, 572)],
         flare=13.0, tip=1.5, tier="primary", delay=0.00, seed=30,
-        kinks=[(0.42, 10.0), (0.68, -8.0)], amp=3.2,
+        kinks=[(0.35, 9.0), (0.68, -9.0)], amp=2.6,
     ),
     RootSpec(
         "field-southwest-dive",
-        [(462, 404), (450, 420), (440, 438), (433, 457), (428, 476),
-         (424, 496), (420, 516), (418, 534), (417, 550)],
+        [(462, 404), (448, 422), (438, 442), (432, 462), (430, 482),
+         (431, 502), (434, 520), (438, 536), (443, 550)],
         flare=10.0, tip=1.15, tier="primary", delay=0.03, seed=31,
-        kinks=[(0.55, -12.0)], amp=3.0,
+        kinks=[(0.35, -12.0), (0.70, 13.0)], amp=4.4,
     ),
     RootSpec(
         "field-center-diver",
-        [(472, 402), (475, 418), (477, 436), (479, 455), (480, 474),
-         (480, 493), (481, 512), (483, 530), (486, 548)],
+        [(472, 402), (480, 420), (473, 440), (483, 458), (476, 476),
+         (486, 494), (480, 512), (490, 530), (486, 548)],
         flare=11.5, tip=1.3, tier="primary", delay=0.06, seed=32,
-        kinks=[(0.62, 8.0)], amp=2.6,
+        kinks=[(0.30, -11.0), (0.55, 12.0), (0.80, -9.0)], amp=4.2,
     ),
     RootSpec(
         "field-southeast-dive",
-        [(478, 404), (504, 415), (532, 427), (558, 440), (582, 454),
-         (604, 469), (622, 485), (636, 502), (646, 520), (652, 538),
-         (656, 552)],
+        [(478, 404), (506, 418), (532, 434), (554, 452), (572, 470),
+         (592, 488), (610, 506), (626, 522), (640, 538), (650, 552)],
         flare=10.5, tip=1.2, tier="primary", delay=0.04, seed=33,
         kinks=[(0.70, -10.0)], amp=3.0,
     ),
@@ -774,19 +786,19 @@ FIELD_SPAN_BOUNDS = (0.14, 0.45)
 # Wet-bleed twins: lagged phase behind a stretched reveal window.
 # Wash opacity lives in hand-drawn.css, with the rest of the field ink.
 FIELD_WASH_LAG = 0.06
-FIELD_WASH_SPAN_STRETCH = 1.35
+FIELD_WASH_SPAN_STRETCH = 1.15
 
 
 def build_field_records():
     """Final geometry for the full-bleed field underlay."""
     return build_organ_records(FIELD_SPECS, FIELD_SPEED, FIELD_SPAN_BOUNDS,
-                               n_per_seg=10)
+                               n_per_seg=10, monotonic_y=True)
 
 
 FIELD_BURIAL_VOIDS = (
-    (210, 478, 55, 13),
-    (690, 502, 65, 15),
-    (1150, 524, 70, 16),
+    (215, 480, 62, 10),
+    (700, 504, 74, 11),
+    (1160, 526, 80, 12),
 )
 
 
@@ -831,11 +843,11 @@ def build_field():
         '      <defs>',
         '        <filter id="life-field-wash-blur" x="-15%" y="-60%" '
         'width="130%" height="220%">',
-        '          <feGaussianBlur stdDeviation="2"/>',
+        '          <feGaussianBlur stdDeviation="1.4"/>',
         '        </filter>',
         '        <filter id="life-field-buried-blur" x="-60%" y="-300%" '
         'width="220%" height="700%">',
-        '          <feGaussianBlur stdDeviation="9"/>',
+        '          <feGaussianBlur stdDeviation="15"/>',
         '        </filter>',
     ]
     for tier in tiers:
