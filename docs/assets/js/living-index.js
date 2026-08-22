@@ -232,14 +232,28 @@
             svg.setAttribute("focusable", "false");
             var inner = document.createElementNS(svgNS, "g");
             inner.setAttribute("class", "life-roots-field__inner");
+            /*
+             * The underlay stretches non-uniformly to cover any viewport,
+             * so stroke weights would smear - hairline across, full down.
+             * non-scaling-stroke pins every stroke to screen pixels; the
+             * geometry still stretches, the ink weight never lies.
+             * Wash twins lag their ink stroke by a fixed phase, reading
+             * as wet bleed trailing the pen line instead of a ghost.
+             */
+            var WASH_PHASE_LAG = 0.06;
+            var WASH_SPAN_STRETCH = 1.35;
             var WASH_OPACITY = { primary: 0.26, secondary: 0.18, fine: 0.12 };
             FIELD_PATHS.forEach(function (spec) {
                 var wash = document.createElementNS(svgNS, "path");
                 wash.setAttribute("d", spec.d);
                 wash.setAttribute("pathLength", "1");
+                wash.setAttribute("vector-effect", "non-scaling-stroke");
                 wash.setAttribute("class", "life-roots-field__root life-roots-field__root--wash");
-                wash.style.setProperty("--field-delay", spec.delay.toFixed(2));
-                wash.style.setProperty("--field-span", spec.span.toFixed(2));
+                wash.style.setProperty("--field-delay", (spec.delay + WASH_PHASE_LAG).toFixed(2));
+                wash.style.setProperty(
+                    "--field-span",
+                    Math.min(spec.span * WASH_SPAN_STRETCH, 0.5).toFixed(2)
+                );
                 wash.style.strokeWidth = (spec.width * 2.8).toFixed(1);
                 wash.style.strokeOpacity = WASH_OPACITY[spec.tier];
                 inner.appendChild(wash);
@@ -247,6 +261,7 @@
                 var path = document.createElementNS(svgNS, "path");
                 path.setAttribute("d", spec.d);
                 path.setAttribute("pathLength", "1");
+                path.setAttribute("vector-effect", "non-scaling-stroke");
                 path.setAttribute("class", "life-roots-field__root life-roots-field__root--" + spec.tier);
                 path.style.setProperty("--field-delay", spec.delay.toFixed(2));
                 path.style.setProperty("--field-span", spec.span.toFixed(2));

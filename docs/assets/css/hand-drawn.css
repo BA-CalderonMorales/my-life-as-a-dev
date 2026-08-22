@@ -835,6 +835,14 @@ textarea,
    edge to edge and keeps reaching as you scroll.
    ─────────────────────────────────────────── */
 
+/* Material's base sheet sets .md-typeset svg { height: auto }, which
+   outspecifies the class below and collapses the field to its viewBox
+   aspect - a sliver on narrow screens. Restate the height one notch
+   deeper. */
+.md-typeset .life-roots-field {
+    height: 50vh;
+}
+
 .life-roots-field {
     position: fixed;
     left: 0;
