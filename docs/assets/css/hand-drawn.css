@@ -853,7 +853,7 @@ textarea,
     height: 50vh;
     overflow: hidden;
     color: var(--life-ink, var(--ink));
-    opacity: 0.85;
+    opacity: 0.72;
     pointer-events: none;
 }
 
