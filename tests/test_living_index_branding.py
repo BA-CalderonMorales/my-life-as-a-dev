@@ -289,8 +289,8 @@ def test_generated_homepage_keeps_root_topology_and_expanded_bounds():
     assert 'viewBox="0 0 720 1200"' in index
 
     expected_tiers = {"primary": 0, "lateral": 0, "fine": 0}
-    for _, _, tier, _delay in gen_tree.ROOTS:
-        expected_tiers[tier] += 1
+    for spec in gen_tree.ROOT_SPECS:
+        expected_tiers[spec.tier] += 1
     for tier, count in expected_tiers.items():
         assert index.count(f'life-tree__root--{tier}"') == count
 

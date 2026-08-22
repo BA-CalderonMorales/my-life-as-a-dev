@@ -151,15 +151,19 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
 }
 
 /*
- * Root system: stroke-drawn from the trunk base, sprawling as the reader
- * scrolls toward the last facet. living-index.js drives one growth target
- * per tier (--life-roots-primary/lateral/fine) through underdamped
- * springs, so heavy wood emerges slowly and feeders flick out fast; each
- * root grows inside its own --root-delay/--root-span window on top of
- * its tier's motion. pathLength="1" normalizes the dash math in markup.
+ * Root system: tapered organs revealed through masks as the reader
+ * scrolls toward the last facet. living-index.js drives one growth
+ * target per tier (--life-roots-primary/lateral/fine) through
+ * underdamped springs; every tier group's filled bodies are clipped by
+ * a mask whose white centerline strokes each grow inside their own
+ * --root-delay/--root-span window on top of their tier's motion.
+ * pathLength="1" normalizes the dash math in markup. Growth therefore
+ * swells from the flare outward - an organ being uncovered, not a wire
+ * being extruded.
  *
- * Roots also breathe with a subtle organic sway tied to the crown breeze,
- * and respond to scroll direction with a gentle pulse.
+ * Roots also breathe with a subtle organic sway tied to the crown
+ * breeze, and respond to scroll direction with a gentle pulse. Tier
+ * groups animate (bodies + mask move together), never the strokes alone.
  */
 [data-life-index] .life-tree__roots {
     pointer-events: none;
@@ -184,27 +188,35 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
     --life-root-growth: var(--life-roots-fine, var(--life-roots, 0));
 }
 
-[data-life-index] .life-tree__roots path {
+/* The reveal brush lives inside <mask>: white ink on black, grown by
+   the same dash contract the old strokes used. Fallback 0 keeps roots
+   invisible until the choreography speaks; no-JS and reduced motion
+   resolve every window to fully drawn (offset 0). */
+[data-life-index] .life-tree__root {
     fill: none;
-    stroke: currentColor;
+    stroke: #fff;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-dasharray: 1px;
-    /* Fallback 0: before the choreography sets a growth scalar nothing
-       may show - roots must never render as static marks at rest. */
     stroke-dashoffset: calc(
         (1 - clamp(0, (var(--life-root-growth, 0) - var(--root-delay, 0)) / var(--root-span, 1), 1)) * 1px
     );
-    /* Each root tier gets its own subtle sway phase */
+}
+
+/* The organs themselves: plain fills; the mask owns all reveal math. */
+[data-life-index] .life-tree__root-body {
+    fill: currentColor;
+}
+
+/* Each tier breathes as one unit so body and mask never drift apart. */
+[data-life-index] .life-tree__root-tier {
     animation:
         life-root-breathe
         var(--root-breathe-duration, 14s)
         cubic-bezier(0.4, 0, 0.3, 1)
         var(--root-breathe-delay, 0s)
         infinite;
-    transform-box: fill-box;
-    transform-origin: center;
-    will-change: transform, stroke-dashoffset;
+    will-change: transform;
 }
 
 [data-life-index] .life-tree.is-wind-on .life-tree__roots {
@@ -272,7 +284,7 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
     }
 
     [data-life-index] .life-tree__roots,
-    [data-life-index] .life-tree__roots path {
+    [data-life-index] .life-tree__root-tier {
         animation: none !important;
         transform: none !important;
     }
