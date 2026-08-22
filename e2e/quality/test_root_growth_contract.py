@@ -14,11 +14,11 @@ import pytest
 HIDE_EPSILON = 0.002
 DRAWN_EPSILON = 0.02
 
-# The mask strokes that carry the reveal, and the field underlay that
-# still draws with plain stroke dashes until the field swaps to fills.
+# The mask strokes that carry the reveal, tree crown and freed field
+# alike: both systems are masked tapered fills now.
 REVEAL_SELECTORS = (
     ".life-tree__root",
-    ".life-roots-field__root",
+    ".life-field-reveal",
 )
 
 

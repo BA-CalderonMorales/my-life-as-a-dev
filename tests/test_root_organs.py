@@ -165,6 +165,48 @@ def test_mask_pairs_every_tapered_shape_with_its_centerline():
         assert f'<mask id="life-roots-mask-{tier}"' in markup
 
 
+def test_field_pairs_every_tapered_shape_with_its_centerline():
+    """The freed field follows the same pairing contract as the crown:
+    ink and wash masks each carry every organ's centerline."""
+    gen_tree = _load_gen_tree()
+    markup = gen_tree.build_field()
+    records = gen_tree.build_field_records()
+
+    for tier in ("primary", "secondary", "fine"):
+        tier_specs = [s for s in gen_tree.FIELD_SPECS if s.tier == tier]
+        reveal_count = len(re.findall(
+            rf'class="life-field-reveal life-field-reveal--{tier}"', markup
+        ))
+        # Ink windows + lagged wash windows both live on reveal strokes.
+        expected_reveals = 2 * len(tier_specs)
+        assert reveal_count == expected_reveals, (
+            f"field {tier}: {reveal_count} reveal strokes for "
+            f"{len(tier_specs)} organs (ink + wash expected)"
+        )
+        body_count = len(re.findall(r'class="life-field-body"', markup))
+        total_organs = len(gen_tree.FIELD_SPECS)
+        assert body_count == 2 * total_organs, (
+            "every field organ needs an ink body and a blurred wash twin"
+        )
+        for spec in tier_specs:
+            rec = records[spec.name]
+            ink = (f'--field-delay:{spec.delay:.2f};'
+                   f'--field-span:{rec.span:.2f}')
+            assert ink in markup, f"field {spec.name}: lost its ink window"
+            wash_delay = min(spec.delay + gen_tree.FIELD_WASH_LAG, 1.0)
+            wash_span = min(rec.span * gen_tree.FIELD_WASH_SPAN_STRETCH, 0.5)
+            wash = f'--field-delay:{wash_delay:.2f};--field-span:{wash_span:.2f}'
+            assert wash in markup, f"field {spec.name}: lost its wash lag"
+
+    for tier in ("primary", "secondary", "fine"):
+        assert f'mask="url(#life-field-mask-{tier})"' in markup
+        assert f'mask="url(#life-field-wash-{tier})"' in markup
+
+    # The underlay stretches with the ground plane; no stroke pinning.
+    assert 'preserveAspectRatio="none"' in markup
+    assert "non-scaling-stroke" not in markup
+
+
 def test_fallback_chain_survives_the_mask_swap():
     """No-JS and reduced motion resolve every window to fully drawn; the
     page keeps the same --life-roots contract that hid roots pre-JS."""

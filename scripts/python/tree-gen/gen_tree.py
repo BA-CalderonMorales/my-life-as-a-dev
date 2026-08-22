@@ -17,6 +17,7 @@ reproducible from this repository:
 
   <!-- gen_tree:roots -->   roots fragment (life-tree__roots group)
   <!-- gen_tree:tree -->    wood, bark, breeze, foliage, hit branches
+  <!-- gen_tree:field -->   freed full-bleed root field underlay
 
 Everything between markers is generated; everything around them (title,
 desc, nodes, pixels) stays hand-maintained.
@@ -34,7 +35,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 INDEX = ROOT / "docs" / "index.md"
 
-REGION_NAMES = ("roots", "tree")
+REGION_NAMES = ("roots", "tree", "field")
 REGION_RES = {
     name: re.compile(
         r"(?s)(?P<indent>[ \t]*)<!-- gen_tree:%s -->\n"
@@ -471,7 +472,7 @@ def _point_at_index(pts, arcs, target):
 class RootRecord:
     """Final geometry of one root organ plus what its forks owe it."""
 
-    def __init__(self, spec):
+    def __init__(self, spec, speed=620.0, span_bounds=(0.12, 0.34)):
         self.spec = spec
         self.pts = []
         self.arcs = []
@@ -479,18 +480,21 @@ class RootRecord:
         self.total = 0.0
         self.collars = []
         self.waypoints = []
+        self.speed = speed
+        self.span_bounds = span_bounds
 
     @property
     def span(self):
         length = self.arcs[-1] if self.arcs else 1.0
-        return clamp(length / ROOT_SPEED[self.spec.tier], SPAN_MIN, SPAN_MAX)
+        lo, hi = self.span_bounds
+        return clamp(length / self.speed, lo, hi)
 
     def point_at(self, t):
         idx = _point_at_index(self.pts, self.arcs, self.total * t)
         return self.pts[idx], self.tans[idx], self.arcs[idx] / self.total
 
 
-def build_root_records():
+def build_organ_records(specs, speed_by_tier, span_bounds):
     """Weave, bend, and attach every root spec into final geometry.
 
     Parents are processed before children (spec order guarantees it);
@@ -498,13 +502,14 @@ def build_root_records():
     attached no matter how the parent wove or bent.
     """
     records = {}
-    for spec in ROOT_SPECS:
+    for spec in specs:
+        speed = speed_by_tier[spec.tier]
         woven = undulate(spec.chain, amp=spec.amp, seed=spec.seed)
         for t_kink, deg in spec.kinks:
             woven = _bend_tail(woven, t_kink, deg)
         pts = sample_chain(woven)
         arcs = arclens(pts)
-        rec = RootRecord(spec)
+        rec = RootRecord(spec, speed=speed, span_bounds=span_bounds)
         rec.pts = pts
         rec.arcs = arcs
         rec.total = arcs[-1]
@@ -550,6 +555,11 @@ def build_root_records():
 
         records[spec.name] = rec
     return records
+
+
+def build_root_records():
+    """Final geometry for the in-svg root crown."""
+    return build_organ_records(ROOT_SPECS, ROOT_SPEED, (SPAN_MIN, SPAN_MAX))
 
 
 def build_roots():
@@ -604,6 +614,197 @@ def build_roots():
             )
         out.append('            </g>')
     out.append('          </g>')
+    return "\n".join(out)
+
+
+# ── freed root field: the underlay echo of the same system ──────────────
+# The field is a full-bleed fixed band (viewBox stretched by
+# preserveAspectRatio="none") whose filled tapered shapes stretch with
+# the ground plane, so it retires vector-effect="non-scaling-stroke"
+# entirely. Same organ recipe as the crown: continuous taper, junction
+# collars, elbow kinks, masked reveal per tier. Wash twins are blurred
+# underlay copies of the SAME shapes behind a lagged mask - wet bleed
+# trailing the pen line instead of a ghost stroke.
+FIELD_VIEWBOX = "-40 392 1560 168"
+
+FIELD_SPECS = [
+    # primaries: five divers leaving the origin cluster at depth
+    RootSpec(
+        "field-west-sweeper",
+        [(452, 402), (424, 409), (396, 417), (368, 426), (338, 435),
+         (306, 444), (272, 453), (236, 463), (200, 473), (166, 483),
+         (134, 493), (106, 503), (82, 513), (60, 522), (38, 531),
+         (16, 538)],
+        flare=11.0, tip=1.3, tier="primary", delay=0.00, seed=30,
+        kinks=[(0.42, 10.0)], amp=3.2,
+    ),
+    RootSpec(
+        "field-southwest-dive",
+        [(462, 404), (448, 414), (436, 425), (427, 437), (420, 449),
+         (414, 462), (407, 475), (399, 489), (390, 503), (380, 515),
+         (371, 524), (365, 528)],
+        flare=9.0, tip=1.1, tier="primary", delay=0.03, seed=31,
+        kinks=[(0.55, -12.0)], amp=3.0,
+    ),
+    RootSpec(
+        "field-center-diver",
+        [(470, 402), (474, 412), (480, 421), (487, 430), (493, 440),
+         (498, 450), (502, 460), (505, 471), (507, 482), (508, 493),
+         (509, 505), (512, 522)],
+        flare=10.0, tip=1.2, tier="primary", delay=0.06, seed=32,
+        kinks=[(0.62, 8.0)], amp=2.6,
+    ),
+    RootSpec(
+        "field-southeast-dive",
+        [(478, 404), (500, 412), (525, 421), (551, 431), (577, 442),
+         (602, 454), (624, 466), (643, 479), (657, 492), (667, 505),
+         (673, 518), (682, 532)],
+        flare=9.5, tip=1.1, tier="primary", delay=0.04, seed=33,
+        kinks=[(0.70, -10.0)], amp=3.0,
+    ),
+    RootSpec(
+        "field-east-sweeper",
+        [(472, 402), (500, 407), (534, 413), (572, 420), (612, 428),
+         (652, 437), (690, 447), (726, 458), (758, 469), (786, 480),
+         (808, 491), (826, 503), (841, 514), (850, 521)],
+        flare=10.5, tip=1.25, tier="primary", delay=0.08, seed=34,
+        kinks=[(0.38, -9.0), (0.72, 11.0)], amp=3.2,
+    ),
+    # secondaries: forks hanging off the divers
+    RootSpec("field-west-fork", [(300, 443), (280, 452), (256, 460), (232, 466), (212, 471)],
+             flare=4.6, tip=0.55, tier="secondary", delay=0.16, seed=35,
+             parent="field-west-sweeper"),
+    RootSpec("field-southwest-fork", [(420, 449), (408, 462), (398, 476), (390, 490)],
+             flare=4.2, tip=0.5, tier="secondary", delay=0.22, seed=36,
+             parent="field-southwest-dive"),
+    RootSpec("field-center-west-fork", [(493, 440), (481, 450), (468, 458), (455, 464)],
+             flare=4.0, tip=0.5, tier="secondary", delay=0.18, seed=37,
+             parent="field-center-diver"),
+    RootSpec("field-center-east-fork", [(502, 460), (512, 470), (520, 481), (526, 492), (529, 502)],
+             flare=4.2, tip=0.52, tier="secondary", delay=0.24, seed=38,
+             parent="field-center-diver"),
+    RootSpec("field-southeast-fork", [(602, 454), (620, 464), (636, 476), (650, 489)],
+             flare=4.4, tip=0.55, tier="secondary", delay=0.20, seed=39,
+             parent="field-southeast-dive"),
+    RootSpec("field-east-upper-fork", [(690, 447), (704, 456), (716, 467), (725, 478)],
+             flare=4.0, tip=0.5, tier="secondary", delay=0.26, seed=40,
+             parent="field-east-sweeper"),
+    RootSpec("field-east-lower-fork", [(786, 480), (800, 490), (812, 500), (822, 509)],
+             flare=3.8, tip=0.48, tier="secondary", delay=0.30, seed=41,
+             parent="field-east-sweeper"),
+    # fine feeders: hair organs clustered patchily near the divers
+    RootSpec("field-hair-west", [(368, 426), (356, 434), (344, 442), (333, 450)],
+             flare=2.6, tip=0.3, tier="fine", delay=0.36, seed=42,
+             parent="field-west-sweeper"),
+    RootSpec("field-hair-center", [(505, 471), (497, 480), (489, 488), (482, 495)],
+             flare=2.4, tip=0.28, tier="fine", delay=0.38, seed=43,
+             parent="field-center-diver"),
+    RootSpec("field-hair-southeast", [(643, 479), (652, 488), (660, 497), (667, 505)],
+             flare=2.6, tip=0.3, tier="fine", delay=0.40, seed=44,
+             parent="field-southeast-dive"),
+    RootSpec("field-hair-east", [(758, 469), (768, 477), (777, 485), (785, 492)],
+             flare=2.4, tip=0.28, tier="fine", delay=0.46, seed=45,
+             parent="field-east-sweeper"),
+    RootSpec("field-hair-deep", [(414, 462), (405, 471), (396, 480), (388, 488)],
+             flare=2.2, tip=0.26, tier="fine", delay=0.42, seed=46,
+             parent="field-southwest-dive"),
+]
+
+FIELD_SPEED = {"primary": 1150.0, "secondary": 850.0, "fine": 700.0}
+FIELD_SPAN_BOUNDS = (0.14, 0.45)
+
+# Wet-bleed twins: lagged phase behind a stretched reveal window.
+# Wash opacity lives in hand-drawn.css, with the rest of the field ink.
+FIELD_WASH_LAG = 0.06
+FIELD_WASH_SPAN_STRETCH = 1.35
+
+
+def build_field_records():
+    """Final geometry for the full-bleed field underlay."""
+    return build_organ_records(FIELD_SPECS, FIELD_SPEED, FIELD_SPAN_BOUNDS)
+
+
+def build_field():
+    records = build_field_records()
+    tiers = ("primary", "secondary", "fine")
+
+    xs = [x for r in records.values() for x, _ in r.pts]
+    ys = [y for r in records.values() for _, y in r.pts]
+    pad = 30
+    region = (
+        fmt(min(xs) - pad), fmt(min(ys) - pad),
+        fmt(max(xs) - min(xs) + 2 * pad), fmt(max(ys) - min(ys) + 2 * pad),
+    )
+
+    def reveal_stroke(spec, delay, span):
+        rec = records[spec.name]
+        brush = spec.flare * 1.25 + 2.0
+        return (
+            f'          <path class="life-field-reveal life-field-reveal--{spec.tier}" '
+            f'd="{cr_to_cubic_d(rec.waypoints)}" pathLength="1" '
+            f'stroke-width="{fmt(brush)}" '
+            f'style="--field-delay:{delay:.2f};--field-span:{span:.2f}"/>'
+        )
+
+    out = [
+        '  <svg class="life-roots-field" viewBox="-40 392 1560 168" '
+        'preserveAspectRatio="none" aria-hidden="true" focusable="false">',
+        '    <g class="life-roots-field__inner">',
+        '      <defs>',
+        '        <filter id="life-field-wash-blur" x="-15%" y="-60%" '
+        'width="130%" height="220%">',
+        '          <feGaussianBlur stdDeviation="2"/>',
+        '        </filter>',
+    ]
+    for tier in tiers:
+        specs_in_tier = [s for s in FIELD_SPECS if s.tier == tier]
+        region_attrs = (
+            f'maskUnits="userSpaceOnUse" '
+            f'x="{region[0]}" y="{region[1]}" '
+            f'width="{region[2]}" height="{region[3]}"'
+        )
+        out.append(f'        <mask id="life-field-mask-{tier}" {region_attrs}>')
+        out.extend(
+            reveal_stroke(s, s.delay, records[s.name].span)
+            for s in specs_in_tier
+        )
+        out.append('        </mask>')
+        out.append(
+            f'        <mask id="life-field-wash-{tier}" {region_attrs}>'
+        )
+        out.extend(
+            reveal_stroke(
+                s,
+                min(s.delay + FIELD_WASH_LAG, 1.0),
+                min(records[s.name].span * FIELD_WASH_SPAN_STRETCH, 0.5),
+            )
+            for s in specs_in_tier
+        )
+        out.append('        </mask>')
+    out.append('      </defs>')
+    # Washes first (blurred underlay), then crisp ink on top.
+    for kind in ("wash", "tier"):
+        for tier in tiers:
+            cls = f'life-field-{kind} life-field-{kind}--{tier}'
+            filter_attr = (
+                ' filter="url(#life-field-wash-blur)"' if kind == "wash" else ""
+            )
+            mask_id = f'life-field-mask-{tier}'
+            if kind == "wash":
+                mask_id = f'life-field-wash-{tier}'
+            out.append(
+                f'      <g class="{cls}"{filter_attr} mask="url(#{mask_id})">'
+            )
+            for spec in [s for s in FIELD_SPECS if s.tier == tier]:
+                rec = records[spec.name]
+                d = taper_outline(
+                    rec.pts, spec.flare, spec.tip, seed=spec.seed,
+                    taper_pow=0.8, wob=0.7, collars=rec.collars,
+                )
+                out.append(f'        <path class="life-field-body" d="{d}"/>')
+            out.append('      </g>')
+    out.append('    </g>')
+    out.append('  </svg>')
     return "\n".join(out)
 
 
@@ -736,16 +937,19 @@ def main():
 
     roots = build_roots()
     tree = build_tree()
+    field = build_field()
 
     if args.fragments:
         args.fragments.mkdir(parents=True, exist_ok=True)
         (args.fragments / "roots_fragment.html").write_text(roots + "\n", encoding="utf-8")
         (args.fragments / "tree_fragment.html").write_text(tree + "\n", encoding="utf-8")
+        (args.fragments / "field_fragment.html").write_text(field + "\n", encoding="utf-8")
 
     source = INDEX.read_text(encoding="utf-8")
     try:
         patched = splice_region(source, "roots", roots)
         patched = splice_region(patched, "tree", tree)
+        patched = splice_region(patched, "field", field)
     except ValueError as exc:
         raise SystemExit(f"gen_tree: {exc}")
 

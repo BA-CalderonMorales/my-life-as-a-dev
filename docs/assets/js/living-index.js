@@ -131,124 +131,12 @@
         }
 
         /*
-         * The freed root field: a full-bleed underlay pinned to the bottom of
-         * the viewport. Where the tree's own roots stay planted in the stage,
-         * these escape it - drawn curves that fan across the whole width and
-         * reach further as the reader scrolls. Authored by hand, not grown by
-         * formula: every path here is a deliberate stroke, thick primaries
-         * first, fine feeders last, each with its own reveal window.
+         * The freed root field is no longer built here: gen_tree.py
+         * splices the full masked tapered-organ underlay into the page
+         * markup (gen_tree:field region), reusing the exact organ recipe
+         * as the in-tree crown. This module only aligns it to the trunk
+         * and drives its growth spring.
          */
-        /*
-         * The field's frame must CONTAIN its artwork: these strokes dive
-         * from the ground line (y~405) down to y~546, so the band starts
-         * just above the ground and runs deep. An earlier 0 0 1440 420
-         * frame clipped everything below the ground line - a root system
-         * beheaded at the soil.
-         */
-        var FIELD_VIEWBOX = "-40 392 1560 168";
-        /*
-         * Authored strokes, not grown by formula: five dominant divers
-         * carry the system - each weaving, each descending decisively -
-         * then a sparse tier of forks and a handful of hair feeders.
-         * Nothing runs horizontal; long travel happens at depth. The
-         * west and east systems differ in reach and rhythm on purpose.
-         */
-        var FIELD_PATHS = [
-            // ── Primary scaffold: the dominant divers ──
-            { tier: "primary", delay: 0.00, span: 0.40, width: 5.8,
-              d: "M 450 400 C 442.9 403.5 421.8 413.1 407.2 421.2 C 392.6 429.2 376.8 440.6 362.2 448.3 C 347.7 456 334.6 461.5 319.9 467.4 C 305.2 473.4 289.8 479 274 484 C 258.2 489.1 241.8 493.7 225.2 497.9 C 208.7 502 190.5 505.7 174.6 509 C 158.7 512.3 146.3 514.5 130.1 517.6 C 113.9 520.6 93.9 524.2 77.4 527.4 C 61 530.7 47.3 534.4 31.4 537 C 15.5 539.6 -9.8 542 -18 543" },
-            { tier: "primary", delay: 0.03, span: 0.34, width: 4.8,
-              d: "M 462 404 C 457.6 407.3 444.6 416.7 435.6 423.9 C 426.7 431.1 415.8 439 408.2 447.2 C 400.6 455.4 396 464 390 473.2 C 384 482.4 379 493.1 372.3 502.2 C 365.7 511.4 353.7 523.7 350 528" },
-            // center diver: leans right, so no stroke runs straight
-            // vertical beneath the trunk (the mobile comb-killer)
-            { tier: "primary", delay: 0.06, span: 0.36, width: 5.4,
-              d: "M 470 402 C 472.4 405.6 478.7 416.2 484.3 423.4 C 489.8 430.5 498.7 437.3 503.5 444.9 C 508.2 452.6 511.4 461.2 512.9 469.3 C 514.5 477.4 513 484.8 512.9 493.6 C 512.7 502.4 512.1 517.3 512 522" },
-            { tier: "primary", delay: 0.04, span: 0.38, width: 5.0,
-              d: "M 478 404 C 485.6 406.2 508.9 411 523.4 417.4 C 537.9 423.9 551.4 433.6 565.3 442.5 C 579.1 451.5 592.6 461.7 606.5 471.1 C 620.3 480.5 635.8 488.7 648.4 498.9 C 661 509 676.4 526.5 682 532" },
-            // east diver: shorter reach than its west twin, ends on a dive
-            { tier: "primary", delay: 0.08, span: 0.42, width: 4.4,
-              d: "M 472 402 C 480.4 404.6 506.9 412.5 522.4 417.8 C 537.9 423.2 549.7 429.1 564.9 433.9 C 580.1 438.7 597.3 443.3 613.6 446.8 C 629.9 450.4 645.5 452.7 662.7 455.4 C 680 458.1 700.4 460.1 717.2 462.9 C 733.9 465.8 747.2 468 763.1 472.5 C 779 476.9 798.1 481.5 812.6 489.6 C 827 497.7 843.8 515.8 850 521" },
-
-            // ── Laterals: fork downward off a parent, then ease out ──
-            { tier: "secondary", delay: 0.16, span: 0.26, width: 2.8,
-              d: "M 300 468 C 296.3 469.5 285.4 474.2 278 477.2 C 270.7 480.2 264 483.8 256 486.1 C 248 488.3 238.2 489.4 230 490.9 C 221.7 492.4 214.3 492.8 206.7 494.8 C 199 496.9 187.8 501.6 184 503" },
-            { tier: "secondary", delay: 0.22, span: 0.24, width: 2.4,
-              d: "M 186 508 C 183.4 509 175.9 512.6 170.6 514.1 C 165.3 515.5 159.7 515.6 154.2 516.8 C 148.7 517.9 142.6 519.6 137.5 521 C 132.4 522.5 129.1 524.5 123.8 525.5 C 118.6 526.5 109 526.7 106 527" },
-            { tier: "secondary", delay: 0.18, span: 0.26, width: 2.6,
-              d: "M 472 470 C 469.5 470.8 461.5 472.3 456.8 474.6 C 452.1 476.9 448.3 480.8 443.9 483.6 C 439.5 486.5 435.2 489.6 430.6 491.6 C 426.1 493.6 421.4 494.1 416.7 495.7 C 411.9 497.3 404.4 500.1 402 501" },
-            { tier: "secondary", delay: 0.24, span: 0.24, width: 2.3,
-              d: "M 618 476 C 619.9 477 626 479.7 629.5 482.1 C 633.1 484.6 636.1 487.7 639.1 490.6 C 642.1 493.5 644.5 497.1 647.6 499.7 C 650.6 502.2 653.8 504 657.4 506.1 C 660.9 508.1 667.1 511 669 512" },
-            { tier: "secondary", delay: 0.20, span: 0.25, width: 2.5,
-              d: "M 576 450 C 575.2 451.4 572.8 455.9 571.2 458.6 C 569.6 461.3 567.7 463.4 566.3 466.2 C 564.9 469 564.1 472.5 562.7 475.4 C 561.3 478.3 559.9 481.2 558 483.6 C 556 486 552.2 488.9 551 490" },
-            { tier: "secondary", delay: 0.26, span: 0.23, width: 2.2,
-              d: "M 672 458 C 672.6 459.4 673.6 464.1 675.5 466.7 C 677.4 469.2 681.1 471.2 683.4 473.3 C 685.6 475.3 687 477 689.1 479.1 C 691.2 481.2 693.5 484 696.2 485.8 C 698.8 487.6 703.5 489.3 705 490" },
-            { tier: "secondary", delay: 0.30, span: 0.22, width: 2.2,
-              d: "M 812 488 C 813.5 488.6 818.4 490.1 821 491.9 C 823.5 493.6 824.9 496.4 827.3 498.4 C 829.6 500.5 832.1 502.6 834.9 504 C 837.6 505.5 840.9 505.9 843.8 507.1 C 846.6 508.2 850.6 510.3 852 511" },
-
-            // ── Fine feeders: hair strokes finishing the system ──
-            { tier: "fine", delay: 0.36, span: 0.18, width: 1.2,
-              d: "M 352 447 C 350.9 447.7 347.5 449.5 345.4 451.1 C 343.3 452.6 341.4 454.7 339.6 456.3 C 337.8 457.8 336.7 459.2 334.7 460.4 C 332.6 461.5 329.8 462.3 327.4 463.3 C 324.9 464.2 321.2 465.5 320 466" },
-            { tier: "fine", delay: 0.42, span: 0.16, width: 1.1,
-              d: "M 186 508 C 184.8 508.5 181.3 509.9 178.9 510.9 C 176.6 511.9 174.4 513.2 171.9 514 C 169.4 514.8 166.4 515.1 164.1 515.6 C 161.7 516.2 160.1 516.5 157.7 517.2 C 155.4 518 151.3 519.5 150 520" },
-            { tier: "fine", delay: 0.38, span: 0.18, width: 1.2,
-              d: "M 398 462 C 397.2 462.9 394.7 466 393 467.4 C 391.3 468.8 389.5 469.1 387.9 470.6 C 386.2 472 384.5 474.1 383.2 476 C 381.8 477.9 380.9 480 379.5 481.9 C 378.2 483.7 375.8 486.1 375 487" },
-            { tier: "fine", delay: 0.40, span: 0.17, width: 1.2,
-              d: "M 654 504 C 654.7 504.6 656.8 506.5 658.1 507.9 C 659.3 509.3 660.2 511.2 661.2 512.6 C 662.2 514 662.8 515.2 664.2 516.3 C 665.5 517.3 667.6 518 669.2 519 C 670.8 519.9 673.2 521.5 674 522" },
-            { tier: "fine", delay: 0.46, span: 0.16, width: 1.1,
-              d: "M 742 474 C 742.8 474.7 745 476.8 746.5 478.2 C 748 479.6 749.4 481.3 751 482.5 C 752.7 483.7 754.9 484.6 756.5 485.6 C 758.2 486.5 759.2 487.3 760.8 488.3 C 762.4 489.4 765.1 491.4 766 492" }
-        ];
-
-        function buildRootsField() {
-            if (root.querySelector(".life-roots-field")) return;
-            var svgNS = "http://www.w3.org/2000/svg";
-            var svg = document.createElementNS(svgNS, "svg");
-            svg.setAttribute("class", "life-roots-field");
-            svg.setAttribute("viewBox", FIELD_VIEWBOX);
-            svg.setAttribute("preserveAspectRatio", "none");
-            svg.setAttribute("aria-hidden", "true");
-            svg.setAttribute("focusable", "false");
-            var inner = document.createElementNS(svgNS, "g");
-            inner.setAttribute("class", "life-roots-field__inner");
-            /*
-             * The underlay stretches non-uniformly to cover any viewport,
-             * so stroke weights would smear - hairline across, full down.
-             * non-scaling-stroke pins every stroke to screen pixels; the
-             * geometry still stretches, the ink weight never lies.
-             * Wash twins lag their ink stroke by a fixed phase, reading
-             * as wet bleed trailing the pen line instead of a ghost.
-             */
-            var WASH_PHASE_LAG = 0.06;
-            var WASH_SPAN_STRETCH = 1.35;
-            var WASH_OPACITY = { primary: 0.2, secondary: 0.14, fine: 0.09 };
-            var WASH_WIDTH_RATIO = 2.0;
-            FIELD_PATHS.forEach(function (spec) {
-                var wash = document.createElementNS(svgNS, "path");
-                wash.setAttribute("d", spec.d);
-                wash.setAttribute("pathLength", "1");
-                wash.setAttribute("vector-effect", "non-scaling-stroke");
-                wash.setAttribute("class", "life-roots-field__root life-roots-field__root--wash");
-                wash.style.setProperty("--field-delay", (spec.delay + WASH_PHASE_LAG).toFixed(2));
-                wash.style.setProperty(
-                    "--field-span",
-                    Math.min(spec.span * WASH_SPAN_STRETCH, 0.5).toFixed(2)
-                );
-                wash.style.strokeWidth = (spec.width * WASH_WIDTH_RATIO).toFixed(1);
-                wash.style.strokeOpacity = WASH_OPACITY[spec.tier];
-                inner.appendChild(wash);
-
-                var path = document.createElementNS(svgNS, "path");
-                path.setAttribute("d", spec.d);
-                path.setAttribute("pathLength", "1");
-                path.setAttribute("vector-effect", "non-scaling-stroke");
-                path.setAttribute("class", "life-roots-field__root life-roots-field__root--" + spec.tier);
-                path.style.setProperty("--field-delay", spec.delay.toFixed(2));
-                path.style.setProperty("--field-span", spec.span.toFixed(2));
-                path.style.strokeWidth = spec.width;
-                inner.appendChild(path);
-            });
-            svg.appendChild(inner);
-            root.appendChild(svg);
-        }
 
         /*
          * The field is drawn around an origin cluster at x=460 in a 1560
@@ -297,8 +185,6 @@
             field.style.transform = "translate(" + shiftX.toFixed(1) + "px, " +
                 shiftY.toFixed(1) + "px)";
         }
-
-        buildRootsField();
 
         /*
          * Roots stay enclosed to the tree's own box: 0 while the tree shell

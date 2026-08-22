@@ -867,9 +867,16 @@ textarea,
     --life-field-growth: var(--life-field-spring, var(--life-field-roots, 0));
 }
 
-.life-roots-field path {
+/*
+ * The reveal lives on the white centerline strokes inside <mask>: the
+ * same dash contract as before, now clipping filled tapered organs
+ * instead of extruding wires. Without JS the growth scalars never leave
+ * 0 - masks stay empty and the freed field stays out of no-JS reading,
+ * exactly like when JS used to build it.
+ */
+.life-roots-field .life-field-reveal {
     fill: none;
-    stroke: currentColor;
+    stroke: #fff;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-dasharray: 1px;
@@ -878,17 +885,26 @@ textarea,
     );
 }
 
-.life-roots-field__root--primary {
-    stroke-opacity: 0.5;
+/* The organs: plain fills stretched with the ground plane (that is why
+   non-scaling-stroke retired). Masks own every reveal window. Ink tiers
+   sit back like distant echoes of the crown system. */
+.life-roots-field .life-field-body {
+    fill: currentColor;
 }
 
-.life-roots-field__root--secondary {
-    stroke-opacity: 0.4;
-}
+.life-field-tier--primary { opacity: 0.5; }
 
-.life-roots-field__root--fine {
-    stroke-opacity: 0.3;
-}
+.life-field-tier--secondary { opacity: 0.4; }
+
+.life-field-tier--fine { opacity: 0.3; }
+
+/* Wash twins: blurred copies behind a lagged mask, reading as wet
+   bleed trailing the pen line instead of a ghost. */
+.life-field-wash--primary { opacity: 0.2; }
+
+.life-field-wash--secondary { opacity: 0.14; }
+
+.life-field-wash--fine { opacity: 0.09; }
 
 @media (prefers-reduced-motion: no-preference) {
 
