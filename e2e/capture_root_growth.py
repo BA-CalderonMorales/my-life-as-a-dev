@@ -38,7 +38,8 @@ def _progress_scroll_y(page, fraction):
             const stage = root.querySelector('.life-stage');
             const top = journey.getBoundingClientRect().top + window.scrollY;
             const range = journey.offsetHeight - stage.offsetHeight;
-            return top + range * fraction;
+            if (range > 0) return top + range * fraction;
+            return document.documentElement.scrollHeight - window.innerHeight;
         }
         """,
         fraction,
