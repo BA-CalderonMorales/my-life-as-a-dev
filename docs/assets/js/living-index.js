@@ -164,7 +164,7 @@
                 box.height * (708 / 1200);
             var fieldH = field.getBoundingClientRect().height ||
                 window.innerHeight * 0.5;
-            var groundFromTop = fieldH * ((405 - 392) / 168);
+            var groundFromTop = fieldH * ((405 - 392) / 200);
 
             field.style.top =
                 Math.round(trunkDocY - groundFromTop) + "px";

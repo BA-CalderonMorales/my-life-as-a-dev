@@ -29,6 +29,7 @@ Usage:
 """
 import argparse
 import math
+import random
 import re
 from pathlib import Path
 
@@ -675,40 +676,45 @@ def build_roots():
 # collars, elbow kinks, masked reveal per tier. Wash twins are blurred
 # underlay copies of the SAME shapes behind a lagged mask - wet bleed
 # trailing the pen line instead of a ghost stroke.
-FIELD_VIEWBOX = "-40 392 1560 168"
+# Ground line sits at y=405; the band runs 200 units deep so the
+# sprawl web has genuine vertical room (bottom edge y=592).
+FIELD_VIEWBOX = "-40 392 1560 200"
 
-FIELD_SPECS = [
+FIELD_SEEDS = [
     # Five divers, one per personality, spanning the whole earth band:
     # far west corner to the deep east, with long shallow travel kept at
     # depth and every tail diving - never a horizontal speed line.
+    # Seeds are deliberately THIN: the sprawl engine below multiplies
+    # them into a dense fine-rooted web, and a fat seed would read as
+    # one thick cable under a haze of hairs.
     RootSpec(
         "field-west-sweeper",
         [(452, 402), (420, 416), (396, 434), (380, 454), (370, 472),
          (362, 492), (354, 508), (342, 520), (326, 528), (306, 532),
          (280, 536), (248, 541), (212, 547), (172, 552), (128, 556),
          (80, 560), (28, 563), (-28, 566)],
-        flare=13.0, tip=1.5, tier="primary", delay=0.00, seed=30,
+        flare=7.0, tip=0.9, tier="primary", delay=0.00, seed=30,
         kinks=[(0.32, 9.0), (0.62, -8.0)], amp=2.6,
     ),
     RootSpec(
         "field-southwest-dive",
         [(462, 404), (444, 414), (424, 425), (402, 441), (380, 456),
          (374, 474), (350, 486), (330, 498), (316, 510), (306, 522)],
-        flare=10.0, tip=1.15, tier="primary", delay=0.03, seed=31,
+        flare=5.6, tip=0.75, tier="primary", delay=0.03, seed=31,
         kinks=[(0.40, -12.0), (0.75, 11.0)], amp=5.0,
     ),
     RootSpec(
         "field-center-diver",
         [(472, 402), (494, 412), (514, 426), (520, 446), (516, 466),
          (508, 488), (500, 506), (488, 522), (474, 536), (464, 548)],
-        flare=11.5, tip=1.3, tier="primary", delay=0.06, seed=32,
+        flare=6.4, tip=0.8, tier="primary", delay=0.06, seed=32,
         kinks=[(0.35, -11.0), (0.65, 10.0)], amp=4.8,
     ),
     RootSpec(
         "field-southeast-dive",
         [(478, 404), (500, 412), (524, 421), (550, 432), (576, 444),
          (586, 474), (608, 488), (626, 502), (640, 518), (650, 534)],
-        flare=10.5, tip=1.2, tier="primary", delay=0.04, seed=33,
+        flare=5.8, tip=0.75, tier="primary", delay=0.04, seed=33,
         kinks=[(0.70, -10.0)], amp=3.0,
     ),
     # east runner: the long one - shallow travel across the east half,
@@ -718,67 +724,149 @@ FIELD_SPECS = [
         [(472, 402), (500, 407), (534, 413), (572, 420), (612, 428),
          (652, 437), (692, 447), (730, 458), (764, 470), (794, 483),
          (820, 496), (842, 509), (862, 522), (884, 535), (908, 546), (936, 554)],
-        flare=12.0, tip=1.4, tier="primary", delay=0.08, seed=34,
+        flare=6.6, tip=0.85, tier="primary", delay=0.08, seed=34,
         kinks=[(0.38, -9.0), (0.72, 11.0)], amp=3.2,
     ),
-    # secondaries: tunnel branches hanging off the divers
-    RootSpec("field-west-fork", [(300, 443), (276, 450), (250, 458), (226, 466)],
-             flare=4.6, tip=0.55, tier="secondary", delay=0.16, seed=35,
-             parent="field-west-sweeper"),
-    RootSpec("field-southwest-fork", [(420, 449), (400, 456), (378, 464), (356, 472)],
-             flare=4.2, tip=0.5, tier="secondary", delay=0.22, seed=36,
-             parent="field-southwest-dive"),
-    RootSpec("field-center-west-fork", [(493, 440), (470, 448), (446, 456), (424, 464)],
-             flare=4.0, tip=0.5, tier="secondary", delay=0.18, seed=37,
-             parent="field-center-diver"),
-    RootSpec("field-center-east-fork", [(502, 460), (526, 467), (550, 475), (572, 483)],
-             flare=4.2, tip=0.52, tier="secondary", delay=0.24, seed=38,
-             parent="field-center-diver"),
-    RootSpec("field-southeast-deep", [(624, 466), (650, 473), (676, 481), (700, 489)],
-             flare=4.4, tip=0.55, tier="secondary", delay=0.20, seed=39,
-             parent="field-southeast-dive"),
-    RootSpec("field-east-upper-fork", [(692, 447), (720, 454), (750, 462), (778, 470)],
-             flare=4.0, tip=0.5, tier="secondary", delay=0.26, seed=40,
-             parent="field-east-sweeper"),
-    RootSpec("field-east-lower-fork", [(820, 496), (848, 503), (876, 511), (902, 519)],
-             flare=3.8, tip=0.48, tier="secondary", delay=0.30, seed=41,
-             parent="field-east-sweeper"),
     # the far runner: carries the system to the eastern edge of the
     # earth band, descending steadily so even the longest travel dives.
     RootSpec("field-far-runner", [(794, 483), (900, 499), (1010, 513),
                                   (1120, 526), (1226, 537), (1330, 547),
                                   (1414, 554), (1490, 561),
                                   (1548, 568)],
-             flare=7.0, tip=0.8, tier="secondary", delay=0.28, seed=47,
+             flare=4.4, tip=0.55, tier="secondary", delay=0.28, seed=47,
              parent="field-east-sweeper"),
-    # fine feeders: hair organs clustered patchily along the tunnels
-    RootSpec("field-center-shallow",
-             [(466, 403), (430, 409), (392, 417), (352, 427), (314, 438),
-              (282, 449)],
-             flare=5.5, tip=0.6, tier="secondary", delay=0.22, seed=49,
-             parent="field-center-diver"),
-    RootSpec("field-west-deep-fork", [(134, 493), (112, 500), (90, 507), (70, 514)],
-             flare=3.8, tip=0.45, tier="secondary", delay=0.24, seed=50,
-             parent="field-west-sweeper"),
-    RootSpec("field-hair-west", [(368, 426), (356, 434), (344, 442), (333, 450)],
-             flare=2.6, tip=0.3, tier="fine", delay=0.36, seed=42,
-             parent="field-west-sweeper"),
-    RootSpec("field-hair-center", [(505, 471), (494, 477), (482, 483), (471, 488)],
-             flare=2.4, tip=0.28, tier="fine", delay=0.38, seed=43,
-             parent="field-center-diver"),
-    RootSpec("field-hair-southeast", [(643, 479), (656, 485), (670, 491), (682, 497)],
-             flare=2.6, tip=0.3, tier="fine", delay=0.40, seed=44,
-             parent="field-southeast-dive"),
-    RootSpec("field-hair-east", [(764, 470), (779, 476), (794, 482), (808, 487)],
-             flare=2.4, tip=0.28, tier="fine", delay=0.46, seed=45,
-             parent="field-east-sweeper"),
-    RootSpec("field-hair-deep", [(414, 462), (401, 468), (387, 474), (375, 480)],
-             flare=2.2, tip=0.26, tier="fine", delay=0.42, seed=46,
-             parent="field-southwest-dive"),
-    RootSpec("field-hair-far", [(1010, 513), (1026, 518), (1042, 524)],
-             flare=2.2, tip=0.26, tier="fine", delay=0.50, seed=48,
-             parent="field-far-runner"),
 ]
+
+# ─────────────────────────────────────────────────────────────────
+# The sprawl engine: recursive feeder web.
+#
+# Hand-authoring hundreds of feeders is unmaintainable; a handful reads
+# as cables. So the seeds above are branched recursively: every organ
+# forks 1-3 children off its mid-run, each child thinner, later, and
+# shorter than its parent - the same taper cascade a real root system
+# uses. Deterministic (one fixed RNG seed) so docs/index.md stays
+# reproducible byte-for-byte. Geometry rules:
+#   - every step keeps |dx| >= ~1.8|dy| so mobile's anisotropic band
+#     stretch cannot straighten branches into plumb strings;
+#   - y never climbs (build_organ_records re-enforces descent anyway);
+#   - children snap onto the parent polyline at build time, so every
+#     junction is welded and collared by the shared machinery.
+# ─────────────────────────────────────────────────────────────────
+
+SPRAWL_RNG_SEED = 20260823
+
+
+def _chain_probe(chain, t):
+    """Piecewise-linear point + unit tangent at fraction t of length."""
+    segs = [math.hypot(b[0] - a[0], b[1] - a[1])
+            for a, b in zip(chain, chain[1:])]
+    total = sum(segs)
+    target = total * clamp(t, 0.0, 1.0)
+    acc = 0.0
+    for i, seg_len in enumerate(segs):
+        if acc + seg_len >= target or i == len(segs) - 1:
+            f = (target - acc) / seg_len if seg_len > 0 else 0.0
+            a, b = chain[i], chain[i + 1]
+            point = (a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f)
+            dx, dy = b[0] - a[0], b[1] - a[1]
+            norm = math.hypot(dx, dy) or 1.0
+            return point, (dx / norm, dy / norm)
+        acc += seg_len
+    return chain[-1], (1.0, 0.0)
+
+
+def _sprawl_child_chain(origin, heading, steps, base_length, rng,
+                        sinker_ok=False, y_cap=584.0):
+    """Walk `steps` waypoints from origin with outward-biased drift.
+
+    Horizontal travel dominates every step (mobile safety); depth-2+
+    chains may spend ONE steeper 'sinker' step for deep variety. Steps
+    flatten out at y_cap so nothing spills past the band's bottom."""
+    pts = [origin]
+    x, y = origin
+    angle = heading
+    sinker_spent = False
+    for _ in range(steps):
+        angle += math.radians(rng.uniform(-16.0, 20.0))
+        step = base_length * rng.uniform(0.8, 1.25)
+        dx = math.cos(angle) * step
+        dy = max(math.sin(angle) * step, rng.uniform(1.0, 2.2))
+        if y + dy > y_cap:
+            dy = max(0.5, y_cap - y)
+            dx = (1.0 if dx >= 0 else -1.0) * max(abs(dx), dy * 2.2)
+        sinker = sinker_ok and not sinker_spent and rng.random() < 0.35
+        min_ratio = 1.2 if sinker else 1.8
+        if abs(dx) < abs(dy) * min_ratio:
+            dx = (1.0 if dx >= 0 else -1.0) * abs(dy) * min_ratio
+        if sinker:
+            sinker_spent = True
+        x += dx
+        y += dy
+        pts.append((x, y))
+    return pts
+
+
+def sprawl_field():
+    """Branch the seed organs into the dense fine-rooted feeder web."""
+    rng = random.Random(SPRAWL_RNG_SEED)
+    generated = []
+    counter = [0]
+
+    # parent depth -> (fork sites, kids/site probability of 2)
+    plan = {0: ((0.28, 0.52, 0.76), 0.6),
+            1: ((0.34, 0.66), 0.3),
+            2: ((0.45,), 0.0)}
+
+    def avg_seg_length(chain):
+        segs = [math.hypot(b[0] - a[0], b[1] - a[1])
+                for a, b in zip(chain, chain[1:])]
+        return sum(segs) / len(segs)
+
+    def grow(parent, depth):
+        if depth > 2:
+            return
+        sites, twin_p = plan[min(depth, 2)]
+        origin_heading = None
+        side = 1.0 if rng.random() < 0.5 else -1.0
+        for site in sites:
+            t = clamp(site + rng.uniform(-0.05, 0.05), 0.12, 0.88)
+            kids = 2 if rng.random() < twin_p else 1
+            for _ in range(kids):
+                probe, tangent = _chain_probe(parent.chain, t)
+                if origin_heading is None:
+                    origin_heading = math.atan2(tangent[1], tangent[0])
+                heading = origin_heading + side * rng.uniform(0.30, 0.65)
+                side = -side
+                steps = {1: rng.choice((3, 4)), 2: 3, 3: rng.choice((2, 3))}[depth + 1]
+                base_length = avg_seg_length(parent.chain) * {
+                    1: 0.55, 2: 0.48, 3: 0.42}[depth + 1]
+                chain = _sprawl_child_chain(probe, heading, steps,
+                                            base_length, rng,
+                                            sinker_ok=depth >= 1)
+                counter[0] += 1
+                name = f"{parent.name}-r{counter[0]}"
+                child = RootSpec(
+                    name,
+                    [(round(p[0], 1), round(p[1], 1)) for p in chain],
+                    flare=max(1.1, parent.flare * 0.58),
+                    tip=max(0.22, parent.tip * 0.74),
+                    tier="secondary" if depth == 0 else "fine",
+                    delay=min(0.88, parent.delay +
+                              {1: 0.10, 2: 0.09, 3: 0.08}[depth + 1] +
+                              rng.uniform(0.0, 0.05)),
+                    seed=100 + counter[0],
+                    parent=parent.name,
+                    amp=min(4.5, parent.amp * rng.uniform(0.65, 0.95)),
+                )
+                generated.append(child)
+                grow(child, depth + 1)
+
+    for seed_spec in FIELD_SEEDS:
+        grow(seed_spec, 0)
+    return generated
+
+
+FIELD_SPECS = FIELD_SEEDS + sprawl_field()
 
 FIELD_SPEED = {"primary": 1150.0, "secondary": 850.0, "fine": 700.0}
 FIELD_SPAN_BOUNDS = (0.14, 0.45)
@@ -837,7 +925,7 @@ def build_field():
         )
 
     out = [
-        '  <svg class="life-roots-field" viewBox="-40 392 1560 168" '
+        f'  <svg class="life-roots-field" viewBox="{FIELD_VIEWBOX}" '
         'preserveAspectRatio="none" aria-hidden="true" focusable="false">',
         '    <g class="life-roots-field__inner">',
         '      <defs>',
