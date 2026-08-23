@@ -826,9 +826,10 @@ textarea,
 }
 
 /* ───────────────────────────────────────────
-   The freed root field — full-bleed underlay
-   Pinned to the bottom of the viewport, it spans
-   edge to edge and keeps reaching as you scroll.
+   The freed root field — page-anchored underlay
+   Absolutely positioned in the document with its
+   ground line pinned to the trunk base, it scrolls
+   WITH the tree: one system, never a floating layer.
    ─────────────────────────────────────────── */
 
 /* Material's base sheet sets .md-typeset svg { height: auto }, which
@@ -840,10 +841,13 @@ textarea,
 }
 
 .life-roots-field {
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
+    /* JS pins this to the trunk-base line on load/resize. Without JS
+       the growth scalars stay 0 and every mask is empty, so the
+       fallback resting spot is invisible either way. */
+    top: auto;
     z-index: -1;
     width: 100%;
     height: 50vh;
@@ -851,10 +855,6 @@ textarea,
     color: var(--life-ink, var(--ink));
     opacity: 0.72;
     pointer-events: none;
-    /* No transition on transform: the field must lock to the trunk base
-       on every frame. An eased slide reads as the root system tearing
-       free of the tree while scrolling. */
-    will-change: transform;
 }
 
 /* The field rides its own spring scalar from living-index.js; the

@@ -146,44 +146,28 @@
          * instead of floating nearby. The ground line sits at y=405, a
          * sliver from the top of the band - everything under it is root.
          */
-        function alignRootsField() {
+        /*
+         * Pin the field band to the DOCUMENT, not the viewport. Its
+         * ground line (y=405 of the band) is anchored once - at the
+         * trunk base in page coordinates - so the whole system scrolls
+         * as one drawing. Per-frame translation is gone: nothing can
+         * tear free, jump, or float over later sections.
+         */
+        function pinRootsField() {
             var field = root.querySelector(".life-roots-field");
             var treeSvg = root.querySelector(".life-tree");
             if (!field || !treeSvg) return;
             var box = treeSvg.getBoundingClientRect();
             if (!box.width || !box.height) return;
 
-            /*
-             * One continuous system: the field's ground line must sit at
-             * the trunk base on screen. Trunk base in viewBox coords:
-             * (356, 708) of 720 x 1200. Field ground line: y=405 of the
-             * band that spans y 392..560.
-             */
-            var trunkX = box.left + box.width * (356 / 720);
-            var trunkY = box.top + box.height * (708 / 1200);
-
-            var fieldH = field.getBoundingClientRect().height || window.innerHeight * 0.5;
-            var flareFrac = (460 - (-40)) / 1560;
+            var trunkDocY = box.top + window.scrollY +
+                box.height * (708 / 1200);
+            var fieldH = field.getBoundingClientRect().height ||
+                window.innerHeight * 0.5;
             var groundFromTop = fieldH * ((405 - 392) / 168);
 
-            /*
-             * While the trunk holds the stage, the field hangs from its
-             * base - one continuous system, the flare tucked just beneath
-             * the visible trunk foot. Once the tree decamps, the field
-             * returns to its neutral full-bleed post at the bottom.
-             */
-            var onStage = trunkY > -window.innerHeight * 0.2 &&
-                trunkY < window.innerHeight;
-            var shiftX = 0;
-            var shiftY = 0;
-            if (onStage) {
-                shiftX = trunkX - window.innerWidth * flareFrac;
-                var fieldTopTarget = trunkY - groundFromTop + fieldH * 0.10;
-                shiftY = fieldTopTarget - (window.innerHeight - fieldH);
-            }
-
-            field.style.transform = "translate(" + shiftX.toFixed(1) + "px, " +
-                shiftY.toFixed(1) + "px)";
+            field.style.top =
+                Math.round(trunkDocY - groundFromTop) + "px";
         }
 
         /*
@@ -508,7 +492,6 @@
             root.style.setProperty("--life-meter", (progress * 100).toFixed(1) + "%");
             root.classList.toggle("is-indexed", progress > 0.08);
             root.classList.toggle("is-open", progress > PANEL_START);
-            alignRootsField();
 
             if (desktopLayout.matches && !reducedMotion.matches) {
                 var nextFacet = facetFromProgress(progress);
@@ -562,7 +545,6 @@
                     mobileRootsValue,
                     !reducedMotion.matches
                 );
-                alignRootsField();
                 return;
             }
 
@@ -622,6 +604,7 @@
         }
 
         function handleResize() {
+            pinRootsField();
             measureJourney();
             if (!layoutTransitioning) {
                 requestScrollUpdate();
@@ -667,6 +650,7 @@
 
         listen(window, "scroll", requestScrollUpdate, { passive: true });
         listen(window, "resize", handleResize, { passive: true });
+        listen(window, "load", pinRootsField, { once: true });
         listen(window, "hashchange", handleHistoryChange);
         listen(window, "popstate", handleHistoryChange);
         listen(window, "pagehide", restoreScrollRestoration);
@@ -675,6 +659,7 @@
         listen(reducedMotion, "change", handleReducedMotionChange);
 
         selectFacet(committedFacet);
+        pinRootsField();
         measureJourney();
         updateScrollState();
 
