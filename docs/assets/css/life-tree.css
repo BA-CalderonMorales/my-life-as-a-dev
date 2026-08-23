@@ -212,7 +212,7 @@ body.landing-page[data-md-color-scheme="slate"] [data-life-index] .life-tree__ba
 }
 
 [data-life-index] .life-tree__root-body--primary {
-    fill-opacity: 0.92;
+    fill-opacity: 1;
 }
 
 [data-life-index] .life-tree__root-body--lateral {

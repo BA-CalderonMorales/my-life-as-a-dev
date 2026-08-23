@@ -649,9 +649,6 @@ hide:
           <path class="life-field-reveal life-field-reveal--primary" d="M 472 402 C 476.8 407.5 492.8 422.7 500.8 434.7 C 508.7 446.8 518.9 461.3 519.5 474.5 C 520.2 487.7 511.5 501.4 504.9 513.8 C 498.2 526.2 484 543.2 479.8 549.1" pathLength="1" stroke-width="16.4" style="--field-delay:0.06;--field-span:0.15"/>
           <path class="life-field-reveal life-field-reveal--primary" d="M 478 404 C 485.1 409.7 506.1 427.9 520.9 438.1 C 535.6 448.2 550.5 456.2 566.5 465.1 C 582.5 474.1 601.9 481.4 617 491.8 C 632 502.2 650.2 521.6 656.8 527.6" pathLength="1" stroke-width="15.1" style="--field-delay:0.04;--field-span:0.19"/>
           <path class="life-field-reveal life-field-reveal--primary" d="M 472 402 C 482.3 404.1 513.8 410.4 533.7 414.6 C 553.6 418.7 571.6 422.8 591.3 426.8 C 611 430.8 631.4 435.8 651.7 438.4 C 671.9 441 692.4 440 712.9 442.4 C 733.3 444.7 754.2 447.6 774.4 452.5 C 794.7 457.5 815.9 462.8 834.4 471.8 C 852.9 480.9 867.4 497.3 885.3 507 C 903.1 516.6 932.2 525.8 941.5 529.6" pathLength="1" stroke-width="17" style="--field-delay:0.08;--field-span:0.43"/>
-          <ellipse cx="220" cy="502" rx="64" ry="9" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="700" cy="524" rx="76" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="1160" cy="544" rx="82" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
         </mask>
         <mask id="life-field-wash-primary" maskUnits="userSpaceOnUse" x="-60" y="370.8" width="1644" height="208.7">
           <path class="life-field-reveal life-field-reveal--primary" d="M 452 402 C 443.4 406.8 414.5 417.6 400.6 430.7 C 386.7 443.8 380.1 464.7 368.7 480.8 C 357.2 497 348.3 519.7 331.9 527.6 C 315.5 535.5 290.4 528.1 270.2 528.2 C 249.9 528.3 230.7 528.2 210.4 528.2 C 190.2 528.2 169 527.9 148.6 528.2 C 128.2 528.5 107.6 529.3 88 530.1 C 68.5 530.9 51.1 532.2 31.4 532.9 C 11.8 533.6 -19.8 534 -30 534.2" pathLength="1" stroke-width="18.2" style="--field-delay:0.06;--field-span:0.50"/>
@@ -659,9 +656,9 @@ hide:
           <path class="life-field-reveal life-field-reveal--primary" d="M 472 402 C 476.8 407.5 492.8 422.7 500.8 434.7 C 508.7 446.8 518.9 461.3 519.5 474.5 C 520.2 487.7 511.5 501.4 504.9 513.8 C 498.2 526.2 484 543.2 479.8 549.1" pathLength="1" stroke-width="16.4" style="--field-delay:0.12;--field-span:0.17"/>
           <path class="life-field-reveal life-field-reveal--primary" d="M 478 404 C 485.1 409.7 506.1 427.9 520.9 438.1 C 535.6 448.2 550.5 456.2 566.5 465.1 C 582.5 474.1 601.9 481.4 617 491.8 C 632 502.2 650.2 521.6 656.8 527.6" pathLength="1" stroke-width="15.1" style="--field-delay:0.10;--field-span:0.22"/>
           <path class="life-field-reveal life-field-reveal--primary" d="M 472 402 C 482.3 404.1 513.8 410.4 533.7 414.6 C 553.6 418.7 571.6 422.8 591.3 426.8 C 611 430.8 631.4 435.8 651.7 438.4 C 671.9 441 692.4 440 712.9 442.4 C 733.3 444.7 754.2 447.6 774.4 452.5 C 794.7 457.5 815.9 462.8 834.4 471.8 C 852.9 480.9 867.4 497.3 885.3 507 C 903.1 516.6 932.2 525.8 941.5 529.6" pathLength="1" stroke-width="17" style="--field-delay:0.14;--field-span:0.49"/>
-          <ellipse cx="220" cy="502" rx="64" ry="9" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="700" cy="524" rx="76" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="1160" cy="544" rx="82" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
+          <ellipse cx="220" cy="502" rx="64" ry="9" fill="#000" fill-opacity="0.55" filter="url(#life-field-buried-blur)"/>
+          <ellipse cx="700" cy="524" rx="76" ry="10" fill="#000" fill-opacity="0.55" filter="url(#life-field-buried-blur)"/>
+          <ellipse cx="1160" cy="544" rx="82" ry="10" fill="#000" fill-opacity="0.55" filter="url(#life-field-buried-blur)"/>
         </mask>
         <mask id="life-field-mask-secondary" maskUnits="userSpaceOnUse" x="-60" y="370.8" width="1644" height="208.7">
           <path class="life-field-reveal life-field-reveal--secondary" d="M 365.8 485 C 363.5 487.3 358.1 496.8 352 499.2 C 345.8 501.5 335.8 499.2 328.8 499.2 C 321.7 499.2 315.7 497.7 309.5 499.2 C 303.4 500.6 294.8 506.5 291.8 508" pathLength="1" stroke-width="7.8" style="--field-delay:0.16;--field-span:0.14"/>
@@ -674,9 +671,6 @@ hide:
           <path class="life-field-reveal life-field-reveal--secondary" d="M 800 459.1 C 813.6 462.3 853 474 881.6 478.3 C 910.2 482.7 943.7 482.7 971.6 485.2 C 999.5 487.7 1021.5 490.7 1049.1 493.3 C 1076.7 496 1108.2 498.5 1137 500.9 C 1165.8 503.4 1193.6 505.3 1221.9 507.9 C 1250.2 510.5 1279 513.5 1306.7 516.6 C 1334.4 519.6 1361.3 523 1388 526.1 C 1414.8 529.2 1439.5 532.2 1467.2 535.2 C 1494.8 538.2 1539.5 542.6 1554 544.1" pathLength="1" stroke-width="10.8" style="--field-delay:0.28;--field-span:0.45"/>
           <path class="life-field-reveal life-field-reveal--secondary" d="M 472 402 C 464.8 402 444.8 399.3 429 402 C 413.2 404.7 393 413 377.4 418.3 C 361.7 423.5 349.9 428.7 335 433.6 C 320.1 438.6 295.8 445.6 288 448" pathLength="1" stroke-width="8.9" style="--field-delay:0.22;--field-span:0.23"/>
           <path class="life-field-reveal life-field-reveal--secondary" d="M 135.9 528.5 C 132.9 528.9 123.2 528.3 117.9 530.8 C 112.6 533.3 109.1 541 104.1 543.2 C 99 545.4 92.8 542.9 87.4 544 C 82 545 74.4 548.6 71.9 549.5" pathLength="1" stroke-width="6.8" style="--field-delay:0.24;--field-span:0.14"/>
-          <ellipse cx="220" cy="502" rx="64" ry="9" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="700" cy="524" rx="76" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="1160" cy="544" rx="82" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
         </mask>
         <mask id="life-field-wash-secondary" maskUnits="userSpaceOnUse" x="-60" y="370.8" width="1644" height="208.7">
           <path class="life-field-reveal life-field-reveal--secondary" d="M 365.8 485 C 363.5 487.3 358.1 496.8 352 499.2 C 345.8 501.5 335.8 499.2 328.8 499.2 C 321.7 499.2 315.7 497.7 309.5 499.2 C 303.4 500.6 294.8 506.5 291.8 508" pathLength="1" stroke-width="7.8" style="--field-delay:0.22;--field-span:0.16"/>
@@ -689,9 +683,9 @@ hide:
           <path class="life-field-reveal life-field-reveal--secondary" d="M 800 459.1 C 813.6 462.3 853 474 881.6 478.3 C 910.2 482.7 943.7 482.7 971.6 485.2 C 999.5 487.7 1021.5 490.7 1049.1 493.3 C 1076.7 496 1108.2 498.5 1137 500.9 C 1165.8 503.4 1193.6 505.3 1221.9 507.9 C 1250.2 510.5 1279 513.5 1306.7 516.6 C 1334.4 519.6 1361.3 523 1388 526.1 C 1414.8 529.2 1439.5 532.2 1467.2 535.2 C 1494.8 538.2 1539.5 542.6 1554 544.1" pathLength="1" stroke-width="10.8" style="--field-delay:0.34;--field-span:0.50"/>
           <path class="life-field-reveal life-field-reveal--secondary" d="M 472 402 C 464.8 402 444.8 399.3 429 402 C 413.2 404.7 393 413 377.4 418.3 C 361.7 423.5 349.9 428.7 335 433.6 C 320.1 438.6 295.8 445.6 288 448" pathLength="1" stroke-width="8.9" style="--field-delay:0.28;--field-span:0.26"/>
           <path class="life-field-reveal life-field-reveal--secondary" d="M 135.9 528.5 C 132.9 528.9 123.2 528.3 117.9 530.8 C 112.6 533.3 109.1 541 104.1 543.2 C 99 545.4 92.8 542.9 87.4 544 C 82 545 74.4 548.6 71.9 549.5" pathLength="1" stroke-width="6.8" style="--field-delay:0.30;--field-span:0.16"/>
-          <ellipse cx="220" cy="502" rx="64" ry="9" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="700" cy="524" rx="76" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="1160" cy="544" rx="82" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
+          <ellipse cx="220" cy="502" rx="64" ry="9" fill="#000" fill-opacity="0.55" filter="url(#life-field-buried-blur)"/>
+          <ellipse cx="700" cy="524" rx="76" ry="10" fill="#000" fill-opacity="0.55" filter="url(#life-field-buried-blur)"/>
+          <ellipse cx="1160" cy="544" rx="82" ry="10" fill="#000" fill-opacity="0.55" filter="url(#life-field-buried-blur)"/>
         </mask>
         <mask id="life-field-mask-fine" maskUnits="userSpaceOnUse" x="-60" y="370.8" width="1644" height="208.7">
           <path class="life-field-reveal life-field-reveal--fine" d="M 391.4 441.8 C 389.9 443.1 385.3 447.2 382.6 449.6 C 379.8 452 377.8 454.4 374.9 456.2 C 372 458 368.4 458.6 365.4 460.2 C 362.3 461.8 357.9 464.9 356.4 465.8" pathLength="1" stroke-width="5.2" style="--field-delay:0.36;--field-span:0.14"/>
@@ -700,9 +694,6 @@ hide:
           <path class="life-field-reveal life-field-reveal--fine" d="M 769.4 451.4 C 771.4 452 777.6 454.1 781.4 455.3 C 785.3 456.5 789.2 456.9 792.6 458.6 C 796.1 460.4 798.5 464.4 801.9 466 C 805.4 467.6 811.5 468 813.4 468.4" pathLength="1" stroke-width="5" style="--field-delay:0.46;--field-span:0.14"/>
           <path class="life-field-reveal life-field-reveal--fine" d="M 408.4 451.9 C 406.8 452.9 402.4 456.9 398.8 458 C 395.2 459 390.2 457.1 386.8 458.2 C 383.4 459.3 381.3 462.7 378.4 464.6 C 375.4 466.6 370.9 469 369.4 469.9" pathLength="1" stroke-width="4.8" style="--field-delay:0.42;--field-span:0.14"/>
           <path class="life-field-reveal life-field-reveal--fine" d="M 1013.6 489.6 C 1015.1 489.8 1020.1 490 1022.7 491 C 1025.4 492 1026.8 493.9 1029.3 495.3 C 1031.9 496.8 1035.1 499 1037.8 499.9 C 1040.6 500.7 1044.3 500.5 1045.6 500.6" pathLength="1" stroke-width="4.8" style="--field-delay:0.50;--field-span:0.14"/>
-          <ellipse cx="220" cy="502" rx="64" ry="9" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="700" cy="524" rx="76" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="1160" cy="544" rx="82" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
         </mask>
         <mask id="life-field-wash-fine" maskUnits="userSpaceOnUse" x="-60" y="370.8" width="1644" height="208.7">
           <path class="life-field-reveal life-field-reveal--fine" d="M 391.4 441.8 C 389.9 443.1 385.3 447.2 382.6 449.6 C 379.8 452 377.8 454.4 374.9 456.2 C 372 458 368.4 458.6 365.4 460.2 C 362.3 461.8 357.9 464.9 356.4 465.8" pathLength="1" stroke-width="5.2" style="--field-delay:0.42;--field-span:0.16"/>
@@ -711,9 +702,9 @@ hide:
           <path class="life-field-reveal life-field-reveal--fine" d="M 769.4 451.4 C 771.4 452 777.6 454.1 781.4 455.3 C 785.3 456.5 789.2 456.9 792.6 458.6 C 796.1 460.4 798.5 464.4 801.9 466 C 805.4 467.6 811.5 468 813.4 468.4" pathLength="1" stroke-width="5" style="--field-delay:0.52;--field-span:0.16"/>
           <path class="life-field-reveal life-field-reveal--fine" d="M 408.4 451.9 C 406.8 452.9 402.4 456.9 398.8 458 C 395.2 459 390.2 457.1 386.8 458.2 C 383.4 459.3 381.3 462.7 378.4 464.6 C 375.4 466.6 370.9 469 369.4 469.9" pathLength="1" stroke-width="4.8" style="--field-delay:0.48;--field-span:0.16"/>
           <path class="life-field-reveal life-field-reveal--fine" d="M 1013.6 489.6 C 1015.1 489.8 1020.1 490 1022.7 491 C 1025.4 492 1026.8 493.9 1029.3 495.3 C 1031.9 496.8 1035.1 499 1037.8 499.9 C 1040.6 500.7 1044.3 500.5 1045.6 500.6" pathLength="1" stroke-width="4.8" style="--field-delay:0.56;--field-span:0.16"/>
-          <ellipse cx="220" cy="502" rx="64" ry="9" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="700" cy="524" rx="76" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
-          <ellipse cx="1160" cy="544" rx="82" ry="10" fill="#000" filter="url(#life-field-buried-blur)"/>
+          <ellipse cx="220" cy="502" rx="64" ry="9" fill="#000" fill-opacity="0.55" filter="url(#life-field-buried-blur)"/>
+          <ellipse cx="700" cy="524" rx="76" ry="10" fill="#000" fill-opacity="0.55" filter="url(#life-field-buried-blur)"/>
+          <ellipse cx="1160" cy="544" rx="82" ry="10" fill="#000" fill-opacity="0.55" filter="url(#life-field-buried-blur)"/>
         </mask>
       </defs>
       <g class="life-field-wash life-field-wash--fine" filter="url(#life-field-wash-blur)" mask="url(#life-field-wash-fine)">

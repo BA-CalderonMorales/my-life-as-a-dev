@@ -739,17 +739,13 @@ textarea,
     stroke-linejoin: round;
 }
 
-/* In-tree roots sit back like construction lines under the crown. */
-[data-life-index] .life-tree__roots {
-    opacity: 0.72;
-}
-
-
 /* The in-tree roots read as the root CROWN hugging the trunk base;
    the freed field continues the system across the page. Deep sweepers
-   inside the svg would read as a second, disconnected root system. */
+   inside the svg would read as a second, disconnected root system.
+   One dimming layer only: stacked opacities opened a value seam where
+   root wood met trunk wood. */
 [data-life-index] .life-tree__roots {
-    opacity: 0.72;
+    opacity: 0.92;
     -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 12%, transparent 26%);
     mask-image: linear-gradient(to bottom, #000 0%, #000 12%, transparent 26%);
 }

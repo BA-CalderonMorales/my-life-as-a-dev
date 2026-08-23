@@ -808,7 +808,7 @@ def burial_voids():
     so they cost nothing during the growth animation."""
     return [
         f'          <ellipse cx="{fmt(cx)}" cy="{fmt(cy)}" '
-        f'rx="{fmt(rx)}" ry="{fmt(ry)}" fill="#000" '
+        f'rx="{fmt(rx)}" ry="{fmt(ry)}" fill="#000" fill-opacity="0.55" '
         f'filter="url(#life-field-buried-blur)"/>'
         for cx, cy, rx, ry in FIELD_BURIAL_VOIDS
     ]
@@ -862,7 +862,6 @@ def build_field():
             reveal_stroke(s, s.delay, records[s.name].span)
             for s in specs_in_tier
         )
-        out.extend(burial_voids())
         out.append('        </mask>')
         out.append(
             f'        <mask id="life-field-wash-{tier}" {region_attrs}>'
