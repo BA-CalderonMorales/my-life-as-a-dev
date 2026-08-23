@@ -910,7 +910,9 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     gap: clamp(2rem, 6vw, 6rem);
     align-items: center;
     padding: clamp(5rem, 10vw, 9rem) clamp(1.25rem, 5vw, 5rem);
-    background: var(--life-paper-deep);
+    /* Transparent: the root field is this page half's backdrop, and an
+       opaque sheet here buried the sprawl outright. */
+    background: transparent;
     border-top: 1px solid var(--life-line);
 }
 
@@ -981,7 +983,8 @@ html.js .life-index:not(.is-enhanced) .life-branches {
     align-items: center;
     padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem);
     overflow: hidden;
-    background: var(--life-paper);
+    /* Same contract as .life-coda: let the root field read through. */
+    background: transparent;
     border-top: 1px solid var(--life-line);
 }
 
