@@ -5,7 +5,7 @@
   "devDependencies": {
     "jsdom": "^30.0.1",
     "three": "^0.185.1",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.11"
   },
   "scripts": {
     "test": "vitest run docs/assets/js/canvas/scene/",
