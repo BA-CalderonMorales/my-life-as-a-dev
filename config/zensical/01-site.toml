@@ -1,24 +1,13 @@
 # ==============================================================================
 # SITE IDENTITY
 # ==============================================================================
-# Core metadata that defines who you are and where this site lives.
-# These values appear in browser tabs, search results, and social shares.
-# ==============================================================================
 
 [project]
 site_name = "Brandon A. Calderon Morales"
-site_description = "Marine veteran turned engineer building readable systems, open-source agent tools, and documentation that makes the next step obvious."
+site_description = "Engineer and Marine veteran in Omaha, Nebraska."
 site_author = "Brandon A. Calderon Morales"
 site_url = "https://ba-calderonmorales.github.io/my-life-as-a-dev/"
 copyright = "Copyright &copy; 2024-2026 Brandon A. Calderon Morales"
-
-
-# ==============================================================================
-# REPOSITORY & COLLABORATION
-# ==============================================================================
-# GitHub integration for "Edit this page" links and repo badges.
-# ==============================================================================
-
 repo_url = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
 repo_name = "BA-CalderonMorales/my-life-as-a-dev"
 edit_uri = "edit/main/docs/"

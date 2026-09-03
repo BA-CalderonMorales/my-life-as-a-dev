@@ -77,22 +77,12 @@ jobs:
           playwright install chromium
           python -m pytest e2e/test_structure.py -v
 
-      - name: Verify generated tree is in sync
-        run: uv run python scripts/python/tree-gen/gen_tree.py --check
-
       - name: Build site with Zensical
         run: |
           echo "Building site with Zensical..."
           zensical build
           echo "Build complete!"
           touch site/.nojekyll
-
-          # Verify Three.js assets
-          if [ -d "site/assets/js/threejs-background" ]; then
-            echo "Three.js assets found"
-          else
-            echo "WARNING: Three.js assets NOT found!"
-          fi
 
       - name: Get current deployed version
         id: current

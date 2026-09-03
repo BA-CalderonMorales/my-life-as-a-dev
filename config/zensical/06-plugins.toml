@@ -1,91 +1,13 @@
 # ==============================================================================
-# NAVIGATION PLUGINS
+# PLUGINS
 # ==============================================================================
-
-[project.plugins]
-[project.plugins.awesome-nav]
-
-
-# ==============================================================================
-# GIT INTEGRATION PLUGINS
-# ==============================================================================
-# Show contributors and revision dates. Disabled in CI for performance.
+# Quiet git metadata. Nothing else.
 # ==============================================================================
 
 [project.plugins.git-authors]
-enabled = true            # Set via ENABLE_GIT_AUTHORS env var in CI
+enabled = true
 show_email_address = true
 href = "mailto:{email}"
 
 [project.plugins.git-revision-date-localized]
 timezone = "America/North_Dakota/Center"
-
-
-# ==============================================================================
-# VERSIONING PLUGIN
-# ==============================================================================
-
-[project.plugins.mike]
-
-
-# ==============================================================================
-# IMAGE & MEDIA PLUGINS
-# ==============================================================================
-
-[project.plugins.panzoom]
-[project.plugins.glightbox]
-width = "auto"
-height = "auto"
-skip_classes = []
-auto = true
-auto_themed = false
-auto_caption = false
-
-# ==============================================================================
-# IMAGE OPTIMIZATION PLUGIN
-# ==============================================================================
-# Build-time image optimization for optimal performance on all devices.
-# Converts images to WebP, generates responsive sizes, and adds lazy loading.
-# Essential for low-powered devices (Samsung Fridge, older phones, etc.)
-# ==============================================================================
-
-[project.plugins.image-optimizer]
-enabled = true
-webp_quality = 80
-generate_lqip = true
-lqip_width = 20
-enable_lazy_loading = true
-skip_patterns = ["favicon", "icon-"]
-max_dimension = 2560
-responsive_sizes = [320, 640, 1024, 1920]
-
-
-# ==============================================================================
-# SEARCH & DISCOVERY PLUGINS
-# ==============================================================================
-
-[project.plugins.search]
-[project.plugins.tags]
-
-
-# ==============================================================================
-# OPTIMIZATION PLUGINS
-# ==============================================================================
-# Production optimizations for smaller builds.
-# ==============================================================================
-
-[project.plugins.minify]
-minify_html = true
-minify_js = true
-minify_css = true
-
-[project.plugins.minify.htmlmin_opts]
-remove_comments = true
-
-
-# ==============================================================================
-# OUTPUT PLUGINS
-# ==============================================================================
-
-[project.plugins.print-site]
-enabled = false # Set via ENABLE_PRINT_SITE env var in CI

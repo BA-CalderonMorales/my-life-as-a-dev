@@ -2,19 +2,21 @@
 
 ## Current Shape
 
-- Zensical (MkDocs Material) site: `docs/` is published content,
-  `docs-archive/` holds retired long-form documentation, and
-  `config/zensical/*.toml` is the modular config merged into `zensical.toml`.
-- `scripts/` holds local automation: `scripts/python/` for site tooling
-  (config merge, canvas generation), `scripts/rust/` for checks like nav
-  validation; `doc-cli` (via `doc-cli.sh`) is the interactive front door.
+- Zensical (MkDocs Material) site: `docs/` is published content (one typed
+  page plus a 404), `docs-archive/` holds retired long-form documentation,
+  and `config/zensical/*.toml` is the modular config merged into
+  `zensical.toml`.
+- `scripts/` holds local automation: `scripts/python/` for config merge and
+  versioned deploy, `scripts/rust/` for checks like nav validation;
+  `doc-cli` (via `doc-cli.sh`) is the interactive front door.
 - `e2e/` holds the Playwright suite (viewport, quality, accessibility) run
-  through `uv`; `tests/` holds unit and mutation coverage.
+  through `uv`; `tests/` holds unit coverage.
 - `.github/skills/` is the procedure library agents execute from
   (`add-documentation-page`, `browser-automation`, `site-fix-tdd-bdd`,
   `git-workflow`, ...).
 - Deploy: GitHub Pages via `make build` -> `gh-pages` branch.
-- Pre-rewrite leftovers are pruned; use Git history for legacy reference.
+- Pre-slate experiments (living tree, hand-drawn layers, three.js) are
+  pruned; use Git history for legacy reference.
 
 ## Key Sections
 

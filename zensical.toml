@@ -9,13 +9,13 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-08-21 00:00:30 UTC
+#   Generated: 2026-09-03 18:18:20 UTC
 #
 # ##############################################################################
 
 [project]
 site_name = "Brandon A. Calderon Morales"
-site_description = "Marine veteran turned engineer building readable systems, open-source agent tools, and documentation that makes the next step obvious."
+site_description = "Engineer and Marine veteran in Omaha, Nebraska."
 site_author = "Brandon A. Calderon Morales"
 site_url = "https://ba-calderonmorales.github.io/my-life-as-a-dev/"
 copyright = "Copyright &copy; 2024-2026 Brandon A. Calderon Morales"
@@ -23,114 +23,29 @@ repo_url = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
 repo_name = "BA-CalderonMorales/my-life-as-a-dev"
 edit_uri = "edit/main/docs/"
 extra_css = [
-    "assets/css/lumen/lumen-tokens.css",
-    "assets/css/lumen/lumen-components.css",
-    "assets/css/lumen/lumen-material.css",
     "assets/css/theme.css",
-    "assets/css/typography.css",
-    "assets/css/layout.css",
-    "assets/css/cards.css",
-    "assets/css/buttons.css",
-    "assets/css/code.css",
-    "assets/css/share.css",
-    "assets/css/pull-to-refresh.css",
-    "assets/css/background.css",
-    "assets/css/landing.css",
-    "assets/css/life-tree.css",
-    "assets/css/life-leaves.css",
-    "assets/css/404.css",
-    "assets/css/resume.css",
-    "assets/css/projects.css",
-    "assets/css/tokens.css",
-    "assets/css/hand-drawn.css",
-]
-extra_javascript = [
-    "assets/js/living-index.js",
-    "assets/js/life-tree.js",
-    "assets/js/life-leaves.js",
-    "assets/js/scroll-progress.js",
-    "assets/js/image-fade.js",
-    "assets/js/keyboard-shortcuts.js",
-    "assets/js/reading-time.js",
-    "assets/js/focus-mode.js",
 ]
 nav = [
     { Home = "index.md" },
 ]
 
 [project.theme]
-custom_dir = "docs/overrides"
 favicon = "assets/images/favicon/favicon.ico"
 language = "en"
 features = [
-    "announce.dismiss",
     "content.code.annotate",
     "content.code.copy",
-    "content.code.select",
-    "content.action.edit",
-    "content.action.view",
-    "content.footnote.tooltips",
-    "content.tabs.link",
-    "content.tooltips",
     "navigation.footer",
-    "navigation.indexes",
     "navigation.instant",
-    "navigation.instant.prefetch",
-    "navigation.instant.progress",
-    "navigation.path",
-    "navigation.tabs",
-    "navigation.tabs.sticky",
     "navigation.top",
-    "navigation.tracking",
-    "search.highlight",
-    "search.suggest",
-    "search.share",
-    "toc.follow",
 ]
 
 [project.theme.font]
-text = "Kalam"
+text = "Courier Prime"
 code = "JetBrains Mono"
 
 [project.theme.icon]
 repo = "fontawesome/brands/github"
-
-[project.theme.icon.tag]
-default = "lucide/hash"
-python = "fontawesome/brands/python"
-rust = "fontawesome/brands/rust"
-javascript = "fontawesome/brands/js"
-typescript = "simple/typescript"
-html = "fontawesome/brands/html5"
-css = "fontawesome/brands/css3"
-react = "fontawesome/brands/react"
-algorithm = "lucide/binary"
-data-structure = "lucide/network"
-setup = "lucide/settings"
-tutorial = "lucide/graduation-cap"
-project = "lucide/folder-code"
-cloud = "lucide/cloud"
-ai = "lucide/brain"
-learning = "lucide/book-open"
-interview = "lucide/mic"
-system-design = "lucide/server"
-security = "lucide/shield"
-workflow = "lucide/git-branch"
-documentation = "lucide/file-text"
-webgl = "lucide/box"
-experiment = "lucide/flask-conical"
-devops = "lucide/container"
-networking = "lucide/wifi"
-distributed = "lucide/network"
-
-[[project.theme.palette]]
-scheme = "slate"
-primary = "black"
-accent = "grey"
-
-[project.theme.palette.toggle]
-icon = "lucide/sun"
-name = "Switch to light mode"
 
 [[project.theme.palette]]
 scheme = "default"
@@ -141,51 +56,18 @@ accent = "grey"
 icon = "lucide/moon"
 name = "Switch to dark mode"
 
-[project.extra.tags]
-Python = "python"
-Rust = "rust"
-JavaScript = "javascript"
-TypeScript = "typescript"
-HTML5 = "html"
-CSS = "css"
-React = "react"
-Algorithms = "algorithm"
-"Data Structures" = "data-structure"
-Setup = "setup"
-Tutorial = "tutorial"
-Project = "project"
-Cloud = "cloud"
-AI = "ai"
-Learning = "learning"
-Interview = "interview"
-"System Design" = "system-design"
-Security = "security"
-Workflow = "workflow"
-Documentation = "documentation"
-WebGL = "webgl"
-Experiment = "experiment"
-DevOps = "devops"
-Networking = "networking"
-"Distributed Systems" = "distributed"
+[[project.theme.palette]]
+scheme = "slate"
+primary = "black"
+accent = "grey"
+
+[project.theme.palette.toggle]
+icon = "lucide/sun"
+name = "Switch to light mode"
 
 [[project.extra.social]]
 icon = "fontawesome/brands/github"
 link = "https://github.com/BA-CalderonMorales/my-life-as-a-dev"
-
-[project.extra.features]
-chat_assistant = false
-version_selector = false
-creative_canvas = false
-
-[project.extra.features.tabs]
-home = true
-learning = false
-docs_as_code = false
-projects = false
-canvas = false
-about_me = false
-blog = false
-doc_cli = false
 
 [project.markdown_extensions.extra]
 
@@ -200,7 +82,6 @@ doc_cli = false
 [project.markdown_extensions.admonition]
 
 [project.markdown_extensions.toc]
-permalink = true
 
 [project.markdown_extensions.pymdownx.highlight]
 anchor_linenums = true
@@ -225,8 +106,6 @@ alternate_style = true
 emoji_index = "material.extensions.emoji.twemoji"
 emoji_generator = "material.extensions.emoji.to_svg"
 
-[project.plugins.awesome-nav]
-
 [project.plugins.git-authors]
 enabled = true
 show_email_address = true
@@ -234,51 +113,6 @@ href = "mailto:{email}"
 
 [project.plugins.git-revision-date-localized]
 timezone = "America/North_Dakota/Center"
-
-[project.plugins.mike]
-
-[project.plugins.panzoom]
-
-[project.plugins.glightbox]
-width = "auto"
-height = "auto"
-skip_classes = []
-auto = true
-auto_themed = false
-auto_caption = false
-
-[project.plugins.image-optimizer]
-enabled = true
-webp_quality = 80
-generate_lqip = true
-lqip_width = 20
-enable_lazy_loading = true
-skip_patterns = [
-    "favicon",
-    "icon-",
-]
-max_dimension = 2560
-responsive_sizes = [
-    320,
-    640,
-    1024,
-    1920,
-]
-
-[project.plugins.search]
-
-[project.plugins.tags]
-
-[project.plugins.minify]
-minify_html = true
-minify_js = true
-minify_css = true
-
-[project.plugins.minify.htmlmin_opts]
-remove_comments = true
-
-[project.plugins.print-site]
-enabled = false
 
 [project.watch]
 paths = [

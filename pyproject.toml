@@ -12,10 +12,7 @@ license = {text = "MIT"}
 authors = [
     {name = "Brandon A. Calderon Morales", email = "b.dev.c.m@gmail.com"}
 ]
-keywords = ["mkdocs", "documentation", "image-optimization"]
-
-[project.entry-points."mkdocs.plugins"]
-image-optimizer = "scripts.python.plugins.image_optimizer:ImageOptimizerPlugin"
+keywords = ["mkdocs", "documentation"]
 
 [tool.setuptools.packages.find]
 where = ["."]

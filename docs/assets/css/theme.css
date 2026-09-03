@@ -1,312 +1,182 @@
-/* ============================================
-   Theme — Lumen Bridge
-   Accessible Material integration for light and dark modes.
-   ============================================ */
+/* ============================================================
+   Typewriter slate — one voice, one sheet of notebook paper.
+   Light mode: ink on paper. Dark mode: chalk on a night sheet.
+   ============================================================ */
 
-:root {
-    --md-primary-fg-color: var(--ink);
-    --md-primary-fg-color--light: var(--slate);
-    --md-primary-fg-color--dark: var(--ink);
-    --md-accent-fg-color: var(--accent);
-    --md-accent-fg-color--light: var(--accent-hover);
-    --md-accent-fg-color--transparent: color-mix(in srgb, var(--accent) 18%, transparent);
-
-    --md-link-color: var(--accent);
-    --md-link-color-hover: var(--accent-hover);
-
-    --mlad-radius-sm: var(--radius-soft);
-    --mlad-radius-md: var(--radius-soft);
-    --mlad-radius-lg: var(--radius-soft);
-    --mlad-radius-pill: var(--radius-pill);
-
-    --mlad-space-xs: var(--space-2);
-    --mlad-space-sm: var(--space-3);
-    --mlad-space-md: var(--space-4);
-    --mlad-space-lg: var(--space-5);
-    --mlad-space-xl: var(--space-6);
-
-    --mlad-duration-fast: var(--dur-swift);
-    --mlad-duration-base: var(--dur-swift);
-    --mlad-duration-slow: var(--dur-smooth);
-    --mlad-ease-standard: var(--ease-swift);
-
-    --mlad-reading-width: 65ch;
-    --mlad-surface-elevated: var(--surface-raised);
-    --mlad-shadow-soft: var(--shadow-subtle);
-    --mlad-shadow-button: var(--shadow-medium);
-    --mlad-button-border: var(--stone);
-}
-
+:root,
 [data-md-color-scheme="default"] {
-    --md-default-bg-color: var(--canvas);
-    --md-default-fg-color: var(--ink);
-    --md-default-fg-color--light: var(--slate);
-    --md-default-fg-color--lighter: #67716c;
-    --md-default-fg-color--lightest: rgba(23, 25, 24, 0.12);
-
-    --md-code-bg-color: #ebe8df;
-    --md-code-fg-color: #17201f;
-    --md-primary-bg-color: var(--canvas);
-
-    --mlad-surface-solid: var(--stone);
-    --mlad-surface-muted: var(--surface-muted);
-    --mlad-surface-elevated: var(--surface-raised);
-
-    --mlad-border-soft: rgba(23, 25, 24, 0.14);
-    --mlad-border-strong: rgba(23, 25, 24, 0.26);
-
-    --mlad-button-bg: var(--accent);
-    --mlad-button-fg: var(--accent-contrast);
-    --mlad-button-bg-hover: var(--accent-hover);
-    --mlad-button-secondary-bg: transparent;
-
-    --mlad-header-bg: var(--surface-floating);
-    --mlad-header-fg: var(--ink);
-
-    --mlad-chat-bg: var(--ink);
-    --mlad-chat-fg: var(--canvas);
+    --paper: #fafafa;
+    --ink: #161616;
+    --faded: #585858;
+    --rule-line: rgba(22, 22, 22, 0.12);
+    --rule-margin: rgba(22, 22, 22, 0.28);
+    --hole-fill: #dedede;
+    --hole-rim: rgba(22, 22, 22, 0.16);
+    --grain-opacity: 0.05;
+    --md-code-bg-color: #f0f0ee;
+    --md-code-fg-color: #161616;
+    --md-default-fg-color--lightest: rgba(22, 22, 22, 0.1);
+    --md-typeset-a-color: var(--ink);
 }
 
 [data-md-color-scheme="slate"] {
-    --md-default-bg-color: var(--canvas);
-    --md-default-fg-color: var(--ink);
-    --md-default-fg-color--light: var(--slate);
-    --md-default-fg-color--lighter: #9fa9a3;
-    --md-default-fg-color--lightest: rgba(244, 240, 232, 0.14);
-
-    --md-code-bg-color: #0b0f0e;
-    --md-code-fg-color: #f4f0e8;
-
-    --md-primary-fg-color: var(--ink);
-    --md-primary-fg-color--light: #ffffff;
-    --md-primary-fg-color--dark: var(--slate);
-    --md-primary-bg-color: var(--canvas);
-    --md-accent-fg-color: var(--accent);
-    --md-accent-fg-color--light: var(--accent-hover);
-    --md-accent-fg-color--transparent: color-mix(in srgb, var(--accent) 20%, transparent);
-    --md-link-color: var(--accent);
-    --md-link-color-hover: var(--accent-hover);
-
-    --mlad-surface-solid: var(--stone);
-    --mlad-surface-muted: var(--surface-muted);
-    --mlad-surface-elevated: var(--surface-raised);
-
-    --mlad-border-soft: rgba(244, 240, 232, 0.16);
-    --mlad-border-strong: rgba(244, 240, 232, 0.30);
-
-    --mlad-button-bg: var(--accent);
-    --mlad-button-fg: var(--accent-contrast);
-    --mlad-button-bg-hover: var(--accent-hover);
-    --mlad-button-secondary-bg: transparent;
-
-    --mlad-header-bg: var(--surface-floating);
-    --mlad-header-fg: var(--ink);
-
-    --mlad-chat-bg: var(--canvas);
-    --mlad-chat-fg: var(--ink);
+    --paper: #121212;
+    --ink: #ededed;
+    --faded: #a6a6a6;
+    --rule-line: rgba(237, 237, 237, 0.14);
+    --rule-margin: rgba(237, 237, 237, 0.3);
+    --hole-fill: #0a0a0a;
+    --hole-rim: rgba(237, 237, 237, 0.2);
+    --grain-opacity: 0.07;
+    --md-code-bg-color: #1a1a1a;
+    --md-code-fg-color: #ededed;
+    --md-default-fg-color--lightest: rgba(237, 237, 237, 0.12);
+    --md-typeset-a-color: var(--ink);
 }
+
+/* ---- The sheet: college rule, double margin line, punched holes ---- */
 
 body {
-    position: relative;
-    isolation: isolate;
-    color: var(--md-default-fg-color);
-    background: var(--md-default-bg-color);
-    transition:
-        background-color var(--dur-swift) var(--ease-swift),
-        color var(--dur-swift) var(--ease-swift);
+    background-color: var(--paper);
+    background-image:
+        radial-gradient(
+            circle at 44px 50%,
+            transparent 0 7.5px,
+            var(--hole-rim) 7.5px 9px,
+            transparent 9px
+        ),
+        radial-gradient(circle at 44px 50%, var(--hole-fill) 0 7px, transparent 7px),
+        linear-gradient(
+            90deg,
+            transparent 0 79px,
+            var(--rule-margin) 79px 80px,
+            transparent 80px 85px,
+            var(--rule-margin) 85px 86px,
+            transparent 86px 100%
+        ),
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0 33px,
+            var(--rule-line) 33px 34px
+        );
+    background-size: 100% 312px, 100% 312px, 100% 100%, 100% 34px;
+    background-repeat: repeat-y, repeat-y, no-repeat, repeat;
 }
 
-:focus-visible {
-    outline: 3px solid var(--focus-ring);
-    outline-offset: 3px;
-}
+/* ---- Paper grain ---- */
 
-.mlad-skip-link {
+body::after {
+    content: "";
     position: fixed;
-    top: var(--space-3);
-    left: var(--space-3);
-    z-index: 10000;
-    padding: var(--space-2) var(--space-3);
-    color: var(--accent-contrast);
-    background: var(--accent);
-    border-radius: var(--radius-soft);
-    box-shadow: var(--shadow-medium);
-    font-weight: 700;
-    text-decoration: none;
-    transform: translateY(calc(-100% - var(--space-5)));
-    transition: transform var(--dur-swift) var(--ease-swift);
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
 }
 
-.mlad-skip-link:focus,
-.mlad-skip-link:focus-visible {
-    transform: translateY(0);
-}
+/* ---- Typed column ---- */
 
-::selection {
-    color: var(--accent-contrast);
-    background: var(--accent);
-}
-
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--stone) transparent;
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
+.md-main,
+.md-main__inner,
+.md-content {
     background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-    background: var(--stone);
-    border-radius: var(--radius-soft);
+.md-content__inner {
+    max-width: 44rem;
+    margin-inline: auto;
+    background: transparent;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--slate);
+.md-typeset {
+    color: var(--ink);
+    font-size: 0.82rem;
+    line-height: 1.85;
 }
 
-img[loading="lazy"] {
-    opacity: 0;
-    transition: opacity var(--dur-smooth) var(--ease-smooth);
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+    color: var(--ink);
+    font-weight: 700;
 }
 
-img[loading="lazy"].is-loaded {
-    opacity: 1;
+.md-typeset p,
+.md-typeset ul {
+    color: var(--ink);
 }
 
-.md-typeset a:not(.md-button),
-.md-typeset a:not(.md-button):visited {
-    color: var(--md-link-color);
+.md-typeset .faded {
+    color: var(--faded);
+}
+
+/* Links read like typed corrections, not buttons. */
+.md-typeset a:not(.md-button) {
+    color: var(--ink);
     text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.22em;
-    text-decoration-color: color-mix(in srgb, var(--accent) 46%, transparent);
-    transition:
-        color var(--dur-swift) var(--ease-swift),
-        text-decoration-color var(--dur-swift) var(--ease-swift);
+    text-decoration-color: color-mix(in srgb, var(--ink) 40%, transparent);
+    text-underline-offset: 0.25rem;
 }
 
 .md-typeset a:not(.md-button):hover,
 .md-typeset a:not(.md-button):focus-visible {
-    color: var(--md-link-color-hover);
-    text-decoration-color: currentColor;
+    color: var(--ink);
+    text-decoration-color: var(--ink);
 }
 
-.mlad-link-sweep {
-    position: relative;
-    padding: 0.1em 0.2em;
-    margin: -0.1em -0.2em;
-    text-decoration: none !important;
-    background-image: linear-gradient(to right, color-mix(in srgb, var(--accent) 12%, transparent) 50%, transparent 50%);
-    background-position: right;
-    background-size: 200% 100%;
-    transition:
-        background-position var(--dur-swift) var(--ease-swift),
-        color var(--dur-instant) var(--ease-instant);
+/* ---- Quiet chrome: the header and footer stay out of the way ---- */
+
+.md-header {
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule-line);
+    box-shadow: none;
 }
 
-.mlad-link-sweep:hover {
-    color: var(--accent-hover) !important;
-    background-position: left;
+.md-header .md-header__title,
+.md-header .md-header__button,
+.md-tabs {
+    color: var(--ink);
 }
 
-.mlad-focus-mode .md-sidebar,
-.mlad-focus-mode .md-footer,
-.mlad-focus-mode .share-actions,
-.mlad-focus-mode .ai-chat-trigger,
-.mlad-focus-mode .mlad-scroll-progress,
-.mlad-focus-mode .md-top {
-    display: none !important;
+.md-search__input {
+    color: var(--ink);
 }
 
-.mlad-focus-mode .md-content {
-    max-width: 72ch;
-    margin-right: auto !important;
-    margin-left: auto !important;
+.md-sidebar {
+    background: transparent;
 }
 
-.mlad-focus-mode .md-header {
-    position: relative;
+.md-footer {
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    border-top: 1px solid var(--rule-line);
+    color: var(--faded);
 }
 
-.mlad-focus-mode .md-header__title,
-.mlad-focus-mode .md-tabs,
-.mlad-focus-mode .md-source,
-.mlad-focus-mode .md-version {
-    display: none !important;
+.md-footer a {
+    color: var(--faded);
 }
 
-.mlad-kb-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 10001;
+.md-footer a:hover,
+.md-footer a:focus-visible {
+    color: var(--ink);
+}
+
+.md-footer__inner {
+    color: var(--faded);
+}
+
+/* The margin line runs under everything; keep chrome transparent to it. */
+.md-container {
+    background: transparent;
+}
+
+/* A one-page site has nothing to search. */
+.md-header .md-search,
+.md-header .md-header__option ~ label[for="__search"],
+.md-header label[for="__search"] {
     display: none;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-4);
-    background: rgba(0, 0, 0, 0.36);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-}
-
-.mlad-kb-modal.is-open {
-    display: flex;
-}
-
-.mlad-kb-modal__inner {
-    width: min(100%, 34rem);
-    max-height: min(80vh, 42rem);
-    overflow: auto;
-    padding: var(--space-5);
-    color: var(--ink);
-    background: var(--surface-raised);
-    border: 1px solid var(--stone);
-    border-radius: var(--radius-soft);
-    box-shadow: var(--shadow-strong);
-}
-
-.mlad-kb-modal__title {
-    margin-bottom: var(--space-4);
-    font-size: var(--text-h3);
-    font-weight: 750;
-}
-
-.mlad-kb-modal__grid {
-    display: grid;
-    gap: var(--space-2);
-}
-
-.mlad-kb-modal__row {
-    display: grid;
-    grid-template-columns: minmax(4.5rem, auto) 1fr;
-    gap: var(--space-3);
-    align-items: center;
-    padding-block: var(--space-2);
-    border-bottom: 1px solid var(--stone);
-}
-
-.mlad-kb-modal__row:last-child {
-    border-bottom: 0;
-}
-
-.mlad-kb-modal__key {
-    justify-self: start;
-    min-width: 2rem;
-    padding: 0.2rem 0.45rem;
-    color: var(--ink);
-    background: var(--surface-muted);
-    border: 1px solid var(--stone);
-    border-radius: var(--radius-soft);
-    font-family: var(--font-mono);
-    font-size: var(--text-micro);
-    text-align: center;
-}
-
-.mlad-kb-modal__desc {
-    color: var(--slate);
 }
