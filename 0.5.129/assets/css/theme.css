@@ -1,0 +1,182 @@
+/* ============================================================
+   Typewriter slate — one voice, one sheet of notebook paper.
+   Light mode: ink on paper. Dark mode: chalk on a night sheet.
+   ============================================================ */
+
+:root,
+[data-md-color-scheme="default"] {
+    --paper: #fafafa;
+    --ink: #161616;
+    --faded: #585858;
+    --rule-line: rgba(22, 22, 22, 0.12);
+    --rule-margin: rgba(22, 22, 22, 0.28);
+    --hole-fill: #dedede;
+    --hole-rim: rgba(22, 22, 22, 0.16);
+    --grain-opacity: 0.05;
+    --md-code-bg-color: #f0f0ee;
+    --md-code-fg-color: #161616;
+    --md-default-fg-color--lightest: rgba(22, 22, 22, 0.1);
+    --md-typeset-a-color: var(--ink);
+}
+
+[data-md-color-scheme="slate"] {
+    --paper: #121212;
+    --ink: #ededed;
+    --faded: #a6a6a6;
+    --rule-line: rgba(237, 237, 237, 0.14);
+    --rule-margin: rgba(237, 237, 237, 0.3);
+    --hole-fill: #0a0a0a;
+    --hole-rim: rgba(237, 237, 237, 0.2);
+    --grain-opacity: 0.07;
+    --md-code-bg-color: #1a1a1a;
+    --md-code-fg-color: #ededed;
+    --md-default-fg-color--lightest: rgba(237, 237, 237, 0.12);
+    --md-typeset-a-color: var(--ink);
+}
+
+/* ---- The sheet: college rule, double margin line, punched holes ---- */
+
+body {
+    background-color: var(--paper);
+    background-image:
+        radial-gradient(
+            circle at 44px 50%,
+            transparent 0 7.5px,
+            var(--hole-rim) 7.5px 9px,
+            transparent 9px
+        ),
+        radial-gradient(circle at 44px 50%, var(--hole-fill) 0 7px, transparent 7px),
+        linear-gradient(
+            90deg,
+            transparent 0 79px,
+            var(--rule-margin) 79px 80px,
+            transparent 80px 85px,
+            var(--rule-margin) 85px 86px,
+            transparent 86px 100%
+        ),
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0 33px,
+            var(--rule-line) 33px 34px
+        );
+    background-size: 100% 312px, 100% 312px, 100% 100%, 100% 34px;
+    background-repeat: repeat-y, repeat-y, no-repeat, repeat;
+}
+
+/* ---- Paper grain ---- */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+}
+
+/* ---- Typed column ---- */
+
+.md-main,
+.md-main__inner,
+.md-content {
+    background: transparent;
+}
+
+.md-content__inner {
+    max-width: 44rem;
+    margin-inline: auto;
+    background: transparent;
+}
+
+.md-typeset {
+    color: var(--ink);
+    font-size: 0.82rem;
+    line-height: 1.85;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.md-typeset p,
+.md-typeset ul {
+    color: var(--ink);
+}
+
+.md-typeset .faded {
+    color: var(--faded);
+}
+
+/* Links read like typed corrections, not buttons. */
+.md-typeset a:not(.md-button) {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--ink) 40%, transparent);
+    text-underline-offset: 0.25rem;
+}
+
+.md-typeset a:not(.md-button):hover,
+.md-typeset a:not(.md-button):focus-visible {
+    color: var(--ink);
+    text-decoration-color: var(--ink);
+}
+
+/* ---- Quiet chrome: the header and footer stay out of the way ---- */
+
+.md-header {
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule-line);
+    box-shadow: none;
+}
+
+.md-header .md-header__title,
+.md-header .md-header__button,
+.md-tabs {
+    color: var(--ink);
+}
+
+.md-search__input {
+    color: var(--ink);
+}
+
+.md-sidebar {
+    background: transparent;
+}
+
+.md-footer {
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    border-top: 1px solid var(--rule-line);
+    color: var(--faded);
+}
+
+.md-footer a {
+    color: var(--faded);
+}
+
+.md-footer a:hover,
+.md-footer a:focus-visible {
+    color: var(--ink);
+}
+
+.md-footer__inner {
+    color: var(--faded);
+}
+
+/* The margin line runs under everything; keep chrome transparent to it. */
+.md-container {
+    background: transparent;
+}
+
+/* A one-page site has nothing to search. */
+.md-header .md-search,
+.md-header .md-header__option ~ label[for="__search"],
+.md-header label[for="__search"] {
+    display: none;
+}
