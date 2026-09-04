@@ -59,9 +59,9 @@ body {
             transparent 0 33px,
             var(--rule-line) 33px 34px
         );
-    background-size: 100% 340px, 100% 340px, 100% 100%, 100% 34px;
+    background-size: 100% 340px, 100% 340px, 100% 34px, 100% 34px;
     background-position: 0 17px, 0 17px, 0 0, 0 0;
-    background-repeat: repeat-y, repeat-y, no-repeat, repeat;
+    background-repeat: repeat-y, repeat-y, repeat-y, repeat;
 }
 
 /* Smaller sheets have no punch or margin line; the rules stay. */
