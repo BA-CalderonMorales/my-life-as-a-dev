@@ -59,8 +59,8 @@ body {
             transparent 0 33px,
             var(--rule-line) 33px 34px
         );
-    background-size: 100% 340px, 100% 340px, 100% 34px, 100% 34px;
-    background-position: 0 17px, 0 17px, 0 0, 0 0;
+    background-size: 100% 380px, 100% 380px, 100% 38px, 100% 38px;
+    background-position: 0 10px, 0 10px, 0 0, 0 -9px;
     background-repeat: repeat-y, repeat-y, repeat-y, repeat;
 }
 
@@ -69,11 +69,11 @@ body {
     body {
         background-image: repeating-linear-gradient(
             to bottom,
-            transparent 0 33px,
-            var(--rule-line) 33px 34px
+            transparent 0 37px,
+            var(--rule-line) 37px 38px
         );
-        background-size: 100% 34px;
-        background-position: 0 0;
+        background-size: 100% 38px;
+        background-position: 0 -9px;
         background-repeat: repeat;
     }
 }
@@ -101,7 +101,7 @@ body::after {
 .md-content__inner {
     max-width: 44rem;
     margin-inline: auto;
-    padding-top: 49px;
+    padding-top: 65px;
     background: transparent;
 }
 
@@ -109,7 +109,7 @@ body::after {
     color: var(--ink);
     font-size: 0.82rem;
     font-weight: 300;
-    line-height: 34px;
+    line-height: 38px;
 }
 
 /* ---- The ruled grid: every line of type sits on a notebook rule ---- */
@@ -123,21 +123,23 @@ body::after {
 .md-typeset ul li,
 .md-typeset ol li,
 article.md-typeset li {
-    line-height: 34px;
+    line-height: 38px;
 }
 
+/* Titles are written across two rules, like on real lined paper. */
 .md-typeset h1 {
-    margin: 0 0 34px;
+    line-height: 76px;
+    margin: 0 0 38px;
 }
 
 .md-typeset h2 {
-    margin: 34px 0 0;
+    margin: 38px 0 0;
 }
 
 .md-typeset p,
 .md-typeset ul,
 .md-typeset ol {
-    margin: 0 0 34px;
+    margin: 0 0 38px;
 }
 
 .md-typeset li,

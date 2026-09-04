@@ -118,15 +118,15 @@ class TestResponsiveLayout:
 class TestTypeGrid:
     """The type must sit on the notebook rules, not drift across them.
 
-    The paper background paints rule lines every 34px starting at the
-    document top, so a block whose border box lands on the grid puts a
-    rule right under each of its lines, like real notebook paper. Block
-    borders (not glyph boxes) are the measurable contract: every ruled
-    element should start on the grid and be a whole number of rules
-    tall.
+    The paper background paints rule lines every 38px, anchored so the
+    rule under each line falls 28px below the line box top - Playpen
+    Sans baselines land about 2.5px above it, like real handwriting.
+    Block borders (not glyph boxes) are the measurable contract: every
+    ruled element should start on the 38px grid and be a whole number
+    of rules tall.
     """
 
-    RULE_PX = 34
+    RULE_PX = 38
     TOLERANCE_PX = 1.5
 
     @pytest.fixture(autouse=True)
