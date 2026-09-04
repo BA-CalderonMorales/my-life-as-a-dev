@@ -112,6 +112,16 @@ body::after {
     color: var(--faded);
 }
 
+/* Bullets start on the type line, flush with the headings above them. */
+[dir="ltr"] article.md-typeset ul,
+[dir="ltr"] article.md-typeset ul > li,
+[dir="rtl"] article.md-typeset ul,
+[dir="rtl"] article.md-typeset ul > li {
+    margin-left: 0;
+    padding-left: 0;
+    list-style-position: inside;
+}
+
 /* Links read like typed corrections, not buttons. */
 .md-typeset a:not(.md-button) {
     color: var(--ink);
