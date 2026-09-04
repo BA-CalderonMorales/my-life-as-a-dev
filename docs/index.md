@@ -25,9 +25,17 @@ grassroots push to make innovation a habit instead of a slide deck.
 
 ## Lately
 
+- Family time — two kiddos, a wife, and the extended fam
 - Building TUIs with AI — sharp tools you can read in one sitting
-- Kaggle, undergrad at night, family
+- Kaggle, undergrad at night
 - Teaching whoever is next to me
+
+## Been around
+
+Nebraska is home, but I've collected stamps: North Carolina, Rhode Island,
+California, New York, Florida, South Carolina — and across the water to
+Spain (Barcelona, Madrid, Seville, Morón de la Frontera), Germany, and
+Gibraltar.
 
 ## Building
 
@@ -39,7 +47,3 @@ grassroots push to make innovation a habit instead of a slide deck.
 ## Connect
 
 - [GitHub](https://github.com/BA-CalderonMorales) · [LinkedIn](https://www.linkedin.com/in/bcalderonmorales-cmoe/) · [Kaggle](https://www.kaggle.com/bmoe640) · [b.dev.c.m@gmail.com](mailto:b.dev.c.m@gmail.com)
-
-A peek, not the whole picture. If something connects, reach out — I type
-fast, I answer fast.
-{: .faded }
