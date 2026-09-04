@@ -1,6 +1,6 @@
 ---
 title: Brandon
-description: Engineer and Marine veteran in Omaha, Nebraska. Coding agents, TUIs, competitive AI, and critical thinking.
+description: Engineer and Marine veteran in Omaha. Coding agents, TUIs, Kaggle, and late-night open source.
 hide:
   - navigation
   - toc
@@ -10,36 +10,43 @@ hide:
 
 Omaha, Nebraska. English and Spanish. Engineer, Marine veteran.
 
-I make complicated systems easier to run. Five years into the field, I still
-get pulled into rooms for the same reason: a creative approach to problems,
-and comfort holding ambiguity with minimal hand-holding.
+I wanted to be a dev before I knew that was a job. Video game nerd first, a
+few wrong directions, then right back to poking at machines.
 
-Curiosity and tenacity beat theatrics.
+The road here: court reporter for the Marines (where the typing speed comes
+from), React and Java at Leidos, classified SAIC work I still can't talk
+about, now Fiserv.
 
-AI is a force multiplier, not a crutch: models do the heavy lifting,
-humans keep the judgment.
+## The day job
+
+Technical delivery lead on two efforts. When a vulnerability storm hits, I
+coordinate 20+ engineering teams and show them how coding agents plus our
+security stack (Fortify, Wiz, SonarQube) squash findings faster than legacy
+code ever allowed. The other: observability — one clear portfolio picture, so
+leadership stops squinting.
+
+Alongside: CI/CD for hundreds of repos, Coder dev environments, and a
+grassroots push to make innovation a habit instead of a slide deck.
 
 ## Lately
 
-- Building TUIs with AI — small, sharp tools you can read in one sitting
-- Competing in AI competitions on Kaggle
-- Joining pilots that put Claude Code, Codex, and GitHub Copilot in the hands of thousands of workers
-- Building security tools that make sense for SMEs and tech leads, beside enterprise architects and specialists with 20+ years of experience
-- Raising the bar around me, with and without AI, by reinforcing critical thinking
-- Human-in-the-loop workflows — agents draft, review, and fix; the final call stays with a person
+- Building TUIs with AI — sharp tools you can read in one sitting
+- Kaggle competitions
+- Finishing my undergrad, the non-traditional way
+- Family, friends, and late-night open source
 
 ## Pinned projects
 
 - [terminal-jarvis](https://github.com/BA-CalderonMorales/terminal-jarvis) — one shovel that just works across every coding agent
-- [agent-harness](https://github.com/BA-CalderonMorales/agent-harness) — clean-room Go take on agentic coding harness patterns, built for learning, extending, and teaching
+- [agent-harness](https://github.com/BA-CalderonMorales/agent-harness) — clean-room Go take on agentic coding patterns, for learning and teaching
 - [codex-cheat-sheet](https://github.com/BA-CalderonMorales/codex-cheat-sheet), [kimi-cheat-sheet](https://github.com/BA-CalderonMorales/kimi-cheat-sheet), [opencode-cheat-sheet](https://github.com/BA-CalderonMorales/opencode-cheat-sheet) — master the CLIs in minutes
-- [my-life-as-a-dev](https://github.com/BA-CalderonMorales/my-life-as-a-dev) — the docs-as-code example you are looking at
+- [my-life-as-a-dev](https://github.com/BA-CalderonMorales/my-life-as-a-dev) — the docs-as-code site you're reading
 
 ## Toolkit
 
 - Coding agents — Claude Code, Codex, GitHub Copilot
-- Pydantic-flavored AI frameworks — LangChain, LangGraph, LangSmith, when things must be traced and structured properly
-- Open source development, the maintained and documented kind
+- AI frameworks — LangChain, LangGraph, LangSmith, when things must be traced properly
+- Open source, the maintained and documented kind
 - Teaching whoever is next to me
 
 ## Connect
@@ -49,6 +56,6 @@ humans keep the judgment.
 - [Kaggle](https://www.kaggle.com/bmoe640)
 - [b.dev.c.m@gmail.com](mailto:b.dev.c.m@gmail.com)
 
-This page is a peek, not the whole picture. If something here connects, reach
-out — let's share, learn, and adapt in this age of AI.
+A peek, not the whole picture. If something connects, reach out — I type
+fast, I answer fast.
 {: .faded }
