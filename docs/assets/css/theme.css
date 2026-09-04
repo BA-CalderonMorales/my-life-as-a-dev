@@ -59,12 +59,26 @@ body {
             transparent 0 33px,
             var(--rule-line) 33px 34px
         );
-    background-size: 100% 312px, 100% 312px, 100% 100%, 100% 34px;
+    background-size: 100% 340px, 100% 340px, 100% 100%, 100% 34px;
+    background-position: 0 17px, 0 17px, 0 0, 0 0;
     background-repeat: repeat-y, repeat-y, no-repeat, repeat;
 }
 
-/* ---- Paper grain ---- */
+/* Smaller sheets have no punch or margin line; the rules stay. */
+@media (max-width: 55em) {
+    body {
+        background-image: repeating-linear-gradient(
+            to bottom,
+            transparent 0 33px,
+            var(--rule-line) 33px 34px
+        );
+        background-size: 100% 34px;
+        background-position: 0 0;
+        background-repeat: repeat;
+    }
+}
 
+/* ---- Paper grain ---- */
 body::after {
     content: "";
     position: fixed;
@@ -87,13 +101,48 @@ body::after {
 .md-content__inner {
     max-width: 44rem;
     margin-inline: auto;
+    padding-top: 49px;
     background: transparent;
 }
 
 .md-typeset {
     color: var(--ink);
     font-size: 0.82rem;
-    line-height: 1.85;
+    line-height: 34px;
+}
+
+/* ---- The ruled grid: every line of type sits on a notebook rule ---- */
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset p,
+.md-typeset ul,
+.md-typeset ol,
+.md-typeset li,
+.md-typeset ul li,
+.md-typeset ol li,
+article.md-typeset li {
+    line-height: 34px;
+}
+
+.md-typeset h1 {
+    margin: 0 0 34px;
+}
+
+.md-typeset h2 {
+    margin: 34px 0 0;
+}
+
+.md-typeset p,
+.md-typeset ul,
+.md-typeset ol {
+    margin: 0 0 34px;
+}
+
+.md-typeset li,
+.md-typeset ul li,
+.md-typeset ol li {
+    margin: 0;
 }
 
 .md-typeset h1,
