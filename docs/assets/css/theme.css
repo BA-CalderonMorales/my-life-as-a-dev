@@ -108,6 +108,7 @@ body::after {
 .md-typeset {
     color: var(--ink);
     font-size: 0.82rem;
+    font-weight: 300;
     line-height: 34px;
 }
 

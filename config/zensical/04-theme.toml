@@ -1,8 +1,9 @@
 # ==============================================================================
 # THEME BASICS
 # ==============================================================================
-# Stock Zensical theme. Courier Prime carries the typewriter voice;
-# JetBrains Mono keeps code legible. No template overrides.
+# Stock Zensical theme. Playpen Sans carries the handwritten voice
+# (light, per the author); JetBrains Mono keeps code legible. Courier
+# Prime remains the fallback if Playpen Sans fails to load.
 # ==============================================================================
 
 [project.theme]
@@ -18,7 +19,7 @@ features = [
 ]
 
 [project.theme.font]
-text = "Courier Prime"
+text = "Playpen Sans"
 code = "JetBrains Mono"
 
 [project.theme.icon]
