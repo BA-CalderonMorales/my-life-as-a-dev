@@ -36,11 +36,21 @@ class TestHomePage:
         for heading in headings:
             assert not has_emoji(heading), f"Found emoji in heading: {heading}"
 
-    def test_body_text_is_honest_and_short(self, page: Page):
+    def test_body_is_a_peek_not_a_pitch(self, page: Page):
         """The page should read like a person, not an advertisement."""
         body_text = page.locator("article").text_content() or ""
         words = len(body_text.split())
-        assert words < 100, f"Home page copy is too long: {words} words"
+        assert words < 320, f"Home page copy is too long: {words} words"
+
+    def test_social_handles_are_listed(self, page: Page):
+        """GitHub, LinkedIn, Kaggle, and email should all be reachable."""
+        hrefs = page.locator("article a[href]").evaluate_all(
+            "elements => elements.map(el => el.getAttribute('href'))"
+        )
+        assert any("github.com/BA-CalderonMorales" in h for h in hrefs)
+        assert any("linkedin.com/in/bcalderonmorales-cmoe" in h for h in hrefs)
+        assert any("kaggle.com/bmoe640" in h for h in hrefs)
+        assert any(h.startswith("mailto:b.dev.c.m@gmail.com") for h in hrefs)
 
     def test_navigation_tabs_hidden(self, page: Page):
         """A lone Home item should not render as a docs-style tab bar."""

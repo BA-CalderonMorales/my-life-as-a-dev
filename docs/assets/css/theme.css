@@ -103,6 +103,14 @@ body::after {
     font-weight: 700;
 }
 
+/* Section labels read like typed file headers. */
+.md-typeset h2 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--faded);
+}
+
 .md-typeset p,
 .md-typeset ul {
     color: var(--ink);
