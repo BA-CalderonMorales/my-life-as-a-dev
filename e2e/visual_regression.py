@@ -32,8 +32,24 @@ def _set_color_scheme(page, scheme: str):
     """)
     page.reload(wait_until="networkidle")
     # Wait for fonts, layout, and the self-drawing doodles to settle
-    # (the slowest stroke finishes ~5s after it enters view).
-    page.wait_for_timeout(5500)
+    # (the slowest stroke finishes ~6.5s after it enters view).
+    page.wait_for_timeout(7000)
+
+
+def _let_doodles_finish(page):
+    """Walk the page like a reader so every doodle has drawn itself."""
+    page.evaluate("""
+        async () => {
+            const step = window.innerHeight / 2;
+            for (let y = 0; y <= document.body.scrollHeight; y += step) {
+                window.scrollTo(0, y);
+                await new Promise((resolve) => setTimeout(resolve, 250));
+            }
+            window.scrollTo(0, 0);
+        }
+    """)
+    # The slowest doodle finishes ~6.2s after it enters view.
+    page.wait_for_timeout(6500)
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -50,6 +66,7 @@ def test_screenshot(browser, base_url, url_path, name, viewport_name, viewport, 
     page.goto(f"{base_url}{url_path}", wait_until="networkidle")
     page.wait_for_timeout(500)
     _set_color_scheme(page, scheme)
+    _let_doodles_finish(page)
 
     screenshot_path = SCREENSHOT_DIR / f"{name}-{viewport_name}-{scheme_name}.png"
     page.screenshot(path=str(screenshot_path), full_page=True)

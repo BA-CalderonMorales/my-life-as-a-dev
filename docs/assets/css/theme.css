@@ -343,13 +343,48 @@ article.md-typeset li {
     width: min(660px, 98%);
 }
 
-.doodle-margin {
+/* Margin residents only come out on wide sheets. */
+.doodle-wide {
     display: none;
 }
 
 @media (min-width: 67em) {
-    .doodle-yarn {
+    .doodle-wide {
         display: block;
+    }
+
+    .doodle-yarn {
+        top: -14px;
+        right: -80px;
+    }
+
+    .doodle-birds {
+        top: -30px;
+        left: auto;
+        right: -50px;
+        width: 76px;
+        transform: rotate(-3deg);
+    }
+
+    .doodle-tree {
+        top: 12px;
+        right: -74px;
+        width: 62px;
+        transform: rotate(2deg);
+    }
+
+    .doodle-cloud {
+        top: 26px;
+        right: -78px;
+        width: 62px;
+        transform: rotate(-2deg);
+    }
+
+    .doodle-mountains {
+        top: -4px;
+        right: -76px;
+        width: 66px;
+        transform: rotate(-2deg);
     }
 
     .doodle-spiral {

@@ -32,6 +32,20 @@
       viewBox: "0 0 560 34",
     },
     {
+      // A flock of little birds off the title, one bouncing stroke.
+      target: "h1",
+      cls: "doodle-birds doodle-wide",
+      delay: 800,
+      paths: [
+        "M4,20 C8,14 14,12 18,16 C22,12 28,12 30,16 " +
+          "C36,20 40,24 44,22 C46,18 50,16 54,19 " +
+          "C58,16 62,17 64,20 C66,24 68,26 72,26 " +
+          "C74,23 77,22 79,24 C81,22 83,23 84,25 " +
+          "C84,28 82,30 80,31",
+      ],
+      viewBox: "0 0 90 40",
+    },
+    {
       // The yarn from the intro paragraph, trailing off the margin.
       target: "intro",
       cls: "doodle-yarn doodle-margin doodle-wide",
@@ -45,6 +59,39 @@
           "C18,93 14,92 12,88",
       ],
       viewBox: "0 0 70 100",
+    },
+    {
+      // A happy little tree beside the day job, zigzag all the way
+      // down, then the trunk and one grass flick at the bottom.
+      target: "the day job",
+      paragraph: true,
+      cls: "doodle-tree doodle-wide",
+      delay: 3600,
+      duration: 2600,
+      paths: [
+        "M35,6 C30,14 26,20 22,26 C28,22 32,20 36,20 " +
+          "C34,28 28,34 22,40 C30,36 36,34 42,34 " +
+          "C40,42 32,50 24,56 C34,52 42,50 48,50 " +
+          "C46,58 38,66 30,72 C38,68 46,66 52,64 " +
+          "C50,72 44,78 38,82 C37,86 37,90 38,94 " +
+          "C30,92 24,92 18,94 C26,90 32,90 38,92",
+      ],
+      viewBox: "0 0 70 100",
+    },
+    {
+      // A happy little cloud drifting beside the family list.
+      target: "lately",
+      paragraph: true,
+      cls: "doodle-cloud doodle-wide",
+      delay: 2200,
+      paths: [
+        "M8,36 C4,30 10,24 16,27 C18,20 26,18 30,23 " +
+          "C34,17 44,17 47,24 C52,20 60,22 62,28 " +
+          "C68,26 74,30 72,35 C70,40 62,42 54,40 " +
+          "C44,44 28,44 20,40 C14,42 8,40 8,36 " +
+          "C12,42 10,44 12,46",
+      ],
+      viewBox: "0 0 90 50",
     },
     {
       // Arrow curving down toward the day job label, head doubled back.
@@ -97,6 +144,21 @@
       viewBox: "0 0 22 20",
     },
     {
+      // Mountain ridge with two snow caps over the travel log.
+      target: "been around",
+      paragraph: true,
+      cls: "doodle-mountains doodle-wide",
+      delay: 1600,
+      duration: 2400,
+      paths: [
+        "M4,50 C12,38 20,26 30,16 C33,13 36,14 38,18 " +
+          "C40,14 44,12 46,16 C50,24 56,32 62,38 " +
+          "C66,34 70,30 74,32 C78,34 80,40 84,48 " +
+          "C86,51 88,53 88,54",
+      ],
+      viewBox: "0 0 92 60",
+    },
+    {
       // Paper plane over a dotted trail across the travel section.
       target: "been around",
       paragraph: true,
@@ -139,7 +201,7 @@
     {
       // Margin spiral beside the day job (wide sheets only).
       target: "the day job",
-      cls: "doodle-margin doodle-spiral",
+      cls: "doodle-wide doodle-spiral",
       delay: 3200,
       paths: [
         "M30,30 C34,26 40,30 38,36 C36,42 28,42 24,36 " +
@@ -150,7 +212,7 @@
     {
       // Margin star beside lately (wide sheets only).
       target: "lately",
-      cls: "doodle-margin doodle-star",
+      cls: "doodle-wide doodle-star",
       delay: 2900,
       paths: [
         "M30,10 C32,20 34,24 42,22 C36,28 34,32 40,38 " +
@@ -184,6 +246,9 @@
       );
       if (index > 0) {
         path.style.animationDelay = index * 1.4 + "s";
+      }
+      if (doodle.duration) {
+        path.style.animationDuration = doodle.duration + "ms";
       }
       svg.appendChild(path);
     });
