@@ -212,13 +212,27 @@ article.md-typeset li {
 
 .doodle {
     position: absolute;
-    pointer-events: none;
+    pointer-events: auto;
     opacity: 0;
     z-index: 1;
+    /* The cursor becomes an eraser over drawn ink. */
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18'><rect x='2' y='5' width='13' height='9' rx='2.5' fill='%23f3f0e8' stroke='%237a7a7a' stroke-width='1.5'/><rect x='2' y='5' width='4' height='9' rx='2' fill='%23d9a0a0' stroke='%237a7a7a' stroke-width='1.5'/></svg>") 9 9, auto;
+    transition: opacity 0.25s ease;
 }
 
 .doodle.drawn {
     opacity: 1;
+}
+
+/* Rubbed out: hold the eraser down and the ink goes away. */
+.doodle.erased {
+    opacity: 0 !important;
+    animation: none !important;
+}
+
+/* Redraws after an erase come back slowly, like careful ink. */
+.doodle.doodle-slow path.draws {
+    animation-duration: 3600ms;
 }
 
 .doodle path {
@@ -385,6 +399,34 @@ article.md-typeset li {
         right: -76px;
         width: 66px;
         transform: rotate(-2deg);
+    }
+
+    .doodle-storm {
+        top: -6px;
+        right: -64px;
+        width: 54px;
+        transform: rotate(-3deg);
+    }
+
+    .doodle-tree {
+        top: 48px;
+        right: -74px;
+        width: 62px;
+        transform: rotate(2deg);
+    }
+
+    .doodle-rocket {
+        top: 44px;
+        right: -56px;
+        width: 38px;
+        transform: rotate(3deg);
+    }
+
+    .doodle-envelope {
+        top: -8px;
+        right: -62px;
+        width: 50px;
+        transform: rotate(-4deg);
     }
 
     .doodle-spiral {

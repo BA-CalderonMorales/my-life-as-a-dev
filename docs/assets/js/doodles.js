@@ -48,7 +48,7 @@
     {
       // The yarn from the intro paragraph, trailing off the margin.
       target: "intro",
-      cls: "doodle-yarn doodle-margin doodle-wide",
+      cls: "doodle-yarn doodle-wide",
       delay: 2000,
       paths: [
         "M35,30 C40,26 46,30 44,36 C42,42 34,42 30,36 " +
@@ -56,9 +56,22 @@
           "C36,50 24,46 22,36 C20,26 30,20 40,22 " +
           "C46,24 48,30 44,34 " +
           "C38,42 34,52 38,62 C42,74 34,84 24,90 " +
-          "C18,93 14,92 12,88",
+          "C18,93 14,92 12,88 C10,84 12,80 16,80",
       ],
       viewBox: "0 0 70 100",
+    },
+    {
+      // A little storm cloud raining on the vulnerability paragraph.
+      target: "the day job",
+      paragraph: true,
+      cls: "doodle-storm doodle-wide",
+      delay: 2600,
+      paths: [
+        "M10,20 C4,20 4,12 10,11 C11,5 20,3 24,8 C28,4 37,5 38,11 " +
+          "C44,12 44,20 38,20 Z",
+        "M18,26 L14,36 M30,26 L27,38 M42,26 L40,36",
+      ],
+      viewBox: "0 0 52 42",
     },
     {
       // A happy little tree beside the day job, zigzag all the way
@@ -92,6 +105,29 @@
           "C12,42 10,44 12,46",
       ],
       viewBox: "0 0 90 50",
+    },
+    {
+      // A rocket over the building list, flame doubling back.
+      target: "building",
+      paragraph: true,
+      cls: "doodle-rocket doodle-wide",
+      delay: 3000,
+      paths: [
+        "M20,4 C27,10 29,20 25,30 L22,36 L18,30 C15,20 15,10 20,4 Z",
+        "M17,42 C19,48 22,48 20,54",
+      ],
+      viewBox: "0 0 40 58",
+    },
+    {
+      // An envelope beside the connect links.
+      target: "connect",
+      cls: "doodle-envelope doodle-wide",
+      delay: 2800,
+      paths: [
+        "M6,12 L34,12 L34,30 L6,30 Z",
+        "M6,12 L20,22 L34,12",
+      ],
+      viewBox: "0 0 40 34",
     },
     {
       // Arrow curving down toward the day job label, head doubled back.
@@ -144,7 +180,8 @@
       viewBox: "0 0 22 20",
     },
     {
-      // Mountain ridge with two snow caps over the travel log.
+      // Mountain ridge with two snow caps over the travel log, and
+      // a second ridge behind it for depth.
       target: "been around",
       paragraph: true,
       cls: "doodle-mountains doodle-wide",
@@ -155,6 +192,7 @@
           "C40,14 44,12 46,16 C50,24 56,32 62,38 " +
           "C66,34 70,30 74,32 C78,34 80,40 84,48 " +
           "C86,51 88,53 88,54",
+        "M10,54 C30,42 50,52 70,44 C80,40 88,46 92,52",
       ],
       viewBox: "0 0 92 60",
     },
@@ -319,6 +357,43 @@
       { threshold: 0.4 }
     );
     observer.observe(svg);
+    attachEraser(svg);
+  }
+
+  /*
+   * Visitors can erase a doodle: hover (or tap) rubs it out, and a
+   * moment after they let go, the marker slowly redraws it. The
+   * timeout only starts once they leave, so holding the eraser keeps
+   * the paper clean.
+   */
+  function attachEraser(svg) {
+    let timer = null;
+
+    function erase() {
+      if (timer) {
+        window.clearTimeout(timer);
+        timer = null;
+      }
+      svg.classList.add("erased");
+    }
+
+    function redraw() {
+      if (svg.classList.contains("erased")) {
+        timer = window.setTimeout(function () {
+          timer = null;
+          svg.classList.remove("drawn", "erased");
+          void svg.offsetWidth; // restart the stroke animation
+          svg.classList.add("drawn", "doodle-slow");
+        }, 1400);
+      }
+    }
+
+    svg.addEventListener("pointerenter", erase);
+    svg.addEventListener("pointerleave", redraw);
+    svg.addEventListener("pointerdown", function () {
+      erase();
+      redraw(); // touch: erase now, reanimate on its own
+    });
   }
 
   function init() {
