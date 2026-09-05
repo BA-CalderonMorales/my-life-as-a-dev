@@ -7,21 +7,25 @@ hide:
 ---
 
 # Brandon Calderon Morales
-
 Omaha, Nebraska. English and Spanish. Engineer, Marine veteran.
 
-Video game nerd first, a few wrong directions, then machines: court reporter
-for the Marines (where the typing speed comes from), React and Java at
-Leidos, classified SAIC work I can't talk about, now Fiserv.
+The thing about me is I don't let go of a bug. I pull at one log line
+like a string in a ball of yarn and keep going until I reach the end of
+it, no matter how long that takes. Turns out that's a career. I wanted
+to work with computers before I knew it was a job, picked up court
+reporter typing speed in the Marines along the way, and now I chase down
+problems most people walk away from. If you've got a string that needs
+pulling, the Connect section is right there.
 
 ## The day job
 
-Technical delivery lead on two efforts. When a vulnerability storm hits, I
-coordinate 20+ engineering teams and show them how coding agents plus our
-security stack (Fortify, Wiz, SonarQube) squash findings faster than legacy
-code ever allowed. The other: observability — one clear portfolio picture,
-so leadership stops squinting. Alongside: CI/CD for hundreds of repos and a
-grassroots push to make innovation a habit instead of a slide deck.
+Technical delivery lead on two efforts at Fiserv. When a vulnerability
+storm hits, I coordinate 20+ engineering teams and show them how coding
+agents plus our security stack (Fortify, Wiz, SonarQube) squash findings
+faster than legacy code ever allowed. The other: observability — one
+clear portfolio picture, so leadership stops squinting. Alongside: CI/CD
+for hundreds of repos and a grassroots push to make innovation a habit
+instead of a slide deck.
 
 ## Lately
 
