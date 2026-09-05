@@ -5,9 +5,10 @@
 
 :root,
 [data-md-color-scheme="default"] {
-    --paper: #fafafa;
-    --ink: #161616;
-    --faded: #585858;
+    --paper: #faf8f2;
+    --ink: #242823;
+    --faded: #60635b;
+    --sketch-ink: #426a70;
     --rule-line: rgba(22, 22, 22, 0.12);
     --rule-margin: rgba(22, 22, 22, 0.28);
     --hole-fill: #dedede;
@@ -20,9 +21,10 @@
 }
 
 [data-md-color-scheme="slate"] {
-    --paper: #121212;
-    --ink: #ededed;
-    --faded: #a6a6a6;
+    --paper: #181c1b;
+    --ink: #eeeae0;
+    --faded: #b1b5aa;
+    --sketch-ink: #a2b9b4;
     --rule-line: rgba(237, 237, 237, 0.14);
     --rule-margin: rgba(237, 237, 237, 0.3);
     --hole-fill: #0a0a0a;
@@ -99,7 +101,7 @@ body::after {
 }
 
 .md-content__inner {
-    max-width: 44rem;
+    max-width: 36rem;
     margin-inline: auto;
     padding-top: 49px;
     padding-bottom: 68px;
@@ -138,6 +140,14 @@ article.md-typeset li {
 .md-typeset h1 {
     line-height: 68px;
     margin: 0 0 34px;
+    font-size: clamp(1.35rem, 1.05rem + 1vw, 1.75rem);
+    text-wrap: balance;
+}
+
+@media (max-width: 55em) {
+    .md-typeset h1 {
+        line-height: 34px;
+    }
 }
 
 .md-typeset h2 {
@@ -204,6 +214,12 @@ article.md-typeset li {
     text-decoration-color: var(--ink);
 }
 
+.md-typeset a:focus-visible {
+    outline: 2px solid var(--sketch-ink);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
 /* ---- Doodles: single marker strokes that draw themselves ---- */
 
 .doodle-host {
@@ -220,7 +236,8 @@ article.md-typeset li {
     transition: opacity 0.25s ease;
 }
 
-.doodle.drawn {
+.doodle.drawn,
+.doodle.drawing {
     opacity: 1;
 }
 
@@ -230,14 +247,9 @@ article.md-typeset li {
     animation: none !important;
 }
 
-/* Redraws after an erase come back slowly, like careful ink. */
-.doodle.doodle-slow path.draws {
-    animation-duration: 3600ms;
-}
-
 .doodle path {
     fill: none;
-    stroke: var(--faded);
+    stroke: var(--sketch-ink);
     stroke-width: 2.4;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -249,46 +261,13 @@ article.md-typeset li {
     stroke-dashoffset: 1;
 }
 
-.doodle.drawn path.draws {
-    animation: doodle-draw 1.8s ease-out forwards;
+.doodle-tip {
+    fill: var(--sketch-ink);
+    visibility: hidden;
 }
 
-/* The plane's dotted trail marches forever. */
-.doodle path.dot {
-    stroke-dasharray: 0.004 0.03;
-    opacity: 0;
-}
-
-.doodle.drawn path.dot {
-    opacity: 0.55;
-    transition: opacity 1.2s ease 0.8s;
-    animation: doodle-march 9s linear infinite;
-}
-
-/* The sun keeps flickering long after it is drawn. */
-.doodle.doodle-twinkle.drawn {
-    animation: doodle-twinkle 5s ease-in-out 3s infinite;
-}
-
-@keyframes doodle-draw {
-    to {
-        stroke-dashoffset: 0;
-    }
-}
-
-@keyframes doodle-march {
-    to {
-        stroke-dashoffset: -0.034;
-    }
-}
-
-@keyframes doodle-twinkle {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.55;
-    }
+.doodle.drawing .doodle-tip {
+    visibility: visible;
 }
 
 /* Anchors: pinned next to their heading or hung under a paragraph. */
@@ -346,8 +325,8 @@ article.md-typeset li {
 .doodle-connect {
     top: -6px;
     left: auto;
-    right: 30%;
-    width: 76px;
+    right: -70px;
+    width: 60px;
     transform: rotate(2deg);
 }
 
@@ -382,6 +361,7 @@ article.md-typeset li {
 
     .doodle-tree {
         top: 12px;
+        left: auto;
         right: -74px;
         width: 62px;
         transform: rotate(2deg);
@@ -389,6 +369,7 @@ article.md-typeset li {
 
     .doodle-cloud {
         top: 26px;
+        left: auto;
         right: -78px;
         width: 62px;
         transform: rotate(-2deg);
@@ -396,6 +377,7 @@ article.md-typeset li {
 
     .doodle-mountains {
         top: -4px;
+        left: auto;
         right: -76px;
         width: 66px;
         transform: rotate(-2deg);
@@ -403,6 +385,7 @@ article.md-typeset li {
 
     .doodle-storm {
         top: -6px;
+        left: auto;
         right: -64px;
         width: 54px;
         transform: rotate(-3deg);
@@ -417,6 +400,7 @@ article.md-typeset li {
 
     .doodle-rocket {
         top: 44px;
+        left: auto;
         right: -56px;
         width: 38px;
         transform: rotate(3deg);
@@ -424,6 +408,7 @@ article.md-typeset li {
 
     .doodle-envelope {
         top: -8px;
+        left: auto;
         right: -62px;
         width: 50px;
         transform: rotate(-4deg);
@@ -468,17 +453,19 @@ article.md-typeset li {
     .doodle,
     .doodle.drawn {
         opacity: 1;
+        transition: none;
     }
 
-    .doodle path.draws,
-    .doodle path.dot {
+    .doodle path,
+    .doodle.drawn path.draws {
         animation: none;
-        stroke-dashoffset: 0;
+        transition: none;
+        stroke-dashoffset: 0 !important;
         opacity: 0.65;
     }
 
-    .doodle.doodle-twinkle.drawn {
-        animation: none;
+    .doodle.drawing .doodle-tip {
+        visibility: hidden;
     }
 }
 

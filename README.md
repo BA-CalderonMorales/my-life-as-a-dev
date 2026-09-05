@@ -28,8 +28,10 @@ only needed to rebuild `doc-cli` from source.
 make serve
 ```
 
-Open `http://localhost:8001/my-life-as-a-dev/`. The site is a single typed
-page: name, place, one line of intent, two links. That is the whole design.
+Open `http://localhost:8001/my-life-as-a-dev/`. The site is a single page
+on notebook paper: a short introduction, work, life, projects, and a way
+to say hello. Margin drawings follow one continuous marker stroke at a
+time; hovering over a finished drawing erases it, then it redraws.
 
 ## Commands
 
