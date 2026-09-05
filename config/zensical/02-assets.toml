@@ -1,10 +1,14 @@
 # ==============================================================================
 # CUSTOM ASSETS
 # ==============================================================================
-# One stylesheet: the notebook paper and the typewriter voice.
+# One stylesheet: the notebook paper and the handwritten voice.
+# One script: the doodles that draw themselves in the margins.
 # ==============================================================================
 
 [project]
 extra_css = [
     "assets/css/theme.css",
+]
+extra_javascript = [
+    "assets/js/doodles.js",
 ]

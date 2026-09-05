@@ -31,8 +31,9 @@ def _set_color_scheme(page, scheme: str):
         localStorage.setItem('/.__palette', JSON.stringify({{index: {'0' if scheme == 'slate' else '1'}}}));
     """)
     page.reload(wait_until="networkidle")
-    # Wait for fonts and layout to settle
-    page.wait_for_timeout(800)
+    # Wait for fonts, layout, and the self-drawing doodles to settle
+    # (the slowest stroke finishes ~5s after it enters view).
+    page.wait_for_timeout(5500)
 
 
 @pytest.fixture(scope="session", autouse=True)
