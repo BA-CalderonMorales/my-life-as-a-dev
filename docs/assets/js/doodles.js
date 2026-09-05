@@ -19,16 +19,32 @@
   const DOODLES = [
     {
       // Wobbly underline that loops into a spiral and flicks away.
+      // Flattened to live inside the blank rule under the name.
       target: "h1",
       cls: "doodle-underline",
       delay: 600,
       paths: [
-        "M8,38 C70,30 140,42 210,34 C260,29 300,38 350,33 " +
-          "C380,31 404,26 418,34 C430,42 420,54 406,52 " +
-          "C392,50 394,34 412,32 C436,29 470,40 500,36 " +
-          "C516,34 534,26 548,18",
+        "M8,14 C70,9 140,17 210,12 C260,8 300,15 350,11 " +
+          "C378,9 398,6 410,12 C420,18 412,26 402,24 " +
+          "C392,22 394,10 410,9 C432,8 468,15 498,12 " +
+          "C514,10 534,6 548,2",
       ],
-      viewBox: "0 0 560 60",
+      viewBox: "0 0 560 34",
+    },
+    {
+      // The yarn from the intro paragraph, trailing off the margin.
+      target: "intro",
+      cls: "doodle-yarn doodle-margin doodle-wide",
+      delay: 2000,
+      paths: [
+        "M35,30 C40,26 46,30 44,36 C42,42 34,42 30,36 " +
+          "C26,30 32,24 40,26 C48,28 52,38 44,44 " +
+          "C36,50 24,46 22,36 C20,26 30,20 40,22 " +
+          "C46,24 48,30 44,34 " +
+          "C38,42 34,52 38,62 C42,74 34,84 24,90 " +
+          "C18,93 14,92 12,88",
+      ],
+      viewBox: "0 0 70 100",
     },
     {
       // Arrow curving down toward the day job label, head doubled back.
@@ -59,18 +75,40 @@
       viewBox: "0 0 70 58",
     },
     {
+      // A heart after the family line, the way a kid signs their work.
+      target: "li:family time",
+      cls: "doodle-inline doodle-heart",
+      delay: 2600,
+      paths: [
+        "M10,16 C4,10 1,6 3,3 C5,0 9,1 10,4 C11,1 15,0 17,3 " +
+          "C19,6 16,10 10,16",
+      ],
+      viewBox: "0 0 20 18",
+    },
+    {
+      // Coffee after the undergrad-at-night line.
+      target: "li:kaggle",
+      cls: "doodle-inline doodle-cup",
+      delay: 3400,
+      paths: [
+        "M2,6 L16,6 L14,16 C13,18 5,18 4,16 Z",
+        "M16,7 C19,7 20,11 16,12",
+      ],
+      viewBox: "0 0 22 20",
+    },
+    {
       // Paper plane over a dotted trail across the travel section.
       target: "been around",
       paragraph: true,
       cls: "doodle-plane",
       delay: 900,
       paths: [
-        "M6,52 C90,30 180,62 270,40 C350,22 430,54 510,38 " +
-          "C560,28 600,30 634,33",
-        "M632,36 L694,10 L668,54 L658,38 Z",
+        "M6,22 C90,10 180,26 270,16 C350,8 430,24 510,16 " +
+          "C560,10 600,12 630,14",
+        "M628,16 L688,4 L664,30 L656,18 Z",
       ],
       dots: 0,
-      viewBox: "0 0 700 70",
+      viewBox: "0 0 700 34",
     },
     {
       // Lightbulb over the building section, filament doubles back.
@@ -156,6 +194,20 @@
     const article = document.querySelector("article.md-typeset");
     if (!article) return null;
     if (name === "h1") return article.querySelector("h1");
+    if (name === "intro") {
+      // The paragraph after the location line, where the yarn starts.
+      const location = article.querySelector("h1 + p");
+      return location ? location.nextElementSibling : null;
+    }
+    if (name.startsWith("li:")) {
+      const wanted = name.slice(3).trim().toLowerCase();
+      for (const item of article.querySelectorAll("li")) {
+        if (item.textContent.trim().toLowerCase().includes(wanted)) {
+          return item;
+        }
+      }
+      return null;
+    }
     const wanted = name.trim().toLowerCase();
     const headings = article.querySelectorAll("h2");
     for (const heading of headings) {
@@ -167,6 +219,12 @@
   }
 
   function anchor(doodle, target, svg) {
+    if (doodle.cls.includes("doodle-inline")) {
+      // Inline doodles flow with the text, right after the words.
+      svg.classList.add("doodle-inline");
+      target.appendChild(svg);
+      return;
+    }
     target.classList.add("doodle-host");
     if (doodle.paragraph) {
       // Anchor trail doodles to the paragraph that follows the label.

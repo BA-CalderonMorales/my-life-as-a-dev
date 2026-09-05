@@ -283,43 +283,62 @@ article.md-typeset li {
     left: 0;
 }
 
+.doodle-inline {
+    position: static;
+    display: inline-block;
+    width: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
 .doodle-underline {
-    top: calc(100% - 14px);
+    top: calc(100% + 2px);
     left: 4px;
     width: min(540px, 92%);
     transform: rotate(-1deg);
 }
 
+.doodle-yarn {
+    top: -14px;
+    left: auto;
+    right: -80px;
+    width: 72px;
+    transform: rotate(3deg);
+}
+
 .doodle-dayjob {
-    top: -34px;
+    top: -37px;
     right: 4%;
-    width: 96px;
+    width: 72px;
     transform: rotate(3deg);
 }
 
 .doodle-sun {
-    top: -44px;
-    right: -74px;
-    width: 64px;
+    top: -30px;
+    left: auto;
+    right: -20px;
+    width: 60px;
     transform: rotate(-6deg);
 }
 
 .doodle-bulb {
-    top: -14px;
-    right: -54px;
-    width: 54px;
+    top: -44px;
+    left: auto;
+    right: -16px;
+    width: 44px;
     transform: rotate(4deg);
 }
 
 .doodle-connect {
-    top: 4px;
+    top: -6px;
+    left: auto;
     right: 30%;
     width: 76px;
     transform: rotate(2deg);
 }
 
 .doodle-plane {
-    bottom: -30px;
+    bottom: -38px;
     left: 0;
     width: min(660px, 98%);
 }
@@ -328,7 +347,11 @@ article.md-typeset li {
     display: none;
 }
 
-@media (min-width: 62em) {
+@media (min-width: 67em) {
+    .doodle-yarn {
+        display: block;
+    }
+
     .doodle-spiral {
         display: block;
         top: -12px;
@@ -347,10 +370,20 @@ article.md-typeset li {
 }
 
 @media (max-width: 55em) {
-    .doodle-sun,
+    .doodle-sun {
+        top: -16px;
+        left: auto;
+        right: 8px;
+        width: 44px;
+    }
+
     .doodle-bulb,
+    .doodle-connect {
+        display: none;
+    }
+
     .doodle-dayjob {
-        right: 0;
+        right: 6%;
     }
 }
 
