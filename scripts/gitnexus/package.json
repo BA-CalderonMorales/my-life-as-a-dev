@@ -1,0 +1,14 @@
+{
+  "name": "my-life-as-a-dev-code-intelligence",
+  "private": true,
+  "description": "Local analysis tooling; never included in the published site.",
+  "dependencies": {
+    "gitnexus": "1.6.11"
+  },
+  "overrides": {
+    "adm-zip": "^0.6.0",
+    "fast-uri": "^3.1.6",
+    "qs": "^6.16.0",
+    "sharp": "^0.35.0"
+  }
+}

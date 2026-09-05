@@ -1,4 +1,4 @@
-.PHONY: help setup serve build cli config check-config test browser-install e2e viewport-check screenshots accessibility-check gn-analyze gn-status gn-clean
+.PHONY: help setup serve build cli config check-config test browser-install e2e viewport-check screenshots accessibility-check gn-setup gn-analyze gn-status gn-clean
 
 DEV_ADDR ?= 0.0.0.0:8001
 export UV_CACHE_DIR ?= /tmp/uv-cache
@@ -17,6 +17,7 @@ help:
 	@echo "  make accessibility-check - Run accessibility checks"
 	@echo ""
 	@echo "GitNexus (Code Intelligence):"
+	@echo "  make gn-setup        - Install and audit pinned GitNexus tooling"
 	@echo "  make gn-analyze      - Re-index the codebase"
 	@echo "  make gn-status       - Check index freshness"
 	@echo "  make gn-clean        - Delete the index"
@@ -54,14 +55,18 @@ test:
 	uv run python -m pytest tests/ -v
 
 # GitNexus — Code Intelligence
+gn-setup:
+	npm ci --prefix scripts/gitnexus --foreground-scripts
+	npm audit --prefix scripts/gitnexus
+
 gn-analyze:
-	node .gitnexus/run.cjs analyze
+	node scripts/gitnexus/node_modules/gitnexus/dist/cli/index.js analyze --index-only
 
 gn-status:
-	node .gitnexus/run.cjs status
+	node scripts/gitnexus/node_modules/gitnexus/dist/cli/index.js status
 
 gn-clean:
-	node .gitnexus/run.cjs clean
+	node scripts/gitnexus/node_modules/gitnexus/dist/cli/index.js clean
 
 # Install Playwright browser binaries. Use browser-install-deps manually if the OS needs sudo packages.
 browser-install:

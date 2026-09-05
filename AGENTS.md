@@ -121,15 +121,17 @@ the situation calls for them:
 - **Persistence closure** - storing an artifact means storing its
   dependents: committed screenshots ship with the suite that regenerates
   them; the ledger ships with the gate runner that reads it.
+
 ## GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **my-life-as-a-dev** (4151 symbols, 6382 relationships, 159 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **my-life-as-a-dev**. Use the GitNexus tools to understand code, assess impact, and navigate safely.
 
-> Index stale? Run `node .gitnexus/run.cjs analyze` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? `npx gitnexus analyze` (npm 11 crash → `npm i -g gitnexus`; #1939).
+> Index stale? Run `make gn-analyze` from the project root. First install with `make gn-setup`. This repo pins GitNexus and patched transitive dependencies in `scripts/gitnexus/`; use that installation rather than a global or ad-hoc npx version. CLI tools are available through `node scripts/gitnexus/node_modules/gitnexus/dist/cli/index.js <command>` when MCP is unavailable.
 
 ### Quick Commands
 
 ```bash
+make gn-setup      # Install the locked toolchain and audit its dependencies
 make gn-analyze    # Re-index the codebase
 make gn-status     # Check index freshness
 make gn-clean      # Delete the index
