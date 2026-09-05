@@ -73,6 +73,13 @@ tests/                          # unit contracts
 serve/build. Retired sections live in `docs-archive/` — restoring one is a
 move and a nav entry, not a rewrite.
 
+For notebook screenshots with explicit palette checks and still drawings:
+
+```bash
+make build
+NOTEBOOK_SCREENSHOT_DIR=/tmp/notebook-preview uv run pytest e2e/quality/test_notebook.py
+```
+
 ## License
 
 MIT
