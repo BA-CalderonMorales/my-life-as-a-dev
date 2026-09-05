@@ -9,7 +9,7 @@
 #   To modify, edit the source files and run:
 #       uv run python scripts/python/merge_zensical_config.py
 #
-#   Generated: 2026-09-04 12:36:23 UTC
+#   Generated: 2026-09-05 03:25:28 UTC
 #
 # ##############################################################################
 
@@ -24,6 +24,9 @@ repo_name = "BA-CalderonMorales/my-life-as-a-dev"
 edit_uri = "edit/main/docs/"
 extra_css = [
     "assets/css/theme.css",
+]
+extra_javascript = [
+    "assets/js/doodles.js",
 ]
 nav = [
     { Home = "index.md" },
