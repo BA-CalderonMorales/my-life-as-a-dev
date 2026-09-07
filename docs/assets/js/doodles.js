@@ -71,16 +71,11 @@
       viewBox: "0 0 70 100",
     },
     {
-      // Left margin yarn mirroring the intro.
+      // Left margin yarn mirroring the intro - quiet accent.
       target: "intro",
       cls: "doodle-yarn-left doodle-wide",
       paths: [
-        "M35,30 C30,26 24,30 26,36 C28,42 36,42 40,36 " +
-          "C44,30 38,24 30,26 C22,28 18,38 26,44 " +
-          "C34,50 46,46 48,36 C50,26 40,20 30,22 " +
-          "C24,24 22,30 26,34 " +
-          "C32,42 36,52 32,62 C28,74 36,84 46,90 " +
-          "C52,93 56,92 58,88 C60,84 58,80 54,80",
+        "M5,35 L8,35 L8,32 L5,32 Z",
       ],
       viewBox: "0 0 70 100",
     },
