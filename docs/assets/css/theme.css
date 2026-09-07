@@ -231,8 +231,8 @@ article.md-typeset li {
     pointer-events: auto;
     opacity: 0;
     z-index: 1;
-    /* The cursor becomes an eraser over drawn ink. */
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18'><rect x='2' y='5' width='13' height='9' rx='2.5' fill='%23f3f0e8' stroke='%237a7a7a' stroke-width='1.5'/><rect x='2' y='5' width='4' height='9' rx='2' fill='%23d9a0a0' stroke='%237a7a7a' stroke-width='1.5'/></svg>") 9 9, auto;
+    /* The cursor becomes a marker eraser matching the doodle style. */
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><rect x='3' y='6' width='14' height='8' rx='2' fill='%23faf8f2' stroke='%23426a70' stroke-width='1.4'/><rect x='3' y='6' width='4' height='8' rx='1.5' fill='%23e8e4d8' stroke='%23426a70' stroke-width='1.2'/><line x1='17' y1='8' x2='17' y2='12' stroke='%23426a70' stroke-width='1' stroke-linecap='round'/></svg>") 10 10, auto;
     transition: opacity 0.25s ease;
 }
 
@@ -341,93 +341,173 @@ article.md-typeset li {
     display: none;
 }
 
+/* Subtle drift for margin doodles on desktop/tablet. */
+@keyframes doodle-drift {
+    0%   { transform: translateY(0) rotate(var(--doodle-rotate, 0deg)); }
+    50%  { transform: translateY(-4px) rotate(calc(var(--doodle-rotate, 0deg) + 0.5deg)); }
+    100% { transform: translateY(0) rotate(var(--doodle-rotate, 0deg)); }
+}
+
+/* Tablet and desktop: bring margin doodles into the white space. */
+@media (min-width: 48em) {
+    .doodle-wide {
+        display: block;
+        animation: doodle-drift 18s ease-in-out infinite;
+    }
+    .doodle-yarn {
+        top: -18px;
+        right: -110px;
+        width: 92px;
+        --doodle-rotate: 3deg;
+    }
+    .doodle-spiral {
+        display: block;
+        top: -14px;
+        left: -110px;
+        width: 62px;
+        --doodle-rotate: 8deg;
+    }
+    .doodle-star {
+        display: block;
+        top: -12px;
+        left: -104px;
+        width: 58px;
+        --doodle-rotate: -9deg;
+    }
+    .doodle-birds {
+        top: -30px;
+        left: auto;
+        right: -60px;
+        width: 80px;
+        --doodle-rotate: -3deg;
+    }
+    .doodle-tree {
+        top: 14px;
+        left: auto;
+        right: -80px;
+        width: 66px;
+        --doodle-rotate: 2deg;
+    }
+    .doodle-cloud {
+        top: 28px;
+        left: auto;
+        right: -84px;
+        width: 66px;
+        --doodle-rotate: -2deg;
+    }
+    .doodle-mountains {
+        top: -4px;
+        left: auto;
+        right: -84px;
+        width: 70px;
+        --doodle-rotate: -2deg;
+    }
+    .doodle-storm {
+        top: -8px;
+        left: auto;
+        right: -70px;
+        width: 58px;
+        --doodle-rotate: -3deg;
+    }
+    .doodle-rocket {
+        top: 46px;
+        left: auto;
+        right: -62px;
+        width: 40px;
+        --doodle-rotate: 3deg;
+    }
+    .doodle-envelope {
+        top: -10px;
+        left: auto;
+        right: -68px;
+        width: 54px;
+        --doodle-rotate: -4deg;
+    }
+}
+
 @media (min-width: 67em) {
     .doodle-wide {
         display: block;
+        animation: doodle-drift 22s ease-in-out infinite;
     }
 
     .doodle-yarn {
         top: -14px;
-        right: -80px;
+        right: -120px;
+        width: 104px;
+        --doodle-rotate: 3deg;
     }
 
     .doodle-birds {
-        top: -30px;
+        top: -34px;
         left: auto;
-        right: -50px;
-        width: 76px;
-        transform: rotate(-3deg);
+        right: -70px;
+        width: 84px;
+        --doodle-rotate: -3deg;
     }
 
     .doodle-tree {
         top: 12px;
         left: auto;
-        right: -74px;
-        width: 62px;
-        transform: rotate(2deg);
+        right: -88px;
+        width: 70px;
+        --doodle-rotate: 2deg;
     }
 
     .doodle-cloud {
-        top: 26px;
+        top: 28px;
         left: auto;
-        right: -78px;
-        width: 62px;
-        transform: rotate(-2deg);
+        right: -92px;
+        width: 70px;
+        --doodle-rotate: -2deg;
     }
 
     .doodle-mountains {
         top: -4px;
         left: auto;
-        right: -76px;
-        width: 66px;
-        transform: rotate(-2deg);
+        right: -90px;
+        width: 74px;
+        --doodle-rotate: -2deg;
     }
 
     .doodle-storm {
-        top: -6px;
+        top: -8px;
         left: auto;
-        right: -64px;
-        width: 54px;
-        transform: rotate(-3deg);
-    }
-
-    .doodle-tree {
-        top: 48px;
-        right: -74px;
+        right: -78px;
         width: 62px;
-        transform: rotate(2deg);
+        --doodle-rotate: -3deg;
     }
 
     .doodle-rocket {
-        top: 44px;
+        top: 46px;
         left: auto;
-        right: -56px;
-        width: 38px;
-        transform: rotate(3deg);
+        right: -68px;
+        width: 42px;
+        --doodle-rotate: 3deg;
     }
 
     .doodle-envelope {
-        top: -8px;
+        top: -10px;
         left: auto;
-        right: -62px;
-        width: 50px;
-        transform: rotate(-4deg);
+        right: -74px;
+        width: 56px;
+        --doodle-rotate: -4deg;
     }
 
     .doodle-spiral {
         display: block;
-        top: -12px;
-        left: -92px;
-        width: 54px;
-        transform: rotate(8deg);
+        top: -14px;
+        left: -120px;
+        width: 64px;
+        --doodle-rotate: 8deg;
     }
 
     .doodle-star {
         display: block;
-        top: -10px;
-        left: -88px;
-        width: 50px;
-        transform: rotate(-9deg);
+        top: -12px;
+        left: -112px;
+        width: 58px;
+        --doodle-rotate: -9deg;
     }
 }
 

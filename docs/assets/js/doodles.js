@@ -394,6 +394,7 @@
    */
   function attachEraser(svg) {
     let timer = null;
+    let erasing = false;
 
     function erase() {
       // Let an unfinished stroke reach the end before offering the eraser.
@@ -402,11 +403,15 @@
         window.clearTimeout(timer);
         timer = null;
       }
+      erasing = true;
       svg.classList.add("erased");
+      svg.classList.add("erasing");
     }
 
     function redraw() {
-      if (svg.classList.contains("erased")) {
+      if (erasing) {
+        erasing = false;
+        svg.classList.remove("erasing");
         timer = window.setTimeout(function () {
           timer = null;
           svg.classList.remove("erased");
@@ -424,7 +429,14 @@
     svg.addEventListener("pointerleave", redraw);
     svg.addEventListener("pointerdown", function () {
       erase();
-      redraw(); // touch: erase now, reanimate on its own
+      // touch: keep erased until pointer up
+      const release = () => {
+        svg.removeEventListener("pointerup", release);
+        svg.removeEventListener("pointercancel", release);
+        redraw();
+      };
+      svg.addEventListener("pointerup", release);
+      svg.addEventListener("pointercancel", release);
     });
   }
 
