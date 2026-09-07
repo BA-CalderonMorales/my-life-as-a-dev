@@ -11,7 +11,7 @@ mkdocs-git-authors-plugin>=0.9.5
 zensical>=0.0.43
 
 # Config tooling
-tomli-w>=1.0.0
+tomli-w>=1.2.0
 
 # Browser testing
 pytest>=9.1.1
