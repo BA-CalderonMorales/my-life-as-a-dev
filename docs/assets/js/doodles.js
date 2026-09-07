@@ -44,6 +44,19 @@
       viewBox: "0 0 90 40",
     },
     {
+      // Extra left margin birds for desktop white space.
+      target: "h1",
+      cls: "doodle-birds-left doodle-wide",
+      paths: [
+        "M86,20 C82,14 76,12 72,16 C68,12 62,12 60,16 " +
+          "C54,20 50,24 46,22 C44,18 40,16 36,19 " +
+          "C32,16 28,17 26,20 C24,24 22,26 18,26 " +
+          "C16,23 13,22 11,24 C9,22 7,23 6,25 " +
+          "C6,28 8,30 10,31",
+      ],
+      viewBox: "0 0 90 40",
+    },
+    {
       // The yarn from the intro paragraph, trailing off the margin.
       target: "intro",
       cls: "doodle-yarn doodle-wide",
@@ -54,6 +67,20 @@
           "C46,24 48,30 44,34 " +
           "C38,42 34,52 38,62 C42,74 34,84 24,90 " +
           "C18,93 14,92 12,88 C10,84 12,80 16,80",
+      ],
+      viewBox: "0 0 70 100",
+    },
+    {
+      // Left margin yarn mirroring the intro.
+      target: "intro",
+      cls: "doodle-yarn-left doodle-wide",
+      paths: [
+        "M35,30 C30,26 24,30 26,36 C28,42 36,42 40,36 " +
+          "C44,30 38,24 30,26 C22,28 18,38 26,44 " +
+          "C34,50 46,46 48,36 C50,26 40,20 30,22 " +
+          "C24,24 22,30 26,34 " +
+          "C32,42 36,52 32,62 C28,74 36,84 46,90 " +
+          "C52,93 56,92 58,88 C60,84 58,80 54,80",
       ],
       viewBox: "0 0 70 100",
     },

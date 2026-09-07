@@ -108,6 +108,13 @@ body::after {
     background: transparent;
 }
 
+/* Wider column on desktop to expose left/right gutters. */
+@media (min-width: 67em) {
+    .md-content__inner {
+        max-width: 42rem;
+    }
+}
+
 /* Small sheets read best with room to hold the page. */
 @media (max-width: 55em) {
     .md-content__inner {
@@ -231,8 +238,8 @@ article.md-typeset li {
     pointer-events: auto;
     opacity: 0;
     z-index: 1;
-    /* The cursor becomes a marker eraser matching the doodle style. */
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><rect x='3' y='6' width='14' height='8' rx='2' fill='%23faf8f2' stroke='%23426a70' stroke-width='1.4'/><rect x='3' y='6' width='4' height='8' rx='1.5' fill='%23e8e4d8' stroke='%23426a70' stroke-width='1.2'/><line x1='17' y1='8' x2='17' y2='12' stroke='%23426a70' stroke-width='1' stroke-linecap='round'/></svg>") 10 10, auto;
+    /* Animated marker eraser matching doodle style. */
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><rect x='4' y='8' width='16' height='10' rx='2.5' fill='%23faf8f2' stroke='%23426a70' stroke-width='1.6'/><rect x='4' y='8' width='5' height='10' rx='2' fill='%23e8e4d8' stroke='%23426a70' stroke-width='1.4'/><circle cx='20' cy='13' r='1.2' fill='%23426a70'/><animateTransform attributeName='transform' type='translate' values='0 0;0 -0.5;0 0' dur='1.2s' repeatCount='indefinite'/></svg>") 12 12, auto;
     transition: opacity 0.25s ease;
 }
 
@@ -344,170 +351,204 @@ article.md-typeset li {
 /* Subtle drift for margin doodles on desktop/tablet. */
 @keyframes doodle-drift {
     0%   { transform: translateY(0) rotate(var(--doodle-rotate, 0deg)); }
-    50%  { transform: translateY(-4px) rotate(calc(var(--doodle-rotate, 0deg) + 0.5deg)); }
+    50%  { transform: translateY(-8px) rotate(calc(var(--doodle-rotate, 0deg) + 1.2deg)); }
     100% { transform: translateY(0) rotate(var(--doodle-rotate, 0deg)); }
+}
+
+@keyframes doodle-pulse {
+    0%, 100% { filter: drop-shadow(0 0 0 rgba(66,106,112,0)); }
+    50% { filter: drop-shadow(0 2px 6px rgba(66,106,112,0.12)); }
+}
+
+/* Left-side mirror doodles for desktop. */
+@media (min-width: 48em) {
+    .doodle-birds-left {
+        top: -38px;
+        left: -80px;
+        width: 96px;
+        --doodle-rotate: 4deg;
+    }
+    .doodle-yarn-left {
+        top: -24px;
+        left: -140px;
+        width: 110px;
+        --doodle-rotate: -4deg;
+    }
 }
 
 /* Tablet and desktop: bring margin doodles into the white space. */
 @media (min-width: 48em) {
     .doodle-wide {
         display: block;
-        animation: doodle-drift 18s ease-in-out infinite;
+        animation: doodle-drift 16s ease-in-out infinite, doodle-pulse 16s ease-in-out infinite;
     }
     .doodle-yarn {
-        top: -18px;
-        right: -110px;
-        width: 92px;
-        --doodle-rotate: 3deg;
+        top: -24px;
+        right: -140px;
+        width: 110px;
+        --doodle-rotate: 4deg;
     }
     .doodle-spiral {
         display: block;
-        top: -14px;
-        left: -110px;
-        width: 62px;
-        --doodle-rotate: 8deg;
+        top: -20px;
+        left: -140px;
+        width: 72px;
+        --doodle-rotate: 10deg;
     }
     .doodle-star {
         display: block;
-        top: -12px;
-        left: -104px;
-        width: 58px;
-        --doodle-rotate: -9deg;
+        top: -16px;
+        left: -132px;
+        width: 68px;
+        --doodle-rotate: -11deg;
     }
     .doodle-birds {
-        top: -30px;
+        top: -38px;
         left: auto;
-        right: -60px;
+        right: -80px;
+        width: 96px;
+        --doodle-rotate: -4deg;
+    }
+    .doodle-tree {
+        top: 18px;
+        left: auto;
+        right: -100px;
+        width: 80px;
+        --doodle-rotate: 3deg;
+    }
+    .doodle-cloud {
+        top: 34px;
+        left: auto;
+        right: -104px;
         width: 80px;
         --doodle-rotate: -3deg;
     }
-    .doodle-tree {
-        top: 14px;
-        left: auto;
-        right: -80px;
-        width: 66px;
-        --doodle-rotate: 2deg;
-    }
-    .doodle-cloud {
-        top: 28px;
-        left: auto;
-        right: -84px;
-        width: 66px;
-        --doodle-rotate: -2deg;
-    }
     .doodle-mountains {
-        top: -4px;
+        top: -6px;
         left: auto;
-        right: -84px;
-        width: 70px;
-        --doodle-rotate: -2deg;
-    }
-    .doodle-storm {
-        top: -8px;
-        left: auto;
-        right: -70px;
-        width: 58px;
+        right: -104px;
+        width: 84px;
         --doodle-rotate: -3deg;
     }
-    .doodle-rocket {
-        top: 46px;
-        left: auto;
-        right: -62px;
-        width: 40px;
-        --doodle-rotate: 3deg;
-    }
-    .doodle-envelope {
+    .doodle-storm {
         top: -10px;
         left: auto;
-        right: -68px;
-        width: 54px;
+        right: -84px;
+        width: 72px;
         --doodle-rotate: -4deg;
+    }
+    .doodle-rocket {
+        top: 52px;
+        left: auto;
+        right: -72px;
+        width: 48px;
+        --doodle-rotate: 4deg;
+    }
+    .doodle-envelope {
+        top: -12px;
+        left: auto;
+        right: -84px;
+        width: 64px;
+        --doodle-rotate: -5deg;
     }
 }
 
 @media (min-width: 67em) {
+    .doodle-birds-left {
+        top: -40px;
+        left: -88px;
+        width: 100px;
+        --doodle-rotate: 4deg;
+    }
+    .doodle-yarn-left {
+        top: -18px;
+        left: -160px;
+        width: 124px;
+        --doodle-rotate: -4deg;
+    }
+
     .doodle-wide {
         display: block;
-        animation: doodle-drift 22s ease-in-out infinite;
+        animation: doodle-drift 20s ease-in-out infinite, doodle-pulse 20s ease-in-out infinite;
     }
 
     .doodle-yarn {
-        top: -14px;
-        right: -120px;
-        width: 104px;
-        --doodle-rotate: 3deg;
+        top: -18px;
+        right: -160px;
+        width: 124px;
+        --doodle-rotate: 4deg;
     }
 
     .doodle-birds {
-        top: -34px;
+        top: -40px;
         left: auto;
-        right: -70px;
+        right: -88px;
+        width: 100px;
+        --doodle-rotate: -4deg;
+    }
+
+    .doodle-tree {
+        top: 14px;
+        left: auto;
+        right: -108px;
+        width: 84px;
+        --doodle-rotate: 3deg;
+    }
+
+    .doodle-cloud {
+        top: 32px;
+        left: auto;
+        right: -112px;
         width: 84px;
         --doodle-rotate: -3deg;
     }
 
-    .doodle-tree {
-        top: 12px;
-        left: auto;
-        right: -88px;
-        width: 70px;
-        --doodle-rotate: 2deg;
-    }
-
-    .doodle-cloud {
-        top: 28px;
-        left: auto;
-        right: -92px;
-        width: 70px;
-        --doodle-rotate: -2deg;
-    }
-
     .doodle-mountains {
-        top: -4px;
+        top: -6px;
         left: auto;
-        right: -90px;
-        width: 74px;
-        --doodle-rotate: -2deg;
-    }
-
-    .doodle-storm {
-        top: -8px;
-        left: auto;
-        right: -78px;
-        width: 62px;
+        right: -110px;
+        width: 88px;
         --doodle-rotate: -3deg;
     }
 
-    .doodle-rocket {
-        top: 46px;
+    .doodle-storm {
+        top: -10px;
         left: auto;
-        right: -68px;
-        width: 42px;
-        --doodle-rotate: 3deg;
+        right: -94px;
+        width: 74px;
+        --doodle-rotate: -4deg;
+    }
+
+    .doodle-rocket {
+        top: 52px;
+        left: auto;
+        right: -80px;
+        width: 50px;
+        --doodle-rotate: 4deg;
     }
 
     .doodle-envelope {
-        top: -10px;
+        top: -12px;
         left: auto;
-        right: -74px;
-        width: 56px;
-        --doodle-rotate: -4deg;
+        right: -90px;
+        width: 68px;
+        --doodle-rotate: -5deg;
     }
 
     .doodle-spiral {
         display: block;
-        top: -14px;
-        left: -120px;
-        width: 64px;
-        --doodle-rotate: 8deg;
+        top: -18px;
+        left: -150px;
+        width: 76px;
+        --doodle-rotate: 10deg;
     }
 
     .doodle-star {
         display: block;
-        top: -12px;
-        left: -112px;
-        width: 58px;
-        --doodle-rotate: -9deg;
+        top: -14px;
+        left: -140px;
+        width: 70px;
+        --doodle-rotate: -11deg;
     }
 }
 
