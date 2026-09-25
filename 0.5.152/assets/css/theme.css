@@ -1,0 +1,653 @@
+/* ============================================================
+   Typewriter slate — one voice, one sheet of notebook paper.
+   Light mode: ink on paper. Dark mode: chalk on a night sheet.
+   ============================================================ */
+
+:root,
+[data-md-color-scheme="default"] {
+    --paper: #faf8f2;
+    --ink: #242823;
+    --faded: #60635b;
+    --sketch-ink: #426a70;
+    --rule-line: rgba(22, 22, 22, 0.12);
+    --rule-margin: rgba(22, 22, 22, 0.28);
+    --hole-fill: #dedede;
+    --hole-rim: rgba(22, 22, 22, 0.16);
+    --grain-opacity: 0.05;
+    --md-code-bg-color: #f0f0ee;
+    --md-code-fg-color: #161616;
+    --md-default-fg-color--lightest: rgba(22, 22, 22, 0.1);
+    --md-typeset-a-color: var(--ink);
+}
+
+[data-md-color-scheme="slate"] {
+    --paper: #181c1b;
+    --ink: #eeeae0;
+    --faded: #b1b5aa;
+    --sketch-ink: #a2b9b4;
+    --rule-line: rgba(237, 237, 237, 0.14);
+    --rule-margin: rgba(237, 237, 237, 0.3);
+    --hole-fill: #0a0a0a;
+    --hole-rim: rgba(237, 237, 237, 0.2);
+    --grain-opacity: 0.07;
+    --md-code-bg-color: #1a1a1a;
+    --md-code-fg-color: #ededed;
+    --md-default-fg-color--lightest: rgba(237, 237, 237, 0.12);
+    --md-typeset-a-color: var(--ink);
+}
+
+/* ---- The sheet: college rule, double margin line, punched holes ---- */
+
+body {
+    background-color: var(--paper);
+    background-image:
+        radial-gradient(
+            circle at 44px 50%,
+            transparent 0 7.5px,
+            var(--hole-rim) 7.5px 9px,
+            transparent 9px
+        ),
+        radial-gradient(circle at 44px 50%, var(--hole-fill) 0 7px, transparent 7px),
+        linear-gradient(
+            90deg,
+            transparent 0 79px,
+            var(--rule-margin) 79px 80px,
+            transparent 80px 85px,
+            var(--rule-margin) 85px 86px,
+            transparent 86px 100%
+        ),
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0 33px,
+            var(--rule-line) 33px 34px
+        );
+    background-size: 100% 340px, 100% 340px, 100% 34px, 100% 34px;
+    background-position: 0 17px, 0 17px, 0 0, 0 0;
+    background-repeat: repeat-y, repeat-y, repeat-y, repeat;
+}
+
+/* Smaller sheets have no punch or margin line; the rules stay. */
+@media (max-width: 55em) {
+    body {
+        background-image: repeating-linear-gradient(
+            to bottom,
+            transparent 0 33px,
+            var(--rule-line) 33px 34px
+        );
+        background-size: 100% 34px;
+        background-position: 0 0;
+        background-repeat: repeat;
+    }
+}
+
+/* ---- Paper grain ---- */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+}
+
+/* ---- Typed column ---- */
+
+.md-main,
+.md-main__inner,
+.md-content {
+    background: transparent;
+}
+
+.md-content__inner {
+    max-width: 36rem;
+    margin-inline: auto;
+    padding-top: 49px;
+    padding-bottom: 68px;
+    background: transparent;
+}
+
+/* Wider column on desktop to expose left/right gutters. */
+@media (min-width: 67em) {
+    .md-content__inner {
+        max-width: 42rem;
+    }
+}
+
+/* Small sheets read best with room to hold the page. */
+@media (max-width: 55em) {
+    .md-content__inner {
+        padding-inline: clamp(20px, 6vw, 40px);
+    }
+}
+
+.md-typeset {
+    color: var(--ink);
+    font-size: clamp(0.78rem, 0.76rem + 0.2vw, 0.82rem);
+    font-weight: 300;
+    line-height: 34px;
+}
+
+/* ---- The ruled grid: every line of type sits on a notebook rule ---- */
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset p,
+.md-typeset ul,
+.md-typeset ol,
+.md-typeset li,
+.md-typeset ul li,
+.md-typeset ol li,
+article.md-typeset li {
+    line-height: 34px;
+}
+
+/* Titles are written across two rules, like on real lined paper. */
+.md-typeset h1 {
+    line-height: 68px;
+    margin: 0 0 34px;
+    font-size: clamp(1.35rem, 1.05rem + 1vw, 1.75rem);
+    text-wrap: balance;
+}
+
+@media (max-width: 55em) {
+    .md-typeset h1 {
+        line-height: 34px;
+    }
+}
+
+.md-typeset h2 {
+    margin: 34px 0 0;
+}
+
+.md-typeset p,
+.md-typeset ul,
+.md-typeset ol {
+    margin: 0 0 34px;
+}
+
+.md-typeset li,
+.md-typeset ul li,
+.md-typeset ol li {
+    margin: 0;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+/* Section labels read like typed file headers. */
+.md-typeset h2 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--faded);
+}
+
+.md-typeset p,
+.md-typeset ul {
+    color: var(--ink);
+}
+
+.md-typeset .faded {
+    color: var(--faded);
+}
+
+/* Bullets start on the type line, flush with the headings above them. */
+[dir="ltr"] article.md-typeset ul,
+[dir="ltr"] article.md-typeset ul > li,
+[dir="rtl"] article.md-typeset ul,
+[dir="rtl"] article.md-typeset ul > li {
+    margin-left: 0;
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+/* Links read like typed corrections, not buttons. */
+.md-typeset a:not(.md-button) {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--ink) 40%, transparent);
+    text-underline-offset: 0.25rem;
+}
+
+.md-typeset a:not(.md-button):hover,
+.md-typeset a:not(.md-button):focus-visible {
+    color: var(--ink);
+    text-decoration-color: var(--ink);
+}
+
+.md-typeset a:focus-visible {
+    outline: 2px solid var(--sketch-ink);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+/* ---- Doodles: single marker strokes that draw themselves ---- */
+
+.doodle-host {
+    position: relative;
+}
+
+.doodle {
+    position: absolute;
+    pointer-events: auto;
+    opacity: 0;
+    z-index: 1;
+    /* Animated marker eraser matching doodle style. */
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><rect x='4' y='8' width='16' height='10' rx='2.5' fill='%23faf8f2' stroke='%23426a70' stroke-width='1.6'/><rect x='4' y='8' width='5' height='10' rx='2' fill='%23e8e4d8' stroke='%23426a70' stroke-width='1.4'/><circle cx='20' cy='13' r='1.2' fill='%23426a70'/><animateTransform attributeName='transform' type='translate' values='0 0;0 -0.5;0 0' dur='1.2s' repeatCount='indefinite'/></svg>") 12 12, auto;
+    transition: opacity 0.25s ease;
+}
+
+.doodle.drawn,
+.doodle.drawing {
+    opacity: 1;
+}
+
+/* Rubbed out: hold the eraser down and the ink goes away. */
+.doodle.erased {
+    opacity: 0 !important;
+    animation: none !important;
+}
+
+.doodle path {
+    fill: none;
+    stroke: var(--sketch-ink);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.65;
+}
+
+/* Quiet wide doodles - restrained inside ruled band. */
+.doodle-wide path {
+    stroke-width: 1.8;
+    opacity: 0.38;
+}
+
+.doodle path.draws {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+
+.doodle-tip {
+    fill: var(--sketch-ink);
+    visibility: hidden;
+}
+
+.doodle.drawing .doodle-tip {
+    visibility: visible;
+}
+
+/* Anchors: pinned next to their heading or hung under a paragraph. */
+.doodle-pinned {
+    top: 100%;
+    left: 0;
+}
+
+.doodle-inline {
+    position: static;
+    display: inline-block;
+    width: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.doodle-underline {
+    top: calc(100% + 2px);
+    left: 4px;
+    width: min(540px, 92%);
+    transform: rotate(-1deg);
+}
+
+.doodle-yarn {
+    top: -14px;
+    left: auto;
+    right: -80px;
+    width: 72px;
+    transform: rotate(3deg);
+}
+
+.doodle-dayjob {
+    top: -37px;
+    right: 4%;
+    width: 72px;
+    transform: rotate(3deg);
+}
+
+.doodle-sun {
+    top: -30px;
+    left: auto;
+    right: -20px;
+    width: 60px;
+    transform: rotate(-6deg);
+}
+
+.doodle-bulb {
+    top: -44px;
+    left: auto;
+    right: -16px;
+    width: 44px;
+    transform: rotate(4deg);
+}
+
+.doodle-connect {
+    top: -6px;
+    left: auto;
+    right: -70px;
+    width: 60px;
+    transform: rotate(2deg);
+}
+
+.doodle-plane {
+    bottom: -38px;
+    left: 0;
+    width: min(660px, 98%);
+}
+
+/* Margin residents only come out on wide sheets. */
+.doodle-wide {
+    display: none;
+}
+
+/* Subtle drift for margin doodles on desktop/tablet. */
+@keyframes doodle-drift {
+    0%   { transform: translateY(0) rotate(var(--doodle-rotate, 0deg)); }
+    50%  { transform: translateY(-3px) rotate(calc(var(--doodle-rotate, 0deg) + 0.3deg)); }
+    100% { transform: translateY(0) rotate(var(--doodle-rotate, 0deg)); }
+}
+
+/* Quiet gutter ticks - ultra subtle accents. */
+@keyframes gutter-tick {
+    0%,100% { opacity: 0.25; transform: translateX(0); }
+    50% { opacity: 0.35; transform: translateX(1px); }
+}
+
+/* Left-side mirror doodles for desktop - restrained. */
+@media (min-width: 48em) {
+    .doodle-birds-left {
+        top: -18px;
+        left: -28px;
+        width: 52px;
+        --doodle-rotate: 2deg;
+    }
+    .doodle-yarn-left {
+        top: -10px;
+        left: -40px;
+        width: 64px;
+        --doodle-rotate: -2deg;
+    }
+}
+
+/* Tablet and desktop: restrained margin accents inside ruled band. */
+@media (min-width: 48em) {
+    .doodle-wide {
+        display: block;
+        animation: doodle-drift 32s ease-in-out infinite;
+    }
+    .doodle-yarn {
+        top: -10px;
+        right: -40px;
+        width: 64px;
+        --doodle-rotate: 2deg;
+    }
+    .doodle-spiral {
+        display: block;
+        top: -8px;
+        left: -36px;
+        width: 40px;
+        --doodle-rotate: 6deg;
+    }
+    .doodle-star {
+        display: block;
+        top: -6px;
+        left: -32px;
+        width: 36px;
+        --doodle-rotate: -6deg;
+    }
+    .doodle-birds {
+        top: -18px;
+        left: auto;
+        right: -28px;
+        width: 52px;
+        --doodle-rotate: -2deg;
+    }
+    .doodle-tree {
+        top: 10px;
+        left: auto;
+        right: -32px;
+        width: 44px;
+        --doodle-rotate: 2deg;
+    }
+    .doodle-cloud {
+        top: 18px;
+        left: auto;
+        right: -34px;
+        width: 44px;
+        --doodle-rotate: -2deg;
+    }
+    .doodle-mountains {
+        top: -2px;
+        left: auto;
+        right: -32px;
+        width: 48px;
+        --doodle-rotate: -2deg;
+    }
+    .doodle-storm {
+        top: -4px;
+        left: auto;
+        right: -26px;
+        width: 38px;
+        --doodle-rotate: -2deg;
+    }
+    .doodle-rocket {
+        top: 28px;
+        left: auto;
+        right: -24px;
+        width: 28px;
+        --doodle-rotate: 2deg;
+    }
+    .doodle-envelope {
+        top: -6px;
+        left: auto;
+        right: -26px;
+        width: 36px;
+        --doodle-rotate: -3deg;
+    }
+}
+
+@media (min-width: 67em) {
+    .doodle-birds-left {
+        top: -20px;
+        left: -32px;
+        width: 56px;
+        --doodle-rotate: 2deg;
+    }
+    .doodle-yarn-left {
+        top: -12px;
+        left: -44px;
+        width: 68px;
+        --doodle-rotate: -2deg;
+    }
+
+    .doodle-wide {
+        display: block;
+        animation: doodle-drift 36s ease-in-out infinite;
+    }
+
+    .doodle-yarn {
+        top: -12px;
+        right: -44px;
+        width: 68px;
+        --doodle-rotate: 2deg;
+    }
+
+    .doodle-birds {
+        top: -20px;
+        left: auto;
+        right: -32px;
+        width: 56px;
+        --doodle-rotate: -2deg;
+    }
+
+    .doodle-tree {
+        top: 12px;
+        left: auto;
+        right: -36px;
+        width: 48px;
+        --doodle-rotate: 2deg;
+    }
+
+    .doodle-cloud {
+        top: 20px;
+        left: auto;
+        right: -38px;
+        width: 48px;
+        --doodle-rotate: -2deg;
+    }
+
+    .doodle-mountains {
+        top: -2px;
+        left: auto;
+        right: -36px;
+        width: 52px;
+        --doodle-rotate: -2deg;
+    }
+
+    .doodle-storm {
+        top: -4px;
+        left: auto;
+        right: -30px;
+        width: 42px;
+        --doodle-rotate: -2deg;
+    }
+
+    .doodle-rocket {
+        top: 30px;
+        left: auto;
+        right: -28px;
+        width: 32px;
+        --doodle-rotate: 2deg;
+    }
+
+    .doodle-envelope {
+        top: -6px;
+        left: auto;
+        right: -30px;
+        width: 40px;
+        --doodle-rotate: -3deg;
+    }
+
+    .doodle-spiral {
+        display: block;
+        top: -10px;
+        left: -40px;
+        width: 44px;
+        --doodle-rotate: 6deg;
+    }
+
+    .doodle-star {
+        display: block;
+        top: -8px;
+        left: -36px;
+        width: 40px;
+        --doodle-rotate: -6deg;
+    }
+}
+
+@media (max-width: 55em) {
+    .doodle-sun {
+        top: -16px;
+        left: auto;
+        right: 8px;
+        width: 44px;
+    }
+
+    .doodle-bulb,
+    .doodle-connect {
+        display: none;
+    }
+
+    .doodle-dayjob {
+        right: 6%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .doodle,
+    .doodle.drawn {
+        opacity: 1;
+        transition: none;
+    }
+
+    .doodle path,
+    .doodle.drawn path.draws {
+        animation: none;
+        transition: none;
+        stroke-dashoffset: 0 !important;
+        opacity: 0.65;
+    }
+
+    .doodle.drawing .doodle-tip {
+        visibility: hidden;
+    }
+}
+
+/* ---- Quiet chrome: the header and footer stay out of the way ---- */
+
+.md-header {
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule-line);
+    box-shadow: none;
+}
+
+.md-header .md-header__title,
+.md-header .md-header__button,
+.md-tabs {
+    color: var(--ink);
+}
+
+.md-search__input {
+    color: var(--ink);
+}
+
+.md-sidebar {
+    background: transparent;
+}
+
+.md-footer {
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    border-top: 1px solid var(--rule-line);
+    color: var(--faded);
+}
+
+.md-footer a {
+    color: var(--faded);
+}
+
+.md-footer a:hover,
+.md-footer a:focus-visible {
+    color: var(--ink);
+}
+
+.md-footer__inner {
+    color: var(--faded);
+}
+
+/* The margin line runs under everything; keep chrome transparent to it. */
+.md-container {
+    background: transparent;
+}
+
+/* A one-page site has nothing to search. */
+.md-header .md-search,
+.md-header .md-header__option ~ label[for="__search"],
+.md-header label[for="__search"] {
+    display: none;
+}
