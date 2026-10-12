@@ -57,8 +57,8 @@ def test_notebook_reduced_motion(browser, base_url, scheme, width, height):
 
 
 def test_notebook_eraser_and_settled_motion(page, base_url):
-    """The original eraser still redraws; idle drawings no longer loop forever."""
-    page.goto(f"{base_url}/index.html", wait_until="networkidle")
+    """The retained baseline eraser redraws; idle drawings do not loop forever."""
+    page.goto(f"{base_url}/index.html?baseline=1", wait_until="networkidle")
     underline = page.locator(".doodle-underline")
     expect(underline).to_have_class(re.compile(r"\bdrawn\b"))
     underline.hover()
