@@ -80,9 +80,14 @@ jobs:
       - name: Build site with Zensical
         run: |
           echo "Building site with Zensical..."
-          zensical build
+          zensical build --clean --strict
           echo "Build complete!"
           touch site/.nojekyll
+
+      - name: Run browser quality gate
+        run: |
+          playwright install --with-deps chromium
+          python -m pytest tests/ e2e/quality/ e2e/test_structure.py -q
 
       - name: Get current deployed version
         id: current
@@ -175,7 +180,12 @@ jobs:
         run: uv pip install --system -r requirements.txt
 
       - name: Build site
-        run: zensical build
+        run: zensical build --clean --strict
+
+      - name: Run browser quality gate
+        run: |
+          playwright install --with-deps chromium
+          python -m pytest tests/ e2e/quality/ e2e/test_structure.py -q
 
       - name: Configure git
         run: |

@@ -248,6 +248,11 @@ article.md-typeset li {
     opacity: 1;
 }
 
+/* A finished sketch rests on the paper instead of drifting forever. */
+.doodle.drawn {
+    animation: none;
+}
+
 /* Rubbed out: hold the eraser down and the ink goes away. */
 .doodle.erased {
     opacity: 0 !important;
@@ -387,7 +392,7 @@ article.md-typeset li {
 @media (min-width: 48em) {
     .doodle-wide {
         display: block;
-        animation: doodle-drift 32s ease-in-out infinite;
+        animation: none;
     }
     .doodle-yarn {
         top: -10px;
@@ -476,7 +481,7 @@ article.md-typeset li {
 
     .doodle-wide {
         display: block;
-        animation: doodle-drift 36s ease-in-out infinite;
+        animation: none;
     }
 
     .doodle-yarn {
@@ -582,6 +587,7 @@ article.md-typeset li {
     .doodle.drawn {
         opacity: 1;
         transition: none;
+        animation: none;
     }
 
     .doodle path,
