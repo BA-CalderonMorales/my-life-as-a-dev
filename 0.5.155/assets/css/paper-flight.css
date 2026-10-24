@@ -1,0 +1,116 @@
+/* A local, opt-in study. The existing notebook remains the canvas. */
+.paper-flight-host {
+    position: absolute;
+    bottom: -38px;
+    left: 0;
+    width: min(660px, 98%);
+    height: 34px;
+    color: var(--sketch-ink);
+    pointer-events: none;
+    contain: layout style;
+}
+
+.paper-flight-trail {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    opacity: 0.38;
+}
+
+.paper-flight-launch {
+    position: absolute;
+    right: -2px;
+    top: -9px;
+    width: 64px;
+    height: 48px;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.paper-flight-launch svg {
+    width: 64px;
+    height: 48px;
+    overflow: visible;
+    stroke: currentColor;
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.paper-flight-launch polygon {
+    fill: var(--paper);
+    fill-opacity: 0.9;
+    stroke-opacity: 0.58;
+}
+
+.paper-flight-launch polygon:nth-child(even) {
+    fill: currentColor;
+    fill-opacity: var(--fold-opacity, 0.035);
+}
+
+.paper-flight-launch::after {
+    content: "a little further";
+    position: absolute;
+    right: 6px;
+    top: -15px;
+    white-space: nowrap;
+    font: inherit;
+    font-size: 10px;
+    line-height: 16px;
+    color: var(--faded);
+    opacity: 0;
+    transition: opacity 180ms;
+}
+
+.paper-flight-launch:hover::after,
+.paper-flight-launch:focus-visible::after {
+    opacity: 0.8;
+}
+
+.paper-flight-launch:focus-visible {
+    outline: 1px dashed currentColor;
+    outline-offset: 3px;
+}
+
+.paper-flight-host[data-flying] .paper-flight-launch::after {
+    opacity: 0;
+}
+
+.paper-flight-shadow {
+    position: absolute;
+    right: 10px;
+    top: 23px;
+    width: 42px;
+    height: 3px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0;
+    filter: blur(2px);
+}
+
+.paper-flight-ready > .doodle-plane {
+    visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .paper-flight-launch::after {
+        content: "paper, at rest";
+        transition: none;
+    }
+    .paper-flight-launch {
+        cursor: default;
+    }
+}
