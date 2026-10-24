@@ -1,0 +1,2 @@
+# Preserve upstream shader strings without applying authored-code whitespace rules.
+docs/assets/vendor/** linguist-vendored -whitespace

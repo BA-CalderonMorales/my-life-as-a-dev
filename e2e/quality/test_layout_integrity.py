@@ -115,86 +115,22 @@ class TestResponsiveLayout:
         )
 
 
-class TestTypeGrid:
-    """The type must sit on the notebook rules, not drift across them.
+class TestStudioReadability:
+    """The studio uses freely spaced paper rather than a fixed typewriter grid."""
 
-    The paper background paints rule lines every 34px starting at the
-    document top (the combo the typewriter slate was tuned to), so a
-    block whose border box lands on the grid puts a rule right under
-    each of its lines. Block borders (not glyph boxes) are the
-    measurable contract: every ruled element should start on the grid
-    and be a whole number of rules tall.
-    """
-
-    RULE_PX = 34
-    TOLERANCE_PX = 1.5
-
-    @pytest.fixture(autouse=True)
-    def navigate_to_home(self, page: Page, base_url: str):
-        """Navigate to home page and wait for fonts before measuring."""
-        page.goto(f"{base_url}/index.html")
-        page.wait_for_load_state("networkidle")
+    @pytest.mark.parametrize("width,height", [(320, 800), (768, 1024), (1440, 900)])
+    def test_hero_and_sections_do_not_overlap(self, browser, base_url, width, height):
+        context = browser.new_context(viewport={"width": width, "height": height})
+        page = context.new_page()
+        page.goto(f"{base_url}/index.html", wait_until="networkidle")
         page.evaluate("document.fonts.ready")
-
-    def _ruled_blocks(self, page: Page) -> list[dict]:
-        """Return document-space top/height for every ruled block."""
-        return page.evaluate(
-            """
-            () => {
-                const blocks = document.querySelectorAll(
-                    'article.md-typeset h1, article.md-typeset h2, '
-                    + 'article.md-typeset p, article.md-typeset ul, '
-                    + 'article.md-typeset ol, article.md-typeset li'
-                );
-                return [...blocks].map((el) => {
-                    const r = el.getBoundingClientRect();
-                    return {
-                        tag: el.tagName,
-                        top: r.top + window.scrollY,
-                        height: r.height,
-                    };
-                });
-            }
-            """
-        )
-
-    @staticmethod
-    def _residue(value: float, rule_px: int) -> float:
-        """Distance from the nearest grid line, in pixels."""
-        residue = value % rule_px
-        return min(residue, rule_px - residue)
-
-    def test_every_block_starts_on_a_rule(self, page: Page):
-        """Ruled blocks should start on the grid."""
-        blocks = self._ruled_blocks(page)
-        assert blocks, "No ruled blocks found in the article"
-
-        off_grid = [
-            (block["tag"], round(self._residue(block["top"], self.RULE_PX), 2))
-            for block in blocks
-            if self._residue(block["top"], self.RULE_PX) > self.TOLERANCE_PX
-        ]
-
-        assert not off_grid, (
-            f"{len(off_grid)} of {len(blocks)} ruled blocks start off the "
-            f"grid (tags and distances: {off_grid[:10]}). Nudge the "
-            "content's top padding or the offending block's margins."
-        )
-
-    def test_every_block_is_whole_rules_tall(self, page: Page):
-        """Ruled blocks should stack in whole 34px steps."""
-        blocks = self._ruled_blocks(page)
-        assert blocks, "No ruled blocks found in the article"
-
-        wrong_height = [
-            (block["tag"], round(self._residue(block["height"], self.RULE_PX), 2))
-            for block in blocks
-            if self._residue(block["height"], self.RULE_PX) > self.TOLERANCE_PX
-        ]
-
-        assert not wrong_height, (
-            f"{len(wrong_height)} of {len(blocks)} ruled blocks are not "
-            f"whole {self.RULE_PX}px rules tall (tags and distances: "
-            f"{wrong_height[:10]}). Check line-height and list item "
-            "margins on the offending blocks."
-        )
+        intro = page.locator(".studio-intro").bounding_box()
+        photo = page.locator(".studio-world-introduction").bounding_box()
+        assert intro["x"] + intro["width"] <= photo["x"] + 10 or intro["y"] + intro["height"] <= photo["y"] + 10
+        sections = page.locator(".studio-home > section").all()
+        for before, after in zip(sections, sections[1:]):
+            first, second = before.bounding_box(), after.bounding_box()
+            assert first["y"] + first["height"] <= second["y"] + 1
+        for paragraph in page.locator(".studio-intro p, .studio-life p, .studio-contact p").all():
+            assert paragraph.evaluate("el => parseFloat(getComputedStyle(el).lineHeight) / parseFloat(getComputedStyle(el).fontSize)") >= 1.4
+        context.close()

@@ -28,7 +28,8 @@ class TestHomePage:
         """Page should have one H1 heading."""
         h1 = page.locator("h1").first
         expect(h1).to_be_visible()
-        expect(h1).to_contain_text("Brandon Calderon Morales")
+        expect(h1).to_contain_text("Brandon")
+        expect(page.locator(".md-header__title")).to_contain_text("Brandon A. Calderon Morales")
 
     def test_no_emojis_in_headings(self, page: Page):
         """Headings should not contain emojis."""
@@ -38,9 +39,9 @@ class TestHomePage:
 
     def test_body_is_a_peek_not_a_pitch(self, page: Page):
         """The page should read like a person, not an advertisement."""
-        body_text = page.locator("article").text_content() or ""
+        body_text = page.locator(".studio-intro").text_content() or ""
         words = len(body_text.split())
-        assert words < 320, f"Home page copy is too long: {words} words"
+        assert words < 100, f"Home page copy is too long: {words} words"
 
     def test_social_handles_are_listed(self, page: Page):
         """GitHub, LinkedIn, Kaggle, and email should all be reachable."""

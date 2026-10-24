@@ -2,13 +2,17 @@
 
 # My Life as a Dev
 
-**One honest page on notebook paper**
+**A little world on notebook paper**
 
 [![Live site](https://img.shields.io/badge/site-live-1f9d8b?style=flat-square)](https://ba-calderonmorales.github.io/my-life-as-a-dev/)
 [![Build status](https://img.shields.io/github/actions/workflow/status/BA-CalderonMorales/my-life-as-a-dev/github_pages.yml?branch=main&label=build&style=flat-square)](https://github.com/BA-CalderonMorales/my-life-as-a-dev/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 </div>
+
+![Brandon’s interactive paper notebook, with four project places and a paper plane at home base](assets/readme/paper-notebook.png)
+
+Fly a paper plane between four open-source projects, look inside the coding-agent loop, sort a small skyline, or leave a sketch. The site keeps a readable HTML workbench alongside the Three.js world.
 
 ## Install
 
@@ -28,10 +32,15 @@ only needed to rebuild `doc-cli` from source.
 make serve
 ```
 
-Open `http://localhost:8001/my-life-as-a-dev/`. The site is a single page
-on notebook paper: a short introduction, work, life, projects, and a way
-to say hello. Margin drawings follow one continuous marker stroke at a
-time; hovering over a finished drawing erases it, then it redraws.
+Open `http://localhost:8001/my-life-as-a-dev/`. Click a project in the notebook
+or fly the plane with the arrow keys. Drag to turn the notebook, press Enter
+to visit the nearest project, and use Escape to return. **Step inside** opens
+the larger view; Escape closes it.
+
+The 3D world loads locally and renders on demand. Reduced motion, keyboard
+navigation, and the HTML workbench keep the projects available across devices.
+The scene modules live in `docs/assets/js/studio-world/`; Three.js and its
+license are bundled in `docs/assets/vendor/three/`.
 
 ## Commands
 
