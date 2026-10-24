@@ -9,9 +9,11 @@
 extra_css = [
     "assets/css/theme.css",
     "assets/css/notebook-experience.css",
+    "assets/css/studio.css",
 ]
 extra_javascript = [
     "assets/js/doodles.js",
     "assets/js/paper-flight.js",
-    "assets/js/notebook-experience.js",
+    "assets/js/studio.js",
+    "assets/js/studio-world.js",
 ]
