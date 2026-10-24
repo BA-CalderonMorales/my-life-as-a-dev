@@ -63,6 +63,8 @@
     
       <link rel="stylesheet" href="./assets/css/studio.css">
     
+      <link rel="stylesheet" href="./assets/css/workbench.css">
+    
     <script>__md_scope=new URL(".",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
       
@@ -333,12 +335,17 @@
 <section class="studio-projects" aria-labelledby="building">
 <div class="studio-section-heading"><div><div class="studio-kicker">01 / Things I’m building</div><h2 id="building">Welcome to the workbench.</h2></div><p>Pick something up. See what makes it tick.</p></div>
 <div class="studio-bench">
+<div class="bench-object-stage" aria-label="The project workbench">
+<div class="bench-stage-heading"><span class="bench-active-caption">01 / The tool shed</span><span>Pick it up. See what happens.</span></div>
+<div class="bench-viewport"><div class="bench-loading-art" aria-hidden="true"><svg viewBox="0 0 340 220"><path d="M80 35h180v115H80zM93 48h154v87H93zM155 150v20m30-20v20M125 170h90M66 180h210l15 25H50zM105 65l12 10-12 10m23 0h35"/></svg></div></div>
+<div class="bench-stage-footer"><p class="bench-action-hint">Choose a project to take a closer look.</p><div><button type="button" data-bench-turn>Turn it ↻</button><button type="button" data-bench-reset>Set it down</button><button type="button" data-bench-draw aria-pressed="false" hidden>Pick up the pencil</button></div></div>
+</div>
 <nav class="studio-project-list" aria-label="Project experiments">
 <a class="studio-project-choice" href="#exhibit-jarvis" data-project="jarvis"><span class="studio-project-number">01</span><span><strong>terminal-jarvis</strong><small>A home for your coding tools</small><span class="studio-tag">Rust · developer tools</span></span><span class="studio-project-arrow" aria-hidden="true">↗</span></a>
 <a class="studio-project-choice" href="#exhibit-agent" data-project="agent"><span class="studio-project-number">02</span><span><strong>agent-harness</strong><small>Open the hood on a coding agent</small><span class="studio-tag">Go · learning by building</span></span><span class="studio-project-arrow" aria-hidden="true">↗</span></a>
 <a class="studio-project-choice" href="#exhibit-algorithm" data-project="algorithm"><span class="studio-project-number">03</span><span><strong>algorithm-visual-learning</strong><small>A little less abstract. A lot more visible.</small><span class="studio-tag">TypeScript · interactive learning</span></span><span class="studio-project-arrow" aria-hidden="true">↗</span></a>
 <a class="studio-project-choice" href="#exhibit-notebook" data-project="notebook"><span class="studio-project-number">04</span><span><strong>my-life-as-a-dev</strong><small>This little corner of the internet</small><span class="studio-tag">JavaScript · always in progress</span></span><span class="studio-project-arrow" aria-hidden="true">↗</span></a>
-<div class="studio-bench-note"><svg viewBox="0 0 100 45" aria-hidden="true"><path d="M8 10Q38 42 80 14m-12-2 14-1-5 13"/></svg><span>Nothing behind glass here.</span></div>
+<div class="studio-bench-note"><svg viewBox="0 0 100 45" aria-hidden="true"><path d="M8 10Q38 42 80 14m-12-2 14-1-5 13"/></svg><span>Take your time. Try a few things.</span></div>
 </nav>
 <div class="studio-experiments">
 <noscript><p class="studio-static-note">The interactive sketches need JavaScript. You can still explore every project and its source below.</p></noscript>
@@ -472,6 +479,8 @@
         <script src="./assets/js/studio.js"></script>
       
         <script src="./assets/js/studio-world.js"></script>
+      
+        <script src="./assets/js/studio-workbench.js"></script>
       
     
   </body>
