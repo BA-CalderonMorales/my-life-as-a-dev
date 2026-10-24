@@ -10,10 +10,12 @@ extra_css = [
     "assets/css/theme.css",
     "assets/css/notebook-experience.css",
     "assets/css/studio.css",
+    "assets/css/workbench.css",
 ]
 extra_javascript = [
     "assets/js/doodles.js",
     "assets/js/paper-flight.js",
     "assets/js/studio.js",
     "assets/js/studio-world.js",
+    "assets/js/studio-workbench.js",
 ]
