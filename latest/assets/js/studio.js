@@ -68,13 +68,10 @@
           if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
             return;
           event.preventDefault();
+          // The theme's page router also handles bubbling anchor clicks.
+          event.stopPropagation();
           chooseStudioProject(choice.dataset.project, true);
-          history.replaceState(null, "", choice.getAttribute("href"));
-          if (innerWidth <= 640)
-            one(".studio-experiments").scrollIntoView({
-              behavior: "instant",
-              block: "start",
-            });
+          history.replaceState(history.state, "", choice.getAttribute("href"));
         },
         options,
       );
@@ -90,7 +87,7 @@
         const id = event.detail?.id;
         if (!choices.some((choice) => choice.dataset.project === id)) return;
         chooseStudioProject(id, true);
-        history.replaceState(null, "", `#exhibit-${id}`);
+        history.replaceState(history.state, "", `#exhibit-${id}`);
       },
       options,
     );
