@@ -14,10 +14,6 @@
 
 Fly a paper plane between four open-source projects, look inside the coding-agent loop, sort a small skyline, or leave a sketch. The site keeps a readable HTML workbench alongside the Three.js world.
 
-At the workbench, pick up a project, turn it, try the controls, or draw directly on the open page.
-
-![The interactive project workbench with a close-up terminal and project controls](assets/readme/project-workbench.png)
-
 ## Install
 
 ```bash

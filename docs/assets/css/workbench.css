@@ -1,4 +1,4 @@
-/* Everything here belongs to the workbench. The notebook above stays as it is. */
+/* The workbench keeps its models and controls together at every screen size. */
 .studio-projects .studio-bench {
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) minmax(290px, 1fr);
@@ -129,7 +129,6 @@
   border-color: var(--studio-accent);
 }
 .bench-stage-footer {
-  border-top: 1px solid var(--rule-line);
   padding: 14px 0 0;
 }
 .studio-projects .bench-action-hint {
@@ -246,7 +245,7 @@
 }
 .bench-live .studio-tool-output {
   color: var(--ink);
-  border-color: var(--rule-line);
+  border-top: 0;
   line-height: 1.95;
   font-size: 11px;
   min-height: 115px;
@@ -294,70 +293,6 @@
 .studio-projects:not(.bench-live) .bench-stage-footer {
   display: none;
 }
-@media (max-width: 1000px) {
-  .studio-projects .studio-bench {
-    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 1fr);
-    gap: 0 22px;
-  }
-  .bench-viewport {
-    height: 425px;
-  }
-  .bench-stage-heading > span:last-child {
-    display: none;
-  }
-  .studio-projects .studio-project-choice {
-    grid-template-columns: 1fr;
-    gap: 4px;
-  }
-}
-@media (max-width: 700px) {
-  .studio-projects .studio-bench {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-  .studio-projects .studio-project-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-  .studio-projects .studio-project-choice {
-    grid-template-columns: 17px 1fr;
-    padding: 12px 10px;
-  }
-  .bench-object-stage {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  .bench-viewport {
-    height: 340px;
-    margin-inline: -12px;
-  }
-  .bench-object-label {
-    font-size: 7px !important;
-    padding: 4px 5px;
-    min-height: 28px;
-  }
-  .studio-projects .studio-experiments {
-    grid-column: 1;
-    grid-row: 3;
-    margin-top: 28px;
-  }
-  .studio-projects .studio-exhibit {
-    min-height: 0;
-    padding: 24px 20px;
-  }
-  .bench-live .studio-tool-output,
-  .bench-live .studio-agent-message,
-  .bench-live .studio-sort-status {
-    min-height: 80px;
-  }
-  .bench-stage-heading {
-    font-size: 9px;
-  }
-  .bench-live .studio-sketchpad {
-    height: 140px;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .studio-projects .studio-project-choice {
     transition: none;
@@ -382,4 +317,111 @@
   opacity: 0.45;
   cursor: default;
   text-decoration: none;
+}
+
+/* All notes share a grid cell, reserving the tallest note during project changes. */
+.studio-ready .studio-projects .studio-experiments {
+  display: grid;
+  overflow-anchor: none;
+}
+.studio-ready .studio-projects .studio-exhibit {
+  grid-area: 1 / 1;
+  align-self: stretch;
+}
+.studio-ready .studio-projects .studio-exhibit[hidden] {
+  display: block !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+.studio-projects .studio-bench {
+  overflow-anchor: none;
+}
+@media (max-width: 1100px), (pointer: coarse) {
+  .studio-projects .studio-bench {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .studio-projects .studio-project-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .studio-projects .studio-project-choice {
+    grid-template-columns: 17px minmax(0, 1fr);
+    min-height: 76px;
+    padding: 10px;
+  }
+  .studio-projects .studio-project-choice strong {
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+  .studio-projects .studio-project-choice small {
+    font-size: 11px;
+  }
+  .studio-projects .studio-tag { display: none; }
+  .bench-object-stage {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .bench-viewport {
+    height: clamp(320px, 55vw, 460px);
+    margin-inline: 0;
+    overflow: hidden;
+  }
+  .bench-object-label {
+    min-height: 44px;
+    padding: 8px;
+    font-size: 10px !important;
+  }
+  .bench-stage-heading > span:last-child { display: none; }
+  .bench-stage-footer button {
+    min-height: 44px;
+    font-size: 11px;
+    padding-inline: 4px;
+  }
+  .studio-projects .bench-action-hint {
+    min-height: 44px;
+    font-size: 12px;
+  }
+  .studio-projects .studio-experiments {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: 28px;
+  }
+  .studio-projects .studio-exhibit {
+    min-height: 0;
+    padding: 24px 20px;
+  }
+  .bench-live .studio-sketchpad { height: 140px; }
+  .bench-live .studio-tool-options button,
+  .bench-live .studio-ink-options button,
+  .studio-projects .studio-demo-actions button {
+    min-height: 44px;
+  }
+}
+
+.bench-object-choices { display: contents; }
+@media (max-width: 1100px), (pointer: coarse) {
+  .bench-viewport {
+    display: flex;
+    flex-direction: column;
+  }
+  .bench-viewport > canvas {
+    flex: 1;
+    min-height: 0;
+    height: 0;
+  }
+  .bench-object-choices { display: none; }
+  .bench-viewport[data-bench-mode="overview"] .bench-object-choices {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex: none;
+    gap: 6px;
+    padding: 8px 0;
+    order: 1;
+  }
+  .bench-object-label {
+    position: static;
+    transform: none;
+    white-space: normal;
+  }
 }

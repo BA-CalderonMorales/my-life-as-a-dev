@@ -2,6 +2,7 @@ import * as THREE from "../../vendor/three/three.module.min.js";
 import { PaperMaterials } from "./materials.js";
 import { buildPaperWorld } from "./models.js";
 import { places, home } from "./projects.js";
+import { setFrustum } from "../scene-framing.js";
 
 export class NotebookWorld {
   constructor(host, assetBase) {
@@ -10,7 +11,9 @@ export class NotebookWorld {
     this.abort = new AbortController();
     this.materials = new PaperMaterials();
     this.motion = matchMedia("(prefers-reduced-motion: reduce)");
-    this.mobile = matchMedia("(max-width: 640px)").matches;
+    this.compact = matchMedia("(max-width:1100px), (pointer:coarse)").matches;
+    this.viewSpan = 26;
+    this.spanTarget = 26;
     this.frame = 0;
     this.destroyed = false;
     this.visible = true;
@@ -34,11 +37,11 @@ export class NotebookWorld {
     this.camera = new THREE.OrthographicCamera(-22, 22, 14, -14, 0.1, 150);
     this.renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: !this.mobile,
-      powerPreference: this.mobile ? "low-power" : "default",
+      antialias: true,
+      powerPreference: this.compact ? "low-power" : "default",
     });
     this.renderer.setPixelRatio(
-      Math.min(devicePixelRatio, this.mobile ? 1.5 : 2),
+      Math.min(devicePixelRatio, this.compact ? 1.5 : 2),
     );
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -57,8 +60,8 @@ export class NotebookWorld {
     this.sun.position.set(-12, 25, 9);
     this.sun.castShadow = true;
     this.sun.shadow.mapSize.set(
-      this.mobile ? 512 : 1024,
-      this.mobile ? 512 : 1024,
+      this.compact ? 512 : 1024,
+      this.compact ? 512 : 1024,
     );
     Object.assign(this.sun.shadow.camera, {
       left: -24,
@@ -103,6 +106,10 @@ export class NotebookWorld {
   }
   createMarkers() {
     this.markers = [];
+    this.markerDock = document.createElement("nav");
+    this.markerDock.className = "paper-world-places";
+    this.markerDock.setAttribute("aria-label", "Notebook places");
+    this.host.appendChild(this.markerDock);
     for (const place of [home, ...places]) {
       const button = document.createElement("button");
       button.type = "button";
@@ -121,7 +128,7 @@ export class NotebookWorld {
       button.addEventListener("click", () => this.travel(place.id), {
         signal: this.abort.signal,
       });
-      this.host.appendChild(button);
+      this.markerDock.appendChild(button);
       this.markers.push({ button, place });
     }
   }
@@ -131,12 +138,13 @@ export class NotebookWorld {
     canvas.addEventListener(
       "pointerdown",
       (event) => {
-        if (event.button !== 0) return;
+        if (event.button !== 0 || !event.isPrimary) return;
         this.drag = {
           x: event.clientX,
           y: event.clientY,
           lastX: event.clientX,
           moved: false,
+          horizontal: false,
         };
         canvas.setPointerCapture(event.pointerId);
       },
@@ -147,14 +155,13 @@ export class NotebookWorld {
       (event) => {
         if (this.drag) {
           const dx = event.clientX - this.drag.lastX;
-          if (
-            Math.hypot(
-              event.clientX - this.drag.x,
-              event.clientY - this.drag.y,
-            ) > 8
-          )
+          const totalX = event.clientX - this.drag.x,
+            totalY = event.clientY - this.drag.y;
+          if (!this.drag.moved && Math.hypot(totalX, totalY) > 8) {
             this.drag.moved = true;
-          if (this.drag.moved) {
+            this.drag.horizontal = Math.abs(totalX) > Math.abs(totalY);
+          }
+          if (this.drag.moved && this.drag.horizontal) {
             this.targetYaw += dx * 0.006;
             this.activeUntil = performance.now() + 500;
             this.requestRender();
@@ -334,7 +341,7 @@ export class NotebookWorld {
     );
   }
   setPointer(event) {
-    const bounds = this.host.getBoundingClientRect();
+    const bounds = this.renderer.domElement.getBoundingClientRect();
     this.pointer.set(
       ((event.clientX - bounds.left) / bounds.width) * 2 - 1,
       (-(event.clientY - bounds.top) / bounds.height) * 2 + 1,
@@ -354,7 +361,7 @@ export class NotebookWorld {
       route.material.color.set(routeId === id ? "#365d45" : "#68795f");
     });
     this.target.set(place.x, 1.5, place.z + 2.3);
-    this.focusTarget.set(place.x * 0.13, 0.2, place.z * 0.13);
+    this.frameSelection();
     this.activeUntil = performance.now() + 2200;
     this.markers.forEach(({ button, place: item }) =>
       button.setAttribute("aria-pressed", String(item.id === id)),
@@ -402,7 +409,7 @@ export class NotebookWorld {
       route.material.color.set("#68795f");
     });
     this.target.set(home.x, 1.4, home.z);
-    this.focusTarget.set(0, 0.2, 0);
+    this.frameSelection();
     this.targetYaw = 0.63;
     this.host
       .closest(".paper-world")
@@ -420,6 +427,7 @@ export class NotebookWorld {
   toggleImmersive(force) {
     const section = this.host.closest(".paper-world");
     const open = force ?? !section.classList.contains("paper-world-immersive");
+    if (open) this.pageScroll = { left: scrollX, top: scrollY };
     section.classList.toggle("paper-world-immersive", open);
     document.body.classList.toggle("paper-world-is-open", open);
     const button = section.querySelector("[data-world-immersive]");
@@ -432,6 +440,7 @@ export class NotebookWorld {
       section.removeAttribute("role");
       section.removeAttribute("aria-modal");
       if (button.isConnected) button.focus({ preventScroll: true });
+      if (this.pageScroll) window.scrollTo({ ...this.pageScroll, behavior: "instant" });
     }
     this.resize();
   }
@@ -449,24 +458,32 @@ export class NotebookWorld {
   }
   resize() {
     if (this.destroyed) return;
+    this.compact = matchMedia("(max-width:1100px), (pointer:coarse)").matches;
     const width = this.host.clientWidth,
-      height = this.host.clientHeight;
+      height = this.host.clientHeight -
+        (this.compact ? this.markerDock.offsetHeight : 0);
     if (!width || !height) return;
+    this.aspect = width / height;
     this.renderer.setSize(width, height, false);
-    const span = width < 640 ? 33 : 26,
-      aspect = width / height;
-    this.camera.left = (-span * aspect) / 2;
-    this.camera.right = (span * aspect) / 2;
-    this.camera.top = span / 2;
-    this.camera.bottom = -span / 2;
-    if (width < 640) {
-      this.camera.left = -23;
-      this.camera.right = 23;
-      this.camera.top = 23 / aspect;
-      this.camera.bottom = -23 / aspect;
-    }
-    this.camera.updateProjectionMatrix();
+    this.frameSelection();
+    setFrustum(this.camera, this.viewSpan, width / height);
     this.requestRender();
+  }
+  frameSelection() {
+    const aspect = this.aspect || 1;
+    const place = places.find((item) => item.id === this.selected);
+    if (this.compact && place) {
+      this.focusTarget.set(place.x, 0.8, place.z + 0.4);
+      this.spanTarget = Math.max(10, 9 / aspect);
+    } else {
+      this.focusTarget.set(
+        place ? place.x * 0.13 : 0,
+        0.2,
+        place ? place.z * 0.13 : 0,
+      );
+      this.spanTarget = this.compact ? Math.max(26, 42 / aspect) : 26;
+    }
+    this.host.dataset.worldView = this.compact && place ? "closeup" : "overview";
   }
   requestRender() {
     if (!this.frame && !this.destroyed && this.visible && !document.hidden)
@@ -502,13 +519,16 @@ export class NotebookWorld {
     this.yaw += (this.targetYaw - this.yaw) * easing;
     this.focus.lerp(this.focusTarget, easing);
     this.camera.position.set(
-      Math.sin(this.yaw) * 33,
-      31,
-      Math.cos(this.yaw) * 33,
+      Math.sin(this.yaw) * 33 + (this.compact ? this.focus.x : 0),
+      31 + (this.compact ? this.focus.y : 0),
+      Math.cos(this.yaw) * 33 + (this.compact ? this.focus.z : 0),
     );
+    this.viewSpan = THREE.MathUtils.lerp(this.viewSpan, this.spanTarget, easing);
+    setFrustum(this.camera, this.viewSpan, this.aspect || 1);
     this.camera.lookAt(this.focus);
     this.camera.updateMatrixWorld();
     let changing =
+      Math.abs(this.viewSpan - this.spanTarget) > 0.01 ||
       distance > 0.015 ||
       Math.abs(this.yaw - this.targetYaw) > 0.001 ||
       this.focus.distanceTo(this.focusTarget) > 0.01;
@@ -541,6 +561,7 @@ export class NotebookWorld {
     }
     this.renderer.render(this.scene, this.camera);
     for (const { button, place } of this.markers) {
+      if (this.compact) continue;
       const point = new THREE.Vector3(place.x, 3.4, place.z).project(
         this.camera,
       );
@@ -577,7 +598,7 @@ export class NotebookWorld {
     this.renderer?.dispose();
     this.renderer?.forceContextLoss();
     this.renderer?.domElement.remove();
-    this.markers?.forEach(({ button }) => button.remove());
+    this.markerDock?.remove();
     this.host.dataset.worldState = "disposed";
   }
 }
