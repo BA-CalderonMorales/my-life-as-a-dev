@@ -7,12 +7,15 @@
 
 [project]
 extra_css = [
+    "assets/css/fonts.css",
     "assets/css/theme.css",
     "assets/css/notebook-experience.css",
     "assets/css/studio.css",
     "assets/css/workbench.css",
+    "assets/css/studio-arrival.css",
 ]
 extra_javascript = [
+    "assets/js/studio-arrival.js",
     "assets/js/doodles.js",
     "assets/js/paper-flight.js",
     "assets/js/studio.js",

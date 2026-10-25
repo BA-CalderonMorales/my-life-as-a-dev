@@ -19,15 +19,24 @@
   }
   async function openWorkbench(target, token) {
     target.dataset.benchState = "loading";
+    target.setAttribute("aria-busy", "true");
+    target.closest(".studio-projects").querySelector(".bench-active-caption").textContent =
+      "Opening the workbench…";
+    let candidate = null;
     try {
       const { Workbench } = await import(entry.href);
       if (token !== generation || !target.isConnected) return;
-      instance = new Workbench(target);
-      instance.init();
+      candidate = new Workbench(target);
+      instance = candidate;
+      await candidate.init();
+      if (token !== generation || !target.isConnected) candidate.destroy();
     } catch {
-      instance?.destroy();
+      candidate?.destroy();
+      if (token !== generation || !target.isConnected) return;
       instance = null;
-      if (target.isConnected) target.dataset.benchState = "fallback";
+      target.dataset.benchState = "fallback";
+      target.setAttribute("aria-busy", "false");
+      target.closest(".studio-projects").classList.add("bench-fallback");
     }
   }
   function discoverWorkbench() {
@@ -37,6 +46,10 @@
     if (!target) return;
     host = target;
     const token = generation;
+    if (document.documentElement.classList.contains("studio-arrival-pending")) {
+      openWorkbench(target, token);
+      return;
+    }
     observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {

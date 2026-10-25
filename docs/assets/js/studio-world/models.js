@@ -473,9 +473,17 @@ export function buildPaperWorld(materials, assetBase, invalidate) {
   );
   handle.rotation.y = Math.PI / 2;
   const textureLoader = new THREE.TextureLoader();
+  let finishPhoto;
+  const assetsReady = new Promise((resolve) => { finishPhoto = resolve; });
   const familyTexture = textureLoader.load(
-    new URL("images/studio/the-good-stuff.png", assetBase).href,
-    () => invalidate(),
+    new URL("images/studio/the-good-stuff-thumb.webp", assetBase).href,
+    () => { finishPhoto(); invalidate(); },
+    undefined,
+    () => {
+      photo.material.map = null;
+      photo.material.needsUpdate = true;
+      finishPhoto();
+    },
   );
   familyTexture.colorSpace = THREE.SRGBColorSpace;
   materials.owned.add(familyTexture);
@@ -618,6 +626,7 @@ export function buildPaperWorld(materials, assetBase, invalidate) {
     ground,
     pickables,
     stations,
+    assetsReady,
     gears,
     skyline,
     plane,

@@ -3,6 +3,7 @@ import { PaperMaterials } from "../studio-world/materials.js";
 import { places } from "../studio-world/projects.js";
 import { makeBenchObjects } from "./models.js";
 import { frameBox, setFrustum } from "../scene-framing.js";
+import { prepareScene } from "../scene-ready.js";
 
 export class Workbench {
   constructor(host) {
@@ -12,6 +13,7 @@ export class Workbench {
     this.abort = new AbortController();
     this.materials = new PaperMaterials();
     this.motion = matchMedia("(prefers-reduced-motion: reduce)");
+    this.preparing = true;
     this.frame = 0;
     this.last = 0;
     this.visible = true;
@@ -35,7 +37,7 @@ export class Workbench {
     this.pointer = new THREE.Vector2();
     this.drag = null;
   }
-  init() {
+  async init() {
     this.scene = new THREE.Scene();
     this.camera = new THREE.OrthographicCamera(-8, 8, 6, -6, 0.1, 70);
     this.camera.position.set(6.3, 9.5, 13);
@@ -54,7 +56,7 @@ export class Workbench {
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.15;
     const canvas = this.renderer.domElement;
-    canvas.tabIndex = 0;
+    canvas.tabIndex = -1;
     canvas.setAttribute(
       "aria-label",
       "Project workbench. Click an object to pick it up. Drag to turn it. Left and right arrow keys choose a project. R resets the view.",
@@ -129,10 +131,30 @@ export class Workbench {
     this.readState();
     this.resize();
     this.updateTheme();
+    if (!await prepareScene(this)) return this;
+    this.preparing = false;
+    canvas.tabIndex = 0;
     this.host.dataset.benchState = "ready";
+    this.host.setAttribute("aria-busy", "false");
     this.section.classList.add("bench-live");
     this.requestRender();
     return this;
+  }
+  prepareView() {
+    this.objects.forEach((artifact, id) => {
+      const target = this.targets.get(id);
+      artifact.group.position.copy(target.position);
+      artifact.group.scale.setScalar(target.scale);
+      artifact.group.visible = !this.compact || id === this.selection;
+    });
+    this.focus.copy(this.focusTarget);
+    this.viewSpan = this.spanTarget;
+    const agent = this.objects.get("agent");
+    agent.lever.rotation.z = this.agentStep === 2 ? 0.45 : -0.18;
+    this.values?.forEach((value, index) => {
+      const bar = this.objects.get("algorithm").bars.get(value);
+      if (bar) bar.root.position.x = -1.78 + index * 0.51;
+    });
   }
   makeLabels() {
     this.labels = [];
@@ -668,12 +690,12 @@ export class Workbench {
     this.requestRender();
   }
   requestRender() {
-    if (!this.frame && !this.destroyed && this.visible && !document.hidden)
+    if (!this.frame && !this.preparing && !this.destroyed && this.visible && !document.hidden)
       this.frame = requestAnimationFrame((time) => this.render(time));
   }
   render(time) {
     this.frame = 0;
-    if (this.destroyed || !this.visible || document.hidden) return;
+    if (this.destroyed || (!this.preparing && (!this.visible || document.hidden))) return;
     const dt = Math.min(0.05, this.last ? (time - this.last) / 1000 : 0.016);
     this.last = time;
     const ease = this.motion.matches ? 1 : 1 - Math.exp(-dt * 8);
@@ -786,6 +808,7 @@ export class Workbench {
     this.last = 0;
   }
   destroy() {
+    if (this.destroyed) return;
     this.destroyed = true;
     this.stop();
     this.abort.abort();
