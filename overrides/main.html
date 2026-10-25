@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block fonts %}
+  <link rel="preload" href="{{ 'assets/fonts/playpen-sans-300-latin.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ 'assets/fonts/playpen-sans-400-latin.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ 'assets/fonts/playpen-sans-700-latin.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+{% endblock %}
+{% block extrahead %}
+  {{ super() }}
+  {% if page and page.meta and page.meta.studio %}
+    <script>
+      document.documentElement.classList.add('studio-loading');
+      document.documentElement.dataset.studioProject = ['jarvis','agent','algorithm','notebook'].includes(location.hash.slice(9)) ? location.hash.slice(9) : 'jarvis';
+    </script>
+    <link rel="preload" as="image" href="{{ 'assets/images/studio/notebook-preview-mobile.webp' | url }}" media="(max-width:640px)" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ 'assets/images/studio/notebook-preview-tablet.webp' | url }}" media="(min-width:641px) and (max-width:1100px), (min-width:641px) and (pointer:coarse)" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ 'assets/images/studio/notebook-preview-desktop.webp' | url }}" media="(min-width:1101px) and (pointer:fine)" fetchpriority="high">
+    <link rel="modulepreload" href="{{ 'assets/vendor/three/three.module.min.js' | url }}" fetchpriority="low">
+  {% endif %}
+{% endblock %}

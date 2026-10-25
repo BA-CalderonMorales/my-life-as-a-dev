@@ -23,23 +23,28 @@
     )
       return;
     host.dataset.worldState = "loading";
+    host.setAttribute("aria-busy", "true");
+    host.closest(".paper-world").querySelector(".paper-world-status").textContent =
+      "Opening the notebook. The workbench below is already open.";
+    let candidate = null;
     try {
       const { NotebookWorld } = await import(
         new URL("studio-world/World.js", scriptURL).href
       );
       if (token !== generation || !host.isConnected) return;
-      instance = new NotebookWorld(host, assetBase);
-      instance.init();
+      candidate = new NotebookWorld(host, assetBase);
+      instance = candidate;
+      await candidate.init();
+      if (token !== generation || !host.isConnected) candidate.destroy();
     } catch {
-      instance?.destroy();
+      candidate?.destroy();
+      if (token !== generation || !host.isConnected) return;
       instance = null;
-      if (!host.isConnected) return;
+      host.setAttribute("aria-busy", "false");
       host.dataset.worldState = "fallback";
       const section = host.closest(".paper-world");
       section.querySelector(".paper-world-status").textContent =
         "The 3D notebook couldn’t open in this browser. All four projects and their experiments are in the workbench below.";
-      section.querySelector(".paper-world-fallback p").textContent =
-        "Keep exploring in the workbench below.";
     }
   }
   function discoverNotebookWorld() {

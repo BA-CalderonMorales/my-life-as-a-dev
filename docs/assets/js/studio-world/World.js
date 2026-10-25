@@ -3,6 +3,7 @@ import { PaperMaterials } from "./materials.js";
 import { buildPaperWorld } from "./models.js";
 import { places, home } from "./projects.js";
 import { setFrustum } from "../scene-framing.js";
+import { prepareScene } from "../scene-ready.js";
 
 export class NotebookWorld {
   constructor(host, assetBase) {
@@ -14,6 +15,7 @@ export class NotebookWorld {
     this.compact = matchMedia("(max-width:1100px), (pointer:coarse)").matches;
     this.viewSpan = 26;
     this.spanTarget = 26;
+    this.preparing = true;
     this.frame = 0;
     this.destroyed = false;
     this.visible = true;
@@ -32,7 +34,7 @@ export class NotebookWorld {
     this.drag = null;
     this.drift = 0;
   }
-  init() {
+  async init() {
     this.scene = new THREE.Scene();
     this.camera = new THREE.OrthographicCamera(-22, 22, 14, -14, 0.1, 150);
     this.renderer = new THREE.WebGLRenderer({
@@ -49,7 +51,7 @@ export class NotebookWorld {
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.18;
     const canvas = this.renderer.domElement;
-    canvas.tabIndex = 0;
+    canvas.tabIndex = -1;
     canvas.setAttribute(
       "aria-label",
       "Explore Brandon’s paper notebook. Click a place to fly there. Arrow keys move the plane; Enter opens the nearest project. Escape returns to the whole notebook.",
@@ -96,7 +98,12 @@ export class NotebookWorld {
     });
     this.updateTheme();
     this.resize();
+    if (!await prepareScene(this, this.world.assetsReady)) return this;
+    this.preparing = false;
+    canvas.tabIndex = 0;
     this.host.dataset.worldState = "ready";
+    this.host.setAttribute("aria-busy", "false");
+    this.markers.forEach(({ button }) => { button.disabled = false; });
     this.host.closest(".paper-world").classList.add("paper-world-ready");
     this.status(
       "You’re at home base. Pick a place, or click the paper to fly.",
@@ -104,31 +111,21 @@ export class NotebookWorld {
     this.requestRender();
     return this;
   }
+  prepareView() {
+    this.focus.copy(this.focusTarget);
+    this.viewSpan = this.spanTarget;
+    this.yaw = this.targetYaw;
+    this.world.plane.position.copy(this.target);
+  }
   createMarkers() {
     this.markers = [];
-    this.markerDock = document.createElement("nav");
-    this.markerDock.className = "paper-world-places";
-    this.markerDock.setAttribute("aria-label", "Notebook places");
-    this.host.appendChild(this.markerDock);
+    this.markerDock = this.host.querySelector(".paper-world-places");
     for (const place of [home, ...places]) {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "paper-world-marker";
-      button.dataset.place = place.id;
+      const button = this.markerDock.querySelector(`[data-place="${place.id}"]`);
       button.setAttribute("aria-pressed", String(place.id === home.id));
-      button.setAttribute(
-        "aria-label",
-        `Visit ${place.name}: ${place.project}`,
-      );
-      const number = document.createElement("span");
-      number.textContent = place.number;
-      const name = document.createElement("span");
-      name.textContent = place.name;
-      button.append(number, name);
       button.addEventListener("click", () => this.travel(place.id), {
         signal: this.abort.signal,
       });
-      this.markerDock.appendChild(button);
       this.markers.push({ button, place });
     }
   }
@@ -486,12 +483,12 @@ export class NotebookWorld {
     this.host.dataset.worldView = this.compact && place ? "closeup" : "overview";
   }
   requestRender() {
-    if (!this.frame && !this.destroyed && this.visible && !document.hidden)
+    if (!this.frame && !this.preparing && !this.destroyed && this.visible && !document.hidden)
       this.frame = requestAnimationFrame((time) => this.render(time));
   }
   render(time) {
     this.frame = 0;
-    if (this.destroyed || !this.visible || document.hidden) return;
+    if (this.destroyed || (!this.preparing && (!this.visible || document.hidden))) return;
     const dt = Math.min(0.05, this.last ? (time - this.last) / 1000 : 0.016);
     this.last = time;
     const plane = this.world.plane;
@@ -576,6 +573,7 @@ export class NotebookWorld {
     this.last = 0;
   }
   destroy() {
+    if (this.destroyed) return;
     if (
       this.host
         .closest(".paper-world")
@@ -598,7 +596,9 @@ export class NotebookWorld {
     this.renderer?.dispose();
     this.renderer?.forceContextLoss();
     this.renderer?.domElement.remove();
-    this.markerDock?.remove();
+    this.markers?.forEach(({ button }) => { button.disabled = true; });
+    this.host.closest(".paper-world")?.classList.remove("paper-world-ready");
+    this.host.setAttribute("aria-busy", "false");
     this.host.dataset.worldState = "disposed";
   }
 }

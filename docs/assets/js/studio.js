@@ -44,6 +44,7 @@
     function chooseStudioProject(id, userAction = false) {
       if (!choices.some((choice) => choice.dataset.project === id)) return;
       pauseStudioSort();
+      document.documentElement.dataset.studioProject = id;
       choices.forEach((choice) => {
         if (choice.dataset.project === id)
           choice.setAttribute("aria-current", "true");
@@ -374,6 +375,7 @@
       options,
     );
     root.classList.add("studio-ready");
+    document.documentElement.classList.remove("studio-loading");
     disposeStudio = () => {
       events.abort();
       paletteObserver.disconnect();

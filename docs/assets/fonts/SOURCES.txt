@@ -1,0 +1,12 @@
+# Local notebook fonts
+
+Playpen Sans and JetBrains Mono are distributed under their included SIL Open Font License files. The unmodified Latin and Latin Extended WOFF2 variable-font subsets were downloaded from the official Google Fonts CSS2 service. JetBrains Mono and the extended Playpen Sans subset use variable files. Core Latin handwriting uses separate static weights to prioritize the visible face.
+
+- `jetbrains-mono-latin-ext.woff2`: https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2
+- `jetbrains-mono-latin.woff2`: https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2
+- `playpen-sans-latin-ext.woff2`: https://fonts.gstatic.com/s/playpensans/v22/dg4i_pj1p6gXP0gzAZgm4c89QiIjuyw.woff2
+
+The Latin text subset uses the official static 300, 400, and 700 weight files so the first visible handwriting can be prioritized separately.
+playpen-sans-300-latin.woff2: https://fonts.gstatic.com/s/playpensans/v22/dg43_pj1p6gXP0gzAZgm4c8XQArSU7ACQSn4IqphinM3FA.woff2
+playpen-sans-400-latin.woff2: https://fonts.gstatic.com/s/playpensans/v22/dg43_pj1p6gXP0gzAZgm4c8XQArSU7ACQSn4IvRhinM3FA.woff2
+playpen-sans-700-latin.woff2: https://fonts.gstatic.com/s/playpensans/v22/dg43_pj1p6gXP0gzAZgm4c8XQArSU7ACQSn4IhNminM3FA.woff2
