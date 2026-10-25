@@ -68,9 +68,10 @@
           if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
             return;
           event.preventDefault();
+          // The theme's page router also handles bubbling anchor clicks.
+          event.stopPropagation();
           chooseStudioProject(choice.dataset.project, true);
-          history.replaceState(null, "", choice.getAttribute("href"));
-          // Selection changes the exhibit in place; explicit navigation scrolls.
+          history.replaceState(history.state, "", choice.getAttribute("href"));
         },
         options,
       );
@@ -86,7 +87,7 @@
         const id = event.detail?.id;
         if (!choices.some((choice) => choice.dataset.project === id)) return;
         chooseStudioProject(id, true);
-        history.replaceState(null, "", `#exhibit-${id}`);
+        history.replaceState(history.state, "", `#exhibit-${id}`);
       },
       options,
     );
