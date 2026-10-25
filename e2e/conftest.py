@@ -116,6 +116,22 @@ def page_sources():
     return PAGE_SOURCES
 
 
+@pytest.fixture(autouse=True)
+def returning_studio_visitor(monkeypatch, request):
+    """Interaction checks start inside; fresh_visit tests cover the invitation itself."""
+    if request.node.get_closest_marker("fresh_visit"):
+        return
+    from playwright.sync_api import Browser as PlaywrightBrowser
+    new_context = PlaywrightBrowser.new_context
+
+    def with_visitor_session(browser, *args, **kwargs):
+        context = new_context(browser, *args, **kwargs)
+        context.add_init_script("try { sessionStorage.setItem('studio-entered', '1'); } catch {}")
+        return context
+
+    monkeypatch.setattr(PlaywrightBrowser, "new_context", with_visitor_session)
+
+
 @pytest.fixture
 def docs_root():
     """Provide docs root path."""

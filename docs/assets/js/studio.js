@@ -44,6 +44,7 @@
     function chooseStudioProject(id, userAction = false) {
       if (!choices.some((choice) => choice.dataset.project === id)) return;
       pauseStudioSort();
+      document.documentElement.dataset.studioProject = id;
       choices.forEach((choice) => {
         if (choice.dataset.project === id)
           choice.setAttribute("aria-current", "true");
@@ -68,9 +69,10 @@
           if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
             return;
           event.preventDefault();
+          // The theme's page router also handles bubbling anchor clicks.
+          event.stopPropagation();
           chooseStudioProject(choice.dataset.project, true);
-          history.replaceState(null, "", choice.getAttribute("href"));
-          // Selection changes the exhibit in place; explicit navigation scrolls.
+          history.replaceState(history.state, "", choice.getAttribute("href"));
         },
         options,
       );
@@ -86,7 +88,7 @@
         const id = event.detail?.id;
         if (!choices.some((choice) => choice.dataset.project === id)) return;
         chooseStudioProject(id, true);
-        history.replaceState(null, "", `#exhibit-${id}`);
+        history.replaceState(history.state, "", `#exhibit-${id}`);
       },
       options,
     );
@@ -373,6 +375,7 @@
       options,
     );
     root.classList.add("studio-ready");
+    document.documentElement.classList.remove("studio-loading");
     disposeStudio = () => {
       events.abort();
       paletteObserver.disconnect();
