@@ -70,11 +70,7 @@
           event.preventDefault();
           chooseStudioProject(choice.dataset.project, true);
           history.replaceState(null, "", choice.getAttribute("href"));
-          if (innerWidth <= 640)
-            one(".studio-experiments").scrollIntoView({
-              behavior: "instant",
-              block: "start",
-            });
+          // Selection changes the exhibit in place; explicit navigation scrolls.
         },
         options,
       );

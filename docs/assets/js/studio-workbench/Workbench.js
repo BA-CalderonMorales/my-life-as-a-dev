@@ -2,6 +2,7 @@ import * as THREE from "../../vendor/three/three.module.min.js";
 import { PaperMaterials } from "../studio-world/materials.js";
 import { places } from "../studio-world/projects.js";
 import { makeBenchObjects } from "./models.js";
+import { frameBox, setFrustum } from "../scene-framing.js";
 
 export class Workbench {
   constructor(host) {
@@ -11,13 +12,16 @@ export class Workbench {
     this.abort = new AbortController();
     this.materials = new PaperMaterials();
     this.motion = matchMedia("(prefers-reduced-motion: reduce)");
-    this.mobile = matchMedia("(max-width:640px)").matches;
     this.frame = 0;
     this.last = 0;
     this.visible = true;
     this.destroyed = false;
     this.selection = null;
-    this.inspectYaw = 0;
+    this.compact = matchMedia("(max-width:1100px), (pointer:coarse)").matches;
+    this.focus = new THREE.Vector3(0, 0.65, -0.4);
+    this.focusTarget = this.focus.clone();
+    this.viewSpan = 12;
+    this.spanTarget = 12;
     this.inspectTarget = 0;
     this.drawing = false;
     this.stroke = null;
@@ -38,11 +42,11 @@ export class Workbench {
     this.camera.lookAt(0, 0.65, -0.4);
     this.renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: !this.mobile,
+      antialias: true,
       powerPreference: "low-power",
     });
     this.renderer.setPixelRatio(
-      Math.min(devicePixelRatio, this.mobile ? 1.4 : 1.7),
+      Math.min(devicePixelRatio, this.compact ? 1.4 : 1.7),
     );
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -61,8 +65,8 @@ export class Workbench {
     this.sun.position.set(-6, 14, 8);
     this.sun.castShadow = true;
     this.sun.shadow.mapSize.set(
-      this.mobile ? 512 : 1024,
-      this.mobile ? 512 : 1024,
+      this.compact ? 512 : 1024,
+      this.compact ? 512 : 1024,
     );
     Object.assign(this.sun.shadow.camera, {
       left: -10,
@@ -77,6 +81,10 @@ export class Workbench {
     this.scene.add(this.sun);
     const models = makeBenchObjects(this.materials);
     this.objects = models.objects;
+    this.objectBounds = new Map();
+    this.objects.forEach((artifact, id) =>
+      this.objectBounds.set(id, new THREE.Box3().setFromObject(artifact.group)),
+    );
     this.scene.add(models.desk);
     this.objects.forEach((artifact) => this.scene.add(artifact.group));
     this.targets = new Map();
@@ -128,6 +136,10 @@ export class Workbench {
   }
   makeLabels() {
     this.labels = [];
+    this.labelDock = document.createElement("nav");
+    this.labelDock.className = "bench-object-choices";
+    this.labelDock.setAttribute("aria-label", "Pick up an object");
+    this.host.appendChild(this.labelDock);
     this.drawGuide = document.createElement("span");
     this.drawGuide.className = "bench-pencil-target";
     this.drawGuide.textContent = "draw here";
@@ -144,7 +156,7 @@ export class Workbench {
       button.addEventListener("click", () => this.choose(place.id), {
         signal: this.abort.signal,
       });
-      this.host.appendChild(button);
+      this.labelDock.appendChild(button);
       this.labels.push({ place, button });
     }
   }
@@ -248,7 +260,30 @@ export class Workbench {
     this.section.querySelector(".bench-action-hint").textContent = this.overview
       ? "Back on the workbench. Pick up whatever catches your eye."
       : hints[this.selection];
+    this.resize();
     this.requestRender();
+  }
+  frameSelection() {
+    if (!this.camera || !this.selection || !this.host.clientHeight) return;
+    const aspect = this.aspect || 1;
+    if (!this.compact || this.overview) {
+      this.focusTarget.set(0, 0.65, -0.4);
+      this.spanTarget = Math.max(8.8, 14 / aspect);
+      return;
+    }
+    const target = this.targets.get(this.selection);
+    if (!target) return;
+    const matrix = new THREE.Matrix4().compose(
+      target.position,
+      new THREE.Quaternion().setFromAxisAngle(
+        new THREE.Vector3(0, 1, 0), this.inspectTarget,
+      ),
+      new THREE.Vector3().setScalar(target.scale),
+    );
+    const box = this.objectBounds.get(this.selection).clone().applyMatrix4(matrix);
+    const framing = frameBox(box, this.camera, aspect);
+    this.focusTarget.copy(framing.center);
+    this.spanTarget = Math.max(6.5, framing.span);
   }
   paintTerminal() {
     const { crtCanvas, crtTexture } = this.objects.get("jarvis");
@@ -375,7 +410,7 @@ export class Workbench {
     canvas.addEventListener(
       "pointerdown",
       (event) => {
-        if (event.button !== 0) return;
+        if (event.button !== 0 || !event.isPrimary) return;
         if (
           this.drawing &&
           this.selection === "notebook" &&
@@ -384,7 +419,13 @@ export class Workbench {
           canvas.setPointerCapture(event.pointerId);
           return;
         }
-        this.drag = { x: event.clientX, lastX: event.clientX, moved: false };
+        this.drag = {
+          x: event.clientX,
+          y: event.clientY,
+          lastX: event.clientX,
+          moved: false,
+          horizontal: false,
+        };
         canvas.setPointerCapture(event.pointerId);
       },
       options,
@@ -397,8 +438,13 @@ export class Workbench {
           return;
         }
         if (this.drag) {
-          if (Math.abs(event.clientX - this.drag.x) > 6) this.drag.moved = true;
-          if (this.drag.moved) {
+          const dx = event.clientX - this.drag.x,
+            dy = event.clientY - this.drag.y;
+          if (!this.drag.moved && Math.hypot(dx, dy) > 8) {
+            this.drag.moved = true;
+            this.drag.horizontal = Math.abs(dx) > Math.abs(dy);
+          }
+          if (this.drag.moved && this.drag.horizontal && !this.overview) {
             this.inspectTarget += (event.clientX - this.drag.lastX) * 0.012;
             this.requestRender();
           }
@@ -420,7 +466,11 @@ export class Workbench {
         this.setPointer(event);
         this.ray.setFromCamera(this.pointer, this.camera);
         const hit = this.ray.intersectObjects(
-          [...this.objects.values()].map((artifact) => artifact.group),
+          [...this.objects.values()]
+            .filter((artifact) =>
+              !this.compact || this.overview || artifact.id === this.selection,
+            )
+            .map((artifact) => artifact.group),
           true,
         )[0];
         if (!hit) return;
@@ -442,7 +492,7 @@ export class Workbench {
           this.section.querySelector("[data-sort-step]").click();
         else if (id === "agent") {
           const next = this.section.querySelector("[data-agent-next]");
-          if (this.agentStep === 2) next.focus();
+          if (this.agentStep === 2) next.focus({ preventScroll: true });
           else next.click();
         }
       },
@@ -535,7 +585,6 @@ export class Workbench {
     if (active) {
       this.overview = false;
       this.arrangeObjects();
-      this.inspectYaw = 0;
       const artifact = this.objects.get("notebook"),
         target = this.targets.get("notebook");
       artifact.group.position.copy(target.position);
@@ -548,10 +597,16 @@ export class Workbench {
     button.setAttribute("aria-pressed", String(active));
     button.textContent = active ? "Put the pencil down" : "Pick up the pencil";
     this.host.classList.toggle("bench-drawing", active);
+    if (active) {
+      // Keep the page still under the pencil, even during a quick project change.
+      this.frameSelection();
+      this.focus.copy(this.focusTarget);
+      this.viewSpan = this.spanTarget;
+    }
     this.requestRender();
   }
   setPointer(event) {
-    const rect = this.host.getBoundingClientRect();
+    const rect = this.renderer.domElement.getBoundingClientRect();
     this.pointer.set(
       ((event.clientX - rect.left) / rect.width) * 2 - 1,
       (-(event.clientY - rect.top) / rect.height) * 2 + 1,
@@ -601,17 +656,15 @@ export class Workbench {
     this.requestRender();
   }
   resize() {
+    this.compact = matchMedia("(max-width:1100px), (pointer:coarse)").matches;
     const width = this.host.clientWidth,
-      height = this.host.clientHeight;
+      height = this.host.clientHeight -
+        (this.compact && this.overview ? this.labelDock.offsetHeight : 0);
     if (!width || !height || this.destroyed) return;
     this.renderer.setSize(width, height, false);
-    const aspect = width / height;
-    const span = Math.max(8.8, 14 / aspect);
-    this.camera.left = (-span * aspect) / 2;
-    this.camera.right = (span * aspect) / 2;
-    this.camera.top = span / 2;
-    this.camera.bottom = -span / 2;
-    this.camera.updateProjectionMatrix();
+    this.aspect = width / height;
+    this.frameSelection();
+    setFrustum(this.camera, this.viewSpan, width / height);
     this.requestRender();
   }
   requestRender() {
@@ -625,11 +678,11 @@ export class Workbench {
     this.last = time;
     const ease = this.motion.matches ? 1 : 1 - Math.exp(-dt * 8);
     let moving = false;
-    this.inspectYaw += (this.inspectTarget - this.inspectYaw) * ease;
-    if (Math.abs(this.inspectTarget - this.inspectYaw) > 0.001) moving = true;
+    this.frameSelection();
     this.objects.forEach((artifact, id) => {
       const target = this.targets.get(id);
       if (!target) return;
+      artifact.group.visible = !this.compact || this.overview || id === this.selection;
       artifact.group.position.lerp(target.position, ease);
       const scale = THREE.MathUtils.lerp(
         artifact.group.scale.x,
@@ -637,7 +690,9 @@ export class Workbench {
         ease,
       );
       artifact.group.scale.setScalar(scale);
-      artifact.group.rotation.y = id === this.selection ? this.inspectYaw : 0;
+      const yaw = !this.overview && id === this.selection ? this.inspectTarget : 0;
+      artifact.group.rotation.y += (yaw - artifact.group.rotation.y) * ease;
+      if (Math.abs(yaw - artifact.group.rotation.y) > 0.001) moving = true;
       if (
         artifact.group.position.distanceTo(target.position) > 0.005 ||
         Math.abs(scale - target.scale) > 0.001
@@ -690,10 +745,20 @@ export class Workbench {
       });
       moving = true;
     }
+    this.focus.lerp(this.focusTarget, ease);
+    this.viewSpan = THREE.MathUtils.lerp(this.viewSpan, this.spanTarget, ease);
+    if (
+      this.focus.distanceTo(this.focusTarget) > 0.005 ||
+      Math.abs(this.viewSpan - this.spanTarget) > 0.005
+    ) moving = true;
+    this.camera.position.copy(this.focus).add(new THREE.Vector3(6.3, 8.85, 13.4));
+    this.camera.lookAt(this.focus);
+    setFrustum(this.camera, this.viewSpan, this.aspect || 1);
+    this.camera.updateMatrixWorld();
     this.renderer.render(this.scene, this.camera);
     for (const { place, button } of this.labels) {
       const artifact = this.objects.get(place.id);
-      button.hidden = !this.overview && place.id === this.selection;
+      button.hidden = !this.overview && (this.compact || place.id === this.selection);
       const point = new THREE.Vector3()
         .copy(artifact.group.position)
         .add(new THREE.Vector3(0, 1.65 * artifact.group.scale.x, 0))
@@ -740,7 +805,7 @@ export class Workbench {
     this.renderer?.forceContextLoss();
     this.renderer?.domElement.remove();
     this.drawGuide?.remove();
-    this.labels?.forEach(({ button }) => button.remove());
+    this.labelDock?.remove();
     this.section.classList.remove("bench-live");
   }
 }
