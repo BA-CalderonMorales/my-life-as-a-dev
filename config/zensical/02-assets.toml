@@ -13,6 +13,7 @@ extra_css = [
     "assets/css/studio.css",
     "assets/css/workbench.css",
     "assets/css/studio-arrival.css",
+    "assets/css/studio-life.css",
 ]
 extra_javascript = [
     "assets/js/studio-arrival.js",
@@ -21,4 +22,5 @@ extra_javascript = [
     "assets/js/studio.js",
     "assets/js/studio-world.js",
     "assets/js/studio-workbench.js",
+    "assets/js/studio-life.js",
 ]
