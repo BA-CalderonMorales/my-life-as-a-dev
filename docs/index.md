@@ -7,6 +7,20 @@ hide:
   - toc
 ---
 
+<div class="studio-arrival-shell">
+<dialog class="studio-arrival" aria-labelledby="arrival-title" aria-describedby="arrival-status">
+<div class="arrival-card">
+<div class="arrival-wordmark" aria-hidden="true">bc <span>/ field notes</span></div>
+<svg class="arrival-flight" viewBox="0 0 260 86" aria-hidden="true"><path class="arrival-trail" d="M14 62C40 82 105 68 102 40S52 18 63 43s77 13 109-10"/><g class="arrival-plane"><path d="m163 30 66-17-37 46-5-23-24-6Z"/><path d="m187 36 42-23-37 46m-5-23-8 13 13-5"/></g><path class="arrival-spark" d="M32 18v12m-6-6h12M236 61v8m-4-4h8"/></svg>
+<p class="arrival-eyebrow">A notebook from Brandon</p>
+<h2 id="arrival-title">Make yourself<br><em>at home.</em></h2>
+<p id="arrival-status" role="status">Just opening up the little world inside.</p>
+<ul class="arrival-checks" aria-label="Preparing your visit"><li data-arrival-check="paper">Paper</li><li data-arrival-check="world">Notebook</li><li data-arrival-check="bench">Workbench</li></ul>
+<button class="arrival-enter" type="button" disabled>Opening the notebook…</button>
+<button class="arrival-skip" type="button">Have a look while it loads</button>
+</div>
+</dialog>
+</div>
 <div class="studio-home" id="studio">
 <nav class="studio-masthead" aria-label="Around the studio"><a class="studio-wordmark" href="#studio">bc<span> / field notes</span></a><div><a href="#building">The workbench</a><a href="#beyond-work">Life, too</a><a href="#connect">Say hello ↗</a></div></nav>
 <section class="studio-hero studio-hero-world" aria-labelledby="brandon-calderon-morales">

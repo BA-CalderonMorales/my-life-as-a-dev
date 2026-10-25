@@ -10,6 +10,16 @@
     <script>
       document.documentElement.classList.add('studio-loading');
       document.documentElement.dataset.studioProject = ['jarvis','agent','algorithm','notebook'].includes(location.hash.slice(9)) ? location.hash.slice(9) : 'jarvis';
+      try {
+        if (!location.hash && sessionStorage.getItem('studio-entered') !== '1')
+          document.documentElement.classList.add('studio-arrival-pending');
+      } catch {
+        if (!location.hash) document.documentElement.classList.add('studio-arrival-pending');
+      }
+      window.setTimeout(() => {
+        if (!document.querySelector('.studio-arrival[open]'))
+          document.documentElement.classList.remove('studio-arrival-pending');
+      }, 20000);
     </script>
     <link rel="preload" as="image" href="{{ 'assets/images/studio/notebook-preview-mobile.webp' | url }}" media="(max-width:640px)" fetchpriority="high">
     <link rel="preload" as="image" href="{{ 'assets/images/studio/notebook-preview-tablet.webp' | url }}" media="(min-width:641px) and (max-width:1100px), (min-width:641px) and (pointer:coarse)" fetchpriority="high">

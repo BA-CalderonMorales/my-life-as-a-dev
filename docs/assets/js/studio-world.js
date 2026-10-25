@@ -54,6 +54,10 @@
     if (!host) return;
     activeHost = host;
     const token = generation;
+    if (document.documentElement.classList.contains("studio-arrival-pending")) {
+      startNotebookWorld(host, token);
+      return;
+    }
     observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {

@@ -46,6 +46,10 @@
     if (!target) return;
     host = target;
     const token = generation;
+    if (document.documentElement.classList.contains("studio-arrival-pending")) {
+      openWorkbench(target, token);
+      return;
+    }
     observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
