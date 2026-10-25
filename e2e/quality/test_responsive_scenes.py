@@ -270,3 +270,26 @@ def test_project_selection_does_not_navigate_through_the_theme(page, base_url):
         assert abs(page.evaluate("scrollY") - before) <= 2
         assert page.evaluate("history.length") == history_length
     assert page.evaluate("window.projectNavigationEvents") == []
+
+
+def test_late_notebook_loading_does_not_move_the_workbench(browser, base_url):
+    context = browser.new_context(viewport={"width":390,"height":844}, has_touch=True, reduced_motion="reduce")
+    page = context.new_page()
+    pending = []
+    page.route("**/studio-world/World.js", lambda route: pending.append(route))
+    page.goto(f"{base_url}/index.html", wait_until="domcontentloaded")
+    host = page.locator(".bench-viewport")
+    host.scroll_into_view_if_needed()
+    expect(host).to_have_attribute("data-bench-state", "ready", timeout=20000)
+    page.evaluate("document.fonts.ready")
+    page.wait_for_function("document.querySelector('.paper-world-viewport').dataset.worldState === 'loading'")
+    assert pending
+    before_height = page.locator(".paper-world").bounding_box()["height"]
+    before_scroll = page.evaluate("scrollY")
+    pending[0].continue_()
+    expect(page.locator(".paper-world-viewport")).to_have_attribute("data-world-state", "ready", timeout=20000)
+    page.wait_for_timeout(180)
+    after_height = page.locator(".paper-world").bounding_box()["height"]
+    assert abs(after_height - before_height) <= 2
+    assert abs(page.evaluate("scrollY") - before_scroll) <= 2
+    context.close()

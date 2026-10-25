@@ -1241,7 +1241,7 @@ body:has(.studio-home) .md-footer-meta {
 }
 .paper-world:not(.paper-world-ready) [data-world-immersive],
 .paper-world:not(.paper-world-ready) [data-world-reset] {
-  display: none;
+  visibility: hidden;
 }
 body.paper-world-is-open {
   overflow: hidden;
