@@ -88,9 +88,13 @@ def test_touch_objects_are_readable_and_controls_are_separate(browser, base_url,
     for project in PROJECTS:
         choice = page.locator(f'[data-project="{project}"]')
         choice.scroll_into_view_if_needed()
-        before = page.evaluate("scrollY")
+        choice.evaluate("""el => el.addEventListener('pointerdown', () => {
+          window.selectionScrollY = scrollY;
+        }, {once:true, capture:true})""")
         choice.tap()
         expect(host).to_have_attribute("data-active-project", project)
+        before = page.evaluate("window.selectionScrollY")
+        assert before is not None
         assert abs(page.evaluate("scrollY") - before) <= 2
         host.scroll_into_view_if_needed()
         settle(page, "bench")
@@ -246,3 +250,23 @@ def test_touch_immersive_controls_leave_room_for_the_scene(browser, base_url, wi
     expect(page.locator('.paper-world')).not_to_have_attribute("aria-modal", "true")
     assert abs(page.evaluate("scrollY") - before) <= 2
     context.close()
+
+
+def test_project_selection_does_not_navigate_through_the_theme(page, base_url):
+    page.goto(f"{base_url}/", wait_until="networkidle")
+    page.locator('[data-project="jarvis"]').scroll_into_view_if_needed()
+    page.evaluate("""() => {
+      window.projectNavigationEvents = [];
+      window.location$.subscribe(url => window.projectNavigationEvents.push(url.href));
+      window.projectNavigationEvents = [];
+    }""")
+    history_length = page.evaluate("history.length")
+    for project in ["agent", "algorithm", "notebook", "jarvis"]:
+        choice = page.locator(f'[data-project="{project}"]')
+        choice.scroll_into_view_if_needed()
+        before = page.evaluate("scrollY")
+        choice.click()
+        expect(page.locator(f'#exhibit-{project}')).to_be_visible()
+        assert abs(page.evaluate("scrollY") - before) <= 2
+        assert page.evaluate("history.length") == history_length
+    assert page.evaluate("window.projectNavigationEvents") == []
