@@ -60,7 +60,8 @@ def test_touch_objects_are_readable_and_controls_are_separate(browser, base_url,
     page.on("pageerror", lambda error: errors.append(str(error)))
     observe_scenes(page)
     page.goto(f"{base_url}/index.html", wait_until="networkidle")
-    if scheme == "slate": page.locator('label[for="__palette_1"]').click()
+    if scheme == "slate":
+        page.locator('label[for="__palette_1"]').click()
     world = page.locator(".paper-world-viewport")
     world.scroll_into_view_if_needed()
     expect(world).to_have_attribute("data-world-state", "ready", timeout=20000)
@@ -140,7 +141,8 @@ def test_switching_and_keyboard_preserve_position(browser, base_url, width, heig
     host.scroll_into_view_if_needed()
     host.locator("canvas").evaluate("el => el.focus({preventScroll:true})")
     before = page.evaluate("scrollY")
-    for _ in range(8): page.keyboard.press("ArrowRight")
+    for _ in range(8):
+        page.keyboard.press("ArrowRight")
     page.wait_for_timeout(700)
     assert abs(page.evaluate("scrollY") - before) <= 2
     expect(host.locator("canvas")).to_be_focused()
