@@ -1,0 +1,83 @@
+/* A family walk, drawn in the margins. Everything stays on the reader's page. */
+.studio-home .studio-life.life-journey { display: block; padding: 80px 0 45px; margin-top: 30px; }
+.studio-home .life-heading { display: grid; grid-template-columns: 1.15fr 1fr; gap: 50px; align-items: end; margin-bottom: 25px; }
+.studio-home .life-heading h2 { margin: 12px 0 0; }
+.studio-home .life-heading p { max-width: 360px; margin: 0 0 5px; font-size: 13px; line-height: 1.9; }
+.life-theater { position: relative; }
+.life-scene { position: relative; aspect-ratio: 1000 / 440; overflow: hidden; isolation: isolate; }
+.life-scene > svg, .life-scene > img { display: block; width: 100%; height: 100%; }
+.life-scene > img { object-fit: contain; }
+.life-scene > svg { position: absolute; inset: 0; }
+.life-scene[data-scene-ready="true"] > img { visibility: hidden; }
+.life-scene-caption { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 0 20px; margin-top: -18px; min-height: 44px; position: relative; }
+.life-scene-caption span { color: var(--faded); font: 10px/1.8 "JetBrains Mono", monospace; }
+.life-scene-caption .life-family-count { font-family: "Playpen Sans", sans-serif; font-size: 12px; color: var(--studio-accent); }
+.life-controls { display: none; }
+:is(.studio-loading, .studio-ready) .life-controls, .life-ready .life-controls { display: block; margin: 30px 20px 0; }
+.life-scrub-heading { display: flex; align-items: center; gap: 16px; margin-bottom: 7px; }
+.life-scrub-heading label { color: var(--faded); font: 10px/1.7 "JetBrains Mono", monospace; }
+.life-scrub-heading output { margin-left: auto; min-width: 54px; font: italic 30px/1 Georgia, serif; color: var(--studio-accent); }
+.life-journey button { font-family: inherit; touch-action: manipulation; cursor: pointer; }
+.life-play { color: var(--studio-accent); font-size: 11px; background: transparent; border: 0; padding: 0 10px; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; }
+.life-range { display: block; width: 100%; height: 44px; margin: 0; appearance: none; background: transparent; cursor: ew-resize; touch-action: pan-y; accent-color: var(--studio-accent); }
+.life-range::-webkit-slider-runnable-track { height: 2px; border-radius: 3px; background: color-mix(in srgb, var(--studio-accent) 35%, transparent); }
+.life-range::-moz-range-track { height: 2px; border-radius: 3px; background: color-mix(in srgb, var(--studio-accent) 35%, transparent); }
+.life-range::-webkit-slider-thumb { appearance: none; width: 22px; height: 22px; margin-top: -10px; border: 5px solid var(--paper); border-radius: 50%; background: var(--studio-accent); box-shadow: 0 0 0 1px var(--studio-accent); }
+.life-range::-moz-range-thumb { width: 12px; height: 12px; border: 5px solid var(--paper); border-radius: 50%; background: var(--studio-accent); box-shadow: 0 0 0 1px var(--studio-accent); }
+.life-chapters { display: flex; justify-content: space-between; gap: 4px; margin: 0 20px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--studio-accent) transparent; }
+.studio-home .life-chapters a { flex: 0 0 auto; display: grid; align-content: center; gap: 3px; min-height: 56px; min-width: 56px; padding: 4px; text-decoration: none; border: 0; text-align: center; color: var(--faded); font: 10px/1.5 "JetBrains Mono", monospace; }
+.life-chapters small { font: 9px/1.5 "Playpen Sans", sans-serif; }
+.studio-home .life-chapters a[aria-current="step"] { color: var(--studio-accent); }
+.life-chapters a[aria-current="step"] > span { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.life-story { margin: 30px 20px 0; }
+:is(.studio-loading, .studio-ready) .life-story, .life-ready .life-story { display: grid; grid-template-columns: 1fr; }
+:is(.studio-loading, .studio-ready) .life-chapter, .life-ready .life-chapter { grid-area: 1/1; min-height: 156px; visibility: hidden; }
+:is(.studio-loading, .studio-ready) .life-chapter.is-current, .life-ready .life-chapter.is-current { visibility: visible; }
+:is(.studio-loading, .studio-ready) .life-journey:not(.life-ready):not(.life-fallback) .life-story:has(.life-chapter:target) .life-chapter { visibility: hidden; }
+:is(.studio-loading, .studio-ready) .life-journey:not(.life-ready):not(.life-fallback) .life-story:has(.life-chapter:target) .life-chapter:target { visibility: visible; }
+.life-fallback .life-story { display: block; }
+.life-fallback .life-chapter { visibility: visible; }
+.life-fallback .life-controls { display: none; }
+.studio-home .life-fallback .life-story-footer { display: none; }
+.studio-home .life-chapter { margin-bottom: 24px; }
+.studio-home .life-chapter > span { color: var(--studio-clay); font: 9px/1.7 "JetBrains Mono", monospace; letter-spacing: .06em; }
+.studio-home .life-chapter h3 { font: 28px/1.3 Georgia, serif; margin: 9px 0 10px; color: var(--ink); }
+.studio-home .life-chapter p { max-width: 660px; margin: 0; font-size: 13px; line-height: 1.9; }
+.life-story-footer { display: none; }
+:is(.studio-loading, .studio-ready) .life-story-footer, .life-ready .life-story-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 20px 25px; }
+.life-story-footer > span { font: italic 11px/1.8 "Playpen Sans", sans-serif; color: var(--faded); }
+.life-story-footer > div { display: flex; gap: 8px; }
+.life-story-footer button { background: transparent; color: var(--studio-accent); min-width: 44px; min-height: 44px; border: 1px solid color-mix(in srgb, var(--studio-accent) 35%, transparent); border-radius: 50%; font-size: 18px; }
+.life-story-footer button:disabled { opacity: .35; cursor: default; }
+.life-journey :is(button,a,input,summary):focus-visible { outline: 2px solid var(--studio-accent); outline-offset: 4px; }
+.life-postscript { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin: 30px 20px 0; }
+.life-postscript .studio-flight-study { flex: 1; max-width: 280px; }
+.life-journey svg .life-scenery { opacity: 0; }
+.life-journey svg .life-scenery[data-land="home"] { opacity: 1; }
+.life-journey svg .life-child, .life-journey svg .life-future { opacity: 0; }
+.life-journey svg .life-bunting { opacity: 0; }
+@media (max-width: 800px) {
+  .studio-home .life-heading { grid-template-columns: 1fr; gap: 14px; }
+  .studio-home .life-heading p { max-width: 520px; }
+  .life-controls, .life-chapters, .life-story, .life-ready .life-story-footer, .life-postscript { margin-inline: 0; }
+  .life-scene { aspect-ratio: 1.75; }
+  .life-scene > svg, .life-scene > img { width: 130%; max-width: none; margin-left: -15%; }
+  .life-scene-caption { padding: 0; margin-top: -8px; }
+}
+@media (max-width: 480px) {
+  .studio-home .studio-life.life-journey { padding-top: 55px; }
+  .studio-home .life-heading h2 { font-size: 34px; }
+  .life-scene { aspect-ratio: 1.2; }
+  .life-scene > svg, .life-scene > img { width: 178%; margin-left: -39%; }
+  .life-scene-caption { display: grid; align-content: start; gap: 2px; margin-top: -10px; min-height: 75px; }
+  .life-ready .life-controls { margin: 20px 0 0; }
+  .life-scrub-heading { gap: 5px; }
+  .life-scrub-heading label { font-size: 9px; }
+  .life-play { font-size: 10px; padding-inline: 7px; }
+  .life-ready .life-chapter { min-height: 220px; }
+  .studio-home .life-chapter h3 { font-size: 25px; }
+  .life-story-footer > span { max-width: 170px; font-size: 10px; }
+  .life-postscript { gap: 18px; }
+  .life-postscript .studio-handwritten { max-width: 150px; }
+}
+@media (prefers-reduced-motion: reduce) { .life-journey .life-play { display: none; } }

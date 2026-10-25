@@ -65,6 +65,8 @@
     
       <link rel="stylesheet" href="./assets/css/studio-arrival.css">
     
+      <link rel="stylesheet" href="./assets/css/studio-life.css">
+    
     <script>__md_scope=new URL(".",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
       
@@ -393,8 +395,39 @@
 </div>
 <div class="studio-discoveries" role="status">Four projects. Follow whatever catches your eye.</div>
 </section>
-<section class="studio-life" aria-labelledby="beyond-work"><figure class="studio-family"><img src="assets/images/studio/the-good-stuff.webp" width="400" height="400" loading="lazy" decoding="async" fetchpriority="low" alt="An illustration of a family of four walking together in a sunny park."><figcaption>The good stuff.</figcaption></figure><div><div class="studio-kicker">02 / Away from the keyboard</div><h2 id="beyond-work">There’s a whole life<br>around the work.</h2><p>My wife, our two kids, and the extended fam. Little terminal tools. Kaggle and undergrad at night. I’m still figuring things out, and I like being a student.</p><p>Nebraska is home. I’ve taken the long way around: across the States, over to Spain, Germany, and Gibraltar, and back to the Midwest.</p><div class="studio-flight-study" id="been-around"><svg class="doodle-plane" viewBox="0 0 700 34" aria-hidden="true"><path d="M6 22C160 0 320 35 540 16L680 5 655 30 651 17 680 5"/></svg></div><span class="studio-handwritten">Observe, learn, apply, share. Repeat.</span></div></section>
+<section class="studio-life life-journey" aria-labelledby="beyond-work" data-life-year="2012">
+<div class="life-heading"><div><div class="studio-kicker">02 / Away from the keyboard</div><h2 id="beyond-work">A few chapters<br><em>from the rest of life.</em></h2></div><p>A Marine, a husband, a dad. Software came later. There’s a whole life around the work, and these are a few of the people and places in it.</p></div>
+<div class="life-theater">
+<div class="life-scene" role="img" aria-label="An illustrated walk with Brandon and Maria, before the kiddos join the story."><img src="assets/images/studio/life-walk.svg" width="1000" height="440" loading="lazy" decoding="async" alt=""></div>
+<div class="life-scene-caption"><span class="life-place">Omaha, Nebraska</span><span class="life-family-count">Two familiar faces.</span></div>
+<div class="life-controls"><div class="life-scrub-heading"><label for="life-year">Walk through the years</label><button class="life-play" type="button" aria-pressed="false" disabled>Play the walk ↗</button><output for="life-year">2012</output></div><input class="life-range" id="life-year" type="range" disabled min="2012" max="2027" step="0.01" value="2012" aria-valuetext="2012: A familiar face."></div>
+<nav class="life-chapters" aria-label="Chapters from life"><a href="#life-2012" data-life-stop="2012"><span>2012</span><small>Again</small></a><a href="#life-2014" data-life-stop="2014"><span>2014</span><small>New paths</small></a><a href="#life-2016" data-life-stop="2016"><span>2016</span><small>Married</small></a><a href="#life-2018" data-life-stop="2018"><span>2018</span><small>Spain</small></a><a href="#life-2019" data-life-stop="2019"><span>2019</span><small>Three</small></a><a href="#life-2021" data-life-stop="2021"><span>2021</span><small>Code</small></a><a href="#life-2024" data-life-stop="2024"><span>2024</span><small>Four</small></a><a href="#life-2026" data-life-stop="2026"><span>2026</span><small>Today</small></a><a href="#life-2027" data-life-stop="2027"><span>2027</span><small>Next</small></a></nav>
+<div class="life-story" aria-live="polite" aria-atomic="true">
+<article class="life-chapter is-current" id="life-2012" data-year="2012" data-land="home" data-location="Omaha, Nebraska" data-family="Two familiar faces."><span>2012 / A familiar face</span><h3>We’d apparently met before.</h3><p>Sunday school, as it turns out. Maria and I met again in 2012. We weren’t dating yet, but this is a good place to start our story.</p></article>
+<article class="life-chapter" id="life-2014" data-year="2014" data-land="coast" data-location="Camp Lejeune, North Carolina" data-family="The two of us."><span>2014 / New paths</span><h3>Dating, and a different day job.</h3><p>We started dating in 2014. I also began my Marine Corps years, working as a legal specialist at Camp Lejeune in North Carolina.</p></article>
+<article class="life-chapter" id="life-2016" data-wedding data-year="2016" data-land="coast" data-location="Camp Lejeune, North Carolina" data-family="Married in 2016."><span>2016 / Married</span><h3>We made it official.</h3><p>We got married in 2016. I was still at Camp Lejeune, moving from legal specialist work into court reporting later that year.</p></article>
+<article class="life-chapter" id="life-2018" data-year="2018" data-land="spain" data-location="Morón de la Frontera, Spain" data-family="The two of us, a long way from Nebraska."><span>2018 / A chapter in Andalusia</span><h3>A long way from home.</h3><p>Morón de la Frontera, Spain. I served as a legal chief there through April 2019. There was a whole working life before my first software engineering job.</p></article>
+<article class="life-chapter" id="life-2019" data-arrival data-year="2019" data-land="home" data-location="Back in Nebraska" data-family="Three of us. First kiddo, 2019."><span>2019 / Three of us</span><h3>Home got a little bigger.</h3><p>Our first kiddo arrived in 2019. Back in Nebraska, we were learning how to be parents.</p></article>
+<article class="life-chapter" id="life-2021" data-beard data-thinning data-year="2021" data-land="home" data-location="Omaha, Nebraska" data-family="Three of us, and a new line of work."><span>2021 / Learning a new craft</span><h3>Then came the code.</h3><p>I studied full-stack development at devCodeCamp and joined Leidos as a software engineer later that year. Family life was already well underway.</p></article>
+<article class="life-chapter" id="life-2024" data-arrival data-hat data-year="2024" data-land="home" data-location="Omaha, Nebraska" data-family="Four of us. Second kiddo, 2024."><span>2024 / Four of us</span><h3>Another little person joined us.</h3><p>Our second kiddo arrived in 2024. I was at Fiserv by then, settling into senior engineering work.</p></article>
+<article class="life-chapter" id="life-2026" data-year="2026" data-land="home" data-location="Omaha, Nebraska · Today" data-family="The four of us, for now."><span>2026 / The page we’re on</span><h3>Still learning. Still home.</h3><p>Omaha is home. I’m Director of AI at Western States Fire Protection, and I’m working toward finishing my UNO degree in December.</p></article>
+<article class="life-chapter" id="life-2027" data-arrival data-year="2027" data-land="home" data-location="The next chapter · Expected in 2027" data-family="One more on the way. Third kiddo expected in 2027."><span>2027 / A future chapter</span><h3>Room for one more.</h3><p>We’re expecting our third kiddo in 2027.</p></article>
+</div>
+<div class="life-story-footer"><span>Drag the year, or follow a chapter.</span><div><button type="button" data-life-direction="-1" aria-label="Previous chapter" disabled>←</button><button type="button" data-life-direction="1" aria-label="Next chapter" disabled>→</button></div></div>
+</div>
+
+<div class="life-postscript"><span class="studio-handwritten">Observe, learn, apply, share. Repeat.</span><div class="studio-flight-study" id="been-around"><svg class="doodle-plane" viewBox="0 0 700 34" aria-hidden="true"><path d="M6 22C160 0 320 35 540 16L680 5 655 30 651 17 680 5"/></svg></div></div>
+</section>
 <section class="studio-contact" aria-labelledby="connect"><div class="studio-kicker">03 / Pull up a chair</div><h2 id="connect">Always happy to chat.</h2><p>If you’d like to understand how I make AI work for people in organizations, reach out. Or bring a stubborn problem, a little tool, or something to teach me.</p><a class="studio-primary" href="mailto:b.dev.c.m@gmail.com">Email me <span aria-hidden="true">↗</span></a><div class="studio-social"><a href="https://github.com/BA-CalderonMorales">GitHub</a><a href="https://www.linkedin.com/in/bcalderonmorales-cmoe/">LinkedIn</a><a href="https://www.kaggle.com/bmoe640">Kaggle</a></div><span class="studio-coffee" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M24 40h46v29q-23 25-46 0Zm46 4h8q20 12-6 22M17 84h63M35 28q-8-8 0-16m14 16q-8-8 0-16m14 16q-8-8 0-16"/></svg></span></section>
+<section class="studio-recommendations" aria-labelledby="from-people">
+<h2 id="from-people">From people I’ve worked with.</h2>
+<div class="studio-recommendation-grid">
+<figure><blockquote><p>“His patience and approach to teaching stood out to me.”</p></blockquote><figcaption><strong>Viren Ghone</strong><span>Teammate · 2026</span></figcaption></figure>
+<figure><blockquote><p>“Brandon brings a collaborative mindset, a willingness to explore new technologies, and a strong focus on finding practical ways to improve development workflows.”</p></blockquote><figcaption><strong>Vignesh Kumar A C</strong><span>Teammate · 2026</span></figcaption></figure>
+<figure><blockquote><p>“Brandon has continually put others ahead of himself in the pursuit of team excellence.”</p></blockquote><figcaption><strong>Jim Schenkelberg</strong><span>devCodeCamp classmate · 2021</span></figcaption></figure>
+</div>
+<a class="studio-recommendations-source" href="https://www.linkedin.com/in/bcalderonmorales-cmoe/">More on LinkedIn ↗</a>
+</section>
 <div class="studio-signoff">Made with curiosity in Omaha. <span>Still a work in progress.</span></div>
 </div>
 
@@ -503,6 +536,8 @@
         <script src="./assets/js/studio-world.js"></script>
       
         <script src="./assets/js/studio-workbench.js"></script>
+      
+        <script src="./assets/js/studio-life.js"></script>
       
     
   </body>
