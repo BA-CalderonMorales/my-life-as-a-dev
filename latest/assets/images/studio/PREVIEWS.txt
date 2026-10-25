@@ -1,0 +1,9 @@
+Scene preview assets
+
+The notebook and workbench previews are rendered directly from the site's own Three.js models at twice their display resolution. They are lightweight placeholders, not separate illustrations. Regenerate them whenever model geometry, camera framing, or default experiment state changes.
+
+Build the site, then run the repo-owned Playwright export through uv:
+
+ARRIVAL_EXPORT_POSTERS=/tmp/notebook-previews uv run pytest e2e/tools/test_scene_previews.py -q
+
+Inspect the exports and copy them into this directory. Desktop, tablet, and mobile files match the three scene layouts. The family WebP files are optimized copies of the original supplied PNG; the small copy is used only for the tiny photograph in the 3D notebook.

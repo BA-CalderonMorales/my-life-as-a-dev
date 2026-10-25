@@ -48,14 +48,12 @@
       
     
     
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playpen+Sans:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
-        <style>:root{--md-text-font:"Playpen Sans";--md-code-font:"JetBrains Mono"}</style>
-      
+  <link rel="preload" href="./assets/fonts/playpen-sans-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/playpen-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/playpen-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+
     
+      <link rel="stylesheet" href="./assets/css/fonts.css">
     
       <link rel="stylesheet" href="./assets/css/theme.css">
     
@@ -65,12 +63,36 @@
     
       <link rel="stylesheet" href="./assets/css/workbench.css">
     
+      <link rel="stylesheet" href="./assets/css/studio-arrival.css">
+    
     <script>__md_scope=new URL(".",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
       
 
     
     
+  
+  
+    <script>
+      document.documentElement.classList.add('studio-loading');
+      document.documentElement.dataset.studioProject = ['jarvis','agent','algorithm','notebook'].includes(location.hash.slice(9)) ? location.hash.slice(9) : 'jarvis';
+      try {
+        if (!location.hash && sessionStorage.getItem('studio-entered') !== '1')
+          document.documentElement.classList.add('studio-arrival-pending');
+      } catch {
+        if (!location.hash) document.documentElement.classList.add('studio-arrival-pending');
+      }
+      window.setTimeout(() => {
+        if (!document.querySelector('.studio-arrival[open]'))
+          document.documentElement.classList.remove('studio-arrival-pending');
+      }, 20000);
+    </script>
+    <link rel="preload" as="image" href="./assets/images/studio/notebook-preview-mobile.webp" media="(max-width:640px)" fetchpriority="high">
+    <link rel="preload" as="image" href="./assets/images/studio/notebook-preview-tablet.webp" media="(min-width:641px) and (max-width:1100px), (min-width:641px) and (pointer:coarse)" fetchpriority="high">
+    <link rel="preload" as="image" href="./assets/images/studio/notebook-preview-desktop.webp" media="(min-width:1101px) and (pointer:fine)" fetchpriority="high">
+    <link rel="modulepreload" href="./assets/vendor/three/three.module.min.js" fetchpriority="low">
+  
+
   </head>
   
   
@@ -178,15 +200,7 @@
     
     <div class="md-header__source">
       
-        <a href="https://github.com/BA-CalderonMorales/my-life-as-a-dev" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
-  </div>
-  <div class="md-source__repository">
-    BA-CalderonMorales/my-life-as-a-dev
-  </div>
-</a>
+        
       
     </div>
   </nav>
@@ -226,15 +240,7 @@
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/BA-CalderonMorales/my-life-as-a-dev" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
-  </div>
-  <div class="md-source__repository">
-    BA-CalderonMorales/my-life-as-a-dev
-  </div>
-</a>
+      
     </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -318,6 +324,20 @@
   
 
 
+<div class="studio-arrival-shell">
+<dialog class="studio-arrival" aria-labelledby="arrival-title" aria-describedby="arrival-status">
+<div class="arrival-card">
+<div class="arrival-wordmark" aria-hidden="true">bc <span>/ field notes</span></div>
+<svg class="arrival-flight" viewBox="0 0 260 86" aria-hidden="true"><path class="arrival-trail" d="M14 62C40 82 105 68 102 40S52 18 63 43s77 13 109-10"/><g class="arrival-plane"><path d="m163 30 66-17-37 46-5-23-24-6Z"/><path d="m187 36 42-23-37 46m-5-23-8 13 13-5"/></g><path class="arrival-spark" d="M32 18v12m-6-6h12M236 61v8m-4-4h8"/></svg>
+<p class="arrival-eyebrow">A notebook from Brandon</p>
+<h2 id="arrival-title">Make yourself<br><em>at home.</em></h2>
+<p id="arrival-status" role="status">Just opening up the little world inside.</p>
+<ul class="arrival-checks" aria-label="Preparing your visit"><li data-arrival-check="paper">Paper</li><li data-arrival-check="world">Notebook</li><li data-arrival-check="bench">Workbench</li></ul>
+<button class="arrival-enter" type="button" disabled>Opening the notebook…</button>
+<button class="arrival-skip" type="button">Have a look while it loads</button>
+</div>
+</dialog>
+</div>
 <div class="studio-home" id="studio">
 <nav class="studio-masthead" aria-label="Around the studio"><a class="studio-wordmark" href="#studio">bc<span> / field notes</span></a><div><a href="#building">The workbench</a><a href="#beyond-work">Life, too</a><a href="#connect">Say hello ↗</a></div></nav>
 <section class="studio-hero studio-hero-world" aria-labelledby="brandon-calderon-morales">
@@ -325,7 +345,7 @@
 <div class="studio-world-introduction"><p>I build little tools, pull at stubborn problems, and share what I learn. This notebook is a place to have a look around.</p><p class="studio-credential">Director of AI at Western States Fire Protection.<br>Marine veteran. Dad. Still a student.</p></div>
 <div class="paper-world" aria-label="Explore the paper notebook">
 <div class="paper-world-topline"><span>FIELD NOTES / A WORLD IN THE MARGINS</span><span class="paper-world-progress">0 / 4 places found</span><button type="button" data-world-immersive>Step inside ↗</button></div>
-<div class="paper-world-viewport"><div class="paper-world-fallback"><img src="assets/images/studio/the-long-way.png" width="1400" height="349" alt="A hiker looking across sunlit mountains and clouds."><p>Explore the projects below, or open the notebook in 3D.</p></div></div>
+<div class="paper-world-viewport" aria-busy="false"><div class="paper-world-fallback"><picture class="scene-preview"><source media="(max-width:640px)" srcset="assets/images/studio/notebook-preview-mobile.webp"><source media="(max-width:1100px), (pointer:coarse)" srcset="assets/images/studio/notebook-preview-tablet.webp"><img src="assets/images/studio/notebook-preview-desktop.webp" width="1100" height="590" fetchpriority="high" alt="An open paper notebook with a tiny terminal, gears, a skyline, and a page to draw on."></picture></div><nav class="paper-world-places" aria-label="Notebook places"><button type="button" class="paper-world-marker" data-place="home" aria-pressed="true" disabled><span>00</span><span>Home base</span></button><button type="button" class="paper-world-marker" data-place="jarvis" aria-pressed="false" disabled><span>01</span><span>The tool shed</span></button><button type="button" class="paper-world-marker" data-place="agent" aria-pressed="false" disabled><span>02</span><span>Under the hood</span></button><button type="button" class="paper-world-marker" data-place="algorithm" aria-pressed="false" disabled><span>03</span><span>A little order</span></button><button type="button" class="paper-world-marker" data-place="notebook" aria-pressed="false" disabled><span>04</span><span>An open page</span></button></nav></div>
 <div class="paper-world-note" hidden><span class="paper-world-note-label"></span><h3></h3><p></p><div><button class="studio-button" type="button" data-world-sort hidden>Put the skyline in order</button><button class="studio-text-button" type="button" data-world-notes>Open the field notes ↓</button></div></div>
 <div class="paper-world-bottomline"><p class="paper-world-status" role="status">Pick a place to explore. The workbench below is always open, too.</p><button type="button" data-world-reset>Back to home base ↺</button></div>
 <div class="paper-world-instructions"><span>Click to fly · drag to turn the page</span><span>Keyboard: arrow keys to fly · Enter to visit · Esc to return</span><a href="#building">Straight to the projects ↓</a></div>
@@ -336,8 +356,8 @@
 <div class="studio-section-heading"><div><div class="studio-kicker">01 / Things I’m building</div><h2 id="building">Welcome to the workbench.</h2></div><p>Pick something up. See what makes it tick.</p></div>
 <div class="studio-bench">
 <div class="bench-object-stage" aria-label="The project workbench">
-<div class="bench-stage-heading"><span class="bench-active-caption">01 / The tool shed</span><span>Pick it up. See what happens.</span></div>
-<div class="bench-viewport"><div class="bench-loading-art" aria-hidden="true"><svg viewBox="0 0 340 220"><path d="M80 35h180v115H80zM93 48h154v87H93zM155 150v20m30-20v20M125 170h90M66 180h210l15 25H50zM105 65l12 10-12 10m23 0h35"/></svg></div></div>
+<div class="bench-stage-heading"><span class="bench-active-caption">A little room to explore.</span><span>Pick it up. See what happens.</span></div>
+<div class="bench-viewport" aria-busy="false"><div class="bench-loading-art" role="img" aria-label="A preview of the project on the workbench"></div></div>
 <div class="bench-stage-footer"><p class="bench-action-hint">Choose a project to take a closer look.</p><div><button type="button" data-bench-turn>Turn it ↻</button><button type="button" data-bench-reset>Set it down</button><button type="button" data-bench-draw aria-pressed="false" hidden>Pick up the pencil</button></div></div>
 </div>
 <nav class="studio-project-list" aria-label="Project experiments">
@@ -373,7 +393,7 @@
 </div>
 <div class="studio-discoveries" role="status">Four projects. Follow whatever catches your eye.</div>
 </section>
-<section class="studio-life" aria-labelledby="beyond-work"><figure class="studio-family"><img src="assets/images/studio/the-good-stuff.png" width="400" height="400" loading="lazy" alt="An illustration of a family of four walking together in a sunny park."><figcaption>The good stuff.</figcaption></figure><div><div class="studio-kicker">02 / Away from the keyboard</div><h2 id="beyond-work">There’s a whole life<br>around the work.</h2><p>My wife, our two kids, and the extended fam. Little terminal tools. Kaggle and undergrad at night. I’m still figuring things out, and I like being a student.</p><p>Nebraska is home. I’ve taken the long way around: across the States, over to Spain, Germany, and Gibraltar, and back to the Midwest.</p><div class="studio-flight-study" id="been-around"><svg class="doodle-plane" viewBox="0 0 700 34" aria-hidden="true"><path d="M6 22C160 0 320 35 540 16L680 5 655 30 651 17 680 5"/></svg></div><span class="studio-handwritten">Observe, learn, apply, share. Repeat.</span></div></section>
+<section class="studio-life" aria-labelledby="beyond-work"><figure class="studio-family"><img src="assets/images/studio/the-good-stuff.webp" width="400" height="400" loading="lazy" decoding="async" fetchpriority="low" alt="An illustration of a family of four walking together in a sunny park."><figcaption>The good stuff.</figcaption></figure><div><div class="studio-kicker">02 / Away from the keyboard</div><h2 id="beyond-work">There’s a whole life<br>around the work.</h2><p>My wife, our two kids, and the extended fam. Little terminal tools. Kaggle and undergrad at night. I’m still figuring things out, and I like being a student.</p><p>Nebraska is home. I’ve taken the long way around: across the States, over to Spain, Germany, and Gibraltar, and back to the Midwest.</p><div class="studio-flight-study" id="been-around"><svg class="doodle-plane" viewBox="0 0 700 34" aria-hidden="true"><path d="M6 22C160 0 320 35 540 16L680 5 655 30 651 17 680 5"/></svg></div><span class="studio-handwritten">Observe, learn, apply, share. Repeat.</span></div></section>
 <section class="studio-contact" aria-labelledby="connect"><div class="studio-kicker">03 / Pull up a chair</div><h2 id="connect">Always happy to chat.</h2><p>If you’d like to understand how I make AI work for people in organizations, reach out. Or bring a stubborn problem, a little tool, or something to teach me.</p><a class="studio-primary" href="mailto:b.dev.c.m@gmail.com">Email me <span aria-hidden="true">↗</span></a><div class="studio-social"><a href="https://github.com/BA-CalderonMorales">GitHub</a><a href="https://www.linkedin.com/in/bcalderonmorales-cmoe/">LinkedIn</a><a href="https://www.kaggle.com/bmoe640">Kaggle</a></div><span class="studio-coffee" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M24 40h46v29q-23 25-46 0Zm46 4h8q20 12-6 22M17 84h63M35 28q-8-8 0-16m14 16q-8-8 0-16m14 16q-8-8 0-16"/></svg></span></section>
 <div class="studio-signoff">Made with curiosity in Omaha. <span>Still a work in progress.</span></div>
 </div>
@@ -471,6 +491,8 @@
     
     
       <script src="./assets/javascripts/bundle.10ee5ab6.min.js"></script>
+      
+        <script src="./assets/js/studio-arrival.js"></script>
       
         <script src="./assets/js/doodles.js"></script>
       
