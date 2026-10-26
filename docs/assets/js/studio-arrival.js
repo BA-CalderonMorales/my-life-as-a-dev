@@ -3,6 +3,7 @@
   "use strict";
   let disposeArrival = () => {};
   let activeDialog = null;
+  const entryURL = new URL("studio-arrival/Entry.js", document.currentScript.src);
 
   function mountArrival() {
     const html = document.documentElement;
@@ -19,33 +20,39 @@
     const status = dialog.querySelector("#arrival-status");
     const events = new AbortController();
     const options = { signal: events.signal };
-    let paperReady = false, entered = false, disposed = false, closing = 0;
+    let paperReady = false, entered = false, disposed = false;
     let deadline = 0;
+    let openNotebook = null, cancelEntry = () => {};
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    import(entryURL.href).then((module) => { openNotebook = module.openNotebook; }).catch(() => {});
 
     function releaseArrival() {
       disposed = true;
       events.abort();
       observer.disconnect();
       clearTimeout(deadline);
-      clearTimeout(closing);
+      cancelEntry();
       dialog.close();
-      html.classList.remove("studio-arrival-pending");
+      html.classList.remove("studio-arrival-pending", "studio-arrival-entering");
     }
 
-    function enterStudio() {
+    function finishEntry() {
+      if (disposed) return;
+      releaseArrival();
+      const heading = root.querySelector("h1");
+      if (!heading?.isConnected) return;
+      heading.tabIndex = -1;
+      heading.focus({ preventScroll: true });
+    }
+
+    function enterStudio(animate = false) {
       if (entered || disposed) return;
       entered = true;
       try { sessionStorage.setItem("studio-entered", "1"); } catch {}
-      dialog.classList.add("arrival-leaving");
-      html.classList.remove("studio-arrival-pending");
-      const finish = () => {
-        releaseArrival();
-        const heading = root.querySelector("h1");
-        heading.tabIndex = -1;
-        heading.focus({ preventScroll: true });
-      };
-      if (matchMedia("(prefers-reduced-motion: reduce)").matches) finish();
-      else closing = setTimeout(finish, 360);
+      if (!animate || motion.matches || !openNotebook) { finishEntry(); return; }
+      try {
+        cancelEntry = openNotebook({ dialog, world, complete: finishEntry });
+      } catch { finishEntry(); }
     }
 
     function offerEntry(timedOut = false) {
@@ -82,8 +89,8 @@
     observer.observe(bench, { attributes: true, attributeFilter: ["data-bench-state"] });
     observer.observe(root, { attributes: true, attributeFilter: ["class"] });
     dialog.dataset.arrivalState = "loading";
-    enter.addEventListener("click", enterStudio, options);
-    skip.addEventListener("click", enterStudio, options);
+    enter.addEventListener("click", () => enterStudio(true), options);
+    skip.addEventListener("click", () => enterStudio(), options);
     dialog.addEventListener("keydown", (event) => {
       if (event.key !== "Tab") return;
       const buttons = [...dialog.querySelectorAll("button:not(:disabled)")];
@@ -99,11 +106,14 @@
     }, options);
     dialog.addEventListener("cancel", (event) => {
       event.preventDefault();
-      enterStudio();
+      if (entered) finishEntry();
+      else enterStudio();
     }, options);
     dialog.addEventListener("close", () => {
-      if (!entered && !disposed) enterStudio();
+      if (!disposed) { if (entered) finishEntry(); else enterStudio(); }
     }, options);
+    motion.addEventListener("change", () => { if (entered && motion.matches) finishEntry(); }, options);
+    document.addEventListener("visibilitychange", () => { if (entered && document.hidden) finishEntry(); }, options);
     try { dialog.showModal(); } catch { releaseArrival(); return; }
     deadline = setTimeout(() => offerEntry(true), 15000);
     document.fonts.ready.then(() => {
