@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 440" fill="none">
+  <defs>
+    <linearGradient id="life-sky" x1="500" y1="20" x2="500" y2="290" gradientUnits="userSpaceOnUse"><stop stop-color="#e8d6b4" stop-opacity=".45"/><stop offset="1" stop-color="#f7f1e3" stop-opacity="0"/></linearGradient>
+    <linearGradient id="life-road" x1="500" y1="280" x2="500" y2="400" gradientUnits="userSpaceOnUse"><stop stop-color="#eee6d3"/><stop offset="1" stop-color="#f8f2e5"/></linearGradient>
+    <filter id="life-shadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5"/></filter>
+    <g id="life-pine"><path d="M0 0 20 35H10L29 63H16L34 92H-34L-16 63H-29L-10 35H-20Z" fill="#7f946d"/><path d="M0 0V92H34L16 63H29L10 35H20Z" fill="#647f60"/><path d="M-3 92H3V111H-3Z" fill="#82765a"/></g>
+    <g id="life-tree"><path d="m0 70 0 56m0-36-18-19M0 82l18-15" stroke="#807451" stroke-width="5"/><path d="M-36 54C-48 36-35 20-21 20-23 3-5-7 9 2c17-5 34 9 31 25 22 5 25 31 8 40-5 21-28 25-41 17-19 11-43 0-43-17-15 0-19-9-13-20Z" fill="#9daa79"/><path d="M0 13c24-8 42 10 38 24 19 10 19 31-1 38-4 12-20 16-35 8Z" fill="#84996d"/></g>
+    <g id="life-grass" stroke="#8c9a70" stroke-width="1.7" stroke-linecap="round"><path d="m0 0-4-9M0 0l4-13M0 0l9-6"/></g>
+    <g id="life-house"><path d="M-35 0H35V68H-35Z" fill="#ece2c8"/><path d="m-44 1 44-37L44 1Z" fill="#ad775d"/><path d="M-8 28H10V68H-8Z" fill="#71846d"/><path d="M-25 14H-14V30H-25ZM20 14H30V30H20Z" fill="#b5c0ad"/><path d="M-40 68H40" stroke="#c6bda6" stroke-width="3"/><path d="M19-31H27V-10H19Z" fill="#8c785e"/></g>
+    <g id="life-cloud" fill="#f4eee0"><path d="M0 15c-4-12 12-22 22-16 5-17 31-18 38-3 16-4 30 4 29 17 13-1 20 11 14 19H-10C-15 23-9 15 0 15Z"/></g>
+    <linearGradient id="life-skin" x1="-20" y1="25" x2="32" y2="42" gradientUnits="userSpaceOnUse"><stop stop-color="#b77d53"/><stop offset=".65" stop-color="#d2a071"/><stop offset="1" stop-color="#e0b58a"/></linearGradient>
+    <linearGradient id="life-shirt" x1="-24" y1="100" x2="25" y2="100" gradientUnits="userSpaceOnUse"><stop stop-color="#5d7e62"/><stop offset=".6" stop-color="#8a9f80"/><stop offset="1" stop-color="#a2b092"/></linearGradient>
+    <linearGradient id="life-teal" x1="-25" y1="110" x2="28" y2="110" gradientUnits="userSpaceOnUse"><stop stop-color="#397c7b"/><stop offset=".58" stop-color="#559a95"/><stop offset="1" stop-color="#78b1a5"/></linearGradient>
+    <linearGradient id="life-hair" x1="-30" y1="35" x2="15" y2="35" gradientUnits="userSpaceOnUse"><stop stop-color="#55402e"/><stop offset=".55" stop-color="#38392c"/><stop offset="1" stop-color="#252f29"/></linearGradient>
+    <linearGradient id="life-hat" x1="-20" y1="-6" x2="20" y2="12" gradientUnits="userSpaceOnUse"><stop stop-color="#8e8056"/><stop offset=".65" stop-color="#796a47"/><stop offset="1" stop-color="#5e573c"/></linearGradient>
+    <g id="life-hand-relaxed" stroke="#76573e" stroke-width=".85" stroke-linecap="round" stroke-linejoin="round" fill="currentColor"><path d="M-4-2Q-6 2-5 7L-3 15Q-2 19 0 17 1 21 3 18 6 20 6 15L7 9Q11 12 12 8L8 2 5-2Z"/><path d="M0 9 1 16M3 9l1 6M6 6l1 3" fill="none" stroke-opacity=".65"/></g>
+    <g id="life-hand-grip" data-contact="6.4" stroke="#76573e" stroke-width=".85" stroke-linecap="round" stroke-linejoin="round" fill="currentColor"><g transform="rotate(90) scale(.8)"><path d="M-3-4L1-4Q-1-10 3-11 6-12 8-7L10-3 14-4Q17-7 20-4 22-2 19 1L14 6Q6 10-3 4Z"/><path d="M9 2Q14 2 17-1M8 5q5 0 8-3M2-3l3 4" fill="none" stroke-opacity=".65"/></g></g>
+
+    <g id="life-dad" data-facing="right" stroke="#554735" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round">
+      <ellipse cx="5" cy="214" rx="29" ry="5" fill="#6c7865" opacity=".13" stroke="none"/>
+      <g class="life-arm life-arm-left" data-owner="dad" data-upper="30" data-lower="27" data-skin="#b88760" data-hand-scale="1" transform="translate(-7 83)"><path d="M-6.5 0Q-10.5 5-8.5 14L-5.5 31Q0 35 7.5 30L9.5 10Q9.5 0-6.5 0Z" fill="#668367"/><path d="M-8 23 9 21 10 30Q0 34-7 32Z" fill="#a3b28e"/><path d="m-5 27 11-2" stroke="#54755b" stroke-opacity=".6"/><g class="life-forearm" transform="translate(0 30) rotate(-8)" style="color:#b88760"><path d="M-5.5-2Q-9.5 7-5.5 22L-3 28H4L6.5 9 5.5-2Z" fill="currentColor"/><path d="M-2 4 3 3" stroke="#976e4b" stroke-opacity=".4"/><g class="life-hand" transform="translate(0 27)"><use class="life-relaxed-fingers" href="#life-hand-relaxed"/><use class="life-gripping-fingers" href="#life-hand-grip" opacity="0"/></g></g></g>
+      <g class="life-leg life-leg-left" transform="translate(-6 147)"><path d="M-11 0H8L8 30-8 33Z" fill="#73684f"/><g class="life-shin" transform="translate(0 28)"><path d="M-8 0H8L7 29-7 29Z" fill="#73684f"/><path d="M-8 26H8L11 32 22 34Q27 38 22 40H-10Z" fill="#6d5841"/><path d="M-10 39H24M-3 29H7" stroke="#493f33"/></g></g>
+      <g class="life-leg life-leg-right" transform="translate(5 147)"><path d="M-10 0H10L8 30-7 33Z" fill="#8e7d58"/><path d="M-2 2 0 26M-7 25l7 3" stroke="#6e6248"/><g class="life-shin" transform="translate(0 28)"><path d="M-7 0H8L8 29-6 29Z" fill="#8e7d58"/><path d="M-7 26H9L12 32 23 34Q28 38 23 40H-9Z" fill="#836747"/><path d="M-9 39H25M0 29H8" stroke="#544632"/><path d="m11 33 4 2" stroke="#b6976c"/></g></g>
+      <path d="M-13 72Q1 63 12 76L21 95 20 145Q3 155-18 146L-21 100Z" fill="url(#life-shirt)"/>
+      <path d="M13 79 17 143M4 93l8 1-1 20-9-2ZM-16 126l8 3M-12 138l9-3" stroke="#547154" fill="none"/><path d="m-6 73 8 14 9-11-6-7Z" fill="#afbc9b"/><path d="M-18 144Q1 150 20 143V150Q1 156-18 150Z" fill="#66533c"/><path d="M13 145h7v7h-7Z" fill="#baaa77"/>
+      <g class="life-arm life-arm-right" data-owner="dad" data-upper="36" data-lower="33" data-skin="#c7976b" data-hand-scale="1" transform="translate(-5 80)"><path d="M-6.5 0Q-10.5 5 -8.5 14L-5.5 37Q0 41 7.5 36L9.5 10Q9.5 0 -6.5 0Z" fill="url(#life-shirt)"/><path d="M-8 29 9 27 10 36Q0 40-7 38Z" fill="#a2b18f"/><path d="m-5 33 11-2" stroke="#54755b" stroke-opacity=".6"/><g class="life-forearm" transform="translate(0 36) rotate(-8)" style="color:#c7976b"><path d="M-5.5 -2Q-9.5 7 -5.5 28L-3 34H4L6.5 9 5.5 -2Z" fill="currentColor"/><path d="M-2 4 3 3" stroke="#976e4b" stroke-opacity=".4"/><g class="life-hand" transform="translate(0 33) scale(1)"><use class="life-relaxed-fingers" href="#life-hand-relaxed"/><use class="life-gripping-fingers" href="#life-hand-grip" opacity="0"/></g></g></g>
+      <path d="M-8 53H9V74L2 80-10 70Z" fill="#b47b53"/>
+      <path d="M-15 23Q-19 5-8 0 5-7 16 2 23 7 24 22L24 29Q27 32 32 36 34 39 28 41L28 45 31 47 27 51Q26 61 17 64L4 63-8 54-14 42Z" fill="url(#life-skin)"/>
+      <g class="life-hair-full"><path d="M-16 30Q-25 14-19 3-18-6-7-5 0-14 9-7 18-11 22-1L25 15Q14 10 7 12 1 19-2 28L-5 37-12 39Z" fill="url(#life-hair)"/><path d="M-16 7Q-4-3 10 1M-16 13Q-6 4 6 7M-8 18 0 14" stroke="#856141" stroke-width="1" opacity=".7" fill="none"/></g>
+      <g class="life-hair-thin" opacity="0"><path d="M-16 30Q-25 15-20 5-19-3-9-3-1-8 7-4 16-6 21 2L24 17Q15 12 7 15 1 21-2 29L-5 37-12 39Z" fill="url(#life-hair)"/><path d="M-17 9Q-7 1 7 7M-15 15Q-7 9 1 12M-9 3Q-2-2 6 3" stroke="#96734e" stroke-width="1" opacity=".65" fill="none"/><path d="M-5 1q5-2 10 2" stroke="#c1a079" stroke-width="1.1" opacity=".6" fill="none"/></g>
+      <path d="M-8 29Q-18 24-16 36-13 44-6 39" fill="#c28d64"/><path d="M-11 31q-4 1-1 5" stroke="#9f714f" fill="none"/>
+      <path class="life-eye" d="M11 30q6-5 11 0-5 5-11 0Z" fill="#fbefdb" stroke="#5e4c35" stroke-width=".8"/><ellipse cx="19" cy="30" rx="2" ry="2.8" fill="#473c2b" stroke="none"/><path d="m10 25 11-1M28 39h2M24 49q4 1 6-1" stroke="#765239" fill="none"/><circle cx="19.4" cy="29" r=".7" fill="#fff7e4" stroke="none"/>
+      <path d="M4 48q7 8 13 6" stroke="#d3a174" stroke-width="3" opacity=".6"/>
+      <g class="life-beard" opacity="0" stroke="#50432f"><path d="M-7 40Q-2 43 1 48 8 51 13 47L27 47 29 52 26 60Q17 72 4 64L-7 55Z" fill="#665037"/><path d="M12 47q9-8 17-1l1 4q-9-1-12 1Z" fill="#57442f"/><path d="M16 55q7 2 12-1l-3 4q-6 2-9-3Z" fill="#ecdbba" stroke="#b18d64" stroke-width=".7"/><path d="m-1 50 3 7m4-3 3 7m5-1 3 4" stroke="#806549" stroke-width=".8"/></g>
+      <g fill="#d5ddd0" fill-opacity=".12" stroke="#454735" stroke-width="1.7"><path d="M9 26h16l2 4-2 9H12L9 35ZM9 29-9 28M26 30l4 2"/></g>
+      <path d="M-7 10q8 4 21 2" stroke="#d0b386" stroke-width="2"/>
+      <g class="life-hat" opacity="0">
+      <path d="M-35 15Q-44 7-22 6L-20-11Q-10-17 0-12 11-17 19-9L24 5Q45 0 41 9 15 25-11 22Z" fill="url(#life-hat)"/>
+      <path d="M-21 1Q0 9 23 1L25 8Q-1 17-23 9Z" fill="#52664b"/><path d="M-35 14Q1 25 40 8M-15-8q10 4 15-1" stroke="#a39469" fill="none"/>
+      </g>
+    </g>
+    <g id="life-mum" data-facing="right" stroke="#594833" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="2" cy="213" rx="27" ry="5" fill="#6c7865" opacity=".13" stroke="none"/>
+      <g class="life-arm life-arm-left" data-owner="mum" data-upper="30" data-lower="27" data-skin="#b9835c" data-hand-scale="1" transform="translate(1 76)"><path d="M-6.5 0Q-10.5 5-8.5 14L-5.5 31Q0 35 7.5 30L9.5 10Q9.5 0-6.5 0Z" fill="#3e807e"/><path d="M-8 23 9 21 10 30Q0 34-7 32Z" fill="#67a099"/><path d="m-5 27 11-2" stroke="#54755b" stroke-opacity=".6"/><g class="life-forearm" transform="translate(0 30) rotate(-8)" style="color:#b9835c"><path d="M-5.5-2Q-9.5 7-5.5 22L-3 28H4L6.5 9 5.5-2Z" fill="currentColor"/><path d="M-2 4 3 3" stroke="#976e4b" stroke-opacity=".4"/><g class="life-hand" transform="translate(0 27)"><use class="life-relaxed-fingers" href="#life-hand-relaxed"/><use class="life-gripping-fingers" href="#life-hand-grip" opacity="0"/></g></g></g>
+      <g class="life-hair-tail" transform="translate(-12 25)"><path d="M3-27Q-21-35-27-8-38 9-28 30-45 50-29 68-38 85-21 102L11 99Q-1 65 9 33Z" fill="url(#life-hair)"/><path d="M-15-10Q-30 17-20 37T-21 83M-4-14Q-16 11-12 35T-13 91" stroke="#806046" stroke-width="1.1" opacity=".6" fill="none"/></g>
+
+      <g class="life-leg life-leg-left" transform="translate(-6 173)"><path d="M-5 0H5L6 16-4 17Z" fill="#b67f59"/><g class="life-shin" transform="translate(0 14)"><path d="M-4 0H6L5 16H-4Z" fill="#b67f59"/><path d="M-5 12 5 13 10 19 20 19 22 23Q7 29-8 24Z" fill="#67513b"/></g></g>
+      <g class="life-leg life-leg-right" transform="translate(5 173)"><path d="M-5 0H5L7 16-3 17Z" fill="#ce976d"/><g class="life-shin" transform="translate(0 14)"><path d="M-3 0H7L6 16H-3Z" fill="#ce976d"/><path d="M-4 12 6 13 11 19 22 19 24 23Q9 29-7 24Z" fill="#806449"/><path d="m-3 15 10 1" stroke="#a38560"/></g></g>
+      <g class="life-skirt" transform="translate(0 105)"><path d="M-17 0H17Q21 28 38 70-2 88-46 69-27 41-17 0Z" fill="url(#life-teal)"/><path d="M-12 7Q-16 34-27 68M1 7-1 76M11 11q4 34 15 58" stroke="#2f7472" fill="none" opacity=".6"/><path d="M-38 68Q-4 83 30 69" stroke="#81b4a7" stroke-width="2" opacity=".65"/></g>
+      <path d="M-10 66Q1 61 12 72L20 86 17 106Q1 116-18 105L-21 82Z" fill="url(#life-teal)"/><path d="M-18 105Q1 112 17 106M-7 76l8 9 10-12" stroke="#347a78" fill="none"/>
+      <g class="life-arm life-arm-right" data-owner="mum" data-upper="36" data-lower="31" data-skin="#c7946b" data-hand-scale="1" transform="translate(-9 78)"><path d="M-6.5 0Q-10.5 5 -8.5 14L-5.5 37Q0 41 7.5 36L9.5 10Q9.5 0 -6.5 0Z" fill="url(#life-teal)"/><path d="M-8 29 9 27 10 36Q0 40-7 38Z" fill="#68a49b"/><path d="m-5 33 11-2" stroke="#54755b" stroke-opacity=".6"/><g class="life-forearm" transform="translate(0 36) rotate(-8)" style="color:#c7946b"><path d="M-5.5 -2Q-9.5 7 -5.5 26L-3 32H4L6.5 9 5.5 -2Z" fill="currentColor"/><path d="M-2 4 3 3" stroke="#976e4b" stroke-opacity=".4"/><g class="life-hand" transform="translate(0 31) scale(1)"><use class="life-relaxed-fingers" href="#life-hand-relaxed"/><use class="life-gripping-fingers" href="#life-hand-grip" opacity="0"/></g></g></g>
+      <path d="M-6 51H9L10 69 3 78-10 67Z" fill="#c08a60"/>
+      <path d="M-14 18Q-12-1 7 2 22 3 23 20L23 29Q25 31 29 34 32 38 26 40L26 44Q31 46 27 49 24 60 12 63L-3 55-12 38Z" fill="url(#life-skin)"/>
+      <path d="M-16 28Q-24 11-10 0 6-8 20 4L22 15Q8 10 1 17L-7 35Z" fill="url(#life-hair)"/><path d="M-9 30q-11-6-8 6 3 8 10 2" fill="#c08b63"/><path d="m-12 31 1 4" stroke="#9d704e"/>
+      <path class="life-eye" d="M10 28q5-5 11 0-6 5-11 0Z" fill="#fff0d8" stroke="#59452e" stroke-width=".8"/><ellipse cx="18" cy="28" rx="2.1" ry="2.6" fill="#493c29" stroke="none"/><path d="m9 23 10-1m1 6 3-2M26 38l2 0M22 48q4 2 7-1" stroke="#855b3c" fill="none"/><path d="M22 47Q26 50 29 47L27 51Q24 52 22 47Z" fill="#f8e9ce" stroke="#855b3c" stroke-width=".7"/><circle cx="18.5" cy="27.1" r=".8" fill="#fff6e1" stroke="none"/>
+      <ellipse cx="15" cy="40" rx="4.5" ry="3" fill="#ce916e" opacity=".45" stroke="none"/><circle cx="-9" cy="40" r="2.2" fill="#c5a465" stroke="#967b49" stroke-width=".8"/>
+    </g>
+    <g id="life-kid" data-facing="right" stroke="#604a34" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="3" cy="159" rx="21" ry="4" fill="#6c7865" opacity=".13" stroke="none"/>
+      <g class="life-hair-tail" transform="translate(-8 25)"><path d="M0-24Q-20-29-23-8L-21 15Q-32 28-22 43L-27 59Q-10 67 8 57L7 7Z" fill="url(#life-hair)"/><path d="M-10-13Q-21 8-14 26T-17 53" stroke="#816044" stroke-width=".9" fill="none" opacity=".65"/></g>
+      <g class="life-arm life-arm-left" data-owner="kid" data-upper="18" data-lower="22" data-skin="#bd865e" data-hand-scale=".75" transform="translate(1 62)"><path d="M-4.2 0Q-8.2 5 -6.2 14L-3.2 19Q0 23 5.2 18L7.2 10Q7.2 0 -4.2 0Z" fill="currentColor"/><g class="life-forearm" transform="translate(0 18) rotate(-8)" style="color:#bd865e"><path d="M-3.2 -2Q-7.2 7 -3.2 17L-3 23H4L4.2 9 3.2 -2Z" fill="currentColor"/><path d="M-2 4 3 3" stroke="#976e4b" stroke-opacity=".4"/><g class="life-hand" transform="translate(0 22) scale(.75)"><use class="life-relaxed-fingers" href="#life-hand-relaxed"/><use class="life-gripping-fingers" href="#life-hand-grip" opacity="0"/></g></g></g>
+      <g class="life-leg life-leg-left" transform="translate(-5 122)"><path d="M-4 0H5L5 16-4 17Z" fill="#c18b63"/><g class="life-shin" transform="translate(0 14)"><path d="M-4 0H5V12H-4Z" fill="#c18b63"/><path d="M-5 10H5L10 16 17 16 19 21H-7Z" fill="#775a40"/></g></g>
+      <g class="life-leg life-leg-right" transform="translate(4 122)"><path d="M-4 0H5L6 16-3 17Z" fill="#d6a47a"/><g class="life-shin" transform="translate(0 14)"><path d="M-3 0H6V12H-3Z" fill="#d6a47a"/><path d="M-4 10H6L11 16 19 16 21 21H-6Z" fill="#926d49"/><path d="M-3 13H8" stroke="#bd9a6e"/></g></g>
+      <g class="life-skirt" transform="translate(0 84)"><path d="M-13 0H13Q16 17 30 42 2 56-31 43-20 22-13 0Z" fill="currentColor"/><path d="M-9 5-18 40M2 4 1 47M11 11l8 30" stroke="#835744" stroke-opacity=".45" fill="none"/><path d="M-24 42q24 10 47-1" stroke="#fff2ce" stroke-opacity=".25" stroke-width="2"/></g>
+      <path d="M-9 56Q1 51 10 58L16 68 13 85Q1 92-15 84L-18 67Z" fill="currentColor"/><path d="m-4 57 5 8 7-7M-14 83q13 7 27 1" stroke="#9a6852" stroke-opacity=".55"/>
+      <g class="life-arm life-arm-right" data-owner="kid" data-upper="18" data-lower="22" data-skin="#d0a076" data-hand-scale=".75" transform="translate(-7 63)"><path d="M-4.2 0Q-8.2 5 -6.2 14L-3.2 19Q0 23 5.2 18L7.2 10Q7.2 0 -4.2 0Z" fill="currentColor"/><g class="life-forearm" transform="translate(0 18) rotate(-8)" style="color:#d0a076"><path d="M-3.2 -2Q-7.2 7 -3.2 17L-3 23H4L4.2 9 3.2 -2Z" fill="currentColor"/><path d="M-2 4 3 3" stroke="#976e4b" stroke-opacity=".4"/><g class="life-hand" transform="translate(0 22) scale(.75)"><use class="life-relaxed-fingers" href="#life-hand-relaxed"/><use class="life-gripping-fingers" href="#life-hand-grip" opacity="0"/></g></g></g>
+      <path d="M-5 44H7L8 57 1 63-8 55Z" fill="#c59167"/>
+      <path d="M-13 15Q-10-2 6 0 21 1 22 17L22 25 28 31Q30 34 24 36L25 41 21 44Q18 52 9 53L-4 45-11 32Z" fill="url(#life-skin)"/>
+      <path d="M-16 23Q-23 8-10-2 6-9 19 3L22 13Q12 12 6 5 1 20-11 27Z" fill="url(#life-hair)"/><path d="M-7 26q-9-4-7 6 3 7 8 1" fill="#c59167"/><path d="M-12 9Q-5-1 7 0" stroke="#92704b" stroke-width="1.1" opacity=".6" fill="none"/>
+      <path class="life-eye" d="M9 24q5-5 10 0-5 6-10 0Z" fill="#fff1db" stroke="#634a32" stroke-width=".8"/><ellipse cx="16" cy="24" rx="2" ry="2.6" fill="#4f3d28" stroke="none"/><path d="m9 19 8-1M20 40q4 2 6-1" stroke="#8a5e40" fill="none"/><ellipse cx="14" cy="35" rx="4" ry="2.7" fill="#db9b78" opacity=".5" stroke="none"/>
+    </g>
+    <g id="life-infant" data-facing="right" stroke="#866a4a" stroke-width=".85" stroke-linecap="round" stroke-linejoin="round"><path d="M-13 3Q-21 21-8 40 6 51 15 33L14 7Z" fill="#eedfbd"/><path d="M-13 12 14 27M-11 26 11 9" stroke="#c6af88"/><path d="M-10-8Q-8-19 4-17 13-16 14-7L18-3 14 0Q13 8 5 8L-6 3Z" fill="#d4a77e"/><path d="M-11-8Q-13-19 0-22 11-23 14-14L12-11Q1-19-8-5Z" fill="#c3aa80"/><use class="life-baby-hand" href="#life-hand-relaxed" transform="translate(9 5) rotate(20) scale(.28)" style="color:#d4a77e"/><path d="M7-7q3 2 5 0M12 2l3-1" stroke="#75553b" fill="none"/></g>
+  </defs>
+  <ellipse cx="500" cy="389" rx="365" ry="19" fill="#5b6a51" opacity=".1" filter="url(#life-shadow)"/>
+  <path d="M34 311Q90 253 214 270T451 245Q629 209 789 262T970 310L940 363Q742 407 512 408T56 361Z" fill="#9aab86"/>
+  <path d="M34 303Q90 245 214 262T451 237Q629 201 789 254T970 302L940 355Q742 399 512 400T56 353Z" fill="#d7dec1"/>
+  <path d="M115 270Q165 101 370 61T837 109L942 281Z" fill="url(#life-sky)"/>
+  <circle cx="721" cy="98" r="45" fill="#dec896" opacity=".55"/>
+  <g class="life-clouds" opacity=".75"><use href="#life-cloud" transform="translate(231 83) scale(.8)"/><use href="#life-cloud" transform="translate(756 66) scale(.55)"/></g>
+  <g class="life-distant" stroke="#aeb89b" stroke-width="1" stroke-linejoin="round">
+    <path d="M80 269Q171 178 277 232T520 212Q671 168 789 224T947 269" fill="#d5dcc1" stroke="none"/>
+    <path d="M105 270Q222 211 345 250T605 236Q769 196 906 272" fill="#c6d1b0" stroke="none"/>
+  </g>
+  <g class="life-scenery" data-land="coast" opacity="0">
+    <path d="M105 269Q181 223 311 244L412 278 254 317 93 296Z" fill="#b4cfca"/>
+    <path d="M128 273Q204 244 304 262m-164 21q68-20 125-10" stroke="#e9eee1" stroke-width="2"/>
+    <path d="M166 252H205L200 175H172Z" fill="#e8e3d1"/><path d="M169 198H202V209H169ZM171 178H201V186H171Z" fill="#a7866d"/><path d="M168 175h37l-18-15Z" fill="#82745a"/><path d="M179 174h15v-12h-15Z" fill="#eee7d4"/>
+    <use href="#life-pine" transform="translate(806 159) scale(.75)"/><use href="#life-pine" transform="translate(839 182) scale(.55)"/><use href="#life-pine" transform="translate(780 192) scale(.45)"/>
+    <path d="M733 272h98l-8-54h-81Z" fill="#c7c5a8"/><path d="m730 219 55-25 50 25Z" fill="#8b9271"/><path d="M746 234h12v21h-12m29-21h12v21h-12m25-21h12v21h-12" fill="#889981"/>
+  </g>
+  <g class="life-scenery" data-land="spain" opacity="0">
+    <path d="m92 264 73-77 47 41 48-89 80 130Z" fill="#c8c5a7"/><path d="m173 268 79-115 52 54 45-40 77 107Z" fill="#dbd3b5"/>
+    <path d="M190 277H285V220H190Z" fill="#eee3c7"/><path d="m180 220 58-21 57 21Z" fill="#b77d5e"/><path d="M209 277V248a13 13 0 0 1 26 0v29M246 277V248a13 13 0 0 1 26 0v29" fill="#9c9e78"/>
+    <path d="M219 221h40v-69h-40Z" fill="#e7d7b6"/><path d="m211 153 28-18 28 18Z" fill="#b77d5e"/><path d="M232 188v-19a7 7 0 0 1 14 0v19Z" fill="#929774"/>
+    <path d="M728 269h49v-61h-49Zm50 7h59v-46h-59Z" fill="#eae2c9"/><path d="m720 209 32-15 33 15m-13 21 36-19 37 19" fill="#ba8061"/>
+    <path d="M738 225h11v18h-11m41 0h11v16h-11m26-16h11v16h-11" fill="#99a18a"/>
+    <use href="#life-tree" transform="translate(856 208) scale(.55)"/>
+  </g>
+  <g class="life-scenery" data-land="home">
+    <g fill="#afbca1"><path d="M210 251v-46h18v46m7 0v-74h19v74m8 0v-56h17v56m8 0v-91h18v91m8 0v-68h27v68m8 0v-37h19v37"/><path d="M292 162v-17m-48 32v-10" stroke="#afbca1" stroke-width="2"/></g>
+    <path d="M123 277q83-31 198-9l62 26q-122-17-241 11Z" fill="#b7ccc0"/>
+    <path d="M132 270h203m-185-5q80-69 164 0m-164 0v22m164-22v19m-123-43v39m45-48v46m43-33v37" stroke="#97aa94" stroke-width="2"/>
+    <use href="#life-house" transform="translate(777 228) scale(.8)"/><use href="#life-tree" transform="translate(848 202) scale(.6)"/>
+    <path d="M699 282v-23m-8 11h16" stroke="#ada37b" stroke-width="2"/><path d="M699 261q-22-21-17-28 16-3 17 28m0 0q22-21 17-28-16-3-17 28" fill="#b2b781"/>
+  </g>
+  <path d="M63 328Q245 279 498 316T942 321L938 348Q737 392 500 349T65 352Z" fill="url(#life-road)"/>
+  <path class="life-trail" d="M82 341Q268 292 498 334T929 336" stroke="#acac8d" stroke-width="1.5" stroke-dasharray="4 7"/>
+  <g class="life-nearby"><use href="#life-tree" transform="translate(147 215) scale(.8)"/><use href="#life-pine" transform="translate(895 242) scale(.7)"/><use href="#life-grass" transform="translate(222 350)"/><use href="#life-grass" transform="translate(804 361)"/><use href="#life-grass" transform="translate(715 378) scale(.7)"/><use href="#life-grass" transform="translate(309 375) scale(.8)"/><path d="M175 338q-12-19-15-8m15 8q10-21 14-8" stroke="#ae9a63" stroke-width="2"/><circle cx="169" cy="327" r="3" fill="#c49269"/><circle cx="184" cy="327" r="3" fill="#c49269"/></g>
+  <g class="life-bunting" opacity="0"><path d="M357 116q130-72 253 0" stroke="#b1a17c" stroke-width="1.4"/><path d="m383 103 14 16 6-23m27-7 12 19 9-24m29-3 9 22 10-22m31 5 5 23 16-19m25 8 1 23 18-14" fill="#c2a385"/><path d="M486 124c-17-20-29 1 0 19 29-18 17-39 0-19Z" fill="#b67e68" opacity=".75"/></g>
+  <g class="life-people">
+    <g class="life-person life-person-dad" transform="translate(453 128)"><use href="#life-dad"/></g>
+    <g class="life-person life-person-mum" transform="translate(550 128)"><use href="#life-mum"/></g>
+    <g class="life-child life-child-first" opacity="0" style="color:#bd6a50"><g class="life-child-walker"><use href="#life-kid"/></g><g class="life-child-bundle" opacity="0"><use href="#life-infant"/></g></g>
+    <g class="life-child life-child-second" opacity="0" style="color:#e8d7af"><g class="life-child-walker"><use href="#life-kid"/><path d="M-10 1Q-20-11-22-1-24 9-11 7-1-5 1 3 1 10-10 5Z" fill="#b9795b" stroke="#80563f" stroke-width=".9"/><path d="M8 68q13-12 15-3 2 9-12 9 13 0 14 6-13 7-17-8Z" fill="#b9795b" stroke="#93624b" stroke-width=".9"/></g><g class="life-child-bundle" opacity="0"><use href="#life-infant"/></g></g>
+    <g class="life-future" opacity="0" transform="translate(570 236) rotate(-18) scale(.72)"><use href="#life-infant"/></g>
+  </g>
+  <g opacity=".55" stroke="#8b987d" stroke-width="1"><path d="m322 387 12 2m9-4 17 3m356-8 16-3m-5 11 15-3"/></g>
+</svg>

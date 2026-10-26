@@ -79,7 +79,7 @@
       document.documentElement.classList.add('studio-loading');
       document.documentElement.dataset.studioProject = ['jarvis','agent','algorithm','notebook'].includes(location.hash.slice(9)) ? location.hash.slice(9) : 'jarvis';
       try {
-        if (!location.hash && sessionStorage.getItem('studio-entered') !== '1')
+        if (!location.hash && (new URLSearchParams(location.search).get('welcome') === '1' || sessionStorage.getItem('studio-entered') !== '1'))
           document.documentElement.classList.add('studio-arrival-pending');
       } catch {
         if (!location.hash) document.documentElement.classList.add('studio-arrival-pending');
